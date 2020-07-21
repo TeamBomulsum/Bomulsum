@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>구매 후기</title>
-<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <!-- Custom styles for this template-->
-<link href="../css/sb-admin-2.min.css" rel="stylesheet">
+<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <!-- CSS 영역 -->
 <style>
 .reviewContainer {
@@ -46,19 +47,18 @@
 .table {
 	margin-top: 10px;
 	text-align: center;
-	vertical-align:middle;
+	vertical-align: middle;
 	text-valign: middle;
 	width: 100%;
 	table-layout: fixed;
 }
 
-.table td{
+.table td {
 	margin-top: 10px;
 	text-align: center;
-	vertical-align:middle;
+	vertical-align: middle;
 	text-valign: middle;
-	font-size:13px
-	
+	font-size: 13px
 }
 
 .alignLeft {
@@ -101,47 +101,50 @@ form {
 	border: 0px;
 }
 
-.modal-body-top{
+.modal-body-top {
 	display: inline-block;
 	height: 15%;
 	width: 90%;
 	margin: 5% auto;
 }
+
 .textwrap {
-    height: auto;
-    position: relative;
-    display: inline-block;
-}
-.textwrap textarea {
-	height:auto;
-    width: 100%;
-    resize: none;
-    min-height: 4.5em;
-    line-height:1.6em;
-    max-height: 9em;
-}
-.textwrap span {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-}
-#counter {
-  background:rgba(255,0,0,0.5);
-  border-radius: 0.5em;
-  padding: 0 .5em 0 .5em;
-  font-size: 0.75em;
+	height: auto;
+	position: relative;
+	display: inline-block;
 }
 
+.textwrap textarea {
+	height: auto;
+	width: 100%;
+	resize: none;
+	min-height: 4.5em;
+	line-height: 1.6em;
+	max-height: 9em;
+}
+
+.textwrap span {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+}
+
+#counter {
+	background: rgba(255, 0, 0, 0.5);
+	border-radius: 0.5em;
+	padding: 0 .5em 0 .5em;
+	font-size: 0.75em;
+}
 </style>
 </head>
 <!-- body 시작 -->
 <body id="page-top">
 	<div id="wrapper">
 		<!-- Header/Nav -->
-		<%@ include file="/view/include/side.jsp" %>
+		<%@ include file="/view/include/side.jsp"%>
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content">
-				<%@ include file="/view/include/head.jsp" %>
+				<%@ include file="/view/include/head.jsp"%>
 				<!-- end Header/Nav -->
 				<!-- 구매 후기 영역 -->
 				<div class="reviewContainer">
@@ -155,8 +158,9 @@ form {
 					<hr>
 					<div class="middleLine">
 						<!-- <form class="search" action="#"> -->
-							<input type="text" placeholder="작품명을 입력하세요" name="search" id="search">
-							<!-- <button class="button" type="submit">검색</button> -->
+						<input type="text" placeholder="작품명을 입력하세요" name="search"
+							id="search">
+						<!-- <button class="button" type="submit">검색</button> -->
 						<!-- </form> -->
 
 						<div class="formAction">
@@ -167,37 +171,39 @@ form {
 							</select>
 						</div>
 					</div>
-					
+
 					<!-- middleLine -->
 					<!-- 테이블 시작 -->
 					<div class="table">
-						<table id="reviewTable" style="width:100%;">
+						<table id="reviewTable" style="width: 100%;">
 							<thead>
 								<tr>
-									<th style="width:10%;">작성일자</th>
-									<th style="width:20%;">작품명</th>
-									<th style="width:10%;">작성자</th>
-									<th style="width:10%;">별점</th>
-									<th style="width:15%;">사진</th>
-									<th style="width:35%;">내용</th>
+									<th style="width: 10%;">작성일자</th>
+									<th style="width: 20%;">작품명</th>
+									<th style="width: 10%;">작성자</th>
+									<th style="width: 10%;">별점</th>
+									<th style="width: 15%;">사진</th>
+									<th style="width: 35%;">내용</th>
 								</tr>
 							</thead>
-							<tbody id="reviewBody" style="font-size:13px; vertical-align: middle;">
+							<tbody id="reviewBody"
+								style="font-size: 13px; vertical-align: middle;">
 								<!-- 구매후기 DB 불러오기 -->
 								<tr>
 									<td>2020-07-16</td>
 									<td>"쌍코피 빵터지는"소주병 케이크</td>
 									<td>참이슬</td>
 									<td>★☆☆☆☆</td>
-									<td><img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px"
-										src="img/cake.jpg"/>
-									</td>
+									<td><img
+										style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px"
+										src="<c:url value='/resources/img/cake.jpg'/>" /></td>
 									<!-- 댓글 내용 눌렀을 때 모달 띄워주는 부분 -->
 									<td>
 										<!-- 후기 내용 -->
-										<div type="button" data-toggle="modal" data-target="#staticBackdrop">
-										  소주병을 시켰는데 쵸코케잌이 왔네요? 당장 환불해주세요. 초코 알레르기 있는 사람입니다. 기쁜 마음으로 받았다가 응급실 실려갈 뻔 했어요. 사람 잡는 케잌이네요. 그래서 쌍코피 빵 터지는 소주병 케잌인가요?
-										</div>
+										<div type="button" data-toggle="modal"
+											data-target="#staticBackdrop">소주병을 시켰는데 쵸코케잌이 왔네요? 당장
+											환불해주세요. 초코 알레르기 있는 사람입니다. 기쁜 마음으로 받았다가 응급실 실려갈 뻔 했어요. 사람 잡는
+											케잌이네요. 그래서 쌍코피 빵 터지는 소주병 케잌인가요?</div>
 									</td>
 								</tr>
 							</tbody>
@@ -210,80 +216,92 @@ form {
 						<!-- <a class="arrow prev" href="#">이전</a><a href="#">1</a><a class="arrow next" href="#">다음</a> -->
 					</div>
 				</div>
-				
+
 				<!-- 모달 내용 부분 -->
 				<!-- 정적 모달 내용 -->
-									<div class="modal fade" id="staticBackdrop"
-										data-backdrop="static" tabindex="-1" role="dialog"
-										aria-labelledby="staticBackdropLabel" aria-hidden="true">
-										<div class="modal-dialog" role="document" style="">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="staticBackdropLabel">후기 - 댓글 작성</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body" style="height:260px">
-													<div style="margin-left:15%; margin-right:15%;">
-														<div style="width:100%; height:50px; display:flex; flex-direction: row;">
-															<div style="width:50%; display:flex; flex-direction:column;">
-																<div style="font-size:13px; margin-bottom:1%;">참이슬</div>
-																<div style="font-size:13px;">2020-07-16</div>
-															</div>
-															<div style="float:right; width:50%">
-																<div style="float:right;">	
-																	<a href="#"><div class="button" style="font-size:13px;">메시지</div></a>
-																</div>
-															</div>
-														</div>
-														<div style="width:100%; height:50px; display:flex; flex-direction:row; border:1px solid;">
-															<div style="margin-top:2%; margin-bottom:2%; width:15%;">
-																<img style="overflow: hidden; align-items: center; justify-content:center;
-																width:40px; height:40px" src="img/cake.jpg" />
-															</div>
-															<div style="dispaly:flex; flex-direction:column;">
-																<div style="font-size:15px;">"쌍코피 빵터지는"소주병 케이크</div>
-																<div style="font-size:10px; margin-top:3%;">옵션 없음 0</div>
-															</div>
-														</div>
-														<div style="margin-top:5%;">
-															<div style="margin-left:auto; margin-right:auto; display: flex; flex-direction: column;">
-																<div style="font-size:13px;">★☆☆☆☆</div>
-																<div style="margin-top:5%; margin-left:auto; margin-right:auto; font-size:13px;">
-																소주병을 시켰는데 쵸코케잌이 왔네요? 당장 환불해주세요. 초코 알레르기 있는 사람입니다. 기쁜 마음으로 받았다가 응급실 실려갈 뻔 했어요. 사람 잡는 케잌이네요. 그래서 쌍코피 빵 터지는 소주병 케잌인가요?
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="modal-footer" style="display:flex; flex-direction:column;">
-													<!-- 글자수 채워지는거 기능 추가 해야 함 -->
-													<div style="display:flex; flex-direction:row; width:100%;">
-														<form style="display:flex; flex-direction:row; width:100%;">
-														<div class="textwrap" style="display:flex; width:85%;">
-															<textarea id="comment" placeholder="댓글을 남겨 주세요." maxlength="1000" style="width:100%; resize:none; font-size:13px"></textarea>
-																<span id="counter" style="display:flex; position:absolute;">###</span>
-														</div>
-														<div style="display:flex; width:10%; margin:2%">
-															<input type="submit" class="btn btn-primary" value="등록">
-														</div>
-														</form>
-													</div>
-													<div>
-														<label style="font-size:13px; margin-top:auto; margin-bottom:3%; margin-left: auto; margin-right: auto;">댓글을 작성하면 작성자에게 푸시로 알려드립니다.</label>
-													</div>
-												</div>
-											</div>
-											<!-- end for modal content -->
+				<div class="modal fade" id="staticBackdrop" data-backdrop="static"
+					tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+					aria-hidden="true">
+					<div class="modal-dialog" role="document" style="">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="staticBackdropLabel">후기 - 댓글 작성</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body" style="height: 260px">
+								<div style="margin-left: 15%; margin-right: 15%;">
+									<div
+										style="width: 100%; height: 50px; display: flex; flex-direction: row;">
+										<div
+											style="width: 50%; display: flex; flex-direction: column;">
+											<div style="font-size: 13px; margin-bottom: 1%;">참이슬</div>
+											<div style="font-size: 13px;">2020-07-16</div>
 										</div>
-										<!-- end for modal dialog -->
+										<div style="float: right; width: 50%">
+											<div style="float: right;">
+												<a href="#"><div class="button" style="font-size: 13px;">메시지</div></a>
+											</div>
+										</div>
 									</div>
-									<!-- end for modal fade-->
-				
-				
+									<div
+										style="width: 100%; height: 50px; display: flex; flex-direction: row; border: 1px solid;">
+										<div style="margin-top: 2%; margin-bottom: 2%; width: 15%;">
+											<img style="overflow: hidden; align-items: center; 
+											justify-content: center; width: 40px; height: 40px"
+												src="<c:url value='/resources/img/cake.jpg'/>" />
+										</div>
+										<div style="dispaly: flex; flex-direction: column;">
+											<div style="font-size: 15px;">"쌍코피 빵터지는"소주병 케이크</div>
+											<div style="font-size: 10px; margin-top: 3%;">옵션 없음 0</div>
+										</div>
+									</div>
+									<div style="margin-top: 5%;">
+										<div
+											style="margin-left: auto; margin-right: auto; display: flex; flex-direction: column;">
+											<div style="font-size: 13px;">★☆☆☆☆</div>
+											<div
+												style="margin-top: 5%; margin-left: auto; margin-right: auto; font-size: 13px;">
+												소주병을 시켰는데 쵸코케잌이 왔네요? 당장 환불해주세요. 초코 알레르기 있는 사람입니다. 기쁜 마음으로
+												받았다가 응급실 실려갈 뻔 했어요. 사람 잡는 케잌이네요. 그래서 쌍코피 빵 터지는 소주병 케잌인가요?</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer"
+								style="display: flex; flex-direction: column;">
+								<!-- 글자수 채워지는거 기능 추가 해야 함 -->
+								<div style="display: flex; flex-direction: row; width: 100%;">
+									<form style="display: flex; flex-direction: row; width: 100%;">
+										<div class="textwrap" style="display: flex; width: 85%;">
+											<textarea id="comment" placeholder="댓글을 남겨 주세요."
+												maxlength="1000"
+												style="width: 100%; resize: none; font-size: 13px"></textarea>
+											<span id="counter" style="display: flex; position: absolute;">###</span>
+										</div>
+										<div style="display: flex; width: 10%; margin: 2%">
+											<input type="submit" class="btn btn-primary" value="등록">
+										</div>
+									</form>
+								</div>
+								<div>
+									<label
+										style="font-size: 13px; margin-top: auto; margin-bottom: 3%; margin-left: auto; margin-right: auto;">댓글을
+										작성하면 작성자에게 푸시로 알려드립니다.</label>
+								</div>
+							</div>
+						</div>
+						<!-- end for modal content -->
+					</div>
+					<!-- end for modal dialog -->
+				</div>
+				<!-- end for modal fade-->
+
+
 				<!-- end of Container -->
-				<%@ include file="/view/include/footer.jsp" %>
+				<%@ include file="/view/include/footer.jsp"%>
 				<!-- end footer -->
 
 				<!-- Scroll to Top Button-->
@@ -291,14 +309,14 @@ form {
 					class="fas fa-angle-up"></i>
 				</a>
 
-				<script src="../vendor/jquery/jquery.min.js"></script>
-				<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+				<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
+				<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 				<!-- Core plugin JavaScript-->
-				<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+				<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 				<!-- Custom scripts for all pages-->
-				<script src="../js/sb-admin-2.min.js"></script>
+				<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 				<script>
 					$(function() {
 						$('#comment').keyup(function(e) {
@@ -312,7 +330,7 @@ form {
 					//테이블 데이터 넣어주기 
 					var vlist =[];
 					for (var i = 0; i<100; i++){
-						vlist.push({onetd:'2020-07-01',twotd:'삼장법사도 먹는 슈퍼 딸기 케이크\t'+i,threetd:'손오공',fourtd:'★★☆☆☆',fivetd:'<img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px" src="img/cake.jpg"/>',sixtd:'<div type="button" data-toggle="modal" data-target="#staticBackdrop"> 소주병을 시켰는데 쵸코케잌이 왔네요? 당장 환불해주세요. 초코 알레르기 있는 사람입니다. 기쁜 마음으로 받았다가 응급실 실려갈 뻔 했어요. 사람 잡는 케잌이네요. 그래서 쌍코피 빵 터지는 소주병 케잌인가요? </div>'});
+						vlist.push({onetd:'2020-07-01',twotd:'삼장법사도 먹는 슈퍼 딸기 케이크\t'+i,threetd:'손오공',fourtd:'★★☆☆☆',fivetd:'<img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px" src="<c:url value='/resources/img/cake.jpg'/>"/>',sixtd:'<div type="button" data-toggle="modal" data-target="#staticBackdrop"> 소주병을 시켰는데 쵸코케잌이 왔네요? 당장 환불해주세요. 초코 알레르기 있는 사람입니다. 기쁜 마음으로 받았다가 응급실 실려갈 뻔 했어요. 사람 잡는 케잌이네요. 그래서 쌍코피 빵 터지는 소주병 케잌인가요? </div>'});
 					}
 					
 					// 초기 테이블 보여줄 행 카운트값 설정

@@ -12,7 +12,11 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <!-- Custom styles for this template-->
+<<<<<<< HEAD
 <link href="<c:url value='/css/sb-admin-2.min.css'/>" rel="stylesheet">
+=======
+<link href="<c:url value='/resources//css/sb-admin-2.min.css'/>" rel="stylesheet">
+>>>>>>> 536e9f97cbc75e05726f984de5f02f7ca521cbb2
 <style type="text/css">
 #cst {
 	font-size:14px;
@@ -234,7 +238,12 @@
 				<script src="<c:url value='/vendor/chart.js/Chart.min.js'/>"></script>
 
 				<!-- Page level custom scripts -->
+<<<<<<< HEAD
 			
+=======
+				<script src="<c:url value='/resources/js/demo/chart-area-demo.js'/>"></script>
+				<script src="<c:url value='/resources/js/demo/chart-pie-demo.js'/>"></script>
+>>>>>>> 536e9f97cbc75e05726f984de5f02f7ca521cbb2
 			</div>
 		</div>
 	</div>
