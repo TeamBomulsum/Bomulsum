@@ -6,7 +6,7 @@
 <head>
 <title>보물섬|로그인</title>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<link rel="stylesheet" href="<c:url value='/user_view/resources/vendor/fontawesome-free/css/all.css' />">
+<link rel="stylesheet" href="<c:url value='/vendor/fontawesome-free/css/all.css' />">
 <style type="text/css">
     #wrapper {
         min-width: 100%;
@@ -52,7 +52,7 @@
 <body>
     <div id="wrapper">
         <div id="content">
-            <img id="toHome" src="<c:url value='/user_view/resources/img/MainLogo.png'/>" style="width: 150px; height: 150px; cursor:pointer">
+            <img id="toHome" src="<c:url value='/resources/img/MainLogo.png'/>" style="width: 150px; height: 150px; cursor:pointer">
             <section id="login_SNS">
                 	<h4 style="padding:0px 15px; background-color:white; margin:0; top:-10px; position:relative">SNS 로그인</h4>
                 
@@ -110,14 +110,14 @@
     </div>
 </body>
 
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<c:url value='/vendor/jquery/jquery.min.js'/>" ></script>
+<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>" ></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/> "></script>
 
 
 <script>

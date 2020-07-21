@@ -277,7 +277,7 @@ body {
 		
 		
 		<div style="height: 100%; width: 105px; margin-right: 10px">
-			<a href="#"><img alt="logo" src="<c:url value='/user_view/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
+			<a href="#"><img alt="logo" src="<c:url value='/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
 		</div>
 		<div class="dainheader-middle-menu">
 			<a href="#" style="margin-right: 30px;" >작품</a>

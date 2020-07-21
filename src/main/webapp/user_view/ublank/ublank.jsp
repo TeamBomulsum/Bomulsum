@@ -9,12 +9,12 @@
 </head>
 <body>
 <div>
-	<%@ include file="/user_view/include/uHeader.jsp"  %>
-	<%@ include file="/user_view/include/uside.jsp" %>
+	<%@ include file="../include/uHeader.jsp"  %>
+	<%@ include file="../include/uside.jsp" %>
 	
 	
 	
-	<%@ include file="/user_view/include/uFooter.jsp" %>
+	<%@ include file="../include/uFooter.jsp" %>
 </div>
 </body>
 </html>

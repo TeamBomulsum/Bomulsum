@@ -10,7 +10,7 @@
 
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <link rel="stylesheet"
-	href="<c:url value='/user_view/resources/vendor/fontawesome-free/css/all.css' />">
+	href="<c:url value='/vendor/fontawesome-free/css/all.css' />">
 <style type="text/css">
 #wrapper {
 	font-family: 'Nanum Barun Gothic', sans-serif;
@@ -123,7 +123,7 @@ input[type=button]{
 <body>
 	<div id="wrapper">
 		<div id="content">
-			<img id="toHome" src="<c:url value='/user_view/resources/img/MainLogo.png'/>" style="width: 150px; height: 150px;cursor : pointer;">
+			<img id="toHome" src="<c:url value='/resources/img/MainLogo.png'/>" style="width: 150px; height: 150px;cursor : pointer;">
 			<section id="login_SNS">
 				<h4 style="padding: 0px 15px; background-color: white; margin: 0; top: -10px; position: relative">
 					정말 간단한 회원가입하기
@@ -143,7 +143,7 @@ input[type=button]{
             		</div>
             	
             		<div style="display: flex; flex-direction: row; justify-content: center; height:50px;"> 
-						<img id="kakao-login-btn" src="<c:url value='/user_view/resources/img/kakao.png'/>" style="width: 90%; height:100%;cursor : pointer;">
+						<img id="kakao-login-btn" src="<c:url value='/resources/img/kakao.png'/>" style="width: 90%; height:100%;cursor : pointer;">
 					</div>
 					<a href="http://developers.kakao.com/logout"></a>
             		
@@ -177,14 +177,14 @@ input[type=button]{
 </body>
 
 
-<script src="<c:url value='/user_view/resources/vendor/jquery/jquery.min.js'/>"></script>
-<script src="<c:url value='/user_view/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
+<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="<c:url value='/user_view/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 
 <script>

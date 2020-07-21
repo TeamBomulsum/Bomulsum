@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>side</title>
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
 	
 <style>
 .jeonga-ul {
@@ -96,7 +97,7 @@
 	<!-- 프로필 영역 -->
 	   <div class="jeonga-profile" align="center">
         	<div class="jeonga-imagesession">
-        		<img id="jeonga-profileImage" src="test.png">
+        		<img id="jeonga-profileImage" src="<c:url value='/resources/img/test.png'/>" />
 
 				
         	</div>

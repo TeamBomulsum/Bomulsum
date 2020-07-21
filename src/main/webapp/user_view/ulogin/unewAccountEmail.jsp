@@ -8,7 +8,7 @@
 <title>보물섬|회원가입</title>
 </head>
 <link rel="stylesheet"
-	href="<c:url value='/user_view/resources/vendor/fontawesome-free/css/all.css' />">
+	href="<c:url value='/vendor/fontawesome-free/css/all.css' />">
 <style type="text/css">
 #wrapper {
 	font-family: 'Nanum Barun Gothic', sans-serif;
@@ -148,7 +148,7 @@ input:focus{ outline:none; }
 	<div id="wrapper">
 		<div id="content">
 			<img id="toHome"
-				src="<c:url value='/user_view/resources/img/MainLogo.png'/>"
+				src="<c:url value='/resources/img/MainLogo.png'/>"
 				style="width: 150px; height: 150px; cursor: pointer;">
 			<section id="login_SNS">
 				<h4 style="padding: 0px 15px; background-color: white; margin: 0; top: -10px; position: relative">
@@ -262,16 +262,16 @@ input:focus{ outline:none; }
 
 
 <script
-	src="<c:url value='/user_view/resources/vendor/jquery/jquery.min.js'/>"></script>
+	src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 <script
-	src="<c:url value='/user_view/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+	src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
 
 <!-- Core plugin JavaScript-->
 <script
-	src="<c:url value='/user_view/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+	src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 	
 <!-- iamport.payment.js 휴대폰 인증 라이브러리 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
