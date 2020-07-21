@@ -9,11 +9,14 @@
 <link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
 	
 <style>
+.myInfo{
+	width:18%;
+}
 .jeonga-ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 13%;
+    width: 100%;
     background-color: #f1f1f1;
 }
 .jeonga-navItem a {
@@ -56,26 +59,28 @@
 }
 
 .jeonga-imagesession{
-	width:90px;
-	height:90px;
+	width:80px;
+	height:80px;
 	border-radius:70%;
 	overflow:hidden;
 	position:relative;
+	margin-top: 13.3875px;
 } 
 .jeonga-profile{
-	width:12.85%; 
+	width:99%; 
 	border:1px solid #1f76bb;
 	padding-top:2%;
 	padding-bottom:1%;
 	padding-right:0px;
 	padding-left:0px;
+	
 }
 #jeonga-profileImage{
 	width:100%;
 	height:100%;
 	object-fit:cover;
 	background-color:black;
-
+	
 }
 
 .jeonga-b{
@@ -87,6 +92,9 @@
 	font-size:13px;
 	text-decoration:none; 
 	color:black;
+}
+.userName{
+	margin-bottom:13.1875px;
 }
 </style>
 
@@ -119,13 +127,13 @@
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">주문배송</b> 
 				<a class="jeonga-collapse-item" href="#">주문 내역</a> 
-				<a class="jeonga-collapse-item" href="#">취소/환불내역</a> 
+				<a class="jeonga-collapse-item" href="#">환불 내역</a> 
 			</li>
 			<!-- 선물함 -->
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">선물함</b> 
 				<a class="jeonga-collapse-item" href="#">받은 선물함</a> 
-				<a class="jeonga-collapse-item" href="#">취소/환불내역</a> 
+				<a class="jeonga-collapse-item" href="#">보낸 선물함</a> 
 			</li>
 			<!-- 알림 및 메시지 -->
 			<li class="jeonga-navItem">
@@ -151,17 +159,13 @@
 				<b class="jeonga-b">할인혜택</b> 
 				<a class="jeonga-collapse-item" href="#">적립금</a> 
 				<a class="jeonga-collapse-item" href="#">쿠폰함</a>
-				<a class="jeonga-collapse-item" href="#">아이디어스 VIP클럽</a>
-				<a class="jeonga-collapse-item" href="#">친구 초대 쿠폰</a> 
 			</li>
 			<!-- 내정보 -->
 			<li class="jeonga-navItem1">
 				<b class="jeonga-b">내정보</b> 
 				<a class="jeonga-collapse-item" href="#">회원 등급</a> 
 				<a class="jeonga-collapse-item" href="#">회원 정보 관리</a>
-				<a class="jeonga-collapse-item" href="#">신용카드 및 환불계좌 관리</a>
 				<a class="jeonga-collapse-item" href="#">주소(배송지)관리</a>
-				<a class="jeonga-collapse-item" href="#">본인인증</a> 
 			</li>
 		</ul>
 	</div>

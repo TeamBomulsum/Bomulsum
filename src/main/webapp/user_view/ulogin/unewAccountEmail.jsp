@@ -300,7 +300,7 @@ var phoneCheck = false;
 			console.log(randNum);
 			
 			$.ajax({
-				url : "/please/user_view/ulogin/unewAccountEmail",
+				url : "/bomulsum/user_view/ulogin/unewAccountEmail",
 				//?msg=" + sendMsg + "&receiver=" + receiveNum
 				data : {
 					msg : sendMsg,
