@@ -113,7 +113,7 @@
 <div class="dainfooter-middle">
 <div class="dainfooter-middle-inner">
 	<div class="footerinner1">
-		<img alt="Logo" src="<c:url value='/user_view/resources/img/Logo_gray.png'/>" height="128px">
+		<img alt="Logo" src="<c:url value='/resources/img/Logo_gray.png'/>" height="128px">
 	</div>
 	<div class="footerinner2">
 		<p style="font-size: 12px;">(주)보물섬</p>
