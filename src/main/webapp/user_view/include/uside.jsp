@@ -24,24 +24,17 @@
     color: #000;
     text-decoration: none;
 }
-.jeonga-navItem a.active {
-    background-color: #4CAF50;
-    color: white;
-}
 .jeonga-navItem a:hover:not(.active) {
-    color: blue;
+    color: #1f76bb;
 }
 .jeonga-navItem1 a {
  	display: block;
     color: #000;
     text-decoration: none;
 }
-.jeonga-navItem1 a.active {
-    background-color: #4CAF50;
-    color: white;
-}
+
 .jeonga-navItem1 a:hover:not(.active) {
-    color: blue;
+    color: #1f76bb;
 }
 .jeonga-navItem{
 	padding:7%;
