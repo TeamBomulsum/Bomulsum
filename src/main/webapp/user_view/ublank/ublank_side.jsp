@@ -13,6 +13,7 @@
 	margin-right: auto;
 	padding-top: 36px;
 	padding-bottom: 64px;
+	display: flex;
 }
 
 body a:link, a:visited, a:hover, a:active {
