@@ -14,6 +14,12 @@
 	padding-top: 36px;
 	padding-bottom: 64px;
 }
+
+body a:link, a:visited, a:hover, a:active {
+	text-decoration: none;
+	border: none;
+}
+
 </style>
 </head>
 <body>
