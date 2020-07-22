@@ -10,8 +10,6 @@
 <body>
 <div>
 	<%@ include file="../include/uHeader.jsp"  %>
-	<%@ include file="../include/uside.jsp" %>
-	
 	
 	
 	<%@ include file="../include/uFooter.jsp" %>
