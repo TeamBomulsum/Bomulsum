@@ -201,7 +201,15 @@ input:focus{ outline:none; }
 							<input class="phoneFail" type="text" style="padding-left:2%; height:40px; width:70%; margin-right:1%" placeholder="010-1234-5678">
 							<button id="phoneBtn" class="btn-disabled" style="width:30%; height:46px;" disabled>인증요청</button>
 						</div>
+						<div id="phoneCertification" style="width:100%;  display: none; flex-direction: row; height:50px; margin-bottom:1%;">
+							<div class="inputCertification" style="display: flex; border:1px inset black; flex-direction: row; height:40px; width:70%; margin-right:1%;">
+								<input id="inputCertificationNum"  maxlength="6" type="text" style="border:0; padding-left:2%; width:80%; height:38px;" placeholder="인증코드를 입력해주세요.">
+								<div id="time_limit" style="width:20%; height:40px; color:#d8524a; text-align:right; padding-top: 3%; padding-right:2%"></div>
+							</div>
+							<button id="inputCertificationButton" class="btn-abled" style="width:29%; height:43px;">확인</button>
+						</div>
 						<a id="phoneFail" style="display:none; color:#d8524a; font-size:12px; margin-bottom:5%;">필수 항목입니다.</a>
+						
 						
 						<!-- 추천인 코드 --> 
 						<div style="margin-bottom:2%; height:20px;">
@@ -279,12 +287,51 @@ input:focus{ outline:none; }
 
 <script>
 var test;
-var msgNumCheck = 0;
 var phoneCheck = false;
+var timerID;
+var time = 119;
+function toMinSec(t){
+	var hour;
+	var min;
+	var sec;
+	
+	hour = Math.floor(t / 3600);
+	min = Math.floor((t-(hour*3600)) / 60);
+	sec = t  - (hour*3600) - (min * 60);
+	
+	if(min < 10) min = "0" + min;
+	if(sec < 10) sec = "0" + sec;
+	
+	return(min + ":" + sec);
+}
+
+function decrementTime(){
+	var x1 = document.getElementById("time_limit");
+	x1.innerHTML = toMinSec(time);
+	
+	if(time > 0) time--;
+	else{
+		clearInterval(timerID);
+		
+		// 시간 만료시.
+		alert("인증 시간이 만료되었습니다.");
+		$("#phoneCertification").css("display", "none");
+		$("#phoneBtn").removeClass('btn-disabled');
+		$("#phoneBtn").addClass('btn-abled');
+		$("#phoneBtn").attr("disabled", false);
+		$(".phoneFail").attr('readonly', false);
+		time = 119;
+	}
+}
+
+function start_timer(){
+	timerID = setInterval("decrementTime()", 1000);
+}
+
 
 	$(function(){
 		
-		$("#phoneBtn").click(function(){
+		$("#phoneBtn").click(function(){ // 핸드폰 인증 모듈.
 			const randNum = String(Math.floor(Math.random() * 10))
 				+ String(Math.floor(Math.random() * 10))
 				+ String(Math.floor(Math.random() * 10))
@@ -297,7 +344,6 @@ var phoneCheck = false;
 			console.log(receiveNum)
 			var sendMsg = "[보물섬] 본인확인 인증번호 (" + randNum + ")입력시 정상처리 됩니다.";
 			
-			console.log(randNum);
 			
 			$.ajax({
 				url : "/bomulsum/user_view/ulogin/unewAccountEmail",
@@ -308,7 +354,55 @@ var phoneCheck = false;
 				},
 				type:'get',
 				success : function(){
-					var result = prompt("전송된 SMS 숫자를 입력해주세요.");
+					var msgNumCheck = 0;
+					$("#phoneCertification").css("display", "flex");
+					$("#phoneBtn").removeClass('btn-abled');
+					$("#phoneBtn").addClass('btn-disabled');
+					$("#phoneBtn").attr("disabled", true);
+					$(".phoneFail").attr('readonly', true);
+					start_timer();
+					$("#inputCertificationButton").click(function(){
+						if($("#inputCertificationNum").val() != randNum){ // 인증 실패시
+							msgNumCheck++;
+							if(msgNumCheck == 5){
+								alert("제한 횟수 초과입니다. 다시 입력해주시기 바랍니다.");
+								$("#phoneCertification").css("display", "none");
+								$("#phoneFail").css("display","none");
+								$(".phoneFail").val('');
+								$(".phoneFail").focus();
+								$(".phoneFail").attr('readonly', false);
+								$("#inputCertificationNum").val('');
+								clearInterval(timerID);
+								time = 119;
+								return;
+							}else{
+								$("#phoneFail").css("display", "block");
+								$("#phoneFail").text(msgNumCheck + "회 오류입니다!!(제한 : 5)");
+							}
+						}else{ // 인증 성공시
+							alert("인증에 성공했습니다.");
+							clearInterval(timerID);
+							$(".phoneFail").attr('readonly', true);
+							$(".phoneFail").css("border", '1px solid #21a1a9');
+							$(".phoneFail").css("color", '#21a1a9');
+							$("#phoneBtn").attr('disabled', true);
+							$(".inputCertification").css("border",'1px solid #21a1a9');
+							$("#inputCertificationNum").attr("readonly", true);
+							$("#inputCertificationNum").css("color",'#21a1a9');
+							$("#inputCertificationButton").addClass('btn-disabled');
+							$("#inputCertificationButton").removeClass('btn-abled');
+							$("#inputCertificationButton").attr("disabled", true);
+							$("#phoneFail").css("display", "none");
+							
+							
+							$(".phoneFail").off();
+							$("#phoneBtn").off();
+							$("#inputCertificationNum").off();
+							phoneCheck = true;
+						}
+					});
+					
+					/*
 					if(result != randNum){
 						msgNumCheck++;
 						alert("인증에 실패했습니다(" + msgNumCheck + " 회).");
@@ -322,6 +416,7 @@ var phoneCheck = false;
 						$("#phoneBtn").css("border","0");
 						phoneCheck = true;
 					}
+					*/
 				},
 				error : function(){
 					console.log("전송 실패")
@@ -417,6 +512,14 @@ var phoneCheck = false;
 		var pwCheck = false;
 		var name = false;
 		var phone = false;
+		
+		$("#inputCertificationNum").focus(function(){
+			$(".inputCertification").css("border", "1px solid #21a1a9");
+		});
+		
+		$("#inputCertificationNum").blur(function(){
+			$(".inputCertification").css("border", "1px inset black");
+		});
 		
 		$(".emailFail").focus(function(){ // 이메일 입력창
 			$(".emailFail").css("border", "1px solid #21a1a9");
@@ -608,6 +711,20 @@ var phoneCheck = false;
 			}
 		});
 		
+		$("#couponLabel").click(function(){
+			if($("#couponEvent").is(":checked")){
+				$("#couponEvent").prop("checked", false);
+				if($("#agreeAll").is(":checked")){
+					$("#agreeAll").prop("checked", false);
+				}
+			}else{
+				$("#couponEvent").prop("checked", true);
+				if($("#usePolicy").is(":checked") && $("#userInfo").is(":checked")){
+					$("#agreeAll").prop("checked", true);
+				}
+			}
+		});
+		
 		
 		
 		$("#createAccountButton").click(function(){ // 회원가입 클릭시
@@ -615,7 +732,10 @@ var phoneCheck = false;
 			pwF();
 			pwCheckF();
 			nameF();
-			phoneF();
+			if(!phoneCheck){
+				phoneF();
+			}
+			
 			if(!email){
 				$(".emailFail").focus();
 			}else if(!pw){
