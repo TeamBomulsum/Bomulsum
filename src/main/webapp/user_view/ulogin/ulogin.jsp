@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>보물섬|로그인</title>
+<title>보물섬 | 로그인</title>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <link rel="stylesheet" href="<c:url value='/vendor/fontawesome-free/css/all.css' />">
 <style type="text/css">

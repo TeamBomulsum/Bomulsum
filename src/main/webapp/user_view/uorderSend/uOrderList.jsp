@@ -5,21 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문 내역</title>
+<title>보물섬 | 주문 내역</title>
 <style>
 
 .content {
 	width: 70%;
 	margin-left: auto;
 	margin-right: auto;
-	padding-top: 36px;
+	padding-top: 36px; 
 	padding-bottom: 64px;
 	display: flex;
 	flex-direction: row;
 }
 
+
 .dndud_content{
-	width:100%;
+	width:80%;
 	margin-left: 2%;
 }
 
@@ -180,7 +181,10 @@
 }
 
 .itemTitle{
+	display:flex;
+	flex-direction: row;
 	word-break: break-all;
+	align-items: center;
 }
 
 .itemTitle p{
@@ -204,7 +208,7 @@
 }
 
 .aboutItem span{
-	width:3%;
+	width:6%;
 	font-size:13px;
 	margin-bottom:0;
 	padding-right:2%;
@@ -246,6 +250,19 @@ input[type="button"]{
 	cursor: pointer;
 }
 
+input[type="button"]:focus{
+	outline:none;
+}
+
+.orderStat{
+	padding:0 1%;
+	font-size : 10px;
+	color: #2dabb3;
+	border: 1px solid #2dabb3;
+	border-radius: 5px / 5px;
+	margin-left:2%;
+	margin-top:2%;
+}
 
 #purchaseReview{
 	background-color: #1f76bb;
@@ -253,15 +270,16 @@ input[type="button"]{
 }
 
 #iconMemo{
-	width:150px;
-	height:50px;
-	display:block;
-	position:relative;
-	right:-50px;
+	font-size:12px;
+	text-align:center;
+	width:200px;
+	height:36px;
+	display:none;
+	position: absolute;
 	z-index:1;
-	border: dashed;
+	border: 1px solid gray;
+	background-color: white;
 }
-
 </style>
 </head>
 <body>
@@ -301,6 +319,7 @@ input[type="button"]{
 			 
 			<!-- 작품 있을경우 -->
 			<div class="dndud_allContents">
+			
 				<div class="dndud_semicontent">
 					<div class="dndud_semicontent_top">
 						<a class="date">2020-07-21</a>
@@ -314,6 +333,7 @@ input[type="button"]{
 							<div class="writeAboutItem">
 								<div class="itemTitle">
 									<p>(카페) 주문제작 감성 일러스트 엽서</p>
+									<p class="orderStat">결제 완료</p>
 								</div>
 								<div class="aboutItem">
 									<p>배송비 : 우편(+ 500원) / 문구 및 디자인추가 : X도안 그대로</p>
@@ -326,7 +346,7 @@ input[type="button"]{
 							<input type="button" value="메시지로 문의">
 						</div>
 						<div class="decision">
-							<input type="button" value="구매취소">
+							<input type="button" value="환불요청">
 						</div>
 					</div>
 				</div>
@@ -334,7 +354,7 @@ input[type="button"]{
 				<div class="dndud_semicontent">
 					<div class="dndud_semicontent_top">
 						<a class="date">2020-04-20</a>
-						<a class="price"  href="#">13,300원 ></a>
+						<a class="price"  href="#">13,300원 ></a> <!-- 제품 상세페이지로. -->
 					</div>
 					<div class="dndud_semicontent_main">
 						<div class="item">
@@ -344,6 +364,7 @@ input[type="button"]{
 							<div class="writeAboutItem">
 								<div class="itemTitle">
 									<p>40% 어버이날 예약할인 / 한송이세송이 카네이션 꽃다발</p>
+									<a class="orderStat">작가 발송 완료</a>
 								</div>
 								<div class="aboutItem">
 									<p>송이/색상 : 1송이 베리핑크 / 포장지 : 아이보리(연베이지색) / 프리저브드 용돈봉투 : 안할게요 / 예약출고 : 5월 4일</p>
@@ -378,15 +399,22 @@ input[type="button"]{
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
+
 	$(function(){
 		$("#dndud_questionIcon").mouseover(function(event){
-			x = event.pageX;
-			y = event.pageY;
-			console.log(x + y);
+			
+			var x = 0; // 마우스 포인터의 좌측 위치 
+			var y = 0; // 마우스 포인터의 위쪽 위치 
+			x = $("#dndud_questionIcon").offset().left + 25;
+			y = $("#dndud_questionIcon").offset().top - 13;
+			 
+			$("#iconMemo").css("display","block");
+			$("#iconMemo").css("left", x);
+			$("#iconMemo").css("top", y)
 		});
 		
 		$("#dndud_questionIcon").mouseleave(function(){
-			
+			$("#iconMemo").css("display", "none");
 		});
 	});
 </script>

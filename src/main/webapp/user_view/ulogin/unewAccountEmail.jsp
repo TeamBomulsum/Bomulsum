@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>보물섬|회원가입</title>
+<title>보물섬 | 회원가입</title>
 </head>
 <link rel="stylesheet"
 	href="<c:url value='/vendor/fontawesome-free/css/all.css' />">

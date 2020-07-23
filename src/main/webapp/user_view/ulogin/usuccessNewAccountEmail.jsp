@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 완료</title>
+<title>보물섬 | 회원가입 완료</title>
 <link rel="stylesheet" href="<c:url value='/vendor/fontawesome-free/css/all.css' />">
 <style type="text/css">
     #wrapper {
@@ -123,7 +123,7 @@
 <!-- Core plugin JavaScript-->
 <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/> "></script>
 <script>
-var tt=5;
+var tt=100;
 
 var timeout = setInterval(function(){ // 윈도우 로드후 5초간의 시간.
 	if(tt >= 0){

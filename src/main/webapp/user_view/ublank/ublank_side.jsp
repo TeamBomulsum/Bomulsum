@@ -13,7 +13,7 @@
 	margin-right: auto;
 	padding-top: 36px;
 	padding-bottom: 64px;
-	display: flex;
+	display:flex;
 }
 
 body a:link, a:visited, a:hover, a:active {
@@ -45,4 +45,5 @@ body a:link, a:visited, a:hover, a:active {
 	<%@ include file="../include/uFooter.jsp" %>
 </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </html>

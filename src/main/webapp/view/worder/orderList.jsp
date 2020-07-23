@@ -341,6 +341,7 @@
 
 					
 					<!-- 주문 메모 수정 버튼 모달 창 -->
+					<div>
 					<div id="popupDiv" class="orderMemoUpdateModal">
 						<!-- 팝업창 -->
 						<div style="width:100%; height:40px; background-color:white; padding:1%">
@@ -480,12 +481,9 @@
 	<script src="<c:url value='/vendor/chart.js/Chart.min.js'/>"></script>
 
 	<!-- Page level custom scripts -->
-<<<<<<< HEAD
 
-=======
 	<script src="<c:url value='/resources/js/demo/chart-area-demo.js'/>"></script>
 	<script src="<c:url value='/resources//js/demo/chart-pie-demo.js'/>"></script>
->>>>>>> 536e9f97cbc75e05726f984de5f02f7ca521cbb2
 
 	<script>		
 		document.getElementById('beforeDate').value = new Date().toISOString()

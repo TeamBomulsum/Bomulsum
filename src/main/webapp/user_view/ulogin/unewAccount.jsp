@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>보물섬|회원가입</title>
+<title>보물섬 | 회원가입</title>
 </head>
 
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
