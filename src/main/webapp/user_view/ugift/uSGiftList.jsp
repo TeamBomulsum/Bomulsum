@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>보물섬 | 보낸 선물함</title>
 <style>
-body  a:link, a:visited, a:hover, a:active{
+body a:link, a:visited, a:hover, a:active{
    text-decoration: none;
    border: none;
 }
@@ -124,10 +124,10 @@ body  a:link, a:visited, a:hover, a:active{
   	text-decoration: none;
   	display: inline-block;
   	font-size: 12px;
-	width:92px;
+	width:120px;
 	margin-top:4px;
-	margin-left:19px;
-	margin-right:20px;
+
+
 }
 #jeonga-ugift-sbody-list-cancel{
 	border-left:1px solid #D8D8D8;
@@ -138,10 +138,9 @@ body  a:link, a:visited, a:hover, a:active{
   	text-decoration: none;
   	display: inline-block;
   	font-size: 12px;
-	width:92px;
+	width:120px;
 	margin-top:6px;
-	margin-left:19px;
-	margin-right:20px;
+
 }
 </style>
 </head>
@@ -163,10 +162,10 @@ body  a:link, a:visited, a:hover, a:active{
 					<div class="jeonga-ugift-shead-left">
 						<div class="jeonga-ugift-shead-date">2020-07-21</div>
 						<div class="jeonga-ugift-shead-divide">|</div>
-						<div class="jeonga-ugift-shead-address">배송주소 입력</div>
+						<div class="jeonga-ugift-shead-address" style="color:#DF3A01">배송주소 입력대기</div>
 					</div>
 					<div class="jeonga-ugift-shead-right">
-						<a href="#" class="jeonga-ugift-slink"> 홍길동님에게 보낸 선물 > </a>
+						<a href="uSGiftCheck.jsp" class="jeonga-ugift-slink"> 홍길동님에게 보낸 선물 > </a>
 					</div>
 				</div>
 				<div class="jeonga-ugift-sbody">
@@ -184,8 +183,8 @@ body  a:link, a:visited, a:hover, a:active{
 						</div>
 					</div>
 					<div class="jeonga-ugift-sbody-list">
-						<button id="jeonga-ugift-sbody-list-address">배송지 입력</button><br>
-						<button id="jeonga-ugift-sbody-list-cancel">주문 취소</button>
+						<button type="button" onclick="location.href='uSGiftCheck.jsp'" id="jeonga-ugift-sbody-list-address">배송주소 직접 입력</button><br>
+						<button type="button" onclick="#"id="jeonga-ugift-sbody-list-cancel">주문 취소</button>
 					</div>
 				</div>
 			</div>

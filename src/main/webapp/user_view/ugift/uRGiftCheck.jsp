@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>보물섬 | 받은 선물 상세보기</title>
 <style>
-body a:active{
+body a:link, a:visited, a:hover, a:active{
    text-decoration: none;
    border: none;
 }
@@ -28,7 +28,10 @@ body a:active{
 	padding:1%;
 	border:1px solid #D8D8D8;
 	display:flex;
-
+	border-radius:5px;
+	width:90%;
+	margin-left:4%;
+	margin-bottom:4%;
 }
 #message{
 	margin-top:3%;
@@ -73,11 +76,13 @@ body a:active{
 .jeonga-ugift-gift-info-left, .jeonga-ugift-gift-address-detail-left, .jeong-ugift-gift-dispatch-detail-left{
 	font-size:14px; 
 	font-weight: bold;
+	width:64px;
 }
 
 .jeonga-ugift-gift-info-right, .jeonga-ugift-gift-address-datail-right, .jeong-ugift-gift-dispatch-detail-right{
 	font-size:14px; 
-	padding:8px;
+	padding:8px 25px;
+
 }
 .jeonga-ugift-receive-buyer-name{
 	font-weight: bold;
@@ -166,7 +171,7 @@ function doOtherDisplay(){
 					</tr>
 					<tr>
 						<td class="jeonga-ugift-gift-info-left">작품명</td>
-						<td class="jeonga-ugift-gift-info-right">(카페)주문제작 감성일러스트 엽서</td><!-- 내역 변경됨 -->
+						<td class="jeonga-ugift-gift-info-right">(카페) 주문제작 감성일러스트 엽서</td><!-- 내역 변경됨 -->
 					</tr>
 					<tr>
 						<td class="jeonga-ugift-gift-info-left">작가명</td>

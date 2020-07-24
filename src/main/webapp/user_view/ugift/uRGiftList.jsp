@@ -53,6 +53,7 @@ body  a:link, a:visited, a:hover, a:active{
  	padding:2%;
  	padding-left:0;
  }
+
 .jeonga-ugift-rhead-divide{
 	padding:2%;
 
@@ -118,10 +119,10 @@ body  a:link, a:visited, a:hover, a:active{
 					<div class="jeonga-ugift-rhead-left">
 						<div class="jeonga-ugift-rhead-date">2020-07-21</div>
 						<div class="jeonga-ugift-rhead-divide">|</div>
-						<div class="jeonga-ugift-rhead-address">배송주소 입력</div>
+						<div class="jeonga-ugift-rhead-address"><a href="uRGiftCheck.jsp"class="jeonga-ugift-rlink" style="color:#DF3A01">배송주소를 입력하세요(유효기간: 2020-07-30)</a></div>
 					</div>
 					<div class="jeonga-ugift-rhead-right">
-						<a href="#" class="jeonga-ugift-rlink"> 홍길동(010-****-1111)님의 선물 > </a>
+						<a href="uRGiftCheck.jsp" class="jeonga-ugift-rlink"> 홍길동(010-****-1111)님의 선물 > </a>
 					</div>
 				</div>
 				<div class="jeonga-ugift-rbody">
