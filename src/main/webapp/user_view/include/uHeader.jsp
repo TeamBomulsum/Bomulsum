@@ -17,6 +17,14 @@ $(function() {
             $('.dainToTop').fadeOut();
         }
     });
+	
+	$('.dainToTop').click(function(){
+		$('html, body').animate({
+			scrollTop : 0
+		}, 400);
+		return false;
+	});
+	
 });
 </script>
 
@@ -283,9 +291,13 @@ body {
     color: white;
     font-size: 25px;
     line-height: 1.3;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     background-color: #1f76bb;
     font-size: 12px;
+}
+
+.dainToTop span{
+	text-decoration: none;
 }
 </style>
 </head>
