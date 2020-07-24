@@ -41,13 +41,13 @@ body a:link, a:visited, a:hover, a:active {
 <body>
 <div>
    <!-- 헤더 -->
-   <%@ include file="include/uHeader.jsp"  %>
+   <%@ include file="../include/uHeader.jsp"  %>
    
    
    
    <div class="content">
    <!-- 사이드메뉴 -->
-   <%@ include file="include/uside.jsp" %>
+   <%@ include file="../include/uside.jsp" %>
    <!-- 내용 여기다 넣으시오 -->
    
    <div style="margin-left:2%; width: 100%;">
@@ -138,7 +138,7 @@ body a:link, a:visited, a:hover, a:active {
    
    </div>
    <!-- 푸터  -->
-   <%@ include file="include/uFooter.jsp" %>
+   <%@ include file="../include/uFooter.jsp" %>
 </div>
 </body>
 </html>
