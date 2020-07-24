@@ -192,11 +192,6 @@ body a:link, a:visited, a:hover, a:active {
 	border: 1px solid #d9d9d9;
 }
 
-uRecentWork
-uLikeWriter 
-uAddressManage
-uBookMark -
-uReserves 
 </style>
 </head>
 <body>
