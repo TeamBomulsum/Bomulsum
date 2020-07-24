@@ -16,6 +16,11 @@
 	display: flex;
 }
 
+body a:link, a:visited, a:hover, a:active, :active{
+	text-decoration: none;
+	border: none;
+}
+
 .dainSection {
 	margin-left: 2%;
 	width: 80%;
@@ -111,8 +116,7 @@ table{
 	width: 18px;
 	height: 18px;
 	border-radius: 50%;
-	z-index: 99;
-	position: absolute;
+
 	
 }
 
@@ -162,15 +166,15 @@ table{
 					<div style="padding-bottom:20px;">
 					<strong>8월 예상등급</strong>
 					</div>
-					<div class="dainProgressBar" style="display: flex; align-items: center;">
+					<div class="dainProgressBar" style="display: flex; align-items: center; width: 380px;">
 						<div class="dainPbSplit" ></div>
+						<div style="width: 380px; height: 20px; display: flex; z-index: 99;
+						position: absolute; justify-content: space-between; ">
 						<div class="NowGradeCircle colBlue" ></div>
-						<div class="NowGradeCircle colGray" style="margin-left: 8%;"></div>
-						<div class="NowGradeCircle colGray" style="margin-left: 15%;"></div>
-						<div class="NowGradeCircle colGray" style="margin-left: 22%;"></div>
-						<!--  
-						<div class="dainPbSplit"></div>
-						<div class="dainPbSplit"></div>-->
+						<div class="NowGradeCircle colGray" ></div>
+						<div class="NowGradeCircle colGray" ></div>
+						<div class="NowGradeCircle colGray" ></div>
+						</div>
 					</div>
 					<div class="dainPbName">
 						<div>브론즈</div>

@@ -6,6 +6,21 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(function() {
+	//Top버튼 기능
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 200) {
+            $('.dainToTop').fadeIn();
+        } else {
+            $('.dainToTop').fadeOut();
+        }
+    });
+});
+</script>
+
+
 <style>
 body {
 	margin: 0px;
@@ -254,11 +269,29 @@ body {
 	position: absolute;
 	margin-left: 22px;
 }
+
+.dainToTop{
+	display: inline-block;
+    position: fixed;
+    bottom: 243px;
+    z-index: 150;
+    display: none;
+    width: 40px;
+    height: 40px;
+    right: 0;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    line-height: 1.3;
+    transition: all 0.3s ease;
+    background-color: #1f76bb;
+    font-size: 12px;
+}
 </style>
 </head>
 <body>
 <!-- Header -->
-<header class="dainheader shadow">
+<header class="dainheader shadow" id="dainHeader">
 <div class="dainheader-top">
 	<div class="dainheader-top-inner">
 	<div class="dainheader-top-link">
@@ -349,5 +382,10 @@ body {
 </div>
 </header>
 <!-- Header 끝 -->
+
+<!-- 탑으로 가는 버튼 -->
+<a href="#dainHeader" class="dainToTop" style="display: none; bottom: 66px; color: #fff;">
+    <i class="fa fa-angle-up fa-lg" ></i><span style="padding:0px; margin: 0px; display: block;">Top</span>
+</a>
 </body>
 </html>
