@@ -48,11 +48,12 @@
                               'font-size: 60%; padding: 1%');
                         console.log(tag.innerHTML);
                         dTag.appendChild(tag);
-                        document.getElementById('list').appendChild(
+                        document.getElementById('listP').appendChild(
                               dTag).appendChild(dayTag);
                         $('#messageContent').val("");
                      }
-                     $('#scroll').scrollTop(1E10);
+                     var objDiv = document.getElementById("listP");
+                 	objDiv.scrollTop = objDiv.scrollHeight;
 
                   });
       $('#messageContent').keydown(function(key) {
@@ -70,7 +71,8 @@
             alert('성공!');
             }
          }*/
-         $('#scroll').scrollTop(1E10);
+         var objDiv = document.getElementById("listP");
+      	objDiv.scrollTop = objDiv.scrollHeight;
       });
 
       //받는 메세지
@@ -99,11 +101,11 @@
                               .setAttribute('style',
                                     'padding: 1%; width: 100%; text-align:right;');
                         dTag.appendChild(tag);
-                        document.getElementById('list').appendChild(
+                        document.getElementById('scroll').appendChild(
                               dTag).append(dayTag);
                         $('#sendTest').val("");
                      }
-                     $('#scroll').scrollTop(1E10);
+                   
 
                   });
 
@@ -204,12 +206,11 @@
                   </p>
 
                   <hr>
-                  <div
-                     style="width: 100%; height: 430px; background-color: white; overflow: auto; display: flex; flex-direction: column; justify-content: flex-end; border: 1px black solid;"
+                  <div style="width: 100%; height: 430px; background-color: white; border: 1px black solid;"
                      id="scroll">
-                     <div id="listP">
+                     <div id="listP" style=" height: 100%; overflow: scroll; display: flex; flex-direction: column;  justify-content: flex-end;">
                         <!-- 메세지 영역 -->
-                        <div id="list"></div>
+                      
                      </div>
                   </div>
                   <hr>
