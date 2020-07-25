@@ -17,7 +17,8 @@ body {
 	border: 1px solid #d9d9d9;
 }
 
-.dainheader a:link, a:visited, a:hover, a:active {
+.dainheader-top-a:link, .dainheader-top-a:visited, 
+.dainheader-top-a:hover, .dainheader-top-a:active {
 	text-decoration: none;
 	color: #666666;
 	border: none;
@@ -33,7 +34,7 @@ body {
 	font-size: 11px;
 }
 
-.dainheader-top a {
+.dainheader-top-a {
 	margin-left: 12px;
 	margin-right: 12px;
 }
@@ -57,7 +58,8 @@ body {
 	font-size: 18px;
 }
 
-.dainheader-middle-menu a:link, a:visited, a:hover, a:active {
+.dainheader-middle-menuA:link, .dainheader-middle-menuA:visited, 
+.dainheader-middle-menuA:hover, .dainheader-middle-menuA:active {
 	text-decoration: none;
 	color: #666666; /*grey*/
 	border: none;
@@ -160,7 +162,7 @@ body {
 }
 
 /*메뉴 간격조정*/
-.dainheader-bottom-inner div {
+.dainheader-bottom-inner > div {
 	margin-right: 20px;
 }
 
@@ -169,19 +171,20 @@ body {
 }
 
 /*메뉴에 언더라인 주는거*/
-.dainheader-bottom-inner a {
+.dainheader-bi-a {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-right: 5px;
 	padding-left: 5px;
+	color: #666666;
 }
 
-.dainheader-bottom-inner a:link, a:visited {
+.dainheader-bi-a:link, .dainheader-bi-a:visited {
 	text-decoration: none;
 	color: #666666; /*grey*/
 }
 
-.dainheader-bottom-inner a:hover, a:active {
+.dainheader-bi-a:hover, .dainheader-bi-a:active {
 	text-decoration: none;
 	color: #1f76bb;
 	border-bottom: 1px solid #1f76bb;
@@ -191,46 +194,6 @@ body {
 	position: relative;
 	display: inline-block;
 	padding: 10px 5px;
-}
-
-/*드롭다운*/
-.dropdown-content {
-	display: none;
-	position: absolute;
-	min-width: 160px;
-	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
-	border: 1px solid #d9d9d9; /*연한 회색 테두리*/
-	z-index: 1;
-}
-
-.menu {
-	display: flex;
-	color: black;
-}
-
-.menu a {
-	padding: 2px;
-	margin: 10px;
-	text-decoration: none;
-	display: block;
-}
-
-.menu li {
-	background: #fff;
-	margin: 3px;
-}
-
-.menu ul {
-	list-style-type: none;
-	margin: 0px;
-	padding: 0px;
-	width: 200px;
-}
-
-.menu li a:hover:not(.active) {
-	background-color: #cce5ff;
-	color: black;
-	border: none;
 }
 
 .cartcountshape {
@@ -265,9 +228,9 @@ body {
 <div class="dainheader-top">
 	<div class="dainheader-top-inner">
 	<div class="dainheader-top-link">
-		<a href="#">로그인</a>
-		<a href="#">회원가입</a>
-		<a href="#">고객센터</a>
+		<a class="dainheader-top-a" href="#">로그인</a>
+		<a class="dainheader-top-a" href="#">회원가입</a>
+		<a class="dainheader-top-a" href="#">고객센터</a>
 	</div>
 	</div>
 </div>
@@ -280,8 +243,8 @@ body {
 			<a href="#"><img alt="logo" src="<c:url value='/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
 		</div>
 		<div class="dainheader-middle-menu">
-			<a href="#" style="margin-right: 30px;" >작품</a>
-			<a href="#" style="margin-right: 30px; color: #1f76bb;">금손 클래스</a>
+			<a class="dainheader-middle-menuA" href="#" style="margin-right: 30px;" >작품</a>
+			<a class="dainheader-middle-menuA"  href="#" style="margin-right: 30px; color: #1f76bb;">금손 클래스</a>
 		</div>
 		<!-- 검색창 영역 -->
 		<div class="dainheader-middle-search">
@@ -318,14 +281,14 @@ body {
 <div class="dainheader-bottom">
 	<div class="dainheader-bottom-inner">
 		<div class="dainrounded" style="margin-right: 5px;">온라인</div>
-		<div><a href="#">홈</a></div>
+		<div><a class="dainheader-bi-a" href="#">홈</a></div>
 		<div style="color: #d9d9d9">|</div>
 		<div class="dainrounded" style="margin-right: 5px;">오프라인</div>
-		<div><a href="#">홈</a></div>
-		<div><a href="#">카테고리</a></div>
-		<div><a href="#">인기 클래스</a></div>
-		<div><a href="#">지역별</a></div>
-		<div><a href="#">신규</a></div>
+		<div><a class="dainheader-bi-a" href="#">홈</a></div>
+		<div><a class="dainheader-bi-a" href="#">카테고리</a></div>
+		<div><a class="dainheader-bi-a" href="#">인기 클래스</a></div>
+		<div><a class="dainheader-bi-a" href="#">지역별</a></div>
+		<div><a class="dainheader-bi-a" href="#">신규</a></div>
 	</div>
 </div>
 </header>
