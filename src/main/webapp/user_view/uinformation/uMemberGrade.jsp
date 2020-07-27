@@ -129,6 +129,11 @@ table{
 	border: 1px solid #acacac;
 }
 
+a:link, a:visited, a:hover, a:active{
+	text-decoration: none;
+	color: black;
+}
+
 </style>
 </head>
 <body>
