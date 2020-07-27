@@ -104,7 +104,7 @@
 			<td class="dain-borderright"><a class="dain-footer-a" href="#">공지사항</a></td>
 			<td class="dain-borderright"><a class="dain-footer-a" href="#">자주 묻는 질문</a></td>
 			<td class="dain-borderright"><a class="dain-footer-a" href="#">입점문의</a></td>
-			<td><a href="#">About Bomulsum</a></td>
+			<td><a class="dain-footer-a" href="#">About Bomulsum</a></td>
 		</tr>
 	</table>
 </div>
