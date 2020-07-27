@@ -64,8 +64,8 @@ body a:link, a:visited, a:hover, a:active {
 			</div>
 		</div>
 		<div style="align-self: center;">
-				<div style="display: flex; flex-direction: row;">
-					<div id="wonBookContent" style="width: 25%; text-decoration: none; margin:1%;">
+				<div style="display: flex; flex-wrap: wrap;">
+					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
 							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >
@@ -78,7 +78,7 @@ body a:link, a:visited, a:hover, a:active {
 							&nbsp;<span style="color: #ABABAB; font-size: 60%;">후기내용</span>
 						</a>
 					</div>
-					<div id="wonBookContent" style="width: 25%; text-decoration: none; margin:1%;">
+					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
 							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >
@@ -91,7 +91,7 @@ body a:link, a:visited, a:hover, a:active {
 							&nbsp;<span style="color: #ABABAB; font-size: 60%;">후기내용</span>
 						</a>
 					</div>
-					<div id="wonBookContent" style="width: 25%; text-decoration: none; margin:1%;">
+					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
 							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >
@@ -104,7 +104,20 @@ body a:link, a:visited, a:hover, a:active {
 							&nbsp;<span style="color: #ABABAB; font-size: 60%;">후기내용</span>
 						</a>
 					</div>
-					<div id="wonBookContent" style="width: 25%; text-decoration: none; margin:1%;">
+					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
+					<!-- 내용물 -->
+						<a style="margin:1%;">
+							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >
+							<span style="color: #ABABAB; font-size: 80%;">판매자 계정</span><br>
+							<span>상품설명</span><br>
+							<span style="color: red;">할인율</span>&nbsp;<span>가격</span><br>
+							<span style="text-decoration: line-through; color: #ABABAB; font-size: 70%;">원가</span><br>
+							<span>별점</span><br>
+							<span style="background-color:#EAEAEA; border:1px solid #EAEAEA; border-radius: 5px; font-size: 60%; color: #ABABAB;">후기</span>
+							&nbsp;<span style="color: #ABABAB; font-size: 60%;">후기내용</span>
+						</a>
+					</div>
+					<div id="wonBookContent" style="width: 22%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
 							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >

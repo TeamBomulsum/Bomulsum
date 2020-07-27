@@ -23,33 +23,23 @@
    $(function() {
       $('#input').click(
                   function() {
-                     var message = document
-                           .getElementById('messageContent').value;
-
-                     let day = month + '/' + date + "/" + hours + ":"
-                           + minutes;
+                     var message = document.getElementById('messageContent').value;
+                     let day = month + '/' + date + "/" + hours + ":" + minutes;
                      console.log(day);
-
                      var dTag = document.createElement("div");
                      var tag = document.createElement('span');
                      let dayTag = document.createElement('span');
-
-                     var x = $('#scroll');
-
                      if ($('#messageContent').val() == '') {
                         alert('메세지를 입력해주세요');
                      } else {
                         dayTag.innerHTML = day;
                         tag.innerHTML = message.replace(/\n/gi, '<br>');
-                        tag.setAttribute('style',
-                              'background-color: #e5f3ff');
-                        dTag.setAttribute('style', 'padding: 1%');
-                        dayTag.setAttribute('style',
-                              'font-size: 60%; padding: 1%');
+                        tag.setAttribute('style','background-color: #e5f3ff');
+                        dTag.setAttribute('style', 'padding: 1%;');
+                        dayTag.setAttribute('style','font-size: 60%; padding: 1%; text-align: right;');
                         console.log(tag.innerHTML);
                         dTag.appendChild(tag);
-                        document.getElementById('listP').appendChild(
-                              dTag).appendChild(dayTag);
+                        document.getElementById('listP').appendChild(dTag).appendChild(dayTag);
                         $('#messageContent').val("");
                      }
                      var objDiv = document.getElementById("listP");
@@ -64,27 +54,16 @@
                return false;
             }
          }
-         /*else if(key.shiftKey){
-            if(key.which == 13){
-            var str = document.querySelector('#messageContent');
-            console.log(str)
-            alert('성공!');
-            }
-         }*/
          var objDiv = document.getElementById("listP");
       	objDiv.scrollTop = objDiv.scrollHeight;
       });
 
       //받는 메세지
       $('#test').click(function() {
-                     let day = month + '/' + date + "/" + hours + ":"
-                           + minutes;
+                     let day = month + '/' + date + "/" + hours + ":" + minutes;
                      console.log(day);
                      let dayTag = document.createElement('span');
-
                      var message = document.getElementById('sendTest').value;
-                     /* console.log(message); */
-
                      var dTag = document.createElement("div");
                      var tag = document.createElement('span');
                      if ($('#sendTest').val() == '') {
@@ -93,16 +72,11 @@
                         dayTag.innerHTML = day;
                         tag.innerHTML = message.replace(/\n/gi, '<br>');
                         console.log(tag.innerHTML);
-                        dayTag.setAttribute('style',
-                              'font-size: 60%; padding: 1%');
-                        tag.setAttribute('style',
-                              'background-color: #f9f3a9;');
-                        dTag
-                              .setAttribute('style',
-                                    'padding: 1%; width: 100%; text-align:right;');
+                        dayTag.setAttribute('style','font-size: 60%; padding: 1%');
+                        tag.setAttribute('style','background-color: #f9f3a9;');
+                        dTag.setAttribute('style','padding: 1%; width: 100%;');
                         dTag.appendChild(tag);
-                        document.getElementById('scroll').appendChild(
-                              dTag).append(dayTag);
+                        document.getElementById('listP').appendChild(dTag).append(dayTag);
                         $('#sendTest').val("");
                      }
                    

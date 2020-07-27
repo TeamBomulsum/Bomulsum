@@ -169,6 +169,7 @@
 
 </style>
 <script type="text/javascript">
+/*
 var slideIndex = 1;
 showSlides(slideIndex);
 
@@ -181,6 +182,7 @@ function currentSlide(n) {
   showSlides(slideIndex = n);
   console(showSlides(slideIndex = n));
 }
+
 function showSlides(n) {
 	  var i;
 	  var slides = document.getElementsByClassName("wonSlides");
@@ -197,11 +199,17 @@ function showSlides(n) {
 	  dots[slideIndex-1].className += " active";
 	  captionText.innerHTML = dots[slideIndex-1].alt;
 	}
+	*/
 </script>
+
+
+
 <meta charset="UTF-8">
-<title>상품소개!</title>
+<title>금손클래스 상품소개!</title>
 </head>
 <body>
+
+	
 <div>
 	<%@ include file="include/uHeader.jsp"  %>
 		<div style="width:70%; margin-left: 15%; margin-top: 1%; margin-right: 50%; display: flex; flex-direction: row;">
@@ -246,18 +254,27 @@ function showSlides(n) {
 				
 				
 				<div style="margin: 1%; display: flex; justify-content: center; flex-direction: row;">
-					<a id="wonAHover" style="margin: 18px 0px 17px; width:15%; font-size: 100%; margin-left: 1%;">작품정보</a>
-					<a id="wonAHover" style="margin: 18px 0px 17px; width:35%; font-size: 100%; margin-left: 1%;">배송/교환/환불</a>
-					<a id="wonAHover" style="margin: 18px 0px 17px; width:35%; font-size: 100%; margin-left: 1%;">구매후기(갯수)</a>
-					<a id="wonAHover" style="margin: 18px 0px 17px; width:10%; font-size: 100%; margin-left: 1%;">댓글</a>
+					<a id="wonAHover" style="margin: 18px 0px 17px; width:15%; font-size: 100%; margin-left: 1%;">소개</a>
+					<a id="wonAHover" style="margin: 18px 0px 17px; width:35%; font-size: 100%; margin-left: 1%;">장소</a>
+					<a id="wonAHover" style="margin: 18px 0px 17px; width:35%; font-size: 100%; margin-left: 1%;">댓글</a>
+					<a id="wonAHover" style="margin: 18px 0px 17px; width:10%; font-size: 100%; margin-left: 1%;">작가정보</a>
 				</div>
 				<hr>
 				<div>
 					<!-- 내용 작품 소개 -->
 					<div>
-						작품내용을 쓰거라				
+						작품내용을 쓰거라			
 					</div>
+					<hr>
+					<!-- 작품내용 end -->
+					<!-- 구글맵 -->
+					<div><h2>작품 및 편의시설</h2></div>
+					<div id="map" style="width: 100%; height: 400px;">
+					</div>
+					<!-- 구글맵 end -->
 				</div>
+			
+				
 				<hr>
 				<div style="display: flex; justify-content: center;">
 					<span style="color: #ABABAB; font-size: 80%;">Category&nbsp;&&nbsp;Keyword</span>
@@ -276,98 +293,44 @@ function showSlides(n) {
 					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#카테고리카테고리</li>
 				</ul>
 				<hr>
-				<div style="display: flex; justify-content: space-between; flex-direction: row; padding:18px 16px;">
-					<span>작품 정보제공 고시</span>
-					<span id="wonInfoWorkButton" onclick="wonDisWorkInfoDo()" class="fa fa-arrow-down"></span>
-				</div>
-				<div id="wonDisWorkInfo" style="display:none; width:100%;">
-					<table style="width:100%;">
-						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; border:1px solid  width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">작품명</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">작품명</td>
-						</tr>
-						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>법에 의한 인증,허가 등을 받았음을 확인할 수 있는 경우 그에 대한 사항</span></th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
-						</tr>
-						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">제조자 / 제조국</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
-						</tr>
-					</table>
-				</div>
-				<hr>
-					<div style="display: flex; justify-content: space-between; flex-direction: row; padding:18px 16px;">
-						<span>판매 작가 정보</span>
-						<span id="wonInfoSellInfoButton" onclick="wonDisSellInfoDo()" class="fa fa-arrow-down"></span>
-					</div>
-				<div id="wonDisSellInfo" style="width:100%; display: none;">
-					<table style="width:100%;">
-						<tr>
-							<th style="border:1px #ABABAB solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">대표자명</th>
-							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">작품명</td>
-						</tr>
-						<tr>
-							<th style="border:1px #ABABAB solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">이메일</th>
-							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
-						</tr>
-						<tr>
-							<th style="border:1px #ABABAB solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">전화번호</th>
-							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
-						</tr>
-					</table>
-				</div>
-				<hr>
 					<div style="display: flex; justify-content: space-between; flex-direction: row; padding:18px 16px;">
 						<span>배송 교환 환불</span>
 					<span id="wonChangReturnButton" onclick="wonDisChangReturnDo()" class="fa fa-arrow-down"></span>
 					</div>
-				<div id="wonDisChangReturn" style="width:100%; display: none;">
+				<div id="wonDisChangReturn" style="width:100%; display: block;">
 					<table style="width:100%;">
 						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">배송비</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">작품명</td>
+							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">클래스 5일 전 취소 시</th>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">100% 환불</td>
 						</tr>
 						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>제작 / 배송</span></th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
+							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>클래스 4일 전 취소 시</span></th>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">클래스 금액의 5% 차감 후 환불</td>
 						</tr>
 						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">교환 / 환불</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
+							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">클래스 3일 전 취소 시</th>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">클래스 금액의 10% 차감 후 환불</td>
+						</tr>
+						<tr>
+							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">클래스 2일 전 취소 시</th>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">클래스 금액의 20% 차감 후 환불</td>
+						</tr>
+						<tr>
+							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">클래스 1일 전 취소 시</th>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">클래스 금액의 30% 차감 후 환불</td>
+						</tr>
+						<tr>
+							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">클래스 당일 취소나 불참 시</th>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: red;">환불 불가</td>
+						</tr>
+						<tr>
+							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">예약 당일 밤 12시 이전 취소 시</th>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">100% 환불</td>
 						</tr>
 					</table>
-				</div>
-				<hr>
-				<div style="padding: 2%; display: flex; justify-content: space-between; ">
-					<span>구매후기(구매후기 수)</span>
-					<button id="wonButtonReview" style="background: white;">구매후기작성하기</button>
-				</div>
-				<hr style="border: 1px solid black">
-				<!-- 구매후기 -->
-				<div style="width:100%; display: flex;justify-content: space-between;">
-					<div style="border-radius:50%; width:80%;display: flex; flex-direction: row;"><!-- 프로필 -->
-						<img style="width:10%;" src="<c:url value='/resources/img/test.png'/>">
-						<div>
-							<span style="font-size: 80%;">프로필이름</span><br>
-							<span style="color:#999999; font-size: 80%;">등록날짜</span>
-						</div>
-					</div>
-					<div>별점!</div>
-				</div>
-				<div>
-					구매후기 작성란!
-				</div>
+				</div>		
 				<!-- 구매후기 end -->
 				<hr>
-				<div style="display: flex; flex-direction: row; justify-content:center; margin: 2%;">
-						<a id="wonUproductPagingButtonPrev">
-							<span style="text-align: center;">&lt;이전 |</span>
-						</a>
-						<a id=wonUproductPagingButtonNext>
-							<span style="text-align: center;">| 다음&gt;</span>
-						</a>
-				</div>
 				
 				<div style="display: flex; justify-content: space-between; margin-top: 10%;; padding: ;">
 					<strong>댓글</strong><a style="color: #AFEEEE; font-size: 80%;" id="wonUProductReview">댓글 더보기</a>
@@ -411,100 +374,30 @@ function showSlides(n) {
 								<p style="padding: 1%; margin: 1%; font-size: 150%;">1000000 원</p>
 								<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 80%; text-decoration: line-through;">50000 원</p>
 							</div>
-							<div style="width: 30%; display:flex; justify-content: flex-end;">
-								<button style="background: white; border:none; display:flex; flex-direction: column; font-size: 60%;margin:1%; margin-top: 5%;">
-									<i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-									<span>200</span>
-								</button>
-								<button id="wonShareButton" style="background: white; border:none;">
-								<i class="fa fa-share-alt-square fa-3x" aria-hidden="true"></i>
-								</button>
-							</div>
 						</div>
-						<div style="display:flex; justify-content: flex-end; margin-right: 3%;">
-							<span style="color: #666666; font-weight: bold; font-size:14px; margin-right: 1%;">몇명</span>&nbsp;
-							<span style="color: #666666; font-size:14px;">구매</span><!-- 할인율 가격 판매제목  -->
-						</div>					
-						<div style="display:flex; flex-direction: row; padding: 1%; margin: 1%;">
-							<div style="display:flex; flex-direction: column; width:30%;">
-								<span style="margin: 3%; padding: 3%; color: #666666;">적립금</span>
-								<span style="margin: 3%; padding: 3%; color: #666666;">구매후기</span>
-								<span style="margin: 3%; padding: 3%; color: #666666;">배송비</span>
-								<span style="margin: 3%; padding: 3%; color: #666666;">수량</span>
+							<!-- 즐겨찾기 공유하기 -->
+							<div style="display: flex; flex-direction: row; margin: 1%;">
+								<button style="width: 47.5%;height:50px; margin: 1%; background-color: white; border:1px #ABABAB solid;">즐겨찾기</button>
+								<button style="width: 47.5%;height:50px; margin: 1%; background-color: white; border:1px #ABABAB solid;">공유하기</button>
 							</div>
-							<div style="display:flex; flex-direction: column; margin-left: 5%;width:30%;">
-								<span style="margin: 3%; padding: 3%;">70P</span>
-								<span style="margin: 3%; padding: 3%;">
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-								</span>
-								<span style="margin: 3%; padding: 3%;">2,500원</span>
-								<span style="margin: 3%; padding: 3%;">주문시 제작</span>
-							</div>
-						</div>
-						<div id="wonActionDisplay" style=" width: 80%; border: 1px solid; border-radius: 2px; background-color: #fff; font-size: 100%; vertical-align: baseline; display: none; flex-direction: column;">
-								<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 100%; vertical-align: baseline; box-sizing: border-box; border">
-									<span style="font-size: 12px;color: #fff;">전체옵션 선택</span>
-									<button id="wonAuctionClose" onclick="wonAuctionClose()" style="float: right; background-color: #333; border:none; color: #fff;">X</button>
+							<div style="width:94%; display: flex; flex-direction: row; justify-content: center; background-color: #f5f5f5; margin: 1%; padding: 1%;">
+								<div style="display: flex; flex-direction: column; width:30%;">
+									<span style="display: flex; justify-content: center; font-size: 12px; color: #999;">난이도</span>
+									<span style="display: flex; justify-content: center;">중</span>							
 								</div>
-								<!-- 선택사항 -->
-								<div>
-									<div>
-										<div style="display: flex; flex-direction: column;"><!-- 선택사항 1 -->
-											<div id="wonDetailAuction" onclick="wonDetailAuction()">
-												<span style="padding: 1%; margin: 1%;">사이즈</span>
-												<span style="padding: 1%; margin: 1%; margin-left: 60%;">선택출력</span>
-												<i style=" padding: 1%; margin: 1%; float: right;"class="fa fa-arrow-down"></i>
-											</div>
-											<div style="display: none; flex-direction: column;">
-												<button style="background-color: white;border: 1px #333 solid;"><span style="padding: 1%; margin: 1%;">500ml</span></button>
-												<button style="background-color: white;border: 1px #333 solid;"><span style="padding: 1%; margin: 1%;">700ml(+3000원)</span></button>
-											</div>
-										</div>
-									</div>
+								<div style="display: flex; flex-direction: column; width:30%;">
+									<span style="display: flex; justify-content: center; font-size: 12px; color: #999;">소요시간</span>
+									<span style="display: flex; justify-content: center;">1 시간</span>									
 								</div>
-								<!-- 선택사항  end -->
-							</div>
-						<div style="padding: 1%; margin: 1%;">
-							<button id="wonActionButton" style="width:80%; display: flex; justify-content: space-between; margin: 1%;"
-							onclick="wonAuctionOpen()">
-								<span>옵션</span>
-								<span id="wonActionArrow" style="margin: 1%;"class="fa fa-arrow-down"></span>
-							</button>
-							<div style="display: none; flex-direction:column; width:80%;margin: 1%; background-color: #F5F5F5;" id="wonActionDetailDisplay">
-								<div style="margin: 1%;padding: 1%;"><!-- 옵션 선택사항 -->
-									<span style="font-size: 80%; color: #666666; padding: 1%;">
-									향1: (NEW)스위트 머스캣(+1,000원)/ 향2: (NEW)스위트 머스캣(+1,000원)/ 향3: (NEW)스위트 머스캣(+1,000원)
-									</span>
-								</div>
-								<div style="display: flex; justify-content: space-between; margin: 1%;padding: 1%;">
-									<div style="display: flex; flex-direction: row;">
-										<button id="wonMinusButton" onclick="wonMinusButton()"><span style="border-color: #ABABAB;">-</span></button>
-										<input id="wonAuctionAmount" style="width:10%; text-align: center;" value="1" readonly>
-										<button id="wonPlusButton" onclick="wonPlusButton()"><span style="border-color: #ABABAB;">+</span></button>
-									</div>
-									<div>
-										<span style="font-size: 12px; color: #666666;">가격</span>
-										<button id="wonAuctionDetailClose" onclick="wonAuctionDetailClose()">X</button>
-									</div>
+								<div style="display: flex; flex-direction: column; width:30%;">
+									<span style="display: flex; justify-content: center; font-size: 12px; color: #999;">수업인원</span>
+									<span style="display: flex; justify-content: center;">4</span>								
 								</div>
 							</div>
-						</div>
-						<div style="display: flex; justify-content:space-between; padding: 1%; margin: 1%;">
-							<span>총작품금액</span>
-							<span style="font-size: 20px; color: #333333;">17,000 원</span>
-						</div>
-						<div style="display: flex; flex-direction: row; padding: 1%; margin: 1%;">
-							<button style="width:40%; background-color:white; 
-							height:80px; margin: 1%; border: 1px #333333 solid;">
-								<span style="color: #333333; font-size: 16px;">장바구니</span>
-							</button>
-							<button style="width:40%; margin: 1%;border: none; background: #f95677; font-style: 16px; color: white;">구매</button>
-							<button style="width:20%; margin: 1%">선물하기</button>
-						</div>
+							<div style="width: 100%; margin: 1%;">
+								<button style="width:95%; height:80px; margin: 1%;padding:1%; border: none; 
+								background: #f95677; font-style: 16px; color: white;">예약하기</button>
+							</div>
 					</div>
 				</div>
 			</div><!-- 상품정보 end -->
@@ -569,6 +462,46 @@ function showSlides(n) {
 	<%@ include file="include/uFooter.jsp" %>
 </div>
 </body>
+<script type="text/javascript"src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=be7458592e1d99d5cbb5c781b7ae5a77&libraries=services,clusterer"></script>
+
+<script type="text/javascript">
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};  
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+//주소로 좌표를 검색합니다
+geocoder.addressSearch('경기도 남양주시 와부읍 덕소로 97번길 34', function(result, status) {
+
+// 정상적으로 검색이 완료됐으면 
+ if (status === kakao.maps.services.Status.OK) {
+
+    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+    // 결과값으로 받은 위치를 마커로 표시합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: coords
+    });
+
+    // 인포윈도우로 장소에 대한 설명을 표시합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;"></div>'
+    });
+    infowindow.open(map, marker);
+
+    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    map.setCenter(coords);
+} 
+});    
+</script>
 </html>
 
 
