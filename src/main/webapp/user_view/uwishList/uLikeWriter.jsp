@@ -140,7 +140,6 @@ body a:link, a:visited, a:hover, a:active {
 	width:505px;
 	height:168.25px;
 	padding:0;
-	/*display:none;*/
  
 }
 
@@ -280,7 +279,7 @@ function showSlides(n) {
 							</div>
 							</div>
 						</div>
-					
+
 					<!-- 이미지 슬라이더 -->
 					<div class="joenga-wprofile-imageslider">
 					 	<div class="jeonga-imageSlides-buttons">
