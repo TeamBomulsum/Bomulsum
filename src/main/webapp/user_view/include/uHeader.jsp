@@ -40,7 +40,8 @@ body {
 	border: 1px solid #d9d9d9;
 }
 
-.dainheader a:link, a:visited, a:hover, a:active {
+
+.dain-header-topA:link, .dain-header-topA:visited, .dain-header-topA:hover, .dain-header-topA:active {
 	text-decoration: none;
 	color: #666666;
 	border: none;
@@ -56,7 +57,7 @@ body {
 	font-size: 11px;
 }
 
-.dainheader-top a {
+.dain-header-topA {
 	margin-left: 12px;
 	margin-right: 12px;
 }
@@ -80,9 +81,14 @@ body {
 	font-size: 18px;
 }
 
-.dainheader-middle-menu a:link, a:visited, a:hover, a:active {
-	text-decoration: none;
+.dainheader-middle-menu-a{
 	color: #666666; /*grey*/
+}
+
+.dainheader-middle-menu-a:link, .dainheader-middle-menu-a:visited, 
+.dainheader-middle-menu-a:hover, .dainheader-middle-menu-a:active {
+	color: #666666; /*grey*/
+	text-decoration: none;
 	border: none;
 }
 
@@ -114,7 +120,7 @@ body {
 	color: black;
 }
 
-.middle-search-form input:focus {
+.middle-search-form > input:focus {
 	outline: none;
 }
 
@@ -184,7 +190,7 @@ body {
 }
 
 /*메뉴 간격조정*/
-.dainheader-bottom-inner div{
+.dainheader-bottom-inner > div{
 	margin-right: 20px;
 }
 
@@ -194,28 +200,32 @@ body {
 
 
 /*메뉴에 언더라인 주는거*/
-.dainheader-bottom-inner a {
+.dain-hb-menu {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-right: 5px;
 	padding-left: 5px;
+	color: #666666;
 }
 
-.dainheader-bottom-inner a:hover, a:active {
+.dain-hb-menu:link, dain-hb-menu:visited {
+	text-decoration: none;
+	color: #666666; 
+}
+
+.dain-hb-menu:hover, dain-hb-menu:active {
 	text-decoration: none;
 	color: #1f76bb;
 	border-bottom: 1px solid #1f76bb;
 }
 
-.dainheader-bottom-inner a:link, a:visited {
-	text-decoration: none;
-	color: #666666; /*grey*/
-}
+
 
 .cathover {
 	position: relative;
 	display: inline-block;
 	padding: 10px 5px;
+	color: #666666;
 }
 
 .cathover:hover .dropdown-content {
@@ -243,30 +253,34 @@ body {
 	color: black;
 }
 
-.menu a {
+.dainCatA {
 	padding: 2px;
 	margin: 10px;
 	text-decoration: none;
 	display: block;
+	color: black;
 }
 
-.menu li {
+.dainCatLi {
 	background: #fff;
 	margin: 3px;
 }
 
-.menu ul {
+.dainCatUl {
 	list-style-type: none;
 	margin: 0px;
 	padding: 0px;
 	width: 200px;
 }
 
-.menu li a:hover:not(.active) {
+
+.dainCatA:hover {
 	background-color: #cce5ff;
 	color: black;
 	border: none;
+	text-decoration: none;
 }
+
 
 .cartcountshape {
 	width: 18px;
@@ -296,9 +310,7 @@ body {
     font-size: 12px;
 }
 
-.dainToTop span{
-	text-decoration: none;
-}
+
 </style>
 </head>
 <body>
@@ -307,9 +319,9 @@ body {
 <div class="dainheader-top">
 	<div class="dainheader-top-inner">
 	<div class="dainheader-top-link">
-		<a href="#">로그인</a>
-		<a href="#">회원가입</a>
-		<a href="#">고객센터</a>
+		<a class="dain-header-topA" href="#">로그인</a>
+		<a class="dain-header-topA" href="#">회원가입</a>
+		<a class="dain-header-topA" href="#">고객센터</a>
 	</div>
 	</div>
 </div>
@@ -322,8 +334,8 @@ body {
 			<a href="#"><img alt="logo" src="<c:url value='/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
 		</div>
 		<div class="dainheader-middle-menu">
-			<a href="#" style="margin-right: 30px; color: #1f76bb;" >작품</a>
-			<a href="#" style="margin-right: 30px;">금손 클래스</a>
+			<a class="dainheader-middle-menu-a" href="#" style="margin-right: 30px; color: #1f76bb;" >작품</a>
+			<a class="dainheader-middle-menu-a" href="#" style="margin-right: 30px;">금손 클래스</a>
 		</div>
 		<!-- 검색창 영역 -->
 		<div class="dainheader-middle-search">
@@ -357,47 +369,50 @@ body {
 	</div>
 </div>
 <!-- Header 하단 메뉴영역 -->
-<div class="dainheader-bottom">
+<div class="dainheader-bottom" >
 	<div class="dainheader-bottom-inner">
 		<div class="cathover" ><div style="height: 40px; display: table-cell; vertical-align: middle;">카테고리</div>
-			<div class="dropdown-content" style="padding: 4px 0px 4px 0px; background-color: #fff;" >
+			<div class="dropdown-content" style="padding: 4px 0px 4px 0px; color: #666666; background-color: #fff;" >
 				<div class="menu">
-				<ul style="background-color: #fff; padding-left: 5px; margin-top:15px; margin-bottom:15px;" >
-				  <li><a href="#">식음료</a></li>
-				  <li><a href="#">문구팬시</a></li>
-				  <li><a href="#">전자기기</a></li>
-				  <li><a href="#">패션잡화</a></li>
+				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
+				margin-bottom:15px;" >
+				  <li class="dainCatLi"><a class="dainCatA" href="#">식음료</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="#">문구팬시</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="#">전자기기</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="#">패션잡화</a></li>
 				</ul>
-				<ul style="background-color: #fff; padding-left: 5px; margin-top:15px; margin-bottom:15px; border-left: 1px solid #d9d9d9; border-right: 1px solid #d9d9d9">
-				  <li><a href="#">반려동물 용품</a></li>
-				  <li><a href="#">인테리어 소품</a></li>
-				  <li><a href="#">신발</a></li>
-				  <li><a href="#">의류</a></li>
+				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
+				margin-bottom:15px; border-left: 1px solid #d9d9d9; border-right: 1px solid #d9d9d9">
+				  <li class="dainCatLi"><a class="dainCatA" href="#">반려동물 용품</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="#">인테리어 소품</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="#">신발</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="#">의류</a></li>
 				</ul>
-				<ul style="background-color: #fff; padding-left: 5px; margin-top:15px; margin-bottom:15px;">
-				  <li><a href="#">육아,아동</a></li>
-				  <li><a href="#">인형,장난감</a></li>
-				  <li><a href="#">공예</a></li>
-				  <li><a href="#">기타</a></li>
+				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
+				margin-bottom:15px;">
+				  <li class="dainCatLi"><a class="dainCatA" href="#">육아,아동</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="#">인형,장난감</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="#">공예</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="#">기타</a></li>
 				</ul>
 				</div>
    			</div>
 		</div>
-		<div><a href="#">홈</a></div>
-		<div><a href="#">추천 작품</a></div>
-		<div><a href="#">실시간 후기</a></div>
-		<div><a href="#">작가님 추천</a></div>
-		<div><a href="#">스토리</a></div>
-		<div><a href="#">인기작가</a></div>
-		<div><a href="#">인기작품</a></div>
+		<div><a class="dain-hb-menu" href="#">홈</a></div>
+		<div><a class="dain-hb-menu" href="#">추천 작품</a></div>
+		<div><a class="dain-hb-menu" href="#">실시간 후기</a></div>
+		<div><a class="dain-hb-menu" href="#">작가님 추천</a></div>
+		<div><a class="dain-hb-menu" href="#">스토리</a></div>
+		<div><a class="dain-hb-menu" href="#">인기작가</a></div>
+		<div><a class="dain-hb-menu" href="#">인기작품</a></div>
 	</div>
 </div>
 </header>
 <!-- Header 끝 -->
 
 <!-- 탑으로 가는 버튼 -->
-<a href="#dainHeader" class="dainToTop" style="display: none; bottom: 66px; color: #fff;">
-    <i class="fa fa-angle-up fa-lg" ></i><span style="padding:0px; margin: 0px; display: block;">Top</span>
+<a href="#dainHeader" class="dainToTop" style="display: none; bottom: 66px; color: #fff; text-decoration: none;">
+    <i class="fa fa-angle-up fa-lg" ></i><span style="padding:0px; margin: 0px; display: block; ">Top</span>
 </a>
 </body>
 </html>
