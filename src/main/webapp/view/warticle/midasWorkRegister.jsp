@@ -165,7 +165,7 @@ function setThumbnail(event) {
                      <td class="left">강의명</td>
                      <td><div class="workNameRegister">
                            <input type="text" id="workName" maxlength="20" autocomplete="off"> <span
-                              id="nameCounter"> 0/20</span>
+                              id="nameCounter"></span>
                         </div></td>
                   </tr>
                   <tr>

@@ -303,11 +303,117 @@ form {
 			</div>
 			<!-- header -->
 			<!-- body -->
-			
-			<!-- end body -->
-				<div class="modal-footer" style="display: flex; flex-direction: column;">
-						<button data-dismiss="modal"aria-label="Close">닫음</button>
+			<div>
+				<table class="basicInfoTable"style="padding: 1%; margin: 1%; width:100%;">
+				<tr style="border-bottom: 1px solid #ABABAB; padding: 1%;margin: 1%;">
+<!-- 강의명 -->		<td style="border-right: 1px solid #ABABAB;  background-color: #f2f2f2;">강의명</td>
+					<td>
+						<div style="padding: 1%;margin: 1%;">
+							<span>강의명</span>
+						</div>
+					</td>
+				</tr>
+				<tr style="border-bottom: 1px solid #ABABAB; padding: 1%;margin: 1%;">
+					<td style="border-right: 1px solid #ABABAB;  background-color: #f2f2f2;">날짜</td>
+					<td style="padding: 1%;margin: 1%;">2020년 1월 1일&nbsp;~&nbsp; 
+					2020년 12월 31일</td>
+				</tr>
+				<tr style="border-bottom: 1px solid #ABABAB; padding: 1%;margin: 1%;">
+					<td style="border-right: 1px solid #ABABAB;  background-color: #f2f2f2;">요일</td>
+					<td style="padding: 1%;margin: 1%;">
+						월&nbsp; 
+						화&nbsp; 
+						수&nbsp; 
+						목&nbsp; 
+						금&nbsp; 
+						토&nbsp; 
+						일
+				</tr>
+				<tr style="border-bottom: 1px solid #ABABAB; padding: 1%;margin: 1%;">
+					<td style="border-right: 1px solid #ABABAB;  background-color: #f2f2f2;">시간</td>
+					<td style="padding: 1%;margin: 1%;">
+						오전 01시 00분&nbsp;~&nbsp;
+						오후 01시 00분
+					</td>
+				</tr>
+				<tr style="border-bottom: 1px solid #ABABAB; padding: 1%; margin: 1%;">
+					<td style="border-right: 1px solid #ABABAB; background-color: #f2f2f2;">강의설명</td>
+					<td style="padding: 1%;margin: 1%;">
+						작품설명이다
+					</td>
+				</tr>
+				<tr style="padding: 1%; margin: 1%;">
+					<td style="border-right: 1px solid #ABABAB;  background-color: #f2f2f2;">카테고리</td>
+					<td style="padding: 1%;margin: 1%;">
+						공예
+					</td>
+				</tr>
+			</table>
+				<div style="border: 1px solid #ABABAB; width: 100%;">
+					<div style="display: flex; justify-content: center;">
+							<h4 style="padding: 1%; margin-right: 7%;">인원정보</h4>
+					</div>
+					<table style="display: flex;  width: 100%;">
+						<tbody style="width: 100%;">
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							<tr style="display: flex; padding:1%; width: 100%; justify-content: space-between;">
+								<td style="margin-left:15%; display: flex; padding:1%;">조원희</td>
+								<td style="display: flex; padding:1%;">abc@abc.com</td>
+								<td style="margin-right:15%; display: flex; padding:1%;">010-1234-1234</td>
+							</tr>
+							
+					</tbody>
+					</table>
 				</div>
+			<!-- end body -->
+			<div class="modal-footer" style="display: flex; flex-direction: column;">
+					<button data-dismiss="modal"aria-label="Close">닫음</button>
+			</div>
+			</div>
 		</div>
 	</div>
 </div>
