@@ -64,8 +64,8 @@ body a:link, a:visited, a:hover, a:active {
 			</div>
 		</div>
 		<div style="maring-top:1%;">
-				<div style="display: flex; flex-direction: row;">
-					<div id="wonBookContent" style="width: 25%; text-decoration: none; margin:1%;">
+				<div style="display: flex; flex-wrap: wrap;">
+					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
 							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >
@@ -78,7 +78,7 @@ body a:link, a:visited, a:hover, a:active {
 							&nbsp;<span style="color: #ABABAB; font-size: 60%;">후기내용</span>
 						</a>
 					</div>
-					<div id="wonBookContent" style="width: 25%; text-decoration: none; margin:1%;">
+					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
 							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >
@@ -91,7 +91,7 @@ body a:link, a:visited, a:hover, a:active {
 							&nbsp;<span style="color: #ABABAB; font-size: 60%;">후기내용</span>
 						</a>
 					</div>
-					<div id="wonBookContent" style="width: 25%; text-decoration: none; margin:1%;">
+					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
 							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >
@@ -104,7 +104,7 @@ body a:link, a:visited, a:hover, a:active {
 							&nbsp;<span style="color: #ABABAB; font-size: 60%;">후기내용</span>
 						</a>
 					</div>
-					<div id="wonBookContent" style="width: 25%; text-decoration: none; margin:1%;">
+					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
 							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >
@@ -117,7 +117,7 @@ body a:link, a:visited, a:hover, a:active {
 							&nbsp;<span style="color: #ABABAB; font-size: 60%;">후기내용</span>
 						</a>
 					</div>
-					<div id="wonBookContent" style="width: 25%; text-decoration: none; margin:1%;">
+					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
 							<img style="width: 100%;" src="<c:url value='/resources/img/test.png'/>" >
