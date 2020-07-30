@@ -13,7 +13,7 @@
 	<mvc:annotation-driven/>
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/view/"/>
+		<property name="prefix" value="/WEB-INF/views/writer_view/"/>
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
