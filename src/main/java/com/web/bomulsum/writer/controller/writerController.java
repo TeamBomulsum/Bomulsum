@@ -11,4 +11,9 @@ public class writerController {
 		return "home";
 	}
 	
+	@GetMapping("/wpolicyguide")
+	public String policy_guid() {
+		return "wborder/policy_guide";
+	}
+	
 }
