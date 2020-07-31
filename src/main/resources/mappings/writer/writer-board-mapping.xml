@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="writerBoardDAO">
+	
+	<select id="writerBoardSelect" parameterType="writerBoardVO">
+		SELECT * FROM admin_notice_tb
+		WHERE admin_notice_category LIKE '%'||#{admin_notice_category}||'%'
+		ORDER BY admin_notice_title DESC
+	</select>
+	
+</mapper>
