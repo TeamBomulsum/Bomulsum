@@ -320,7 +320,7 @@ body {
 	<div class="dainheader-top-inner">
 	<div class="dainheader-top-link">
 		<a class="dain-header-topA" href="user/login.do">로그인</a>
-		<a class="dain-header-topA" href="#">회원가입</a>
+		<a class="dain-header-topA" href="user/newAccount.do">회원가입</a>
 		<a class="dain-header-topA" href="#">고객센터</a>
 	</div>
 	</div>

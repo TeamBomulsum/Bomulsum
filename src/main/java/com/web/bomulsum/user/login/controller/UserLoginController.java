@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,12 +66,16 @@ public class UserLoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/insertUserData")
-	public ModelAndView insertVo(MemberVO vo, ModelAndView mav) {
+	@RequestMapping(value="/insertUserData", method=RequestMethod.POST)
+	public void insertVo(MemberVO vo) {
+		vo.getMemberEmail();
 		service.insertMember(vo);
 		System.out.println(vo.toString());
-		mav.setViewName("");
-		return mav;
+	}
+	
+	@RequestMapping(value="/successNewAccount")
+	public String successNewAccount() {
+		return "usuccessNewAccountEmail";
 	}
 	
 	
