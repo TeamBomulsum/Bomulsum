@@ -156,13 +156,13 @@ input[type=button]{
             			<input style="width: 100%; padding: 3% 0; margin-bottom:2%" type="button" value="#"/>
             			<input style="width: 100%; padding: 3% 0; margin-bottom:2%" type="button" value="#"/>
             			<input style="width: 100%; padding: 3% 0; margin-bottom:2%; border:2px solid #1f76bb; 
-            				background-color:white; color:#1f76bb; font-weight:bold" type="button" value="이메일로 가입하기" onclick="location.href='newAccountEmail.jsp'"/>
+            				background-color:white; color:#1f76bb; font-weight:bold" type="button" value="이메일로 가입하기" onclick="location.href='newAccountEmail.do'"/>
             		</div>
             		
             		<div style="display:flex; justify-content:center; height:50px;">
             			<p>
             				<a>이미 가입하셨다면</a>
-            				<a href="login.jsp" style="color: black">바로 로그인하기</a>
+            				<a href="login.do" style="color: black">바로 로그인하기</a>
             			</p>
             		</div>
             		

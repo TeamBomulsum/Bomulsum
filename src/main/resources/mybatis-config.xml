@@ -3,11 +3,13 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.web.bomulsum.user.repository.userVO"
-			alias="bomulsum" />
+		<typeAlias type="com.web.bomulsum.user.repository.userVO" alias="bomulsum" />
+			
+		<typeAlias type="com.web.bomulsum.user.login.repository.MemberVO" alias="memberVO"/>
 	</typeAliases>
 
 	<mappers>
+		<mapper resource="mappings/user/login-mapping.xml" />
 		<mapper resource="mappings/board-mapping.xml" />
 	</mappers>
 </configuration>

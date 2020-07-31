@@ -346,7 +346,7 @@ function start_timer(){
 			
 			
 			$.ajax({
-				url : "/bomulsum/user_view/ulogin/unewAccountEmail.do",
+				url : "/bomulsum/user/smsCheck.do",
 				//?msg=" + sendMsg + "&receiver=" + receiveNum
 				data : {
 					msg : sendMsg,
@@ -755,6 +755,27 @@ function start_timer(){
 			}else{
 				alert("회원가입 성공!");
 				// 회원가입 후 로직
+				$.ajax({
+					type:"POST",
+					url:'insertUserData.do',
+					data:{
+						"memberEmail" : $(".emailFail").val(),
+						"memberPassword" : $(".pwFail").val(),
+						"memberPhone" : $(".phoneFail").val(),
+						"memberName" : $(".nameFail").val(),
+						"memberRecCode" : $("#friendCode").val(),
+						"memberTermAgree" : $("#usePolicy").is(":checked"),
+						"memberPrivateAgree" : $("#userInfo").is(":checked"),
+						"memberSmsAgree" : $("#couponEvent").is(":checked"),
+						"memberEmailAgree" : $("#couponEvent").is(":checked")
+					},
+					success:function(){
+						console.log("데이터 전송 성공");
+					},
+					error:function(){
+						console.log("데이터 전송 실패");
+					}
+				});
 			}
 		});
 		

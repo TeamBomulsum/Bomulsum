@@ -90,7 +90,7 @@
             			<input style="width: 95%; padding: 3% 0;" type="button" id="login" value="로그인">
             		</div>
             		<div style="display: flex; flex-direction: row; justify-content: center; height:50px; margin-bottom:3%"> 
-	            		<input style="width: 95%; padding: 3% 0;" type="button" id="newAccount" value="회원가입" onclick="location.href ='newAccount.jsp'">
+	            		<input style="width: 95%; padding: 3% 0;" type="button" id="newAccount" value="회원가입" onclick="location.href ='newAccount.do'">
             		</div>
             		
             		<div id="firstNewAccount" style="flex-direction: row; justify-content: center; height:50px; display:none;">
