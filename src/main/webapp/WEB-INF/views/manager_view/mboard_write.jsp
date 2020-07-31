@@ -92,8 +92,7 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="#">게시판 목록</a> <a
-							class="collapse-item" href="#">게시판 등록</a> <a
-							class="collapse-item" href="#">알림 등록</a>
+							class="collapse-item" href="#">게시판 등록</a> 
 					</div>
 				</div></li>
 
@@ -101,13 +100,12 @@
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#salseNcoupone"
 				aria-expanded="true" aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-wrench"></i> <span>매출/쿠폰</span>
+					class="fas fa-fw fa-wrench"></i> <span>매출</span>
 			</a>
 				<div id="salseNcoupone" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">매출통계</a> <a
-							class="collapse-item" href="#">쿠폰</a>
+						<a class="collapse-item" href="#">매출통계</a>
 					</div>
 				</div></li>
 

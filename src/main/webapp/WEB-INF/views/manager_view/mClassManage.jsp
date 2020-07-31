@@ -76,8 +76,7 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="#">게시판 목록</a> <a
-							class="collapse-item" href="#">게시판 등록</a> <a
-							class="collapse-item" href="#">알림 등록</a>
+							class="collapse-item" href="#">게시판 등록</a> 
 					</div>
 				</div></li>
 
