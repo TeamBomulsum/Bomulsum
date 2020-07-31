@@ -5,7 +5,8 @@
 <mapper namespace="MemberDAO">
 
 	<insert id="insertMember" parameterType="memberVO">
-		INSERT INTO tablename1 (columnname1, columnname2, columnname3)
+		INSERT INTO member_tb (member_code_seq, member_email, member_password,
+		member_name, member_phone, member_rec_code, member_term)
 		VALUES(#{value1},#{value2},#{value3})
 	</insert>
 

@@ -6,10 +6,8 @@ public class MemberVO {
 	private String memberName;
 	private String memberPhone;
 	private String memberRecCode;
-	private boolean memberTermAgree;
-	private boolean memberPrivateAgree;
-	private boolean memberSmsAgree;
-	private boolean memberEmailAgree;
+	private char memberSmsAgree;
+	private char memberEmailAgree;
 	
 	
 	public String getMemberName() {
@@ -42,37 +40,25 @@ public class MemberVO {
 	public void setMemberRecCode(String memberRecCode) {
 		this.memberRecCode = memberRecCode;
 	}
-	public boolean isMemberTermAgree() {
-		return memberTermAgree;
-	}
-	public void setMemberTermAgree(boolean memberTermAgree) {
-		this.memberTermAgree = memberTermAgree;
-	}
-	public boolean isMemberPrivateAgree() {
-		return memberPrivateAgree;
-	}
-	public void setMemberPrivateAgree(boolean memberPrivateAgree) {
-		this.memberPrivateAgree = memberPrivateAgree;
-	}
-	public boolean isMemberSmsAgree() {
+	public char getMemberSmsAgree() {
 		return memberSmsAgree;
 	}
-	public void setMemberSmsAgree(boolean memberSmsAgree) {
+	public void setMemberSmsAgree(char memberSmsAgree) {
 		this.memberSmsAgree = memberSmsAgree;
 	}
-	public boolean isMemberEmailAgree() {
+	public char getMemberEmailAgree() {
 		return memberEmailAgree;
 	}
-	public void setMemberEmailAgree(boolean memberEmailAgree) {
+	public void setMemberEmailAgree(char memberEmailAgree) {
 		this.memberEmailAgree = memberEmailAgree;
 	}
 	@Override
 	public String toString() {
 		return "MemberVO [memberEmail=" + memberEmail + ", memberPassword=" + memberPassword + ", memberName="
-				+ memberName + ", memberPhone=" + memberPhone + ", memberRecCode=" + memberRecCode
-				+ ", memberTermAgree=" + memberTermAgree + ", memberPrivateAgree=" + memberPrivateAgree
-				+ ", memberSmsAgree=" + memberSmsAgree + ", memberEmailAgree=" + memberEmailAgree + "]";
+				+ memberName + ", memberPhone=" + memberPhone + ", memberRecCode=" + memberRecCode + ", memberSmsAgree="
+				+ memberSmsAgree + ", memberEmailAgree=" + memberEmailAgree + "]";
 	}
+
 	
 	
 	

@@ -764,10 +764,8 @@ function start_timer(){
 						"memberPhone" : $(".phoneFail").val(),
 						"memberName" : $(".nameFail").val(),
 						"memberRecCode" : $("#friendCode").val(),
-						"memberTermAgree" : $("#usePolicy").is(":checked"),
-						"memberPrivateAgree" : $("#userInfo").is(":checked"),
-						"memberSmsAgree" : $("#couponEvent").is(":checked"),
-						"memberEmailAgree" : $("#couponEvent").is(":checked")
+						"memberSmsAgree" : $("#couponEvent").is(":checked") ? 'Y' : 'N',
+						"memberEmailAgree" : $("#couponEvent").is(":checked") ? 'Y' : 'N'
 					},
 					success:function(){
 						console.log("데이터 전송 성공");

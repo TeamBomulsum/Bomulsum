@@ -10,6 +10,8 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	
+	public void insertMember(MemberVO vo) {
+		sqlSessionTemplate.insert("MemberDAO.insertMember", vo);
+	}
 	
 }

@@ -2,6 +2,7 @@ package com.web.bomulsum.user.login.controller;
 
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.user.login.repository.MemberVO;
+import com.web.bomulsum.user.login.service.MemberServiceImpl;
 
 import net.nurigo.java_sdk.api.Message;
 
 @Controller
 @RequestMapping(value = "/user")
 public class UserLoginController {
+	
+	@Autowired
+	MemberServiceImpl service;
 
 	@GetMapping("/login")
 	public String userLogin() {
@@ -62,10 +67,8 @@ public class UserLoginController {
 	@ResponseBody
 	@RequestMapping(value = "/insertUserData")
 	public ModelAndView insertVo(MemberVO vo, ModelAndView mav) {
-		
-//		~~.
+		service.insertMember(vo);
 		System.out.println(vo.toString());
-		
 		mav.setViewName("");
 		return mav;
 	}
