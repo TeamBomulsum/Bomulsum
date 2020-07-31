@@ -545,14 +545,31 @@ function start_timer(){
 				// DB 접근 존재하는 이메일 처리해줘야함
 				
 				/*else if(~~~){
-					$(".emailFail").css("border", "1px solid #d8524a");
-					$("#emailFail").css("display", "block");
-					$("#emailFail").text("이미 존재하는 이메일입니다.");
-					$(".emailFail").css("margin-bottom","2%");
+					
 				}*/
 			}
 		}
 		$(".emailFail").blur(emailF);
+		$(".emailFail").keyup(function(){
+			$.ajax({
+				type:"GET",
+				url:'checkEmail.do',
+				data:{
+					"memberEmail" : $(".emailFail").val()
+				},
+				success:function(data){
+					console.log(data);
+					if(data == 1){
+						$(".emailFail").css("border", "1px solid #d8524a");
+						$("#emailFail").css("display", "block");
+						$("#emailFail").text("이미 존재하는 이메일입니다.");
+						$(".emailFail").css("margin-bottom","2%");
+					}
+				},
+				error:function(data){
+				}
+			});
+		});
 		
 		
 		
@@ -769,7 +786,8 @@ function start_timer(){
 					},
 					success:function(){
 						console.log("데이터 전송 성공");
-						location.href="successNewAccount.do";
+						var name = $('.nameFail').val();
+						location.href="successNewAccount.do?memberName=" + name;
 					},
 					error:function(){
 						console.log("데이터 전송 실패");

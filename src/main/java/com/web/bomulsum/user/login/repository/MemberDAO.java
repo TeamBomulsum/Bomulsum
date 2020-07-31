@@ -14,4 +14,8 @@ public class MemberDAO {
 		sqlSessionTemplate.insert("MemberDAO.insertMember", vo);
 	}
 	
+	public int checkEmail(String memberEmail) {
+		return sqlSessionTemplate.selectOne("MemberDAO.checkEmail", memberEmail);
+	}
+	
 }

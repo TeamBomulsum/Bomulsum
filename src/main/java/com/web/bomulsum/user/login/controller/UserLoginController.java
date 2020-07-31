@@ -2,6 +2,7 @@ package com.web.bomulsum.user.login.controller;
 
 import java.util.HashMap;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.user.login.repository.MemberVO;
 import com.web.bomulsum.user.login.service.MemberServiceImpl;
 
 import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -68,16 +69,21 @@ public class UserLoginController {
 	@ResponseBody
 	@RequestMapping(value="/insertUserData", method=RequestMethod.POST)
 	public void insertVo(MemberVO vo) {
-		vo.getMemberEmail();
 		service.insertMember(vo);
 		System.out.println(vo.toString());
 	}
 	
 	@RequestMapping(value="/successNewAccount")
 	public String successNewAccount() {
-		return "usuccessNewAccountEmail";
+		System.out.println("controller ¡¯¿‘!");
+		return "/ulogin/usuccessNewAccountEmail";
 	}
 	
+	
+	@RequestMapping(value="/checkEmail", method=RequestMethod.GET)
+	public @ResponseBody int checkEmail(@RequestParam String memberEmail){
+		return service.checkEmail(memberEmail);
+	}
 	
 
 }
