@@ -769,6 +769,7 @@ function start_timer(){
 					},
 					success:function(){
 						console.log("데이터 전송 성공");
+						location.href="successNewAccount.do";
 					},
 					error:function(){
 						console.log("데이터 전송 실패");
@@ -776,6 +777,10 @@ function start_timer(){
 				});
 			}
 		});
+		
+		$("#toHome").click(function(event){ // 로고 이미지 클릭 시.
+    		location.href="/bomulsum/home.do";
+    	});
 		
 		
 	});

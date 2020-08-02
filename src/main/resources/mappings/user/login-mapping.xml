@@ -6,8 +6,9 @@
 
 	<insert id="insertMember" parameterType="memberVO">
 		INSERT INTO member_tb (member_code_seq, member_email, member_password,
-		member_name, member_phone, member_rec_code, member_term)
-		VALUES(#{value1},#{value2},#{value3})
+		member_name, member_phone, member_rec_code, member_sms_agree, member_email_agree)
+		VALUES('member_code_sq' || TO_CHAR(member_code_sq.nextval),#{memberEmail},#{memberPassword},
+		#{memberName}, #{memberPhone}, #{memberRecCode}, #{memberSmsAgree}, #{memberEmailAgree})
 	</insert>
 
 	<!-- <select id="getSomething" parameterType="int" resultType="#package.#modelname">

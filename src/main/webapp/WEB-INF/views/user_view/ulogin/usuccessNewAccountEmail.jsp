@@ -123,14 +123,14 @@
 <!-- Core plugin JavaScript-->
 <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/> "></script>
 <script>
-var tt=100;
+var tt=3;
 
 var timeout = setInterval(function(){ // 윈도우 로드후 5초간의 시간.
 	if(tt >= 0){
 		$("#dndud_time").html(tt);
 	}else{
 		clearInterval(tt);
-		location.href="home.jsp" // 홈화면 경로
+		location.href="home.do" // 홈화면 경로
 	}
 	tt--;
 }, 1000);
