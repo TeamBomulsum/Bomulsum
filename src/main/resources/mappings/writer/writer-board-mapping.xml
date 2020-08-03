@@ -16,14 +16,12 @@
 	</resultMap>
 
 	
+	
 	<select id="getPolicyGuideBoard" resultType="writerBoardVO" parameterType="String">
 		SELECT admin_notice_title, admin_notice_date , admin_notice_seq
 		FROM admin_notice_tb 
 		WHERE admin_notice_category in ('작가용-정책등록가이드')
 	</select>
-	
-
-
 	
 	<select id="getAnnouncementBoard" parameterType="String" resultType="writerBoardVO">
 		SELECT
