@@ -22,7 +22,11 @@
 			#{adminNoticeCoupon}
 		)
 	</insert>
-
+	
+	<!-- 여기서 패키지 이름을 풀로 안쓸거면, mybatis-config.xml에서 얼라이어스 설정 해주면 된다. -->
+	<select id="selectMBoard" resultType="com.web.bomulsum.manager.board.repository.MBoardListVO">
+		SELECT * FROM admin_notice_tb
+	</select>
 
 <!-- 
 	<select id="getSomething" parameterType="int" resultType="#package.#modelname">

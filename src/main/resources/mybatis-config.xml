@@ -3,7 +3,8 @@
 
 <configuration>
 	<typeAliases>
-			
+		
+		
 		<typeAlias type="com.web.bomulsum.user.login.repository.MemberVO" alias="memberVO"/>
 		
 		<!-- 다인 테스트-->

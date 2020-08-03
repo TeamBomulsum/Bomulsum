@@ -36,14 +36,17 @@
         vertical-align: middle;
     }
     .minwoo_table_table_bordered_body tr td:nth-child(1){
-        width:10%;
+        width:20%;
     }
-    .minwoo_table_table_bordered_body tr td:nth-child(2){
-        width:25%;
+    .minwoo_table_table_bordered_body tr td:nth-child(3){
+    width:15%;
     }
     .minwoo_table_table_bordered_body tr td a{
         text-decoration: none;
         color:#858796;
+    }
+    .openUpdateModal{
+    	cursor:pointer;
     }
     </style>
 
@@ -242,46 +245,28 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <table class="table table-bordered" id="dataTable">
                     <thead  class="minwoo_table_table_bordered_head">
                       <tr>
-                        <th>사용자<br>(회원용/작가용)</th>
-                        <th>게시판 이름<br>(공지사항, 자주 묻는 질문, 판매/정책 가이드)</th>
+                        <th>게시판 이름</th>
                         <th>글 제목</th>
                         <th>등록 날짜</th>
                       </tr>
                     </thead>
                     <tbody class="minwoo_table_table_bordered_body">
+                    <!-- .length 안써도 리스트 그대로 받아옴.-->
+                    <c:forEach var="i" items="${mboardList}" >
                       <tr>
-                        <td>회원용</td>
-                        <td>공지사항</td>
-                        <td><a href="#">보물섬 보물</a></td>
-                        <td>2011/04/25</td>
+                        <td>${i.admin_notice_category}</td>
+                        <td data-toggle="modal" 
+                            data-target="#staticBackdrop2" 
+                            class="openUpdateModal">${i.admin_notice_title} </td>
+                        <td>${i.admin_notice_date}</td>
+                        <td style="display:none;">${i.admin_notice_seq}</td>
+                        <td style="display:none;">${i.admin_notice_content}</td>
+                        <td style="display:none;">${i.admin_notice_coupon}</td>
                       </tr>
-                      <tr>
-                          <td>회원용</td>
-                          <td>자주 묻는 질문</td>
-                          <td><a href="#">내 집 마련은 어떻게 하나요?</a></td>
-                          <td>2011/04/25</td>
-                      </tr>
-                      <tr>
-                          <td>작가용</td>
-                          <td>공지사항</td>
-                          <td><a href="#">보물섬 보물</a></td>
-                          <td>2011/04/25</td>
-                      </tr>
-                      <tr>
-                          <td>작가용</td>
-                          <td>자주 묻는 질문</td>
-                          <td><a href="#">통신판매업 신고는 어떻게 하나요?</a></td>
-                          <td>2011/04/25</td>
-                      </tr>
-                      <tr>
-                          <td>작가용</td>
-                          <td>판매/정책 가이드</td>
-                          <td><a href="#">우스키랄라 키메루때 아비야비야무</a></td>
-                          <td>2011/04/25</td>
-                      </tr>
+                    </c:forEach>
                     </tbody>
                   </table>
                 </div>
@@ -336,22 +321,94 @@
     </div>
   </div>
 
+
+  	<!-- detail content modal -->
+       <div class="modal fade" id="staticBackdrop2" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg" role="document" style="max-width:1000px;">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="modal-category"></h5>
+                     <button type="button" class="close" data-dismiss="modal"aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                     </button>
+               </div>
+               <div  style="display:flex; border-bottom: 1px solid #d9d9d9; height: 50px; margin:12px 30px 6px 30px; align-items: center; " >
+                  <div id="staticBackdropTitle" style="font-weight: bold; font-size: 18px; color:#4273df;"> 제목 : <input type="text" id="modal-title" style="color: #858796;"></div>
+               </div>
+ 
+               <!-- body -->
+                  
+               <div id="staticBackdropContent" style="height: 400px; margin:20px 30px 12px 30px; ">
+                 <div style="height: 350px; border: 1px solid #d9d9d9; overflow: scroll; overflow-x: hidden; padding: 1%;">
+              			<textarea id="modal-content"></textarea>
+                 </div>
+               </div>
+				<div style="display:none;">시퀀스</div> 
+				<div style="display:none;" id="modal-coupon"></div>
+               <div class="modal-footer" style="display: flex; flex-direction: column;">
+                  <button style="font-size: 100%;"class="close" data-dismiss="modal"aria-label="Close">닫기</button>
+               </div>
+            </div>
+         </div>
+       </div>
+      <!-- modal end -->
+
+
+
+
   <!-- Bootstrap core JavaScript-->
-  <script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-  <script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+  <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+  <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js' /> "></script>
+  <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js' /> "></script>
 
   <!-- Custom scripts for all pages-->
   <script src="<c:url value='/resources/js/sb-admin-2.min.js' /> "></script>
 
   <!-- Page level plugins -->
-  <script src="<c:url value='/vendor/datatables/jquery.dataTables.min.js' /> "></script>
-  <script src="<c:url value='/vendor/datatables/dataTables.bootstrap4.min.js' /> "></script>
+  <script src="<c:url value='/resources/vendor/datatables/jquery.dataTables.min.js' /> "></script>
+  <script src="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.js' /> "></script>
 
   <!-- Page level custom scripts -->
   <script src="<c:url value='/resources/js/demo/datatables-demo.js' /> "></script>
+
+	<script type="text/javascript">
+		$(function(){
+			$(".openUpdateModal").click(function(){
+				var category = $.trim($(this).closest('tr').children('td').eq(0).text());
+				var title = $.trim($(this).closest('tr').children('td').eq(1).text());
+				var date = $.trim($(this).closest('tr').children('td').eq(2).text());
+				var seq = $.trim($(this).closest('tr').children('td').eq(3).text());
+				var content = $.trim($(this).closest('tr').children('td').eq(4).text());
+				var coupon = $.trim($(this).closest('tr').children('td').eq(5).text());
+				console.log(coupon);
+				if(coupon == '--'){ // 쿠폰 없을경우
+					$('#modal-category').text(category);
+					$('#modal-title').val(title);
+					$('#modal-content').text(content);
+				}else{ // 쿠폰 잇을경우
+					$('#modal-category').text(category);
+					$('#modal-title').val(title);
+					$('#modal-content').text(content);
+					
+					var couponList = coupon.split('-')
+					
+					var couponName = couponList[0];
+					var couponContent = couponList[1];
+					var couponPrice = couponList[2];
+					var coupondiv = document.getElementByID('modal-coupon').querySelector();
+					
+					var html = '';
+					
+					$('#').text(coupon);
+				}
+				
+			});
+		});
+	</script>
+
+
 
 </body>
 
