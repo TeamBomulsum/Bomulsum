@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,10 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>º¸¹°¼¶(°ü¸®ÀÚ) | °Ô½ÃÆÇ ±Û µî·Ï</title>
+<title>ë³´ë¬¼ì„¬(ê´€ë¦¬ì) | ê²Œì‹œíŒ ê¸€ ë“±ë¡</title>
+
+<script type="text/javascript" src="<c:url value='/resources/se2/js/service/HuskyEZCreator.js'/>" charset="utf-8"></script>
+
 
 <!-- Custom fonts for this template-->
 <link
@@ -32,8 +35,6 @@
 	href="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.css'/>"
 	rel="stylesheet">
 
-<!--±Û ÀÛ¼º ¿¡µğÅÍ¸¦ À§ÇÑ ºÎÆ®½ºÆ®·¦°ú JQuery-->
-<!--minwoo_write_form_api-->
 
 <style>
 .minwoo_mboard_btn {
@@ -86,13 +87,13 @@
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseTwo"
 				aria-expanded="true" aria-controls="collapseTwo"> <i
-					class="fas fa-fw fa-cog"></i> <span>°Ô½ÃÆÇ</span>
+					class="fas fa-fw fa-cog"></i> <span>ê²Œì‹œíŒ</span>
 			</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">°Ô½ÃÆÇ ¸ñ·Ï</a> <a
-							class="collapse-item" href="#">°Ô½ÃÆÇ µî·Ï</a> 
+						<a class="collapse-item" href="#">ê²Œì‹œíŒ ëª©ë¡</a> <a
+							class="collapse-item" href="#">ê²Œì‹œíŒ ë“±ë¡</a> 
 					</div>
 				</div></li>
 
@@ -100,44 +101,44 @@
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#salseNcoupone"
 				aria-expanded="true" aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-wrench"></i> <span>¸ÅÃâ</span>
+					class="fas fa-fw fa-wrench"></i> <span>ë§¤ì¶œ</span>
 			</a>
 				<div id="salseNcoupone" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">¸ÅÃâÅë°è</a>
+						<a class="collapse-item" href="#">ë§¤ì¶œí†µê³„</a>
 					</div>
 				</div></li>
 
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#memberList"
 				aria-expanded="true" aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-wrench"></i> <span>È¸¿ø°ü¸®</span>
+					class="fas fa-fw fa-wrench"></i> <span>íšŒì›ê´€ë¦¬</span>
 			</a>
 				<div id="memberList" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">ÀÛ°¡¸ñ·Ï</a> <a
-							class="collapse-item" href="#">È¸¿ø¸ñ·Ï</a> <a class="collapse-item"
-							href="#">ÀÛ°¡È¸¿ø ·Î±× ÆäÀÌÁö</a>
+						<a class="collapse-item" href="#">ì‘ê°€ëª©ë¡</a> <a
+							class="collapse-item" href="#">íšŒì›ëª©ë¡</a> <a class="collapse-item"
+							href="#">ì‘ê°€íšŒì› ë¡œê·¸ í˜ì´ì§€</a>
 					</div>
 				</div></li>
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#productManage"
 				aria-expanded="true" aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-wrench"></i> <span>»óÇ°°ü¸®</span>
+					class="fas fa-fw fa-wrench"></i> <span>ìƒí’ˆê´€ë¦¬</span>
 			</a>
 				<div id="productManage" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="#">ÀÛÇ°</a> <a class="collapse-item"
-							href="#">±İ¼ÕÅ¬·¡½º</a>
+						<a class="collapse-item" href="#">ì‘í’ˆ</a> <a class="collapse-item"
+							href="#">ê¸ˆì†í´ë˜ìŠ¤</a>
 					</div>
 				</div></li>
 			<li class="nav-item"><a class="nav-link" href="#"> <i
-					class="fas fa-fw fa-chart-area"></i> <span>½Å°í³»¿ë °ü¸®</span></a></li>
+					class="fas fa-fw fa-chart-area"></i> <span>ì‹ ê³ ë‚´ìš© ê´€ë¦¬</span></a></li>
 			<li class="nav-item"><a class="nav-link" href="#"> <i
-					class="fas fa-fw fa-chart-area"></i> <span>°ü¸®ÀÚ°èÁ¤ Ãß°¡</span></a></li>
+					class="fas fa-fw fa-chart-area"></i> <span>ê´€ë¦¬ìê³„ì • ì¶”ê°€</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -153,9 +154,9 @@
 				<div id="collapsePages" class="collapse show"
 					aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="login.html">·Î±×ÀÎ</a> <a
-							class="collapse-item" href="register.html">µî·ÏÇÏ±â</a> <a
-							class="collapse-item" href="forgot-password.html">ºñ¹Ğ¹øÈ£ Ã£±â</a>
+						<a class="collapse-item" href="login.html">ë¡œê·¸ì¸</a> <a
+							class="collapse-item" href="register.html">ë“±ë¡í•˜ê¸°</a> <a
+							class="collapse-item" href="forgot-password.html">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a>
 						<div class="collapse-divider"></div>
 					</div>
 				</div></li>
@@ -200,18 +201,18 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">°ü¸®ÀÚ
-									ÀÌ¸§</span>
+								class="mr-2 d-none d-lg-inline text-gray-600 small">ê´€ë¦¬ì
+									ì´ë¦„</span>
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="#"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> ÇÁ·ÎÇÊ
+									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> í”„ë¡œí•„
 								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> È°µ¿·Î±×º¸±â
+									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> í™œë™ë¡œê·¸ë³´ê¸°
 								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> ·Î±×¾Æ¿ô
+									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> ë¡œê·¸ì•„ì›ƒ
 								</a>
 							</div></li>
 
@@ -220,57 +221,77 @@
 				</nav>
 				<!-- End of Topbar -->
 
-				<!-- ³»¿ëÃß°¡ÇÏ±â -->
+				<!-- ë‚´ìš©ì¶”ê°€í•˜ê¸° -->
 
-				<!--¹Î¿ì ³»¿ë Ãß°¡ÇÑ ºÎºĞ ½ÃÀÛ-->
+				<!--ë¯¼ìš° ë‚´ìš© ì¶”ê°€í•œ ë¶€ë¶„ ì‹œì‘-->
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">°Ô½ÃÆÇ ±Û µî·Ï</h1>
-					<p class="mb-4">È¸¿ø / ÀÛ°¡µéÀ» À§ÇÑ ¾È³»¸¦ µî·ÏÇÏ´Â ÆäÀÌÁö ÀÔ´Ï´Ù.</p>
+					<h1 class="h3 mb-2 text-gray-800">ê²Œì‹œíŒ ê¸€ ë“±ë¡</h1>
+					<p class="mb-4">íšŒì› / ì‘ê°€ë“¤ì„ ìœ„í•œ ì•ˆë‚´ë¥¼ ë“±ë¡í•˜ëŠ” í˜ì´ì§€ ì…ë‹ˆë‹¤.</p>
 
-					<!-- ±Û ÀÛ¼º ÆäÀÌÁö -->
+					<!-- ê¸€ ì‘ì„± í˜ì´ì§€ -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">±Û µî·Ï</h6>
+							<h6 class="m-0 font-weight-bold text-primary">ê¸€ ë“±ë¡</h6>
 						</div>
 						<div class="card-body">
-							<!--³¯Â¥°ªµµ È÷µçÀ¸·Î °°ÀÌ ³Ö¾îÁà¾ß ÇÕ´Ï´ç-->
-							<form>
+							<!--ë‚ ì§œê°’ë„ íˆë“ ìœ¼ë¡œ ê°™ì´ ë„£ì–´ì¤˜ì•¼ í•©ë‹ˆë‹¹-->
+							<form action="<c:url value='/mboard/register.mdo'/> " method="get">
 								<div>
+									<!--
 									<div>
-										<span>È¸¿ø ±¸ºĞ&nbsp;&nbsp;:&nbsp;&nbsp;</span> <span> <select
-											name="man_type">
-												<option value="user">È¸¿ø</option>
-												<option value="writer">ÀÛ°¡</option>
+										<span style="display:inline-block; width:100px;">íšŒì› êµ¬ë¶„</span> 
+										<span>:&nbsp;&nbsp;</span>
+										<span style="display:inline-block; width:250px;">
+										<select name="man_type" onchange="boardTypeChange(this)">
+												<option>íšŒì› êµ¬ë¶„ì„ ì„ íƒí•´ì£¼ì„¸ìš”</option>
+												<option value="user">íšŒì›</option>
+												<option value="writer">ì‘ê°€</option>
 										</select>
 										</span>
 									</div>
 									<br>
+									 -->
 									<div>
-										<span>±Û Ä«Å×°í¸®&nbsp;&nbsp;:&nbsp;&nbsp;</span> <span> <select
-											name="board_type">
-												<option value="notice">°øÁö»çÇ×</option>
-												<option value="question">ÀÚÁÖ ¹¯´Â Áú¹®</option>
-												<option value="guide">ÀÌº¥Æ®</option>
-												<option value="guide">ÆÇ¸Å / Á¤Ã¥ °¡ÀÌµå(ÀÛ°¡¿ë)</option>
+										<span style="display:inline-block; width:100px;">ê¸€ ì¹´í…Œê³ ë¦¬</span>
+										<span>:&nbsp;&nbsp;</span>
+										<span style="display:inline-block; width:250px;">
+										<!-- man_typeì— í•˜ìœ„ ë©”ë‰´ í•˜ë‹¨ ìŠ¤í¬ë¦½íŠ¸ 'ì…€ë ‰íŠ¸ë°•ìŠ¤ ì˜µì…˜' ì°¸ì¡° -->
+										<select name="adminNoticeCategory" id="admin_notice_category">
+											<option>---------------------------</option>
+											<option value="ì´ë²¤íŠ¸">ì´ë²¤íŠ¸</option>
+											<option value="íšŒì›ìš©-ê³µì§€ì‚¬í•­">íšŒì›ìš©-ê³µì§€ì‚¬í•­</option>
+											<option value="íšŒì›ìš©-ìì£¼ë¬»ëŠ”ì§ˆë¬¸">íšŒì›ìš©-ìì£¼ë¬»ëŠ”ì§ˆë¬¸</option>
+											<option value="ì‘ê°€ìš©-ê³µì§€ì‚¬í•­">ì‘ê°€ìš©-ê³µì§€ì‚¬í•­</option>
+											<option value="ì‘ê°€ìš©-ìì£¼ë¬»ëŠ”ì§ˆë¬¸">ì‘ê°€ìš©-ìì£¼ë¬»ëŠ”ì§ˆë¬¸</option>
+											<option value="ì‘ê°€ìš©-ì •ì±…ë“±ë¡ê°€ì´ë“œ">ì‘ê°€ìš©-ì •ì±…ë“±ë¡ê°€ì´ë“œ</option>	
 										</select>
 										</span>
+										<!-- |íšŒì›-ì´ë²¤íŠ¸| ì¹´í…Œê³ ë¦¬ ì„ íƒ ë˜ì—ˆì„ë•Œ ë‚˜íƒ€ë‚˜ê²Œ í•´ì¤˜ì•¼ ë¨. -->
+										<div id="board_type_div" style="display:none;">
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#couponModal">ì¿ í° ë“±ë¡</button>
+										</div>
 									</div>
 									<br>
 									<div>
-										<span>±Û Á¦¸ñ&nbsp;&nbsp;:&nbsp;&nbsp;</span> <span><input
-											type="text" style="width: 800px;" id=""></span>
+										<span style="display:inline-block; width:100px;" >ê¸€ ì œëª©</span>
+										<span>:&nbsp;&nbsp;</span>
+										<span><input type="text" style="width: 775px;" name="adminNoticeTitle"></span>
 									</div>
 									<br>
 									<div>
-										<textarea id="" name="" rows="20"
+										<span style="display:inline-block; width:100px;">ê¸€ ë‚´ìš©</span>
+										<span>:&nbsp;&nbsp;</span>
+										<textarea id="admin_notice_content" name="adminNoticeContent" rows="20"
 											style="resize: none; width: 900px;"></textarea>
 									</div>
 									<br>
-									<div>
-										<input type="submit" value="µî·Ï" class="minwoo_mboard_btn">
+									<div style="width:900px; display:flex; justify-content: center;">
+										<input type="reset" value="ì·¨ì†Œ" class="btn btn-primary" style="margin:10px;">
+										<input type="submit" value="ê¸€ ë“±ë¡" class="btn btn-primary" style="margin:10px;">
 									</div>
 								</div>
 							</form>
@@ -279,14 +300,14 @@
 
 				</div>
 				<!-- /.container-fluid -->
-				<!--¹Î¿ì ³»¿ë Ãß°¡ÇÑ ºÎºĞ Á¾·á-->
+				<!--ë¯¼ìš° ë‚´ìš© ì¶”ê°€í•œ ë¶€ë¶„ ì¢…ë£Œ-->
 
 
 				<!-- Footer -->
 				<footer class="sticky-footer bg-white">
 					<div class="container my-auto">
 						<div class="copyright text-center my-auto">
-							<span>º¸¹°¼¶ &copy; 2020</span>
+							<span>ë³´ë¬¼ì„¬ &copy; 2020</span>
 						</div>
 					</div>
 				</footer>
@@ -316,7 +337,7 @@
 							Leave?</h5>
 						<button class="close" type="button" data-dismiss="modal"
 							aria-label="Close">
-							<span aria-hidden="true">¡¿</span>
+							<span aria-hidden="true">Ã—</span>
 						</button>
 					</div>
 					<div class="modal-body">Select "Logout" below if you are
@@ -329,12 +350,34 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- couponModal -->
+		<div class="modal fade" id="couponModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">ì¿ í° ë“±ë¡ ëª¨ë‹¬</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        	ì¼ë‹¨ ë¹„ì›Œë‘ .
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">ì·¨ì†Œ</button>
+		        <button type="button" class="btn btn-primary">ì €ì¥</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		
 
 
-		<script> </script>
-
-
-
+		<!--ê¸€ ì‘ì„± ì—ë””í„°ë¥¼ ìœ„í•œ script-->
+		<script type="text/javascript" src="<c:url value='/resources/se2/js/service/HuskyEZCreator.js'/>" charset="utf-8"></script>
+		
 
 		<!-- Bootstrap core JavaScript-->
 		<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
@@ -352,6 +395,73 @@
 
 		<!-- Page level custom scripts -->
 		<script src="<c:url value='/resources/js/demo/datatables-demo.js'/>"></script>
+		
+		
+		<script>
+		/*ìŠ¤ë§ˆíŠ¸ ì—ë””í„° ì ìš© ì˜ì—­*/
+		$(document).ready(function(){
+				nhn.husky.EZCreator.createInIFrame({
+					oAppRef: oEditors,
+					elPlaceHolder: "mboard_write_content",
+					sSkinURI: "/resources/se2/SmartEditor2Skin.html",
+					fCreator : "createSEditor2"
+				});
+		});	
+		/*ìŠ¤ë§ˆíŠ¸ ì—ë””í„° ì ìš© ì˜ì—­*/
+		
+		/*íšŒì› êµ¬ë¶„ ì„ íƒí–ˆì„ ë•Œ íšŒì› êµ¬ë¶„ì— ë”°ë¥¸ ê¸€ ì¹´í…Œê³ ë¦¬ ë‹¤ë¥´ê²Œ í‘œì‹œí•´ì£¼ê¸°.*/
+		/*
+		function boardTypeChange(e) {
+			var man_user = ["ê³µì§€ì‚¬í•­", "ìì£¼ ë¬»ëŠ” ì§ˆë¬¸", "ì´ë²¤íŠ¸"];
+			var man_writer = ["ê³µì§€ì‚¬í•­", "ìì£¼ ë¬»ëŠ” ì§ˆë¬¸", "íŒë§¤ / ì •ì±… ê°€ì´ë“œ"];
+			var target = document.getElementById("board_type");
+		
+			if(e.value == "user") var boardList = man_user;
+			else if(e.value == "writer") var boardList = man_writer;
+		
+			target.options.length = 0;
+		
+			for (x in boardList) {
+				var opt = document.createElement("option");
+				opt.value = boardList[x];
+				opt.innerHTML = boardList[x];
+				target.appendChild(opt);
+			}
+			*/
+			/*íšŒì› êµ¬ë¶„ ì„ íƒí–ˆì„ ë•Œ íšŒì› êµ¬ë¶„ì— ë”°ë¥¸ ê¸€ ì¹´í…Œê³ ë¦¬ ë‹¤ë¥´ê²Œ í‘œì‹œí•´ì£¼ê¸°.*/
+			
+
+			
+			/* ì´ë²¤íŠ¸ ë²„íŠ¼ ëˆŒëŸ¿ì„ ë•Œ ë²„íŠ¼ ìƒì„±í•˜ê¸° 
+			if(target.value.equals("ì´ë²¤íŠ¸")){
+				var couponbtn = document.createElement("button");
+				couponbtn.value = "ì¿ í° ë“±ë¡";
+				var btdiv = document.getElementById("board_type_div");
+				btdiv.innerHTML = couponbtn;
+				btdiv.appendChild(couponbtn);
+			};
+		};
+		*/
+		/*ì…€ë ‰íŠ¸ ë°•ìŠ¤ ì˜ì—­*/
+		
+		/* ì´ë²¤íŠ¸ ë²„íŠ¼ ëˆŒëŸ¿ì„ ë•Œ ë²„íŠ¼ ìƒì„±í•˜ê¸°*/
+		$(function(){
+			$("#admin_notice_category").click(function(){
+				var board_typeA = document.getElementById("admin_notice_category");
+				var board_type_divA = document.getElementById("board_type_div");
+				
+				if($("#admin_notice_category").val() == ("ì´ë²¤íŠ¸")){
+					$("#board_type_div").css("display", "inline-block");
+				} else {
+					$("#board_type_div").css("display", "none");
+				}
+			});
+		});
+		
+		</script>
+		
+		
+		
 </body>
 
 </html>

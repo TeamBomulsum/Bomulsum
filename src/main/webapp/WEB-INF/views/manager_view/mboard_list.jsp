@@ -24,7 +24,7 @@
    <!-- Custom styles for this page -->
    <link href="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.css' />" rel="stylesheet">
 
-    <!--minwoo style-->
+   <!--minwoo style-->
    <style>
     .minwoo_table_table_bordered_head tr th{
         text-align: center;
