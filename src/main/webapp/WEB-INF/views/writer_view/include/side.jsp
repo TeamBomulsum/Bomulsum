@@ -289,9 +289,9 @@
             <a class="collapse-item" href="404.html">404 Page</a>
             <a class="collapse-item" href="blank.html">Blank Page</a>
             -->
-            <a class="collapse-item" href="<c:url value='/view/wborder/announcement.jsp'/>">공지사항</a>
-            <a class="collapse-item" href="<c:url value='/view/wborder/policy_guide.jsp'/>">정책/등록 가이드</a>
-            <a class="collapse-item" href="<c:url value='/view/wborder/question.jsp'/>">자주 묻는 질문</a>
+            <a class="collapse-item" href="<c:url value='/writer/announcement.wdo'/>">공지사항</a>
+            <a class="collapse-item" href="<c:url value='/writer/policyguide.wdo'/>">정책/등록 가이드</a>
+            <a class="collapse-item" href="<c:url value='/writer/question.wdo'/>">자주 묻는 질문</a>
           </div>
         </div>
       </li>
