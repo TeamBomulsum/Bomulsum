@@ -43,7 +43,7 @@ public class UserLoginController {
 		}
 		mav.setViewName("/ulogin/ulogin");
 		
-		return mav;
+		return mav;  
 	}
 
 	@GetMapping("/newAccount")
