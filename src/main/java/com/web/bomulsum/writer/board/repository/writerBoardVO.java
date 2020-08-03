@@ -11,12 +11,14 @@ public class writerBoardVO {
 	private String admin_notice_coupon;
 	
 	
+	
 	public String getAdmin_notice_seq() {
 		return admin_notice_seq;
 	}
 	public void setAdmin_notice_seq(String admin_notice_seq) {
 		this.admin_notice_seq = admin_notice_seq;
 	}
+
 	public String getAdmin_notice_category() {
 		return admin_notice_category;
 	}

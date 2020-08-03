@@ -212,7 +212,7 @@ input[type=button]{
     
     $(function(){
     	$("#toHome").click(function(event){ // 로고 이미지 클릭 시.
-    		location.href="#.jsp";
+    		location.href="/bomulsum/home.do";
     	});
     	
     	
