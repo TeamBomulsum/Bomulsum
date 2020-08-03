@@ -34,6 +34,14 @@
 	</repositories>-->
 	
 	<dependencies>
+	
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.3.3.RELEASE</version>
+		</dependency>
+				
 
 		<!-- CoolSMS -->
 		<dependency>

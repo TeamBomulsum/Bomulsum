@@ -90,7 +90,7 @@
             <section id="login_SNS">
                	<h4 style="padding:0px 15px; background-color:white; margin:0; top:-10px; position:relative">회원가입 완료</h4>
                 <div style="display:flex; flex-direction: column; margin-top:5%">
-                	<h3><a id="dndud_name">#</a>님</h3>
+                	<h3><a id="dndud_name"><%= request.getParameter("memberName") %></a>님</h3>
                 	<h3><a>보물섬 회원이 되신 것을 환영합니다!</a></h3>
                 	<span style="font-size: 13px; margin-bottom:7%">신규 가입 감사 할인쿠폰을 쿠폰함에서 확인해보세요.</span>
                 </div>
@@ -123,14 +123,14 @@
 <!-- Core plugin JavaScript-->
 <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/> "></script>
 <script>
-var tt=100;
+var tt=3;
 
 var timeout = setInterval(function(){ // 윈도우 로드후 5초간의 시간.
 	if(tt >= 0){
 		$("#dndud_time").html(tt);
 	}else{
 		clearInterval(tt);
-		location.href="home.jsp" // 홈화면 경로
+		location.href="/bomulsum/home.do" // 홈화면 경로
 	}
 	tt--;
 }, 1000);
@@ -142,7 +142,7 @@ $(window).on('load',function(){
 
 $(function(){
 	$("#toHome").click(function(){
-		location.href = "#"; // 아이콘 클릭시 홈으로 경로
+		location.href = "/bomulsum/home.do"; // 아이콘 클릭시 홈으로 경로
 	});
 	
 	$(".dndud_coupon_img").click(function(){

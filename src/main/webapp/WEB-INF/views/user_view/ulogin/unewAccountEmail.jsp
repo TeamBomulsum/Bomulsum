@@ -346,7 +346,7 @@ function start_timer(){
 			
 			
 			$.ajax({
-				url : "/bomulsum/user_view/ulogin/unewAccountEmail.do",
+				url : "/bomulsum/user/smsCheck.do",
 				//?msg=" + sendMsg + "&receiver=" + receiveNum
 				data : {
 					msg : sendMsg,
@@ -508,6 +508,7 @@ function start_timer(){
 		var regPw = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 		var regPhone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
 		var email = false;
+		var emailCheck = 0;
 		var pw = false;
 		var pwCheck = false;
 		var name = false;
@@ -521,6 +522,24 @@ function start_timer(){
 			$(".inputCertification").css("border", "1px inset black");
 		});
 		
+		var dbEmailCheck = function(){
+			$.ajax({
+				type:"GET",
+				url:'checkEmail.do',
+				data:{
+					"memberEmail" : $(".emailFail").val()
+				},
+				success:function(data){
+					console.log(data);
+					emailCheck = data;
+				},
+				error:function(data){
+					emailCheck = data;
+				}
+			});
+		};
+		
+		
 		$(".emailFail").focus(function(){ // 이메일 입력창
 			$(".emailFail").css("border", "1px solid #21a1a9");
 		});
@@ -530,29 +549,43 @@ function start_timer(){
 				$("#emailFail").css("display", "block");
 				$("#emailFail").text("필수 항목입니다.");
 				$(".emailFail").css("margin-bottom","2%");
+				email = false;
 			}else{
 				if(!regEmail.test($(".emailFail").val())){ // 이메일 유효성 검사
 					$(".emailFail").css("border", "1px solid #d8524a");
 					$("#emailFail").css("display", "block");
 					$("#emailFail").text("유효하지 않은 E-Mail주소입니다.");
 					$(".emailFail").css("margin-bottom","2%");
+					email = false;
+				}else if(emailCheck == 1){
+					$(".emailFail").css("border", "1px solid #d8524a");
+					$("#emailFail").css("display", "block");
+					$("#emailFail").text("이미 존재하는 이메일입니다.");
+					$(".emailFail").css("margin-bottom","2%");
+					email = false;
 				}else{
 					$(".emailFail").css("border", "1px solid gray");
 					$("#emailFail").css("display", "none");
 					$(".emailFail").css("margin-bottom","5%");
 					email = true;
 				}
-				// DB 접근 존재하는 이메일 처리해줘야함
-				
-				/*else if(~~~){
-					$(".emailFail").css("border", "1px solid #d8524a");
-					$("#emailFail").css("display", "block");
-					$("#emailFail").text("이미 존재하는 이메일입니다.");
-					$(".emailFail").css("margin-bottom","2%");
-				}*/
 			}
 		}
+		$(".emailFail").blur(function(){
+			dbEmailCheck();
+		});
+		$(".emailFail").keyup(function(){
+			dbEmailCheck();
+			if(emailCheck == 1){
+				$(".emailFail").css("border", "1px solid #d8524a");
+				$("#emailFail").css("display", "block");
+				$("#emailFail").text("이미 존재하는 이메일입니다.");
+				$(".emailFail").css("margin-bottom","2%");
+				email = false;
+			}
+		});
 		$(".emailFail").blur(emailF);
+		
 		
 		
 		
@@ -738,25 +771,58 @@ function start_timer(){
 			
 			if(!email){
 				$(".emailFail").focus();
+				return;
 			}else if(!pw){
 				$(".pwFail").focus();
+				return;
 			}else if(!pwCheck){
 				$(".pwCheckFail").focus();
+				return;
 			}else if(!name){
 				$(".nameFail").focus();
+				return;
 			}else if(!phone){
 				$(".phoneFail").focus();
+				return;
 			}else if(!phoneCheck){
 				alert("본인 인증을 진행해 주세요.");
+				return;
 			}else if(!$("#userInfo").is(":checked")){
 				alert("개인정보 처리방침에 동의 해주세요.");
+				return;
 			}else if(!$("#usePolicy").is(":checked")){
 				alert("이용약관에 동의 해주세요.");				
+				return;
 			}else{
 				alert("회원가입 성공!");
 				// 회원가입 후 로직
+				$.ajax({
+					type:"POST",
+					url:'insertUserData.do',
+					data:{
+						"memberEmail" : $(".emailFail").val(),
+						"memberPassword" : $(".pwFail").val(),
+						"memberPhone" : $(".phoneFail").val(),
+						"memberName" : $(".nameFail").val(),
+						"memberRecCode" : $("#friendCode").val(),
+						"memberSmsAgree" : $("#couponEvent").is(":checked") ? 'Y' : 'N',
+						"memberEmailAgree" : $("#couponEvent").is(":checked") ? 'Y' : 'N'
+					},
+					success:function(){
+						console.log("데이터 전송 성공");
+						var name = $('.nameFail').val();
+						location.href="successNewAccount.do?memberName=" + name;
+					},
+					error:function(){
+						console.log("데이터 전송 실패");
+					}
+				});
 			}
 		});
+		
+		$("#toHome").click(function(event){ // 로고 이미지 클릭 시.
+    		location.href="/bomulsum/home.do";
+    	});
 		
 		
 	});

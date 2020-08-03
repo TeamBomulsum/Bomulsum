@@ -143,7 +143,7 @@ input[type=button]{
             		</div>
             	
             		<div style="display: flex; flex-direction: row; justify-content: center; height:50px;"> 
-						<img id="kakao-login-btn" src="<c:url value='/resources/img/kakao.png'/>" style="width: 90%; height:100%;cursor : pointer;">
+						<img id="kakao-login-btn" src="<c:url value='/resources/img/kakao_login_large_wide.png'/>" style="width: 90%; height:100%;cursor : pointer;">
 					</div>
 					<a href="http://developers.kakao.com/logout"></a>
             		
@@ -156,13 +156,13 @@ input[type=button]{
             			<input style="width: 100%; padding: 3% 0; margin-bottom:2%" type="button" value="#"/>
             			<input style="width: 100%; padding: 3% 0; margin-bottom:2%" type="button" value="#"/>
             			<input style="width: 100%; padding: 3% 0; margin-bottom:2%; border:2px solid #1f76bb; 
-            				background-color:white; color:#1f76bb; font-weight:bold" type="button" value="이메일로 가입하기" onclick="location.href='newAccountEmail.jsp'"/>
+            				background-color:white; color:#1f76bb; font-weight:bold" type="button" value="이메일로 가입하기" onclick="location.href='newAccountEmail.do'"/>
             		</div>
             		
             		<div style="display:flex; justify-content:center; height:50px;">
             			<p>
             				<a>이미 가입하셨다면</a>
-            				<a href="login.jsp" style="color: black">바로 로그인하기</a>
+            				<a href="login.do" style="color: black">바로 로그인하기</a>
             			</p>
             		</div>
             		
@@ -190,7 +190,7 @@ input[type=button]{
 <script>
     //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('dbab6039d51f4966a42e02bf4f7b5dd0');  //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
+    Kakao.init('ce0c9f8553e32b9149185202978c0507');  //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
     // 카카오 로그인 버튼을 생성합니다.
     Kakao.Auth.createLoginButton({
         container: '#kakao-login-btn',
@@ -212,7 +212,7 @@ input[type=button]{
     
     $(function(){
     	$("#toHome").click(function(event){ // 로고 이미지 클릭 시.
-    		location.href="#.jsp";
+    		location.href="/bomulsum/home.do";
     	});
     	
     	
