@@ -6,13 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>젬 포인트</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <!-- Custom styles for this template-->
-<link href="<c:url value='/css/sb-admin-2.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <!-- myInformation _ CSS -->
 <style>
 .subcontent {
@@ -108,10 +108,10 @@ footer span{
 					</p>
 					<table>
 						<tr>
-							<th class="daintdth" style="width: 20%">보유 포인트</th>
+							<th class="daintdth" style="width: 20%">보유 포인트 </th>
 							<!-- 여기에 값 들어가야함 -->
 							<td class="daintdth" id="gemPoint" class="bold"
-								style="color: #00CED1; width: 80%">0P</td>
+								style="color: #00CED1; width: 80%; display:flex;">0P <div><button style="margin-left: 30px;">충전하기</button></div></td>
 						</tr>
 						<tr>
 							<th class="daintdth" style="width: 20%">7일 이내에 만료되는 포인트</th>
@@ -187,17 +187,17 @@ footer span{
 				class="fas fa-angle-up"></i>
 			</a>
 
-			<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-			<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 			<!-- Core plugin JavaScript-->
-			<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 			<!-- Custom scripts for all pages-->
 			<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 
 			<!-- Page level plugins -->
-			<script src="<c:url value='/vendor/chart.js/Chart.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/chart.js/Chart.min.js'/>"></script>
 
 		
 
