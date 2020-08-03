@@ -215,6 +215,16 @@ function setThumbnail(event) {
                      <td><textarea rows="4" cols="80" style="overflow-y: scroll;"
                            placeholder="작품 설명을 적어주세요."></textarea></td>
                   </tr>
+                   <tr>
+                     <td class="left">난이도</td>
+                     <td>
+                     	 <select name="category" id="category_id">
+                              <option value="hard">상</option>
+                              <option value="nomal">중</option>
+                              <option value="easy">하</option>
+                           </select>
+                     </td>
+                  </tr>
                   <tr>
                      <td class="left">카테고리</td>
                      <td>
