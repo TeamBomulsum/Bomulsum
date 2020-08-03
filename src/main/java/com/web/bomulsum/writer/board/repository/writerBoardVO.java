@@ -3,6 +3,7 @@ package com.web.bomulsum.writer.board.repository;
 import java.sql.Date;
 
 public class writerBoardVO {
+	private String admin_notice_seq;
 	private String admin_notice_category;
 	private String admin_notice_title;
 	private String admin_notice_content;
@@ -12,12 +13,18 @@ public class writerBoardVO {
 	
 	@Override
 	public String toString() {
-		return "writerBoardVO [admin_notice_category=" + admin_notice_category + ", admin_notice_title="
-				+ admin_notice_title + ", admin_notice_content=" + admin_notice_content + ", admin_notice_date="
-				+ admin_notice_date + ", admin_notice_coupon=" + admin_notice_coupon + "]";
+		return "writerBoardVO [admin_notice_seq=" + admin_notice_seq + ", admin_notice_category="
+				+ admin_notice_category + ", admin_notice_title=" + admin_notice_title + ", admin_notice_content="
+				+ admin_notice_content + ", admin_notice_date=" + admin_notice_date + ", admin_notice_coupon="
+				+ admin_notice_coupon + "]";
 	}
 	
-	
+	public String getAdmin_notice_seq() {
+		return admin_notice_seq;
+	}
+	public void setAdmin_notice_seq(String admin_notice_seq) {
+		this.admin_notice_seq = admin_notice_seq;
+	}
 	public String getAdmin_notice_category() {
 		return admin_notice_category;
 	}
