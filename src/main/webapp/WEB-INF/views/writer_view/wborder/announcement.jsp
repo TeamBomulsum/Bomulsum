@@ -36,7 +36,7 @@
 
 			
 			$.ajax({
-				url: "${pageContext.request.contextPath}"+"/board/announcementArticle.wdo", //클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+				url: "${pageContext.request.contextPath}"+"/writer/announcementArticle.wdo", //클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 				data:   {"admin_notice_seq" : param}, //HTTP 요청과 함꼐 서버로 보낼 데이터
 				method: "GET", // HTTP 요청 메소드 (GET , POST 등)
 				dataType: "json",
@@ -73,10 +73,17 @@
 	
 	</script>
 </head>
-<div style="float: left;">
-		<%@ include file="../include/side.jsp" %>
-	</div>
-	<%@ include file="../include/head.jsp" %>
+<body>
+
+<div id="wrapper">
+		<!-- Header/Nav -->
+		<jsp:include page="../include/side.jsp" />
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<div class="content">
+				<jsp:include page="../include/head.jsp" />
+				<!-- end Header/Nav -->
+				
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -89,16 +96,16 @@
               <h3 class="m-0 font-weight-bold text-primary">공지사항</h3>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable">
+              <div class="table-responsive" style="scroll:no; overflow:hidden;">
+                <table class="table table-bordered" id="dataTable" style="border-bottom: 1px solid #e3e6f0; border-left: 1px solid #e3e6f0;">
                   <thead>
-                    <tr  style="text-align:center">
+                    <tr style="text-align:center">
                       <th style="width:80%">제목</th>
                       <th style="width:20%;">등록날짜</th>
                     </tr>
                   </thead>
-                  <c:forEach var="b" items="${article}">
                   <tbody>
+                  <c:forEach var="b" items="${article}">
                      <tr>
                      	 <td id="writer_announcement_title" data-toggle="modal" 
                       		data-target="#staticBackdrop2" class="writer_announcement_detail">
@@ -110,16 +117,16 @@
                       	</td>
                       	<td style="display: none" class="admin_notice_seq">
                       	
-                      	${b.admin_notice_seq }</td>
+                      	${b.admin_notice_seq }
+                      	</td>
                       </tr>
-                  </tbody>
                   </c:forEach>
+                  </tbody>
                 </table>
               </div>
             </div>
           </div>
 
-        </div>
         <!-- modal -->
           <div class="modal fade" id="staticBackdrop2" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
          <div class="modal-dialog modal-lg" role="document" style="max-width:1000px;">
@@ -162,12 +169,28 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-<%@ include file="../include/footer.jsp" %>
 
+
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- End of Main Content -->
+
+   
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+  
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>
 	</a>
+
+<%@ include file="../include/footer.jsp" %>
+
 
   <!-- Bootstrap core JavaScript-->
  

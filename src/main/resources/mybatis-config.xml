@@ -8,6 +8,7 @@
 		
 		<!-- 다인 테스트-->
 		<typeAlias type="com.web.bomulsum.writer.board.repository.writerBoardVO" alias="writerBoardVO"/>
+
 		
 	</typeAliases>
 

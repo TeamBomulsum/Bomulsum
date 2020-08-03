@@ -31,10 +31,24 @@ public class writerBoardDAOImpl implements writerBoardDAO{
 	}
 
 	@Override
+	public List<writerBoardVO> getQuestionBoard() {
+		List<writerBoardVO> list = sqlSessionTemplate.selectList("com.web.bomulsum.writer.board.repository.writerBoardDAO.getQuestionBoard");
+		return list;
+	}
+
+	@Override
 	public writerBoardVO getAnnouncementArticle(String admin_notice_seq) {
 		writerBoardVO article = sqlSessionTemplate.selectOne(
 				"com.web.bomulsum.writer.board.repository.writerBoardDAO.getAnnouncementArticle"
 				, admin_notice_seq);
 		return article;
 	}
+
+	public writerBoardVO getQuestionArticle(String admin_notice_seq) {
+		writerBoardVO article = sqlSessionTemplate.selectOne("com.web.bomulsum.writer.board.repository.writerBoardDAO.getQuestionArticle", admin_notice_seq);
+		return article;
+	}
+	
 }
+
+

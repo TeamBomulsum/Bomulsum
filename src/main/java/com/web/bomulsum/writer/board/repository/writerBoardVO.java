@@ -7,10 +7,10 @@ public class writerBoardVO {
 	private String admin_notice_category;
 	private String admin_notice_title;
 	private String admin_notice_content;
-	private Date admin_notice_date;
 	private String admin_notice_coupon;
+	private Date admin_notice_date;
 	
-	
+
 	
 	public String getAdmin_notice_seq() {
 		return admin_notice_seq;
@@ -37,12 +37,6 @@ public class writerBoardVO {
 	public void setAdmin_notice_content(String admin_notice_content) {
 		this.admin_notice_content = admin_notice_content;
 	}
-	public Date getAdmin_notice_date() {
-		return admin_notice_date;
-	}
-	public void setAdmin_notice_date(Date admin_notice_date) {
-		this.admin_notice_date = admin_notice_date;
-	}
 	public String getAdmin_notice_coupon() {
 		return admin_notice_coupon;
 	}
@@ -60,4 +54,11 @@ public class writerBoardVO {
 	
 	
 	
+	public Date getAdmin_notice_date() {
+		return admin_notice_date;
+	}
+	public void setAdmin_notice_date(Date admin_notice_date) {
+		this.admin_notice_date = admin_notice_date;
+	}
+
 }

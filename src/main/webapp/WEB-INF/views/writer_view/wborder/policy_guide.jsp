@@ -6,6 +6,7 @@
 
 <head>
 
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +24,15 @@
 
   <!-- Custom styles for this page -->
   <link href="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.css' /> " rel="stylesheet">
-
+	
+	<style>
+	.writer_policyguide_detail:hover{
+		cursor: pointer;
+	}
+	
+	</style>
+	
+	
 	<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 	<!-- 제이쿼리 -->
 	<script type="text/javascript">
@@ -93,7 +102,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive" style="scroll:no; overflow:hidden;">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" style="border-bottom: 1px solid #e3e6f0; border-left: 1px solid #e3e6f0;">
                   <thead>
                    	<tr style="text-align:center">
                       <th style="width:80%">제목</th>
