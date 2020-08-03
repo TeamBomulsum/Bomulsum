@@ -5,11 +5,82 @@
 <mapper namespace="MemberDAO">
 
 	<insert id="insertMember" parameterType="memberVO">
-		INSERT INTO member_tb (member_code_seq, member_email, member_password,
-		member_name, member_phone, member_rec_code, member_sms_agree, member_email_agree)
-		VALUES('member_code_sq' || TO_CHAR(member_code_sq.nextval),#{memberEmail},#{memberPassword},
-		#{memberName}, #{memberPhone}, #{memberRecCode}, #{memberSmsAgree}, #{memberEmailAgree})
+		INSERT INTO member_tb 
+		(
+			member_code_seq,
+			member_email, 
+			member_password,
+			member_name, 
+			member_phone,
+			member_rec_code, 
+			member_sms_agree, 
+			member_email_agree
+		)
+		VALUES
+		(
+			'member_code_sq' || TO_CHAR(member_code_sq.nextval),
+			#{memberEmail},
+			#{memberPassword},
+			#{memberName}, 
+			#{memberPhone}, 
+			#{memberRecCode}, 
+			#{memberSmsAgree}, 
+			#{memberEmailAgree}
+		)
 	</insert>
+	
+	<select id="checkEmail" parameterType="String" resultType="int">
+		SELECT COUNT(1) FROM
+		member_tb 
+		WHERE 
+		member_email=#{email}
+	</select>
+	
+	<select id="checkLogin" parameterType="com.web.bomulsum.user.login.repository.LoginVO" resultType="int">
+		SELECT COUNT(1) FROM
+		member_tb
+		WHERE
+		member_email=#{email}
+		AND
+		member_password=#{password}
+	</select>
+	
+	<select id="getPw" parameterType="String" resultType="String">
+		SELECT member_password FROM
+		member_tb
+		WHERE
+		member_email=#{email}
+	</select>
+	
+	<select id="getUserCode" parameterType="String" resultType="String">
+		SELECT member_code_seq FROM
+		member_tb
+		WHERE
+		member_email=#{memberEmail}
+	</select>
+	
+	<update id="updateLogin" parameterType="com.web.bomulsum.user.login.repository.NowLoginVO">
+		UPDATE member_tb
+		SET
+		member_login=#{yORn}
+		WHERE
+		member_email = #{memberEmail}
+	</update>
+	
+	<select id="getUserName" parameterType="String" resultType="String">
+		SELECT member_name FROM
+		member_tb
+		WHERE
+		member_code_seq=#{code}
+	</select>
+	
+	<update id="logout" parameterType="com.web.bomulsum.user.login.repository.NowLoginVO">
+		UPDATE member_tb
+		SET
+		member_login=#{yORn}
+		WHERE
+		member_code_seq = #{memberCode}
+	</update>
 
 	<!-- <select id="getSomething" parameterType="int" resultType="#package.#modelname">
 		SELECT
