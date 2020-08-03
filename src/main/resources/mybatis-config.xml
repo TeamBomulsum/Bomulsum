@@ -3,7 +3,8 @@
 
 <configuration>
 	<typeAliases>
-			
+		
+		
 		<typeAlias type="com.web.bomulsum.user.login.repository.MemberVO" alias="memberVO"/>
 		
 		<!-- 다인 테스트-->
@@ -17,5 +18,7 @@
 		
 		<!-- 다인테스트 -->
 		<mapper resource="mappings/writer/writer-board-mapping.xml" />
+		<mapper resource="mappings/manager/manager-board-mapping.xml" />
+		
 	</mappers>
 </configuration>

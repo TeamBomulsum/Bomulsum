@@ -13,6 +13,17 @@ body a:link, a:visited, a:hover, a:active {
 	border: none;
 }
 
+.minwoo_notice_body{
+	width:1054px;
+	margin-left:auto;
+	margin-right:auto;
+	border:1px #D8D8D8 solid;
+}
+
+.minwoo_notice_body_body{
+	width:100%;
+	border-top:1px #D8D8D8 solid;
+}
 .minwoo_notice_one a{
     display: inline-block;
     padding:10px;
@@ -84,7 +95,7 @@ body a:link, a:visited, a:hover, a:active {
 	<%@ include file="../include/uHeader.jsp"  %>
 	
 	<!-- 게시판 영역 -->
-	<div style="width:60%; margin-left:auto; margin-right:auto; border:1px #D8D8D8 solid;">
+	<div class="minwoo_notice_body">
 		<!-- 헤더 시작-->
 		<div style="width:100%;">
 			<div style="width:100%; height: 55px;">
@@ -94,7 +105,7 @@ body a:link, a:visited, a:hover, a:active {
 		<!-- 헤더 종료 -->
 		
 		<!-- 글 들어올 바디 영역 시작 -->
-		<div style="width:100%; border-top:1px #D8D8D8 solid;">
+		<div class="minwoo_notice_body_body">
 			<!-- 내용물 -->               
 			<c:forEach begin="1" end="15">
 				<div class="minwoo_notice_one">
