@@ -54,6 +54,13 @@
 
 <body id="page-top">
 
+	<c:if test="${param.check eq 1}">
+		<script type="text/javascript">
+			alert("글이 등록 되었습니다.");
+			location.href="/bomulsum/mboard/write.mdo";
+		</script>
+	</c:if>
+
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -241,17 +248,6 @@
 							<form action="<c:url value='/mboard/register.mdo'/> " method="get">
 								<div>
 									<!--
-									<div>
-										<span style="display:inline-block; width:100px;">회원 구분</span> 
-										<span>:&nbsp;&nbsp;</span>
-										<span style="display:inline-block; width:250px;">
-										<select name="man_type" onchange="boardTypeChange(this)">
-												<option>회원 구분을 선택해주세요</option>
-												<option value="user">회원</option>
-												<option value="writer">작가</option>
-										</select>
-										</span>
-									</div>
 									<br>
 									 -->
 									<div>
@@ -270,12 +266,41 @@
 										</select>
 										</span>
 										<!-- |회원-이벤트| 카테고리 선택 되었을때 나타나게 해줘야 됨. -->
-										<div id="board_type_div" style="display:none;">
+										<!-- <div id="board_type_div" style="display:none;">
 											<button type="button" class="btn btn-primary"
 												data-toggle="modal" data-target="#couponModal">쿠폰 등록</button>
-										</div>
+										</div> -->
+										
 									</div>
 									<br>
+									
+									<!-- |회원-이벤트| 카테고리 선택 되었을 때 쿠폰 입력창 나타나게 -->
+									<div id="board_type_div" style="display:none;">
+										<div>
+											<span style="display:inline-block; width:100px;">쿠폰 등록</span> 
+											
+										</div>
+										<div style="margin-bottom:10px;">
+											<span style="display:inline-block; width:100px;">쿠폰 이름</span>
+											<span>:&nbsp;&nbsp;</span>
+											<span><input type="text" style="width: 300px;" name="adminNoticeCoupon"></span>
+											<br>
+										</div>
+										<div style="margin-bottom:10px;">
+											<span style="display:inline-block; width:100px;">쿠폰 내용</span>
+											<span>:&nbsp;&nbsp;</span>
+											<span><input type="text" style="width: 300px;" name="adminNoticeCoupon"></span>
+											<br>
+										</div>
+										<div>
+											<span style="display:inline-block; width:100px;">쿠폰 가격</span>
+											<span>:&nbsp;&nbsp;</span>
+											<span><input type="text" style="width: 300px;" name="adminNoticeCoupon" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" /></span>
+										</div>
+									<br>
+									</div>
+									
+				
 									<div>
 										<span style="display:inline-block; width:100px;" >글 제목</span>
 										<span>:&nbsp;&nbsp;</span>
@@ -294,6 +319,7 @@
 										<input type="submit" value="글 등록" class="btn btn-primary" style="margin:10px;">
 									</div>
 								</div>
+								
 							</form>
 						</div>
 					</div>
@@ -398,14 +424,18 @@
 		
 		
 		<script>
+		
+
 		/*스마트 에디터 적용 영역*/
 		$(document).ready(function(){
-				nhn.husky.EZCreator.createInIFrame({
+				/* nhn.husky.EZCreator.createInIFrame({
 					oAppRef: oEditors,
 					elPlaceHolder: "mboard_write_content",
 					sSkinURI: "/resources/se2/SmartEditor2Skin.html",
 					fCreator : "createSEditor2"
-				});
+				}); */
+				
+				
 		});	
 		/*스마트 에디터 적용 영역*/
 		

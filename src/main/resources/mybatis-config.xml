@@ -16,5 +16,7 @@
 		
 		<!-- 다인테스트 -->
 		<mapper resource="mappings/writer/writer-board-mapping.xml" />
+		<mapper resource="mappings/manager/manager-board-mapping.xml" />
+		
 	</mappers>
 </configuration>
