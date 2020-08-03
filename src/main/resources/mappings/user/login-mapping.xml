@@ -35,6 +35,52 @@
 		WHERE 
 		member_email=#{email}
 	</select>
+	
+	<select id="checkLogin" parameterType="com.web.bomulsum.user.login.repository.LoginVO" resultType="int">
+		SELECT COUNT(1) FROM
+		member_tb
+		WHERE
+		member_email=#{email}
+		AND
+		member_password=#{password}
+	</select>
+	
+	<select id="getPw" parameterType="String" resultType="String">
+		SELECT member_password FROM
+		member_tb
+		WHERE
+		member_email=#{email}
+	</select>
+	
+	<select id="getUserCode" parameterType="String" resultType="String">
+		SELECT member_code_seq FROM
+		member_tb
+		WHERE
+		member_email=#{memberEmail}
+	</select>
+	
+	<update id="updateLogin" parameterType="com.web.bomulsum.user.login.repository.NowLoginVO">
+		UPDATE member_tb
+		SET
+		member_login=#{yORn}
+		WHERE
+		member_email = #{memberEmail}
+	</update>
+	
+	<select id="getUserName" parameterType="String" resultType="String">
+		SELECT member_name FROM
+		member_tb
+		WHERE
+		member_code_seq=#{code}
+	</select>
+	
+	<update id="logout" parameterType="com.web.bomulsum.user.login.repository.NowLoginVO">
+		UPDATE member_tb
+		SET
+		member_login=#{yORn}
+		WHERE
+		member_code_seq = #{memberCode}
+	</update>
 
 	<!-- <select id="getSomething" parameterType="int" resultType="#package.#modelname">
 		SELECT

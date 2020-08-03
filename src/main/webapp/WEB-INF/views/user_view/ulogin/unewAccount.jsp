@@ -143,7 +143,7 @@ input[type=button]{
             		</div>
             	
             		<div style="display: flex; flex-direction: row; justify-content: center; height:50px;"> 
-						<img id="kakao-login-btn" src="<c:url value='/resources/img/kakao.png'/>" style="width: 90%; height:100%;cursor : pointer;">
+						<img id="kakao-login-btn" src="<c:url value='/resources/img/kakao_login_large_wide.png'/>" style="width: 90%; height:100%;cursor : pointer;">
 					</div>
 					<a href="http://developers.kakao.com/logout"></a>
             		
@@ -190,7 +190,7 @@ input[type=button]{
 <script>
     //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('dbab6039d51f4966a42e02bf4f7b5dd0');  //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
+    Kakao.init('ce0c9f8553e32b9149185202978c0507');  //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
     // 카카오 로그인 버튼을 생성합니다.
     Kakao.Auth.createLoginButton({
         container: '#kakao-login-btn',

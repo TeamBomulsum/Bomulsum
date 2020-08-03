@@ -318,11 +318,22 @@ body {
 <header class="dainheader shadow" id="dainHeader">
 <div class="dainheader-top">
 	<div class="dainheader-top-inner">
-	<div class="dainheader-top-link">
-		<a class="dain-header-topA" href="user/login.do">로그인</a>
-		<a class="dain-header-topA" href="user/newAccount.do">회원가입</a>
-		<a class="dain-header-topA" href="#">고객센터</a>
-	</div>
+		<c:if test="${empty member}">
+			<div class="dainheader-top-link">
+				<a class="dain-header-topA" href="<c:url value='/user/login.do'/>" >로그인</a>
+				<a class="dain-header-topA" href="<c:url value='/user/newAccount.do'/>" >회원가입</a>
+				<a class="dain-header-topA" href="#">고객센터</a>
+			</div>
+		</c:if>
+		<c:if test="${not empty member}">
+			<div class="dainheader-top-link">
+				<a class="dain-header-topA" style="color: #666666;">${userName}님</a>
+				<a class="dain-header-topA" href="<c:url value='/user/logout.do'/>" >로그아웃</a>
+				<a class="dain-header-topA" style="color: #666666;"><i class="fas fa-bell" style="font-size:13px"></i> 알림</a>
+				<a class="dain-header-topA" style="color: #666666;"><i class="fas fa-comment" style="font-size:13px"></i> 메시지</a>
+				<a class="dain-header-topA" href="#">고객센터</a>
+			</div>
+		</c:if>
 	</div>
 </div>
 <!-- Header 중앙영역 -->
@@ -331,7 +342,7 @@ body {
 		
 		
 		<div style="height: 100%; width: 105px; margin-right: 10px">
-			<a href="#"><img alt="logo" src="<c:url value='/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
+			<a href="<c:url value='/home.do'/>" ><img alt="logo" src="<c:url value='/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
 		</div>
 		<div class="dainheader-middle-menu">
 			<a class="dainheader-middle-menu-a" href="#" style="margin-right: 30px; color: #1f76bb;" >작품</a>
