@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+  <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/> "></script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,11 +15,11 @@
   <title>SB Admin 2 - Login</title>
 
   <!-- Custom fonts for this template-->
-  <link href="<c:url value='/vendor/fontawesome-free/css/all.min.css' /> " rel="stylesheet" type="text/css">
+  <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css' /> " rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="<c:url value='/css/sb-admin-2.min.css'/> " rel="stylesheet" >
+  <link href="<c:url value='/resources/css/sb-admin-2.min.css'/> " rel="stylesheet" >
   
    <style>
     .container { padding-left: 20%; }
@@ -29,6 +29,9 @@
    max-width: 100% 
    }
   </style>
+  <script type="text/javascript">
+  
+  </script>
 
 </head>
 
@@ -54,10 +57,12 @@
                   </div>
                   <form class="user">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="아이디">
+                      <input type="email" class="form-control form-control-user" required="required"
+                      id="exampleInputEmail" aria-describedby="emailHelp" placeholder="아이디">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="비밀번호">
+                      <input type="password" class="form-control form-control-user" 
+                      id="exampleInputPassword" placeholder="비밀번호">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -65,8 +70,8 @@
                         <label class="custom-control-label" for="customCheck">자동 로그인</label>
                       </div>
                     </div>
-                    <a href="<c:url value='/view/home.jsp'/>" class="btn btn-primary btn-user btn-block" >
-                         로그인
+                    <a class="btn btn-primary btn-user btn-block">
+                         	로그인
                     </a>
                     <!--  <hr>
                     <a href="index.html" class="btn btn-google btn-user btn-block">
@@ -78,10 +83,10 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="forgot-password.jsp">비밀번호 찾기</a>
+                    <a class="small" href="/bomulsum/writer/forgot-password.wdo">비밀번호 찾기</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="register.jsp">회원가입</a>
+                    <a class="small" href="/bomulsum/writer/register.wdo">회원가입</a>
                   </div>
                 </div>
               </div>
@@ -96,14 +101,14 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="<c:url value='/vendor/jquery/jquery.min.js'/> "></script>
-  <script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/> "></script>
+  
+  <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/> "></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/> "></script>
+  <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/> "></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="<c:url value='/resources/js/sb-admin-2.min.js'/> "></script>
+  <script src="<c:url value='/resources/resources/js/sb-admin-2.min.js'/> "></script>
 
 </body>
 
