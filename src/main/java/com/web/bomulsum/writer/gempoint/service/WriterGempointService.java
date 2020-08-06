@@ -6,6 +6,8 @@ import java.util.Map;
 import com.web.bomulsum.writer.gempoint.repository.WriterGempointVO;
 
 public interface WriterGempointService {
-	   List<WriterGempointVO> getGemPoint(); //젬포인트 내역
-	   int getGemPointSum(); //보유포인트
+	List<Map<String, String>> getGemPoint()  ;
+	//List<WriterGempointVO> getGemPoint(); //젬포인트 내역
+	Map<String, Object> getGemPointSum(); //보유포인트
+	void insertGemPointCharge(int chargeMoney); //젬포인트 충전
 }

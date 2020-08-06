@@ -5,7 +5,6 @@ import java.sql.Date;
 public class WriterGempointVO {
 	private String gemSeq;
 	private String writeCodeSeq;
-	private int gemPoint;
 	private String gemUsage;
 	private int gemPrice;
 	private String gemLog;
@@ -23,12 +22,7 @@ public class WriterGempointVO {
 	public void setWriteCodeSeq(String writeCodeSeq) {
 		this.writeCodeSeq = writeCodeSeq;
 	}
-	public int getGemPoint() {
-		return gemPoint;
-	}
-	public void setGemPoint(int gemPoint) {
-		this.gemPoint = gemPoint;
-	}
+
 	public String getGemUsage() {
 		return gemUsage;
 	}
@@ -56,7 +50,7 @@ public class WriterGempointVO {
 	
 	@Override
 	public String toString() {
-		return "WriterGempointVO [gemSeq=" + gemSeq + ", writeCodeSeq=" + writeCodeSeq + ", gemPoint=" + gemPoint
+		return "WriterGempointVO [gemSeq=" + gemSeq + ", writeCodeSeq=" + writeCodeSeq 
 				+ ", gemUsage=" + gemUsage + ", gemPrice=" + gemPrice + ", gemLog=" + gemLog + ", gemDate=" + gemDate
 				+ "]";
 	}
