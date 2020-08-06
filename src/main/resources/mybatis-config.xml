@@ -9,7 +9,6 @@
 		
 		<!-- 다인 테스트-->
 		<typeAlias type="com.web.bomulsum.writer.board.repository.writerBoardVO" alias="writerBoardVO"/>
-
 		
 	</typeAliases>
 
@@ -19,6 +18,7 @@
 		<!-- 다인테스트 -->
 		<mapper resource="mappings/writer/writer-board-mapping.xml" />
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
+		<mapper resource="mappings/writer/writer-art-mapping.xml" />
 		
 	</mappers>
 </configuration>

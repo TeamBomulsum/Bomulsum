@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.bomulsum.writer.art.repository.WriterArtDAO">
+
+	<insert id="insertArt" parameterType="com.web.bomulsum.writer.art.repository.WriterArtVO">
+		INSERT INTO 
+		art_tb(
+			art_code_seq,
+			writer_code_seq,
+			art_photo,
+			art_name,
+			art_price,
+			art_discount,
+			art_count,
+			art_description,
+			art_category,
+			art_keyword,
+			art_viewcount,
+			art_point,
+			art_sale_status,
+			art_recommend_time
+		)
+		VALUES (
+			'art_code_seq' || TO_CHAR(art_code_sq.nextval),
+			'작가코드',
+			'이미지',
+			#{artName},
+			#{artPrice},
+			#{artDiscount},
+			#{artCount},
+			#{artDescription},
+			#{artCategory},
+			#{artKeyword},
+			default,
+			#{artPrice}*0.1,
+			'Y',
+			default
+		)
+	</insert>
+  
+	<select id="getArtCode" parameterType="String" resultType="String">
+		SELECT art_code_seq
+		FROM art_tb
+		WHERE writer_code_seq='작가코드'
+		AND art_name=#{artName}	
+	</select>
+
+	
+	<insert id="insertArtInfoDetail" parameterType="com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO">
+	INSERT INTO 	
+		art_info_detail_tb(
+			art_info_detail_code_seq,
+    		art_code_seq,
+   	 		art_info_detail_category,
+    		art_info_detail_weight,
+    		art_info_detail_from,
+    		art_info_detail_material,
+    		art_info_detail_expdate,
+    		art_info_detail_must,
+    		art_info_detail_component,
+    		art_info_detail_way
+		)
+		VALUES (
+			'art_info_detail_code_seq' || TO_CHAR(art_info_detail_code_sq.nextval),
+			#{artCodeSeq},
+			#{artInfoDetailCategory},
+			#{artInfoDetailWeight},
+			#{artInfoDetailFrom},
+			#{artInfoDetailMaterial},
+			#{artInfoDetailExpdate},
+			#{artInfoDetailMust},
+			#{artInfoDetailComponent},
+			#{artInfoDetailWay}
+		)
+	</insert>
+	
+</mapper>
