@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>작품등록</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
-   type="text/css">
-<link
-   href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
+<link href="<c:url value='/resources/css/summernote/summernote-lite.css'/>" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
    rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
@@ -104,6 +105,12 @@ h4 {
 
 </style>
 
+
+
+
+
+
+
 <script> 
 function removeImg(){
    var id = document.getElementById('imgs');
@@ -127,9 +134,31 @@ function setThumbnail(event) {
       reader.readAsDataURL(image); 
    } 
 }
+/*
+$(document).ready(function() {
+    $('#summernote').summernote({
+       height : 350, // 에디터 높이
+       minHeight : null, // 최소 높이
+       maxHeight : null, // 최대 높이
+       focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+       lang : "ko-KR", // 한글 설정
+       placeholder:"작품 설명을 적어주세요." //placeholder 설정
+
+    });
+ });*/
+
+ 
 </script>
 </head>
 <body id="page-top">
+	<c:if test="${param.check eq 1}">
+		<script type="text/javascript">
+			alert("글이 등록 되었습니다.");
+			location.href="/bomulsum/writer/workRegister.wdo";
+		</script>
+	</c:if>
+
+
    <div id="wrapper">
       <!-- Header/Nav -->
       <%@ include file="../include/side.jsp" %>
@@ -139,21 +168,24 @@ function setThumbnail(event) {
             <!-- end Header/Nav -->
             <div class="workRegisterContainer">
             <!-- 기본정보 영역 -->
-            <div class="basicInformationContainer">
+ <!--             <div class="basicInformationContainer">-->
                <!-- topLine -->
                <div class="flexcontainer">
                   <div class="textTitle">
                      <h4>기본정보</h4>
-                     등록하려는 작품에 대해 이야기해주세요
+                  		   등록하려는 작품에 대해 이야기해주세요
                   </div>
                   <div class="loadButton">
-                     <button class="button" id="load" type="button">등록한 작품
-                        불러오기</button>
-                  </div>
+                     <button class="button" id="load" type="button">등록한 작품 불러오기</button>
+                  </div>	
                </div>
                <!-- end flexcontainer -->
                <!-- end of topLine -->
+            
+            <!-- 여기 지금 테스트중 -->
+           	<form action="<c:url value='/writer/artregister.wdo'/> " method="get">
                <table border="1" class="basicInfoTable">
+
                   <tr>
                      <td class="left" style="width: 20%">사진등록</td>
                      <td><input type="file" id="image" accept="image/*"
@@ -166,57 +198,62 @@ function setThumbnail(event) {
                   <tr>
                      <td class="left">작품명</td>
                      <td><div class="workNameRegister">
-                           <input type="text" id="workName" maxlength="20" autocomplete="off"> <span
-                              id="nameCounter"> 0/20</span>
+                           <input type="text" name = "artName" id="workName" maxlength="20" autocomplete="off"> 
+                           <span id="nameCounter"> 0/20</span>
                         </div></td>
                   </tr>
                   <tr>
                      <td class="left">가격</td>
-                     <td><input type="text" id="workPrice" autocomplete="off"> 원</td>
+                     <td><input type="number" id="workPrice" name = "artPrice" autocomplete="off">&nbsp;원</td>
                   </tr>
                   <tr>
                      <td class="left">할인</td>
-                     <td><input type="checkbox"> 할인 후 가격  <input
-                        type="text" id="salePrice" autocomplete="off"> 원</td>
+                     <td><input type="checkbox"> 할인 후 가격  
+                     <input type="number" id="salePrice" name="artDiscount" autocomplete="off">&nbsp;원</td>
                   </tr>
                   <tr>
                      <td class="left">수량</td>
-                     <td><input type="checkbox"> 주문시 제작  <input type="text"
-                        id="num"> 개</td>
+                     <td><input type="checkbox"> 주문시 제작  
+                     <input type="number" id="num" name = "artCount" autocomplete="off"> 개</td>
                   </tr>
                   <tr>
                      <td class="left">작품설명</td>
-                     <td><textarea rows="4" cols="80" style="overflow-y: scroll;"
-                           placeholder="작품 설명을 적어주세요."></textarea></td>
+                     <td><!--  <input name="artDescription" autocomplete="off">-->
+                     <textarea id="summernote" name="artDescription" rows="6" cols="80" style="overflow-y: scroll; resize: none;"></textarea></td>
                   </tr>
+       			
                   <tr>
                      <td class="left">카테고리</td>
                      <td>
-                        <form action="#" class="category_search">
-                           <select name="category" id="category_id">
-                              <option value="foodbeverage">식음료</option>
-                              <option value="stationarey">문구팬시</option>
-                              <option value="electronics">전자기기</option>
-                              <option value="fashion">패션잡화</option>
-                              <option value="petsupplies">반려동물 용품</option>
-                              <option value="comment">인테리어 소품</option>
-                              <option value="interior accessory">신발</option>
-                              <option value="clothes">의류</option>
-                              <option value="childrengoods">육아.아동</option>
-                              <option value="toys">인형.장난감</option>
-                              <option value="crafts">공예</option>
-                              <option value="etc">기타</option>
+                      
+                           <select name="artCategory" id="category_id">
+                              <option value="식음료">식음료</option>
+                              <option value="문구팬시">문구팬시</option>
+                              <option value="전자기기">전자기기</option>
+                              <option value="패션잡화">패션잡화</option>
+                              <option value="반려동물">반려동물 용품</option>
+                              <option value="인테리어">인테리어 소품</option>
+                              <option value="신발">신발</option>
+                              <option value="의류">의류</option>
+                              <option value="육아,아동">육아.아동</option>
+                              <option value="인형,장난감">인형.장난감</option>
+                              <option value="공예">공예</option>
+                              <option value="기타">기타</option>
                            </select>
-                        </form>
                      </td>
                   </tr>
-               </table>
-
-            </div>
-            <!-- end 기본정보 영역  -->
+                                
+<!--              </table> -->
+<!--   	        <input type="submit" value="글 등록" class="btn btn-primary" style="margin:10px;">
+  			</form>-->
+ <!--            </div>--> 
+           
+            <!-- end 기본 작품 정보 영역  -->
 
             <!-- 작품 정보 제공 고시 영역 -->
-            <div class="provideInformationContainer">
+            <tr>
+            <td colspan="2">
+<!--    		    <div class="provideInformationContainer">-->	 
                <!-- topLine -->
                <div class="topLine">
                   <div class="textTitle">
@@ -225,64 +262,67 @@ function setThumbnail(event) {
                         있습니다.</p>
                   </div>
                </div>
+               </td>
+               </tr>
                <!-- end of topLine -->
-               <table border="1" class="provideInfoTable">
+    <!--           <table border="1" class="provideInfoTable"> --> 
                   <tr>
                      <td class="left" style="width: 20%">작품군</td>
+                      <td style="display:none"><input type="text" name ="artCodeSeq" value="${artCodeSeq}"></td>
                      <td>
                         <div class="categoryDiv">
-                           <form action="#" class="categorySearch">
-                              <select name="category" id="categoryId">
-                                 <option value="foodbeverage">식음료</option>
-                                 <option value="stationarey">문구팬시</option>
-                                 <option value="electronics">전자기기</option>
-                                 <option value="fashion">패션잡화</option>
-                                 <option value="petsupplies">반려동물 용품</option>
-                                 <option value="comment">인테리어 소품</option>
-                                 <option value="interior accessory">신발</option>
-                                 <option value="clothes">의류</option>
-                                 <option value="childrengoods">육아.아동</option>
-                                 <option value="toys">인형.장난감</option>
-                                 <option value="crafts">공예</option>
-                                 <option value="etc">기타</option>
+
+                              <select name="artInfoDetailCategory" id="categoryId">
+                                 <option value="식음료">식음료</option>
+                                 <option value="문구팬시">문구팬시</option>
+                                 <option value="전자기기">전자기기</option>
+                                 <option value="패션잡화">패션잡화</option>
+                                 <option value="반려동물 용품">반려동물 용품</option>
+                                 <option value="인테리어 소품">인테리어 소품</option>
+                                 <option value="신발">신발</option>
+                                 <option value="의류">의류</option>
+                                 <option value="육아,아동">육아.아동</option>
+                                 <option value="인형,장난감">인형.장난감</option>
+                                 <option value="공예">공예</option>
+                                 <option value="기타">기타</option>
                               </select>
-                           </form>
+
                         </div> <!-- categoryDiv -->
 
                         <div class="infoBox" style="border: 1px solid #ddd; padding:15px; margin-top:2%; width:85%">
                            <div id="weight" >
-                              <label>포장단위별 용량(중량), 수량</label><br> <input type="text"
-                                 id=wWeight size="78%" autocomplete="off">
+                              <label>포장단위별 용량(중량), 수량</label><br> 
+                              <input type="text" name="artInfoDetailWeight" id=wWeight size="78%" autocomplete="off">
                            </div>
                            <!-- end weight -->
                            <div id="produce" style="margin-top:1%">
-                              <label>생산자 및 소재지</label><br> <input type="text"
-                                 id=wProduce size="78%" autocomplete="off">
+                              <label>생산자 및 소재지</label><br> 
+                              <input type="text" name="artInfoDetailFrom" id=wProduce size="78%" autocomplete="off">
                            </div>
                            <!-- end produce -->
                            <div id="ingredient" style="margin-top:1%">
-                              <label>원재료명 및 함량</label><br> <input type="text"
-                                 id=wIngredient size="78%" autocomplete="off">
+                              <label>원재료명 및 함량</label><br> 
+                              <input type="text" name="artInfoDetailMaterial" id=wIngredient size="78%" autocomplete="off">
                            </div>
                            <!-- end ingredient -->
                            <div id="date" style="margin-top:1%">
-                              <label>제조년월일, 유통기한 또는 품질 유지기한</label><br> <input
-                                 type="text" id=wDate size="78%" autocomplete="off">
+                              <label>제조년월일, 유통기한 또는 품질 유지기한</label><br> 
+                              <input type="text" name="artInfoDetailExpdate" id=wDate size="78%" autocomplete="off">
                            </div>
                            <!-- end date -->
                            <div id="manage" style="margin-top:1%">
-                              <label>관리법상 표시사항</label><br> <input type="text"
-                                 id=wManage size="78%" autocomplete="off">
+                              <label>관리법상 표시사항</label><br> 
+                              <input type="text" name="artInfoDetailMust" id=wManage size="78%" autocomplete="off">
                            </div>
                            <!-- end manage -->
                            <div id="config" style="margin-top:1%">
-                              <label>구성</label><br> <input type="text" id=wConfig
-                                 size="78%" autocomplete="off">
+                              <label>구성</label><br> 
+                              <input type="text" name="artInfoDetailComponent" id=wConfig size="78%" autocomplete="off">
                            </div>
                            <!-- end config -->
                            <div id="manual" style="margin-top:1%">
-                              <label>보관방법 또는 취급방법</label><br> <input type="text"
-                                 id=wManual size="78%" autocomplete="off">
+                              <label>보관방법 또는 취급방법</label><br> 
+                              <input type="text" name="artInfoDetailWay" id=wManual size="78%" autocomplete="off">
                            </div>
                            <!-- end manual -->
 
@@ -290,42 +330,42 @@ function setThumbnail(event) {
 
                      </td>
                   </tr>
-               </table>
+  <!--              </table>--> 
 
-            </div>
+  <!--           </div>--> 
             <!-- end 작품 정보 제공 고시 영역  -->
 
-            <!-- 타겟설정 영역 -->
-            <div class="targetContainer">
+            <!-- 키워드 타겟설정 영역 -->
+  <!--         <div class="targetContainer"> -->  
                <!-- topLine -->
+               <tr>
+               <td>
                <div class="topLine">
                   <h4>타겟설정</h4>
                </div>
+               </td>
+               </tr>
                <!-- end of topLine -->
-               <table border="1" class="targetTable">
+ <!--              <table border="1" class="targetTable"> --> 
                   <tr>
                      <td class="left" style="width: 20%">작품키워드</td>
                      <td>
                         <div id="add">
-                           <form action="#" class="keywordSearch">
-                              <input type="text" id="keyword" autocomplete="off">
-                              <button type="submit">추가</button>
+                              <input type="text" id="keyword" name = "artKeyword" autocomplete="off">
+                              <button id="keywordAdd" type="submit">추가</button>
                                0/20
-                           </form>
                         </div>
                         <div class="keywordContainer"></div>
                          10/10개<br>
                         띄어쓰기, 문장 기호가 특수 문자를 사용한 등록이 불가능하며, 최대 10개까지 등록이 가능합니다.
                      </td>
                   </tr>
-               </table>
-
-            </div>
             <!-- end 타겟 설정 영역 -->
 
             <!-- 옴션설정 영역 -->
-            <div class="optionContainer">
-
+ <!--          <div class="optionContainer">  --> 
+			<tr>
+			<td colspan="2">
                <div class="flexcontainer">
                   <div class="textTitle">
                      <h4>옵션</h4>
@@ -334,9 +374,11 @@ function setThumbnail(event) {
                      <button class="button" id="add" type="button">옵션추가</button>
                   </div>
                </div>
+               </td>
+               </tr>
                <!-- end flexcontainer -->
 
-               <table border="1" class="optionTable">
+    <!--          <table border="1" class="optionTable"> -->  
                   <tr>
                      <td class="left" style="width: 20%">옵션1</td>
                      <td>
@@ -430,11 +472,15 @@ function setThumbnail(event) {
                      </td>
                   </tr>
                </table>
+
+	 <input type="submit" value="글 등록" class="btn btn-primary" style="margin:10px;">
+	 </form>
             </div>
             <!-- end 옵션 영역 -->
             </div><!-- end workRegisterContainer -->
             <div class="savecontainer">
-               <button type="submit" id="save">저장하기</button>
+            <!--	<input type="submit" value="글 등록" class="btn btn-primary" style="margin:10px;">-->
+             <!--   <button type="submit" id="save">저장하기</button> -->
             </div>
             <!-- content -->
 
@@ -447,11 +493,12 @@ function setThumbnail(event) {
                class="fas fa-angle-up"></i>
             </a>
 
-            <script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-            <script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-
+            <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+            <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+			<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
+      		<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
             <!-- Core plugin JavaScript-->
-            <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+            <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
             <!-- Custom scripts for all pages-->
             <script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
@@ -459,6 +506,7 @@ function setThumbnail(event) {
     
 			</div><!-- end content -->
       </div>
-   </div>
+ <!--   </div>--> 
 </body>
+
 </html>

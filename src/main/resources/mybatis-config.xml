@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.web.bomulsum.user.login.repository.MemberVO" alias="memberVO"/>	
+		<typeAlias type="com.web.bomulsum.writer.board.repository.writerBoardVO" alias="writerBoardVO"/>	
+		<!-- gemPoint VO -->
+		<typeAlias type="com.web.bomulsum.writer.gempoint.repository.WriterGempointVO" alias="WriterGempointVO"/>	
+
+		<typeAlias type="com.web.bomulsum.writer.login.repository.WriterRegisterVO" alias="WriterRegisterVO"/>
+
+		
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mappings/user/login-mapping.xml" />		
+		<mapper resource="mappings/writer/writer-board-mapping.xml" />	
+		<!-- gemPoint -->
+		<mapper resource="mappings/writer/gempoint-mapping.xml" />
+		<mapper resource="mappings/manager/manager-board-mapping.xml" />
+		<mapper resource="mappings/writer/writer-login-mapping.xml" />
+		<mapper resource="mappings/writer/writer-art-mapping.xml" />
+	</mappers>
+</configuration>

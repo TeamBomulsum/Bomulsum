@@ -1,18 +1,28 @@
 package com.web.bomulsum.manager.board.repository;
 
+import java.sql.Date;
 
 public class MBoardVO {
 
 //	private String admin_notice_seq;
 //	private Date admin_notice_date;
-	//얘네 둘은 받아서 넘겨주는게 아니고, DB에 자동으로 입력되니까 없어도 됨.
+	//얘네 둘은 받아서 넘겨주는게 아니고, DB에 자동으로 입력되니까 없어도 됨. 이라고 생각했던것도 잠시였네욧.
+
 	
+	private String adminNoticeSeq;
 	private String adminNoticeCategory;
 	private String adminNoticeTitle;
 	private String adminNoticeContent;
 	private String adminNoticeCoupon;
+	private Date adminNoticeDate;
 	
-	
+
+	public String getAdminNoticeSeq() {
+		return adminNoticeSeq;
+	}
+	public void setAdminNoticeSeq(String adminNoticeSeq) {
+		this.adminNoticeSeq = adminNoticeSeq;
+	}
 	public String getAdminNoticeCategory() {
 		return adminNoticeCategory;
 	}
@@ -37,12 +47,19 @@ public class MBoardVO {
 	public void setAdminNoticeCoupon(String adminNoticeCoupon) {
 		this.adminNoticeCoupon = adminNoticeCoupon;
 	}
-	
+	public Date getAdminNoticeDate() {
+		return adminNoticeDate;
+	}
+	public void setAdminNoticeDate(Date adminNoticeDate) {
+		this.adminNoticeDate = adminNoticeDate;
+	}
 	@Override
 	public String toString() {
-		return "MBoardVO [adminNoticeCategory=" + adminNoticeCategory + ", adminNoticeTitle=" + adminNoticeTitle
-				+ ", adminNoticeContent=" + adminNoticeContent + ", adminNoticeCoupon=" + adminNoticeCoupon + "]";
+		return "MBoardVO [adminNoticeSeq=" + adminNoticeSeq + ", adminNoticeCategory=" + adminNoticeCategory
+				+ ", adminNoticeTitle=" + adminNoticeTitle + ", adminNoticeContent=" + adminNoticeContent
+				+ ", adminNoticeCoupon=" + adminNoticeCoupon + ", adminNoticeDate=" + adminNoticeDate + "]";
 	}
+
 	
 	
 }
