@@ -81,6 +81,20 @@
 		WHERE
 		member_code_seq = #{memberCode}
 	</update>
+	
+	
+	<resultMap type="com.web.bomulsum.user.message.repository.NodeDbVO" id="nodeDbVo">
+		<result property="messageSeq" column="message_seq"/>
+		<result property="memberCodeSeq" column="member_code_seq"/>
+		<result property="writerCodeSeq" column="writer_code_seq"/>
+		<result property="messageContent" column="message_content"/>
+		<result property="messageTime" column="message_time"/>
+		<result property="messageRead" column="message_read"/>
+	</resultMap>
+	
+	<select id="getMessage" resultMap="nodeDbVo">
+		SELECT * FROM message_tb
+	</select>
 
 	<!-- <select id="getSomething" parameterType="int" resultType="#package.#modelname">
 		SELECT
