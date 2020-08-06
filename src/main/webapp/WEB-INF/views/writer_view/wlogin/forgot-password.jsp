@@ -15,11 +15,11 @@
   <title>SB Admin 2 - Forgot Password</title>
 
   <!-- Custom fonts for this template-->
-  <link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/> " rel="stylesheet" type="text/css">
+  <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/> " rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="<c:url value='/css/sb-admin-2.min.css'/> " rel="stylesheet">
+  <link href="<c:url value='/resources/css/sb-admin-2.min.css'/> " rel="stylesheet">
   <style>
     .container { padding-left: 20%; }
     .container { padding-right: 20%; }
@@ -54,16 +54,16 @@
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="이메일 주소">
                     </div>
-                    <a href="login.jsp" class="btn btn-primary btn-user btn-block">
+                    <a href="/bomulsum/writer/login.wdo" class="btn btn-primary btn-user btn-block">
                          비밀번호 찾기
                     </a>
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="register.jsp">회원가입</a>
+                    <a class="small" href="/bomulsum/writer/register.wdo">회원가입</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="login.jsp">로그인</a>
+                    <a class="small" href="/bomulsum/writer/login.wdo">로그인</a>
                   </div>
                 </div>
               </div>
@@ -78,14 +78,14 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="<c:url value='/vendor/jquery/jquery.min.js'/> "></script>
-  <script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js' /> "></script>
+  <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/> "></script>
+  <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js' /> "></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js' /> "></script>
+  <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js' /> "></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="<c:url value='/resources/js/sb-admin-2.min.js' /> "></script>
+  <script src="<c:url value='/resources/resources/js/sb-admin-2.min.js' /> "></script>
 
 </body>
 

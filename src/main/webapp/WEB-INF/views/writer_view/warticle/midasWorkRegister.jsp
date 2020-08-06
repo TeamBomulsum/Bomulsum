@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>강의등록</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
-   type="text/css">
-<link
-   href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-   rel="stylesheet">
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="<c:url value='/resources/css/summernote/summernote-lite.css'/>" rel="stylesheet" type="text/css">     
+
 <!-- Custom styles for this template-->
 <link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <style>
@@ -127,6 +125,24 @@ function setThumbnail(event) {
       reader.readAsDataURL(image); 
    } 
 }
+function saveWork(){
+	var startD = new Date(document.getElementById('startDate').value).getTime();
+	var endD = new Date(document.getElementById('endDate').value).getTime();
+	var startT = document.getElementById('startTime').value;
+	var endT = document.getElementById('endTime').value;
+	
+	
+	if(startT > endT){
+		alert('시간을 제대로입력해')
+	}
+	
+	if(startD == endD || startD > endD){
+		alert('날짜를 다시 입력해 주세요!')
+	}else{
+		console.log('제대로 된 날짜')
+	}
+	
+}
 </script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -189,9 +205,11 @@ function setThumbnail(event) {
                   </tr>
                    <tr>
                      <td class="left">날짜</td>
-                     <td><input type="date"
-                        id="num"> &nbsp;~&nbsp; <input type="date"
-                        id="num"></td>
+                     <td>
+                     	<input type="date" id="startDate">
+                     	&nbsp;~&nbsp;
+                     	<input type="date" id="endDate">
+                     </td>
                   </tr>
                     <tr>
                      <td class="left">요일</td>
@@ -207,13 +225,16 @@ function setThumbnail(event) {
                   </tr>
                    <tr>
                      <td class="left">시간</td>
-                     <td><input type="time"
-                        id="num">&nbsp;~&nbsp;<input type="time"> </td>
+                     <td>
+                     	<input type="time" id="startTime"> 
+                     		&nbsp;~&nbsp;
+                     	<input type="time" id="endTime">
+                     </td>
                   </tr>
                   <tr>
                      <td class="left">강의설명</td>
                      <td><textarea rows="4" cols="80" style="overflow-y: scroll;"
-                           placeholder="작품 설명을 적어주세요."></textarea></td>
+                           placeholder="작품 설명을 적어주세요." id="summernote"></textarea></td>
                   </tr>
                    <tr>
                      <td class="left">난이도</td>
@@ -307,7 +328,7 @@ function setThumbnail(event) {
             <!-- end 옵션 영역 -->
             </div><!-- end workRegisterContainer -->
             <div class="savecontainer">
-               <button type="submit" id="save">저장하기</button>
+               <button type="submit" id="save" onclick="saveWork()">저장하기</button>
             </div>
             <!-- content -->
 
@@ -320,16 +341,17 @@ function setThumbnail(event) {
                class="fas fa-angle-up"></i>
             </a>
 
-            <script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-            <script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+            <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+            <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
             <!-- Core plugin JavaScript-->
-            <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+            <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
             <!-- Custom scripts for all pages-->
             <script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 
-    
+    		<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
+			<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
 			</div><!-- end content -->
       </div>
    </div>
@@ -411,6 +433,19 @@ function setThumbnail(event) {
     		} 
     	
     }
+</script>
+<script>
+	$(document).ready(function() {
+	      $('#summernote').summernote({
+	         height : 350, // 에디터 높이
+	         minHeight : null, // 최소 높이
+	         maxHeight : null, // 최대 높이
+	         focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+	         lang : "ko-KR", // 한글 설정
+	         placeholder :  "작품 설명을 써주세요~"//placeholder 설정
+
+	      });
+	   });
 </script>
 </html>
 

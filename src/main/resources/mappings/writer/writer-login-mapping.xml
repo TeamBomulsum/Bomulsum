@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="WriterRegisterDAO">
+
+
+
+	<insert id="insertMember" parameterType="WriterRegisterVO">
+		INSERT INTO 
+			writer_tb(
+			writer_code_seq,
+			writer_name,
+			writer_email,
+			writer_password
+			)
+		VALUES(
+			'writer_code_seq'|| TO_CHAR(writer_code_sq.nextval),
+			#{wrtierName},
+			#{writerEmail},
+			#{writerPassword}
+			)
+	</insert>
+	<select id="checkId" resultType="int">
+		SELECT COUNT(*)
+		FROM writer_tb
+		WHERE writer_email=#{writerEmail}
+	</select>
+
+
+</mapper>
