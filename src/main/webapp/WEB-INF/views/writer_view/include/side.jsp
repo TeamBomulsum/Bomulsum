@@ -22,7 +22,7 @@
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../home.jsp">
         <div>
           <!-- 보물섬 아이콘 -->
-          <i><img src="<c:url value='/resources/img/text.png'/>" width="70" height="70"></i>
+          <i><img src="<c:url value='/resources/img/MainLogo_white.png'/>" width="70" height="70" ></i>
         </div>
       </a>
 
@@ -38,7 +38,8 @@
 
       <div align="center">
         <!-- 작가 프로필 사진 -->
-        <a href="#"><img src="<c:url value='/resources/img/MainLogo_white.png'/>" width="100" height="100"></a><br>
+        <a href="#"><img src="<c:url value='/resources/img/test.png'/>" width="100" height="100"
+          style="background-color: white; margin: 4% 0 4% 0; border-radius: 50%;"></a><br>
         <a style="color:aliceblue; font-size: 15pt; font-weight: bold;">작가명</a>
         <div style="margin-top:2%;margin-bottom:2%;">
         	<table style="color: white; width:80%">
