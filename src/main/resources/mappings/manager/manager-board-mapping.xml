@@ -4,6 +4,16 @@
 
 <mapper namespace="mBoardDAO">
 
+	<resultMap type="com.web.bomulsum.manager.board.repository.MBoardVO" id="mBoardMap">
+		<id column="admin_notice_seq" property="adminNoticeSeq"/>
+		<result column="ADMIN_NOTICE_CATEGORY" property="adminNoticeCategory"/>
+		<result column="ADMIN_NOTICE_TITLE" property="adminNoticeTitle"/>
+		<result column="ADMIN_NOTICE_CONTENT" property="adminNoticeContent"/>
+		<result column="ADMIN_NOTICE_COUPON" property="adminNoticeCoupon"/>
+		<result column="ADMIN_NOTICE_DATE" property="adminNoticeDate"/>
+	</resultMap>
+
+
 	<insert id="insertMBoard" parameterType="com.web.bomulsum.manager.board.repository.MBoardVO">
 		INSERT INTO admin_notice_tb
 		(
@@ -27,6 +37,29 @@
 	<select id="selectMBoard" resultType="com.web.bomulsum.manager.board.repository.MBoardListVO">
 		SELECT * FROM admin_notice_tb
 	</select>
+
+	<!-- 수정을 위한 셀렉트 문 -->
+	<select id="selectRewrite" parameterType="com.web.bomulsum.manager.board.repository.MBoardVO" 
+			resultMap="mBoardMap">
+		SELECT * FROM admin_notice_tb
+		WHERE admin_notice_seq = #{adminNoticeSeq}
+	</select>
+
+	<!-- 실제 수정된 데이터를 입력하기 위한 업데이트 문 -->
+	<update id="updateMBoard" parameterType="com.web.bomulsum.manager.board.repository.MBoardVO">
+		UPDATE admin_notice_tb
+		SET admin_notice_category = #{adminNoticeCategory},
+			admin_notice_title = #{adminNoticeTitle},
+			admin_notice_content = #{adminNoticeContent},
+			admin_notice_coupon = #{adminNoticeCoupon}
+		WHERE admin_notice_seq = #{adminNoticeSeq}
+	</update>
+
+	<!-- 데이터 삭제를 위한 딜리트문 -->
+	<delete id="deleteMBoard" parameterType="com.web.bomulsum.manager.board.repository.MBoardVO">
+		DELETE FROM admin_notice_tb WHERE admin_notice_seq = #{adminNoticeSeq}
+	</delete>
+
 
 <!-- 
 	<select id="getSomething" parameterType="int" resultType="#package.#modelname">
