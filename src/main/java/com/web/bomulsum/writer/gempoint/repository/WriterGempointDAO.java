@@ -31,4 +31,8 @@ public class WriterGempointDAO {
 		return result;
 	}
 	
+	//젬포인트 충전
+	public void insertGemPointCharge(int chargeMoney) {
+		sqlSessionTemplate.insert("writerGempointDAO.gempointChargeInsert", chargeMoney); 
+	}
 }

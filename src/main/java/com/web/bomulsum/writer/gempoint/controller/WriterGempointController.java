@@ -3,11 +3,14 @@ package com.web.bomulsum.writer.gempoint.controller;
 import java.util.List;
 import java.util.Map;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.web.bomulsum.writer.gempoint.service.WriterGempointService;
 
 
@@ -27,6 +30,15 @@ public class WriterGempointController {
 		mav.addObject("gemsum", gemSum);
 		return mav;
 	} 
+
+	@RequestMapping(value="/gempoint/charge")
+	public ModelAndView gempointCharge(int chargeMoney) {
+		System.out.println("충전한 포인트 : " + chargeMoney);
+		ModelAndView mav = new ModelAndView("redirect:/writer/gempoint.wdo");
+		service.insertGemPointCharge(chargeMoney);
+		return mav;
+	}
+
 	
 	
 }

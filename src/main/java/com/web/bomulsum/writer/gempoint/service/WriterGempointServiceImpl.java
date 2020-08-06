@@ -26,4 +26,9 @@ public class WriterGempointServiceImpl implements WriterGempointService{
 		return dao.getGemPointSum();
 	}
 
+	@Override
+	public void insertGemPointCharge(int chargeMoney) {
+		dao.insertGemPointCharge(chargeMoney);
+	}
+
 }
