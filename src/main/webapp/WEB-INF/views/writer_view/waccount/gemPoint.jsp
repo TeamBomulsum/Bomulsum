@@ -123,7 +123,7 @@ footer span{
 							<th class="daintdth" style="width: 20%">보유 포인트 </th>
 							<!-- 보유포인트 -->
 							<td class="daintdth" id="gemPoint" class="bold"
-								style="color: #36a7b3; display:flex; align-items: center;">${gemsum}0P <div>
+								style="color: #36a7b3; display:flex; align-items: center;">${gemsum.GEMSUM}P <div>
 								<button class="dainGempointBtn">충전하기</button></div></td>
 						</tr>
 					</table>

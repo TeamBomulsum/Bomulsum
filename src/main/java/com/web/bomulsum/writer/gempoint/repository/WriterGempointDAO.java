@@ -15,14 +15,19 @@ public class WriterGempointDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	//이용내역
-	public List<WriterGempointVO> getGemPoint() {
-		List<WriterGempointVO> list = sqlSessionTemplate.selectList("writerGempointDAO.gempointSelect");
+	public List<Map<String, String>> getGemPoint() {
+		List<Map<String, String>> list = sqlSessionTemplate.selectList("writerGempointDAO.gempointSelect");
+		System.out.println(list); //테스트
 		return list;
 	}
+//	public List<WriterGempointVO> getGemPoint() {
+//		List<WriterGempointVO> list = sqlSessionTemplate.selectList("writerGempointDAO.gempointSelect");
+//		return list;
+//	}
 	//보유 포인트
-	public int getGemPointSum() {
-		int result =  sqlSessionTemplate.selectOne("writerGempointDAO.gempointSum"); //mapper namespace . id
-		System.out.println(result);
+	public Map<String, Object> getGemPointSum() {
+		Map<String, Object> result =  sqlSessionTemplate.selectOne("writerGempointDAO.gempointSum"); //mapper namespace . id
+		System.out.println(result); //테스트
 		return result;
 	}
 	

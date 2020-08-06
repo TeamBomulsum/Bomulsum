@@ -16,13 +16,13 @@ public class WriterGempointServiceImpl implements WriterGempointService{
 	WriterGempointDAO dao;
 	   
 	@Override
-	public List<WriterGempointVO> getGemPoint() {
-	      List<WriterGempointVO> list = dao.getGemPoint();
+	public List<Map<String, String>> getGemPoint() {
+	      List<Map<String, String>> list = dao.getGemPoint();
 	      return list;
 	}
 
 	@Override
-	public int getGemPointSum() {
+	public Map<String, Object> getGemPointSum() {
 		return dao.getGemPointSum();
 	}
 

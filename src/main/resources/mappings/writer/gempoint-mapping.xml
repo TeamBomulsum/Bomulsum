@@ -4,6 +4,16 @@
 
 <mapper namespace="writerGempointDAO">
 
+	<resultMap id="gempointMap" type="HashMap">
+		<id column="gem_seq" property="gemSeq"/>
+		<id column="writer_code_seq" property="writeCodeSeq"/>
+		<id column="gem_point" property="gemPoint"/>
+		<id column="gem_usage" property="gemUsage"/>
+		<id column="gem_price" property="gemPrice"/>
+		<id column="gem_log" property="gemLog"/>
+		<id column="gem_date" property="gemDate"/>
+	</resultMap>
+	<!--  
 	<resultMap id="gempointMap" type="com.web.bomulsum.writer.gempoint.repository.WriterGempointVO">
 		<result property="gemSeq" column="gem_seq"/>
 		<result property="writeCodeSeq" column="writer_code_seq"/>
@@ -13,10 +23,13 @@
 		<result property="gemLog" column="gem_log"/>
 		<result property="gemDate" column="gem_date"/>
 	</resultMap>
-
+-->
 	
-	<select id="gempointSelect" resultType="WriterGempointVO" parameterType="String" resultMap="gempointMap">
-		SELECT gem_seq, writer_code_seq, gem_point, gem_usage, gem_price, gem_log, gem_date
+	<!-- 젬포인트 이용내역조회 -->
+	<select id="gempointSelect" parameterType="String" resultMap="gempointMap">
+		SELECT gem_seq, writer_code_seq, gem_usage, 
+		gem_price, gem_log, TO_CHAR(gem_date,'YYYY-MM-DD') as gem_date
+		
 		FROM gem_tb
 		<!-- 
 		WHERE writer_code_seq = #{writeCodeSeq}
@@ -25,12 +38,11 @@
 		
 	</select>
 	
-	<select id="gempointSum" resultType="int" resultMap="gempointMap">
-		SELECT sum(gem_point) 
+	<!-- 젬포인트 보유포인트 조회  -->
+	<select id="gempointSum" resultMap="gempointMap">
+     	SELECT SUM(gem_price) as gemSum
 		FROM gem_tb
-		<!-- 
-		WHERE writer_code_seq = #{writeCodeSeq}
-		 -->
+	
 	</select>
 
 </mapper>
