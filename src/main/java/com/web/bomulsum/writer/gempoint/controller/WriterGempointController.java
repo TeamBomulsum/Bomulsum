@@ -34,6 +34,7 @@ public class WriterGempointController {
 	@RequestMapping(value="/gempoint/charge")
 	public ModelAndView gempointCharge(int chargeMoney) {
 		System.out.println("충전한 포인트 : " + chargeMoney);
+		System.out.println("충전한 포인트zz : " + chargeMoney);
 		ModelAndView mav = new ModelAndView("redirect:/writer/gempoint.wdo");
 		service.insertGemPointCharge(chargeMoney);
 		return mav;
