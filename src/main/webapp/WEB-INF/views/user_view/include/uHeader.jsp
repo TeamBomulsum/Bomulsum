@@ -330,7 +330,7 @@ body {
 				<a class="dain-header-topA" style="color: #666666;">${userName}님</a>
 				<a class="dain-header-topA" href="<c:url value='/user/logout.do'/>" >로그아웃</a>
 				<a class="dain-header-topA" style="color: #666666;"><i class="fas fa-bell" style="font-size:13px"></i> 알림</a>
-				<a class="dain-header-topA" style="color: #666666;"><i class="fas fa-comment" style="font-size:13px"></i> 메시지</a>
+				<a class="dain-header-topA" href="<c:url value='/user/message.do'/> " style="color: #666666;"><i class="fas fa-comment" style="font-size:13px"></i> 메시지</a>
 				<a class="dain-header-topA" href="#">고객센터</a>
 			</div>
 		</c:if>

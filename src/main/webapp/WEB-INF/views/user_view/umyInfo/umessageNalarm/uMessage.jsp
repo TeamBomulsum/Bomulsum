@@ -8,106 +8,69 @@
    type="text/css">
 <meta charset="UTF-8">
 <title>보물섬|메세지</title>
+<script src="http://localhost:82/socket.io/socket.io.js"></script>
 <script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
 <script type="text/javascript">
    var dd = document.getElementById('wonMessageContent');
    var isScrollUp = false;
    var lastScrollTop;
    var unreadCnt = 0;
-   let today = new Date();
+   
+$(function() {
+	
+	$(document).ready(function(){
+		var socket = io("http://localhost:82");
+	   
+		$('#wonMessageButton').click(function() {
+			let today = new Date();
+			
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1; // 월
+			let date = today.getDate(); // 날짜
+			let hours = today.getHours(); // 시
+			let minutes = today.getMinutes(); // 분
+			var message = document.getElementById('wonMessageContent').value;
+			
+			let day = month + '/' + date + "/" + hours + ":"
+			      + minutes;
+			console.log(message);
+			
+			var dTag = document.createElement("div");
+			var tag = document.createElement('span');
+			let dayTag = document.createElement('span');
+			
+			var x = $('#wonMessageScroll');
+			
+			if ($('#wonMessageContent').val() == '') {
+				alert('메세지를 입력해주세요');
+			} else {
+				dayTag.innerHTML = day;
+				tag.innerHTML = message.replace(/\n/gi, '<br>');
+				tag.setAttribute('style','background-color: #e5f3ff');
+				dTag.setAttribute('style', 'padding: 1%');
+				dayTag.setAttribute('style','font-size: 60%; padding: 1%');
+				console.log(tag.innerHTML);
+				dTag.appendChild(tag);
+				document.getElementById('wonMessageList').appendChild(dTag).appendChild(dayTag);
+				socket.emit('bomulsum_msg', "클라 전송 : " + message);
+				$('#wonMessageContent').val("");
+			}
+		$('#wonMessageScroll').scrollTop(1E10);
+		});
+		
+		$('#wonMessageContent').keydown(function(key) {
+			if (key.which == 13) {
+				if (!event.shiftKey) {
+					$('#wonMessageButton').click();
+					return false;
+				}
+			}
+			$('#wonMessageScroll').scrollTop(1E10);
+		});
 
-   let year = today.getFullYear(); // 년도
-   let month = today.getMonth() + 1; // 월
-   let date = today.getDate(); // 날짜
-   let hours = today.getHours(); // 시
-   let minutes = today.getMinutes(); // 분
+	});
 
-   $(function() {
-      $('#wonMessageButton').click(function() {
-                     var message = document.getElementById('wonMessageContent').value;
-
-                     let day = month + '/' + date + "/" + hours + ":"
-                           + minutes;
-                     console.log(message);
-
-                     var dTag = document.createElement("div");
-                     var tag = document.createElement('span');
-                     let dayTag = document.createElement('span');
-
-                     var x = $('#wonMessageScroll');
-
-                     if ($('#wonMessageContent').val() == '') {
-                        alert('메세지를 입력해주세요');
-                     } else {
-                        dayTag.innerHTML = day;
-                        tag.innerHTML = message.replace(/\n/gi, '<br>');
-                        tag.setAttribute('style',
-                              'background-color: #e5f3ff');
-                        dTag.setAttribute('style', 'padding: 1%');
-                        dayTag.setAttribute('style',
-                              'font-size: 60%; padding: 1%');
-                        console.log(tag.innerHTML);
-                        dTag.appendChild(tag);
-                        document.getElementById('wonMessageList').appendChild(
-                              dTag).appendChild(dayTag);
-                        $('#wonMessageContent').val("");
-                     }
-                     $('#wonMessageScroll').scrollTop(1E10);
-
-                  });
-      $('#wonMessageContent').keydown(function(key) {
-         if (key.which == 13) {
-            if (!event.shiftKey) {
-
-               $('#wonMessageButton').click();
-               return false;
-            }
-         }
-         /*else if(key.shiftKey){
-            if(key.which == 13){
-            var str = document.querySelector('#messageContent');
-            console.log(str)
-            alert('성공!');
-            }
-         }*/
-         $('#wonMessageScroll').scrollTop(1E10);
-      });
-
-      //받는 메세지
-      $('#test').click(function() {
-                     let day = month + '/' + date + "/" + hours + ":"
-                           + minutes;
-                     console.log(day);
-                     let dayTag = document.createElement('span');
-
-                     var message = document.getElementById('sendTest').value;
-                     /* console.log(message); */
-
-                     var dTag = document.createElement("div");
-                     var tag = document.createElement('span');
-                     if ($('#sendTest').val() == '') {
-                        alert('메세지를 입력해주세요');
-                     } else {
-                        dayTag.innerHTML = day;
-                        tag.innerHTML = message.replace(/\n/gi, '<br>');
-                        console.log(tag.innerHTML);
-                        dayTag.setAttribute('style',
-                              'font-size: 60%; padding: 1%');
-                        tag.setAttribute('style',
-                              'background-color: #f9f3a9;');
-                        dTag
-                              .setAttribute('style',
-                                    'padding: 1%; width: 100%; text-align:right;');
-                        dTag.appendChild(tag);
-                        document.getElementById('list').appendChild(
-                              dTag).append(dayTag);
-                        $('#sendTest').val("");
-                     }
-                     $('#scroll').scrollTop(1E10);
-
-                  });
-
-   });
+});
   
 </script>
 <style type="text/css">
