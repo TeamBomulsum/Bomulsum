@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="writerGempointDAO">
+
+	<resultMap id="gempointMap" type="com.web.bomulsum.writer.gempoint.repository.WriterGempointVO">
+		<result property="gemSeq" column="gem_seq"/>
+		<result property="writeCodeSeq" column="writer_code_seq"/>
+		<result property="gemPoint" column="gem_point"/>
+		<result property="gemUsage" column="gem_usage"/>
+		<result property="gemPrice" column="gem_price"/>
+		<result property="gemLog" column="gem_log"/>
+		<result property="gemDate" column="gem_date"/>
+	</resultMap>
+
+	
+	<select id="gempointSelect" resultType="WriterGempointVO" parameterType="String" resultMap="gempointMap">
+		SELECT gem_seq, writer_code_seq, gem_point, gem_usage, gem_price, gem_log, gem_date
+		FROM gem_tb
+		<!-- 
+		WHERE writer_code_seq = #{writeCodeSeq}
+		 -->
+		ORDER BY gem_date DESC
+		
+	</select>
+	
+	<select id="gempointSum" resultType="int" resultMap="gempointMap">
+		SELECT sum(gem_point) 
+		FROM gem_tb
+		<!-- 
+		WHERE writer_code_seq = #{writeCodeSeq}
+		 -->
+	</select>
+
+</mapper>
+
+

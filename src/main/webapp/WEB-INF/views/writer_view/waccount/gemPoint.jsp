@@ -83,6 +83,18 @@ footer span{
 	margin-right: 10%;
 }
 
+.dainGempointBtn{
+	 margin-left: 30px; 
+	 background-color: white;
+	 border: 1px solid #d9d9d9;
+	 border-radius: 3px;
+	 color: #999999;
+	 padding: 3px 10px;
+}
+.dainGempointBtn:focus{
+	outline: none;
+}
+
 </style>
 
 </head>
@@ -103,19 +115,16 @@ footer span{
 					<br />
 					<!-- 젬 포인트 테이블 -->
 					<p>
-						젬 포인트는 작가님들의 작품 홍보를 위해 제공되는 가상 포인트 제도입니다. <br> 매월 일정량의 젬 포인트를
-						충전해드리고, 이 충전된 포인트를 작가님 추천에 사용할 수 있습니다.
+						젬 포인트는 작가님들의 작품 홍보를 위해 제공되는 가상 포인트 제도입니다. <br> 이 곳에서 포인트를 충전할 수 있고, 
+						충전된 포인트를 작가님 추천에 사용할 수 있습니다.
 					</p>
 					<table>
 						<tr>
 							<th class="daintdth" style="width: 20%">보유 포인트 </th>
-							<!-- 여기에 값 들어가야함 -->
+							<!-- 보유포인트 -->
 							<td class="daintdth" id="gemPoint" class="bold"
-								style="color: #00CED1; width: 80%; display:flex;">0P <div><button style="margin-left: 30px;">충전하기</button></div></td>
-						</tr>
-						<tr>
-							<th class="daintdth" style="width: 20%">7일 이내에 만료되는 포인트</th>
-							<td class="daintdth" id="expPoint" style="width: 80%">0P</td>
+								style="color: #36a7b3; display:flex; align-items: center;">${gemsum}0P <div>
+								<button class="dainGempointBtn">충전하기</button></div></td>
 						</tr>
 					</table>
 
@@ -135,37 +144,31 @@ footer span{
 							<th class="daintdth" style="width: 18%; text-align: center;">일자</th>
 							<th class="daintdth" style="width: 46%; text-align: center;">내역</th>
 							<th class="daintdth" style="width: 18%; text-align: center;">포인트</th>
-							<th class="daintdth" style="width: 18%; text-align: center;">유효기간</th>
 						</tr>
 						<!-- 테이블 내용 -->
+						
+						<c:forEach var="gemforeach" items="${article}">
 						<tr>
-							<td class="daintdth" style="text-align: center">2020-07-01</td>
-							<td class="daintdth">보물섬 지급 포인트</td>
-							<td class="daintdth bold"
-								style="text-align: center; color: #00CED1;">+30,000P</td>
-							<td class="daintdth" style="text-align: center">2020-07-31</td>
+							<!-- 일자 -->
+							<td class="daintdth" style="text-align: center">${gemforeach.gemDate}</td>
+							<!-- 내역 -->
+							<td class="daintdth">${gemforeach.gemLog}</td>
+							<!-- 포인트 사용 -->
+							<c:if test="${gemforeach.gemUsage eq 'Y'}">
+								<td class="daintdth bold" style="text-align: center; color: #e35852;">
+	    						${gemforeach.gemPrice}P
+								</td>
+							</c:if>
+							<!-- 포인트 충전 -->
+							<c:if test="${gemforeach.gemUsage eq 'N'}">
+								<td class="daintdth bold" style="text-align: center; color: #36a7b3;">
+	    						+${gemforeach.gemPrice}P
+								</td>
+							</c:if>
+							
 						</tr>
-						<tr>
-							<td class="daintdth" style="text-align: center">2020-06-30</td>
-							<td class="daintdth">유효기간 만료</td>
-							<td class="daintdth bold"
-								style="text-align: center; color: #cb2121;">-30,000P</td>
-							<td class="daintdth" style="text-align: center">-</td>
-						</tr>
-						<tr>
-							<td class="daintdth" style="text-align: center">2020-06-01</td>
-							<td class="daintdth">보물섬 지급 포인트</td>
-							<td class="daintdth bold"
-								style="text-align: center; color: #00CED1;">+30,000P</td>
-							<td class="daintdth" style="text-align: center">2020-06-30</td>
-						</tr>
-						<tr>
-							<td class="daintdth" style="text-align: center">2020-05-31</td>
-							<td class="daintdth">유효기간 만료</td>
-							<td class="daintdth bold"
-								style="text-align: center; color: #cb2121;">-30,000P</td>
-							<td class="daintdth" style="text-align: center">-</td>
-						</tr>
+						</c:forEach>
+
 					</table>
 
 					<!-- 페이징 처리 -->

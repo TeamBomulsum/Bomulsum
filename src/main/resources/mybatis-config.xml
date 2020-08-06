@@ -7,8 +7,10 @@
 		
 		<typeAlias type="com.web.bomulsum.user.login.repository.MemberVO" alias="memberVO"/>
 		
-		<!-- 다인 테스트-->
 		<typeAlias type="com.web.bomulsum.writer.board.repository.writerBoardVO" alias="writerBoardVO"/>
+		
+		<!-- gemPoint VO -->
+		<typeAlias type="com.web.bomulsum.writer.gempoint.repository.WriterGempointVO" alias="WriterGempointVO"/>
 
 		
 	</typeAliases>
@@ -16,9 +18,10 @@
 	<mappers>
 		<mapper resource="mappings/user/login-mapping.xml" />
 		
-		<!-- 다인테스트 -->
 		<mapper resource="mappings/writer/writer-board-mapping.xml" />
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
 		
+		<!-- gemPoint -->
+		<mapper resource="mappings/writer/gempoint-mapping.xml" />
 	</mappers>
 </configuration>
