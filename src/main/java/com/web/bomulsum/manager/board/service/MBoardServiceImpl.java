@@ -28,10 +28,33 @@ public class MBoardServiceImpl implements MBoardService {
 		dao.mboardRegister(vo);
 	}
 
+	//글 목록 보기 위한 데이터 불러오기
 	@Override
 	public List<MBoardListVO> mboardList() {
 		return dao.mboardList();
 	}
-	
+
+	//선택된 글 정보를 불러오기
+	@Override
+	public MBoardVO mboardSelect(MBoardVO vo) {
+		return dao.mboardSelectOne(vo);
+	}
+
+	//글 수정 반영
+	@Override
+	public void mboardUpdate(MBoardVO vo) {
+		String coupon = vo.getAdminNoticeCoupon();
+		coupon = coupon.replace(",", "-");
+		System.out.println("변환 후  쿠폰 값: " + coupon);
+		vo.setAdminNoticeCoupon(coupon);
+		dao.mboardUpdate(vo);
+	}
+
+	//글 삭제 하기
+	@Override
+	public void mboardDelete(MBoardVO vo) {
+		System.out.println("여기까지 들어왔나요? serviceImpl : " + vo.getAdminNoticeSeq());
+		dao.mboardDelete(vo);
+	}
 	
 }
