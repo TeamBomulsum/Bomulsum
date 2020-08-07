@@ -23,9 +23,9 @@ public class WriterProfileController {
 		@Autowired
 		WriterProfileService service;
 		
-		//private static final String SAVE_PATH = "D:\\upload\\test"; //파일업로드
-		private static final String SAVE_PATH = "C:\\myMain\\myBomulsum\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\bomulSum\\WEB-INF\\classes\\upload"; //파일업로드
-		
+//		private static final String SAVE_PATH = "D:\\upload\\test"; //파일업로드
+//		private static final String SAVE_PATH = "C:\\myMain\\myBomulsum\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\bomulSum\\WEB-INF\\classes\\upload"; //파일업로드
+		private static final String SAVE_PATH_AWS = "/upload";	
 		
 		@RequestMapping(value="/profile")
 		public ModelAndView writerProfile() {
@@ -50,7 +50,7 @@ public class WriterProfileController {
 			System.out.println(fileSize);
 			System.out.println(root_path);
 			try {
-				mf.transferTo(new File(root_path, saveFile));
+				mf.transferTo(new File(SAVE_PATH_AWS, saveFile));
 			}catch(IllegalStateException e) {
 				e.printStackTrace();
 			}catch(IOException e) {
