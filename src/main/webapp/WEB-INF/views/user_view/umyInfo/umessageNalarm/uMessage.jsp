@@ -393,6 +393,8 @@ $(function(){
 		var member = '<%= (String)session.getAttribute("userName") %>';
 		var receiveCode;
 		
+		// ajax 동기식으로 디비값을 끌어와서.
+		
 		
 		socket.on(code, function(msg){
 			console.log("받는 로직 : " + msg);
@@ -423,6 +425,11 @@ $(function(){
 			dTag.appendChild(Tag);
 			dTag.appendChild(dayTag);
 			document.getElementById('wonMessageList').appendChild(dTag);
+			
+			
+			// ajax로 디비 연결해서 저장.
+			
+			
 			$("#wonMessageScroll").scrollTop($("#wonMessageScroll")[0].scrollHeight);
 
 		});
