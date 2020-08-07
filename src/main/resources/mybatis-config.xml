@@ -21,5 +21,6 @@
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
 		<mapper resource="mappings/writer/writer-login-mapping.xml" />
 		<mapper resource="mappings/writer/writer-art-mapping.xml" />
+		<mapper resource="mappings/user/user-message-mapping.xml" />
 	</mappers>
 </configuration>

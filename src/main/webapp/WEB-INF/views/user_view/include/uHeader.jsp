@@ -8,6 +8,14 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+$(window).bind('beforeunload', function() {
+	if ((event.clientY < 0) ||(event.altKey) ||(event.ctrlKey)||((event.clientY < 129) && (event.clientY>107))) { 
+		$.ajax({
+		url : "/bomulsum/user/logout.do"
+		}); 
+	}
+}); 
+
 $(function() {
 	//Top버튼 기능
     $(window).scroll(function() {

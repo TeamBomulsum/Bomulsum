@@ -2,43 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="#package.#mapperinterfacename">
+<mapper namespace="NodeDbDAO">
 
-	<select id="getSomething" parameterType="int" resultType="#package.#modelname">
-		SELECT
-		columnname1,
-		columnname2,
-		columnname3
-		FROM tablename1
-		WHERE columnname1 = #{value}
-	</select>
-
-	<resultMap type="#modelname" id="YourResultSet">
-		<id property="param1" column="columnname1" />
-		<result property="param2" column="columnname2" />
-		<result property="param3" column="columnname3" />
+	<resultMap type="com.web.bomulsum.user.message.repository.NodeDbVO" id="nodeDbVo">
+		<result property="messageSeq" column="message_seq"/>
+		<result property="memberCodeSeq" column="member_code_seq"/>
+		<result property="writerCodeSeq" column="writer_code_seq"/>
+		<result property="messageContent" column="message_content"/>
+		<result property="messageTime" column="message_time"/>
+		<result property="messageRead" column="message_read"/>
 	</resultMap>
-
-	<select id="getAll" resultMap="YourResultSet">
-		SELECT * FROM tablename1
+	
+	<select id="getMessage" resultMap="nodeDbVo">
+		SELECT * FROM message_tb
 	</select>
-
-	<insert id="insertSomething" parameterType="#modelname">
-		INSERT INTO tablename1 (columnname1, columnname2, columnname3)
-		VALUES(#{value1},#{value2},#{value3})
-	</insert>
-
-	<update id="updateSomething" parameterType="#modelname">
-		UPDATE tablename1
-		SET
-		columnname1=#{param1}
-		WHERE
-		columnname2 = #{param2}
-	</update>
-
-	<delete id="deleteSomething" parameterType="int">
-		DELETE FROM tablename1 WHERE
-		columnname1 = #{param1}
-	</delete>
-
+	
+	<select id="getUserCodes" resultType="String">
+		SELECT member_code_seq
+		FROM member_tb
+	</select>
+	
 </mapper>
