@@ -34,6 +34,12 @@ public class managerController {
 		return "/mboard_write";
 	}
 	
+	@GetMapping("/writerlist")
+	public String mWriterList() {
+		return "mWriterList";
+	}
+	
+	
 	
 	@GetMapping("/list")
 	public ModelAndView mboardList() {
