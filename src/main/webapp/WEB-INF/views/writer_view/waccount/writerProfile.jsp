@@ -6,13 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>작가 프로필</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <!-- Custom styles for this template-->
-<link href="<c:url value='/css/sb-admin-2.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <!-- myInformation _ CSS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- JQuery -->
@@ -121,6 +121,24 @@ function setThumbnail2(event) {
 footer span{
 	margin-right: 10%;
 }
+
+.dainWPBtn{
+	 margin-left: 30px; 
+	 background-color: white;
+	 border: 1px solid #d9d9d9;
+	 border-radius: 3px;
+	 color: #999999;
+	 padding: 3px 10px;
+}
+.dainWPBtn:focus{
+	outline: none;
+}
+
+.dainWPBtn:hover{
+	background-color: #1f76bb;
+	color:white;
+
+}
 </style>
 
 </head>
@@ -143,7 +161,7 @@ footer span{
 					<!-- 기본프로필 테이블 -->
 					<h5 style="font-weight: bold;">기본 프로필</h5>
 					<p>서비스 내에서 노출되는 작가명 및 사진을 설정할 수 있습니다.</p>
-					<form action="#">
+					<form action="<c:url value='/writer/updateprofile.wdo'/>" method="post" enctype="Multipart/form-data"> <!--enctype="Multipart/form-data -->
 						<table>
 							<tr>
 								<th class="daintdth" style="width: 15%;">프로필 사진</th>
@@ -152,7 +170,7 @@ footer span{
 									<img id="coverPic" />
 								</td>
 								<td  class="daintdth" style="width: 28%;">
-									<input type="file" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
+									<input type="file" name="writerProfileImg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
 									<div style="font-size: 12px">
 										<br>320px 이상 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div>
@@ -162,20 +180,24 @@ footer span{
 									<!-- 여기 이미지 썸네일 들어감 -->
 									<img id="coverPic2"/> </td>
 								<td class="daintdth" style="width: 28%;">
-								<input type="file" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
+								<input type="file" name="writerCoverImg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
 									<div style="font-size: 12px">
 										<br>320px 이상 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div></td>
 							</tr>
 							<tr>
 								<th class="daintdth" style="width: 15%;" >작가명 (브랜드)</th>
-								<td class="daintdth" colspan="5" style="width: 85%;"><input type="text" id="content" name="brandName" maxlength="20" style="max-height: 30px; "/>
+								<td class="daintdth" colspan="5" style="width: 85%;"><input type="text" 
+								id="content" name="writerBrandName" maxlength="20" autocomplete="false" 
+								style="max-height: 30px; "/>
 								<span id="counter" style="font-size: 12px"> ### </span></td>
 							</tr>
 							<tr>
 								<th class="daintdth" style="width: 15%;">세줄 소개</th>
-								<td class="daintdth" colspan="5" style="width: 15%;"><textarea id="content2" placeholder="작가님을 소개하는 글을 적어주세요." maxlength="500" 
-										style="overflow-y: scroll;  min-height: 100px; max-height:100px; min-width: 60%; max-width: 60%;"></textarea>
+								<td class="daintdth" colspan="5" style="width: 15%;"><textarea id="content2" 
+								name="writerIntro" placeholder="작가님을 소개하는 글을 적어주세요." maxlength="500" autocomplete="false"
+										style="overflow-y: scroll;  min-height: 100px; max-height:100px; 
+										min-width: 60%; max-width: 60%;"></textarea>
 										<div id="counter2" style="font-size: 12px"> ### </div></td>
 							</tr>
 						</table>
@@ -183,7 +205,7 @@ footer span{
 						<br> <br /> <br>
 						<div class="spButton">
 							<div style="text-align: center; width: 90%;">
-								<button type="submit">확인</button>
+								<button type="submit" class="dainWPBtn">확인</button>
 							</div>
 						</div>
 					</form>
@@ -201,17 +223,17 @@ footer span{
 				class="fas fa-angle-up"></i>
 			</a>
 
-			<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-			<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 			<!-- Core plugin JavaScript-->
-			<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 			<!-- Custom scripts for all pages-->
 			<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 
 			<!-- Page level plugins -->
-			<script src="<c:url value='/vendor/chart.js/Chart.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/chart.js/Chart.min.js'/>"></script>
 
 			<!-- Page level custom scripts -->
 		
