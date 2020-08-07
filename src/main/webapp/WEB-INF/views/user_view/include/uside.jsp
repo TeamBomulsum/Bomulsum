@@ -98,9 +98,7 @@
 	<!-- 프로필 영역 -->
 	   <div class="jeonga-profile" align="center">
         	<div class="jeonga-imagesession">
-        		<img id="jeonga-profileImage" src="<c:url value='/resources/img/test.png'/>" />
-
-				
+        		<img id="jeonga-profileImage" src="<c:url value='/resources/img/test.png'/>"/>
         	</div>
         	<div id="test"></div>
         	<div class="membership" style="margin-top:7%; margin-bottom:3%;">
