@@ -477,6 +477,65 @@
 		});
 	}); */
 	
+	var modal = function(){
+		 console.log($(this).closest('tr').children('td').eq(3).text());
+        category = $.trim($(this).closest('tr').children('td').eq(0).text());
+        title = $.trim($(this).closest('tr').children('td').eq(1).text());
+        date = $.trim($(this).closest('tr').children('td').eq(2).text());
+        seq = $.trim($(this).closest('tr').children('td').eq(3).text());
+        content = $.trim($(this).closest('tr').children('td').eq(4).text());
+        coupon = $.trim($(this).closest('tr').children('td').eq(5).text());
+       /*  var seq = $.trim($(this).closest('tr').children('td').children('div').eq(0).text());
+        var content = $.trim($(this).closest('tr').children('td').children('div').eq(1).html());
+        var  coupon = $.trim($(this).closest('tr').children('td').children('div').eq(2).text());*/
+        console.log(coupon);
+        console.log(seq);
+        
+        /*모달에 있는 삭제 버튼 누를 경우 시퀀스 값 가지고 delete.mdo?seq=~ url로 넘어간다. 컨트롤러에서 처리해주기.*/
+        $("#delete_btn").click(function(){
+           var chk = confirm("정말 삭제하시겠습니까?");
+           if(chk){
+              location.href='delete.mdo?adminNoticeSeq='+seq;
+           }
+        });
+        
+        if(coupon == '--'){ // 쿠폰 없을경우
+           $('#modal-category').text(category);
+           $('#modal-title').val(title);
+           $('#modal-content').html(content);
+           $('#modal-date').val(date);
+           
+           //여기서부턴 수정을 위한 인풋 히든 값 세팅
+           $('#adminNoticeSeq').val(seq);
+           $('#adminNoticeCoupon').val(coupon);
+           $('#modal-coupon').css('display', 'none');
+           
+        }else{ // 쿠폰 잇을경우
+           $('#modal-category').text(category);
+           $('#modal-title').val(title);
+           $('#modal-content').html(content);
+           $('#modal-date').val(date);
+           
+           //여기서부턴 수정을 위한 인풋 히든 값 세팅
+           $('#adminNoticeSeq').val(seq);
+           $('#adminNoticeCoupon').val(coupon);
+           
+           //쿠폰 보기좋게 이름, 내용, 가격 으로 나눠주기
+           var couponList = coupon.split('-');
+           var couponName = couponList[0];
+           var couponContent = couponList[1];
+           var couponPrice = couponList[2];
+           
+           //모달에 display:none; 해놨던 쿠폰 영역 다시 오픈
+           $('#modal-coupon').css('display', 'block');
+           var html = "<span style='font-size:20px; font-weight:bold;'>&nbsp;쿠폰&nbsp;&nbsp;</span><br><span>&nbsp;쿠폰이름 :&nbsp;&nbsp;"+ couponName
+                    + "&nbsp;&nbsp;</span><br>" + "<span>&nbsp;쿠폰내용 :&nbsp;&nbsp;"+couponContent + "&nbsp;&nbsp;</span>"
+                    + "<br><span>&nbsp;쿠폰가격 :&nbsp;&nbsp;"+ couponPrice +"</span>";
+           $('#modal-coupon').html(html);
+  
+        }   
+     }
+	
 	var mboardResult = new Array();
     
     <c:forEach var="i" items='${mboardList}'>
@@ -538,6 +597,7 @@
 	   			+ mboardResult[index].admin_notice_coupon + '</td>'
 		}
 		testTable.innerHTML = html;
+		$(".openUpdateModal").on('click',modal);
 	};
           
     //pagination 그리는 함수
@@ -591,69 +651,6 @@
 		}
 	};  
 	renderTableAndPagination();
-    
-	
-	
-	 $(".openUpdateModal").on('click', function(){
-		 console.log($(this).closest('tr').children('td').eq(3).text());
-         category = $.trim($(this).closest('tr').children('td').eq(0).text());
-         title = $.trim($(this).closest('tr').children('td').eq(1).text());
-         date = $.trim($(this).closest('tr').children('td').eq(2).text());
-         seq = $.trim($(this).closest('tr').children('td').eq(3).text());
-         content = $.trim($(this).closest('tr').children('td').eq(4).text());
-         coupon = $.trim($(this).closest('tr').children('td').eq(5).text());
-        /*  var seq = $.trim($(this).closest('tr').children('td').children('div').eq(0).text());
-         var content = $.trim($(this).closest('tr').children('td').children('div').eq(1).html());
-         var  coupon = $.trim($(this).closest('tr').children('td').children('div').eq(2).text());*/
-         console.log(coupon);
-         console.log(seq);
-         
-         /*모달에 있는 삭제 버튼 누를 경우 시퀀스 값 가지고 delete.mdo?seq=~ url로 넘어간다. 컨트롤러에서 처리해주기.*/
-         $("#delete_btn").click(function(){
-            var chk = confirm("정말 삭제하시겠습니까?");
-            if(chk){
-               location.href='delete.mdo?adminNoticeSeq='+seq;
-            }
-         });
-         
-         if(coupon == '--'){ // 쿠폰 없을경우
-            $('#modal-category').text(category);
-            $('#modal-title').val(title);
-            $('#modal-content').html(content);
-            $('#modal-date').val(date);
-            
-            //여기서부턴 수정을 위한 인풋 히든 값 세팅
-            $('#adminNoticeSeq').val(seq);
-            $('#adminNoticeCoupon').val(coupon);
-            $('#modal-coupon').css('display', 'none');
-            
-         }else{ // 쿠폰 잇을경우
-            $('#modal-category').text(category);
-            $('#modal-title').val(title);
-            $('#modal-content').html(content);
-            $('#modal-date').val(date);
-            
-            //여기서부턴 수정을 위한 인풋 히든 값 세팅
-            $('#adminNoticeSeq').val(seq);
-            $('#adminNoticeCoupon').val(coupon);
-            
-            //쿠폰 보기좋게 이름, 내용, 가격 으로 나눠주기
-            var couponList = coupon.split('-');
-            var couponName = couponList[0];
-            var couponContent = couponList[1];
-            var couponPrice = couponList[2];
-            
-            //모달에 display:none; 해놨던 쿠폰 영역 다시 오픈
-            $('#modal-coupon').css('display', 'block');
-            var html = "<span style='font-size:20px; font-weight:bold;'>&nbsp;쿠폰&nbsp;&nbsp;</span><br><span>&nbsp;쿠폰이름 :&nbsp;&nbsp;"+ couponName
-                     + "&nbsp;&nbsp;</span><br>" + "<span>&nbsp;쿠폰내용 :&nbsp;&nbsp;"+couponContent + "&nbsp;&nbsp;</span>"
-                     + "<br><span>&nbsp;쿠폰가격 :&nbsp;&nbsp;"+ couponPrice +"</span>";
-            $('#modal-coupon').html(html);
-   
-         }   
-      });
-      //모달 끝
-
 	
 	</script>
 
