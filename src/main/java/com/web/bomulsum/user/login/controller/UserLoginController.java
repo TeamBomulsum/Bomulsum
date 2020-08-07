@@ -110,16 +110,16 @@ public class UserLoginController {
 		mav.setViewName("/ulogin/ulogin");
 		if(check == 1) {
 			
+			// 세션에 사용자 고유코드 넣기.
+			String userCode = service.getUserCode(vo.getEmail());
+			HttpSession session = request.getSession();
+			session.setAttribute("member", userCode);
+			
 			//로그인 유무 처리
 			NowLoginVO newloginVo = new NowLoginVO();
 			newloginVo.setMemberEmail(vo.getEmail());
 			newloginVo.setyORn("Y");
 			service.updateLogin(newloginVo);
-			
-			// 세션에 사용자 고유코드 넣기.
-			String userCode = service.getUserCode(vo.getEmail());
-			HttpSession session = request.getSession();
-			session.setAttribute("member", userCode);
 			
 			// 사용자 이름 넣어주기
 			String userName = service.getUserName(userCode);
