@@ -212,13 +212,14 @@ footer span{
 					</form>
 					<br> <br />
 					
-				<!-- 테스트  -->
+<%-- 				<!-- 테스트  -->
 				<div class="test">
 				테스트<br>
 				<img src="<c:url value='/upload/${imgtest.test}'/>"/> <!-- 이렇게 사용하기 -->
-				<%-- <img src="<c:url value='/upload/1596876981288point.png'/>"/> --%>
+				<img src="<c:url value='/upload/1596876981288point.png'/>"/>
 				</div>
-				<!-- 끝 테스트 -->
+				<!-- 끝 테스트 --> 
+--%>
 				</div>
 
 
