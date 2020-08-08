@@ -41,7 +41,7 @@ function setThumbnail(event) {
 	reader.onload = function(event) {
 		var img = document.getElementById("coverPic");
 			img.setAttribute("src", event.target.result);
-			document.querySelector("#coverPic").appendChild(img);
+			//document.querySelector("#coverPic").appendChild(img);
 	};
 	reader.readAsDataURL(event.target.files[0]);
 }
@@ -51,7 +51,7 @@ function setThumbnail2(event) {
 	reader.onload = function(event) {
 		var img = document.getElementById("coverPic2");
 			img.setAttribute("src", event.target.result);
-			document.querySelector("#coverPic2").appendChild(img);
+			//document.querySelector("#coverPic2").appendChild(img);
 	};
 	reader.readAsDataURL(event.target.files[0]);
 }
@@ -171,7 +171,7 @@ footer span{
 									<img id="coverPic" />
 								</td>
 								<td  class="daintdth" style="width: 28%;">
-									<input type="file" name="writerProfileImg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
+									<input type="file" name="writerProfileImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
 									<div style="font-size: 12px">
 										<br>10MB 이하 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div>
@@ -181,7 +181,7 @@ footer span{
 									<!-- 여기 이미지 썸네일 들어감 -->
 									<img id="coverPic2"/> </td>
 								<td class="daintdth" style="width: 28%; ">
-								<input type="file" name="writerCoverImg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
+								<input type="file" name="writerCoverImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
 									<div style="font-size: 12px">
 										<br>10MB 이하 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div></td>

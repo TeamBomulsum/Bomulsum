@@ -14,7 +14,7 @@
 	<update id="updateProfile" parameterType="WriterProfileVO">
 		UPDATE writer_tb 
 		SET 
-		writer_profile_img = 'sys' , writer_cover_img='hihi', 
+		writer_profile_img = #{writerProfileImg} , writer_cover_img= #{writerCoverImg}, 
 		writer_brand_name = #{writerBrandName}, writer_intro=#{writerIntro} 
 		WHERE 
 		writer_code_seq = '다인테스트' <!-- 작가코드 받아오기 -->

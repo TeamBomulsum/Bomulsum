@@ -112,7 +112,7 @@ function removeImg(){
 
 }
 function setThumbnail(event) {  
-
+	$(".imageContainer").empty();
    for (var image of event.target.files) { 
       var reader = new FileReader(); 
       reader.onload = function(event) { 

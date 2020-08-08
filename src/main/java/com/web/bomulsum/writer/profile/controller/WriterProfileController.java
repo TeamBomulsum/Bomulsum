@@ -47,10 +47,10 @@ public class WriterProfileController {
 		
 		
 		@RequestMapping(value= "/updateprofile")
-		public ModelAndView writerUpdateProfile(@RequestParam(value="writerProfileImg", required=false) MultipartFile mf
-					, @RequestParam(value="writerCoverImg", required=false) MultipartFile mf2, HttpServletRequest request) {
+		public ModelAndView writerUpdateProfile(@RequestParam(value="writerProfileImgg", required=false) MultipartFile mf
+					, @RequestParam(value="writerCoverImgg", required=false) MultipartFile mf2, WriterProfileVO vo, HttpServletRequest request) {
 		
-			
+			System.out.println(vo.toString());
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("redirect:/writer/profile.wdo");
 			
@@ -66,6 +66,13 @@ public class WriterProfileController {
 			
 			String saveFile = System.currentTimeMillis() + originalFileName; //이미지1 저장할 이름
 			String saveFile2 = System.currentTimeMillis() + originalFileName2; //이미지2 저장할 이름
+			
+			
+			vo.setWriterProfileImg(saveFile);
+			vo.setWriterCoverImg(saveFile2);
+			
+			System.out.println(vo.toString());
+			service.updateWriterProfile(vo);
 			
 			System.out.println(fileSize);
 			System.out.println(fileSize2);
