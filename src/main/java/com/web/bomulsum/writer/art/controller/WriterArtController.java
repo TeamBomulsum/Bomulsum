@@ -1,13 +1,20 @@
 package com.web.bomulsum.writer.art.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
@@ -23,6 +30,10 @@ public class WriterArtController {
 	@Autowired
 	WriterArtService service;
 	
+//	private static final String SAVE_PATH_AWS = "/upload";	//aws 서버 저장경로
+	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //저장할 경로
+	
+	
 	@GetMapping("/workRegister")
 	public String workRegister() {
 		return "/warticle/workRegister";
@@ -31,9 +42,24 @@ public class WriterArtController {
 	/*
 	 * workRegister.jsp 에서 form 태그의 엑션 값  "/artregister"
 	 */ 
-	@RequestMapping(value="/artregister", method=RequestMethod.POST)
-	public ModelAndView insertArtwork(WriterArtVO vo, WriterArtInfoDetailVO vo1, WriterArtOptionVO vo2,
-			WriterArtOptionCategoryVO vo3){	
+	@RequestMapping(value="/artregister")
+	public ModelAndView insertArtwork(@RequestParam(value="artPicture", required=false) List<MultipartFile> mf, 
+			HttpServletRequest request, WriterArtVO vo, WriterArtInfoDetailVO vo1, 
+			WriterArtOptionVO vo2, WriterArtOptionCategoryVO vo3){	
+
+		String result="";
+		
+		for (MultipartFile file : mf) {
+			String originalfileName = file.getOriginalFilename();
+			String saveFile = System.currentTimeMillis() + originalfileName;
+			try {
+				file.transferTo(new File(SAVE_PATH, saveFile)); //이미지1 SAVE_PATH에 저장
+			}catch(IllegalStateException e) { e.printStackTrace();}
+			catch(IOException e) { e.printStackTrace();	}
+			
+			result += saveFile+",";
+		}	
+		vo.setArtPhoto(result);
 		
 		//작품 등록
 		service.insertArt(vo);

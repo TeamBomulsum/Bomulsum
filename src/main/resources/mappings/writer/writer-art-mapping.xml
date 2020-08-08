@@ -25,7 +25,7 @@
 		VALUES (
 			'art_code_seq' || TO_CHAR(art_code_sq.nextval),
 			'작가코드1',
-			'이미지',
+			#{artPhoto},
 			#{artName},
 			#{artPrice},
 			#{artDiscount},

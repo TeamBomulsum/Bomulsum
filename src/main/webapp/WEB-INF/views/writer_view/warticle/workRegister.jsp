@@ -111,22 +111,25 @@ function removeImg(){
    id.removeChild(id);
 
 }
-function setThumbnail(event) { 
+function setThumbnail(event) {  
+
    for (var image of event.target.files) { 
       var reader = new FileReader(); 
       reader.onload = function(event) { 
+
          var img = document.createElement("img"); 
          img.setAttribute("src", event.target.result); 
+                
          var divEle = document.createElement("a");
-         divEle.setAttribute("href","#");
-         divEle.setAttribute("onclick","removeImg();")
-         divEle.setAttribute("id","imgs")
+        // divEle.setAttribute("href","#");
+         //divEle.setAttribute("onclick","removeImg();")
+         //divEle.setAttribute("id","imgs")
          divEle.appendChild(img);
          document.querySelector("div.imageContainer").appendChild(divEle);
       }; 
       console.log(image); 
-      reader.readAsDataURL(image); 
-   } 
+      reader.readAsDataURL(image);
+   }  
 }
 
 $(function() {
@@ -213,11 +216,12 @@ $(document).ready(function(){
 
                   <tr>
                      <td class="left" style="width: 20%">사진등록</td>
-                     <td><input type="file" id="image" accept="image/*"
+                     <td><input type="file" id="image" accept="image/*" name="artPicture"
                         onchange="setThumbnail(event);" multiple />
                         <div class="imageContainer">
                            
                         </div>
+                        <span>*파일 선택시 한 번에 여러장의 이미지를 올려주세요</span>
                      </td>
                   </tr>
                   <tr>
