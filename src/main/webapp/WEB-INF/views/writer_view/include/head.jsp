@@ -68,7 +68,7 @@
 					<li class="nav-item dropdown no-arrow"><a
 						class="nav-link dropdown-toggle" href="#" id="userDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <span style="font-size: 13px">계정정보</span>
+						aria-expanded="false"> <span style="font-size: 13px">${writer_login.wrtierName } 님</span>
 					</a> <!-- Dropdown - User Information -->
 						<div
 							class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -85,7 +85,8 @@
 							<a class="dropdown-item" href="<c:url value='/view/waccount/gemPoint.jsp'/>"> <i
 								class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 								젬 포인트
-							</a> <a class="dropdown-item" href="<c:url value='/view/wlogin/login.jsp'/>" data-toggle="modal"
+							</a> 
+							<a class="dropdown-item" data-toggle="modal"
 								data-target="#logoutModal"> <!--  <a class="dropdown-item" href="#"> -->
 								<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 								Logout
@@ -237,7 +238,7 @@
 						<div class="modal-footer">
 							<button class="btn btn-secondary" type="button"
 								data-dismiss="modal">Cancel</button>
-							<a class="btn btn-primary" href="<c:url value='/view/wlogin/login.jsp'/>">Logout</a>
+							<a class="btn btn-primary" href="<c:url value='/writer/logout.wdo'/>">Logout</a>
 						</div>
 					</div>
 				</div>

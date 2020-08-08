@@ -20,4 +20,23 @@
 	<context:component-scan base-package="com.web.bomulsum.writer">
 	</context:component-scan>
 
+	<mybatis-spring:scan base-package="com.web.bomulsum.writer.interceptor"/>
+	
+	<bean id="autoLoginIntercepter" class="com.web.bomulsum.writer.interceptor.AutoLoginInterceptor"/>
+	<bean id="intercepter" class="com.web.bomulsum.writer.interceptor.Interceptor"/>
+	
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/writer/*"/>
+			<ref bean="autoLoginIntercepter"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/writer/*"/>
+			<mvc:exclude-mapping path="/writer/login.wdo"/>
+			<mvc:exclude-mapping path="/writer/register.wdo"/>
+			<mvc:exclude-mapping path="/writer/loginCheck.wdo"/>
+			<ref bean="intercepter"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
