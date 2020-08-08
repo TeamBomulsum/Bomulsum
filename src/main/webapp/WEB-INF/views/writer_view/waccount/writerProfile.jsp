@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -164,7 +165,7 @@ footer span{
 					<form action="<c:url value='/writer/updateprofile.wdo'/>" method="post" enctype="Multipart/form-data"> <!--enctype="Multipart/form-data -->
 						<table>
 							<tr>
-								<th class="daintdth" style="width: 15%;">프로필 사진</th>
+								<th class="daintdth" style="width: 15%;  text-align: center;">프로필 사진</th>
 								<td class="daintdth" style="font-size: 12px; width: 7%;">
 									<!-- 여기 이미지 썸네일 들어감 --> 
 									<img id="coverPic" />
@@ -172,30 +173,30 @@ footer span{
 								<td  class="daintdth" style="width: 28%;">
 									<input type="file" name="writerProfileImg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
 									<div style="font-size: 12px">
-										<br>320px 이상 정사각형 이미지<br>확장자 jpg,png만 가능
+										<br>10MB 이하 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div>
 								</td>
-								<th class="daintdth" style="width: 15%;" >커버 사진</th>
+								<th class="daintdth" style="width: 15%;  text-align: center;" >커버 사진</th>
 								<td class="daintdth" style="font-size: 12px; width: 7%;">
 									<!-- 여기 이미지 썸네일 들어감 -->
 									<img id="coverPic2"/> </td>
-								<td class="daintdth" style="width: 28%;">
+								<td class="daintdth" style="width: 28%; ">
 								<input type="file" name="writerCoverImg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
 									<div style="font-size: 12px">
-										<br>320px 이상 정사각형 이미지<br>확장자 jpg,png만 가능
+										<br>10MB 이하 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div></td>
 							</tr>
 							<tr>
-								<th class="daintdth" style="width: 15%;" >작가명 (브랜드)</th>
+								<th class="daintdth" style="width: 15%; text-align: center;">작가명<br>(브랜드)</th>
 								<td class="daintdth" colspan="5" style="width: 85%;"><input type="text" 
-								id="content" name="writerBrandName" maxlength="20" autocomplete="false" 
+								id="content" name="writerBrandName" maxlength="20" autocomplete="off" 
 								style="max-height: 30px; "/>
 								<span id="counter" style="font-size: 12px"> ### </span></td>
 							</tr>
 							<tr>
-								<th class="daintdth" style="width: 15%;">세줄 소개</th>
+								<th class="daintdth" style="width: 15%;  text-align: center;">세줄 소개</th>
 								<td class="daintdth" colspan="5" style="width: 15%;"><textarea id="content2" 
-								name="writerIntro" placeholder="작가님을 소개하는 글을 적어주세요." maxlength="500" autocomplete="false"
+								name="writerIntro" placeholder="작가님을 소개하는 글을 적어주세요." maxlength="500" autocomplete="off"
 										style="overflow-y: scroll;  min-height: 100px; max-height:100px; 
 										min-width: 60%; max-width: 60%;"></textarea>
 										<div id="counter2" style="font-size: 12px"> ### </div></td>
@@ -210,7 +211,14 @@ footer span{
 						</div>
 					</form>
 					<br> <br />
-
+					
+				<!-- 테스트  -->
+				<div class="test">
+				테스트<br>
+				<img src="<c:url value='/upload/${imgtest.test}'/>"/> <!-- 이렇게 사용하기 -->
+				<%-- <img src="<c:url value='/upload/1596876981288point.png'/>"/> --%>
+				</div>
+				<!-- 끝 테스트 -->
 				</div>
 
 
