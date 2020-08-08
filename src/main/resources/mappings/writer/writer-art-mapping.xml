@@ -75,7 +75,7 @@
 			#{artInfoDetailWay}
 		)
 	</insert>
-
+<!--  
 	<insert id="insertArtOptionl" parameterType="java.util.List" >
 	
  	 <foreach collection="optionList" item="item" >
@@ -97,14 +97,10 @@
 		)
 		</foreach>
 	</insert>
-	
-	<!--  <insert id="insertArtOption" parameterType="com.web.bomulsum.writer.art.repository.WriterArtOptionVO" >
-	
- 	<foreach collection="">
- 	
- 	
- 	</foreach>
-	
+-->	
+<!--  
+	<insert id="insertArtOption" parameterType="com.web.bomulsum.writer.art.repository.WriterArtOptionVO" >
+
 	INSERT INTO 	
 		art_option_tb(
 			art_option_seq,
@@ -121,26 +117,46 @@
 			#{artOptionPrice}
 		)
 	</insert>
-	-->
-	
-	
-	
-	<!--  	
-	<insert id="insertArtOptionl" parameterType="hashMap">
-		INSERT INTO 	
+-->	
+	<!-- 카테고리 등록 -->
+	<insert id="insertArtOptionCat1" parameterType="hashMap" >
+	INSERT INTO 	
 		art_option_tb(
-				art_option_seq,
-  				art_code_seq,
-    			art_option_category,
-    			art_option_name,
-    			art_option_price
+			art_option_seq,
+  			art_code_seq,
+    		art_option_category
 		)
 		VALUES (
 			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
-			#{artCodeSeq},
-			#{artOptionCategory},
-			#{artOptionName},
-			#{artOptionPrice}
-	</insert>-->
+			#{ArtCodeSeq},
+			#{OptionCategory1}
+		)
+	</insert>
+	<insert id="insertArtOptionCat2" parameterType="hashMap" >
+	INSERT INTO 	
+		art_option_tb(
+			art_option_seq,
+  			art_code_seq,
+    		art_option_category
+		)
+		VALUES (
+			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
+			#{ArtCodeSeq},
+			#{OptionCategory2}
+		)
+	</insert>
+		<insert id="insertArtOptionCat3" parameterType="hashMap" >
+	INSERT INTO 	
+		art_option_tb(
+			art_option_seq,
+  			art_code_seq,
+    		art_option_category
+		)
+		VALUES (
+			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
+			#{ArtCodeSeq},
+			#{OptionCategory3}
+		)
+	</insert>
 
 </mapper>

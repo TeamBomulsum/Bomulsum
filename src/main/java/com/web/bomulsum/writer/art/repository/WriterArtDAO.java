@@ -1,6 +1,6 @@
 package com.web.bomulsum.writer.art.repository;
 
-import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +31,29 @@ public class WriterArtDAO{
 	public String getArtCode(String artName) {
 		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtCode", artName);
 	}
-	/*
+	
+	//작품 카테고리 등록
+	public void insertArtOptionCat1(Map<String, Object> map) {
+		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOptionCat1", map);
+	}
+	public void insertArtOptionCat2(Map<String, Object> map) {
+		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOptionCat2", map);
+	}
+	public void insertArtOptionCat3(Map<String, Object> map) {
+		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOptionCat3", map);
+	}
+	
+	
+	
+/*
 	//작품 옵션 등로
 	public void insertArtOption(WriterArtOptionVO vo) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption", vo);
 	}
-*/
-	
+
 	public void insertArtOptionl() {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOptionl");
 		
 	}
-
+*/
 }

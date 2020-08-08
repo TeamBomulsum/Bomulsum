@@ -208,7 +208,7 @@ $(document).ready(function(){
                <!-- end of topLine -->
             
             <!-- 여기 지금 테스트중 -->
-           	<form action="<c:url value='/writer/artregister.wdo'/> " method="get">
+           	<form action="<c:url value='/writer/artregister.wdo'/> " method="post" enctype="multipart/form-data">
                <table border="1" class="basicInfoTable">
 
                   <tr>
@@ -223,7 +223,7 @@ $(document).ready(function(){
                   <tr>
                      <td class="left">작품명</td>
                      <td><!--  <div class="workNameRegister">-->
-                          <input type="text" id="workName" name="artName" maxlength="20"/>
+                          <input type="text" id="workName" name="artName" maxlength="20" autocomplete="off"/>
 							<span id="nameCounter" style="font-size: 12px"> ### </span></td>
                          <!--  </div>--></td>
                   </tr>

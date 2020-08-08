@@ -1,5 +1,7 @@
 package com.web.bomulsum.writer.art.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,18 +33,31 @@ public class WriterArtServiceImpl implements WriterArtService{
 	public void insertArtInfoDetail(WriterArtInfoDetailVO vo) {
 		dao.insertArtInfoDetail(vo);	
 	}
-/*
+	/*
 	@Override
 	public void insertArtOption(WriterArtOptionVO vo) {
-		dao.insertArtOption(vo);
-		
+		dao.insertArtOption(vo);		
 	}
-*/
 	
 	@Override
 	public void insertArtOptionl() {
 		dao.insertArtOptionl();
 		
 	}
-	
+	*/
+
+	@Override
+	public void insertArtOptionCat1(Map<String, Object> map) {
+		dao.insertArtOptionCat1(map);	
+	}
+
+	@Override
+	public void insertArtOptionCat2(Map<String, Object> map) {
+		dao.insertArtOptionCat2(map);
+	}
+
+	@Override
+	public void insertArtOptionCat3(Map<String, Object> map) {
+		dao.insertArtOptionCat3(map);
+	}
 }
