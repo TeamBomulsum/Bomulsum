@@ -104,13 +104,7 @@ h4 {
 }
 
 </style>
-
-
-
-
-
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script> 
 function removeImg(){
    var id = document.getElementById('imgs');
@@ -134,6 +128,24 @@ function setThumbnail(event) {
       reader.readAsDataURL(image); 
    } 
 }
+
+$(function() {
+    $('#workName').keyup(function (e){
+        var content = $(this).val();
+        $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+        $('#nameCounter').html(content.length + '/20');
+    });
+    $('#workName').keyup();
+});
+
+$(function() {
+    $('#keyword').keyup(function (e){
+        var content = $(this).val();
+        $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+        $('#keywordCounter').html(content.length + '/20');
+    });
+    $('#keyword').keyup();
+});
 /*
 $(document).ready(function() {
     $('#summernote').summernote({
@@ -146,8 +158,21 @@ $(document).ready(function() {
 
     });
  });*/
-
  
+ /* 키워드 입력
+$(document).ready(function(){
+	// 입력란에 입력을 하면 입력내용에 내용이 출력
+	// 1. #data 공간에서 keyup이라는 이벤트가 발생했을 때
+	$("#keywordButton").click(function(){
+		// 2. #out 공간에 #data의 내용이 출력된다.
+		$("#keywordContainer").text($("#keyword").val());
+		// #out의 위치에 text로 데이터를 받는다.(setter)
+		// 들어가는 데이터는 #data의 값(.val())이다. (getter)
+		// 메서드 괄호 안에 아무것도 없으면 getter, 파라미터가 있으면 setter이다.
+	});
+
+});
+  */
 </script>
 </head>
 <body id="page-top">
@@ -175,9 +200,9 @@ $(document).ready(function() {
                      <h4>기본정보</h4>
                   		   등록하려는 작품에 대해 이야기해주세요
                   </div>
-                  <div class="loadButton">
+                 <!--   <div class="loadButton">
                      <button class="button" id="load" type="button">등록한 작품 불러오기</button>
-                  </div>	
+                  </div>	-->
                </div>
                <!-- end flexcontainer -->
                <!-- end of topLine -->
@@ -197,10 +222,10 @@ $(document).ready(function() {
                   </tr>
                   <tr>
                      <td class="left">작품명</td>
-                     <td><div class="workNameRegister">
-                           <input type="text" name = "artName" id="workName" maxlength="20" autocomplete="off"> 
-                           <span id="nameCounter"> 0/20</span>
-                        </div></td>
+                     <td><!--  <div class="workNameRegister">-->
+                          <input type="text" id="workName" name="artName" maxlength="20"/>
+							<span id="nameCounter" style="font-size: 12px"> ### </span></td>
+                         <!--  </div>--></td>
                   </tr>
                   <tr>
                      <td class="left">가격</td>
@@ -249,7 +274,7 @@ $(document).ready(function() {
  <!--            </div>--> 
            
             <!-- end 기본 작품 정보 영역  -->
-
+            
             <!-- 작품 정보 제공 고시 영역 -->
             <tr>
             <td colspan="2">
@@ -268,7 +293,8 @@ $(document).ready(function() {
     <!--           <table border="1" class="provideInfoTable"> --> 
                   <tr>
                      <td class="left" style="width: 20%">작품군</td>
-                      <td style="display:none"><input type="text" name ="artCodeSeq" value="${artCodeSeq}"></td>
+                  <!--      <td style="display:none"><input type="text" name ="artCodeSeq" value="${artCodeSeq}"></td>-->
+                      
                      <td>
                         <div class="categoryDiv">
 
@@ -351,13 +377,22 @@ $(document).ready(function() {
                      <td class="left" style="width: 20%">작품키워드</td>
                      <td>
                         <div id="add">
-                              <input type="text" id="keyword" name = "artKeyword" autocomplete="off">
-                              <button id="keywordAdd" type="submit">추가</button>
-                               0/20
+                        <!-- 키워드 추가 수정 -->
+                             <input type="text" id="keyword1" name = "artKeyword" placeholder="키워드1" maxlength="20" autocomplete="off">
+                             <input type="text" id="keyword2" name = "artKeyword" placeholder="키워드2" maxlength="20" autocomplete="off">
+                             <input type="text" id="keyword3" name = "artKeyword" placeholder="키워드3" maxlength="20" autocomplete="off">
+                             <input type="text" id="keyword4" name = "artKeyword" placeholder="키워드4" maxlength="20" autocomplete="off">
+                             <input type="text" id="keyword5" name = "artKeyword" placeholder="키워드5" maxlength="20" autocomplete="off">
+                             <input type="text" id="keyword6" name = "artKeyword" placeholder="키워드6" maxlength="20" autocomplete="off">
+                             <input type="text" id="keyword7" name = "artKeyword" placeholder="키워드7" maxlength="20" autocomplete="off">
+                             <input type="text" id="keyword8" name = "artKeyword" placeholder="키워드8" maxlength="20" autocomplete="off">
+                            <!--   <button id="keywordButton" type="button">추가</button>
+                              <span id="keywordCounter" style="font-size: 12px"> ### </span>
                         </div>
-                        <div class="keywordContainer"></div>
-                         10/10개<br>
-                        띄어쓰기, 문장 기호가 특수 문자를 사용한 등록이 불가능하며, 최대 10개까지 등록이 가능합니다.
+                        <div id="keywordContainer" style="height:50px;"></div>
+                         10/10개<br> --> 
+                         <br>
+                        	띄어쓰기, 문장 기호가 특수 문자를 사용한 등록이 불가능하며, 최대 8개까지 등록이 가능합니다.
                      </td>
                   </tr>
             <!-- end 타겟 설정 영역 -->
@@ -369,9 +404,6 @@ $(document).ready(function() {
                <div class="flexcontainer">
                   <div class="textTitle">
                      <h4>옵션</h4>
-                  </div>
-                  <div class="addButton">
-                     <button class="button" id="add" type="button">옵션추가</button>
                   </div>
                </div>
                </td>
@@ -385,11 +417,7 @@ $(document).ready(function() {
                         <div>
                            <div class="flexcontainer">
                               <div class="textTitle">
-                                 <input type="text" id="keyword" placeholder="구성 선택" autocomplete="off">
-                              </div>
-                              <div class="addButton">
-                                 <button type="button" class="button">세부 항목 추가</button>
-                                 <button type="button" class="button">옵션 삭제</button>
+                                 <input type="text" name="artOptionCategory" id="option" placeholder="구성 선택" autocomplete="off">
                               </div>
                            </div>
                            <!-- end flexcontainer -->
@@ -400,25 +428,26 @@ $(document).ready(function() {
                            <div class="flexCon">
                               <div class="nameGroup" style="margin-left:3%">
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name1" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name2" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name3" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
                                  </div>
                               </div>
                               <div class="priceGroup" style="margin-left:9%">
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price1" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price1" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price2" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price2" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price3" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price3" size="30%" autocomplete="off">
                                  </div>
+
                               </div>
                            </div>
                            <!-- end flexcon -->
@@ -431,11 +460,7 @@ $(document).ready(function() {
                         <div>
                            <div class="flexcontainer">
                               <div class="textTitle">
-                                 <input type="text" id="keyword" placeholder="구성 선택" autocomplete="off">
-                              </div>
-                              <div class="addButton">
-                                 <button type="button" class="button">세부 항목 추가</button>
-                                 <button type="button" class="button">옵션 삭제</button>
+                                 <input type="text" name="artOptionCategory" id="option" placeholder="구성 선택" autocomplete="off">
                               </div>
                            </div>
                            <!-- end flexcontainer -->
@@ -446,24 +471,68 @@ $(document).ready(function() {
                            <div class="flexCon">
                               <div class="nameGroup" style="margin-left:3%">
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name1" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name2" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name3" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
                                  </div>
+
                               </div>
                               <div class="priceGroup" style="margin-left:9%">
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price1" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price1" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price2" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price2" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price3" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price3" size="30%" autocomplete="off">
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- end flexcon -->
+                        </div>
+                     </td>
+                  </tr>
+                               <tr>
+                     <td class="left" style="width: 20%">옵션3</td>
+                     <td>
+                        <div>
+                           <div class="flexcontainer">
+                              <div class="textTitle">
+                                 <input type="text" name="artOptionCategory" id="option" placeholder="구성 선택" autocomplete="off">
+                              </div>
+                           </div>
+                           <!-- end flexcontainer -->
+
+                        </div> <!-- end detail -->
+                        <hr>
+                        <div>
+                           <div class="flexCon">
+                              <div class="nameGroup" style="margin-left:3%">
+                                 <div class="names">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
+                                 </div>
+                                 <div class="names">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
+                                 </div>
+                                 <div class="names">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
+                                 </div>
+
+                              </div>
+                              <div class="priceGroup" style="margin-left:9%">
+                                 <div class="prices">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price1" size="30%" autocomplete="off">
+                                 </div>
+                                 <div class="prices">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price2" size="30%" autocomplete="off">
+                                 </div>
+                                 <div class="prices">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price3" size="30%" autocomplete="off">
                                  </div>
                               </div>
                            </div>

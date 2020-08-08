@@ -1,5 +1,7 @@
 package com.web.bomulsum.writer.art.repository;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,9 +27,20 @@ public class WriterArtDAO{
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtInfoDetail", vo);
 	}
 	
+	//작품 코드 검색
 	public String getArtCode(String artName) {
 		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtCode", artName);
 	}
-		
+	/*
+	//작품 옵션 등로
+	public void insertArtOption(WriterArtOptionVO vo) {
+		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption", vo);
+	}
+*/
 	
+	public void insertArtOptionl() {
+		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOptionl");
+		
+	}
+
 }

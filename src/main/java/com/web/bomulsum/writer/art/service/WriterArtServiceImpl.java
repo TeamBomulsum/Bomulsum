@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.writer.art.repository.WriterArtDAO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
+import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
 
 
@@ -28,8 +29,20 @@ public class WriterArtServiceImpl implements WriterArtService{
 
 	@Override
 	public void insertArtInfoDetail(WriterArtInfoDetailVO vo) {
-		dao.insertArtInfoDetail(vo);
+		dao.insertArtInfoDetail(vo);	
+	}
+/*
+	@Override
+	public void insertArtOption(WriterArtOptionVO vo) {
+		dao.insertArtOption(vo);
 		
 	}
-
+*/
+	
+	@Override
+	public void insertArtOptionl() {
+		dao.insertArtOptionl();
+		
+	}
+	
 }

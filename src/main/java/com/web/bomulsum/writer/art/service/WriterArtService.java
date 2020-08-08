@@ -1,6 +1,7 @@
 package com.web.bomulsum.writer.art.service;
 
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
+import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
 
 public interface WriterArtService {
@@ -13,5 +14,10 @@ public interface WriterArtService {
 	
 	//작품정보제공 테이블 등록
 	void insertArtInfoDetail(WriterArtInfoDetailVO vo);
+/*
+	//작품 옵션 등록
+	void insertArtOption(WriterArtOptionVO vo);
+*/
 
+	void insertArtOptionl();
 }
