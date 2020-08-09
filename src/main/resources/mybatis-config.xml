@@ -13,8 +13,7 @@
 		<typeAlias type="com.web.bomulsum.writer.gempoint.repository.WriterGempointVO" alias="WriterGempointVO"/>	
 		<typeAlias type="com.web.bomulsum.writer.login.repository.WriterRegisterVO" alias="WriterRegisterVO"/>
 		<typeAlias type="com.web.bomulsum.writer.profile.repository.WriterProfileVO" alias="WriterProfileVO"/>
-
-		
+		<typeAlias type="com.web.bomulsum.writer.salespolicy.repository.WriterSalesPolicyVO" alias="WriterSalesPolicyVO"/>
 	</typeAliases>
 
 	<mappers>
@@ -30,5 +29,6 @@
 		<mapper resource="mappings/writer/writer-login-mapping.xml" />
 		<mapper resource="mappings/writer/writer-art-mapping.xml" />
 		<mapper resource="mappings/writer/writer-profile-mapping.xml" />
+		<mapper resource="mappings/writer/writer-salespolicy-mapping.xml" />
 	</mappers>
 </configuration>

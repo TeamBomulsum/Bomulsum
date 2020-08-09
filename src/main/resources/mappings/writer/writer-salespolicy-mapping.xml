@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="writerSalesPolicyDAO">
+	<resultMap id="salesPolicyMap" type="com.web.bomulsum.writer.salespolicy.repository.WriterSalesPolicyVO">
+		<result property="writerPayment" column="writer_payment"/>
+		<result property="writerSendPrice" column="writer_send_price"/>
+		<result property="writerPlusPrice" column="writer_plus_price"/>
+		<result property="writerSendfreeCase" column="writer_sendfree_case"/>
+		<result property="writerRefund" column="writer_refund"/>
+		<result property="writerPolicyAbout" column="writer_policy_about"/>
+	</resultMap>	
+	
+
+	<update id="updateSalesPolicy" parameterType="WriterSalesPolicyVO">
+		UPDATE writer_tb 
+		SET 
+		writer_payment = #{writerPayment} , writer_send_price= #{writerSendPrice}, 
+		writer_plus_price = #{writerPlusPrice}, writer_sendfree_case= #{writerSendfreeCase},
+		writer_refund = #{writerRefund}, writer_policy_about= #{writerPolicyAbout} 
+		WHERE 
+		writer_code_seq = '다인테스트' 
+	</update>
+	
+</mapper> 

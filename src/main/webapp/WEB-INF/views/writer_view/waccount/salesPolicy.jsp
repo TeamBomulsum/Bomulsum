@@ -6,13 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>판매정책</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <!-- Custom styles for this template-->
-<link href="<c:url value='/css/sb-admin-2.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <!-- myInformation _ CSS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- JQuery -->
@@ -90,29 +90,29 @@ footer span{
 					<!-- 배송비 테이블 -->
 					<h5 style=" font-weight: bold;">배송비</h5>
 					<p>제주, 도서산간일 경우 기본료만 무료가 됩니다.</p>
-					<form action="#">
+					<form action="<c:url value='/writer/updateSalespolicy.wdo'/>" method="post">
 					<table class="daintable">
 						<tr>
 							<th class="daintdth" style="width: 15%;">결제방식</th>
-							<td class="daintdth" style="width: 85%;"><select name="deliveryChargeChoice">
+							<td class="daintdth" style="width: 85%;"><select name="writerPayment">
 									<option value="선결제">선결제</option>
 									<option value="후결제">후결제</option>
 							</select></td>
 						</tr>
 						<tr>
 							<th class="daintdth" style="width: 15%;">기본료</th>
-							<td class="daintdth" style="width: 85%;"><input size="13" type="text" placeholder="0" name="deliveryBasicCharge" style="text-align: right;"/>
+							<td class="daintdth" style="width: 85%;"><input size="13" type="text" placeholder="0" name="writerSendPrice" style="text-align: right;"/>
 								원</td>
 						</tr>
 						<tr>
 							<th class="daintdth" style="width: 15%;">제주 / 도서산간 추가비용</th>
 							<td class="daintdth" style="width: 85%;"><input size="13" type="text" placeholder="0"
-								name="otherDeliveryBasicCharge" style="text-align: right;"/> 원</td>
+								name="writerPlusPrice" style="text-align: right;"/> 원</td>
 						</tr>
 						<tr>
 							<th class="daintdth" style="width: 15%;">배송비 무료 조건</th>
 							<td class="daintdth" style="width: 85%;"><input size="13" type="text" placeholder="0"
-								name="otherDeliveryBasicCharge" style="text-align: right;"/> 원 이상</td>
+								name="writerSendfreeCase" style="text-align: right;"/> 원 이상</td>
 						</tr>
 					</table>
 
@@ -122,15 +122,15 @@ footer span{
 					<table class="daintable">
 						<tr>
 							<th class="daintdth" style="width: 15%;">상태</th>
-							<td class="daintdth" style="width: 85%;"><select name="deliveryState">
-									<option value="가능">가능</option>
-									<option value="불가능">불가능</option>
+							<td class="daintdth" style="width: 85%;"><select name="writerRefund">
+									<option value="y">가능</option>
+									<option value="n">불가능</option>
 							</select></td>
 						</tr>
 						<tr>
 							<th class="daintdth" style="width: 15%;">상세 내용</th>
-							<td class="daintdth" style="height:300px; width: 85%;"><textarea id="content" maxlength="300" 
-							style="min-height: 200px; max-height:200px; min-width: 60%; max-width: 60%; max-width: scroll;">
+							<td class="daintdth" style="height:300px; width: 85%;"><textarea id="content" name="writerPolicyAbout"
+							maxlength="300" style="min-height: 200px; max-height:200px; min-width: 60%; max-width: 60%; max-width: scroll;">
 * 단순변심으로 인한 교환/환불은 7일 이내 가능합니다.
 * 이름이나 기타 추가사항이 들어간 맞춤제작의 경우와 착용 흔적이 있는 제품은 교환/환불이 어렵습니다.</textarea><br>
 							<span id="counter">###</span></td>
@@ -156,17 +156,17 @@ footer span{
 				class="fas fa-angle-up"></i>
 			</a>
 
-			<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-			<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 			<!-- Core plugin JavaScript-->
-			<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 			<!-- Custom scripts for all pages-->
 			<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 
 			<!-- Page level plugins -->
-			<script src="<c:url value='/vendor/chart.js/Chart.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/chart.js/Chart.min.js'/>"></script>
 
 			<!-- Page level custom scripts -->
 		

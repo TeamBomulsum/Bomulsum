@@ -168,7 +168,7 @@ footer span{
 								<th class="daintdth" style="width: 15%;  text-align: center;">프로필 사진</th>
 								<td class="daintdth" style="font-size: 12px; width: 7%;">
 									<!-- 여기 이미지 썸네일 들어감 --> 
-									<img id="coverPic" />
+									<img id="coverPic" src="<c:url value='/upload/${profile.writerProfileImg}'/>"/>
 								</td>
 								<td  class="daintdth" style="width: 28%;">
 									<input type="file" name="writerProfileImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
@@ -179,7 +179,7 @@ footer span{
 								<th class="daintdth" style="width: 15%;  text-align: center;" >커버 사진</th>
 								<td class="daintdth" style="font-size: 12px; width: 7%;">
 									<!-- 여기 이미지 썸네일 들어감 -->
-									<img id="coverPic2"/> </td>
+									<img id="coverPic2" src="<c:url value='/upload/${profile.writerCoverImg}'/>" /> </td>
 								<td class="daintdth" style="width: 28%; ">
 								<input type="file" name="writerCoverImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
 									<div style="font-size: 12px">
@@ -189,7 +189,7 @@ footer span{
 							<tr>
 								<th class="daintdth" style="width: 15%; text-align: center;">작가명<br>(브랜드)</th>
 								<td class="daintdth" colspan="5" style="width: 85%;"><input type="text" 
-								id="content" name="writerBrandName" maxlength="20" autocomplete="off" 
+								id="content" name="writerBrandName" maxlength="20" autocomplete="off" value="${profile.writerBrandName}"
 								style="max-height: 30px; "/>
 								<span id="counter" style="font-size: 12px"> ### </span></td>
 							</tr>
@@ -198,7 +198,7 @@ footer span{
 								<td class="daintdth" colspan="5" style="width: 15%;"><textarea id="content2" 
 								name="writerIntro" placeholder="작가님을 소개하는 글을 적어주세요." maxlength="500" autocomplete="off"
 										style="overflow-y: scroll;  min-height: 100px; max-height:100px; 
-										min-width: 60%; max-width: 60%;"></textarea>
+										min-width: 60%; max-width: 60%;">${profile.writerIntro}</textarea>
 										<div id="counter2" style="font-size: 12px"> ### </div></td>
 							</tr>
 						</table>
