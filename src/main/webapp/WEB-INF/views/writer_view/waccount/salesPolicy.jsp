@@ -140,7 +140,7 @@ ${salespolicy.writerPolicyAbout}</textarea><br>
 					
 					<div class="spButton" style="margin-bottom: 50px;">
 						<div style="text-align: center; width: 90%;">
-							<button class="btn2" type="submit" onclick="alert('등록되었습니다.')">확인</button>
+							<button class="btn btn-primary" type="submit" onclick="alert('등록되었습니다.')">확인</button>
 						</div>
 					</div>
 					</form>

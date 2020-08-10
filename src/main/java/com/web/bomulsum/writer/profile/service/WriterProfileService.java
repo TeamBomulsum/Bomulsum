@@ -1,7 +1,6 @@
 package com.web.bomulsum.writer.profile.service;
 
 import com.web.bomulsum.writer.profile.repository.WriterProfileVO;
-import com.web.bomulsum.writer.salespolicy.repository.WriterSalesPolicyVO;
 
 public interface WriterProfileService {
 	void updateWriterProfile(WriterProfileVO vo);
