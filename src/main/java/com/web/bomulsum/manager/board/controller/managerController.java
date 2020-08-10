@@ -34,7 +34,7 @@ public class managerController {
 	}
 	
 	
-	
+	/*게시판 글 목록 보여주기*/
 	@GetMapping("/list")
 	public ModelAndView mboardList() {
 		ModelAndView mav = new ModelAndView();
