@@ -41,14 +41,14 @@ public class WriterProfileController {
 			mav.setViewName("redirect:/writer/profile.wdo");
 			
 			String originalFileName = mf.getOriginalFilename();
-			long fileSize = mf.getSize();
-			String root_path = getClass().getResource("/upload").getPath(); 
-			System.out.println("TOSTRING : " + getClass().getResource("/upload").toString());
-			System.out.println("PATH : " + getClass().getResource("/upload").getPath());
+//			long fileSize = mf.getSize();
+//			String root_path = getClass().getResource("/upload").getPath(); 
+//			System.out.println("TOSTRING : " + getClass().getResource("/upload").toString());
+//			System.out.println("PATH : " + getClass().getResource("/upload").getPath());
 //		    String name = "1596799032877즐겨찾는 작품_스크롤로계속내려감.jpg";
 			String saveFile = System.currentTimeMillis() + originalFileName;
-			System.out.println(fileSize);
-			System.out.println(root_path);
+//			System.out.println(fileSize);
+//			System.out.println(root_path);
 			try {
 				mf.transferTo(new File(SAVE_PATH_AWS, saveFile));
 			}catch(IllegalStateException e) {
