@@ -6,4 +6,5 @@ import com.web.bomulsum.user.message.repository.NodeDbVO;
 
 public interface NodeDbService {
 	List<NodeDbVO> getTable();
+	List<String> getUserCodes();
 }

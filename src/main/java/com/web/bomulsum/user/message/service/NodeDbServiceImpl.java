@@ -19,4 +19,9 @@ public class NodeDbServiceImpl implements NodeDbService{
 		return dao.getTable();
 	}
 
+	@Override
+	public List<String> getUserCodes() {
+		return dao.getUserCodes();
+	}
+
 }

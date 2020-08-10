@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>보물섬 | 자주 묻는 질문</title>
+<script src="https://kit.fontawesome.com/fea5b9b7d0.js" crossorigin="anonymous"></script>
 <style type="text/css">
 
 body a:link, a:visited, a:hover, a:active {

@@ -110,20 +110,22 @@ public class UserLoginController {
 		mav.setViewName("/ulogin/ulogin");
 		if(check == 1) {
 			
+			// 세션에 사용자 고유코드 넣기.
+			String userCode = service.getUserCode(vo.getEmail());
+			HttpSession session = request.getSession();
+			session.setAttribute("member", userCode);
+			
 			//로그인 유무 처리
 			NowLoginVO newloginVo = new NowLoginVO();
 			newloginVo.setMemberEmail(vo.getEmail());
 			newloginVo.setyORn("Y");
 			service.updateLogin(newloginVo);
 			
-			// 세션에 사용자 고유코드 넣기.
-			String userCode = service.getUserCode(vo.getEmail());
-			HttpSession session = request.getSession();
-			session.setAttribute("member", userCode);
-			
 			// 사용자 이름 넣어주기
 			String userName = service.getUserName(userCode);
 			session.setAttribute("userName", userName);
+			session.setAttribute("user", service.getUser(userCode));
+			System.out.println("신규 추가 : " + service.getUser(userCode));
 			
 			// 이메일 저장하기 체크박스 선택시 쿠키 생성해주기.
 			if(vo.getRememberEmail() != null) {

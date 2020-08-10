@@ -8,6 +8,14 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+$(window).bind('beforeunload', function() {
+	if ((event.clientY < 0) ||(event.altKey) ||(event.ctrlKey)||((event.clientY < 129) && (event.clientY>107))) { 
+		$.ajax({
+			url : "/bomulsum/user/logout.do"
+		}); 
+	}
+}); 
+
 $(function() {
 	//Top버튼 기능
     $(window).scroll(function() {
@@ -310,7 +318,6 @@ body {
     font-size: 12px;
 }
 
-
 </style>
 </head>
 <body>
@@ -322,7 +329,7 @@ body {
 			<div class="dainheader-top-link">
 				<a class="dain-header-topA" href="<c:url value='/user/login.do'/>" >로그인</a>
 				<a class="dain-header-topA" href="<c:url value='/user/newAccount.do'/>" >회원가입</a>
-				<a class="dain-header-topA" href="#">고객센터</a>
+				<a class="dain-header-topA" href="<c:url value='/user/board/notice.do'/> ">고객센터</a>
 			</div>
 		</c:if>
 		<c:if test="${not empty member}">
@@ -331,7 +338,7 @@ body {
 				<a class="dain-header-topA" href="<c:url value='/user/logout.do'/>" >로그아웃</a>
 				<a class="dain-header-topA" style="color: #666666;"><i class="fas fa-bell" style="font-size:13px"></i> 알림</a>
 				<a class="dain-header-topA" href="<c:url value='/user/message.do'/> " style="color: #666666;"><i class="fas fa-comment" style="font-size:13px"></i> 메시지</a>
-				<a class="dain-header-topA" href="#">고객센터</a>
+				<a class="dain-header-topA" href="<c:url value='/user/board/notice.do'/> ">고객센터</a>
 			</div>
 		</c:if>
 	</div>

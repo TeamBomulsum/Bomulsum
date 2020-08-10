@@ -13,7 +13,11 @@ public class NodeDbDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<NodeDbVO> getTable() {
-		return sqlSessionTemplate.selectList("MemberDAO.getMessage");
+		return sqlSessionTemplate.selectList("NodeDbDAO.getMessage");
+	}
+	
+	public List<String> getUserCodes() {
+		return sqlSessionTemplate.selectList("NodeDbDAO.getUserCodes");
 	}
 	
 }

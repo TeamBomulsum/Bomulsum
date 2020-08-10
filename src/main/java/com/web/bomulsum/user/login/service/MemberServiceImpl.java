@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.user.login.repository.LoginVO;
 import com.web.bomulsum.user.login.repository.MemberDAO;
+import com.web.bomulsum.user.login.repository.MemberSessionVO;
 import com.web.bomulsum.user.login.repository.MemberVO;
 import com.web.bomulsum.user.login.repository.NowLoginVO;
 
@@ -52,6 +53,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void logout(NowLoginVO vo) {
 		dao.logout(vo);
+	}
+
+	@Override
+	public MemberSessionVO getUser(String code) {
+		return dao.getUser(code);
 	}
 
 }

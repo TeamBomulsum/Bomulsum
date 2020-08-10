@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userBoardDAO">
+
+	
+	<resultMap type="com.web.bomulsum.user.board.repository.UserBoardNoticeVO" id="noticeVo">
+		<result property="noticeSeq" column="admin_notice_seq" />
+		<result property="noticeCategory" column="admin_notice_category" />
+		<result property="noticeTitle" column="admin_notice_title" />
+		<result property="noticeContent" column="admin_notice_content" />
+		<result property="noticeDate" column="admin_notice_date" />
+	</resultMap>
+
+	<select id="getNoticeTitle" resultMap="noticeVo">
+		SELECT 
+		admin_notice_seq, admin_notice_category, admin_notice_title, admin_notice_content, admin_notice_date
+		FROM
+		admin_notice_tb
+		WHERE
+		admin_notice_category='이벤트' 
+		OR 
+		admin_notice_category='회원용-공지사항'
+		ORDER BY 
+		admin_notice_date ASC
+	</select>
+
+</mapper>

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.writer.art.repository.WriterArtDAO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
-import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
 
 
@@ -33,31 +32,52 @@ public class WriterArtServiceImpl implements WriterArtService{
 	public void insertArtInfoDetail(WriterArtInfoDetailVO vo) {
 		dao.insertArtInfoDetail(vo);	
 	}
-	/*
-	@Override
-	public void insertArtOption(WriterArtOptionVO vo) {
-		dao.insertArtOption(vo);		
-	}
-	
-	@Override
-	public void insertArtOptionl() {
-		dao.insertArtOptionl();
-		
-	}
-	*/
+
 
 	@Override
-	public void insertArtOptionCat1(Map<String, Object> map) {
-		dao.insertArtOptionCat1(map);	
+	public void insertArtOption1(Map<String, Object> map) {
+		dao.insertArtOption1(map);	
 	}
 
 	@Override
-	public void insertArtOptionCat2(Map<String, Object> map) {
-		dao.insertArtOptionCat2(map);
+	public void insertArtOption2(Map<String, Object> map) {
+		dao.insertArtOption2(map);
 	}
 
 	@Override
-	public void insertArtOptionCat3(Map<String, Object> map) {
-		dao.insertArtOptionCat3(map);
+	public void insertArtOption3(Map<String, Object> map) {
+		dao.insertArtOption3(map);	
 	}
+
+	@Override
+	public void insertArtOption4(Map<String, Object> map) {
+		dao.insertArtOption4(map);
+	}
+
+	@Override
+	public void insertArtOption5(Map<String, Object> map) {
+		dao.insertArtOption5(map);
+	}
+
+	@Override
+	public void insertArtOption6(Map<String, Object> map) {
+		dao.insertArtOption6(map);
+	}
+
+	@Override
+	public void insertArtOption7(Map<String, Object> map) {
+		dao.insertArtOption7(map);
+	}
+
+	@Override
+	public void insertArtOption8(Map<String, Object> map) {
+		dao.insertArtOption8(map);
+	}
+
+	@Override
+	public void insertArtOption9(Map<String, Object> map) {
+		dao.insertArtOption9(map);
+	}
+
+
 }

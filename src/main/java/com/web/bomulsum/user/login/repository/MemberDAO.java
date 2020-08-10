@@ -47,4 +47,8 @@ public class MemberDAO {
 		sqlSessionTemplate.update("MemberDAO.logout", vo);
 	}
 	
+	public MemberSessionVO getUser(String code) {
+		return sqlSessionTemplate.selectOne("MemberDAO.getUser", code);
+	}
+	
 }
