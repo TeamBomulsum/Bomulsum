@@ -95,24 +95,25 @@ footer span{
 						<tr>
 							<th class="daintdth" style="width: 15%;">결제방식</th>
 							<td class="daintdth" style="width: 85%;"><select name="writerPayment">
-									<option value="선결제">선결제</option>
+									<option value="선결제" selected="selected">선결제</option>
 									<option value="후결제">후결제</option>
 							</select></td>
 						</tr>
 						<tr>
 							<th class="daintdth" style="width: 15%;">기본료</th>
-							<td class="daintdth" style="width: 85%;"><input size="13" type="text" placeholder="0" name="writerSendPrice" style="text-align: right;"/>
+							<td class="daintdth" style="width: 85%;"><input size="13" type="text" 
+							value="${salespolicy.writerSendPrice}" placeholder="0" name="writerSendPrice" style="text-align: right;"/>
 								원</td>
 						</tr>
 						<tr>
 							<th class="daintdth" style="width: 15%;">제주 / 도서산간 추가비용</th>
 							<td class="daintdth" style="width: 85%;"><input size="13" type="text" placeholder="0"
-								name="writerPlusPrice" style="text-align: right;"/> 원</td>
+								name="writerPlusPrice" value="${salespolicy.writerPlusPrice}" style="text-align: right;"/> 원</td>
 						</tr>
 						<tr>
 							<th class="daintdth" style="width: 15%;">배송비 무료 조건</th>
 							<td class="daintdth" style="width: 85%;"><input size="13" type="text" placeholder="0"
-								name="writerSendfreeCase" style="text-align: right;"/> 원 이상</td>
+								name="writerSendfreeCase" value="${salespolicy.writerSendfreeCase}" style="text-align: right;"/> 원 이상</td>
 						</tr>
 					</table>
 
@@ -123,7 +124,7 @@ footer span{
 						<tr>
 							<th class="daintdth" style="width: 15%;">상태</th>
 							<td class="daintdth" style="width: 85%;"><select name="writerRefund">
-									<option value="y">가능</option>
+									<option value="y" selected="selected">가능</option>
 									<option value="n">불가능</option>
 							</select></td>
 						</tr>
@@ -131,8 +132,7 @@ footer span{
 							<th class="daintdth" style="width: 15%;">상세 내용</th>
 							<td class="daintdth" style="height:300px; width: 85%;"><textarea id="content" name="writerPolicyAbout"
 							maxlength="300" style="min-height: 200px; max-height:200px; min-width: 60%; max-width: 60%; max-width: scroll;">
-* 단순변심으로 인한 교환/환불은 7일 이내 가능합니다.
-* 이름이나 기타 추가사항이 들어간 맞춤제작의 경우와 착용 흔적이 있는 제품은 교환/환불이 어렵습니다.</textarea><br>
+${salespolicy.writerPolicyAbout}</textarea><br>
 							<span id="counter">###</span></td>
 							<!-- 위에 0/500에 글자수카운팅 들어가야함 -->
 						</tr>
@@ -140,7 +140,7 @@ footer span{
 					
 					<div class="spButton" style="margin-bottom: 50px;">
 						<div style="text-align: center; width: 90%;">
-							<button class="btn2" type="submit">확인</button>
+							<button class="btn2" type="submit" onclick="alert('등록되었습니다.')">확인</button>
 						</div>
 					</div>
 					</form>

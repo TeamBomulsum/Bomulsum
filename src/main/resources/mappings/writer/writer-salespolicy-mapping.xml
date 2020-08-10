@@ -12,7 +12,8 @@
 		<result property="writerPolicyAbout" column="writer_policy_about"/>
 	</resultMap>	
 	
-
+	
+	<!-- 작가 판매정책 등록(수정) -->
 	<update id="updateSalesPolicy" parameterType="WriterSalesPolicyVO">
 		UPDATE writer_tb 
 		SET 
@@ -23,4 +24,15 @@
 		writer_code_seq = '다인테스트' 
 	</update>
 	
+	
+	<!-- 작가 판매정책 불러오기 -->
+	<select id="loadSalesPolicy"  resultMap = "salesPolicyMap">
+		SELECT 
+		writer_payment, writer_send_price, writer_plus_price, 
+		writer_sendfree_case, writer_refund,writer_policy_about
+		FROM 
+		writer_tb 
+		WHERE 
+		writer_code_seq = '다인테스트'
+	</select>
 </mapper> 

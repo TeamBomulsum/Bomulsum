@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.writer.profile.repository.WriterProfileVO;
 import com.web.bomulsum.writer.profile.service.WriterProfileService;
 import com.web.bomulsum.writer.salespolicy.repository.WriterSalesPolicyVO;
 import com.web.bomulsum.writer.salespolicy.service.WriterSalesPolicyService;
@@ -20,9 +21,14 @@ public class WriterSalesPolicyController {
 	 WriterSalesPolicyService service;
 	
 	//-----------------------판매정책-------------------------
-	@GetMapping("/salespolicy")
-	public String salespolicy() {
-		return "/waccount/salesPolicy";
+	@RequestMapping(value="/salespolicy")
+	public ModelAndView salespolicy() {
+		ModelAndView mav = new ModelAndView("/waccount/salesPolicy");
+		
+		WriterSalesPolicyVO result = service.getSalesPolicy();
+		mav.addObject("salespolicy", result);
+		
+		return mav;
 	} 
 	
 	@RequestMapping(value= "/updateSalespolicy" , method=RequestMethod.POST)

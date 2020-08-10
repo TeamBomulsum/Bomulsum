@@ -17,4 +17,9 @@ public class WriterSalesPolicyServiceImpl implements WriterSalesPolicyService{
 		dao.updateSalesPolicy(vo);		
 	}
 
+	@Override
+	public WriterSalesPolicyVO getSalesPolicy() {
+		return dao.getSalesPolicy();
+	}
+
 }
