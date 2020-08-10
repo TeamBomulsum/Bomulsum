@@ -1,14 +1,17 @@
 package com.web.bomulsum.writer.art.repository;
 
 public class WriterArtOptionVO {
+	
 	private String artOptionSeq;
 	private String artCodeSeq;
 	private String artOptionCategory;
+	private String artOptionName;
+	private String artOptionPrice;
 	
 	@Override
 	public String toString() {
 		return "WriterArtOptionVO [artOptionSeq=" + artOptionSeq + ", artCodeSeq=" + artCodeSeq + ", artOptionCategory="
-				+ artOptionCategory + "]";
+				+ artOptionCategory + ", artOptionName=" + artOptionName + ", artOptionPrice=" + artOptionPrice + "]";
 	}
 	public String getArtOptionSeq() {
 		return artOptionSeq;
@@ -28,7 +31,22 @@ public class WriterArtOptionVO {
 	public void setArtOptionCategory(String artOptionCategory) {
 		this.artOptionCategory = artOptionCategory;
 	}
-	
+	public String getArtOptionName() {
+		return artOptionName;
+	}
+	public void setArtOptionName(String artOptionName) {
+		this.artOptionName = artOptionName;
+	}
+	public String getArtOptionPrice() {
+		return artOptionPrice;
+	}
+	public void setArtOptionPrice(String artOptionPrice) {
+		this.artOptionPrice = artOptionPrice;
+	}
 	
 
+
+
+	
+	
 }

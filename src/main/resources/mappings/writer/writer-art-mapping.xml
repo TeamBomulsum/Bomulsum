@@ -19,7 +19,7 @@
 			art_keyword,
 			art_viewcount,
 			art_point,
-			art_sale_status,
+			art_sale_state,
 			art_recommend_time
 		)
 		VALUES (
@@ -75,32 +75,9 @@
 			#{artInfoDetailWay}
 		)
 	</insert>
-<!--  
-	<insert id="insertArtOptionl" parameterType="java.util.List" >
-	
- 	 <foreach collection="optionList" item="item" >
- 	
-	INSERT INTO 	
-		art_option_tb(
-			art_option_seq,
-  			art_code_seq,
-    		art_option_category,
-    		art_option_name,
-    		art_option_price
-		)
-		VALUES (
-			#{artOptionSeq},
-			#{artCodeSeq},
-			#{artOptionCategory},
-			#{artOptionName},
-			#{artOptionPrice}
-		)
-		</foreach>
-	</insert>
--->	
-<!--  
-	<insert id="insertArtOption" parameterType="com.web.bomulsum.writer.art.repository.WriterArtOptionVO" >
 
+	<!-- 카테고리 등록 -->
+	<insert id="insertArtOption1" parameterType="hashMap" >
 	INSERT INTO 	
 		art_option_tb(
 			art_option_seq,
@@ -111,52 +88,148 @@
 		)
 		VALUES (
 			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
-			#{artCodeSeq},
-			#{artOptionCategory},
-			#{artOptionName},
-			#{artOptionPrice}
+			#{ArtCodeSeq},
+			#{OptionCategory1},
+			#{optionName1},
+			#{optionPrice1}
 		)
 	</insert>
--->	
-	<!-- 카테고리 등록 -->
-	<insert id="insertArtOptionCat1" parameterType="hashMap" >
+	<insert id="insertArtOption2" parameterType="hashMap" >
 	INSERT INTO 	
 		art_option_tb(
 			art_option_seq,
   			art_code_seq,
-    		art_option_category
+    		art_option_category,
+    		art_option_name,
+    		art_option_price
 		)
 		VALUES (
 			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
 			#{ArtCodeSeq},
-			#{OptionCategory1}
+			#{OptionCategory1},
+			#{optionName2},
+			#{optionPrice2}
 		)
 	</insert>
-	<insert id="insertArtOptionCat2" parameterType="hashMap" >
+	<insert id="insertArtOption3" parameterType="hashMap" >
 	INSERT INTO 	
 		art_option_tb(
 			art_option_seq,
   			art_code_seq,
-    		art_option_category
+    		art_option_category,
+    		art_option_name,
+    		art_option_price
 		)
 		VALUES (
 			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
 			#{ArtCodeSeq},
-			#{OptionCategory2}
+			#{OptionCategory1},
+			#{optionName3},
+			#{optionPrice3}
 		)
 	</insert>
-		<insert id="insertArtOptionCat3" parameterType="hashMap" >
+	<insert id="insertArtOption4" parameterType="hashMap" >
 	INSERT INTO 	
 		art_option_tb(
 			art_option_seq,
   			art_code_seq,
-    		art_option_category
+    		art_option_category,
+    		art_option_name,
+    		art_option_price
 		)
 		VALUES (
 			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
 			#{ArtCodeSeq},
-			#{OptionCategory3}
+			#{OptionCategory2},
+			#{optionName4},
+			#{optionPrice4}
 		)
 	</insert>
+	<insert id="insertArtOption5" parameterType="hashMap" >
+	INSERT INTO 	
+		art_option_tb(
+			art_option_seq,
+  			art_code_seq,
+    		art_option_category,
+    		art_option_name,
+    		art_option_price
+		)
+		VALUES (
+			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
+			#{ArtCodeSeq},
+			#{OptionCategory2},
+			#{optionName5},
+			#{optionPrice5}
+		)
+	</insert>
+	<insert id="insertArtOption6" parameterType="hashMap" >
+	INSERT INTO 	
+		art_option_tb(
+			art_option_seq,
+  			art_code_seq,
+    		art_option_category,
+    		art_option_name,
+    		art_option_price
+		)
+		VALUES (
+			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
+			#{ArtCodeSeq},
+			#{OptionCategory2},
+			#{optionName6},
+			#{optionPrice6}
+		)
+	</insert>
+	<insert id="insertArtOption7" parameterType="hashMap" >
+	INSERT INTO 	
+		art_option_tb(
+			art_option_seq,
+  			art_code_seq,
+    		art_option_category,
+    		art_option_name,
+    		art_option_price
+		)
+		VALUES (
+			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
+			#{ArtCodeSeq},
+			#{OptionCategory3},
+			#{optionName7},
+			#{optionPrice7}
+		)
+	</insert>
+	<insert id="insertArtOption8" parameterType="hashMap" >
+	INSERT INTO 	
+		art_option_tb(
+			art_option_seq,
+  			art_code_seq,
+    		art_option_category,
+    		art_option_name,
+    		art_option_price
+		)
+		VALUES (
+			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
+			#{ArtCodeSeq},
+			#{OptionCategory3},
+			#{optionName8},
+			#{optionPrice8}
+		)
+	</insert>
+	<insert id="insertArtOption9" parameterType="hashMap" >
+	INSERT INTO 	
+		art_option_tb(
+			art_option_seq,
+  			art_code_seq,
+    		art_option_category,
+    		art_option_name,
+    		art_option_price
+		)
+		VALUES (
+			'art_option_seq' || TO_CHAR(art_option_sq.nextval),
+			#{ArtCodeSeq},
+			#{OptionCategory3},
+			#{optionName9},
+			#{optionPrice9}
+		)
+	</insert>
+
 
 </mapper>
