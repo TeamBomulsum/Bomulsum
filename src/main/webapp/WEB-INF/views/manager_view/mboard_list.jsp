@@ -452,7 +452,16 @@
 	var categoryCheck = false; // 카테고리 선택 결과인지 아닌지
 	var searchCheck = false; // 검색어로 들어온 결과인지 아닌지
 	var result = new Array();// 전체 데이터에서 페이징 처리 될 때마다 새롭게 테이블을 짜야 하므로 조건에 따른 결과를 넣어줄 배열을 여기서 초기화 해준다.
+	
+	// 얘네들은 모달에서 쓸 것들
+	var category; 
+	var title;
+	var date;
+	var seq;
+	var content;
+	var coupon;
 
+	
     <c:forEach var="i" items='${mboardList}'>
        var json = new Object();//객체로 배열에 담기
        json.admin_notice_seq = '${i.admin_notice_seq}';

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="writerCommentListDAO">
+
+	<!-- <resultMap type="com.web.bomulsum.writer.activity.repository.CommentsListVO" id="commentsListMap">
+		<id column="COMMENT_SEQ" property="commentSeq"/>
+		<result column="MEMBER_CODE_SEQ" property="memberCodeSeq"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="ART_CODE_SEQ" property="artCodeSeq"/>
+		<result column="ART_NAME" property="artName"/>
+		<result column="COMMENT_CONTENT" property="commentContent"/>
+		<result column="COMMENT_STATUS" property="commentStatus"/>
+		<result column="COMMENT_DATE" property="commentDate"/>
+		<result column="COMMENT_RECOMMENT" property="commentRecomment"/>
+		<result column="COMMENT_RECOMMENT_DATE" property="recommentDate"/>
+	</resultMap>
+ -->
+
+	<select id="selectComment" resultType="com.web.bomulsum.writer.activity.repository.CommentsListVO">
+		SELECT * FROM comment_tb
+	</select>
+	
+	<update id="addRecomment" parameterType="com.web.bomulsum.writer.activity.repository.CommentsListVO">
+		UPDATE comment_tb
+		SET comment_status = 'Y',
+			comment_recomment = #{comment_recomment},
+			comment_recomment_date = SYSDATE
+		WHERE comment_seq = #{comment_seq}
+	</update>
+	
+	<!-- 작가로그인한 정보 가져와서 조건 걸고 조회하기 -->
+	<!-- <select id="selectComment" parameterType="com.web.bomulsum.writer.activity.repository.CommentsListVO" 
+			resultMap="commentsListMap">
+		SELECT * FROM comment_tb
+		WHERE 작가코드 조회할 테이블컬럼 = #{작가코드}
+	</select>  -->
+</mapper>

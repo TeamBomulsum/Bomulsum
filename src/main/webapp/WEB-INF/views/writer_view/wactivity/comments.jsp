@@ -7,225 +7,133 @@
 <head>
 <meta charset="UTF-8">
 <title>댓글</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
-	type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-<!-- Custom styles for this template-->
-<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
+  <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css' /> " rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="<c:url value='/resources/css/sb-admin-2.min.css' /> " rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.css' /> " rel="stylesheet">
+
 <!-- CSS 영역 -->
+
 <style>
-.commentsContainer {
-	width: 90%;
-	margin-left: 2%;
-}
-
-.topLine {
-	height: 40px;
-}
-
-.button {
-	background-color: white;
-	color: black;
-	border: 1px solid #008CBA;
-	text-align: center;
-	padding: 2%, 2%;
-}
-
-.registerButton {
-	float: right;
-}
-
-.textTitle {
-	float: left;
-}
-
-.commentsTitle {
-	float: center;
-}
-
-.table {
-	margin-top: 10px;
+.minwoo_table_table_bordered_head tr th {
 	text-align: center;
 	vertical-align: middle;
-	text-valign: middle;
-	width: 100%;
-	table-layout: fixed;
 }
 
-.table td {
-	margin-top: 10px;
+.minwoo_table_table_bordered_body tr td {
 	text-align: center;
 	vertical-align: middle;
-	text-valign: middle;
-	font-size: 13px
+	resize: none;
 }
 
-.alignLeft {
-	float: left;
+.paging{
+	text-align: center;
+	font-size: 18px;
 }
 
-.alignRight {
-	float: right;
-}
-
-.formAction {
-	float: right;
-}
-
-form {
-	display: inline;
-}
-
-.paging {
+.minwoo_tableBottomLine{
 	margin-top: 20px;
 	text-align: center;
-	margin-bottom: 100px;
+	margin-bottom: 20px;
+	font-size: 18px;
+	display:flex;
+	position:relative;
 }
 
-.paging a {
-	display: inline-block;
-	margin: 0 3px;
-	text-decoration: none;
-	padding: 5px 10px;
-	border: 1px solid #ccc;
-	color: #999999;
-	background-color: #fff;
+.minwoo_pagination{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
-.arrow prev {
-	border: 0px;
-}
-
-.arrow next {
-	border: 0px;
-}
-
-.modal-body-top {
-	display: inline-block;
-	height: 15%;
-	width: 90%;
-	margin: 5% auto;
-}
-
-.textwrap {
-	height: auto;
-	position: relative;
-	display: inline-block;
-}
-
-.textwrap textarea {
-	height: auto;
-	width: 100%;
-	resize: none;
-	min-height: 4.5em;
-	line-height: 1.6em;
-	max-height: 9em;
-}
-
-.textwrap span {
+.minwoo_rowPerPage{
+	margin-left:5px; text-align:center; width:20%;
+	border-color:#D8D8D8; color:#A4A4A4; border-radius:5px;
 	position: absolute;
-	bottom: 5px;
-	right: 5px;
 }
 
-#counter {
-	background: rgba(255, 0, 0, 0.5);
-	border-radius: 0.5em;
-	padding: 0 .5em 0 .5em;
-	font-size: 0.75em;
-}
+
 </style>
+
 </head>
+<body>
+
+	<c:if test="${param.check eq 3}">
+		<script type="text/javascript">
+			alert("댓글이 등록 되었습니다.");
+			location.href = "/bomulsum/writer/comments.wdo";
+		</script>
+	</c:if>
+
 <!-- body 시작 -->
-<body id="page-top">
+<div id="wrapper">
+	<!-- Header/Nav -->
+	<jsp:include page="../include/side.jsp" />
+	<div id="content-wrapper" class="d-flex flex-column">
 
-	<div id="wrapper">
-		<!-- Header/Nav -->
-		<%@ include file="../include/side.jsp" %>
-		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
-				<%@ include file="../include/head.jsp" %>
-				<!-- end Header/Nav -->
-				<!-- 구매 후기 영역 -->
-				<div class="commentsContainer">
-					<!-- topLine -->
-					<div class="topLine">
-						<div class="textTitle">
-							<h4>댓글</h4>
+		<div class="content">
+			<jsp:include page="../include/head.jsp" />
+			<!-- end Header/Nav -->
+
+				<!--민우 내용 추가한 부분 시작-->
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					<!-- Page Heading -->
+					<h1 class="h3 mb-2 text-gray-800">댓글</h1>
+					<p class="mb-4">회원분들께서 남겨주신 댓글 목록입니다.</p>
+
+					<!-- DataTales Example -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">글 목록</h6>
 						</div>
-					</div>
-					<!-- end of topLine -->
-					<hr>
-					<div class="middleLine">
-						<div class="formAction" style="float: right;">
-							<!-- <form action="" id="setRows"> -->
-							<select name="rowPerPage" id="rowPerPage">
-								<option value="10">10개씩 보기</option>
-								<option value="30" >30개씩 보기</option>
-								<option value="50">50개씩 보기</option>
-							</select>
-							<!--</form> -->
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="mboardTable">
+									<thead class="minwoo_table_table_bordered_head">
+										<tr>
+											<th style="width:7%">상태</th>
+											<th style="width:10%">작성일자</th>
+											<th style="width:10%">작성자</th>
+											<th style="width:25%">위치</th>
+											<th style="width:40%">내용</th>
+											<th style="width:8%">답글</th>
+										</tr>
+									</thead>
+									<tbody class="minwoo_table_table_bordered_body">
+										<!-- 데이터 들어올 영역 -->
+									</tbody>
+								</table>
+							</div>
+							<div class="minwoo_tableBottomLine">
+								<select name="rowPerPage" id="rowPerPage" class="minwoo_rowPerPage">
+									<option value="10">10개씩 보기</option>
+									<option value="30">30개씩 보기</option>
+									<option value="50" >50개씩 보기</option>
+								</select>
+								<div id="pagination" class="minwoo_pagination"></div>
+							</div>
 						</div>
-					</div>
-					<!-- middleLine -->
-					<br>
-
-					<!-- 테이블 시작 -->
-					<!-- <div class="dataTable" style="pagination: true;">  -->
-
-					<div id="realTable" class="table">
-						<table id="commentsTable" style="width:100%; text-align:center;">
-							<thead>
-								<tr>
-									<th style="width:10%">상태</th>
-									<th style="width:10%">작성일자</th>
-									<th style="width:10%">작성자</th>
-									<th style="width:25%">위치</th>
-									<th style="width:35%">내용</th>
-									<th style="width:10%">답글</th>
-								</tr>
-							</thead>
-							<tbody id="commentsBody" style="font-size:13px; vertical-align: middle;">
-								<tr>
-									<!-- 구매후기 DB 불러오기 -->
-									<td>미답변</td>
-									<td>2020-07-16</td>
-									<td>홍길동</td>
-									<td>"셀럽 만들어 주는"인스타 케이크</td>
-									<td>먹으면 셀럽 되나요?</td>
-									<td>
-										<div class="btn btn-primary" data-toggle="modal"
-											data-target="#staticBackdrop">답글</div>
-									</td>
-								</tr>
-								<tr>
-									<!-- 구매후기 DB 불러오기 -->
-									<td>답변완료</td>
-									<td>2020-07-16</td>
-									<td>손오공</td>
-									<td>삼장법사도 먹는 슈퍼 딸기 케이크</td>
-									<td>먹으면 극락 못가요?</td>
-									<td>
-										<div class="btn btn-primary" data-toggle="modal"
-											data-target="#staticBackdrop">답글</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-					<!-- 테이블 끝 -->
-
-					<!-- 페이징 처리 -->
-
-					<div class="paging" id="pagination">
-						<!--<a class="arrow prev" href="#">이전</a><a href="#">1</a><a class="arrow next" href="#">다음</a> 
-						<table>
-						</table>-->
 					</div>
 				</div>
+				<!-- /.container-fluid -->
+				<!--민우 내용 추가한 부분 종료-->
+		</div>
+		<!-- End of Main Content -->
+
+
+
+	</div>
+	<!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
 
 				<!-- 모달 내용 부분 -->
 				<!-- 정적 모달 내용 -->
@@ -241,18 +149,19 @@ form {
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<div class="modal-footer"
-								style="display: flex; flex-direction: column;">
-								<!-- 글자수 채워지는거 기능 추가 해야 함 -->
+							<!-- 댓글 작성할 영역 -->
+							<div class="modal-footer" style="display: flex; flex-direction: column;">
 								<div style="display: flex; flex-direction: row; width: 100%;">
-									<form style="display: flex; flex-direction: row; width: 100%;">
+									<!-- 폼 액션 넣기 -->
+									<form action="<c:url value='/writer/addReComment.wdo'/> " method="post"
+										style="display: flex; flex-direction: row; width: 100%;">
 										<div class="textwrap" style="display: flex; width: 85%;">
-											<textarea id="comment" placeholder="댓글을 남겨 주세요."
-												maxlength="1000"
-												style="width: 100%; resize: none; font-size: 13px"></textarea>
-											<span id="counter" style="display: flex; position: absolute;">###</span>
+											<textarea id="comment_recomment" name="comment_recomment" placeholder="댓글을 남겨 주세요."
+												maxlength="1000" style="width: 100%; resize: none; font-size: 13px"></textarea>
+											<span id="counter" style="display: flex; margin-left:5px; align-items:center;">###</span>
 										</div>
-										<div style="display: flex; width: 10%; margin-left: 2%">
+										<div style="width: 10%; margin-left: 2%">
+											<input type="hidden" id="comment_seq" name="comment_seq">
 											<input type="submit" class="btn btn-primary" value="등록">
 										</div>
 									</form>
@@ -278,145 +187,178 @@ form {
 					class="fas fa-angle-up"></i>
 				</a>
 
-				<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-				<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 				<!-- Core plugin JavaScript-->
-				<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 				<!-- Custom scripts for all pages-->
 				<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 
 
 				<!-- Page level plugins -->
-				<script src="<c:url value='/vendor/datatables/jquery.dataTables.min.js'/>"></script>
-				<script src="<c:url value='/vendor/datatables/dataTables.bootstrap4.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/datatables/jquery.dataTables.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.js'/>"></script>
 				
 				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-				<script>
-					//글자수 제한
-					$(function() {
-						$('#comment').keyup(function(e) {
-						var comment = $(this).val();
-						$(this).height(((comment.split('\n').length + 1) * 1.5) + 'em');
-						$('#counter').html(comment.length + '/1000');
-						});
-						$('#comment').keyup();
-					});
-					
-					//테이블 데이터 넣어주기 
-					var vlist =[];
-					for (var i = 0; i<100; i++){
-						vlist.push({onetd:'답변완료',twotd:'2020-07-01',threetd:'손오공',fourtd:'삼장법사도 먹는 슈퍼 딸기 케이크\t'+i,fivetd:'먹으면 극락 못가요?',sixtd:'<div class="btn btn-primary" data-toggle="modal"data-target="#staticBackdrop">답글</div>'});
-					}
-					
-					// 초기 테이블 보여줄 행 카운트값 설정
-					var pageCount = 10;
-					
-					//페이징 처리 함수..
-					var pagingFunc = function(){
-						pageCount = $("#rowPerPage").val();
-						var table = document.getElementById("commentsTable");
-	              		//var pageCount = document.getElementById("rowPerPage").value;
-		                var blockCount = 3;
-		                
-		                var totalPage = Math.ceil(vlist.length / pageCount); // 총 행수에서 목록 보기 선택한 값으로 몇개씩 볼지 ~
-		                var totalBlock = Math.ceil(totalPage / blockCount); // 페이지
-		                
-		                var pagination = document.getElementById('pagination');
-		                var commentsTable = document.getElementById('commentsTable').querySelector('tbody');
-		                
-		                var renderTableAndPagination = function(page = 1){
-		                   renderTable(page);
-		                   renderPagination(page);
-		                };
-		                
-		                var renderTable = function(page){
-		                   var startNum = (pageCount * (page - 1));
-		                   var endNum = ((pageCount * page) >= vlist.length) ? vlist.length : (pageCount * page);
-		                   
-		                   var html = '';
-		                   
-		                   for(var index = startNum; index < endNum; index++){
-		                	   html += '<tr><td>' + vlist[index].onetd + '</td><td>' + vlist[index].twotd 
-		                	   + '</td><td>' + vlist[index].threetd + '</td><td>' + vlist[index].fourtd 
-		                	   + '</td><td>' + vlist[index].fivetd + '</td><td>' + vlist[index].sixtd 
-		                	   + '</td></tr>';
-		                   }
-		                   commentsTable.innerHTML = html;
-		                };
+				
+				
+				
+	<script>
+		$(document).ready(function(){
+			pagingFunc();
+			$("#rowPerPage").change(function(){
+				pagingFunc();
+			});
+		});
 
-		                var renderPagination = function(page){
-		                   var block = Math.floor((page-1)/blockCount)+1;
-		                   var startPage = ((block-1)*blockCount)+1;
-		                   var endPage = ((startPage + blockCount - 1) > totalPage) ? totalPage : (startPage + blockCount - 1);
-		                  
-		                   var paginationHTML = '';
-		                  
-		                   if(page !== 1) paginationHTML += "<a style='cursor:pointer' class='first_page'>처음</a>";
-		                   if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전</a>";
-		                  
-		                   for(var index = startPage; index <= endPage; index++){
-		                      paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
-		                   }
-		                  
-		                   if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>다음</a>";
-		                   if(page < totalPage) paginationHTML += "<a style='cursor:pointer' class='last_page'>끝</a>";
-		               
-		                   pagination.innerHTML = paginationHTML;
-		                   addEventPagination(startPage, endPage);
-		                };
-		               
-		                var addEventPagination = function(startPage, endPage){
-		                  if(!!document.querySelector(".first_page")){
-		                     document.querySelector(".first_page").addEventListener('click', ()=>{
-		                        renderTableAndPagination(1);
-		                     });
-		                  }
-		                  if(!!document.querySelector(".back_page")){
-		                     document.querySelector(".back_page").addEventListener('click', ()=>{
-		                        renderTableAndPagination(startPage-1);
-		                     });
-		                  }
-		                  document.querySelectorAll(".go_page").forEach(goPage => {
-		                     goPage.addEventListener('click', e => {
-		                        renderTableAndPagination(parseInt(e.target.getAttribute('data-value')));
-		                     });
-		                  });
-		                  if(!!document.querySelector(".next_page")){
-		                     document.querySelector(".next_page").addEventListener('click', ()=>{
-		                        renderTableAndPagination(endPage+1);
-		                     });
-		                  }
-		                  if(!!document.querySelector(".last_page")){
-		                     document.querySelector(".last_page").addEventListener('click', ()=>{
-		                        renderTableAndPagination(totalPage);
-		                     });
-		                  }
-		               };
-		               renderTableAndPagination();
+		
+		//페이지 시작하면 처음 보여주면서 처리해야할 기능
+	    //페이징 처리를 위한 스크립트
+		var commentsResult = new Array();
+		var result = new Array();
+		
+	    <c:forEach var="i" items='${commentsList}'>
+	       var json = new Object();//객체로 배열에 담기
+	       json.comment_seq = '${i.comment_seq}';
+	       json.member_code_seq = '${i.member_code_seq}';
+	       json.art_code_seq = '${i.art_code_seq}';
+	       json.comment_content = `${i.comment_content}`;
+	       json.comment_status = '${i.comment_status}';
+	       json.comment_date = '${i.comment_date}';
+	       json.comment_recomment = '${i.comment_recomment}';
+	       json.comment_recomment_date = '${i.comment_recomment_date}';
+	       commentsResult.push(json);
+	    </c:forEach>
+		//전체 데이터에서, 카테고리 설정 했을 때&검색했을때 데이터에 따라 페이징이 바뀌어야 하므로 이 배열을 가공한 다른 배열들이 필요하다.
+		
+		var pageCount = 10; // 한 페이지에 보여질 개수
+		
+		var pagingFunc = function(){
+
+			result = commentsResult;
+
+			pageCount = $("#rowPerPage").val();// 셀렉박스에 몇개씩 볼지 선택된 값에 따라 페이징 다르게 해주기
+			var blockCount = 5; // 페이지 몇개를 하나의 그룹(?)으로 묶은  정의하는 블럭 개수
+			var totalPage = Math.ceil(result.length / pageCount); // 총 페이지가 몇개 나올지 - 총 입력된 데이터의 개수에서 한페이지에 보여줄 글 목록 개수로 나눴다.
+			var totalBlock = Math.ceil(totalPage / blockCount); // 총 블럭 개수가 몇개 나올지
+			var pagination = document.getElementById('pagination');//페이징 기능 들어갈 영역(테이블 영역 아래)
+			var testTable = document.getElementById('mboardTable').querySelector("tbody");//페이징 처리를 하면 표시될 데이터가 들어갈 테이블영역
+			
+			var renderTableAndPagination = function(page = 1){
+			   renderTable(page);//테이블 그리는 함수
+			   renderPagination(page);//페이징 처리 함수
+			};
+			
+			//테이블 그리는 함수
+			var renderTable = function(page){
+				var html = '';
+	
+				var startNum = (pageCount * (page - 1)); 
+				var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
+				
+				//여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
+				for(var index = startNum; index < endNum; index++){
+					var reStatus1 = '미답변'
+					var reSattus2 = '등록'
+					if(result[index].comment_status == "Y"){
+						reStatus1 = '답변 완료'
+						reSattus2 = '수정'
+						//${"recommentBtn"}.prop("disabled", true);
 					}
+			  		html += '<tr><td>' + reStatus1
+						+ '</td><td>' + result[index].comment_date
+						+ '</td><td> 작성자 :' + result[index].member_code_seq
+						+ '</td><td> 작품 :' + result[index].art_code_seq
+						+ '</td><td>' + result[index].comment_content
+						+ '</td><td>'
+						+ '<button name=\"recommentBtn\" data-toggle=\"modal\" data-target=\"#staticBackdrop\" class=\"btn btn-primary\">'
+						+ reSattus2 + '</button></td>'
+						+ '<td style="display:none;">' + result[index].comment_seq + '</td></tr>';
+				}
+				testTable.innerHTML = html;
+				$("button[name=recommentBtn]").on('click',modal);
+			};
+		
+			//pagination 그리는 함수
+			 var renderPagination = function(page){
+				var block = Math.floor((page-1)/blockCount)+1;
+				var startPage = ((block-1)*blockCount)+1;
+				var endPage = ((startPage + blockCount - 1) > totalPage) ? totalPage : (startPage + blockCount - 1);
+				            
+				var paginationHTML = '';
+				            
+				if(page !== 1) paginationHTML += "<a style='cursor:pointer' class='first_page'>처음&nbsp;&nbsp;</a>";
+				if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전...&nbsp;&nbsp;</a>";
+				            
+				for(var index = startPage; index <= endPage; index++){
+					paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
+				}
+				            
+				if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";
+				if(page < totalPage) paginationHTML += "<a style='cursor:pointer' class='last_page'>&nbsp;&nbsp;끝</a>";
+				       
+				pagination.innerHTML = paginationHTML;
+				addEventPagination(startPage, endPage);
+			}; 
+		          
+			//클릭이벤트, 클릭할 때마다 테이블을 새로 그려주는 거임
+			var addEventPagination = function(startPage, endPage){
+				if(!!document.querySelector(".first_page")){
+				   document.querySelector(".first_page").addEventListener('click', ()=>{
+				      renderTableAndPagination(1);
+				   });
+				}
+				if(!!document.querySelector(".back_page")){
+				   document.querySelector(".back_page").addEventListener('click', ()=>{
+				      renderTableAndPagination(startPage-1);
+				   });
+				}
+				document.querySelectorAll(".go_page").forEach(goPage => {
+				   goPage.addEventListener('click', e => {
+				      renderTableAndPagination(parseInt(e.target.getAttribute('data-value')));
+				   });
+				});
+				if(!!document.querySelector(".next_page")){
+				   document.querySelector(".next_page").addEventListener('click', ()=>{
+				      renderTableAndPagination(endPage+1);
+				   });
+				}
+				if(!!document.querySelector(".last_page")){
+				   document.querySelector(".last_page").addEventListener('click', ()=>{
+				      renderTableAndPagination(totalPage);
+				   });
+				}
+			};  
+			renderTableAndPagination();
+			//페이징 처리 끝
+		};
+		
+		
+		//모달
+		//글 제목 눌럿을 때 모달 띄워주기 위해 값 넣기
+	var seq;
+	var modal = function(){
+		$('#comment_recomment').val() = '';
+		seq = $.trim($(this).closest('tr').children('td').eq(6).text());
+
+		console.log(seq);
+
+		$('#comment_seq').val(seq);
+		
+		$('#comment_recomment').keyup(function(e) {
+			var comment = $(this).val();
+			$(this).height(((comment.split('\n').length + 1) * 1.5) + 'em');
+			$('#counter').html(comment.length + '/1000');
+		});
+		$('#comment_recomment').keyup();
+		
+		//글자수 제한
+	};
+		//모달 부분 종료
 					
-					//페이지 세팅을 위한 페이징 처리 함수 호출
-					$(document).ready(function(){
-						pagingFunc();
-						$("#rowPerPage").change(function(){
-							pagingFunc();
-						});			
-					});
-					
-					/*
-					var list = [];
-					var rowsCount = document.getElementById("commentsTable").getElementsByTagName("tr").length;
-	                for(i = 0; i < rowsCount; i++){
-	                	list.push(document.getElementById(i));
-	                };
-	                */
-					
-				</script>
-			</div>
-			<!-- end of content -->
-		</div>
-	</div>
+	</script>
+		
 </body>
 </html>
