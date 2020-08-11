@@ -160,14 +160,14 @@ footer span{
 					<div class="flexContainer">
 						<h5 style="margin: 0; font-weight: bold">이용 내역</h5>
 						<!-- 몇개씩 보는지 선택옵션 -->
-						<select name="pointViewOption">
-							<option value="view10">10개씩 보기</option>
-							<option value="view20">20개씩 보기</option>
-							<option value="view30">30개씩 보기</option>
+						<select name="rowPerPage" id="rowPerPage" >
+							<option value="10">10개씩 보기</option>
+							<option value="20">20개씩 보기</option>
+							<option value="30">30개씩 보기</option>
 						</select>
 					</div>
 					<!-- 이용 내역 테이블 -->
-					<table>
+					<table id="gemTable">
 						<!-- 테이블 제목 -->
 						<tr>
 							<th class="daintdth" style="width: 18%; text-align: center;">일자</th>
@@ -175,8 +175,11 @@ footer span{
 							<th class="daintdth" style="width: 18%; text-align: center;">포인트</th>
 						</tr>
 						<!-- 테이블 내용 -->
-						
-						<c:forEach var="gemforeach" items="${article}">
+						  <tbody class="dain_table_body">
+                              <!-- 데이터 들어올 영역 -->
+                          </tbody>
+                          
+		<%-- 				<c:forEach var="gemforeach" items="${article}">
 						<tr>
 							<!-- 일자 -->
 							<td class="daintdth" style="text-align: center">${gemforeach.gemDate}</td>
@@ -194,17 +197,17 @@ footer span{
 	    						+<fmt:formatNumber value="${gemforeach.gemPrice}" pattern="#,###"/>P
 								</td>
 							</c:if>
-							
 						</tr>
-						</c:forEach>
+						</c:forEach> --%>
 
 					</table>
 
 					<!-- 페이징 처리 -->
-					<div class="paging" style="width: 90%;">
+					<div id="pagination" class="minwoo_pagination"></div>
+			<!-- 		<div class="paging" style="width: 90%;">
 						<a class="arrow prev" href="#">이전</a> <a href="#">1</a> <a
 							class="arrow next" href="#">다음</a>
-					</div>
+					</div> -->
 					
 					
 			<!-- modal -->
@@ -301,5 +304,142 @@ footer span{
 
 		</div>
 	</div>
+	
+   <script>
+      $(document).ready(function(){
+         pagingFunc();
+         $("#rowPerPage").change(function(){
+            pagingFunc();
+         });
+      });
+   
+      //글자수 제한
+      $(function() {
+         $('#comment').keyup(function(e) {
+         var comment = $(this).val();
+         $(this).height(((comment.split('\n').length + 1) * 1.5) + 'em');
+         $('#counter').html(comment.length + '/1000');
+         });
+         $('#comment').keyup();
+      });
+      
+      //페이지 시작하면 처음 보여주면서 처리해야할 기능
+       //페이징 처리를 위한 스크립트
+      var commentsResult = new Array();
+      var result = new Array();
+      
+       <c:forEach var="gemforeach" items="${article}">
+          var json = new Object();//객체로 배열에 담기
+          json.gem_date = '${gemforeach.gemDate}';
+          json.gem_log = '${gemforeach.gemLog}';
+          json.gem_price = '${gemforeach.gemPrice}';
+          commentsResult.push(json);
+       </c:forEach>
+      //전체 데이터에서, 카테고리 설정 했을 때&검색했을때 데이터에 따라 페이징이 바뀌어야 하므로 이 배열을 가공한 다른 배열들이 필요하다.
+      
+      var pageCount = 10;
+      
+      var pagingFunc = function(){
+         result = commentsResult;
+         pageCount = $("#rowPerPage").val();// 셀렉박스에 몇개씩 볼지 선택된 값에 따라 페이징 다르게 해주기
+         
+          // 한 페이지에 보여질 개수
+         var blockCount = 5; // 페이지 몇개를 하나의 그룹(?)으로 묶은  정의하는 블럭 개수
+         var totalPage = Math.ceil(result.length / pageCount); // 총 페이지가 몇개 나올지 - 총 입력된 데이터의 개수에서 한페이지에 보여줄 글 목록 개수로 나눴다.
+         var totalBlock = Math.ceil(totalPage / blockCount); // 총 블럭 개수가 몇개 나올지
+         var pagination = document.getElementById('pagination');//페이징 기능 들어갈 영역(테이블 영역 아래)
+         var testTable = document.getElementById('gemTable').querySelector("tbody");//페이징 처리를 하면 표시될 데이터가 들어갈 테이블영역
+         
+         var renderTableAndPagination = function(page = 1){
+            renderTable(page);//테이블 그리는 함수
+            renderPagination(page);//페이징 처리 함수
+         };
+         
+         //테이블 그리는 함수
+         var renderTable = function(page){
+            var html = '';
+   
+            var startNum = (pageCount * (page - 1)); 
+            var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
+            
+            //여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
+            for(var index = startNum; index < endNum; index++){
+                html += '<tr><td class="daintdth" style="text-align: center">' + result[index].gem_date 
+                 + '</td><td>' + result[index].gem_log
+                 + '</td>';
+                 if(result[index].gem_price == "Y"){
+                	 html += '<td class="daintdth bold" style="text-align: center; color: #e35852;">' 
+           			+ result[index].gem_price + 'P</td>';
+                 } else if(result[index].gem_price =="N"){
+                	 html += '<td class="daintdth bold" style="text-align: center; color: #36a7b3;">' 
+                	+ result[index].gem_price + 'P</td>';
+                 }
+                 html += '</tr>';
+           }
+            
+            
+    
+            testTable.innerHTML = html;
+            
+         };
+      
+         //pagination 그리는 함수
+          var renderPagination = function(page){
+            var block = Math.floor((page-1)/blockCount)+1;
+            var startPage = ((block-1)*blockCount)+1;
+            var endPage = ((startPage + blockCount - 1) > totalPage) ? totalPage : (startPage + blockCount - 1);
+                        
+            var paginationHTML = '';
+                        
+            if(page !== 1) paginationHTML += "<a style='cursor:pointer' class='first_page'>처음&nbsp;&nbsp;</a>";
+            if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전...&nbsp;&nbsp;</a>";
+                        
+            for(var index = startPage; index <= endPage; index++){
+               paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
+            }
+                        
+            if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";
+            if(page < totalPage) paginationHTML += "<a style='cursor:pointer' class='last_page'>&nbsp;&nbsp;끝</a>";
+                   
+            pagination.innerHTML = paginationHTML;
+            addEventPagination(startPage, endPage);
+         }; 
+                
+         //클릭이벤트, 클릭할 때마다 테이블을 새로 그려주는 거임
+         var addEventPagination = function(startPage, endPage){
+            if(!!document.querySelector(".first_page")){
+               document.querySelector(".first_page").addEventListener('click', ()=>{
+                  renderTableAndPagination(1);
+               });
+            }
+            if(!!document.querySelector(".back_page")){
+               document.querySelector(".back_page").addEventListener('click', ()=>{
+                  renderTableAndPagination(startPage-1);
+               });
+            }
+            document.querySelectorAll(".go_page").forEach(goPage => {
+               goPage.addEventListener('click', e => {
+                  renderTableAndPagination(parseInt(e.target.getAttribute('data-value')));
+               });
+            });
+            if(!!document.querySelector(".next_page")){
+               document.querySelector(".next_page").addEventListener('click', ()=>{
+                  renderTableAndPagination(endPage+1);
+               });
+            }
+            if(!!document.querySelector(".last_page")){
+               document.querySelector(".last_page").addEventListener('click', ()=>{
+                  renderTableAndPagination(totalPage);
+               });
+            }
+         };  
+         renderTableAndPagination();
+         //페이징 처리 끝
+      };
+   
+   </script>	
+	
+	
+	
 </body>
 </html>
