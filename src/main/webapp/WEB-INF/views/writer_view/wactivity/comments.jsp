@@ -68,6 +68,12 @@
 			location.href = "/bomulsum/writer/comments.wdo";
 		</script>
 	</c:if>
+		<c:if test="${param.check eq 4}">
+		<script type="text/javascript">
+			alert("댓글이 수정 되었습니다.");
+			location.href = "/bomulsum/writer/comments.wdo";
+		</script>
+	</c:if>
 
 <!-- body 시작 -->
 <div id="wrapper">
@@ -162,7 +168,8 @@
 										</div>
 										<div style="width: 10%; margin-left: 2%">
 											<input type="hidden" id="comment_seq" name="comment_seq">
-											<input type="submit" class="btn btn-primary" value="등록">
+											<input type="hidden" id="comment_status" name="comment_status">
+											<input type="submit" id="comment_submit" name="comment_submit" class="btn btn-primary" value="등록">
 										</div>
 									</form>
 								</div>
@@ -267,15 +274,17 @@
 						reSattus2 = '수정'
 						//${"recommentBtn"}.prop("disabled", true);
 					}
-			  		html += '<tr><td>' + reStatus1
-						+ '</td><td>' + result[index].comment_date
-						+ '</td><td> 작성자 :' + result[index].member_code_seq
-						+ '</td><td> 작품 :' + result[index].art_code_seq
-						+ '</td><td>' + result[index].comment_content
-						+ '</td><td>'
+			  		html += '<tr><td>' + reStatus1 + '</td>'
+			  			+ '<td>' + result[index].comment_date + '</td>'
+			  			+ '<td> 작성자 :' + result[index].member_code_seq + '</td>'
+			  			+ '<td> 작품 :' + result[index].art_code_seq + '</td>'
+			  			+ '<td>' + result[index].comment_content + '</td>'
+			  			+ '<td>'
 						+ '<button name=\"recommentBtn\" data-toggle=\"modal\" data-target=\"#staticBackdrop\" class=\"btn btn-primary\">'
 						+ reSattus2 + '</button></td>'
-						+ '<td style="display:none;">' + result[index].comment_seq + '</td></tr>';
+						+ '<td style="display:none;">' + result[index].comment_seq + '</td>'
+						+ '<td style="display:none;">' + result[index].comment_recomment + '</td>'
+						+ '<td style="display:none;">' + result[index].comment_status + '</td></tr>';
 				}
 				testTable.innerHTML = html;
 				$("button[name=recommentBtn]").on('click',modal);
@@ -339,14 +348,11 @@
 		//모달
 		//글 제목 눌럿을 때 모달 띄워주기 위해 값 넣기
 	var seq;
+	var recomment;
+	var status;
+	
 	var modal = function(){
-		$('#comment_recomment').val() = '';
-		seq = $.trim($(this).closest('tr').children('td').eq(6).text());
-
-		console.log(seq);
-
-		$('#comment_seq').val(seq);
-		
+		//글자수 제한
 		$('#comment_recomment').keyup(function(e) {
 			var comment = $(this).val();
 			$(this).height(((comment.split('\n').length + 1) * 1.5) + 'em');
@@ -354,7 +360,24 @@
 		});
 		$('#comment_recomment').keyup();
 		
-		//글자수 제한
+		//수정인지 아닌지에 따라 등록된 댓글 모달에 값 입력해주기
+		seq = $.trim($(this).closest('tr').children('td').eq(6).text());
+		recomment = $.trim($(this).closest('tr').children('td').eq(7).text());
+		status = $.trim($(this).closest('tr').children('td').eq(8).text());
+		console.log(seq);
+		console.log(recomment);
+		
+		$('#comment_recomment').val('');
+		$('#comment_seq').val(seq);
+		$('#comment_status').val(status);
+		
+		if(status == "Y"){
+			$('#comment_recomment').val(recomment);
+			$('#comment_submit').val('수정');
+			
+			console.log("여기 왔습니다.")
+		}
+
 	};
 		//모달 부분 종료
 					

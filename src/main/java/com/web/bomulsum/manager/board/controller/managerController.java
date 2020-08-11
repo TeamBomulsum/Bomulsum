@@ -17,7 +17,7 @@ import com.web.bomulsum.manager.board.service.MBoardServiceImpl;
 @RequestMapping(value="/mboard")
 public class managerController {
 	
-	/* ÀÌ ÄÁÆ®·Ñ·¯¿¡¼­ "/mboard/*.mdo" ÇüÅÂ·Î Á¢¼ÓµÇ´Â ¸µÅ©µé¿¡ ´ëÇÑ ³×ºñ°ÔÀÌ¼Ç ¿ªÇÒÀ» ÇØÁØ´Ù! */
+	/* ì´ ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ "/mboard/*.mdo" í˜•íƒœë¡œ ì ‘ì†ë˜ëŠ” ë§í¬ë“¤ì— ëŒ€í•œ ë„¤ë¹„ê²Œì´ì…˜ ì—­í• ì„ í•´ì¤€ë‹¤! */
 	
 	
 	@Autowired
@@ -34,14 +34,14 @@ public class managerController {
 	}
 	
 	
-	/*°Ô½ÃÆÇ ±Û ¸ñ·Ï º¸¿©ÁÖ±â*/
+	/*ê²Œì‹œíŒ ê¸€ ëª©ë¡ ë³´ì—¬ì£¼ê¸°*/
 	@GetMapping("/list")
 	public ModelAndView mboardList() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("mboardList", service.mboardList());
-		/*addObject¿¡¼­ ¼³Á¤ÇÑ "mboardList" °¡ "mboard_list.jsp"¿¡¼­ »ç¿ëµÉ °ªÀ» ºÒ·¯¿Ã º¯¼ö¸íÀÌ µÈ´Ù.
-		 * "mboardList" = .jsp¿¡¼­ »ç¿ëÇÒ º¯¼ö¸í , 
-		 * "service.mboardList" = ´ãÀ» °ª */
+		/*addObjectì—ì„œ ì„¤ì •í•œ "mboardList" ê°€ "mboard_list.jsp"ì—ì„œ ì‚¬ìš©ë  ê°’ì„ ë¶ˆëŸ¬ì˜¬ ë³€ìˆ˜ëª…ì´ ëœë‹¤.
+		 * "mboardList" = .jspì—ì„œ ì‚¬ìš©í•  ë³€ìˆ˜ëª… , 
+		 * "service.mboardList" = ë‹´ì„ ê°’ */
 		for(MBoardListVO vo : service.mboardList()){
 			System.out.println(vo.toString());
 		}
@@ -51,21 +51,21 @@ public class managerController {
 	
 	
 	/*
-	 * mboard_write.jsp ¿¡¼­ form ÅÂ±×ÀÇ ¿¢¼Ç °ªÀÌ
-	 * "/register"ÀÌ±â ¶§¹®¿¡ ÀÌ ¸Ş¼Òµå¿¡¼­ ÀÔ·ÂµÈ µ¥ÀÌÅÍ¸¦ vo·Î ¹Ş¾Æ Ã³¸®ÇØÁÙ ¼ö ÀÖ´Â °Å´Ù.
+	 * mboard_write.jsp ì—ì„œ form íƒœê·¸ì˜ ì—‘ì…˜ ê°’ì´
+	 * "/register"ì´ê¸° ë•Œë¬¸ì— ì´ ë©”ì†Œë“œì—ì„œ ì…ë ¥ëœ ë°ì´í„°ë¥¼ voë¡œ ë°›ì•„ ì²˜ë¦¬í•´ì¤„ ìˆ˜ ìˆëŠ” ê±°ë‹¤.
 	 */
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ModelAndView mboardRegister(MBoardVO vo, HttpServletRequest request){
-		//¸ğµ¨¿£ºä¶õ? - µ¥ÀÌÅÍ¿Í ºä¸¦ µ¿½Ã¿¡ ¼³Á¤ÀÌ °¡´ÉÇÏ´Ù!
+		//ëª¨ë¸ì—”ë·°ë€? - ë°ì´í„°ì™€ ë·°ë¥¼ ë™ì‹œì— ì„¤ì •ì´ ê°€ëŠ¥í•˜ë‹¤!
 		System.out.println(vo.toString());
 		service.mboardRegister(vo);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("check", 1); // ºä·Î º¸³¾ µ¥ÀÌÅÍ °ª
-		mav.setViewName("redirect:/mboard/write.mdo"); // ºä ÀÌ¸§ _ ¾î¶² ºä·Î º¸³¾ Áö
+		mav.addObject("check", 1); // ë·°ë¡œ ë³´ë‚¼ ë°ì´í„° ê°’
+		mav.setViewName("redirect:/mboard/write.mdo"); // ë·° ì´ë¦„ _ ì–´ë–¤ ë·°ë¡œ ë³´ë‚¼ ì§€
 		return mav;
 	}
 
-	/*±Û »ó¼¼º¸±â¿¡¼­ ¼öÁ¤¹öÆ° ´­·¶À» ¶§ -> ±Û ¼öÁ¤ ÆûÀ¸·Î °¡¼­ ±âÁ¸ ÀÔ·ÂµÈ Á¤º¸¸¦ »Ñ·ÁÁØ´Ù.*/
+	/*ê¸€ ìƒì„¸ë³´ê¸°ì—ì„œ ìˆ˜ì •ë²„íŠ¼ ëˆŒë €ì„ ë•Œ -> ê¸€ ìˆ˜ì • í¼ìœ¼ë¡œ ê°€ì„œ ê¸°ì¡´ ì…ë ¥ëœ ì •ë³´ë¥¼ ë¿Œë ¤ì¤€ë‹¤.*/
 	@RequestMapping(value="/rewrite", method=RequestMethod.POST)
 	public ModelAndView mboardRewrite(MBoardVO vo, HttpServletRequest request){
 		
@@ -74,23 +74,23 @@ public class managerController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/mboard_rewrite");
 		mav.addObject("mBoardVO", mBoardVO);
-		System.out.println("±Û¼öÁ¤À» À§ÇÑ µ¥ÀÌÅÍ °¡Á®¿Íº¸±â"+ mBoardVO.toString());
+		System.out.println("ê¸€ìˆ˜ì •ì„ ìœ„í•œ ë°ì´í„° ê°€ì ¸ì™€ë³´ê¸°"+ mBoardVO.toString());
 		return mav;
 	}
 	
-	/*±Û ¼öÁ¤ Æû¿¡¼­ ÀúÀå ´­·¶À» ¶§ -> DB ¾÷µ¥ÀÌÆ®¹® ½ÇÇàÇÏ°í ¸ñ·ÏÀ¸·Î µ¹¾Æ°£´Ù. */
+	/*ê¸€ ìˆ˜ì • í¼ì—ì„œ ì €ì¥ ëˆŒë €ì„ ë•Œ -> DB ì—…ë°ì´íŠ¸ë¬¸ ì‹¤í–‰í•˜ê³  ëª©ë¡ìœ¼ë¡œ ëŒì•„ê°„ë‹¤. */
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public ModelAndView mboardUpdate(MBoardVO vo, HttpServletRequest request) {
-		System.out.println("»ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¼öÁ¤ µ¥ÀÌÅÍ : " + vo.toString());
+		System.out.println("ì‚¬ìš©ìê°€ ì…ë ¥í•œ ìˆ˜ì • ë°ì´í„° : " + vo.toString());
 		
 		service.mboardUpdate(vo);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("check", 1);
-		mav.setViewName("redirect:/mboard/list.mdo");//±Û ¼öÁ¤ ¹öÆ° ´©¸£°í ³ª¸é ´Ù½Ã °Ô½Ã±Û ¸ñ·ÏÀ¸·Î µ¹¾Æ°¡±â.
+		mav.setViewName("redirect:/mboard/list.mdo");//ê¸€ ìˆ˜ì • ë²„íŠ¼ ëˆ„ë¥´ê³  ë‚˜ë©´ ë‹¤ì‹œ ê²Œì‹œê¸€ ëª©ë¡ìœ¼ë¡œ ëŒì•„ê°€ê¸°.
 		return mav;
 	}
 	
-	/*»èÁ¦ ¹öÆ° ´­·µÀ» ¶§ -> ÆûÀ¸·Î ³Ñ¾î¿À´Â°Ô ¾Æ´Ï¶ó, ½ÃÄö½º°ª °®°í location.href ·Î ³Ñ¾î°¨ / º°µµÀÇ º¸¿©ÁÙ ÆäÀÌÁö°¡ ÇÊ¿ä ¾øÀ¸¹Ç·Î ¸ğµ¨¾Øºäµµ ¾È¾¸*/
+	/*ì‚­ì œ ë²„íŠ¼ ëˆŒëŸ¿ì„ ë•Œ -> í¼ìœ¼ë¡œ ë„˜ì–´ì˜¤ëŠ”ê²Œ ì•„ë‹ˆë¼, ì‹œí€€ìŠ¤ê°’ ê°–ê³  location.href ë¡œ ë„˜ì–´ê° / ë³„ë„ì˜ ë³´ì—¬ì¤„ í˜ì´ì§€ê°€ í•„ìš” ì—†ìœ¼ë¯€ë¡œ ëª¨ë¸ì•¤ë·°ë„ ì•ˆì”€*/
 	@RequestMapping(value="/delete", method = RequestMethod.GET)
 	public String mboardDelete(MBoardVO vo) {
 		service.mboardDelete(vo);

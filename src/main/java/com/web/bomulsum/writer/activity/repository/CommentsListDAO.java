@@ -14,13 +14,12 @@ public class CommentsListDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	//°Ô½ÃÆÇ ±Û ¸ñ·Ï ºÒ·¯¿À±â
+	//ëŒ“ê¸€ ëª©ë¡ ë¶ˆëŸ¬ì˜¤ê¸°
 	public List<CommentsListVO> commentsList(){
-		System.out.println("¿©±â ¿Ô³ª¿ä?");
 		return sqlSessionTemplate.selectList("writerCommentListDAO.selectComment");
 	}
 	
-	//±Û µî·Ï
+	//ëŒ“ê¸€ ë“±ë¡
 	public void addRecomment(CommentsListVO vo) {
 		sqlSessionTemplate.update("writerCommentListDAO.addRecomment", vo);
 	}
