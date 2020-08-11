@@ -47,6 +47,12 @@
 <link href="<c:url value='/resources/css/sb-admin-2.min.css'/> " rel="stylesheet">
 </head>
 <body id="page-top">
+<%-- <c:if test="${empty writer_login}"> --%>
+<!-- 	<script> -->
+<!-- // 		alert("로그인이 필요한 서비스입니다."); -->
+<%-- // 		location.href="<c:url value='/writer/login.wdo'/> "; --%>
+<!-- 	</script> -->
+<%-- </c:if> --%>
 	<div id="wrapper">
 		<!-- Header/Nav -->
 		<%@ include file="include/side.jsp" %>

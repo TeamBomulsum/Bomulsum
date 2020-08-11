@@ -14,6 +14,7 @@
 		<typeAlias type="com.web.bomulsum.writer.login.repository.WriterRegisterVO" alias="WriterRegisterVO"/>
 		<typeAlias type="com.web.bomulsum.writer.profile.repository.WriterProfileVO" alias="WriterProfileVO"/>
 		<typeAlias type="com.web.bomulsum.writer.salespolicy.repository.WriterSalesPolicyVO" alias="WriterSalesPolicyVO"/>
+		<typeAlias type="com.web.bomulsum.writer.midas.repository.WriterMidasVO" alias="WriterMidasVO"/>
 	</typeAliases>
 
 	<mappers>
@@ -33,5 +34,6 @@
 		<mapper resource="mappings/user/user-coupon-mapping.xml" />
 		<mapper resource="mappings/writer/writer-profile-mapping.xml" />
 		<mapper resource="mappings/writer/writer-salespolicy-mapping.xml" />
+		<mapper resource="mappings/writer/writer-midas-mapping.xml" />
 	</mappers>
 </configuration>

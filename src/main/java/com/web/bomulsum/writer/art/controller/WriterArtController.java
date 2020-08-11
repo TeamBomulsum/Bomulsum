@@ -40,7 +40,7 @@ public class WriterArtController {
 	 * workRegister.jsp 에서 form 태그의 엑션 값  "/artregister"
 	 */ 
 	@RequestMapping(value="/artregister")
-	public ModelAndView insertArtwork(@RequestParam(value="artPicture", required=false) List<MultipartFile> mf,
+	public ModelAndView insertArtwork(@RequestParam(value="orderPicture", required=false) List<MultipartFile> mf,
 			 HttpServletRequest request, WriterArtVO vo, WriterArtInfoDetailVO vo1, WriterArtOptionVO vo2){
 
 		

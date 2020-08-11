@@ -30,13 +30,13 @@
    }
   </style>
   <script type="text/javascript">
-  
+
+	
   </script>
 
 </head>
 
 <body class="bg-gradient-primary">
-
   <div class="container">
 
     <!-- Outer Row -->
@@ -57,20 +57,22 @@
                   </div>
                   <form class="user">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" required="required"
-                      id="exampleInputEmail" aria-describedby="emailHelp" placeholder="아이디">
+                      <input type="text" class="form-control form-control-user" required="required"
+                      id="writerEmail" aria-describedby="emailHelp" placeholder="아이디">
                     </div>
+                    <p align="center"  style="font-size: 60%;" id="emailChk"></p>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" 
-                      id="exampleInputPassword" placeholder="비밀번호">
+                      id="writerPassword" placeholder="비밀번호">
                     </div>
+                    <p align="center"  style="font-size: 60%;" id="pwCheck"></p>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" id="customCheck">
                         <label class="custom-control-label" for="customCheck">자동 로그인</label>
                       </div>
                     </div>
-                    <a class="btn btn-primary btn-user btn-block">
+                    <a class="btn btn-primary btn-user btn-block" id="signIn-btn">
                          	로그인
                     </a>
                     <!--  <hr>
@@ -103,13 +105,145 @@
   <!-- Bootstrap core JavaScript-->
   
   <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/> "></script>
-
   <!-- Core plugin JavaScript-->
   <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/> "></script>
 
   <!-- Custom scripts for all pages-->
   <script src="<c:url value='/resources/resources/js/sb-admin-2.min.js'/> "></script>
+  <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/> "></script>
 
 </body>
+<script type="text/javascript">
+//정규식 표현
+const getPwCheck = RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
+const getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+let chk1 = false, chk2 = false;
+	$(function(){
+		$('#writerEmail')
+		.on(
+				'keyup',
+				function() {
+					if ($("#writerEmail").val() == "") {
+						$('#writerEmail').css("background-color", "pink");
+						$('#emailChk')
+								.html(
+										'<b style="font-size:14px;color:red;">[이메일은 필수값 입니다.]</b>');
+						chk1 = false;
+					}
 
+					//아이디 유효성검사
+					else if (!getMail.test($("#writerEmail").val())) {
+						$('#writerEmail').css("background-color", "pink");
+						$('#emailChk')
+								.html(
+										'<b style="font-size:14px;color:red;">[이메일 형식이 옳바르지 않습니다.]</b>');
+						chk1 = false;
+					} else {
+						$('#writerEmail').css("background-color", "aqua");
+						$('#emailChk')
+								.html(
+										'<b style="font-size:14px;color:green;"></b>');
+						chk1 = true;
+					}
+				});
+
+//패스워드 입력값 검증.
+$('#writerPassword')
+		.on(
+				'keyup',
+				function() {
+					//비밀번호 공백 확인
+					if ($("#writerPassword").val() === "") {
+						$('#writerPassword').css("background-color", "pink");
+						$('#pwCheck')
+								.html(
+										'<b style="font-size:14px;color:red;">[패스워드는 필수값 입니다.]</b>');
+						chk2 = false;
+					}
+					//비밀번호 유효성검사
+					else if (!getPwCheck.test($("#writerPassword").val())
+							|| $("#writerPassword").val().length < 8) {
+						$('#writerPassword').css("background-color", "pink");
+						$('#pwCheck')
+								.html(
+										'<b style="font-size:14px;color:red;">[특수문자 포함 8자이상 입니다.]</b>');
+						chk2 = false;
+					} else {
+						$('#writerPassword').css("background-color", "aqua");
+						$('#pwCheck')
+								.html(
+										'<b style="font-size:14px;color:green;"></b>');
+						chk2 = true;
+					}
+
+				});
+
+//로그인 버튼 클릭 이벤트
+$("#signIn-btn")
+		.click(
+				function() {
+					if (chk1 && chk2) {
+						// ajax통신으로 서버에서 값 받아오기.
+						const writerEmail = $("#writerEmail").val();
+						const writerPassword = $("#writerPassword").val();
+
+						// is() 함수는 상태여부를 판단하여 논리값을 리턴합니다.
+						const autoLogin = $("input[id=customCheck]")
+								.is(":checked");
+
+						console.log("email : " + writerEmail);
+						console.log("pw : " + writerPassword);
+						console.log("auto : " + autoLogin);
+
+						const userInfo = {
+							writerEmail : writerEmail,
+							writerPassword : writerPassword,
+							autoLogin : autoLogin
+						};
+
+						$
+								.ajax({
+									type : "POST",
+									url : "loginCheck.wdo",
+									headers : {
+										"Content-Type" : "application/json"
+									},
+									dataType : "text",
+									data : JSON.stringify(userInfo),
+									success : function(data) {
+										console.log("result : " + data);
+										if (data === "idFail") {
+											$('#writerEmail').css(
+													"background-color",
+													"pink");
+											$('#emailChk')
+													.html(
+															'<b style="font-size:14px;color:red;">[회원가입 먼저~~]</b>');
+											$('#writerPassword').val("");
+											$('#writerEmail').focus();
+											chk2 = false;
+										} else if (data === "pwFail") {
+											$('#writerPassword').css(
+													"background-color",
+													"pink");
+											$('#writerPassword').val("");
+											$('#writerPassword').focus();
+											$('#pwCheck')
+													.html(
+															'<b style="font-size:14px;color:red;">[비밀번호가 틀렸어요!]</b>');
+											chk2 = false;
+										} else if (data === "loginSuccess") {
+											self.location = "home.wdo";
+										}
+									}
+
+								});
+
+					} else {
+						alert("입력 정보를 다시 확인하세요!");
+					}
+
+				});
+	});
+</script>
 </html>

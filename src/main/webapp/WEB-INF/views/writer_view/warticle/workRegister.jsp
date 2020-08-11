@@ -172,7 +172,8 @@ $(document).ready(function() {
 
                   <tr>
                      <td class="left" style="width: 20%">사진등록</td>
-                     <td><input type="file" id="image" accept="image/*" name="artPicture"
+                     <td>
+                     <input type="file" id="image" accept="image/*" name="artPicture"
                         onchange="setThumbnail(event);" multiple />
                         <div class="imageContainer">                         
                         </div>
@@ -184,7 +185,6 @@ $(document).ready(function() {
                      <td>
                           <input type="text" id="workName" name="artName" style="max-height: 30px" maxlength="20" autocomplete="off" />
 							<span id="nameCounter" style="font-size: 12px"> ### </span></td>
-                         </td>
                   </tr>
                   <tr>
                      <td class="left">가격</td>

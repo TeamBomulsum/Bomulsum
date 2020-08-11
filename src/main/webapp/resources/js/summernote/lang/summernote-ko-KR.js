@@ -115,8 +115,8 @@ return /******/ (function(modules) { // webpackBootstrap
   $.extend($.summernote.lang, {
     'ko-KR': {
       font: {
-        bold: '굵게',
-        italic: '기울임꼴',
+        bold: '굵기',
+        italic: '기울기임꼴',
         underline: '밑줄',
         clear: '서식 지우기',
         height: '줄 간격',
