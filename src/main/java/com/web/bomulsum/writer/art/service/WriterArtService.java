@@ -9,16 +9,16 @@ import com.web.bomulsum.writer.art.repository.WriterArtVOUP;
 
 public interface WriterArtService {
 
-	//ÀÛÇ° Å×ÀÌºí µî·Ï
+	//ì‘í’ˆ ë“±ë¡
 	void insertArt(WriterArtVO vo);
 	
-	//ÀÛÇ° ÄÚµå °¡Á®¿À±â
+	//ì‘í’ˆ ì½”ë“œ ê²€ìƒ‰
 	String getArtCode(String artName);
 	
-	//ÀÛÇ°Á¤º¸Á¦°ø Å×ÀÌºí µî·Ï
+	//ì‘í’ˆì •ë³´ì œê³µë“±ë¡
 	void insertArtInfoDetail(WriterArtInfoDetailVO vo);
 
-	//ÀÛÇ° ¿É¼Ç µî·Ï
+	//ì‘í’ˆ ì˜µì…˜ ë“±ë¡
 	void insertArtOption1(Map<String, Object> map);
 	void insertArtOption2(Map<String, Object> map);
 	void insertArtOption3(Map<String, Object> map);
@@ -29,13 +29,13 @@ public interface WriterArtService {
 	void insertArtOption8(Map<String, Object> map);
 	void insertArtOption9(Map<String, Object> map);
 	
-	//ÆÇ¸ÅÁß ÀÛÇ° º¸±â
+	//íŒë§¤ì¤‘ ì‘í’ˆ ëª©ë¡
 	List<WriterArtVO> getArtOnsaleList();
 	
 	
-	//ÆÇÀç¹¶ ÀÛÇ° °Ë»ö
+	//ì¦ê²¨ì°¾ê¸° ê²€ìƒ‰
 	//int getbookMark(String artCodeSeq);
 	
-	//ÆÇ¸ÅÁß ÀÛÇ° ¾÷µ¥ÀÌÆ®
+	//íŒë§¤ì¤‘ ì‘í’ˆ ì—…ë°ì´íŠ¸
 	void updateSalesArt(List<WriterArtVOUP> list);
 }

@@ -257,8 +257,9 @@
 
 <!-- 판매중 작품 -->
 	<select id="getArtOnsale" parameterType="String" resultMap="onSaleArt">
-		SELECT count(decode(wishlist_option_code,'art_code_seq218',1)) 
-		FROM wishlist_tb;
+		SELECT *
+		FROM art_tb 
+		WHERE art_sale_state='Y';
 		
 		
 	</select>

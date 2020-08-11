@@ -13,22 +13,22 @@ public class WriterArtDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	//ÀÛÇ° µî·Ï
+	//ì‘í’ˆ ë“±ë¡
 	public void insertArt(WriterArtVO vo) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArt", vo);	
 	}
 	
-	//ÀÛÇ° ÄÚµå °Ë»ö
+	//ì‘í’ˆ ì½”ë“œ ê²€ìƒ‰
 	public String getArtCode(String artName) {
 		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtCode", artName);
 	}
 	
-	//ÀÛÇ°Á¤º¸Á¦°ø ³»¿ëµî·Ï
+	//ì‘í’ˆ ì •ë³´ ì œê³µ ë“±ë¡
 	public void insertArtInfoDetail(WriterArtInfoDetailVO vo) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtInfoDetail", vo);
 	}
 	
-	//ÀÛÇ° ¿É¼Ç µî·Ï
+	//ì‘í’ˆ ì˜µì…˜ ë“±ë¡
 	public void insertArtOption1(Map<String, Object> map) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption1", map);
 	}
@@ -57,7 +57,7 @@ public class WriterArtDAO{
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption9", map);
 	}
 
-	//ÆÇ¸ÅÁß ÀÛÇ° °Ë»ö
+	//íŒë§¤ì‘í’ˆ ëª©ë¡
 	public List<WriterArtVO> getArtOnsaleList() {
 		List<WriterArtVO> artList = sqlSessionTemplate.selectList(
 				"com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtOnsale");
@@ -65,13 +65,13 @@ public class WriterArtDAO{
 		return artList;
 	}
 /*
-	//ÆÇ¸ÅÁß ÀÛÇ° °Ë»öÁß
+	//ì¦ê²¨ì°¾ê¸° ê²€ìƒ‰
 	public int getbookMark(String artCodeSeq) {
 		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getbookMark", artCodeSeq);
 	}
 	*/
 	
-	//ÆÇ¸ÅÁß ÀÛÇ° ¾÷µ¥ÀÌÆ®
+	//íŒë§¤ì¤‘ ì‘í’ˆ ì—…ë°ì´íŠ¸
 	public void updateSalesArt(List<WriterArtVOUP> list) {
 		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateSalesArt",list);
 	}
