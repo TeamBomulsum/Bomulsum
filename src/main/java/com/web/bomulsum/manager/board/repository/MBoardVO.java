@@ -6,7 +6,7 @@ public class MBoardVO {
 
 //	private String admin_notice_seq;
 //	private Date admin_notice_date;
-	//��� ���� �޾Ƽ� �Ѱ��ִ°� �ƴϰ�, DB�� �ڵ����� �ԷµǴϱ� ��� ��. �̶�� �����ߴ��͵� ��ÿ��׿�.
+	//얘네 둘은 받아서 넘겨주는게 아니고, DB에 자동으로 입력되니까 없어도 됨. 이라고 생각했던것도 잠시였네욧.
 
 	
 	private String adminNoticeSeq;

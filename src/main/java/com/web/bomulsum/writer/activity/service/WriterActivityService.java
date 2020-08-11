@@ -10,7 +10,7 @@ public interface WriterActivityService {
 
 	List<CommentsListVO> commentsList();
 	
-	//ÀÛ°¡ ´ñ±Û µî·Ï ±â´É
+	//ëŒ“ê¸€ ë“±ë¡
 	void addRecomment(CommentsListVO vo);
 	
 }

@@ -7,18 +7,19 @@ import com.web.bomulsum.manager.board.repository.MBoardVO;
 
 public interface MBoardService {
 
-	//°ü¸®ÀÚ °Ô½ÃÆÇ ±Û µî·Ï ±â´É
+	//ê²Œì‹œíŒ ê¸€ ë“±ë¡
 	void mboardRegister(MBoardVO vo);
 	
-	//°ü¸®ÀÚ °Ô½ÃÆÇ ±Û ¸ñ·Ï ºÒ·¯¿À±â ±â´É
+	//ê²Œì‹œíŒ ëª©ë¡ ë¶ˆëŸ¬ì˜¤ê¸°
 	List<MBoardListVO> mboardList();
 	
-	//±Û ¼öÁ¤À» À§ÇÑ ¼±ÅÃ ±Û ³»¿ë ºÒ·¯¿À±â ±â´É
+	//ê²Œì‹œíŒ ìƒì„¸ ë‚´ìš© ë³´ê¸°
 	MBoardVO mboardSelect(MBoardVO vo);
 	
-	//±Û ¼öÁ¤ ¹İ¿µ
+	//ê²Œì‹œíŒ ê¸€ ìˆ˜ì •
 	void mboardUpdate(MBoardVO vo);
 	
-	//±Û »èÁ¦ ¹İ¿µ
+	//ê²Œì‹œíŒ ê¸€ ì‚­ì œ
 	void mboardDelete(MBoardVO vo);
+	
 }

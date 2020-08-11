@@ -12,8 +12,8 @@ import com.web.bomulsum.manager.board.repository.MBoardVO;
 @Service
 public class MBoardServiceImpl implements MBoardService {
 	/*
-	 * ¿©±â¼­ ¼­ºñ½º ÀÎÅÍÆäÀÌ½º¸¦ »ó¼Ó¹Ş¾Æ¼­,
-	 * Çüº¯È¯ÀÌ¶ó´øÁö µ¥ÀÌÅÍ¸¦ °¡°øÇØ¾ß ÇÒ ÇÊ¿ä°¡ ÀÖÀ» °æ¿ì Ã³¸®¸¦ ÇØÁØ´Ù.
+	 * ì—¬ê¸°ì„œ ì„œë¹„ìŠ¤ ì¸í„°í˜ì´ìŠ¤ë¥¼ ìƒì†ë°›ì•„ì„œ,
+	 * í˜•ë³€í™˜ì´ë¼ë˜ì§€ ë°ì´í„°ë¥¼ ê°€ê³µí•´ì•¼ í•  í•„ìš”ê°€ ìˆì„ ê²½ìš° ì²˜ë¦¬ë¥¼ í•´ì¤€ë‹¤.
 	 */
 	
 	@Autowired
@@ -23,37 +23,37 @@ public class MBoardServiceImpl implements MBoardService {
 	public void mboardRegister(MBoardVO vo) {
 		String coupon = vo.getAdminNoticeCoupon();
 		coupon = coupon.replace(",", "-");
-		System.out.println("º¯È¯ ÈÄ : " + coupon);
+		System.out.println("ë³€í™˜ í›„ : " + coupon);
 		vo.setAdminNoticeCoupon(coupon);
 		dao.mboardRegister(vo);
 	}
 
-	//±Û ¸ñ·Ï º¸±â À§ÇÑ µ¥ÀÌÅÍ ºÒ·¯¿À±â
+	//ê¸€ ëª©ë¡ ë³´ê¸° ìœ„í•œ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°
 	@Override
 	public List<MBoardListVO> mboardList() {
 		return dao.mboardList();
 	}
 
-	//¼±ÅÃµÈ ±Û Á¤º¸¸¦ ºÒ·¯¿À±â
+	//ì„ íƒëœ ê¸€ ì •ë³´ë¥¼ ë¶ˆëŸ¬ì˜¤ê¸°
 	@Override
 	public MBoardVO mboardSelect(MBoardVO vo) {
 		return dao.mboardSelectOne(vo);
 	}
 
-	//±Û ¼öÁ¤ ¹İ¿µ
+	//ê¸€ ìˆ˜ì • ë°˜ì˜
 	@Override
 	public void mboardUpdate(MBoardVO vo) {
 		String coupon = vo.getAdminNoticeCoupon();
 		coupon = coupon.replace(",", "-");
-		System.out.println("º¯È¯ ÈÄ  ÄíÆù °ª: " + coupon);
+		System.out.println("ë³€í™˜ í›„  ì¿ í° ê°’: " + coupon);
 		vo.setAdminNoticeCoupon(coupon);
 		dao.mboardUpdate(vo);
 	}
 
-	//±Û »èÁ¦ ÇÏ±â
+	//ê¸€ ì‚­ì œ í•˜ê¸°
 	@Override
 	public void mboardDelete(MBoardVO vo) {
-		System.out.println("¿©±â±îÁö µé¾î¿Ô³ª¿ä? serviceImpl : " + vo.getAdminNoticeSeq());
+		System.out.println("ì—¬ê¸°ê¹Œì§€ ë“¤ì–´ì™”ë‚˜ìš”? serviceImpl : " + vo.getAdminNoticeSeq());
 		dao.mboardDelete(vo);
 	}
 	

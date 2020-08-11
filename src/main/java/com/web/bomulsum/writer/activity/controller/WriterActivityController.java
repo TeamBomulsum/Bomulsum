@@ -17,17 +17,17 @@ import com.web.bomulsum.writer.activity.service.WriterActivityServiceImpl;
 @Controller
 @RequestMapping(value="/writer")
 public class WriterActivityController {
-	/* ÀÌ ÄÁÆ®·Ñ·¯¿¡¼­ "/writer/*.wdo" ÇüÅÂ·Î Á¢¼ÓµÇ´Â ¸µÅ©µé¿¡ ´ëÇÑ ³×ºñ°ÔÀÌ¼Ç ¿ªÇÒÀ» ÇØÁÙ°Å´Ù! */
+	/* ì´ ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ "/writer/*.wdo" í˜•íƒœë¡œ ì ‘ì†ë˜ëŠ” ë§í¬ë“¤ì— ëŒ€í•œ ë„¤ë¹„ê²Œì´ì…˜ ì—­í• ì„ í•´ì¤„ê±°ë‹¤! */
 
 	@Autowired
 	private WriterActivityServiceImpl service;
 	
-	/*´ñ±Û ¸ñ·Ï º¸¿©ÁÖ±â*/
+	/*ëŒ“ê¸€ ëª©ë¡ ë³´ì—¬ì£¼ê¸°*/
 	@GetMapping("/comments")
 	public ModelAndView commentsList() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("commentsList", service.commentsList());
-		System.out.println("ÀÌ°Ô ½ÇÇà µÇ¾ú³ª¿ä?");
+		System.out.println("ì´ê²Œ ì‹¤í–‰ ë˜ì—ˆë‚˜ìš”?");
 
 		for(CommentsListVO vo : service.commentsList()){
 			System.out.println(vo.toString());
@@ -36,15 +36,19 @@ public class WriterActivityController {
 		return mav;
 	}
 	
-	/*ÀÛ°¡°¡ ´ñ±Û µî·Ï */
+	/*ì‘ê°€ê°€ ëŒ“ê¸€ ë“±ë¡ */
 	@RequestMapping(value="/addReComment", method=RequestMethod.POST)
 	public ModelAndView addReComment(CommentsListVO vo, HttpServletRequest request){
-		//¸ğµ¨¿£ºä¶õ? - µ¥ÀÌÅÍ¿Í ºä¸¦ µ¿½Ã¿¡ ¼³Á¤ÀÌ °¡´ÉÇÏ´Ù!
+		//ëª¨ë¸ì—”ë·°ë€? - ë°ì´í„°ì™€ ë·°ë¥¼ ë™ì‹œì— ì„¤ì •ì´ ê°€ëŠ¥í•˜ë‹¤!
 		System.out.println(vo.toString());
 		service.addRecomment(vo);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("check", 3); // ºä·Î º¸³¾ µ¥ÀÌÅÍ °ª
-		mav.setViewName("redirect:/writer/comments.wdo"); // ºä ÀÌ¸§ _ ¾î¶² ºä·Î º¸³¾ Áö
+		if(vo.getComment_status() == "Y") {
+			mav.addObject("check", 4); // ë·°ë¡œ ë³´ë‚¼ ë°ì´í„° ê°’			
+		} else {
+			mav.addObject("check", 3); 
+		}
+		mav.setViewName("redirect:/writer/comments.wdo"); // ë·° ì´ë¦„ _ ì–´ë–¤ ë·°ë¡œ ë³´ë‚¼ ì§€
 		return mav;
 	}
 }

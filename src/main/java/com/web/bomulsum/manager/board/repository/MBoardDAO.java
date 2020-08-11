@@ -12,31 +12,31 @@ public class MBoardDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	//±Û µî·Ï
+	//ê¸€ ë“±ë¡
 	public void mboardRegister(MBoardVO vo) {
 		sqlSessionTemplate.insert("mBoardDAO.insertMBoard", vo);
 	}
 	
-	//°Ô½ÃÆÇ ±Û ¸ñ·Ï ºÒ·¯¿À±â
+	//ê²Œì‹œíŒ ê¸€ ëª©ë¡ ë¶ˆëŸ¬ì˜¤ê¸°
 	public List<MBoardListVO> mboardList(){
 		return sqlSessionTemplate.selectList("mBoardDAO.selectMBoard");
 	}
 	
-	//±Û ¼öÁ¤À» À§ÇÑ µ¥ÀÌÅÍ ºÒ·¯¿Í¼­ ¼öÁ¤Æû¿¡ »Ñ·ÁÁÖ±â
+	//ê¸€ ìˆ˜ì •ì„ ìœ„í•œ ë°ì´í„° ë¶ˆëŸ¬ì™€ì„œ ìˆ˜ì •í¼ì— ë¿Œë ¤ì£¼ê¸°
 	public MBoardVO mboardSelectOne(MBoardVO vo) {
 		MBoardVO result = sqlSessionTemplate.selectOne("mBoardDAO.selectRewrite", vo);
 		return result;
 	}
 	
-	//±Û ¼öÁ¤ ¹İ¿µ
+	//ê¸€ ìˆ˜ì • ë°˜ì˜
 	public void mboardUpdate(MBoardVO vo) {
-		System.out.println("¾÷µ¥ÀÌÆ® ÀÔ·ÂµÉ µ¥ÀÌÅÍ : " + vo.toString());
+		System.out.println("ì—…ë°ì´íŠ¸ ì…ë ¥ë  ë°ì´í„° : " + vo.toString());
 		sqlSessionTemplate.update("mBoardDAO.updateMBoard", vo);
 	}
 	
 	
 	public void mboardDelete(MBoardVO vo) {
-		System.out.println("»èÁ¦µÉ µ¥ÀÌÅÍ ½ÃÄö½º : "+ vo.getAdminNoticeSeq());
+		System.out.println("ì‚­ì œë  ë°ì´í„° ì‹œí€€ìŠ¤ : "+ vo.getAdminNoticeSeq());
 		sqlSessionTemplate.delete("mBoardDAO.deleteMBoard", vo);
 	}
 }
