@@ -12,15 +12,27 @@ public class WriterArtVO {
 	private String artName;
 	private int artPrice;
 	private int artDiscount;
-	private int artCount;
+	private int artAmount;
 	private String artDescription;
 	private String artCategory;
 	private String artKeyword;
 	private int artViewCount;
 	private int artPoint;
-	private String artSaleStatus;
+	private int artSaleCount;
+	private String artSaleState;
 	private Date artRecommendTime;
+	private Date artRegisterDate;
 	
+	@Override
+	public String toString() {
+		return "WriterArtVO [artCodeSeq=" + artCodeSeq + ", writerCodeSeq=" + writerCodeSeq + ", artPhoto=" + artPhoto
+				+ ", artName=" + artName + ", artPrice=" + artPrice + ", artDiscount=" + artDiscount + ", artAmount="
+				+ artAmount + ", artDescription=" + artDescription + ", artCategory=" + artCategory + ", artKeyword="
+				+ artKeyword + ", artViewCount=" + artViewCount + ", artPoint=" + artPoint + ", artSaleCount="
+				+ artSaleCount + ", artSaleState=" + artSaleState + ", artRecommendTime=" + artRecommendTime
+				+ ", artRegisterDate=" + artRegisterDate + "]";
+	}
+
 	public String getArtCodeSeq() {
 		return artCodeSeq;
 	}
@@ -69,12 +81,12 @@ public class WriterArtVO {
 		this.artDiscount = artDiscount;
 	}
 
-	public int getArtCount() {
-		return artCount;
+	public int getArtAmount() {
+		return artAmount;
 	}
 
-	public void setArtCount(int artCount) {
-		this.artCount = artCount;
+	public void setArtAmount(int artAmount) {
+		this.artAmount = artAmount;
 	}
 
 	public String getArtDescription() {
@@ -117,12 +129,20 @@ public class WriterArtVO {
 		this.artPoint = artPoint;
 	}
 
-	public String getArtSaleStatus() {
-		return artSaleStatus;
+	public int getArtSaleCount() {
+		return artSaleCount;
 	}
 
-	public void setArtSaleStatus(String artSaleStatus) {
-		this.artSaleStatus = artSaleStatus;
+	public void setArtSaleCount(int artSaleCount) {
+		this.artSaleCount = artSaleCount;
+	}
+
+	public String getArtSaleState() {
+		return artSaleState;
+	}
+
+	public void setArtSaleState(String artSaleState) {
+		this.artSaleState = artSaleState;
 	}
 
 	public Date getArtRecommendTime() {
@@ -133,14 +153,14 @@ public class WriterArtVO {
 		this.artRecommendTime = artRecommendTime;
 	}
 
-	@Override
-	public String toString() {
-		return "WriterArtVO [artCodeSeq=" + artCodeSeq + ", writerCodeSeq=" + writerCodeSeq + ", artPhoto=" + artPhoto
-				+ ", artName=" + artName + ", artPrice=" + artPrice + ", artDiscount=" + artDiscount + ", artCount="
-				+ artCount + ", artDescription=" + artDescription + ", artCategory=" + artCategory + ", artKeyword="
-				+ artKeyword + ", artViewCount=" + artViewCount + ", artPoint=" + artPoint + ", artSaleStatus="
-				+ artSaleStatus + ", artRecommendTime=" + artRecommendTime + "]";
+	public Date getArtRegisterDate() {
+		return artRegisterDate;
 	}
+
+	public void setArtRegisterDate(Date artRegisterDate) {
+		this.artRegisterDate = artRegisterDate;
+	}
+	
 	
 	
 }

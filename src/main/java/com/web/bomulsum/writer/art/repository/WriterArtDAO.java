@@ -1,5 +1,6 @@
 package com.web.bomulsum.writer.art.repository;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,20 +17,15 @@ public class WriterArtDAO{
 	public void insertArt(WriterArtVO vo) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArt", vo);	
 	}
-/*	
-	//작품 코드 가져오기
-	public String getArtCode(String artName) {
-		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtCode", artName);
-	}
-*/	
-	//작품정보제공 내용등록
-	public void insertArtInfoDetail(WriterArtInfoDetailVO vo) {
-		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtInfoDetail", vo);
-	}
 	
 	//작품 코드 검색
 	public String getArtCode(String artName) {
 		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtCode", artName);
+	}
+	
+	//작품정보제공 내용등록
+	public void insertArtInfoDetail(WriterArtInfoDetailVO vo) {
+		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtInfoDetail", vo);
 	}
 	
 	//작품 옵션 등록
@@ -44,26 +40,39 @@ public class WriterArtDAO{
 	}
 	public void insertArtOption4(Map<String, Object> map) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption4", map);
-	}
-	
+	}	
 	public void insertArtOption5(Map<String, Object> map) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption5", map);
-	}
-	
+	}	
 	public void insertArtOption6(Map<String, Object> map) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption6", map);
-	}
-	
+	}	
 	public void insertArtOption7(Map<String, Object> map) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption7", map);
-	}
-	
+	}	
 	public void insertArtOption8(Map<String, Object> map) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption8", map);
-	}
-	
+	}	
 	public void insertArtOption9(Map<String, Object> map) {
 		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertArtOption9", map);
 	}
 
+	//판매중 작품 검색
+	public List<WriterArtVO> getArtOnsaleList() {
+		List<WriterArtVO> artList = sqlSessionTemplate.selectList(
+				"com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtOnsale");
+		System.out.println("DAO : " + artList);
+		return artList;
+	}
+/*
+	//판매중 작품 검색중
+	public int getbookMark(String artCodeSeq) {
+		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getbookMark", artCodeSeq);
+	}
+	*/
+	
+	//판매중 작품 업데이트
+	public void updateSalesArt(List<WriterArtVOUP> list) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateSalesArt",list);
+	}
 }

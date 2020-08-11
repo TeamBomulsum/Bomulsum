@@ -4,6 +4,26 @@
 
 <mapper namespace="com.web.bomulsum.writer.art.repository.WriterArtDAO">
 
+	<resultMap id="onSaleArt" type="com.web.bomulsum.writer.art.repository.WriterArtVO">	
+		<result property="artCodeSeq" column="art_code_seq"/>
+		<result property="writerCodeSeq" column="writer_code_seq"/>
+		<result property="artPhoto" column="art_photo"/>
+		<result property="artName" column="art_name"/>
+		<result property="artPrice" column="art_price"/>
+		<result property="artDiscount" column="art_discount"/>
+		<result property="artAmount" column="art_amount"/>
+		<result property="artDescription" column="art_description"/>
+		<result property="artCategory" column="art_category"/>
+		<result property="artKeyword" column="art_keyword"/>
+		<result property="artViewCount" column="art_viewcount"/>
+		<result property="artPoint" column="art_point"/>
+		<result property="artSaleCount" column="art_sale_count"/>
+		<result property="artSaleState" column="art_sale_state"/>
+		<result property="artRecommendTime" column="art_recommend_time"/>
+		<result property="artRegisterDate" column="art_register_date"/>
+	</resultMap>
+
+<!-- 작품 등록 -->
 	<insert id="insertArt" parameterType="com.web.bomulsum.writer.art.repository.WriterArtVO">
 		INSERT INTO 
 		art_tb(
@@ -13,14 +33,16 @@
 			art_name,
 			art_price,
 			art_discount,
-			art_count,
+			art_amount,
 			art_description,
 			art_category,
 			art_keyword,
 			art_viewcount,
 			art_point,
+			art_sale_count,
 			art_sale_state,
-			art_recommend_time
+			art_recommend_time,
+			art_register_date
 		)
 		VALUES (
 			'art_code_seq' || TO_CHAR(art_code_sq.nextval),
@@ -29,13 +51,15 @@
 			#{artName},
 			#{artPrice},
 			#{artDiscount},
-			#{artCount},
+			#{artAmount},
 			#{artDescription},
 			#{artCategory},
 			#{artKeyword},
 			default,
 			#{artPrice}*0.1,
+			default,
 			'Y',
+			default,
 			default
 		)
 	</insert>
@@ -231,5 +255,39 @@
 		)
 	</insert>
 
-
+<!-- 판매중 작품 -->
+	<select id="getArtOnsale" parameterType="String" resultMap="onSaleArt">
+		SELECT count(decode(wishlist_option_code,'art_code_seq218',1)) 
+		FROM wishlist_tb;
+		
+		
+	</select>
+	
+	<select id="getbookMark" parameterType="String" resultType="java.lang.Integer">
+		SELECT count(*) 
+		FROM wishlist_tb 
+		WHERE wishlist_option='좋아하는작품' 
+		AND wishlist_option_code='#{artCodeSeq}'
+	</select>
+	
+	<select id="getComment" parameterType="String" resultType="java.lang.Integer">
+		SELECT count(*) 
+		FROM comment_tb 
+		WHERE art_code_seq='#{artCodeSeq}'
+	</select>
+	
+	<select id="getReview" parameterType="String" resultType="java.lang.Integer">
+		SELECT count(*) 
+		FROM review_tb 
+		WHERE art_code_seq='#{artCodeSeq}'
+	</select>
+	<!--  
+	<update id="updateSalesArt" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" 
+      separator=";" open="DECLARE BEGIN" close="; END;">
+         UPDATE art_tb
+         SET ART_SALE_STATE=#{item.ART_SALE_STATE}
+         WHERE ART_CODE_SEQ=#{item.ART_CODE_SEQ}
+      </foreach>
+   </update>-->
 </mapper>
