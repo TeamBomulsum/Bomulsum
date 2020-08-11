@@ -32,5 +32,6 @@
 		<mapper resource="mappings/user/user-board-mapping.xml" />
 		<mapper resource="mappings/writer/writer-profile-mapping.xml" />
 		<mapper resource="mappings/writer/writer-salespolicy-mapping.xml" />
+		<mapper resource="mappings/writer/writer-activity-mapping.xml" />
 	</mappers>
 </configuration>
