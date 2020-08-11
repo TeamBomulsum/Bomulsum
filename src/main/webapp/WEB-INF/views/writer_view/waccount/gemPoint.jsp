@@ -123,6 +123,37 @@ footer span{
 	color:white;
 
 }
+
+
+.paging{
+   text-align: center;
+   font-size: 18px;
+}
+
+
+.minwoo_pagination{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.minwoo_pagination {
+   margin-top: 20px;
+   text-align: center;
+   margin-bottom: 100px;
+}
+
+.minwoo_pagination a {
+   display: inline-block;
+   margin: 0 3px;
+   text-decoration: none;
+   padding: 5px 10px;
+   border: 1px solid #ccc;
+   color: #999999;
+   background-color: #fff;
+}
+
+
 </style>
 
 </head>
@@ -368,8 +399,9 @@ footer span{
             //여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
             for(var index = startNum; index < endNum; index++){
                 html += '<tr><td class="daintdth" style="text-align: center">' + result[index].gem_date 
-                 + '</td><td>' + result[index].gem_log
+                 + '</td><td class="daintdth"> ' + result[index].gem_log
                  + '</td>';
+                 //포인트 충전인지 사용인지 구분
                  if(result[index].gem_usage == "Y"){
                 	 html += '<td class="daintdth bold" style="text-align: center; color: #e35852;">' 
            			+  addComma(result[index].gem_price)+ 'P</td>';

@@ -288,7 +288,7 @@
 						data : {
 							"writerEmail" : $("#email").val(),
 							"writerPassword" : $("#password").val(),
-							"wrtierName" : $("#user_name").val(),
+							"writerName" : $("#user_name").val(),
 						},
 						success : function() {
 							console.log("데이터 전송 성공");
