@@ -125,7 +125,17 @@ body a:link, a:visited, a:hover, a:active {
 		<!-- 헤더 시작-->
 		<div style="width:100%;">
 			<div style="width:100%; height: 55px;">
-				<p style="font-weight:bold; font-size:22px; color:#848484; padding-left:20px;">공지사항</p>
+				<c:choose>
+					<c:when test="${notice.noticeCategory eq '이벤트' }">
+						<p style="font-weight:bold; font-size:22px; color:#848484; padding-left:20px;">이벤트</p>
+					</c:when>
+					<c:when test="${notice.noticeCategory eq '회원용-자주묻는질문' }">
+						<p style="font-weight:bold; font-size:22px; color:#848484; padding-left:20px;">자주 묻는 질문</p>
+					</c:when>
+					<c:otherwise>
+						<p style="font-weight:bold; font-size:22px; color:#848484; padding-left:20px;">공지사항</p>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<!-- 헤더 종료 -->
@@ -134,8 +144,7 @@ body a:link, a:visited, a:hover, a:active {
 		<div class="minwoo_notice_body_body">
 			<!-- 글 제목 시작-->               
 			<div class="minwoo_notice_one_detail_header">
-				<div>
-					<span style="color: red;"><c:out value="${notice.noticeCategory}" />원</span>
+				<div style="font-size: 18px; font-weight: bold; color: #1f76bb; letter-spacing: 0.5px;">
 					<span>❑</span>
 					<span><c:out value="${notice.noticeTitle}" /></span>
 				</div>
@@ -174,16 +183,24 @@ body a:link, a:visited, a:hover, a:active {
 
 <script> this.contextPath = "<c:url value="/"/>"</script>
 <script>
+var isEmpty = function(value){ 
+	if( value == "" || value == null || value == undefined || value == 'null' || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
+		return true 
+	}else{ 
+		return false 
+	} 
+};
+
 var t = `${coupon.couponPrice}`;
 	$(function(){
 		$("#couponButton").click(function(){
 			var test = '${coupon.couponAll}';
-			var session = '<%= session.getAttribute("user") %>';
+			var session = `<%= session.getAttribute("user") %>`;
 			var memberCode = '<%= session.getAttribute("member") %>';
 			
 			console.log(session);
 			console.log(memberCode);
-			if(session == null){
+			if(isEmpty(session)){
 				alert('로그인이 필요한 서비스입니다.');
 				location.href= "<c:url value='/user/login.do'/>";
 			}else{
@@ -201,10 +218,12 @@ var t = `${coupon.couponPrice}`;
 							console.log(data);
 							alert('쿠폰 저장이 완료되었습니다.');
 							location.href="<c:url value='/user/coupon/list.do'/>";
+							return;
 						}else{
 							console.log(data);
 							alert('이미 받으신 쿠폰입니다.');
 							location.href="<c:url value='/user/coupon/list.do'/>";
+							return;
 						}
 						
 					},
