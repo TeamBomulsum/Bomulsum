@@ -20,21 +20,21 @@ public class WriterMyinfoController {
 	public ModelAndView writerMyinfo() {
 		ModelAndView mav = new ModelAndView("/waccount/myInformation");
 		
-		//³»Α¤ΊΈ
+		//λ‚΄μ •λ³΄
 		WriterMyinfoVO result = service.getWriterMyinfo();
 		System.out.println(result);
 		mav.addObject("myinfo", result);
 		
-		//ΑªΖχΐΞΖ®
-		Map<String, Object> pointSum = service.getGemPointSum2();//ΑªΖχΐΞΖ® ΊΈΐ―ΖχΐΞΖ®
-		System.out.println("ΑªΖχΐΞΖ®:"+pointSum);
+		//μ ¬ν¬μΈνΈ
+		Map<String, Object> pointSum = service.getGemPointSum2();//μ ¬ν¬μΈνΈ λ³΄μ ν¬μΈνΈ
+		System.out.println("μ ¬ν¬μΈνΈ:"+pointSum);
 		mav.addObject("pointsum", pointSum);
 		return mav;
 	} 
 	
 	@RequestMapping(value="/insertphone")
 	public ModelAndView insertPhone(String writerPhone) {
-		System.out.println("³ΡΎξΏΒ ΖωΉψΘ£:"+writerPhone);
+		System.out.println("λ„μ–΄μ¨ ν°λ²νΈ:"+writerPhone);
 		ModelAndView mav = new ModelAndView("redirect:/writer/myinfo.wdo");
 		service.insertPhone(writerPhone);
 		return mav;
@@ -42,7 +42,7 @@ public class WriterMyinfoController {
 	@RequestMapping(value="/inserturl")
 	public ModelAndView insertUrl(String writerUrl) {
 		System.out.println(writerUrl);
-		System.out.println("³ΡΎξΏΒ url:" + writerUrl);
+		System.out.println("λ„μ–΄μ¨ url:" + writerUrl);
 		ModelAndView mav = new ModelAndView("redirect:/writer/myinfo.wdo");
 		service.insertUrl(writerUrl);
 		return mav;

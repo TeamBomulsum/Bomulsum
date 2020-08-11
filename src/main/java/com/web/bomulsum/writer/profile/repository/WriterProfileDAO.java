@@ -11,23 +11,23 @@ public class WriterProfileDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	//ÀÛ°¡ ±âº»ÇÁ·ÎÇÊ ºÒ·¯¿À±â
+	//ì‘ê°€ ê¸°ë³¸í”„ë¡œí•„ ë¶ˆëŸ¬ì˜¤ê¸°
 	public WriterProfileVO getWriterProfile(){
 		WriterProfileVO profile = sqlSessionTemplate.selectOne("writerProfileDAO.loadProfile");
 		return profile;
 	}
 	
-	//ÀÛ°¡ ±âº»ÇÁ·ÎÇÊ µî·Ï(¾÷µ¥ÀÌÆ®)
+	//ì‘ê°€ ê¸°ë³¸í”„ë¡œí•„ ë“±ë¡(ì—…ë°ì´íŠ¸)
 	public void updateWriterProfile(WriterProfileVO vo){
 		sqlSessionTemplate.update("writerProfileDAO.updateProfile",vo);
 	}
 	
-	//ÀÛ°¡ ±âÁ¸ ÇÁ·ÎÇÊÀÌ¹ÌÁö °¡Á®¿À±â
+	//ì‘ê°€ ê¸°ì¡´ í”„ë¡œí•„ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
 	public String getWriterProfileImg() {
 		return sqlSessionTemplate.selectOne("writerProfileDAO.loadProfileImg");
 	}
 	
-	//ÀÛ°¡ ±âÁ¸ Ä¿¹öÀÌ¹ÌÁö °¡Á®¿À±â
+	//ì‘ê°€ ê¸°ì¡´ ì»¤ë²„ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
 	public String getWriterCoverImg() {
 		return sqlSessionTemplate.selectOne("writerProfileDAO.loadCoverImg");
 	}

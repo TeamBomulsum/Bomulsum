@@ -13,16 +13,16 @@ public class WriterMyinfoDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	//ÀÛ°¡ ³»Á¤º¸ ºÒ·¯¿À±â
+	//ì‘ê°€ ë‚´ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°
 	public WriterMyinfoVO getWriterMyinfo(){
 		WriterMyinfoVO info = sqlSessionTemplate.selectOne("writerMyinfoDAO.loadMyinfo");
 		return info;
 	}
 	
-	//º¸À¯ Æ÷ÀÎÆ®
+	//ë³´ìœ  í¬ì¸íŠ¸
 	public Map<String, Object> getGemPointSum2() {
 		Map<String, Object> result =  sqlSessionTemplate.selectOne("writerGempointDAO.gempointSum"); 
-		System.out.println("º¸À¯ÁªÆ÷ÀÎÆ®:"+result); //Å×½ºÆ®
+		System.out.println("ë³´ìœ ì ¬í¬ì¸íŠ¸:"+result); //í…ŒìŠ¤íŠ¸
 		return result;
 	}
 	
