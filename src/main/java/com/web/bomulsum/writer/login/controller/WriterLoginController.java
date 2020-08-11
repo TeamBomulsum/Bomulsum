@@ -32,7 +32,7 @@ public class WriterLoginController {
 	@ResponseBody
 	@PostMapping("/loginCheck")
 	public String LoginCheck(@RequestBody WriterRegisterVO vo, HttpSession session,HttpServletResponse response) {
-		System.out.println("/writer/loginCheck : Post ¿äÃ»¹ß»ı");
+		System.out.println("/writer/loginCheck : Post ìš”ì²­ë¨");
 		System.out.println("parameter : " + vo);
 		
 		String result = null;
@@ -48,19 +48,16 @@ public class WriterLoginController {
 			long limitTime = 60*60*24*90;
 //			long limitTime = 1;
 			
-			//ÀÚµ¿ ·Î±×ÀÎ Ã¼Å©½Ã Ã³¸®ÇØ¾ßÇÒ ³»¿ë
+			//ìë™ ë¡œê·¸ì¸ ì²´í¬ì‹œ ì²˜ë¦¬í•´ì•¼í•  ë‚´ìš©
 			if(vo.isAutoLogin()) {
-				System.out.println("ÀÚµ¿ ·Î±×ÀÎ ÄíÅ° »ı¼ºÁß... ");
 				Cookie loginCookie = new Cookie("loginCookie",session.getId());
 				loginCookie.setPath("/bomulsum");
 				loginCookie.setMaxAge((int)limitTime);
 				System.out.println("loginCookie " + loginCookie);
 				response.addCookie(loginCookie);
 				System.out.println("loginCookie " + loginCookie);
-				//ÀÚµ¿ ·Î±×ÀÎ À¯Áö½Ã°£À» ³¯Â¥ °´Ã¼·Î º¯È¯ÇÏ´Â ·ÎÁ÷
 					long exporedDate = System.currentTimeMillis() + (limitTime * 1000);
 				
-				//Date °´Ã¼ÀÇ »ı¼ºÀÚ¿¡ ¸Å°¡°ªÀ¸·Î ¹Ğ¸®ÃÊÀÇ ½Ã°£À» Àü´ŞÇÏ¸é ³¯Â¥·Î º¯È¯ÇØ Áİ´Ï´Ù.
 					Date limitDate = new Date(exporedDate);
 					System.out.println("limitDate " + limitDate);
 					service.keepLogin(session.getId(), limitDate, vo.getWriterEmail());
@@ -98,21 +95,20 @@ public class WriterLoginController {
 		System.out.println(vo.toString());
 	}
 	
-	//¾ÆÀÌµğ Áßº¹ È®ÀÎ ¿äÃ» Ã³¸®
 	@ResponseBody
 	@PostMapping("/checkId")
 	public String checkId(@RequestBody String writerEmail) {
-		System.out.println("/writer/checkId : POST ¿äÃ» ¹ß»ı!");
+		System.out.println("/writer/checkId : POST ìš”ì²­!");
 		System.out.println("parameter : " + writerEmail);
 			
 		String result = null;
 		int checkNum = service.checkId(writerEmail);
 		System.out.println(checkNum);
 		if(checkNum == 1) {
-			System.out.println("¾ÆÀÌµğ°¡ Áßº¹µÊ!!");
+			System.out.println("ì•„ë””ê°€ ì¤‘ë³µë¨!!");
 			result = "NO";
 		}else {
-			System.out.println("¾ÆÀÌµğ°¡ »ç¿ë °¡´É!!");
+			System.out.println("ì‚¬ìš©ê°€ëŠ¥ì•„ì´ë””!!");
 			result = "OK";
 		}
 			System.out.println("result" + result);
@@ -122,7 +118,7 @@ public class WriterLoginController {
 	
 	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session,HttpServletRequest request,HttpServletResponse response) {
-		System.out.println("·Î±×¾Æ¿ô ¿äÃ»");
+		System.out.println("ë¡œê·¸ì•„ë£»");
 		
 		WriterRegisterVO user = (WriterRegisterVO) session.getAttribute("writer_login");
 		if(user != null) {

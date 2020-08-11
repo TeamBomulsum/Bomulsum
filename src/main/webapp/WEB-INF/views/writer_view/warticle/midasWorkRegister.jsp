@@ -7,7 +7,7 @@
 <title>강의등록</title>
 <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-<link href="<c:url value='/resources/css/summernote/summernote-lite.css'/>" rel="stylesheet" type="text/css">     
+   
 
 <!-- Custom styles for this template-->
 <link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
@@ -104,7 +104,7 @@ h4 {
 
 <script> 
 function removeImg(){
-   var id = document.getElementById('imgs');
+   var id = document.getElementById('image');
    id.removeChild(id);
 
 }
@@ -357,12 +357,21 @@ function saveWork(){
             <!-- Custom scripts for all pages-->
             <script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 
-			<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
-    		<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
+			
 			</div><!-- end content -->
       </div>
    </div>
 </body>
+<!-- include libraries(jQuery, bootstrap) 
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
+<!-- include summernote css/js-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<link href="<c:url value='/resources/css/summernote/summernote-lite.css'/>" rel="stylesheet" type="text/css">  
+<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
+<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
