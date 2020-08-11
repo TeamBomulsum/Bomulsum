@@ -130,7 +130,7 @@
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">알림 및 메시지</b> 
 				<a class="jeonga-collapse-item" href="#">알림</a> 
-				<a class="jeonga-collapse-item" href="#">메시지</a> 
+				<a class="jeonga-collapse-item" href="<c:url value='/user/message.do'/> ">메시지</a> 
 			</li>
 			<!-- 나의 구매후기 -->
 			<li class="jeonga-navItem">
@@ -149,7 +149,7 @@
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">할인혜택</b> 
 				<a class="jeonga-collapse-item" href="#">적립금</a> 
-				<a class="jeonga-collapse-item" href="#">쿠폰함</a>
+				<a class="jeonga-collapse-item" href="<c:url value='/user/coupon/list.do'/> ">쿠폰함</a>
 			</li>
 			<!-- 내정보 -->
 			<li class="jeonga-navItem1">

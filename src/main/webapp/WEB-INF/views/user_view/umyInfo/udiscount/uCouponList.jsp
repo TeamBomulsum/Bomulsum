@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://kit.fontawesome.com/fea5b9b7d0.js" crossorigin="anonymous"></script>
 <title>보물섬 | 쿠폰함</title>
 <style>
 .content {
@@ -65,7 +67,7 @@ body a:link, a:visited, a:hover, a:active {
 	width:470px;
 	height:200px;
 	padding:31px;
-	background-image: URL('../../../resources/img/coupon_ui.png');
+	background-image: URL("<c:url value='/resources/img/coupon_ui.png'/>");
 }
 
 .dndud_coupon_detail_box{
@@ -111,6 +113,8 @@ body a:link, a:visited, a:hover, a:active {
 	display:flex;
 	justify-content:center;
 	align-items: center;
+    margin-top: 100px;
+    margin-bottom: 150px;
 }
 
 .dndud_coupon_none span{
@@ -176,7 +180,27 @@ body a:link, a:visited, a:hover, a:active {
 </style>
 </head>
 <body>
+<script>
+function dateDiff(_date1, _date2){
+	var diffDate_1 = _date1 instanceof Date ? _date1 : new Date(_date1);
+	var diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);
+	
+	diffDate_1 = new Date(diffDate_1.getFullYear(), diffDate_1.getMonth() + 1, diffDate_1.getDate());
+	diffDate_2 = new Date(diffDate_2.getFullYear(), diffDate_2.getMonth() + 1, diffDate_2.getDate());
+	
+	var diff = Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
+	diff = Math.ceil(diff / (1000 * 3600 * 24));
+	
+	return diff;
+}
+</script>
 <div>
+	<c:if test="${empty member}">
+		<script>
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='<c:url value="/user/login.do"/>';
+		</script>
+	</c:if>
 	<!-- 헤더 -->
 	<%@ include file="../../include/uHeader.jsp"  %>
 	
@@ -194,52 +218,29 @@ body a:link, a:visited, a:hover, a:active {
 				</div>
 			</div>
 			
-			<!-- 쿠폰 없을경우 
-			<div class="dndud_coupon_none">
-				<span>사용가능한 쿠폰이 없습니다.</span>
-			</div>
-			 -->
+			<c:if test="${empty couponList}">
+				<div class="dndud_coupon_none">
+					<span>사용가능한 쿠폰이 없습니다.</span>
+				</div>
+			</c:if>
+			
 			
 			
 			<div class="dndud_coupon_list">
-				<div class="dndud_coupon_detail">
-					<div class="dndud_coupon_detail_box">
-						<span>회원가입 환영 할인쿠폰</span>
-               			<span><a>2,000</a>원</span>
-               			<span>사용기한 : 발급일로부터 31일 잔여 (<a>29</a> 일)</span>
-               			<div>작품 보러가기</div>
+				<c:forEach var="coupons" items="${couponList}">
+					<div class="dndud_coupon_detail">
+						<div class="dndud_coupon_detail_box">
+							<span><span>${coupons.couponName}</span> 쿠폰</span>
+							<span><a><fmt:formatNumber value="${coupons.couponPrice}" pattern="#,###"/></a>원</span>
+							<script>
+								var date = '${coupons.couponDate}';
+								var time = dateDiff(date, new Date());
+							</script>
+               				<span>사용기한 : 발급일로부터 30일 (잔여 : <a><script>document.write(time)</script></a> 일)</span>
+               				<div>작품 보러가기</div>
+						</div>
 					</div>
-				</div>
-				<div class="dndud_coupon_detail">
-               		<div class="dndud_coupon_detail_box">
-               			<span>회원가입 환영 할인쿠폰</span>
-               			<span><a>3,000</a>원</span>
-               			<span>사용기한 : 발급일로부터 31일 잔여 (<a>29</a> 일)</span>
-               			<div>작품 보러가기</div>
-               		</div>
-               	</div>
-               	<div class="dndud_coupon_detail">
-               		<div class="dndud_coupon_detail_box">
-               			<span>생일 축하 이벤트 쿠폰</span>
-               			<span><a>5,000</a>원</span>
-               			<span>사용기한 : 발급일로부터 31일 잔여 (<a>29</a> 일)</span>
-               			<div>작품 보러가기</div>
-               		</div>
-               	</div>
-               	<div class="dndud_coupon_detail">
-               		<div class="dndud_coupon_detail_box">
-               			<span>CoolDain 이벤트 쿠폰</span>
-               			<span><a>100,000</a>원</span>
-               			<span>사용기한 : 발급일로부터 31일 잔여 (<a>29</a> 일)</span>
-               			<div>작품 보러가기</div>
-               		</div>
-               	</div>
-			</div>
-			
-			<div class="dndud_content_paging">
-				<div class="dndud_content_paging_num">
-					<a>1</a>
-				</div>
+				</c:forEach>
 			</div>
 			
 			
@@ -267,4 +268,5 @@ body a:link, a:visited, a:hover, a:active {
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 </html>
