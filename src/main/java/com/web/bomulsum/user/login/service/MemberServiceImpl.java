@@ -1,4 +1,4 @@
- package com.web.bomulsum.user.login.service;
+package com.web.bomulsum.user.login.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,8 +19,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insertMember(MemberVO vo) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		encoder.matches(vo.getPassword(), checkVO.getPassword())    ¾ÏÈ£È­ µÇ¾îÀÕ´Â°Å ¸Â´ÂÁö È®ÀÎ.
-//		¾ÏÈ£È­ °úÁ¤
+//		encoder.matches(vo.getPassword(), checkVO.getPassword())    ì•”í˜¸í™” ë˜ì–´ì‡ëŠ”ê±° ë§ëŠ”ì§€ í™•ì¸.
+//		ì•”í˜¸í™” ê³¼ì •
 		vo.setMemberPassword(encoder.encode(vo.getMemberPassword()));
 		dao.insertMember(vo);
 	}

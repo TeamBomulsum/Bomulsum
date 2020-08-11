@@ -42,7 +42,7 @@ public class UserBoardController {
 		mav.addObject("notice", notice);
 		System.out.println("Controller Notice : " + notice);
 		
-		if(notice.getNoticeCategory().equals("¿Ã∫•∆Æ")) {
+		if(notice.getNoticeCategory().equals("Ïù¥Î≤§Ìä∏")) {
 			UserBoardCouponVO coupon = service.getCoupon(seq);
 			System.out.println("Controller Coupon : " + coupon);
 			mav.addObject("coupon", coupon);
@@ -63,7 +63,7 @@ public class UserBoardController {
 		System.out.println(cal.getTime());
 		Date date = Date.valueOf(df.format(cal.getTime()));
 		vo.setCouponDate(date);
-		System.out.println("dao ¿€æ˜ ¿¸ : " + vo.toString());
+		System.out.println("dao ÏûëÏóÖ Ï†Ñ : " + vo.toString());
 		int check = service.couponOverRap(vo);
 		System.out.println("check : " + check);
 		if(check == 1) {

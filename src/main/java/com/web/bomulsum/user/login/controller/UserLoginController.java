@@ -68,13 +68,13 @@ public class UserLoginController {
 		// 4 params(to, from, type, text) are mandatory. must be filled
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", receiver);
-		params.put("from", "01036292628"); // º¸³¾ »ç¶÷ ÀüÈ­¹øÈ£
+		params.put("from", "01036292628"); // ë³´ë‚¼ ì‚¬ëŒ ì „í™”ë²ˆí˜¸
 		params.put("type", "SMS");
 		params.put("text", msg);
 		params.put("app_version", "test app 1.2"); // application name and version
 
 //	    try {
-//	    	//send() Àü¼ÛÇÒÁö ¸»Áö.
+//	    	//send() ì „ì†¡í• ì§€ ë§ì§€.
 //	      JSONObject obj = (JSONObject) coolsms.send(params);
 //	      System.out.println(obj.toString());
 //	    } catch (CoolsmsException e) {
@@ -92,7 +92,7 @@ public class UserLoginController {
 	
 	@RequestMapping(value="/successNewAccount")
 	public String successNewAccount() {
-		System.out.println("controller ÁøÀÔ!");
+		System.out.println("controller ì§„ì…!");
 		return "/ulogin/usuccessNewAccountEmail";
 	}
 	
@@ -110,24 +110,24 @@ public class UserLoginController {
 		mav.setViewName("/ulogin/ulogin");
 		if(check == 1) {
 			
-			// ¼¼¼Ç¿¡ »ç¿ëÀÚ °íÀ¯ÄÚµå ³Ö±â.
+			// ì„¸ì…˜ì— ì‚¬ìš©ì ê³ ìœ ì½”ë“œ ë„£ê¸°.
 			String userCode = service.getUserCode(vo.getEmail());
 			HttpSession session = request.getSession();
 			session.setAttribute("member", userCode);
 			
-			//·Î±×ÀÎ À¯¹« Ã³¸®
+			//ë¡œê·¸ì¸ ìœ ë¬´ ì²˜ë¦¬
 			NowLoginVO newloginVo = new NowLoginVO();
 			newloginVo.setMemberEmail(vo.getEmail());
 			newloginVo.setyORn("Y");
 			service.updateLogin(newloginVo);
 			
-			// »ç¿ëÀÚ ÀÌ¸§ ³Ö¾îÁÖ±â
+			// ì‚¬ìš©ì ì´ë¦„ ë„£ì–´ì£¼ê¸°
 			String userName = service.getUserName(userCode);
 			session.setAttribute("userName", userName);
 			session.setAttribute("user", service.getUser(userCode));
-			System.out.println("½Å±Ô Ãß°¡ : " + service.getUser(userCode));
+			System.out.println("ì‹ ê·œ ì¶”ê°€ : " + service.getUser(userCode));
 			
-			// ÀÌ¸ŞÀÏ ÀúÀåÇÏ±â Ã¼Å©¹Ú½º ¼±ÅÃ½Ã ÄíÅ° »ı¼ºÇØÁÖ±â.
+			// ì´ë©”ì¼ ì €ì¥í•˜ê¸° ì²´í¬ë°•ìŠ¤ ì„ íƒì‹œ ì¿ í‚¤ ìƒì„±í•´ì£¼ê¸°.
 			if(vo.getRememberEmail() != null) {
 				Cookie cookie = new Cookie("rememberEmail", vo.getEmail());
 				cookie.setMaxAge(24*60*60*30);

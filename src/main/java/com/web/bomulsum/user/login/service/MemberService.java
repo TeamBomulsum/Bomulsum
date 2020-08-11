@@ -7,28 +7,28 @@ import com.web.bomulsum.user.login.repository.NowLoginVO;
 
 public interface MemberService {
 	
-	// À¯Àú È¸¿ø °¡ÀÔ
+	// ìœ ì € íšŒì› ê°€ì…
 	void insertMember(MemberVO vo);
 	
-	// À¯Àú ÀÌ¸ŞÀÏ Áßº¹ È®ÀÎ
+	// ìœ ì € ì´ë©”ì¼ ì¤‘ë³µ í™•ì¸
 	int checkEmail(String memberEmail);
 	
-	// ·Î±×ÀÎ Ã¼Å©
+	// ë¡œê·¸ì¸ ì²´í¬
 	int loginCheck(LoginVO vo);
 	
-	// ·Î±×ÀÎ À¯¹« Ã³¸®
+	// ë¡œê·¸ì¸ ìœ ë¬´ ì²˜ë¦¬
 	void updateLogin(NowLoginVO vo);
 	
-	// È¸¿ø ÄÚµå °¡Á®¿À±â
+	// íšŒì› ì½”ë“œ ê°€ì ¸ì˜¤ê¸°
 	String getUserCode(String memberEmail);
 	
-	// È¸¿ø ÀÌ¸§ °¡Á®¿À±â
+	// íšŒì› ì´ë¦„ ê°€ì ¸ì˜¤ê¸°
 	String getUserName(String code);
 	
-	// È¸¿ø ·Î±×¾Æ¿ô
+	// íšŒì› ë¡œê·¸ì•„ì›ƒ
 	void logout(NowLoginVO vo);
 	
-	// ¼¼¼Ç È¸¿ø Á¤º¸
+	// ì„¸ì…˜ íšŒì› ì •ë³´
 	MemberSessionVO getUser(String code);
 	
 }
