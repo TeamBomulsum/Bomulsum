@@ -68,7 +68,7 @@
 					<li class="nav-item dropdown no-arrow"><a
 						class="nav-link dropdown-toggle" href="#" id="userDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <span style="font-size: 13px">${writer_login.wrtierName } 님</span>
+						aria-expanded="false"> <span style="font-size: 13px">${sessionScope.writer_login.writerName } 님</span>
 					</a> <!-- Dropdown - User Information -->
 						<div
 							class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

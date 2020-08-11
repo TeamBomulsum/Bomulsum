@@ -142,7 +142,9 @@ function saveWork(){
 		console.log('제대로 된 날짜')
 	}
 	
+	
 }
+
 
 </script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -196,7 +198,7 @@ function saveWork(){
                   </tr>
                   <tr>
                      <td class="left">가격</td>
-                     <td><input type="text" name="midasPrice" autocomplete="off"> 원</td>
+                     <td><input type="number" name="midasPrice" autocomplete="off"> 원</td>
                   </tr>
                   <tr>
                      <td class="left">할인</td>
@@ -207,7 +209,7 @@ function saveWork(){
                      <td class="left">최대인원</td>
                      <td><button id="wonMinusButton" onclick="wonMinusButton()" style="border: 1px solid #ddd;">
                      <span style="border-color: #ABABAB;">-</span></button>
-						<input id="wonAuctionAmount" style="width:10%; text-align: center;" value="1" readonly name="maxNumber">
+						<input id="wonAuctionAmount" type="number" style="width:10%; text-align: center;" value="1" readonly name="maxNumber">
 						<button id="wonPlusButton" onclick="wonPlusButton()" style="border: 1px solid #ddd;">
 						<span style="border-color: #ABABAB; ">+</span>
 						</button>
@@ -355,8 +357,8 @@ function saveWork(){
             <!-- Custom scripts for all pages-->
             <script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 
-    		<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
 			<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
+    		<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
 			</div><!-- end content -->
       </div>
    </div>

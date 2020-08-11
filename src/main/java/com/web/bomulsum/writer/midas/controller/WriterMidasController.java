@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 import com.web.bomulsum.writer.midas.service.WriterMidasService;
 
@@ -35,9 +38,10 @@ public class WriterMidasController {
 	}
 	
 	@PostMapping("/midasClassRegister")
-	public ModelAndView midasRegister(ModelAndView mav,@RequestParam(value="midasPicture", required=false) List<MultipartFile> mf,
-			 HttpServletRequest request,WriterMidasVO vo) {
+	public ModelAndView midasRegister(ModelAndView mav,@RequestParam(value="orderPicture", required=false) List<MultipartFile> mf,
+			 HttpServletRequest request,WriterMidasVO vo,WriterRegisterVO rvo) {
 			System.out.println("midasRegister 들어옴");
+			
 		//사진 저장
 				String result="";
 				
@@ -51,9 +55,18 @@ public class WriterMidasController {
 					
 					result += saveFile+",";
 				}	
-				System.out.println("result : "+result);
+				System.out.println(vo.getEndTime().toString());
 				vo.setOrderImg(result);
+				HttpSession session =  request.getSession();
+				WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
 				
+				String seq = code.getWriterSeq();
+				
+				vo.setWriterCodeSeq(seq);
+				
+				System.out.println(session);
+				
+				System.out.println(vo.toString());
 				//작품 등록
 				service.midasRegister(vo);
 				mav.setViewName("redirect:/writer/midasRegister.wdo"); 

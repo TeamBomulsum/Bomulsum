@@ -4,13 +4,25 @@
 
 <mapper namespace="com.web.bomulsum.writer.midas.repository.WriterMidasDAO">
 
-	<insert id="midasRegister" parameterType="com.web.bomulsum.writer.midas.repository.WriterMidasVO">
+
+	<select id="selectWriterCode"
+		parameterType="com.web.bomulsum.writer.login.repository.WriterRegisterVO">
+		SELECT
+			writer_code_seq
+		FROM
+			writer_tb
+		WHERE
+			writer_email=#{writerEmail};
+	</select>
+	
+	<insert id="midasRegister" 
+	parameterType="com.web.bomulsum.writer.midas.repository.WriterMidasVO">
 		INSERT INTO 
 			midas_tb 	
 		VALUES
 		(
 			'midas_code_seq'||TO_CHAR(midas_code_sq.nextval),
-			'writer_login.writerSeq',
+			#{writerCodeSeq },
 			#{orderImg},
 			#{midasName},
 			#{midasPrice},
@@ -28,7 +40,10 @@
 			#{address2},
 			#{keyword},
 			'Y'
-		);
+		)
 	</insert>
+
+
+	
 
 </mapper>

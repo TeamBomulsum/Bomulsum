@@ -16,7 +16,7 @@
 			)
 		VALUES(
 			'writer_code_seq'|| TO_CHAR(writer_code_sq.nextval),
-			#{wrtierName},
+			#{writerName},
 			#{writerEmail},
 			#{writerPassword}
 			)
@@ -52,7 +52,7 @@
 	<resultMap type="com.web.bomulsum.writer.login.repository.WriterRegisterVO" id="RegisterMap">
 		<result property="writerEmail" column="writer_email"/>
 		<result property="writerSeq" column="writer_code_seq"/>
-		<result property="wrtierName" column="writer_name"/>
+		<result property="writerName" column="writer_name"/>
 		<result property="writerPassword" column="writer_password"/>
 		<result property="sessionId" column="session_id"/>
 		<result property="limitTime" column="limit_time"/>

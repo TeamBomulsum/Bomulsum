@@ -1,7 +1,6 @@
 package com.web.bomulsum.writer.login.controller;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

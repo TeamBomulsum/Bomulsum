@@ -17,6 +17,11 @@ public class WriterMidasServiceImpl implements WriterMidasService{
 		dao.midasRegister(vo);
 	}
 
+	@Override
+	public String selectWriterCode(String writerEmail) {
+		return  dao.writerEmail(writerEmail);
+	}
+
 
 
 }

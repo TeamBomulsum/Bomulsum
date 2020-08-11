@@ -15,4 +15,8 @@ public class WriterMidasDAO {
 				"com.web.bomulsum.writer.midas.repository.WriterMidasDAO.midasRegister",vo);
 		
 	}
+	public String writerEmail(String writerEmail) {
+		return template.selectOne(
+				"com.web.bomulsum.writer.midas.repository.WriterMidasDAO.selectWriterCode", writerEmail);
+	}
 }
