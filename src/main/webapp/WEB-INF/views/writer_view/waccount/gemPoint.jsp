@@ -236,7 +236,7 @@ footer span{
 					</table>
 
 					<!-- 페이징 처리 -->
-					<div id="pagination" class="minwoo_pagination"></div>
+					<div id="pagination" class="minwoo_pagination" style="padding-right: 8%;"></div>
 			<!-- 		<div class="paging" style="width: 90%;">
 						<a class="arrow prev" href="#">이전</a> <a href="#">1</a> <a
 							class="arrow next" href="#">다음</a>
@@ -435,7 +435,7 @@ footer span{
             if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전...&nbsp;&nbsp;</a>";
                         
             for(var index = startPage; index <= endPage; index++){
-               paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
+               paginationHTML += (parseInt(page) === parseInt(index)) ? " <a style='color:#ff8400'>" + index + "</a> " :" <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> ";
             }
                         
             if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";

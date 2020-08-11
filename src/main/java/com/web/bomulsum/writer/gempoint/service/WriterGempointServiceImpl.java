@@ -16,19 +16,19 @@ public class WriterGempointServiceImpl implements WriterGempointService{
 	WriterGempointDAO dao;
 	   
 	@Override
-	public List<Map<String, String>> getGemPoint() {
-	      List<Map<String, String>> list = dao.getGemPoint();
+	public List<Map<String, String>> getGemPoint(String writerCodeSeq) {
+	      List<Map<String, String>> list = dao.getGemPoint(writerCodeSeq);
 	      return list;
 	}
 
 	@Override
-	public Map<String, Object> getGemPointSum() {
-		return dao.getGemPointSum();
+	public Map<String, Object> getGemPointSum(String writerCodeSeq) {
+		return dao.getGemPointSum(writerCodeSeq);
 	}
 
 	@Override
-	public void insertGemPointCharge(int chargeMoney) {
-		dao.insertGemPointCharge(chargeMoney);
+	public void insertGemPointCharge(Map<String, Object> gemMap) {
+		dao.insertGemPointCharge(gemMap);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.web.bomulsum.writer.gempoint.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +16,8 @@ public class WriterGempointDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	//이용내역
-	public List<Map<String, String>> getGemPoint() {
-		List<Map<String, String>> list = sqlSessionTemplate.selectList("writerGempointDAO.gempointSelect");
+	public List<Map<String, String>> getGemPoint(String writerCodeSeq) {
+		List<Map<String, String>> list = sqlSessionTemplate.selectList("writerGempointDAO.gempointSelect", writerCodeSeq );
 		System.out.println(list); //테스트
 		return list;
 	}
@@ -25,14 +26,14 @@ public class WriterGempointDAO {
 //		return list;
 //	}
 	//보유 포인트
-	public Map<String, Object> getGemPointSum() {
-		Map<String, Object> result =  sqlSessionTemplate.selectOne("writerGempointDAO.gempointSum"); //mapper namespace . id
+	public Map<String, Object> getGemPointSum(String writerCodeSeq) {
+		Map<String, Object> result =  sqlSessionTemplate.selectOne("writerGempointDAO.gempointSum", writerCodeSeq); //mapper namespace . id
 		System.out.println(result); //테스트
 		return result;
 	}
 	
 	//젬포인트 충전
-	public void insertGemPointCharge(int chargeMoney) {
-		sqlSessionTemplate.insert("writerGempointDAO.gempointChargeInsert", chargeMoney); 
+	public void insertGemPointCharge(Map<String, Object> gemMap) {
+		sqlSessionTemplate.insert("writerGempointDAO.gempointChargeInsert", gemMap); 
 	}
 }
