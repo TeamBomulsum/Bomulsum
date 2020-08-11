@@ -1,6 +1,7 @@
 package com.web.bomulsum.user.login.service;
 
 import com.web.bomulsum.user.login.repository.LoginVO;
+import com.web.bomulsum.user.login.repository.MemberSessionVO;
 import com.web.bomulsum.user.login.repository.MemberVO;
 import com.web.bomulsum.user.login.repository.NowLoginVO;
 
@@ -26,5 +27,8 @@ public interface MemberService {
 	
 	// 회원 로그아웃
 	void logout(NowLoginVO vo);
+	
+	// 세션 회원 정보
+	MemberSessionVO getUser(String code);
 	
 }

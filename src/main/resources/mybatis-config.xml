@@ -3,23 +3,36 @@
 
 <configuration>
 	<typeAliases>
+		<!-- user -->
 		<typeAlias type="com.web.bomulsum.user.login.repository.MemberVO" alias="memberVO"/>	
-		<typeAlias type="com.web.bomulsum.writer.board.repository.writerBoardVO" alias="writerBoardVO"/>	
-		<!-- gemPoint VO -->
-		<typeAlias type="com.web.bomulsum.writer.gempoint.repository.WriterGempointVO" alias="WriterGempointVO"/>	
-
-		<typeAlias type="com.web.bomulsum.writer.login.repository.WriterRegisterVO" alias="WriterRegisterVO"/>
-
 		
+		<!-- manager -->
+		
+		<!-- writer -->
+		<typeAlias type="com.web.bomulsum.writer.board.repository.writerBoardVO" alias="writerBoardVO"/>	
+		<typeAlias type="com.web.bomulsum.writer.gempoint.repository.WriterGempointVO" alias="WriterGempointVO"/>	
+		<typeAlias type="com.web.bomulsum.writer.login.repository.WriterRegisterVO" alias="WriterRegisterVO"/>
+		<typeAlias type="com.web.bomulsum.writer.profile.repository.WriterProfileVO" alias="WriterProfileVO"/>
+		<typeAlias type="com.web.bomulsum.writer.salespolicy.repository.WriterSalesPolicyVO" alias="WriterSalesPolicyVO"/>
+		<typeAlias type="com.web.bomulsum.writer.midas.repository.WriterMidasVO" alias="WriterMidasVO"/>
 	</typeAliases>
 
 	<mappers>
+		<!--user -->
 		<mapper resource="mappings/user/login-mapping.xml" />		
-		<mapper resource="mappings/writer/writer-board-mapping.xml" />	
-		<!-- gemPoint -->
-		<mapper resource="mappings/writer/gempoint-mapping.xml" />
+		
+		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
+		
+		<!-- writer -->
+		<mapper resource="mappings/writer/writer-board-mapping.xml" />	
+		<mapper resource="mappings/writer/writer-gempoint-mapping.xml" />
 		<mapper resource="mappings/writer/writer-login-mapping.xml" />
 		<mapper resource="mappings/writer/writer-art-mapping.xml" />
+		<mapper resource="mappings/user/user-message-mapping.xml" />
+		<mapper resource="mappings/user/user-board-mapping.xml" />
+		<mapper resource="mappings/writer/writer-profile-mapping.xml" />
+		<mapper resource="mappings/writer/writer-salespolicy-mapping.xml" />
+		<mapper resource="mappings/writer/writer-midas-mapping.xml" />
 	</mappers>
 </configuration>

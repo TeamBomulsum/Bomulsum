@@ -11,7 +11,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("게시판 인터셉터 발동!");
+		System.out.println("로그인 인터셉터 발동!");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("writer_login") == null) {

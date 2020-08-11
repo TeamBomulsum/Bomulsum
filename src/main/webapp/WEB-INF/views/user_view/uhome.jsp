@@ -75,24 +75,14 @@
 	animation-duration: 1.5s;
 }
 
-@
--webkit-keyframes fade {
-	from {opacity: .4
+@-webkit-keyframes fade {
+	from {opacity: .4}
+	to {opacity: 1}
 }
 
-to {
-	opacity: 1
-}
-
-}
-@
-keyframes fade {
-	from {opacity: .4
-}
-
-to {
-	opacity: 1
-}
+@keyframes fade {
+	from {opacity: .4}
+	to {opacity: 1}
 }
 </style>
 <style>
@@ -722,6 +712,12 @@ function showSlides(n) {
       slides[i].style.display = "none";  
   }
   slides[slideIndex-1].style.display = "block";
+}
+
+window.onload = function(){
+	setInterval(function(){
+		plusSlides(1);
+	}, 5000);
 }
 </script>
 </html>

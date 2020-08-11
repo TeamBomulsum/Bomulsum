@@ -9,7 +9,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
 <meta name="author" content="">
 
 <title>보물섬(관리자) | 게시판 글 등록</title>
@@ -264,12 +263,6 @@
 											<option value="작가용-정책등록가이드">작가용-정책등록가이드</option>	
 										</select>
 										</span>
-										<!-- |회원-이벤트| 카테고리 선택 되었을때 나타나게 해줘야 됨. -->
-										<!-- <div id="board_type_div" style="display:none;">
-											<button type="button" class="btn btn-primary"
-												data-toggle="modal" data-target="#couponModal">쿠폰 등록</button>
-										</div> -->
-										
 									</div>
 									<br>
 									
@@ -303,7 +296,7 @@
 									<div>
 										<span style="display:inline-block; width:100px;" >글 제목</span>
 										<span>:&nbsp;&nbsp;</span>
-										<span><input type="text" style="width:90%;" name="adminNoticeTitle"></span>
+										<span><input type="text" style="width:90%;" name="adminNoticeTitle" id="admin_notice_title"></span>
 									</div>
 									<br>
 									<div>
@@ -313,7 +306,7 @@
 									</div>
 									<br>
 									<div style="width:100%; display:flex; justify-content: center;">
-										<input type="submit" value="글 등록" class="btn btn-primary" style="margin:10px;">
+										<input type="submit" value="글 등록" class="btn btn-primary" id="submit" style="margin:10px;">
 									</div>
 								</div>
 								
@@ -374,31 +367,6 @@
 			</div>
 		</div>
 		
-		<!-- couponModal -->
-		<!-- <div class="modal fade" id="couponModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">쿠폰 등록 모달</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		        	일단 비워둠.
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-		        <button type="button" class="btn btn-primary">저장</button>
-		      </div>
-		    </div>
-		  </div>
-		</div> -->
-
-		
-
-
-		
 		
 
 		<!-- Bootstrap core JavaScript-->
@@ -427,7 +395,17 @@
 		/*셀렉트 박스 영역*/
 		
 		/* 이벤트 버튼 눌럿을 때 버튼 생성하기*/
-		$(function(){
+
+		$(document).ready(function() {
+			$('#summernote').summernote({
+				height : 350, // 에디터 높이
+				minHeight : null, // 최소 높이
+				maxHeight : null, // 최대 높이
+				focus : true, // 에디터 로딩후 포커스를 맞출지 여부
+				lang : "ko-KR",
+				placeholder : ""//placeholder 설정
+			});
+	      
 			$("#admin_notice_category").click(function(){
 				if($("#admin_notice_category").val() == ("이벤트")){
 					$("#board_type_div").css("display", "inline-block");
@@ -435,17 +413,16 @@
 					$("#board_type_div").css("display", "none");
 				}
 			});
-		});
-		
-		$(document).ready(function() {
-	      $('#summernote').summernote({
-	         height : 350, // 에디터 높이
-	         minHeight : null, // 최소 높이
-	         maxHeight : null, // 최대 높이
-	         focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-	         lang : "ko-KR",
-	         placeholder : ''//placeholder 설정
-	      });
+/* 			
+			$('#submit').click(function(){
+				if($('#admin_notice_category').val == ""){
+					alert("카테고리를 선택해주세요");
+				} else if($('#admin_notice_title').val == ""){
+					alert("제목을 입력해주세요");
+				} else if($('#summernote').val == ""){
+					alert("내용을 입력해주세요");
+				}
+			}); */
 	   });
 		
 		</script>

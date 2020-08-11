@@ -15,26 +15,15 @@
 <!-- Custom styles for this template-->
 <link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <style>
-.workRegisterContainer{
+.jeongaworkRegisterContainer{
    width:80%;
 }
-.basicInformationContainer {
+.jeongabasicInformationContainer {
    width: 100%;
    margin-left: 2%;
 }
 
-.provideInformationContainer, .targetContainer, .optionContainer,
-   .savecontainer {
-   width: 100%;
-   margin-left: 2%;
-   margin-top: 3%;
-}
-
-.loadButton {
-   float: right;
-}
-
-.basicInfoTable, .provideInfoTable, .targetTable, .optionTable {
+.jeongabasicInfoTable {
    margin-top: 1%;
    width: 100%;
    table-layout: fixed;
@@ -56,18 +45,6 @@ h4 {
    background-color: #f2f2f2;
 }
 
-.workNameRegister {
-   width: 30%;
-   height: 10%;
-   position: relative;
-   display: inline-block;
-}
-
-#counter {
-   border-radius: 0.5em;
-   padding: 0 .5em 0 .5em;
-   font-size: 0.75em;
-}
 
 .imageContainer {
    width: 800px;
@@ -75,9 +52,18 @@ h4 {
 }
 
 .imageContainer img {
-   max-width: 100px;
+   max-width: 120px;
+   margin-right:1%;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
+#workName{
+	height:30px;
+}
 .flexcontainer {
    display: flex;
    justify-content: space-between;
@@ -89,51 +75,53 @@ h4 {
    flex-direction: row;
 }
 
-.savecontainer {
-   display: flex;
-   justify-content: center;
-   align-item: center;
-   margin-left:0;
-   margin-top:2%;
-   margin-bottom:2%;
-   margin-right:0;
+#registerbtn{
+	margin:5%;
 }
 
-#imgs{
-   margin-right:2%;
+#keyword1,#keyword2,#keyword3,#keyword4,#keyword5,#keyword6,#keyword7,#keyword8{
+	margin:5px;
 }
+
 
 </style>
-
-
-
-
-
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script> 
 function removeImg(){
    var id = document.getElementById('imgs');
    id.removeChild(id);
 
 }
-function setThumbnail(event) { 
+function setThumbnail(event) {  
+	$(".imageContainer").empty();
    for (var image of event.target.files) { 
       var reader = new FileReader(); 
       reader.onload = function(event) { 
+
          var img = document.createElement("img"); 
          img.setAttribute("src", event.target.result); 
+                
          var divEle = document.createElement("a");
-         divEle.setAttribute("href","#");
-         divEle.setAttribute("onclick","removeImg();")
-         divEle.setAttribute("id","imgs")
+        // divEle.setAttribute("href","#");
+         //divEle.setAttribute("onclick","removeImg();")
+         //divEle.setAttribute("id","imgs")
          divEle.appendChild(img);
          document.querySelector("div.imageContainer").appendChild(divEle);
       }; 
       console.log(image); 
-      reader.readAsDataURL(image); 
-   } 
+      reader.readAsDataURL(image);
+   }  
 }
+
+$(function() {
+    $('#workName').keyup(function (e){
+        var content = $(this).val();
+        $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+        $('#nameCounter').html(content.length + '/20');
+    });
+    $('#workName').keyup();
+});
+
 /*
 $(document).ready(function() {
     $('#summernote').summernote({
@@ -146,7 +134,6 @@ $(document).ready(function() {
 
     });
  });*/
-
  
 </script>
 </head>
@@ -166,41 +153,38 @@ $(document).ready(function() {
          <div id="content">
             <%@ include file="../include/head.jsp" %>
             <!-- end Header/Nav -->
-            <div class="workRegisterContainer">
+            <div class="jeongaworkRegisterContainer">
             <!-- 기본정보 영역 -->
- <!--             <div class="basicInformationContainer">-->
+             <div class="jeongabasicInformationContainer">
                <!-- topLine -->
                <div class="flexcontainer">
                   <div class="textTitle">
                      <h4>기본정보</h4>
                   		   등록하려는 작품에 대해 이야기해주세요
                   </div>
-                  <div class="loadButton">
-                     <button class="button" id="load" type="button">등록한 작품 불러오기</button>
-                  </div>	
                </div>
                <!-- end flexcontainer -->
                <!-- end of topLine -->
             
-            <!-- 여기 지금 테스트중 -->
-           	<form action="<c:url value='/writer/artregister.wdo'/> " method="get">
-               <table border="1" class="basicInfoTable">
+            <!-- form 시작 -->
+           	<form action="<c:url value='/writer/artregister.wdo'/> " method="post" enctype="multipart/form-data">
+               <table border="1" class="jeongabasicInfoTable">
 
                   <tr>
                      <td class="left" style="width: 20%">사진등록</td>
-                     <td><input type="file" id="image" accept="image/*"
+                     <td>
+                     <input type="file" id="image" accept="image/*" name="artPicture"
                         onchange="setThumbnail(event);" multiple />
-                        <div class="imageContainer">
-                           
+                        <div class="imageContainer">                         
                         </div>
+                        <span style="font-size:14px">* 파일 선택시 한 번에 여러장의 이미지를 올려주세요</span>
                      </td>
                   </tr>
                   <tr>
                      <td class="left">작품명</td>
-                     <td><div class="workNameRegister">
-                           <input type="text" name = "artName" id="workName" maxlength="20" autocomplete="off"> 
-                           <span id="nameCounter"> 0/20</span>
-                        </div></td>
+                     <td>
+                          <input type="text" id="workName" name="artName" style="max-height: 30px" maxlength="20" autocomplete="off" />
+							<span id="nameCounter" style="font-size: 12px"> ### </span></td>
                   </tr>
                   <tr>
                      <td class="left">가격</td>
@@ -208,24 +192,20 @@ $(document).ready(function() {
                   </tr>
                   <tr>
                      <td class="left">할인</td>
-                     <td><input type="checkbox"> 할인 후 가격  
-                     <input type="number" id="salePrice" name="artDiscount" autocomplete="off">&nbsp;원</td>
+                     <td><input type="number" id="salePrice" name="artDiscount" autocomplete="off">&nbsp;원</td>
                   </tr>
                   <tr>
                      <td class="left">수량</td>
-                     <td><input type="checkbox"> 주문시 제작  
-                     <input type="number" id="num" name = "artCount" autocomplete="off"> 개</td>
+                     <td><input type="number" id="num" name = "artCount" autocomplete="off"> 개</td>
                   </tr>
                   <tr>
                      <td class="left">작품설명</td>
-                     <td><!--  <input name="artDescription" autocomplete="off">-->
-                     <textarea id="summernote" name="artDescription" rows="6" cols="80" style="overflow-y: scroll; resize: none;"></textarea></td>
+                     <td><textarea id="summernote" name="artDescription" rows="8" cols="80" style="overflow-y: scroll; resize: none;"></textarea></td>
                   </tr>
        			
                   <tr>
                      <td class="left">카테고리</td>
-                     <td>
-                      
+                     <td>                    
                            <select name="artCategory" id="category_id">
                               <option value="식음료">식음료</option>
                               <option value="문구팬시">문구팬시</option>
@@ -242,33 +222,26 @@ $(document).ready(function() {
                            </select>
                      </td>
                   </tr>
-                                
-<!--              </table> -->
-<!--   	        <input type="submit" value="글 등록" class="btn btn-primary" style="margin:10px;">
-  			</form>-->
- <!--            </div>--> 
-           
+          
             <!-- end 기본 작품 정보 영역  -->
-
+            
             <!-- 작품 정보 제공 고시 영역 -->
             <tr>
-            <td colspan="2">
-<!--    		    <div class="provideInformationContainer">-->	 
+            <td colspan="2" style="border-right: 0px; border-left:0px;">
+ 
                <!-- topLine -->
                <div class="topLine">
-                  <div class="textTitle">
+                  <div class="detailTitle" style="padding-top:3%; padding-bottom:0px;">
                      <h4>작품 정보 제공 고시</h4>
-                     <p>전자상거래법에 따라 작품 정보제공 고시는 필수 입력사항입니다. 해당 정보에 대한 책임은 판매 작가님에게
+                     <p style="margin-bottom:0px">전자상거래법에 따라 작품 정보제공 고시는 필수 입력사항입니다. 해당 정보에 대한 책임은 판매 작가님에게
                         있습니다.</p>
                   </div>
                </div>
                </td>
                </tr>
                <!-- end of topLine -->
-    <!--           <table border="1" class="provideInfoTable"> --> 
                   <tr>
-                     <td class="left" style="width: 20%">작품군</td>
-                      <td style="display:none"><input type="text" name ="artCodeSeq" value="${artCodeSeq}"></td>
+                     <td class="left" style="width: 20%">작품군</td>              
                      <td>
                         <div class="categoryDiv">
 
@@ -330,66 +303,56 @@ $(document).ready(function() {
 
                      </td>
                   </tr>
-  <!--              </table>--> 
-
-  <!--           </div>--> 
             <!-- end 작품 정보 제공 고시 영역  -->
 
             <!-- 키워드 타겟설정 영역 -->
-  <!--         <div class="targetContainer"> -->  
                <!-- topLine -->
                <tr>
-               <td>
-               <div class="topLine">
+               <td style="border-right: 0px; border-left:0px;">
+               <div class="topLine" style="padding-top:20px">
                   <h4>타겟설정</h4>
                </div>
                </td>
                </tr>
                <!-- end of topLine -->
- <!--              <table border="1" class="targetTable"> --> 
                   <tr>
                      <td class="left" style="width: 20%">작품키워드</td>
                      <td>
-                        <div id="add">
-                              <input type="text" id="keyword" name = "artKeyword" autocomplete="off">
-                              <button id="keywordAdd" type="submit">추가</button>
-                               0/20
-                        </div>
-                        <div class="keywordContainer"></div>
-                         10/10개<br>
-                        띄어쓰기, 문장 기호가 특수 문자를 사용한 등록이 불가능하며, 최대 10개까지 등록이 가능합니다.
+                        <!-- 키워드 추가 수정 -->
+                             <input type="text" id="keyword1" name = "artKeyword" placeholder="키워드1" maxlength="15" autocomplete="off">
+                             <input type="text" id="keyword2" name = "artKeyword" placeholder="키워드2" maxlength="15" autocomplete="off">
+                             <input type="text" id="keyword3" name = "artKeyword" placeholder="키워드3" maxlength="15" autocomplete="off">
+                             <input type="text" id="keyword4" name = "artKeyword" placeholder="키워드4" maxlength="15" autocomplete="off">
+                             <input type="text" id="keyword5" name = "artKeyword" placeholder="키워드5" maxlength="15" autocomplete="off">
+                             <input type="text" id="keyword6" name = "artKeyword" placeholder="키워드6" maxlength="15" autocomplete="off">
+                             <input type="text" id="keyword7" name = "artKeyword" placeholder="키워드7" maxlength="15" autocomplete="off">
+                             <input type="text" id="keyword8" name = "artKeyword" placeholder="키워드8" maxlength="15" autocomplete="off">
+
+                         <br>
+                        <span style="font-size:14px;">* 띄어쓰기, 문장 기호가 특수 문자를 사용한 등록이 불가능하며, 최대 8개까지 등록이 가능합니다.</span>
                      </td>
                   </tr>
             <!-- end 타겟 설정 영역 -->
 
             <!-- 옴션설정 영역 -->
- <!--          <div class="optionContainer">  --> 
 			<tr>
-			<td colspan="2">
+			<td colspan="2" style="border-right: 0px; border-left:0px;">
                <div class="flexcontainer">
-                  <div class="textTitle">
+                  <div class="textTitle" style="padding-top:3%; padding-bottom:0px;">
                      <h4>옵션</h4>
-                  </div>
-                  <div class="addButton">
-                     <button class="button" id="add" type="button">옵션추가</button>
                   </div>
                </div>
                </td>
                </tr>
                <!-- end flexcontainer -->
 
-    <!--          <table border="1" class="optionTable"> -->  
                   <tr>
                      <td class="left" style="width: 20%">옵션1</td>
                      <td>
                         <div>
                            <div class="flexcontainer">
                               <div class="textTitle">
-                                 <input type="text" id="keyword" placeholder="구성 선택" autocomplete="off">
-                              </div>
-                              <div class="addButton">
-                                 <button type="button" class="button">세부 항목 추가</button>
-                                 <button type="button" class="button">옵션 삭제</button>
+                                 <input type="text" name="artOptionCategory" id="option" placeholder="구성 선택" autocomplete="off">
                               </div>
                            </div>
                            <!-- end flexcontainer -->
@@ -400,25 +363,26 @@ $(document).ready(function() {
                            <div class="flexCon">
                               <div class="nameGroup" style="margin-left:3%">
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name1" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name2" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name3" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
                                  </div>
                               </div>
                               <div class="priceGroup" style="margin-left:9%">
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price1" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price1" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price2" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price2" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price3" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price3" size="30%" autocomplete="off">
                                  </div>
+
                               </div>
                            </div>
                            <!-- end flexcon -->
@@ -431,11 +395,7 @@ $(document).ready(function() {
                         <div>
                            <div class="flexcontainer">
                               <div class="textTitle">
-                                 <input type="text" id="keyword" placeholder="구성 선택" autocomplete="off">
-                              </div>
-                              <div class="addButton">
-                                 <button type="button" class="button">세부 항목 추가</button>
-                                 <button type="button" class="button">옵션 삭제</button>
+                                 <input type="text" name="artOptionCategory" id="option" placeholder="구성 선택" autocomplete="off">
                               </div>
                            </div>
                            <!-- end flexcontainer -->
@@ -446,24 +406,68 @@ $(document).ready(function() {
                            <div class="flexCon">
                               <div class="nameGroup" style="margin-left:3%">
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name1" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name2" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" id="name3" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
                                  </div>
+
                               </div>
                               <div class="priceGroup" style="margin-left:9%">
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price1" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price1" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price2" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price2" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" id="price3" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price3" size="30%" autocomplete="off">
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- end flexcon -->
+                        </div>
+                     </td>
+                  </tr>
+                    <tr>
+                     <td class="left" style="width: 20%">옵션3</td>
+                     <td>
+                        <div>
+                           <div class="flexcontainer">
+                              <div class="textTitle">
+                                 <input type="text" name="artOptionCategory" id="option" placeholder="구성 선택" autocomplete="off">
+                              </div>
+                           </div>
+                           <!-- end flexcontainer -->
+
+                        </div> <!-- end detail -->
+                        <hr>
+                        <div>
+                           <div class="flexCon">
+                              <div class="nameGroup" style="margin-left:3%">
+                                 <div class="names">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
+                                 </div>
+                                 <div class="names">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
+                                 </div>
+                                 <div class="names">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
+                                 </div>
+
+                              </div>
+                              <div class="priceGroup" style="margin-left:9%">
+                                 <div class="prices">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price1" size="30%" autocomplete="off">
+                                 </div>
+                                 <div class="prices">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price2" size="30%" autocomplete="off">
+                                 </div>
+                                 <div class="prices">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price3" size="30%" autocomplete="off">
                                  </div>
                               </div>
                            </div>
@@ -472,19 +476,14 @@ $(document).ready(function() {
                      </td>
                   </tr>
                </table>
-
-	 <input type="submit" value="글 등록" class="btn btn-primary" style="margin:10px;">
-	 </form>
-            </div>
+			<div style="margin-left:46%">
+	 		<input type="submit" value="글 등록" class="btn btn-primary" id="registerbtn" style="margin:10px;">
+	 		</div>
+	 		</form>
+            </div> <!-- end basicInformationContainer -->
             <!-- end 옵션 영역 -->
-            </div><!-- end workRegisterContainer -->
-            <div class="savecontainer">
-            <!--	<input type="submit" value="글 등록" class="btn btn-primary" style="margin:10px;">-->
-             <!--   <button type="submit" id="save">저장하기</button> -->
-            </div>
+            </div><!-- end jeongaworkRegisterContainer -->
             <!-- content -->
-
-
 
             <%@ include file="../include/footer.jsp" %>
             <!-- end footer -->
@@ -506,7 +505,7 @@ $(document).ready(function() {
     
 			</div><!-- end content -->
       </div>
- <!--   </div>--> 
+   </div> 
 </body>
 
 </html>

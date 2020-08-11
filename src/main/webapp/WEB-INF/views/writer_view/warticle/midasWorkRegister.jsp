@@ -143,10 +143,17 @@ function saveWork(){
 	}
 	
 }
+
 </script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </head>
+	<c:if test="${param.check eq 1}">
+		<script type="text/javascript">
+			alert("글이 등록 되었습니다.");
+			location.href="/bomulsum/writer/midasRegister.wdo";
+		</script>
+	</c:if>
 <body id="page-top">
    <div id="wrapper">
       <!-- Header/Nav -->
@@ -155,6 +162,9 @@ function saveWork(){
          <div id="content">
             <%@ include file="../include/head.jsp" %>
             <!-- end Header/Nav -->
+        <form action="<c:url value='/writer/midasClassRegister.wdo'/> " method="post" enctype="multipart/form-data">
+       
+       
             <div class="workRegisterContainer">
             <!-- 기본정보 영역 -->
             <div class="basicInformationContainer">
@@ -170,34 +180,34 @@ function saveWork(){
                <table border="1" class="basicInfoTable">
                   <tr>
                      <td class="left" style="width: 20%">사진등록</td>
-                     <td><input type="file" id="image" accept="image/*"
+                     <td>
+                     	<input type="file" id="image" accept="image/*" name="orderPicture"
                         onchange="setThumbnail(event);" multiple />
-                        <div class="imageContainer">
-                           
+                          <div class="imageContainer">                         
                         </div>
                      </td>
                   </tr>
                   <tr>
                      <td class="left">강의명</td>
                      <td><div class="workNameRegister">
-                           <input type="text" id="workName" maxlength="20" autocomplete="off"> <span
+                           <input type="text" name="midasName" maxlength="20" autocomplete="off"> <span
                               id="nameCounter"></span>
                         </div></td>
                   </tr>
                   <tr>
                      <td class="left">가격</td>
-                     <td><input type="text" id="workPrice" autocomplete="off"> 원</td>
+                     <td><input type="text" name="midasPrice" autocomplete="off"> 원</td>
                   </tr>
                   <tr>
                      <td class="left">할인</td>
                      <td><input type="checkbox"> 할인 후 가격  <input
-                        type="text" id="salePrice" autocomplete="off"> 원</td>
+                        type="number" id="salePrice" autocomplete="off" name="midasDiscount"> 원</td>
                   </tr>
                   <tr>
                      <td class="left">최대인원</td>
                      <td><button id="wonMinusButton" onclick="wonMinusButton()" style="border: 1px solid #ddd;">
                      <span style="border-color: #ABABAB;">-</span></button>
-						<input id="wonAuctionAmount" style="width:10%; text-align: center;" value="1" readonly>
+						<input id="wonAuctionAmount" style="width:10%; text-align: center;" value="1" readonly name="maxNumber">
 						<button id="wonPlusButton" onclick="wonPlusButton()" style="border: 1px solid #ddd;">
 						<span style="border-color: #ABABAB; ">+</span>
 						</button>
@@ -206,40 +216,40 @@ function saveWork(){
                    <tr>
                      <td class="left">날짜</td>
                      <td>
-                     	<input type="date" id="startDate">
+                     	<input type="date" id="startDate" name="startDate">
                      	&nbsp;~&nbsp;
-                     	<input type="date" id="endDate">
+                     	<input type="date" id="endDate" name="endDate">
                      </td>
                   </tr>
                     <tr>
                      <td class="left">요일</td>
                      <td>
-                     	<input type="checkbox" value="mon">월&nbsp;
-                     	<input type="checkbox" value="tue">화&nbsp;
-                     	<input type="checkbox" value="wed">수&nbsp;
-                     	<input type="checkbox" value="thu">목&nbsp;
-                     	<input type="checkbox" value="fri">금&nbsp;
-                     	<input type="checkbox" value="sat">토&nbsp;
-                     	<input type="checkbox" value="son">일
+                     	<input type="checkbox" value="mon" name="day">월&nbsp;
+                     	<input type="checkbox" value="tue" name="day">화&nbsp;
+                     	<input type="checkbox" value="wed" name="day">수&nbsp;
+                     	<input type="checkbox" value="thu" name="day">목&nbsp;
+                     	<input type="checkbox" value="fri" name="day">금&nbsp;
+                     	<input type="checkbox" value="sat" name="day">토&nbsp;
+                     	<input type="checkbox" value="son" name="day">일
                      </td>
                   </tr>
                    <tr>
                      <td class="left">시간</td>
                      <td>
-                     	<input type="time" id="startTime"> 
+                     	<input type="time" id="startTime" name="startTime"> 
                      		&nbsp;~&nbsp;
-                     	<input type="time" id="endTime">
+                     	<input type="time" id="endTime" name="endTime">
                      </td>
                   </tr>
                   <tr>
                      <td class="left">강의설명</td>
-                     <td><textarea rows="4" cols="80" style="overflow-y: scroll;"
+                     <td><textarea rows="4" cols="80" style="overflow-y: scroll;" name="about"
                            placeholder="작품 설명을 적어주세요." id="summernote"></textarea></td>
                   </tr>
                    <tr>
                      <td class="left">난이도</td>
                      <td>
-                     	 <select name="category" id="category_id">
+                     	 <select id="category_id" name="balance">
                               <option value="hard">상</option>
                               <option value="nomal">중</option>
                               <option value="easy">하</option>
@@ -249,8 +259,7 @@ function saveWork(){
                   <tr>
                      <td class="left">카테고리</td>
                      <td>
-                        <form action="#" class="category_search">
-                           <select name="category" id="category_id">
+                           <select name="category" id="category_id" name="category">
                               <option value="crafts">공예</option>
                               <option value="cook">요리</option>
                               <option value="art">미술</option>
@@ -259,7 +268,6 @@ function saveWork(){
                               <option value="exp">체험 및 기타</option>
                               
                            </select>
-                        </form>
                      </td>
                   </tr>
                </table>
@@ -282,10 +290,10 @@ function saveWork(){
                      <td>
                          	 <input type="text" id="sample4_postcode" placeholder="우편번호"> 
 							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br> 
-							<input type="text" id="sample4_roadAddress" placeholder="도로명주소"> 
+							<input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address1"> 
 							<input type="text" id="sample4_jibunAddress" placeholder="지번주소"> 
 							<span id="guide" style="color: #999; display: none"></span> 
-							<input type="text" id="sample4_detailAddress" placeholder="상세주소"> 
+							<input type="text" id="sample4_detailAddress" placeholder="상세주소" name="address2"> 
 							<input type="text" id="sample4_extraAddress" placeholder="참고항목">
                      </td>
                   </tr>
@@ -306,11 +314,9 @@ function saveWork(){
                      <td class="left" style="width: 20%">작품키워드</td>
                      <td>
                         <div id="add">
-                           <form action="#" class="keywordSearch">
-                              <input type="text" id="keyword" autocomplete="off">
+                              <input type="text" id="keyword" autocomplete="off" name="keyword">
                               <button type="submit">추가</button>
                                0/20
-                           </form>
                         </div>
                         <div class="keywordContainer"></div>
                          10/10개<br>
@@ -331,8 +337,7 @@ function saveWork(){
                <button type="submit" id="save" onclick="saveWork()">저장하기</button>
             </div>
             <!-- content -->
-
-
+	</form>
 
             <%@ include file="../include/footer.jsp" %>
             <!-- end footer -->
