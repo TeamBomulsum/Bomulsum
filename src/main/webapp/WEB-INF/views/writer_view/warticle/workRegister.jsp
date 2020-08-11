@@ -196,7 +196,7 @@ $(document).ready(function() {
                   </tr>
                   <tr>
                      <td class="left">수량</td>
-                     <td><input type="number" id="num" name = "artCount" autocomplete="off"> 개</td>
+                     <td><input type="number" id="num" name = "artAmount" autocomplete="off"> 개</td>
                   </tr>
                   <tr>
                      <td class="left">작품설명</td>

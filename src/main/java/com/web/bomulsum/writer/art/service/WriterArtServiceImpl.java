@@ -1,5 +1,6 @@
 package com.web.bomulsum.writer.art.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.web.bomulsum.writer.art.repository.WriterArtDAO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
+import com.web.bomulsum.writer.art.repository.WriterArtVOUP;
 
 
 @Service
@@ -26,7 +28,6 @@ public class WriterArtServiceImpl implements WriterArtService{
 	public String getArtCode(String artName) {
 		return dao.getArtCode(artName);
 	}
-
 
 	@Override
 	public void insertArtInfoDetail(WriterArtInfoDetailVO vo) {
@@ -79,5 +80,22 @@ public class WriterArtServiceImpl implements WriterArtService{
 		dao.insertArtOption9(map);
 	}
 
+	@Override
+	public List<WriterArtVO> getArtOnsaleList() {
+		return dao.getArtOnsaleList();
+	}
 
+	@Override
+	public void updateSalesArt(List<WriterArtVOUP> list) {
+		dao.updateSalesArt(list);
+		
+	}
+
+
+	
+/*	@Override
+	public int getbookMark(String artCodeSeq) {
+		return dao.getbookMark(artCodeSeq);
+	}
+*/
 }

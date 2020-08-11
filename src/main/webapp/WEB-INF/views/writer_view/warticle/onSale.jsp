@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>판매중 작품</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
    type="text/css">
 <link
    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -99,6 +99,52 @@ form {
 
 </style>
 </head>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+<script>
+
+$("#pauseSales").click(function() {
+    
+    const checkArray = new Array();
+    const useynArray = new Array();
+    $(".selectCheckBox:checked").each(function() {
+       const useyn = $(this).data('Y') == 1 ? 0 : 1;
+       checkArray.push($(this).data('N'));
+       useynArray.push(useyn);
+    });
+    $.ajax({
+       url: "${pageContext.request.contextPath}"+"writer/updateSalesArt.wdo",
+       method: 'post',
+       data: {
+          checkList:checkArray,
+          useList:useynArray
+       },
+       success: function() {
+          location.reload(true);
+       },
+       error: function(err) {
+          alert('변경에 실패하셧습니다.');
+       }
+    }) ;
+
+ });
+
+$(document).ready(function(){
+    //최상단 체크박스 클릭
+    $("#selectAll").click(function(){
+        //클릭되었으면
+        if($("#selectAll").prop("checked")){
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+            $("input[name=selectCheck]").prop("checked",true);
+            //클릭이 안되있으면
+        }else{
+            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+            $("input[name=selectCheck]").prop("checked",false);
+        }
+    })
+})
+
+
+</script>
 <!-- body 시작 -->
 <body id="page-top">
    <div id="wrapper">
@@ -132,11 +178,8 @@ form {
 				<option value="registerdate">등록일</option>
 				<option value="workname">작품명</option>
 				<option value="price">정상가격</option>
-				<option value="saleprice">할인가격</option>
 				<option value="bookmark">즐겨찾기</option>
-				<option value="comment">댓글</option>
 				<option value="numberofsales">판매수</option>
-				<option value="review">구매후기</option>
 			</select>
 		</form>
 		<form action="#" class="show_number">
@@ -152,7 +195,7 @@ form {
 	<div class="ttable">
 		<table border="1" id="ordertable">
 			<tr>
-				<th style="width:4%"><input type="checkbox"></th>
+				<th style="width:4%"><input type="checkbox" id="selectAll"></th>
 				<th colspan="4" style="width:40%">작품명</th>
 				<th style="width:5%">수량</th>
 				<th style="width:7%">정상가</th>
@@ -164,42 +207,44 @@ form {
 				<th style="width:5%">후기</th>
 				<th>수정</th>
 			</tr>
+			<c:forEach var="onSaleArt" items="${onSaleList}">
 			<tr>
-				<td><input type="checkbox"></td>
+		
+				<td><input type="checkbox" class="selectCheckBox" value="Y" name="selectCheck"></td>
 				<td><img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px"
-					src="<c:url value='/resources/img/earings.jpg'/>" /></td>
+					src="<c:url value='/upload/${photo[0]}'/>" /></td>
 				<td colspan="3">
 					<div class="alignLeft" style="text-align: left">
 						<a href="#" style="color: black; text-style: bold;">
-						<input type="checkbox" checked="checked" />[입점할인] 스터드키링_TEST</a> <br>0개남음<br>
+						${onSaleArt.artName} </a> 
 						<label style="text-align: center; background-color: #5EC75E; width: auto; margin-bottom: 0rem; color: white">
-							<i class="fas fa-tags"></i>10%
+							<i class="fas fa-tags"></i>
 						</label>
 					</div>
 					<div class="alignRight" style="text-align: right">
-						<br> <label style="text-decoration: line-through; margin-bottom: 0rem">10,000원</label>
-						<br> <label style="margin-bottom: 0rem; color: #28E7FF">9,000원</label>
+						<br> <label style="text-decoration: line-through; margin-bottom: 0rem"> ${onSaleArt.artPrice}원</label>
+						<br> <label style="margin-bottom: 0rem; color: #28E7FF">${onSaleArt.artDiscount}원 </label>
 					</div>
 				</td>
-				<td>1</td>
-				<td>10000원</td>
-				<td>9000원</td>
+				<td>${onSaleArt.artAmount}</td>
+				<td>${onSaleArt.artPrice}원</td>
+				<td>${onSaleArt.artDiscount}원</td>
 				<td>6</td>
 				<td>1</td>
-				<td>334</td>
-				<td>10</td>
+				<td>${onSaleArt.artViewCount}</td>
+				<td>${onSaleArt.artSaleCount}</td>
 				<td>0</td>
 				<td><button id="update" type="button" onclick="alert('수정')">수정</button></td>
 			</tr>
-
+			</c:forEach>
 		</table>
 	</div>
+	
 	<!-- 테이블 끝 -->
 	
 	<!-- 아래 버튼 -->
 	<div class="bottomLine">
 	0개
-	<button class="button" id="selectTotal" type="button"><input type="checkbox">전체선택</button>
 	<button class="button" id="pauseSales" type="button">판매 일시 중지</button>
 	<button class="button" id="deleteWork" type="button">작품 삭제</button>
 	</div>
@@ -220,11 +265,11 @@ form {
                class="fas fa-angle-up"></i>
             </a>
 
-            <script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-            <script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+            <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+            <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
             <!-- Core plugin JavaScript-->
-            <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+            <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
  
 
