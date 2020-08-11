@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.writer.profile.repository.WriterProfileDAO;
 import com.web.bomulsum.writer.profile.repository.WriterProfileVO;
-import com.web.bomulsum.writer.salespolicy.repository.WriterSalesPolicyVO;
 
 @Service
 public class WriterProfileServiceImpl implements WriterProfileService{

@@ -135,11 +135,7 @@ footer span{
 	outline: none;
 }
 
-.dainWPBtn:hover{
-	background-color: #1f76bb;
-	color:white;
 
-}
 </style>
 
 </head>
@@ -206,7 +202,7 @@ footer span{
 						<br> <br /> <br>
 						<div class="spButton">
 							<div style="text-align: center; width: 90%;">
-								<button type="submit" class="dainWPBtn">확인</button>
+								<button type="submit" class="btn btn-primary">확인</button>
 							</div>
 						</div>
 					</form>

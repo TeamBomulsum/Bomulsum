@@ -1,24 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>내정보</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <!-- Custom styles for this template-->
-<link href="<c:url value='/css/sb-admin-2.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <!-- myInformation _ CSS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- JQuery -->
 
 <script>
-	function validCheck(){
+/* 	function validCheck(){
 		 var pageAddress = $("#pageAddress").val();
 		 var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 		 var symbolecheck= /[`~!@#$%^&*(){}+=/,.]/gi; 
@@ -38,7 +39,7 @@
 		}else {
 		  return true;
 		 }
-	}
+	} */
 </script>
 
 <style>
@@ -52,6 +53,7 @@
 
 .subcontent .btn2{
 	background-color: white;
+	margin-left : 10px;
 	border: 1px solid #e7e7e7;
 	height: 35px;
 }
@@ -108,19 +110,25 @@ footer span{
 					<table class="daintable">
 						<tr>
 							<th class="daintdth" style="width: 15%;">작가명</th>
-							<td class="daintdth"  style="width: 85%;">홍길동
+							<td class="daintdth"  style="width: 85%;">${myinfo.writerBrandName}
 							<!--버튼에 모달 적용-->
-							<button type="button" class="btn2" data-toggle="modal" data-target="#staticBackdrop">변경하기</button>
+							<!--<button type="button" class="btn2" data-toggle="modal" data-target="#staticBackdrop">변경하기</button>  -->
 							</td>
 						</tr>
 						<tr>
 							<th class="daintdth"  style="width: 15%;">이메일</th>
-							<td class="daintdth"  style="width: 85%;">abc@bomulsum.com</td>
+							<td class="daintdth"  style="width: 85%;">${myinfo.writerEmail}</td>
 							<!-- 여기 값 넣어야함 -->
 						</tr>
 						<tr>
 							<th class="daintdth"  style="width: 15%;">전화번호</th>
-							<td class="daintdth"  style="width: 85%;">010-1111-2222</td>
+							<td class="daintdth"  style="width: 85%;">
+								<form action="<c:url value='/writer/insertphone.wdo'/>">
+								<input type="text" value="${myinfo.wirterPhone}" name="writerPhone" 
+								placeholder="00*-000*-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" />
+								<input class="btn2" type="submit" value="등록" onclick="validCheck2()">
+								</form>
+							</td>
 							<!-- 여기 값 넣어야함 -->
 						</tr>
 						<tr>
@@ -128,14 +136,13 @@ footer span{
 							<td class="daintdth"  style="width: 85%;">
 								<div>
 									웹사이트를 통해 노출되는 작가님의 페이지 주소입니다.<br>
-									<form action="#" method="get">
+									<form action="<c:url value='/writer/inserturl.wdo'/>" method="get">
 										http://www.bomulsum.com/ 
-										<input type="text" value="gildong" id="pageAddress" name="pageAddress" maxlength="20" />
-										<!-- URL 한번 등록되면 수정할 수 없음. 등록누르면 값 넘기고 인풋상자 수정불가하게 처리 -->
-										<input class="btn2" type="submit" value="등록" onclick="validCheck()">
+										<input type="text" value="${myinfo.writerUrl}" id="pageAddress" name="writerUrl" pattern="^([a-z0-9_]){5,20}$" maxlength="20" />
+										<input class="btn2" type="submit" value="등록" >
 									</form>
 								</div>
-								<p>※ 작가 URL은 최소 5자 이상 20자 이하의 영문, 숫자, 하이픈(-), 언더바(_)로만
+								<p>※ 작가 URL은 최소 5자 이상 20자 이하의 영문 소문자, 숫자, 언더바(_)로만
 									입력해주세요.</p>
 							</td>
 						</tr>
@@ -148,18 +155,25 @@ footer span{
 					<table class="daintable">
 						<tr>  
 							<th class="daintdth"  style="width: 15%;">사업자명</th>
-							<td class="daintdth"  style="width: 35%;"></td>
+							<td class="daintdth"  style="width: 35%;">${myinfo.writerHonorName}</td>
 							<!-- 여기에 값 들어감 -->
 							<th class="daintdth"  style="width: 15%;">사업자 등록번호</th>
-							<td class="daintdth"  style="width: 35%;"></td>
+							<td class="daintdth"  style="width: 35%;">${myinfo.writerHonorNum}</td>
 							<!-- 여기에 값 들어감 -->
 						</tr>
 						<tr>
 							<th class="daintdth"  style="width: 15%;">통신판매업신고</th>
-							<td class="daintdth"  style="width: 35%;"></td>
+							<td class="daintdth"  style="width: 35%;">
+							<c:if test="${myinfo.writerAboutDispatch eq 'y'}">
+							O
+							</c:if>
+							<c:if test="${myinfo.writerAboutDispatch eq 'n'}">
+							X
+							</c:if>
+							</td>
 							<!-- 여기에 값 들어감 -->
 							<th class="daintdth"  style="width: 15%;">사업자 계좌번호</th>
-							<td class="daintdth" style="width: 35%;">[]</td>
+							<td class="daintdth" style="width: 35%;">${myinfo.writerHonorAccount}</td>
 							<!-- 여기에 값 들어감 -->
 						</tr>
 					</table>
@@ -169,9 +183,9 @@ footer span{
 					<h5 style="font-weight: bold;">젬포인트 충전</h5>
 					<table class="daintable">
 						<tr>
-							<th class="daintdth"  style="width: 15%;">젬포인트</th>
-							<td class="daintdth"  style="width: 85%;">30,000P
-								<button class="btn2" type="button">포인트 충전</button>
+							<th class="daintdth" style="width: 15%;">젬포인트</th>
+							<td class="daintdth" style="width: 85%; color: #36a7b3;"><fmt:formatNumber value="${pointsum.GEMSUM}" pattern="#,###"/>P
+								<button class="btn2" onclick="location.href ='<c:url value='/writer/gempoint.wdo'/>'">포인트 충전</button>
 							</td>
 						</tr>
 					</table>
@@ -227,17 +241,17 @@ footer span{
 				class="fas fa-angle-up"></i>
 			</a>
 
-			<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-			<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 			<!-- Core plugin JavaScript-->
-			<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 			<!-- Custom scripts for all pages-->
 			<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 
 			<!-- Page level plugins -->
-			<script src="<c:url value='/vendor/chart.js/Chart.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/chart.js/Chart.min.js'/>"></script>
 
 			<!-- Page level custom scripts -->
 		

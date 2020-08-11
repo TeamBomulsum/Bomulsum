@@ -2,21 +2,16 @@ package com.web.bomulsum.writer.profile.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.bomulsum.writer.board.repository.writerBoardVO;
 import com.web.bomulsum.writer.profile.repository.WriterProfileVO;
 import com.web.bomulsum.writer.profile.service.WriterProfileService;
 
@@ -48,7 +43,6 @@ public class WriterProfileController {
 			
 			return mav;
 		} 
-		
 		
 		@RequestMapping(value= "/updateprofile")
 		public ModelAndView writerUpdateProfile(@RequestParam(value="writerProfileImgg", required=false) MultipartFile mf
