@@ -14,24 +14,24 @@ public class WriterGempointDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	//ÀÌ¿ë³»¿ª
+	//ì´ìš©ë‚´ì—­
 	public List<Map<String, String>> getGemPoint() {
 		List<Map<String, String>> list = sqlSessionTemplate.selectList("writerGempointDAO.gempointSelect");
-		System.out.println(list); //Å×½ºÆ®
+		System.out.println(list); //í…ŒìŠ¤íŠ¸
 		return list;
 	}
 //	public List<WriterGempointVO> getGemPoint() {
 //		List<WriterGempointVO> list = sqlSessionTemplate.selectList("writerGempointDAO.gempointSelect");
 //		return list;
 //	}
-	//º¸À¯ Æ÷ÀÎÆ®
+	//ë³´ìœ  í¬ì¸íŠ¸
 	public Map<String, Object> getGemPointSum() {
 		Map<String, Object> result =  sqlSessionTemplate.selectOne("writerGempointDAO.gempointSum"); //mapper namespace . id
-		System.out.println(result); //Å×½ºÆ®
+		System.out.println(result); //í…ŒìŠ¤íŠ¸
 		return result;
 	}
 	
-	//ÁªÆ÷ÀÎÆ® ÃæÀü
+	//ì ¬í¬ì¸íŠ¸ ì¶©ì „
 	public void insertGemPointCharge(int chargeMoney) {
 		sqlSessionTemplate.insert("writerGempointDAO.gempointChargeInsert", chargeMoney); 
 	}

@@ -169,11 +169,13 @@ footer span{
 					<!-- 이용 내역 테이블 -->
 					<table id="gemTable">
 						<!-- 테이블 제목 -->
+						<thead>
 						<tr>
 							<th class="daintdth" style="width: 18%; text-align: center;">일자</th>
 							<th class="daintdth" style="width: 46%; text-align: center;">내역</th>
 							<th class="daintdth" style="width: 18%; text-align: center;">포인트</th>
 						</tr>
+						</thead>
 						<!-- 테이블 내용 -->
 						  <tbody class="dain_table_body">
                               <!-- 데이터 들어올 영역 -->
@@ -333,6 +335,7 @@ footer span{
           json.gem_date = '${gemforeach.gemDate}';
           json.gem_log = '${gemforeach.gemLog}';
           json.gem_price = '${gemforeach.gemPrice}';
+          json.gem_usage = '${gemforeach.gemUsage}';
           commentsResult.push(json);
        </c:forEach>
       //전체 데이터에서, 카테고리 설정 했을 때&검색했을때 데이터에 따라 페이징이 바뀌어야 하므로 이 배열을 가공한 다른 배열들이 필요하다.
@@ -367,22 +370,27 @@ footer span{
                 html += '<tr><td class="daintdth" style="text-align: center">' + result[index].gem_date 
                  + '</td><td>' + result[index].gem_log
                  + '</td>';
-                 if(result[index].gem_price == "Y"){
+                 if(result[index].gem_usage == "Y"){
                 	 html += '<td class="daintdth bold" style="text-align: center; color: #e35852;">' 
-           			+ result[index].gem_price + 'P</td>';
-                 } else if(result[index].gem_price =="N"){
-                	 html += '<td class="daintdth bold" style="text-align: center; color: #36a7b3;">' 
-                	+ result[index].gem_price + 'P</td>';
+           			+  addComma(result[index].gem_price)+ 'P</td>';
+                 } else if(result[index].gem_usage =="N"){
+                	 html += '<td class="daintdth bold" style="text-align: center; color: #36a7b3;">+' 
+                	+  addComma(result[index].gem_price) + 'P</td>';
                  }
                  html += '</tr>';
-           }
-            
+         	  }
             
     
             testTable.innerHTML = html;
             
          };
-      
+         
+         //숫자에 콤마 넣는 함수
+         function addComma(num) {
+        	  var regexp = /\B(?=(\d{3})+(?!\d))/g;
+        	  return num.toString().replace(regexp, ',');
+        }
+         
          //pagination 그리는 함수
           var renderPagination = function(page){
             var block = Math.floor((page-1)/blockCount)+1;

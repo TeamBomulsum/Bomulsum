@@ -22,21 +22,21 @@ public class WriterProfileController {
 		@Autowired
 		WriterProfileService service;
 		
-//		private static final String SAVE_PATH = "C:\\upload"; //ÆÄÀÏ¾÷·Îµå
-//		private static final String SAVE_PATH = "C:\\myMain\\myBomulsum\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\bomulSum\\WEB-INF\\classes\\upload"; //ÆÄÀÏ¾÷·Îµå
-//		private static final String SAVE_PATH_AWS = "/upload";	//aws ¼­¹ö ÀúÀå°æ·Î
-		private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //ÀúÀåÇÒ °æ·Î
+//		private static final String SAVE_PATH = "C:\\upload"; //íŒŒì¼ì—…ë¡œë“œ
+//		private static final String SAVE_PATH = "C:\\myMain\\myBomulsum\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\bomulSum\\WEB-INF\\classes\\upload"; //íŒŒì¼ì—…ë¡œë“œ
+//		private static final String SAVE_PATH_AWS = "/upload";	//aws ì„œë²„ ì €ì¥ê²½ë¡œ
+		private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //ì €ì¥í•  ê²½ë¡œ
 		
-		//-----------------------ÀÛ°¡ÇÁ·ÎÇÊ-------------------------
+		//-----------------------ì‘ê°€í”„ë¡œí•„-------------------------
 		@RequestMapping(value="/profile")
 		public ModelAndView writerProfile() {
 			ModelAndView mav = new ModelAndView("/waccount/writerProfile");
 			
 			WriterProfileVO result = service.getWriterProfile();
-			System.out.println("´Ù½Ãµé¾î¿È: " + result);
+			System.out.println("ë‹¤ì‹œë“¤ì–´ì˜´: " + result);
 			mav.addObject("profile", result);
 			
-//			//Å×½ºÆ® :: ÀÌ¹ÌÁö ³Ñ±â´Â°Å 
+//			//í…ŒìŠ¤íŠ¸ :: ì´ë¯¸ì§€ ë„˜ê¸°ëŠ”ê±° 
 //			Map<String, String> imgTest = new HashMap<String, String>();
 //			imgTest.put("test", "1596879911463point.png" );
 //			mav.addObject("imgtest", imgTest); 
@@ -51,13 +51,13 @@ public class WriterProfileController {
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("redirect:/writer/profile.wdo");
 			
-			System.out.println("¿ø·¡ÀÌ¹ÌÁö1:" + service.getWriterProfileImg());
-			System.out.println("¿ø·¡ÀÌ¹ÌÁö2:" + service.getWriterCoverImg());		
+			System.out.println("ì›ë˜ì´ë¯¸ì§€1:" + service.getWriterProfileImg());
+			System.out.println("ì›ë˜ì´ë¯¸ì§€2:" + service.getWriterCoverImg());		
 			
 			
-			String originalFileName = mf.getOriginalFilename(); //ÀÌ¹ÌÁö1(ÇÁ·ÎÇÊ) ÀÌ¸§
-			String originalFileName2 = mf2.getOriginalFilename(); //ÀÌ¹ÌÁö2(Ä¿¹ö) ÀÌ¸§
-			long fileSize = mf.getSize(); //ÀÌ¹ÌÁö1 Å©±â
+			String originalFileName = mf.getOriginalFilename(); //ì´ë¯¸ì§€1(í”„ë¡œí•„) ì´ë¦„
+			String originalFileName2 = mf2.getOriginalFilename(); //ì´ë¯¸ì§€2(ì»¤ë²„) ì´ë¦„
+			long fileSize = mf.getSize(); //ì´ë¯¸ì§€1 í¬ê¸°
 			long fileSize2 = mf2.getSize(); 
 			
 			System.out.println(vo.toString());
@@ -70,8 +70,8 @@ public class WriterProfileController {
 		
 
 			
-			String saveFile = System.currentTimeMillis() + originalFileName; //ÀÌ¹ÌÁö1 ÀúÀåÇÒ ÀÌ¸§
-			vo.setWriterProfileImg(saveFile); //ÀÌ¹ÌÁö ÀÌ¸§ vo¿¡ ÀúÀå
+			String saveFile = System.currentTimeMillis() + originalFileName; //ì´ë¯¸ì§€1 ì €ì¥í•  ì´ë¦„
+			vo.setWriterProfileImg(saveFile); //ì´ë¯¸ì§€ ì´ë¦„ voì— ì €ì¥
 			
 			if(originalFileName.isEmpty() || (originalFileName==null)) {
 				saveFile = service.getWriterProfileImg();
@@ -79,7 +79,7 @@ public class WriterProfileController {
 			}
 			
 			
-			String saveFile2 = System.currentTimeMillis() + originalFileName2; //ÀÌ¹ÌÁö2 ÀúÀåÇÒ ÀÌ¸§
+			String saveFile2 = System.currentTimeMillis() + originalFileName2; //ì´ë¯¸ì§€2 ì €ì¥í•  ì´ë¦„
 			vo.setWriterCoverImg(saveFile2);
 			
 			if(originalFileName2.isEmpty() || (originalFileName2==null)) {
@@ -89,15 +89,15 @@ public class WriterProfileController {
 			System.out.println("===========================");
 			System.out.println(vo.toString());
 
-			service.updateWriterProfile(vo); //ÇÁ·ÎÇÊ µî·Ï
+			service.updateWriterProfile(vo); //í”„ë¡œí•„ ë“±ë¡
 			
 			System.out.println(fileSize);
 			System.out.println(fileSize2);
 
 //			System.out.println(root_path);
 			try {
-				mf.transferTo(new File(SAVE_PATH, saveFile)); //ÀÌ¹ÌÁö1 SAVE_PATH¿¡ ÀúÀå
-				mf2.transferTo(new File(SAVE_PATH, saveFile2)); //ÀÌ¹ÌÁö2 SAVE_PATH¿¡ ÀúÀå
+				mf.transferTo(new File(SAVE_PATH, saveFile)); //ì´ë¯¸ì§€1 SAVE_PATHì— ì €ì¥
+				mf2.transferTo(new File(SAVE_PATH, saveFile2)); //ì´ë¯¸ì§€2 SAVE_PATHì— ì €ì¥
 			}catch(IllegalStateException e) {
 				e.printStackTrace();
 			}catch(IOException e) {

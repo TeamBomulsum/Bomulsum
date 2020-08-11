@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.writer.gempoint.service.WriterGempointService;
@@ -26,14 +25,14 @@ public class WriterGempointController {
 		List<Map<String, String>> list = service.getGemPoint();
 		ModelAndView mav = new ModelAndView("/waccount/gemPoint");
 		mav.addObject("article", list);
-		Map<String, Object> gemSum = service.getGemPointSum();//ÁªÆ÷ÀÎÆ® º¸À¯Æ÷ÀÎÆ®
+		Map<String, Object> gemSum = service.getGemPointSum();//ì ¬í¬ì¸íŠ¸ ë³´ìœ í¬ì¸íŠ¸
 		mav.addObject("gemsum", gemSum);
 		return mav;
 	} 
 
 	@RequestMapping(value="/gempoint/charge")
 	public ModelAndView gempointCharge(int chargeMoney) {
-		System.out.println("ÃæÀüÇÑ Æ÷ÀÎÆ® : " + chargeMoney);
+		System.out.println("ì¶©ì „í•œ í¬ì¸íŠ¸ : " + chargeMoney);
 		ModelAndView mav = new ModelAndView("redirect:/writer/gempoint.wdo");
 		service.insertGemPointCharge(chargeMoney);
 		return mav;

@@ -17,7 +17,7 @@ public class WriterSalesPolicyController {
 	@Autowired
 	 WriterSalesPolicyService service;
 	
-	//-----------------------∆«∏≈¡§√•-------------------------
+	//-----------------------ÌåêÎß§Ï†ïÏ±Ö-------------------------
 	@RequestMapping(value="/salespolicy")
 	public ModelAndView salespolicy() {
 		ModelAndView mav = new ModelAndView("/waccount/salesPolicy");

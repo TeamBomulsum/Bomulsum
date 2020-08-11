@@ -3,11 +3,10 @@ package com.web.bomulsum.writer.gempoint.service;
 import java.util.List;
 import java.util.Map;
 
-import com.web.bomulsum.writer.gempoint.repository.WriterGempointVO;
 
 public interface WriterGempointService {
-	List<Map<String, String>> getGemPoint();//ΑªΖχΐΞΖ® ³»Ώª
+	List<Map<String, String>> getGemPoint();//μ ¬ν¬μΈνΈ λ‚΄μ—­
 	//List<WriterGempointVO> getGemPoint(); 
-	Map<String, Object> getGemPointSum(); //ΊΈΐ―ΖχΐΞΖ®
-	void insertGemPointCharge(int chargeMoney); //ΑªΖχΐΞΖ® Γζΐό
+	Map<String, Object> getGemPointSum(); //λ³΄μ ν¬μΈνΈ
+	void insertGemPointCharge(int chargeMoney); //μ ¬ν¬μΈνΈ μ¶©μ „
 }

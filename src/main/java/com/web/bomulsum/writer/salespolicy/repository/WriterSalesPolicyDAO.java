@@ -10,12 +10,12 @@ public class WriterSalesPolicyDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 
-	//ÀÛ°¡ ÆÇ¸ÅÁ¤Ã¥ µî·Ï(¾÷µ¥ÀÌÆ®)
+	//ì‘ê°€ íŒë§¤ì •ì±… ë“±ë¡(ì—…ë°ì´íŠ¸)
 	public void updateSalesPolicy(WriterSalesPolicyVO vo) {
 		sqlSessionTemplate.update("writerSalesPolicyDAO.updateSalesPolicy", vo);
 	}
 	
-	//ÀÛ°¡ ÆÇ¸ÅÁ¤Ã¥ ºÒ·¯¿À±â
+	//ì‘ê°€ íŒë§¤ì •ì±… ë¶ˆëŸ¬ì˜¤ê¸°
 	public WriterSalesPolicyVO getSalesPolicy(){
 		WriterSalesPolicyVO policy = sqlSessionTemplate.selectOne("writerSalesPolicyDAO.loadSalesPolicy");
 		return policy;
