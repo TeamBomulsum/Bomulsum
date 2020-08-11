@@ -29,7 +29,7 @@ public class WriterMidasController {
 	@Autowired
 	WriterMidasService service;
 	
-	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //ÀúÀåÇÒ °æ·Î
+	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ï¿½
 	
 	@GetMapping("/midasRegister")
 	public ModelAndView midas(ModelAndView mav) {
@@ -40,16 +40,16 @@ public class WriterMidasController {
 	@PostMapping("/midasClassRegister")
 	public ModelAndView midasRegister(ModelAndView mav,@RequestParam(value="orderPicture", required=false) List<MultipartFile> mf,
 			 HttpServletRequest request,WriterMidasVO vo,WriterRegisterVO rvo) {
-			System.out.println("midasRegister µé¾î¿È");
+			System.out.println("midasRegister ë“¤ì–´ì˜´");
 			
-		//»çÁø ÀúÀå
+		//ì‚¬ì§„ì €ì¥
 				String result="";
 				
 				for (MultipartFile file : mf) {
 					String originalfileName = file.getOriginalFilename();
 					String saveFile = System.currentTimeMillis() + originalfileName;
 					try {
-						file.transferTo(new File(SAVE_PATH, saveFile)); //ÀÌ¹ÌÁö1 SAVE_PATH¿¡ ÀúÀå
+						file.transferTo(new File(SAVE_PATH, saveFile)); //å ì‹±ë±„ì˜™å ì™ì˜™1 SAVE_PATHå ì™ì˜™ å ì™ì˜™å ì™ì˜™
 					}catch(IllegalStateException e) { e.printStackTrace();}
 					catch(IOException e) { e.printStackTrace();	}
 					
@@ -67,10 +67,10 @@ public class WriterMidasController {
 				System.out.println(session);
 				
 				System.out.println(vo.toString());
-				//ÀÛÇ° µî·Ï
+
 				service.midasRegister(vo);
 				mav.setViewName("redirect:/writer/midasRegister.wdo"); 
-				mav.addObject("check", 1); // ºä·Î º¸³¾ µ¥ÀÌÅÍ °ª
+				mav.addObject("check", 1); 
 		
 		return mav;
 	}

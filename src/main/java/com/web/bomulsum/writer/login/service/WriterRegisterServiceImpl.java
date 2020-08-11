@@ -21,8 +21,7 @@ public class WriterRegisterServiceImpl implements WriterRegisterService{
 	@Override
 	public void insertMember(WriterRegisterVO vo) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		encoder.matches(vo.getPassword(), checkVO.getPassword())    암호화 되어잇는거 맞는지 확인.
-//		암호화 과정
+
 		vo.setWriterPassword(encoder.encode(vo.getWriterPassword()));
 		dao.insertMember(vo);
 	}

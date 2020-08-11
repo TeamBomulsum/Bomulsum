@@ -11,11 +11,11 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("·Î±×ÀÎ ÀÎÅÍ¼ÁÅÍ ¹ßµ¿!");
+		System.out.println("ì¸í„°ì…‰í„°ë°œë™!");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("writer_login") == null) {
-			System.out.println("È¸¿ø ÀÎÁõ ½ÇÆĞ!");
+			System.out.println("íšŒì›ì¸ì¦ì‹¤íŒ¨!");
 			response.sendRedirect("/bomulsum/writer/login.wdo");
 			return false;
 		}

@@ -12,17 +12,17 @@ public interface writerBoardDAO {
 	writerBoardVO getAnnouncementArticle(String admin_notice_seq);
 
 
-	//°Ô½ÃÆÇ ¸ñ·Ï
+	//ê²Œì‹œíŒ ëª©ë¡
 	List<writerBoardVO> getPolicyGuideBoard();
 	
-	//°Ô½ÃÆÇ ³»¿ë 
+	//ê²Œì‹œíŒ ë‚´ìš©
 	writerBoardVO getPolicyGuideArticle(String admin_notice_seq);
 
 
-	//°Ô½ÃÆÇ ¸ñ·Ï getQuestionBoard
+	//ê²Œì‹œíŒëª©ë¡ getQuestionBoard
 	List<writerBoardVO> getQuestionBoard();
 	
-	//°Ô½ÃÆÇ ³»¿ë getQuestionArticle
+	//ê²Œì‹œíŒ ë‚´ìš© getQuestionArticle
 	writerBoardVO getQuestionArticle(String admin_notice_seq);
 
 

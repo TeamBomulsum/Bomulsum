@@ -5,10 +5,10 @@ import java.util.List;
 import com.web.bomulsum.writer.board.repository.writerBoardVO;
 
 public interface WriterBoardService {
-   //ÀÛ°¡ °Ô½ÃÆÇ ±Û ¸ñ·Ï °Ë»ö
+   //ì‘ê°€ ê²Œì‹œíŒ ê¸€ ëª©ë¡ ê²€ìƒ‰
    List<writerBoardVO> getPolicyGuideBoard();
    
-   //ÀÛ°¡ ±Û »ó¼¼
+   //ì‘ê°€ ê¸€ ìƒì„¸
    writerBoardVO getPolicyGuideArticle(String admin_notice_seq);
    List<writerBoardVO> getQuestionBoard();
    
