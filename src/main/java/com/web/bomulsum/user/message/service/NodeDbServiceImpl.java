@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.user.message.repository.NodeDbDAO;
 import com.web.bomulsum.user.message.repository.NodeDbVO;
+import com.web.bomulsum.user.message.repository.UserChatRoomVO;
 
 @Service
 public class NodeDbServiceImpl implements NodeDbService{
@@ -22,6 +23,11 @@ public class NodeDbServiceImpl implements NodeDbService{
 	@Override
 	public List<String> getUserCodes() {
 		return dao.getUserCodes();
+	}
+
+	@Override
+	public List<UserChatRoomVO> getChatroom(String userCode) {
+		return dao.getChatroom(userCode);
 	}
 
 }

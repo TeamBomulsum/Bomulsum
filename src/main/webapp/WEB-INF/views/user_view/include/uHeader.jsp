@@ -377,11 +377,11 @@ body {
 }
 
 .headerUlList li:hover .alarmDropBox{
-	display:flex;
+	display:block;
 }
 
 .headerUlList li:hover .messageDropBox{
-	display:flex;
+	display:block;
 }
 
 .headerUlList li ul a{
@@ -401,6 +401,7 @@ body {
 	width:400px;
 	height:400px;
 	z-index: 990;
+	right: 200px;
 	background-color: white;
 }
 
@@ -534,6 +535,7 @@ body {
 	width:400px;
 	height:400px;
 	z-index: 990;
+	right: 130px;
 	background-color: white;
 }
 

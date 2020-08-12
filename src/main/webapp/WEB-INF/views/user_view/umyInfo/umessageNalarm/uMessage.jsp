@@ -90,6 +90,18 @@
 	border-bottom: 1px #D8D8D8 solid;
 }
 
+.messageUserList--selected{
+	border: none;
+	cursor: pointer;
+	padding:3%; 
+	display: flex; 
+	flex-direction: row;
+	background-color: #d9d9d9;
+	align-items: center; 
+	border-color: white;
+	border-bottom: 1px #D8D8D8 solid;
+}
+
 .wonMessagebutton1{
 	display: flex;
 	border:none;
@@ -250,6 +262,18 @@
 	font-weight:bold;
 }
 
+.enable{
+	background-color:white;
+}
+
+.enable:hover{
+	background-color: #81BEF7;
+}
+
+.able{
+	background-color:#d9d9d9;
+}
+
 </style>
 </head>
 <body>
@@ -273,35 +297,26 @@
 						<div id="decision" class="deleteButtonClickedExit" style="display:none"><a>나가기</a></div>
 					</div>
 				</div>
-				<div>
-					<div id="wonAccountView" class="messageUserList">
-						<img id="wonContentImg" src="<c:url value='/resources/img/KMWnoReviewMe.png'/>">
-						<div style="margin: 2%; font-size: 100%; display:flex; justify-content: space-between; width:165px">
-							<span>최우영</span>
-							<input type="hidden" class="writerCode" value="member_code_sq55">
-							<input type="checkbox" class="deleteCheck" style="display:none">
+				<div style="overflow-y: auto; height:90%">
+					<c:forEach items="${chatRoom}" var="chat">
+						<div>
+							<div class="messageUserList enable">
+								<c:choose>
+									<c:when test="${not empty chat.writerImg}">
+										<img id="wonContentImg" src="<c:url value='/upload/${chat.writerImg}'/>">
+									</c:when>
+									<c:otherwise>
+										<img id="wonContentImg" src="<c:url value='/resources/img/Logo_blue.png'/>">
+									</c:otherwise>
+								</c:choose>
+								<div style="margin: 2%; font-size: 100%; display:flex; justify-content: space-between; width:165px">
+									<span>${chat.writerName}</span>
+									<input type="hidden" class="writerCode" value="${chat.writerCode}">
+									<input type="checkbox" class="deleteCheck" style="display:none">
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div>
-					<div id="wonAccountView" class="messageUserList">
-						<img id="wonContentImg" src="<c:url value='/resources/img/KMWnoReviewMe.png'/>">
-						<div style="margin: 2%; font-size: 100%; display:flex; justify-content: space-between; width:165px">
-							<span>조원희</span>
-							<input type="hidden" class="writerCode" value="member_code_sq57">
-							<input type="checkbox" class="deleteCheck" style="display:none">
-						</div>
-					</div>
-				</div>
-				<div>
-					<div id="wonAccountView" class="messageUserList">
-						<img id="wonContentImg" src="<c:url value='/resources/img/KMWnoReviewMe.png'/>">
-						<div style="margin: 2%; font-size: 100%; display:flex; justify-content: space-between; width:165px">
-							<span>최다인</span>
-							<input type="hidden" class="writerCode" value="member_code_sq56">
-							<input type="checkbox" class="deleteCheck" style="display:none">
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 			<!-- 선택된 채팅방 없을경우. -->
@@ -398,7 +413,9 @@ $(function(){
 		
 		socket.on(code, function(msg){
 			console.log("받는 로직 : " + msg);
-			let today = new Date();
+			var msgArray = msg.split('*|*');
+			var msgDate = msgArray[1];
+			let today = new Date(msgDate);
 			let year = today.getFullYear(); // 년도
 			let month = today.getMonth() + 1; // 월
 			let date = today.getDate(); // 날짜
@@ -414,7 +431,7 @@ $(function(){
 			
 			
 			dayTag.innerHTML = day;
-			tag.innerHTML = msg.replace(/\n/gi, '<br>');
+			tag.innerHTML = msgArray[0].replace(/\n/gi, '<br>');
 			Tag.setAttribute('style','padding: 10px 15px; background-color: #d6e5c8;'+
 				'border-radius: 0 15px 15px 15px; font-size: 14px;max-width: 50%;');
 			dTag.setAttribute('style', 'padding: 1%; display:flex;flex-direction:row;'+
@@ -476,7 +493,7 @@ $(function(){
 				console.log("id : " + sendToId);
 				console.log("code : " + sendToCode);
 				
-				socket.emit("send_to_writer", sendToCode + "*|*" + sendToId + "*|*" + code + "*|*" + member + "*|*" + message);
+				socket.emit("send_to_writer", sendToCode + "*|*" + sendToId + "*|*" + code + "*|*" + member + "*|*" + message + "*|*" + today);
 				
 				$('#wonMessageContent').val("");
 			}
@@ -496,9 +513,10 @@ $(function(){
 	});
 	
 	
-	
 	function f_initListClickEvent(){
+		
 		$(".messageUserList").on('click', function(){ // 왼쪽 리스트 클릭 했을 경우.
+			
 			$(".dndud_content_first_main_div").css("display","none");
 			$(".dndud_content_head_div").css("display", "flex");
 			$(".dndud_content_main_div").css("display", "block");
@@ -516,6 +534,14 @@ $(function(){
 			$("#headInfoId").text(writerName);
 			receiveCode = $("#headInfoCode").val();
 			console.log(receiveCode);
+			/* $(".messageUserList").css("background-color", "white");
+			$(this).css("background-color", "#d9d9d9");  */
+			
+			$('.messageUserList').removeClass('able');
+			$('.messageUserList').addClass('enable');
+			$(this).removeClass('enable');
+			$(this).addClass('able');
+			
 		});
 	}
 	

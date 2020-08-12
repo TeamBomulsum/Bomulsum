@@ -2,6 +2,9 @@ package com.web.bomulsum.user.message.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +22,17 @@ public class UserMessageController {
 	private NodeDbServiceImpl service;
 	
 	@GetMapping("/message")
-	public ModelAndView nodeDb() {
+	public ModelAndView nodeDb(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String userCode = (String)session.getAttribute("member");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/umyInfo/umessageNalarm/uMessage");
-		return mav;
+		if(userCode == null) {
+			return mav;
+		}else {
+			mav.addObject("chatRoom", service.getChatroom(userCode));
+			return mav;
+		}
 	}
 	
 	@ResponseBody

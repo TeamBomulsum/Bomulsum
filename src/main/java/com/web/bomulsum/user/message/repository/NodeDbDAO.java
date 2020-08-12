@@ -20,4 +20,8 @@ public class NodeDbDAO {
 		return sqlSessionTemplate.selectList("NodeDbDAO.getUserCodes");
 	}
 	
+	public List<UserChatRoomVO> getChatroom(String userCode){
+		return sqlSessionTemplate.selectList("NodeDbDAO.getChatroom", userCode);
+	}
+	
 }
