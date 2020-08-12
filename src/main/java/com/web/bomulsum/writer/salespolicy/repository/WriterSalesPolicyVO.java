@@ -7,7 +7,15 @@ public class WriterSalesPolicyVO {
 	private String writerSendfreeCase;
 	private String writerRefund;
 	private String writerPolicyAbout;
+	private String writerCodeSeq;
 	
+	public String getWriterCodeSeq() {
+		return writerCodeSeq;
+	}
+	public void setWriterCodeSeq(String writerCodeSeq) {
+		this.writerCodeSeq = writerCodeSeq;
+	}
+
 	public String getWriterPayment() {
 		return writerPayment;
 	}
@@ -46,10 +54,12 @@ public class WriterSalesPolicyVO {
 	}
 	@Override
 	public String toString() {
-		return "WriterSalesPolicyVO [writerPayment=" + writerPayment + ", writerSendPrice=" + writerSendPrice
-				+ ", writerPlusPrice=" + writerPlusPrice + ", writerSendfreeCase=" + writerSendfreeCase
-				+ ", writerRefund=" + writerRefund + ", writerPolicyAbout=" + writerPolicyAbout + "]";
+		return "WriterSalesPolicyVO [writerCodeSeq=" + writerCodeSeq + ", writerPayment=" + writerPayment
+				+ ", writerSendPrice=" + writerSendPrice + ", writerPlusPrice=" + writerPlusPrice
+				+ ", writerSendfreeCase=" + writerSendfreeCase + ", writerRefund=" + writerRefund
+				+ ", writerPolicyAbout=" + writerPolicyAbout + "]";
 	}
+
 
 	
 }

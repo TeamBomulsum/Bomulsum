@@ -4,9 +4,9 @@ import com.web.bomulsum.writer.profile.repository.WriterProfileVO;
 
 public interface WriterProfileService {
 	void updateWriterProfile(WriterProfileVO vo);
-	WriterProfileVO getWriterProfile();
-	String getWriterProfileImg();
-	String getWriterCoverImg();
+	WriterProfileVO getWriterProfile(String writerCodeSeq);
+	String getWriterProfileImg(String writerCodeSeq);
+	String getWriterCoverImg(String writerCodeSeq);
 	
 
 }

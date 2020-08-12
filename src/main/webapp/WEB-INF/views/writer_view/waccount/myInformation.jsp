@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내정보</title>
+<title>보물섬 작가홈 | 내정보</title>
 <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
@@ -56,7 +56,11 @@
 	margin-left : 10px;
 	border: 1px solid #e7e7e7;
 	height: 35px;
+	outline: none;
+	color: #666666;
+	border-radius: 3px;
 }
+
 
 .daintable {
 	/*font-family: arial, sans-serif;*/
@@ -85,6 +89,19 @@ footer span{
 	margin-right: 10%;
 }
 
+
+.daininput:invalid {
+    border: 1.4px solid red;
+    border-radius: 3px;
+    outline: none;
+}
+.daininput,
+.daininput:valid {
+	border: 1px solid #ccc;
+    border-radius: 3px;
+    outline:none;
+}
+
 </style>
 
 </head>
@@ -111,8 +128,12 @@ footer span{
 						<tr>
 							<th class="daintdth" style="width: 15%;">작가명</th>
 							<td class="daintdth"  style="width: 85%;">${myinfo.writerBrandName}
-							<!--버튼에 모달 적용-->
-							<!--<button type="button" class="btn2" data-toggle="modal" data-target="#staticBackdrop">변경하기</button>  -->
+							<c:if test="${myinfo.writerBrandName eq null}">
+							<button class="btn2" style="margin-left: 0px;" onclick="location.href ='<c:url value='/writer/profile.wdo'/>'">프로필 등록</button>
+							</c:if>
+
+
+
 							</td>
 						</tr>
 						<tr>
@@ -124,9 +145,9 @@ footer span{
 							<th class="daintdth"  style="width: 15%;">전화번호</th>
 							<td class="daintdth"  style="width: 85%;">
 								<form action="<c:url value='/writer/insertphone.wdo'/>">
-								<input type="text" value="${myinfo.wirterPhone}" name="writerPhone" 
+								<input type="text" value="${myinfo.writerPhone}" id="dainPhone" name="writerPhone" class="daininput"
 								placeholder="00*-000*-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" />
-								<input class="btn2" type="submit" value="등록" onclick="validCheck2()">
+								<input class="btn2" type="submit" value="등록" id="dainPhoneBtn">
 								</form>
 							</td>
 							<!-- 여기 값 넣어야함 -->
@@ -138,7 +159,8 @@ footer span{
 									웹사이트를 통해 노출되는 작가님의 페이지 주소입니다.<br>
 									<form action="<c:url value='/writer/inserturl.wdo'/>" method="get">
 										http://www.bomulsum.com/ 
-										<input type="text" value="${myinfo.writerUrl}" id="pageAddress" name="writerUrl" pattern="^([a-z0-9_]){5,20}$" maxlength="20" />
+										<input type="text" value="${myinfo.writerUrl}" id="pageAddress" name="writerUrl" class="daininput"
+										 pattern="^([a-z0-9_]){5,20}$" maxlength="20" />
 										<input class="btn2" type="submit" value="등록" >
 									</form>
 								</div>
@@ -184,7 +206,11 @@ footer span{
 					<table class="daintable">
 						<tr>
 							<th class="daintdth" style="width: 15%;">젬포인트</th>
-							<td class="daintdth" style="width: 85%; color: #36a7b3;"><fmt:formatNumber value="${pointsum.GEMSUM}" pattern="#,###"/>P
+							<td class="daintdth" style="width: 85%; color: #36a7b3;">
+							<c:if test="${pointsum.GEMSUM eq null}">
+							0
+							</c:if>
+							<fmt:formatNumber value="${pointsum.GEMSUM}" pattern="#,###"/>P
 								<button class="btn2" onclick="location.href ='<c:url value='/writer/gempoint.wdo'/>'">포인트 충전</button>
 							</td>
 						</tr>
@@ -258,5 +284,6 @@ footer span{
 
 		</div>
 	</div>
+
 </body>
 </html>

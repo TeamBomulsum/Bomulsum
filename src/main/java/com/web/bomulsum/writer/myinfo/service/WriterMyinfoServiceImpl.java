@@ -14,23 +14,23 @@ public class WriterMyinfoServiceImpl implements WriterMyinfoService{
 	WriterMyinfoDAO dao;
 	
 	@Override
-	public WriterMyinfoVO getWriterMyinfo() {
-		return dao.getWriterMyinfo();
+	public WriterMyinfoVO getWriterMyinfo(String writerCodeSeq) {
+		return dao.getWriterMyinfo(writerCodeSeq);
 	}
 
 	@Override
-	public Map<String, Object> getGemPointSum2() {
-		return dao.getGemPointSum2();
+	public Map<String, Object> getGemPointSum2(String writerCodeSeq) {
+		return dao.getGemPointSum2(writerCodeSeq);
 	}
 
 	@Override
-	public void insertPhone(String writerPhone) {
-		dao.insertPhone(writerPhone);
+	public void insertPhone(Map<String, Object> map) {
+		dao.insertPhone(map);
 	}
 
 	@Override
-	public void insertUrl(String writerUrl) {
-		dao.insertUrl(writerUrl);
+	public void insertUrl(Map<String, Object> map) {
+		dao.insertUrl(map);
 	}
 
 }

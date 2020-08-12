@@ -12,8 +12,8 @@ public class WriterProfileDAO {
 	SqlSessionTemplate sqlSessionTemplate;
 	
 	//작가 기본프로필 불러오기
-	public WriterProfileVO getWriterProfile(){
-		WriterProfileVO profile = sqlSessionTemplate.selectOne("writerProfileDAO.loadProfile");
+	public WriterProfileVO getWriterProfile(String writerCodeSeq){
+		WriterProfileVO profile = sqlSessionTemplate.selectOne("writerProfileDAO.loadProfile", writerCodeSeq);
 		return profile;
 	}
 	
@@ -23,13 +23,13 @@ public class WriterProfileDAO {
 	}
 	
 	//작가 기존 프로필이미지 가져오기
-	public String getWriterProfileImg() {
-		return sqlSessionTemplate.selectOne("writerProfileDAO.loadProfileImg");
+	public String getWriterProfileImg(String writerCodeSeq) {
+		return sqlSessionTemplate.selectOne("writerProfileDAO.loadProfileImg", writerCodeSeq);
 	}
 	
 	//작가 기존 커버이미지 가져오기
-	public String getWriterCoverImg() {
-		return sqlSessionTemplate.selectOne("writerProfileDAO.loadCoverImg");
+	public String getWriterCoverImg(String writerCodeSeq) {
+		return sqlSessionTemplate.selectOne("writerProfileDAO.loadCoverImg",writerCodeSeq);
 	}
 
 }

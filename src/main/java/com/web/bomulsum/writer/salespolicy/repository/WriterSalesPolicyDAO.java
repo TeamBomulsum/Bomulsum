@@ -16,8 +16,8 @@ public class WriterSalesPolicyDAO {
 	}
 	
 	//작가 판매정책 불러오기
-	public WriterSalesPolicyVO getSalesPolicy(){
-		WriterSalesPolicyVO policy = sqlSessionTemplate.selectOne("writerSalesPolicyDAO.loadSalesPolicy");
+	public WriterSalesPolicyVO getSalesPolicy(String writerCodeSeq){
+		WriterSalesPolicyVO policy = sqlSessionTemplate.selectOne("writerSalesPolicyDAO.loadSalesPolicy",writerCodeSeq);
 		return policy;
 	}
 }

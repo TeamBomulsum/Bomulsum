@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.profile.repository.WriterProfileVO;
 import com.web.bomulsum.writer.profile.service.WriterProfileService;
 
@@ -29,10 +31,15 @@ public class WriterProfileController {
 		
 		//-----------------------작가프로필-------------------------
 		@RequestMapping(value="/profile")
-		public ModelAndView writerProfile() {
+		public ModelAndView writerProfile(HttpServletRequest request) {
+			//작가seq 세션받아오기
+			HttpSession session = request.getSession();
+			WriterRegisterVO code = (WriterRegisterVO)session.getAttribute("writer_login");
+			String seq = code.getWriterSeq();
+			
 			ModelAndView mav = new ModelAndView("/waccount/writerProfile");
 			
-			WriterProfileVO result = service.getWriterProfile();
+			WriterProfileVO result = service.getWriterProfile(seq);
 			System.out.println("다시들어옴: " + result);
 			mav.addObject("profile", result);
 			
@@ -48,11 +55,18 @@ public class WriterProfileController {
 		public ModelAndView writerUpdateProfile(@RequestParam(value="writerProfileImgg", required=false) MultipartFile mf
 					, @RequestParam(value="writerCoverImgg", required=false) MultipartFile mf2, WriterProfileVO vo, HttpServletRequest request) {
 		
+			//작가seq 세션받아오기
+			HttpSession session = request.getSession();
+			WriterRegisterVO code = (WriterRegisterVO)session.getAttribute("writer_login");
+			String seq = code.getWriterSeq();
+			vo.setWriterCodeSeq(seq);
+			
+			
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("redirect:/writer/profile.wdo");
 			
-			System.out.println("원래이미지1:" + service.getWriterProfileImg());
-			System.out.println("원래이미지2:" + service.getWriterCoverImg());		
+			System.out.println("원래이미지1:" + service.getWriterProfileImg(seq));
+			System.out.println("원래이미지2:" + service.getWriterCoverImg(seq));		
 			
 			
 			String originalFileName = mf.getOriginalFilename(); //이미지1(프로필) 이름
@@ -68,22 +82,20 @@ public class WriterProfileController {
 //			System.out.println("TOSTRING : " + getClass().getResource("/upload").toString());
 //			System.out.println("PATH : " + getClass().getResource("/upload").getPath());
 		
-
 			
 			String saveFile = System.currentTimeMillis() + originalFileName; //이미지1 저장할 이름
 			vo.setWriterProfileImg(saveFile); //이미지 이름 vo에 저장
 			
 			if(originalFileName.isEmpty() || (originalFileName==null)) {
-				saveFile = service.getWriterProfileImg();
+				saveFile = service.getWriterProfileImg(seq);
 				vo.setWriterProfileImg(saveFile);
 			}
-			
 			
 			String saveFile2 = System.currentTimeMillis() + originalFileName2; //이미지2 저장할 이름
 			vo.setWriterCoverImg(saveFile2);
 			
 			if(originalFileName2.isEmpty() || (originalFileName2==null)) {
-				saveFile2 = service.getWriterCoverImg();
+				saveFile2 = service.getWriterCoverImg(seq);
 				vo.setWriterCoverImg(saveFile2);
 			}
 			System.out.println("===========================");

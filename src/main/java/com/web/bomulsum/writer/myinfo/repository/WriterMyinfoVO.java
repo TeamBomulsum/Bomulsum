@@ -3,7 +3,7 @@ package com.web.bomulsum.writer.myinfo.repository;
 public class WriterMyinfoVO {
 	private String writerBrandName;
 	private String writerEmail;
-	private String wirterPhone;
+	private String writerPhone;
 	private String writerUrl;
 	private String writerHonorName;
 	private String writerHonorNum;
@@ -21,12 +21,7 @@ public class WriterMyinfoVO {
 	public void setWriterEmail(String writerEmail) {
 		this.writerEmail = writerEmail;
 	}
-	public String getWirterPhone() {
-		return wirterPhone;
-	}
-	public void setWirterPhone(String wirterPhone) {
-		this.wirterPhone = wirterPhone;
-	}
+
 	public String getWriterUrl() {
 		return writerUrl;
 	}
@@ -57,12 +52,19 @@ public class WriterMyinfoVO {
 	public void setWriterHonorAccount(String writerHonorAccount) {
 		this.writerHonorAccount = writerHonorAccount;
 	}
+	public String getWriterPhone() {
+		return writerPhone;
+	}
+	public void setWriterPhone(String writerPhone) {
+		this.writerPhone = writerPhone;
+	}
 	@Override
 	public String toString() {
-		return "WriterMyinfoVO [writerBrandName=" + writerBrandName + ", writerEmail=" + writerEmail + ", wirterPhone="
-				+ wirterPhone + ", writerUrl=" + writerUrl + ", writerHonorName=" + writerHonorName
+		return "WriterMyinfoVO [writerBrandName=" + writerBrandName + ", writerEmail=" + writerEmail + ", writerPhone="
+				+ writerPhone + ", writerUrl=" + writerUrl + ", writerHonorName=" + writerHonorName
 				+ ", writerHonorNum=" + writerHonorNum + ", writerAboutDispatch=" + writerAboutDispatch
 				+ ", writerHonorAccount=" + writerHonorAccount + "]";
 	}
+
 	
 }

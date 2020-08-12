@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>젬 포인트</title>
+<title>보물섬 작가홈 | 젬 포인트</title>
 <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
@@ -182,7 +182,9 @@ footer span{
 							<th class="daintdth" style="width: 20%">보유 포인트 </th>
 							<!-- 보유포인트 -->
 							<td class="daintdth" id="gemPoint" class="bold"
-								style="color: #36a7b3; display:flex; align-items: center;"><fmt:formatNumber value="${gemsum.GEMSUM}" pattern="#,###"/>P <div>
+								style="color: #36a7b3; display:flex; align-items: center;">
+								<c:if test="${pointsum.GEMSUM eq null}">0</c:if>
+								<fmt:formatNumber value="${gemsum.GEMSUM}" pattern="#,###"/>P <div>
 								<button class="dainGempointBtn" data-toggle="modal"  data-target="#chargePointModal" >충전하기</button></div></td>
 						</tr>
 					</table>

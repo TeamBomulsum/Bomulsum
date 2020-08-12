@@ -18,8 +18,8 @@ public class WriterSalesPolicyServiceImpl implements WriterSalesPolicyService{
 	}
 
 	@Override
-	public WriterSalesPolicyVO getSalesPolicy() {
-		return dao.getSalesPolicy();
+	public WriterSalesPolicyVO getSalesPolicy(String writerCodeSeq) {
+		return dao.getSalesPolicy(writerCodeSeq);
 	}
 
 }

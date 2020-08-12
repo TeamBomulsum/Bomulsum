@@ -10,6 +10,7 @@
 		<result property="writerSendfreeCase" column="writer_sendfree_case"/>
 		<result property="writerRefund" column="writer_refund"/>
 		<result property="writerPolicyAbout" column="writer_policy_about"/>
+		<result property="writerCodeSeq" column="writer_code_seq"/>
 	</resultMap>	
 	
 	
@@ -21,18 +22,18 @@
 		writer_plus_price = #{writerPlusPrice}, writer_sendfree_case= #{writerSendfreeCase},
 		writer_refund = #{writerRefund}, writer_policy_about= #{writerPolicyAbout} 
 		WHERE 
-		writer_code_seq = '다인테스트' 
+		writer_code_seq = #{writerCodeSeq}
 	</update>
 	
 	
 	<!-- 작가 판매정책 불러오기 -->
-	<select id="loadSalesPolicy"  resultMap = "salesPolicyMap">
+	<select id="loadSalesPolicy"  resultMap = "salesPolicyMap" parameterType="String">
 		SELECT 
 		writer_payment, writer_send_price, writer_plus_price, 
 		writer_sendfree_case, writer_refund,writer_policy_about
 		FROM 
 		writer_tb 
 		WHERE 
-		writer_code_seq = '다인테스트'
+		writer_code_seq = #{writerCodeSeq}
 	</select>
 </mapper> 

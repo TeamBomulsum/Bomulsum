@@ -4,5 +4,5 @@ import com.web.bomulsum.writer.salespolicy.repository.WriterSalesPolicyVO;
 
 public interface WriterSalesPolicyService {
 	void updateSalesPolicy(WriterSalesPolicyVO vo);
-	WriterSalesPolicyVO getSalesPolicy();
+	WriterSalesPolicyVO getSalesPolicy(String writerCodeSeq);
 }
