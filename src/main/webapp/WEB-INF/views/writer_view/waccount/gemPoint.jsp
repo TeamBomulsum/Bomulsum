@@ -154,6 +154,7 @@ footer span{
 }
 
 
+
 </style>
 
 </head>
@@ -183,9 +184,10 @@ footer span{
 							<!-- 보유포인트 -->
 							<td class="daintdth" id="gemPoint" class="bold"
 								style="color: #36a7b3; display:flex; align-items: center;">
-								<c:if test="${pointsum.GEMSUM eq null}">0</c:if>
-								<fmt:formatNumber value="${gemsum.GEMSUM}" pattern="#,###"/>P <div>
-								<button class="dainGempointBtn" data-toggle="modal"  data-target="#chargePointModal" >충전하기</button></div></td>
+								<span id="gemP"><fmt:formatNumber value="${gemsum.GEMSUM}" pattern="#,###"/>P</span>
+								<div>
+								<button class="dainGempointBtn" data-toggle="modal"  
+								data-target="#chargePointModal" >충전하기</button></div></td>
 						</tr>
 					</table>
 
@@ -346,6 +348,12 @@ footer span{
          $("#rowPerPage").change(function(){
             pagingFunc();
          });
+         
+         //보유 젬포인트 0원처리
+         var jbText = $( '#gemP' ).text();
+         if(jbText == 'P'){
+        	$('#gemP').html("0P");
+         }
       });
    
       //글자수 제한
@@ -479,6 +487,8 @@ footer span{
          //페이징 처리 끝
       };
    
+      
+      
    </script>	
 	
 	

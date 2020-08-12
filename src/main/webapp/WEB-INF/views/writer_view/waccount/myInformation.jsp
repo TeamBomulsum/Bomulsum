@@ -19,6 +19,14 @@
 <!-- JQuery -->
 
 <script>
+	$(document).ready(function(){
+	    //보유 젬포인트 0원처리
+	    var jbText = $( '#gemP' ).text();
+	    if(jbText == 'P'){
+	   	$('#gemP').html("0P");
+	    }
+	 });
+ 
 /* 	function validCheck(){
 		 var pageAddress = $("#pageAddress").val();
 		 var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
@@ -40,6 +48,7 @@
 		  return true;
 		 }
 	} */
+	
 </script>
 
 <style>
@@ -207,10 +216,7 @@ footer span{
 						<tr>
 							<th class="daintdth" style="width: 15%;">젬포인트</th>
 							<td class="daintdth" style="width: 85%; color: #36a7b3;">
-							<c:if test="${pointsum.GEMSUM eq null}">
-							0
-							</c:if>
-							<fmt:formatNumber value="${pointsum.GEMSUM}" pattern="#,###"/>P
+							<span id="gemP"><fmt:formatNumber value="${pointsum.GEMSUM}" pattern="#,###"/>P</span>
 								<button class="btn2" onclick="location.href ='<c:url value='/writer/gempoint.wdo'/>'">포인트 충전</button>
 							</td>
 						</tr>

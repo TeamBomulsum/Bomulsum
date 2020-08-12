@@ -212,7 +212,7 @@ a:link, a:visited, a:hover, a:active{
 						<dt style="font-size: 12px;">작품 구매시 적립률</dt>
 						<dd style="font-size: 16px; margin: 0px; font-weight: bold; color: #1f76bb">2.0%</dd>
 						<dt style="font-size: 12px; margin-top: 16px;">등급조건</dt>
-						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">60만원 이상 구매시</dd>
+						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">500만원 이상 구매시</dd>
 					</dl>
 					</div>
 				</div>
@@ -228,7 +228,7 @@ a:link, a:visited, a:hover, a:active{
 						<dt style="font-size: 12px;">작품 구매시 적립률</dt>
 						<dd style="font-size: 16px; margin: 0px; font-weight: bold; color: #1f76bb">1.5%</dd>
 						<dt style="font-size: 12px; margin-top: 16px;">등급조건</dt>
-						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">30만원 이상, 60만원 미만 구매시</dd>
+						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">100만원 이상, 500만원 미만 구매시</dd>
 					</dl>
 					</div>
 				</div>
@@ -246,7 +246,7 @@ a:link, a:visited, a:hover, a:active{
 						<dt style="font-size: 12px;">작품 구매시 적립률</dt>
 						<dd style="font-size: 16px; margin: 0px; font-weight: bold; color: #1f76bb;">1.0%</dd>
 						<dt style="font-size: 12px; margin-top: 16px;">등급조건</dt>
-						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">10만원 이상, 30만원 미만 구매시</dd>
+						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">10만원 이상, 100만원 미만 구매시</dd>
 					</dl>
 					</div>
 				</div>
@@ -277,7 +277,7 @@ a:link, a:visited, a:hover, a:active{
 		<div style="font-size: 16px; font-weight: bold;">안내사항</div>
 		<a href="#" style="text-decoration: none; border: 1px solid #d9d9d9; 
 		height:80%; padding: 3px 5px; line-height: 24px; padding: 0px 12px; 
-		border-radius: 3px;" ><span style="font-size: 10px;">자세히 보기 <i class="arrow right"></i></span></a>
+		border-radius: 3px;" onclick="location.href ='<c:url value='/user/board/noticeDetail.do?seq=admin_notice_seq174'/>'" ><span style="font-size: 10px;">자세히 보기 <i class="arrow right"></i></span></a>
 	</div>
 	<p style="font-size: 12px; padding: 16px 24px; margin: 0px 12px; background-color: #FAF9F9">
 	‣ 회원 등급은 최근 3개월간 결제 금액을 산정하여 다음 달 15일에 변경됩니다. <br>
