@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.profile.service;
 
-public class UserProfileService {
-
+public interface UserProfileService {
+	int getSumpay();
+	int getSumpayPeriod();
 }

@@ -4,7 +4,8 @@
 
 <mapper namespace="userProfileDAO">
 
-	<resultMap type="com.web.bomulsum.user.profile.repository.UserProfileVO" id="uProfileMap">
+	<!-- 
+		<resultMap type="com.web.bomulsum.user.profile.repository.UserProfileVO" id="uProfileMap">
 		<result property="couponName" column="member_code_seq" />
 		<result property="couponName" column="member_email" />
 		<result property="couponName" column="member_name" />
@@ -18,45 +19,27 @@
 		<result property="couponName" column="member_gender" />
 		<result property="couponName" column="member_grade" />
 		<result property="couponName" column="member_profile" />
-		
-	</resultMap>
+		</resultMap> 
+	-->
 
-
-	<select id="getSomething" parameterType="int" resultType="#package.#modelname">
+	<!-- 회원 구매금액 산정 -->
+	<select id="getSumPay" parameterType="String" resultType="int" >
 		SELECT
-		columnname1,
-		columnname2,
-		columnname3
-		FROM tablename1
-		WHERE columnname1 = #{value}
+		nvl(SUM(order_pay_price),0)
+		FROM order_tb
+		WHERE member_code_seq = 'daintest'
+	<!-- 	WHERE member_code_seq = #{writerCodeSeq} -->
 	</select>
-
-	<resultMap type="#modelname" id="YourResultSet">
-		<id property="param1" column="columnname1" />
-		<result property="param2" column="columnname2" />
-		<result property="param3" column="columnname3" />
-	</resultMap>
-
-	<select id="getAll" resultMap="YourResultSet">
-		SELECT * FROM tablename1
+	
+	<!-- 3개월 이내 구매금액 산정 -->
+	<select id="getSumPayPeriod" parameterType="String" resultType="int" >
+		SELECT
+		nvl(sum(order_pay_price),0)
+		FROM order_tb
+		WHERE order_date > sysdate-90 
+		AND
+		member_code_seq = 'daintest'
+	<!-- 	WHERE member_code_seq = #{writerCodeSeq} -->
 	</select>
-
-	<insert id="insertSomething" parameterType="#modelname">
-		INSERT INTO tablename1 (columnname1, columnname2, columnname3)
-		VALUES(#{value1},#{value2},#{value3})
-	</insert>
-
-	<update id="updateSomething" parameterType="#modelname">
-		UPDATE tablename1
-		SET
-		columnname1=#{param1}
-		WHERE
-		columnname2 = #{param2}
-	</update>
-
-	<delete id="deleteSomething" parameterType="int">
-		DELETE FROM tablename1 WHERE
-		columnname1 = #{param1}
-	</delete>
 
 </mapper>
