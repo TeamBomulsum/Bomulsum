@@ -76,8 +76,13 @@ public class UserBoardController {
 	}
 	
 	@RequestMapping(value="/question")
-	public String getQuestion() {
-		return "/ucustomercenter/uQuestion";
+	public ModelAndView getQuestion() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("boardVo", service.getQuestionTitles());
+		mav.setViewName("/ucustomercenter/uQuestion");
+		
+		return mav;
 	}
 	
 }

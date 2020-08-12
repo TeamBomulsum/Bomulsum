@@ -12,4 +12,5 @@ public interface UserBoardService {
 	UserBoardNoticeVO getDetail(String seq);
 	void insertCoupon(UserCouponVo vo); 
 	int couponOverRap(UserCouponVo vo);
+	List<UserBoardNoticeVO> getQuestionTitles();
 }

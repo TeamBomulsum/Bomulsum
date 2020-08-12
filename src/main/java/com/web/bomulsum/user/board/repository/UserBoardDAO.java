@@ -16,24 +16,28 @@ public class UserBoardDAO {
 		return sqlSessionTemplate.selectList("userBoardDAO.getNoticeTitle");
 	}
 	
-	// ÄíÆùÁ¤º¸ »Ì¾Æ¿À±â
+	public List<UserBoardNoticeVO> getQuestionTitles(){
+		return sqlSessionTemplate.selectList("userBoardDAO.getQuestionTitle");
+	}
+	
+	// ì¿ í° ì •ë³´ ëŒì–´ì˜¤ê¸°
 	public UserBoardCouponVO getCoupon(String seq) {
 		String coupon = sqlSessionTemplate.selectOne("userBoardDAO.getCoupon", seq);
 		UserBoardCouponVO vo = new UserBoardCouponVO(coupon);
 		return vo;
 	}
 	
-	// °øÁö»çÇ× ¼¼ºÎÁ¤º¸
+	// ê³µì§€ì‚¬í•­ ë° ì´ë²¤íŠ¸ ìì„¸íˆë³´ê¸°
 	public UserBoardNoticeVO getDetail(String seq) {
 		return sqlSessionTemplate.selectOne("userBoardDAO.getNoticeDetail", seq);
 	}
 	
-	// ÄíÆù insert
+	// ì¿ í° insert
 	public void insertCoupon(UserCouponVo vo) {
 		sqlSessionTemplate.insert("userBoardDAO.insertCoupon", vo);
 	}
 	
-	// ÄíÆù Áßº¹ È®ÀÎ
+	// ì¿ í° ì¤‘ë³µ í™•ì¸
 	public int couponOverRap(UserCouponVo vo) {
 		return sqlSessionTemplate.selectOne("userBoardDAO.couponOverRap", vo);
 	}

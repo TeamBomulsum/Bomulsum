@@ -27,6 +27,17 @@
 		admin_notice_date ASC
 	</select>
 	
+	<select id="getQuestionTitle" resultMap="noticeVo">
+		SELECT 
+		admin_notice_seq, admin_notice_category, admin_notice_title, admin_notice_content, admin_notice_date
+		FROM
+		admin_notice_tb
+		WHERE
+		admin_notice_category='회원용-자주묻는질문'
+		ORDER BY 
+		admin_notice_date ASC
+	</select>
+	
 	<select id="getCoupon" resultType="String" parameterType="String">
 		SELECT
 		admin_notice_coupon

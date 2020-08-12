@@ -46,4 +46,9 @@ public class UserBoardServiceImpl implements UserBoardService{
 		return dao.couponOverRap(uVo);
 	}
 
+	@Override
+	public List<UserBoardNoticeVO> getQuestionTitles() {
+		return dao.getQuestionTitles();
+	}
+
 }

@@ -42,6 +42,10 @@ $(function() {
 		location.href="#";
 	});
 	
+	$("#toMessage").click(function(){
+		location.href="<c:url value='/user/message.do'/>";
+	});
+	
 });
 </script>
 
@@ -373,7 +377,11 @@ body {
 }
 
 .headerUlList li:hover .alarmDropBox{
-	display:flex;
+	display:block;
+}
+
+.headerUlList li:hover .messageDropBox{
+	display:block;
 }
 
 .headerUlList li ul a{
@@ -393,6 +401,7 @@ body {
 	width:400px;
 	height:400px;
 	z-index: 990;
+	right: 200px;
 	background-color: white;
 }
 
@@ -412,7 +421,7 @@ body {
 	cursor:pointer;
 	height: 39px;
     width: 100%;
-    color:red;
+    color:#22a7af;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -511,6 +520,131 @@ body {
 }
 
 
+/* <!--       dddddddddddddddddddddddddd                                --> */
+
+
+.messageDropBox{
+	position:absolute;
+	display:none;
+	flex-direction:column;
+	align-items: center;
+	justify-content: center;
+	border-radius:4px;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+	margin-top:440px;
+	width:400px;
+	height:400px;
+	z-index: 990;
+	right: 130px;
+	background-color: white;
+}
+
+.dndud_messageDrop_top{
+    height: 39px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 10pt;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+
+.dndud_messageDrop_All{
+	cursor:pointer;
+	height: 39px;
+    width: 100%;
+    color:#22a7af;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 10pt;
+    border-top: 1px solid #d9d9d9;
+}
+
+.dndud_messageDrop_main{
+	width:100%;
+	height:320px; 
+	overflow-y: auto;
+	overflow-x: hidden;
+	display:flex;
+	flex-direction:column;
+}
+.dndud_messageDrop_main::-webkit-scrollbar {
+  width: 10px;
+}
+.dndud_messageDrop_main::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.dndud_messageDrop_main::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+
+.dndud_message_content{
+	width:100%;
+	height:89px;
+	display:flex;
+	flex-direction:row;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.dndud_message_content_img{
+	padding:15px;
+}
+
+.dndud_message_content_img img{
+	height:60px;
+	width:60px;
+	border-radius:50%;
+}
+
+.dndud_message_content_main{
+	display:flex;
+	width:295px;
+	height:60px;
+	flex-direction:column;
+	padding: 15px 15px 15px 0;
+}
+
+.dndud_message_content_title{
+	display:flex;
+	flex-direction: row;
+	justify-content:space-between;
+	font-size:13px;
+	font-weight:bold;
+	width:100%;
+	height:20px;
+	align-items: center;
+}
+
+.dndud_message_content_bottom{
+	width:90%;
+	height:40px;
+	font-size:12px;
+}
+
+#dndud_message_date{
+	color:#d9d9d9;
+}
+
+#dndud_message_content{
+	margin-top: 5px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
 
 
 </style>
@@ -529,7 +663,7 @@ body {
 						<a class="dain-header-topA" href="#">고객센터</a>
 						<ul>
 							<li><a href="<c:url value='/user/board/notice.do'/> ">공지사항</a></li>
-							<li><a href="#">자주 묻는 질문</a></li>
+							<li><a href="<c:url value='/user/board/question.do'/> ">자주 묻는 질문</a></li>
 							<li><a href="#">메일로 문의</a></li>
 						</ul>
 					</li>
@@ -606,12 +740,154 @@ body {
 							</div>
 						</div>
 					</li>
-					<li class="dropBox"><a class="dain-header-topA" href="<c:url value='/user/message.do'/> " style="color: #666666;"><i class="fas fa-comment" style="font-size:13px"></i> 메시지</a></li>
+					<!-- 메세지 -->
+					<li class="dropBox">
+						<a class="dain-header-topA" href="#" style="color: #666666;"><i class="fas fa-comment" style="font-size:13px"></i> 메시지</a>
+						<div class="messageDropBox">
+							<div class="dndud_messageDrop_top">
+								<span>메시지</span>
+							</div>
+							<div class="dndud_messageDrop_main">
+								<!-- for -->
+								<div class="dndud_message_content">
+									<div class="dndud_message_content_img">
+										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
+									</div>
+									<div class="dndud_message_content_main">
+										<div class="dndud_message_content_title">
+											<span>
+												<span id="dndud_message_from_who">보물섬</span>
+											</span>
+											<span id="dndud_message_date">08월 24일</span>
+										</div>
+										<div class="dndud_message_content_bottom">
+											<span id="dndud_message_content">
+												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="dndud_message_content">
+									<div class="dndud_message_content_img">
+										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
+									</div>
+									<div class="dndud_message_content_main">
+										<div class="dndud_message_content_title">
+											<span>
+												<span id="dndud_message_from_who">보물섬</span>
+											</span>
+											<span id="dndud_message_date">08월 24일</span>
+										</div>
+										<div class="dndud_message_content_bottom">
+											<span id="dndud_message_content">
+												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="dndud_message_content">
+									<div class="dndud_message_content_img">
+										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
+									</div>
+									<div class="dndud_message_content_main">
+										<div class="dndud_message_content_title">
+											<span>
+												<span id="dndud_message_from_who">보물섬</span>
+											</span>
+											<span id="dndud_message_date">08월 24일</span>
+										</div>
+										<div class="dndud_message_content_bottom">
+											<span id="dndud_message_content">
+												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="dndud_message_content">
+									<div class="dndud_message_content_img">
+										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
+									</div>
+									<div class="dndud_message_content_main">
+										<div class="dndud_message_content_title">
+											<span>
+												<span id="dndud_message_from_who">보물섬</span>
+											</span>
+											<span id="dndud_message_date">08월 24일</span>
+										</div>
+										<div class="dndud_message_content_bottom">
+											<span id="dndud_message_content">
+												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="dndud_message_content">
+									<div class="dndud_message_content_img">
+										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
+									</div>
+									<div class="dndud_message_content_main">
+										<div class="dndud_message_content_title">
+											<span>
+												<span id="dndud_message_from_who">보물섬</span>
+											</span>
+											<span id="dndud_message_date">08월 24일</span>
+										</div>
+										<div class="dndud_message_content_bottom">
+											<span id="dndud_message_content">
+												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="dndud_message_content">
+									<div class="dndud_message_content_img">
+										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
+									</div>
+									<div class="dndud_message_content_main">
+										<div class="dndud_message_content_title">
+											<span>
+												<span id="dndud_message_from_who">보물섬</span>
+											</span>
+											<span id="dndud_message_date">08월 24일</span>
+										</div>
+										<div class="dndud_message_content_bottom">
+											<span id="dndud_message_content">
+												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="dndud_message_content">
+									<div class="dndud_message_content_img">
+										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
+									</div>
+									<div class="dndud_message_content_main">
+										<div class="dndud_message_content_title">
+											<span>
+												<span id="dndud_message_from_who">보물섬</span>
+											</span>
+											<span id="dndud_message_date">08월 24일</span>
+										</div>
+										<div class="dndud_message_content_bottom">
+											<span id="dndud_message_content">
+												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
+											</span>
+										</div>
+									</div>
+								</div>
+								<!-- for end -->
+							</div>
+							<div id="toMessage" class="dndud_messageDrop_All">
+								<span>모두 보기</span>
+							</div>
+						</div>
+					</li>
+					<!-- 고객센터 -->
 					<li class="dropBox">
 						<a class="dain-header-topA" href="#">고객센터</a>
 						<ul>
 							<li><a href="<c:url value='/user/board/notice.do'/> ">공지사항</a></li>
-							<li><a href="#">자주 묻는 질문</a></li>
+							<li><a href="<c:url value='/user/board/question.do'/> ">자주 묻는 질문</a></li>
 							<li><a href="#">메일로 문의</a></li>
 						</ul>
 					</li>
