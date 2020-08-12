@@ -262,10 +262,10 @@
             <a class="collapse-item" href="404.html">404 Page</a>
             <a class="collapse-item" href="blank.html">Blank Page</a>
             -->
-            <a class="collapse-item" href="<c:url value='/view/waccount/myInformation.jsp'/>">내정보</a>
-            <a class="collapse-item" href="<c:url value='/view/waccount/salsePolicy.jsp'/>">판매정책</a>
-            <a class="collapse-item" href="<c:url value='/view/waccount/writerProfile.jsp'/>">작가 프로필</a>
-            <a class="collapse-item" href="<c:url value='/view/waccount/gemPoint.jsp'/>">금손 포인트</a>
+            <a class="collapse-item" href="<c:url value='/writer/myinfo.wdo'/>">내정보</a>
+            <a class="collapse-item" href="<c:url value='/writer/salespolicy.wdo'/>">판매정책</a>
+            <a class="collapse-item" href="<c:url value='/writer/profile.wdo'/>">작가 프로필</a>
+            <a class="collapse-item" href="<c:url value='/writer/gempoint.wdo'/>">금손 포인트</a>
           </div>
         </div>
       </li>

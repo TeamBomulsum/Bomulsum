@@ -14,23 +14,23 @@ public class WriterMyinfoDAO {
 	SqlSessionTemplate sqlSessionTemplate;
 	
 	//작가 내정보 불러오기
-	public WriterMyinfoVO getWriterMyinfo(){
-		WriterMyinfoVO info = sqlSessionTemplate.selectOne("writerMyinfoDAO.loadMyinfo");
+	public WriterMyinfoVO getWriterMyinfo(String writerCodeSeq){
+		WriterMyinfoVO info = sqlSessionTemplate.selectOne("writerMyinfoDAO.loadMyinfo",writerCodeSeq);
 		return info;
 	}
 	
 	//보유 포인트
-	public Map<String, Object> getGemPointSum2() {
-		Map<String, Object> result =  sqlSessionTemplate.selectOne("writerGempointDAO.gempointSum"); 
+	public Map<String, Object> getGemPointSum2(String writerCodeSeq) {
+		Map<String, Object> result =  sqlSessionTemplate.selectOne("writerGempointDAO.gempointSum",writerCodeSeq); 
 		System.out.println("보유젬포인트:"+result); //테스트
 		return result;
 	}
 	
-	public void insertPhone(String writerPhone) {
-		sqlSessionTemplate.update("writerMyinfoDAO.insertPhone",writerPhone);
+	public void insertPhone(Map<String, Object> map) {
+		sqlSessionTemplate.update("writerMyinfoDAO.insertPhone",map);
 	}
-	public void insertUrl(String writerUrl) {
-		sqlSessionTemplate.update("writerMyinfoDAO.insertUrl", writerUrl);
+	public void insertUrl(Map<String, Object> map) {
+		sqlSessionTemplate.update("writerMyinfoDAO.insertUrl", map);
 	}
 	
 	

@@ -18,18 +18,18 @@ public class WriterProfileServiceImpl implements WriterProfileService{
 	}
 
 	@Override
-	public WriterProfileVO getWriterProfile() {
-		return dao.getWriterProfile();
+	public WriterProfileVO getWriterProfile(String writerCodeSeq) {
+		return dao.getWriterProfile(writerCodeSeq);
 	}
 
 	@Override
-	public String getWriterProfileImg() {
-		return dao.getWriterProfileImg();
+	public String getWriterProfileImg(String writerCodeSeq) {
+		return dao.getWriterProfileImg(writerCodeSeq);
 	}
 
 	@Override
-	public String getWriterCoverImg() {
-		return dao.getWriterCoverImg();
+	public String getWriterCoverImg(String writerCodeSeq) {
+		return dao.getWriterCoverImg(writerCodeSeq);
 	}
 
 

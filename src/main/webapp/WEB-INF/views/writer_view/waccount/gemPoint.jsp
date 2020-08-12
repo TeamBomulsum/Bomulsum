@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>젬 포인트</title>
+<title>보물섬 작가홈 | 젬 포인트</title>
 <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
@@ -182,7 +182,9 @@ footer span{
 							<th class="daintdth" style="width: 20%">보유 포인트 </th>
 							<!-- 보유포인트 -->
 							<td class="daintdth" id="gemPoint" class="bold"
-								style="color: #36a7b3; display:flex; align-items: center;"><fmt:formatNumber value="${gemsum.GEMSUM}" pattern="#,###"/>P <div>
+								style="color: #36a7b3; display:flex; align-items: center;">
+								<c:if test="${pointsum.GEMSUM eq null}">0</c:if>
+								<fmt:formatNumber value="${gemsum.GEMSUM}" pattern="#,###"/>P <div>
 								<button class="dainGempointBtn" data-toggle="modal"  data-target="#chargePointModal" >충전하기</button></div></td>
 						</tr>
 					</table>
@@ -236,7 +238,7 @@ footer span{
 					</table>
 
 					<!-- 페이징 처리 -->
-					<div id="pagination" class="minwoo_pagination"></div>
+					<div id="pagination" class="minwoo_pagination" style="padding-right: 8%;"></div>
 			<!-- 		<div class="paging" style="width: 90%;">
 						<a class="arrow prev" href="#">이전</a> <a href="#">1</a> <a
 							class="arrow next" href="#">다음</a>
@@ -435,7 +437,7 @@ footer span{
             if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전...&nbsp;&nbsp;</a>";
                         
             for(var index = startPage; index <= endPage; index++){
-               paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
+               paginationHTML += (parseInt(page) === parseInt(index)) ? " <a style='color:#ff8400'>" + index + "</a> " :" <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> ";
             }
                         
             if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";

@@ -6,7 +6,7 @@
 
 	<resultMap id="gempointMap" type="HashMap">
 		<id column="gem_seq" property="gemSeq"/>
-		<id column="writer_code_seq" property="writeCodeSeq"/>
+		<id column="writer_code_seq" property="writerCodeSeq"/>
 		<id column="gem_usage" property="gemUsage"/>
 		<id column="gem_price" property="gemPrice"/>
 		<id column="gem_log" property="gemLog"/>
@@ -30,27 +30,24 @@
 		gem_price, gem_log, TO_CHAR(gem_date,'YYYY-MM-DD') as gem_date
 		
 		FROM gem_tb
-		<!-- 
-		WHERE writer_code_seq = #{writeCodeSeq}
-		 -->
+		WHERE writer_code_seq = #{writerCodeSeq}
 		ORDER BY gem_seq DESC
 		
 	</select>
 	
 	<!-- 젬포인트 보유포인트 조회  -->
-	<select id="gempointSum" resultMap="gempointMap">
+	<select id="gempointSum" resultMap="gempointMap" parameterType="String" >
      	SELECT SUM(gem_price) as gemSum
 		FROM gem_tb
-		<!-- where 작가코드  -->
+		WHERE writer_code_seq = #{writerCodeSeq}
 	</select>
 	
 	<!-- 젬포인트 충전 -->
 	<!--  -->
-	<insert id="gempointChargeInsert" parameterType="int">
-
+	<insert id="gempointChargeInsert" parameterType="hashMap">
 		INSERT INTO gem_tb
 		(gem_seq, writer_code_seq, gem_usage, gem_price, gem_log, gem_date)
-		VALUES('gem_seq' || TO_CHAR(gem_sq.nextval), 'writer_code_seq7', 'N', ${chargeMoney},'젬포인트를 충전하셨습니다. 감사합니다!', SYSDATE)
+		VALUES('gem_seq' || TO_CHAR(gem_sq.nextval), #{writerCodeSeq}, 'N', #{chargeMoney},'젬포인트를 충전하셨습니다. 감사합니다!', SYSDATE)
 	</insert>
 </mapper>
 

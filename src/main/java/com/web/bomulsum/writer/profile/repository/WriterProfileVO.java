@@ -5,7 +5,15 @@ public class WriterProfileVO {
 	private String writerCoverImg;
 	private String writerBrandName;
 	private String writerIntro;
+	private String writerCodeSeq;
 	
+	
+	public String getWriterCodeSeq() {
+		return writerCodeSeq;
+	}
+	public void setWriterCodeSeq(String writerCodeSeq) {
+		this.writerCodeSeq = writerCodeSeq;
+	}
 	public String getWriterProfileImg() {
 		return writerProfileImg;
 	}
@@ -30,11 +38,12 @@ public class WriterProfileVO {
 	public void setWriterIntro(String writerIntro) {
 		this.writerIntro = writerIntro;
 	}
-	
 	@Override
 	public String toString() {
 		return "WriterProfileVO [writerProfileImg=" + writerProfileImg + ", writerCoverImg=" + writerCoverImg
-				+ ", writerBrandName=" + writerBrandName + ", writerIntro=" + writerIntro + "]";
+				+ ", writerBrandName=" + writerBrandName + ", writerIntro=" + writerIntro + ", writerCodeSeq="
+				+ writerCodeSeq + "]";
 	}
+	
 	
 }

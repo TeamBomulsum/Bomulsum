@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>작가 프로필</title>
+<title>보물섬 작가홈 | 작가 프로필</title>
 <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
@@ -164,7 +164,10 @@ footer span{
 								<th class="daintdth" style="width: 15%;  text-align: center;">프로필 사진</th>
 								<td class="daintdth" style="font-size: 12px; width: 7%;">
 									<!-- 여기 이미지 썸네일 들어감 --> 
+									<c:if test="${profile.writerProfileImg ne null}">
+									
 									<img id="coverPic" src="<c:url value='/upload/${profile.writerProfileImg}'/>"/>
+									</c:if>
 								</td>
 								<td  class="daintdth" style="width: 28%;">
 									<input type="file" name="writerProfileImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
