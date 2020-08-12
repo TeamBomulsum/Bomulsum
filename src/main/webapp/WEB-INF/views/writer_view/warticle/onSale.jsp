@@ -30,10 +30,6 @@
 	padding:2%,2%;
 }
 
-.registerButton {
-	float: right;
-}
-
 .textTitle {
 	float: left;
 }
@@ -102,11 +98,41 @@ form {
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 <script>
 
-$("#pauseSales").click(function() {
-    
+function updateOnsale(){
+	var artCodeArray= new Array();
+	var artCheckArray = new Array();
+	$('.selectCheckBox:checked').each(function(i){
+		artCodeArray.push($('.artCode').val());
+		artCheckArray.push($(this).val());
+	});
+	
+	if(artCheckArray.length ==0){
+		alert("삭제할 작품을 선택하세요");
+	}
+    $.ajax({
+        url: "writer/updateSalesArt.wdo",
+        method: 'post',
+        data: {
+           artCodeList:artCodeArray,
+           checkList:artCheckArray
+        },
+        success: function() {   	
+           location.reload(true);
+           alert('변경되었습니다.');
+        },
+        error: function(err) {
+           alert('변경에 실패했습니다.');
+        }
+     }) ;
+	
+	
+}
+
+/*
+$('#pauseSales').click(function() {
     const checkArray = new Array();
     const useynArray = new Array();
-    $(".selectCheckBox:checked").each(function() {
+    $('.selectCheckBox:checked').each(function() {
        const useyn = $(this).data('Y') == 1 ? 0 : 1;
        checkArray.push($(this).data('N'));
        useynArray.push(useyn);
@@ -127,7 +153,7 @@ $("#pauseSales").click(function() {
     }) ;
 
  });
-
+*/
 $(document).ready(function(){
     //최상단 체크박스 클릭
     $("#selectAll").click(function(){
@@ -142,6 +168,7 @@ $(document).ready(function(){
         }
     })
 })
+
 
 
 </script>
@@ -160,9 +187,6 @@ $(document).ready(function(){
 		<div class="topLine">           
 			<div class="textTitle">
 				<h4>판매중 작품</h4>
-			</div>
-			<div class="registerButton">
-				<button class="button"id="register" type="button" onclick="alert('작품 등록')">작품등록</button>
 			</div>
 		</div> 	<!-- end of topLine -->
 	<hr>
@@ -195,7 +219,7 @@ $(document).ready(function(){
 	<div class="ttable">
 		<table border="1" id="ordertable">
 			<tr>
-				<th style="width:4%"><input type="checkbox" id="selectAll"></th>
+				<th style="width:4%"><input type="checkbox" id="selectAll" ></th>
 				<th colspan="4" style="width:40%">작품명</th>
 				<th style="width:5%">수량</th>
 				<th style="width:7%">정상가</th>
@@ -210,9 +234,11 @@ $(document).ready(function(){
 			<c:forEach var="onSaleArt" items="${onSaleList}">
 			<tr>
 		
-				<td><input type="checkbox" class="selectCheckBox" value="Y" name="selectCheck"></td>
-				<td><img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px"
-					src="<c:url value='/upload/${photo[0]}'/>" /></td>
+				<td><input type="checkbox" class="selectCheckBox" name="selectCheck"value="Y"></td>
+				 <td style="display:none" class="artCode">${onSaleArt.artCodeSeq}</td>
+				<td>
+				<img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px"
+					src="<c:url value='/upload/${onSaleArt.artPhoto}'/>"/></td> <!-- ${onSaleArt.artPhoto} -->
 				<td colspan="3">
 					<div class="alignLeft" style="text-align: left">
 						<a href="#" style="color: black; text-style: bold;">
@@ -234,9 +260,10 @@ $(document).ready(function(){
 				<td>${onSaleArt.artViewCount}</td>
 				<td>${onSaleArt.artSaleCount}</td>
 				<td>0</td>
-				<td><button id="update" type="button" onclick="alert('수정')">수정</button></td>
+				<td><button id="update" type="button" onclick="location.href ='<c:url value='/writer/workRegister.wdo'/>'">수정</button></td>
+				
 			</tr>
-			</c:forEach>
+	</c:forEach>
 		</table>
 	</div>
 	
@@ -245,7 +272,7 @@ $(document).ready(function(){
 	<!-- 아래 버튼 -->
 	<div class="bottomLine">
 	0개
-	<button class="button" id="pauseSales" type="button">판매 일시 중지</button>
+	<button class="button" id="pauseSales" type="button" onClick="updateOnsale();">판매 일시 중지</button>
 	<button class="button" id="deleteWork" type="button">작품 삭제</button>
 	</div>
 	<!-- 아래 버튼 끝 -->

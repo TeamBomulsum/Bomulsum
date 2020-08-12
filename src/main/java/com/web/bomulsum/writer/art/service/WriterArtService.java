@@ -13,7 +13,7 @@ public interface WriterArtService {
 	void insertArt(WriterArtVO vo);
 	
 	//작품 코드 검색
-	String getArtCode(String artName);
+	String getArtCode(WriterArtVO vo);
 	
 	//작품정보제공등록
 	void insertArtInfoDetail(WriterArtInfoDetailVO vo);
@@ -30,12 +30,15 @@ public interface WriterArtService {
 	void insertArtOption9(Map<String, Object> map);
 	
 	//판매중 작품 목록
-	List<WriterArtVO> getArtOnsaleList();
-	
-	
-	//즐겨찾기 검색
-	//int getbookMark(String artCodeSeq);
+	List<WriterArtVO> getArtOnsaleList(String seq);
+
 	
 	//판매중 작품 업데이트
-	void updateSalesArt(List<WriterArtVOUP> list);
+	void updateSalesArt(List<WriterArtVO> list);
+	
+	//즐겨찾기 카운트
+	int getArtOnsaleBookMark(String artCode);
+
+	
+	
 }

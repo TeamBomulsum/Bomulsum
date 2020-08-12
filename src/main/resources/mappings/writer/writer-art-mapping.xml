@@ -21,6 +21,7 @@
 		<result property="artSaleState" column="art_sale_state"/>
 		<result property="artRecommendTime" column="art_recommend_time"/>
 		<result property="artRegisterDate" column="art_register_date"/>
+	
 	</resultMap>
 
 <!-- 작품 등록 -->
@@ -46,7 +47,7 @@
 		)
 		VALUES (
 			'art_code_seq' || TO_CHAR(art_code_sq.nextval),
-			'작가코드1',
+			#{writerCodeSeq},
 			#{artPhoto},
 			#{artName},
 			#{artPrice},
@@ -64,10 +65,10 @@
 		)
 	</insert>
   
-	<select id="getArtCode" parameterType="String" resultType="String">
+	<select id="getArtCode" parameterType="com.web.bomulsum.writer.art.repository.WriterArtVO" resultType="String">
 		SELECT art_code_seq
 		FROM art_tb
-		WHERE writer_code_seq='작가코드1'
+		WHERE writer_code_seq=#{writerCodeSeq}
 		AND art_name=#{artName}	
 	</select>
 
@@ -256,39 +257,41 @@
 	</insert>
 
 <!-- 판매중 작품 -->
+
 	<select id="getArtOnsale" parameterType="String" resultMap="onSaleArt">
-		SELECT *
-		FROM art_tb 
-		WHERE art_sale_state='Y';
-		
-		
+		 SELECT * FROM art_tb 
+		 WHERE writer_code_seq=#{writerCodeSeq}
+		 AND art_sale_state='Y'
 	</select>
-	
-	<select id="getbookMark" parameterType="String" resultType="java.lang.Integer">
-		SELECT count(*) 
-		FROM wishlist_tb 
-		WHERE wishlist_option='좋아하는작품' 
-		AND wishlist_option_code='#{artCodeSeq}'
-	</select>
-	
-	<select id="getComment" parameterType="String" resultType="java.lang.Integer">
-		SELECT count(*) 
-		FROM comment_tb 
-		WHERE art_code_seq='#{artCodeSeq}'
-	</select>
-	
-	<select id="getReview" parameterType="String" resultType="java.lang.Integer">
+ <!--   	
+	<select id="getArtOnsaleBookMark" parameterType="String" resultType="java.lang.Integer">
 		SELECT count(*) 
 		FROM review_tb 
-		WHERE art_code_seq='#{artCodeSeq}'
+		WHERE review_tb.art_code_seq=#{artCodeSeq}
 	</select>
-	<!--  
+
+	<select>
+	(select count(*) from comment_tb where comment_tb.art_code_seq=#{ArtCodeSeq}),
+	</select>
+	
+	<select
+
+			
+			(select count(*) from wishlist_tb where wishlist_tb.wishlist_option='좋아하는 작품' and wishlist_tb.wishlist_option_code=#{ArtCodeSeq}')
+		FROM art_tb
+		WHERE art_tb.art_code_seq=#{ArtCodeSeq};
+
+
+
+-->
 	<update id="updateSalesArt" parameterType="java.util.List">
-      <foreach collection="list" item="item" index="index" 
-      separator=";" open="DECLARE BEGIN" close="; END;">
+      <foreach collection="list" item="item" separator=",">
+  
          UPDATE art_tb
-         SET ART_SALE_STATE=#{item.ART_SALE_STATE}
+         SET ART_SALE_STATE='N'
          WHERE ART_CODE_SEQ=#{item.ART_CODE_SEQ}
       </foreach>
-   </update>-->
+   </update>
+   
+   
 </mapper>

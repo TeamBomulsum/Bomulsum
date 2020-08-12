@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
 import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
-import com.web.bomulsum.writer.art.repository.WriterArtVOUP;
 import com.web.bomulsum.writer.art.service.WriterArtService;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 
@@ -35,62 +34,69 @@ public class WriterArtController {
 	WriterArtService service;
 	
 //	private static final String SAVE_PATH_AWS = "/upload";	//aws 경로
-	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //저장 경로
+	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
 	
 	@GetMapping("/workRegister")
 	public String workRegister() {
 		return "/warticle/workRegister";
 	} 
 	
-	//�Ǹ��� ��ǰ 
+	//판매중 작품 
 	@RequestMapping(value="/workOnsale")
-	public ModelAndView workOnsale(WriterArtVO vo) {
-		ModelAndView mav = new ModelAndView("/warticle/onSale");
-		List<WriterArtVO> artList  = service.getArtOnsaleList();
+	public ModelAndView workOnsale(WriterArtVO vo, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("warticle/onSale");
+		
+		//작가코드 받아오기
+		HttpSession session =  request.getSession();
+        WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");        
+        String seq = code.getWriterSeq();
+		
+        //해당 작가의 판매중 작품
+		List<WriterArtVO> artList  = service.getArtOnsaleList(seq);
 		System.out.println(artList);
-		
-		
-		
-		//int bookMarkCount = service.getbookMark(vo.getArtCodeSeq());
-	//	int bookMarkCount = service.getbookMark("art code seq218");
-	//	System.out.println(bookMarkCount);
-		
-	/*	List<String> photoName = new ArrayList<String>(); 
-		for(int i=0;i<artList.size(); i++) {
-			int idx = artList.get(i).getArtPhoto().indexOf(",");
-		 	String photoList = artList.get(i).getArtPhoto().substring(0, idx);
-		 	photoName.add(photoList);
-		 	System.out.println(photoList);
 
+		if(artList.size() >= 1) {
+			for(int i=0; i<artList.size(); i++) {
+				WriterArtVO testVo = artList.get(i);
+				String[] photoArray = testVo.getArtPhoto().split(",");
+				testVo.setArtPhoto(photoArray[0]);
+				artList.remove(i);
+				artList.add(i, testVo);
+			}
+			System.out.println(artList);
 		}
-		mav.addObject("photo", photoName);*/
-		//artList.set(2, photoList)
+	/*	
+		String artCode = vo.getArtCodeSeq();
+		//즐겨찾기
+		int bookMarkCount = service.getArtOnsaleBookMark(artCode);
+		//댓글
+		//후기
+		*/
 		mav.addObject("onSaleList", artList);
+	//	mav.addObject("bookMark",bookMarkCount);
 		return mav;
 	} 
 
+	//판매일시중지 작품으로 변경
 	@RequestMapping(value="/updateSalesArt.wdo",method=RequestMethod.POST )
 	@ResponseBody
-	   public void updateSalesArtlist(
-	         @RequestParam("checkList[]") List<String> checkList,
-	         @RequestParam("useList[]") List<String> useList
-	         ) {
-	      List<WriterArtVOUP> volist = new ArrayList<WriterArtVOUP>();
+	   public void updateSalesArtlist( @RequestParam(value="artCodeList[]") List<String> codeList,
+	         @RequestParam(value="checkList[]") List<String> checkList) {
+	    System.out.println("변경중");  
+		List<WriterArtVO> volist = new ArrayList<WriterArtVO>();
 	      for (int i = 0; i < checkList.size(); i++) {
-	    	  WriterArtVOUP vo = new WriterArtVOUP();
-	    	  
-	         vo.setArtCodeSeq(Integer.parseInt(checkList.get(i)));
-	         vo.setArtSaleState(Integer.parseInt(useList.get(i)));
+	    	  WriterArtVO vo = new WriterArtVO();
+	         vo.setArtCodeSeq(codeList.get(i));
+	         vo.setArtSaleState(checkList.get(i));
 	         volist.add(vo);
 	      }
 	      service.updateSalesArt(volist);
 	   }
-	/*
-	 * form 에서 보내온 액션값
-	 * workRegister.jsp   "/artregister"
-	 */ 
+	
+	
+	//작품 등록 액션
 	@RequestMapping(value="/artregister")
-	public ModelAndView insertArtwork(@RequestParam(value="orderPicture", required=false) List<MultipartFile> mf,
+	public ModelAndView insertArtwork(@RequestParam(value="artPicture", required=false) List<MultipartFile> mf,
 			 HttpServletRequest request, WriterArtVO vo, WriterArtInfoDetailVO vo1, WriterArtOptionVO vo2){
 
 		
@@ -109,19 +115,19 @@ public class WriterArtController {
 		}	
 		vo.setArtPhoto(result);
 		
-		//작가 코드 가져오기
-		//HttpSession session =  request.getSession();
-   //   WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");        
-       // String seq = code.getWriterSeq();
-       // vo.setWriterCodeSeq(seq);
+		//작가코드 받아오기
+		HttpSession session =  request.getSession();
+        WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");        
+        String seq = code.getWriterSeq();
+        vo.setWriterCodeSeq(seq);
 	
 		//작품 등록
 		service.insertArt(vo);
 		System.out.println(vo.toString());
 		
 		//작품코드 검색
-		String artCode = service.getArtCode(vo.getArtName());
-
+		String artCode = service.getArtCode(vo);
+		System.out.println(artCode);
 
 		ModelAndView mav = new ModelAndView();
 		

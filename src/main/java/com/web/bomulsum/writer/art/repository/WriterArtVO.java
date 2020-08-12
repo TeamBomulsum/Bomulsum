@@ -1,9 +1,8 @@
 package com.web.bomulsum.writer.art.repository;
 
 import java.sql.Date;
-import java.util.List;
 
-//작품 테이블
+
 public class WriterArtVO {
 	
 	private String artCodeSeq;
@@ -22,7 +21,10 @@ public class WriterArtVO {
 	private String artSaleState;
 	private Date artRecommendTime;
 	private Date artRegisterDate;
+
 	
+	
+
 	@Override
 	public String toString() {
 		return "WriterArtVO [artCodeSeq=" + artCodeSeq + ", writerCodeSeq=" + writerCodeSeq + ", artPhoto=" + artPhoto
@@ -160,7 +162,6 @@ public class WriterArtVO {
 	public void setArtRegisterDate(Date artRegisterDate) {
 		this.artRegisterDate = artRegisterDate;
 	}
-	
-	
+
 	
 }

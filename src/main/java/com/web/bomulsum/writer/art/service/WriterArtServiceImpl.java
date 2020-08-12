@@ -25,8 +25,8 @@ public class WriterArtServiceImpl implements WriterArtService{
 	}
 
 	@Override
-	public String getArtCode(String artName) {
-		return dao.getArtCode(artName);
+	public String getArtCode(WriterArtVO vo) {
+		return dao.getArtCode(vo);
 	}
 
 	@Override
@@ -81,21 +81,20 @@ public class WriterArtServiceImpl implements WriterArtService{
 	}
 
 	@Override
-	public List<WriterArtVO> getArtOnsaleList() {
-		return dao.getArtOnsaleList();
+	public List<WriterArtVO> getArtOnsaleList(String seq) {
+		return dao.getArtOnsaleList(seq);
 	}
 
 	@Override
-	public void updateSalesArt(List<WriterArtVOUP> list) {
+	public void updateSalesArt(List<WriterArtVO> list) {
 		dao.updateSalesArt(list);
 		
 	}
 
-
-	
-/*	@Override
-	public int getbookMark(String artCodeSeq) {
-		return dao.getbookMark(artCodeSeq);
+	@Override
+	public int getArtOnsaleBookMark(String artCode) {
+		return dao.getArtOnsaleBookMark(artCode);
 	}
-*/
+
+
 }

@@ -91,9 +91,9 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!--<h6 class="collapse-header">Custom Components:</h6>-->
-            <a class="collapse-item" href="<c:url value='/view/warticle/onSale.jsp'/>">판매중</a>
+            <a class="collapse-item" href="<c:url value='/writer/workOnsale.wdo'/>">판매중</a>
             <a class="collapse-item" href="<c:url value='/view/warticle/pauseOnSales.jsp'/>">판매 일시중지</a>
-            <a class="collapse-item" href="<c:url value='/view/warticle/workRegister.jsp'/>">작품등록</a>
+            <a class="collapse-item" href="<c:url value='/writer/workRegister.wdo'/>">작품등록</a>
             <a class="collapse-item" href="<c:url value='/writer/midasRegister.wdo'/>">금손작품등록</a>
             <a class="collapse-item" href="<c:url value='/view/warticle/classInfo.jsp'/>">강의정보</a>
           </div>
