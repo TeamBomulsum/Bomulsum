@@ -4,6 +4,14 @@ public class UserChatRoomVO {
 	private String writerCode;
 	private String writerName;
 	private String writerImg;
+	private String writerBrandName;
+	
+	public String getWriterBrandName() {
+		return writerBrandName;
+	}
+	public void setWriterBrandName(String writerBrandName) {
+		this.writerBrandName = writerBrandName;
+	}
 	public String getWriterCode() {
 		return writerCode;
 	}
@@ -25,8 +33,10 @@ public class UserChatRoomVO {
 	@Override
 	public String toString() {
 		return "UserChatRoomVO [writerCode=" + writerCode + ", writerName=" + writerName + ", writerImg=" + writerImg
-				+ "]";
+				+ ", writerBrandName=" + writerBrandName + "]";
 	}
+
+	
 	
 	
 }

@@ -1,5 +1,7 @@
 package com.web.bomulsum.user.message.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.user.message.repository.UserInsertChatVo;
 import com.web.bomulsum.user.message.service.NodeDbServiceImpl;
 
 @Controller
@@ -30,18 +34,38 @@ public class UserMessageController {
 		if(userCode == null) {
 			return mav;
 		}else {
+			mav.addObject("testWriter", service.testGetWriter());
 			mav.addObject("chatRoom", service.getChatroom(userCode));
 			return mav;
 		}
 	}
 	
 	@ResponseBody
-	@GetMapping("/message/data")
-	public List<String> sendData(){
-		List<String> vo = service.getUserCodes();
-		return vo;
+	@GetMapping("/message/insertChat")
+	public void insertChat(UserInsertChatVo vo){
+		System.out.println(vo.toString());
+		service.insertChatRoom(vo);
 	}
 	
+	@ResponseBody
+	@GetMapping("/message/extiChat")
+	public void exitChat(@RequestParam String memberCode, @RequestParam(value="writerCode[]")String[] writerCode){
+		
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
+		for(int i=0; i<writerCode.length; i++) {
+			System.out.println(writerCode[i]);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("memberCode", memberCode);
+			map.put("writerCode", writerCode[i]);
+			list.add(map);
+		}
+		for(HashMap<String, String> m : list) {
+			System.out.println(m.get("memberCode"));
+			System.out.println(m.get("writerCode"));
+		}
+		service.deleteChatRoom(list);
+		
+	}
 
 	
 }

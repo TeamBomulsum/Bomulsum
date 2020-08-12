@@ -203,6 +203,7 @@
 	flex-direction: column;
 	padding:15px;
 	height:86%;
+	overflow-y: auto;
 	background-color:#f5f5f5;
 }
 
@@ -274,6 +275,15 @@
 	background-color:#d9d9d9;
 }
 
+.dndud_chat_writer_name{
+	text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    height: 22px;
+    overflow-y: hidden;
+    -webkit-box-orient: vertical;
+}
+
 </style>
 </head>
 <body>
@@ -310,7 +320,14 @@
 									</c:otherwise>
 								</c:choose>
 								<div style="margin: 2%; font-size: 100%; display:flex; justify-content: space-between; width:165px">
-									<span>${chat.writerName}</span>
+									<c:choose>
+										<c:when test="${not empty chat.writerBrandName }">
+											<span class="dndud_chat_writer_name">${chat.writerBrandName }브랜드</span>
+										</c:when>
+										<c:otherwise>
+											<span class="dndud_chat_writer_name">${chat.writerName}</span>
+										</c:otherwise>
+									</c:choose>
 									<input type="hidden" class="writerCode" value="${chat.writerCode}">
 									<input type="checkbox" class="deleteCheck" style="display:none">
 								</div>
@@ -372,6 +389,30 @@
 							<a>321팩토리321factory</a>
 						</div>
 					</div>
+					<div class="testWriter">
+						<span>테스트용 작가들</span>
+						<c:forEach items="${testWriter}" var="test">
+							<div class="div_writer">
+								<input type="hidden" class="writerCode" value="${test.writerCode}">
+								<c:choose>
+									<c:when test="${not empty test.writerImg}">
+										<img src="<c:url value='/upload/${test.writerImg}'/>">
+									</c:when>
+									<c:otherwise>
+										<img src="<c:url value='/resources/img/Logo_blue.png'/>">
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${not empty test.writerBrandName }">
+										<a>${test.writerBrandName }</a>
+									</c:when>
+									<c:otherwise>
+										<a>${test.writerName}</a>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</c:forEach>
+					</div>
 				</div>
 								
 			</div>
@@ -391,15 +432,6 @@ var unreadCnt = 0;
 
 $(function(){
 	$(document).ready(function(){
-		var vo;
-		$.ajax({
-			url:"/bomulsum/user/message/data.do",
-			dataType: "json",
-		}).done(function(data){
-			vo = data;
-			console.log(vo);
-			socket.emit('first_connect', vo);
-		});
 		
 		
 		
@@ -564,6 +596,27 @@ $(function(){
 		$(".dndud_content_change_main_div").css("display","flex");
 	});
 	
+	$(".div_writer").on('click', function(){
+		var writerCode = $(this).children('input').val();
+		var memberCode = '<%= (String)session.getAttribute("member") %>';
+		
+		$.ajax({
+			url:"/bomulsum/user/message/insertChat.do",
+			data:{
+				memberCode : memberCode,
+				writerCode : writerCode
+			},
+			success : function(){
+				console.log('저장 성공');
+				history.go(0);
+			},
+			fail : function(err){
+				console.log(err);
+			}
+		});
+		
+	});
+	
 	$("#deleteChat").on('click', function(){ // 톱니바퀴 클릭시
 		$(".wonMessagebutton1").css("display", "none");
 		$(".deleteButtonClicked").css("display","flex");
@@ -577,12 +630,43 @@ $(function(){
 		$(".deleteButtonClicked").css("display","none");
 		$(".deleteButtonClickedExit").css("display","none");
 		$(".deleteCheck").css("display", "none");
+		$(".deleteCheck").prop("checked", false);
 		f_initListClickEvent();
 	});
 	
+	function exitChat(data){
+		
+		$.ajax({
+			url:"/bomulsum/user/message/extiChat.do",
+			data:data,
+			success : function(){
+				console.log('나가기 성공');
+				history.go(0);
+			},
+			fail : function(err){
+				console.log(err);
+			}
+		});
+	}
+	
 	$("#decision").on('click', function(){ // 나가기 버튼 <톱니바퀴>
+		var arr = [];
+		var memberCode = '<%= (String)session.getAttribute("member") %>';
+		
+		$(".deleteCheck:checkbox:checked").each(function(){
+			arr.push($(this).prev().val());
+		});
+		console.log(arr);
+		var data = {
+				"memberCode" : memberCode,
+				"writerCode" : arr,
+		}
+		console.log(data);
+		
+		exitChat(data);
 		
 	});
+	
 	
 	
 	

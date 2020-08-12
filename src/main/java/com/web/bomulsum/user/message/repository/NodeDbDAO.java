@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.message.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -22,6 +23,18 @@ public class NodeDbDAO {
 	
 	public List<UserChatRoomVO> getChatroom(String userCode){
 		return sqlSessionTemplate.selectList("NodeDbDAO.getChatroom", userCode);
+	}
+	
+	public List<UserChatRoomVO> testGetWriter(){
+		return sqlSessionTemplate.selectList("NodeDbDAO.testGetWriter");
+	}
+	
+	public void insertChatRoom(UserInsertChatVo vo) {
+		sqlSessionTemplate.insert("NodeDbDAO.insertChatRoom", vo);
+	}
+	
+	public void deleteChatRoom(List<HashMap<String, String>> list) {
+		sqlSessionTemplate.delete("NodeDbDAO.delChatRoom", list);
 	}
 	
 }
