@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="writerMessageDAO">
+	
+	<resultMap type="com.web.bomulsum.writer.message.repository.WriterChatroomVO" id="writerChatVo">
+		<result property="memberCode" column="member_code_seq" />
+		<result property="memberName" column="member_name" />
+		<result property="memberImg" column="member_profile" />
+	</resultMap>
+	
+	<select id="getChatroom" parameterType="String" resultMap="writerChatVo">
+		SELECT 
+			m.member_code_seq, 
+			m.member_name,
+			m.member_profile
+		FROM 
+			member_tb m
+		INNER JOIN 
+			(chatroom_tb c)
+		ON 
+			m.member_code_seq = c.member_code_seq
+		WHERE 
+			c.writer_code_seq = #{writerCode}
+		ORDER BY 
+			c.chatroom_date
+	</select>
+	
+	<select id="memberTest" resultMap="writerChatVo">
+		SELECT
+			member_code_seq,
+			member_name,
+			member_profile
+		FROM
+			member_tb
+	</select>
+	
+	<insert id="insertChatRoom" parameterType="com.web.bomulsum.user.message.repository.UserInsertChatVo">
+		INSERT INTO
+		chatroom_tb
+		(
+			chatroom_sq,
+			member_code_seq,
+			writer_code_seq
+		)
+		VALUES
+		(
+			'chatroom_sq' || TO_CHAR(chatroom_sq.nextval), 
+			#{memberCode}, 
+			#{writerCode}
+		)
+	</insert>
+	
+	<delete id="delChatRoom" parameterType="java.util.List">
+		
+		DELETE FROM 
+			chatroom_tb 
+		<where>
+			<foreach collection="list" item="item" open="" close="" separator="OR">
+				(
+					member_code_seq=#{item.memberCode} 
+				AND 
+					writer_code_seq=#{item.writerCode}
+				)
+			</foreach>
+		</where>
+	</delete>
+
+</mapper>

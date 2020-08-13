@@ -38,5 +38,6 @@
 		<mapper resource="mappings/writer/writer-midas-mapping.xml" />
 		<mapper resource="mappings/writer/writer-activity-mapping.xml" />
 		<mapper resource="mappings/writer/writer-myinfo-mapping.xml" />
+		<mapper resource="mappings/writer/writer-message-mapping.xml" />
 	</mappers>
 </configuration>

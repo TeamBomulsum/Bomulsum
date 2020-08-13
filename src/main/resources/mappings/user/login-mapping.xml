@@ -9,6 +9,10 @@
 		<result property="memberEmail" column="member_email"/>
 		<result property="memberName" column="member_name"/>
 		<result property="memberLoginStat" column="member_login"/>
+		<result property="memberImg" column="member_profile" />
+		<result property="memberBirth" column="member_birth" />
+		<result property="memberGender" column="member_gender" />
+		<result property="memberGrade" column="member_grade" />
 	</resultMap>
 
 	<insert id="insertMember" parameterType="memberVO">
@@ -91,7 +95,14 @@
 	
 	<select id="getUser" parameterType="String" resultMap="memberSessionvo">
 		SELECT 
-		member_code_seq, member_email, member_name, member_login
+			member_code_seq, 
+			member_email, 
+			member_name, 
+			member_login, 
+			member_profile,
+			member_birth,
+			member_gender,
+			member_grade
 		FROM
 		member_tb
 		WHERE

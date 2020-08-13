@@ -43,7 +43,7 @@
 		ON 
 			w.writer_code_seq = c.writer_code_seq
 		WHERE 
-			c.member_code_seq = 'member_code_sq55'
+			c.member_code_seq = #{userCode}
 		ORDER BY 
 			c.chatroom_date
 	</select>

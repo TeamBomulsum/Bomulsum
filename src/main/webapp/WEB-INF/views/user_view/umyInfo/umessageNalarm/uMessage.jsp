@@ -322,7 +322,7 @@
 								<div style="margin: 2%; font-size: 100%; display:flex; justify-content: space-between; width:165px">
 									<c:choose>
 										<c:when test="${not empty chat.writerBrandName }">
-											<span class="dndud_chat_writer_name">${chat.writerBrandName }브랜드</span>
+											<span class="dndud_chat_writer_name">${chat.writerBrandName }</span>
 										</c:when>
 										<c:otherwise>
 											<span class="dndud_chat_writer_name">${chat.writerName}</span>
@@ -665,6 +665,20 @@ $(function(){
 		
 		exitChat(data);
 		
+	});
+	
+	$("#exitButton").on('click', function(){
+		var memberCode = '<%= (String)session.getAttribute("member") %>';
+		var arr = [];
+		arr.push($("#headInfoCode").val());
+		console.log(arr);
+		var data = {
+				"memberCode" : memberCode,
+				"writerCode" : arr,
+		}
+		console.log(data);
+		
+		exitChat(data);
 	});
 	
 	
