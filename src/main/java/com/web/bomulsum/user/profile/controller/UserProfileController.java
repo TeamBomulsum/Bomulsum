@@ -32,4 +32,12 @@ public class UserProfileController {
 		System.out.println(mav);
 		return mav;
 	} 
+	
+	@RequestMapping(value="/infomanage")
+	public ModelAndView uInfoManage() {
+		ModelAndView mav = new ModelAndView("/umyInfo/uinformation/uInfoManage");
+		
+	
+		return mav;
+	} 
 }
