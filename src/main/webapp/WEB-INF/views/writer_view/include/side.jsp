@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +49,7 @@
         				<i class="fas fa-gem" style="color:gold"></i>&nbsp;젬포인트
         			</th>	
         			<th style="text-align:right; width:40%">
-        				<a>${ sessionScope.writer_login.gemSum}</a>P
+        				<a><fmt:formatNumber value="${writer_login.gemSum}" pattern="#,###"/>P</a>
         			</th>	
         		</tr>
         	</table>
