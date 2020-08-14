@@ -13,6 +13,7 @@ public class WriterRegisterVO {
 	private boolean autoLogin;
 	private int gemSum;
 	
+
 	public int getGemSum() {
 		return gemSum;
 	}

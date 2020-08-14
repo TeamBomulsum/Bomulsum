@@ -24,6 +24,8 @@ import org.springframework.web.util.WebUtils;
 import com.web.bomulsum.writer.gempoint.service.WriterGempointService;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.login.service.WriterRegisterService;
+import com.web.bomulsum.writer.profile.repository.WriterProfileVO;
+import com.web.bomulsum.writer.profile.service.WriterProfileService;
 
 @Controller
 @RequestMapping(value="/writer")
@@ -35,9 +37,12 @@ public class WriterLoginController {
 	@Autowired 
 	WriterGempointService gemPointService;
 	
+	@Autowired
+	WriterProfileService profileService;
+	
 	@ResponseBody
 	@PostMapping("/loginCheck")
-	public String LoginCheck(@RequestBody WriterRegisterVO vo, HttpSession session,HttpServletResponse response,HttpServletRequest request) {
+	public String LoginCheck(@RequestBody WriterRegisterVO vo, HttpSession session,HttpServletResponse response,HttpServletRequest request,WriterProfileVO proVO) {
 		System.out.println("/writer/loginCheck : Post 요청됨");
 		System.out.println("parameter : " + vo);
 		
@@ -47,11 +52,18 @@ public class WriterLoginController {
 		System.out.println(checkVo.getWriterSeq());
 		
 				
-				Map<String, Object> gemSum = gemPointService.getGemPointSum(checkVo.getWriterSeq());
-				System.out.println(gemSum.get("GEMSUM"));
-				
-					
-					checkVo.setGemSum(Integer.parseInt(String.valueOf(gemSum.get("GEMSUM"))));
+		Map<String, Object> gemSum = gemPointService.getGemPointSum(checkVo.getWriterSeq());
+		System.out.println(gemSum.get("GEMSUM"));
+		String profile = profileService.getWriterProfileImg(checkVo.getWriterSeq());
+		proVO = profileService.getWriterProfile(checkVo.getWriterSeq());
+		System.out.println(proVO);
+		System.out.println("proVO : " + proVO);
+		
+		
+		
+		HttpSession sessionPro = request.getSession();
+		sessionPro.setAttribute("proName", proVO);
+		checkVo.setGemSum(Integer.parseInt(String.valueOf(gemSum.get("GEMSUM"))));
 				
 		if(checkVo != null) {
 			if(encoder.matches(vo.getWriterPassword(), checkVo.getWriterPassword())) {
