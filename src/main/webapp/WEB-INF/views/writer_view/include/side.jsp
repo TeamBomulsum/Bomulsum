@@ -48,7 +48,7 @@
         				<i class="fas fa-gem" style="color:gold"></i>&nbsp;젬포인트
         			</th>	
         			<th style="text-align:right; width:40%">
-        				<a>30,000</a>P
+        				<a>${ sessionScope.writer_login.gemSum}</a>P
         			</th>	
         		</tr>
         	</table>

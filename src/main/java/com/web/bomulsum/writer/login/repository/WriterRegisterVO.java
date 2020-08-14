@@ -1,5 +1,6 @@
 package com.web.bomulsum.writer.login.repository;
 
+import java.util.Map;
 
 public class WriterRegisterVO {
 
@@ -10,7 +11,16 @@ public class WriterRegisterVO {
 	private String sessionId;
 	private String limitTime;
 	private boolean autoLogin;
+	private Map<String, Object> gemSum;
 	
+	
+	
+	public Map<String, Object> getGemSum() {
+		return gemSum;
+	}
+	public void setGemSum(Map<String, Object> gemSum) {
+		this.gemSum = gemSum;
+	}
 	public String getWriterSeq() {
 		return writerSeq;
 	}
@@ -57,8 +67,14 @@ public class WriterRegisterVO {
 	public String toString() {
 		return "WriterRegisterVO [writerSeq=" + writerSeq + ", writerEmail=" + writerEmail + ", writerPassword="
 				+ writerPassword + ", writerName=" + writerName + ", sessionId=" + sessionId + ", limitTime="
-				+ limitTime + ", autoLogin=" + autoLogin + "]";
+				+ limitTime + ", autoLogin=" + autoLogin + ", gemSum=" + gemSum + ", getGemSum()=" + getGemSum()
+				+ ", getWriterSeq()=" + getWriterSeq() + ", getWriterEmail()=" + getWriterEmail()
+				+ ", getWriterPassword()=" + getWriterPassword() + ", getWriterName()=" + getWriterName()
+				+ ", getSessionId()=" + getSessionId() + ", getLimitTime()=" + getLimitTime() + ", isAutoLogin()="
+				+ isAutoLogin() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
+	
 	
 	
 	
