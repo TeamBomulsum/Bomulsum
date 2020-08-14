@@ -33,12 +33,12 @@ $(document).ready(function () {
 	    $("#phoneChangeCancelBtn").css("display","inline");
 	});
 	
-	//전화 변경 취소
+ 	//전화 변경 취소
 	$('#phoneChangeCancelBtn').click(function(){
 		$('#phoneChange').css("display", "none");
 	    $("#phoneChangeBtn").css("display","inline");
 	    $("#phoneChangeCancelBtn").css("display","none");
-	  });
+	  }); 
 	
 	//회원탈퇴 클릭시
 	$(withdrawBtn).click(function(){
@@ -209,7 +209,7 @@ body a:link, a:visited, a:hover, a:active, :active{
 		<div id="phoneCertification" style="width:100%; flex-direction: row; height:50px; margin-bottom:1%; margin-top: 2%;">
 			<div class="inputCertification" style="display: flex; flex-direction: row; height:40px; width:70%; margin-right:1%;">
 			<input id="inputCertificationNum" class="dainInput" maxlength="6" type="text" placeholder="인증코드를 입력해주세요." style="min-width: 170px;">
-			<button id="inputCertificationButton" class="dainBtn btn-abled" style="height: 32px; width: 20%; margin-left: 10px;">확인</button>
+			<button id="inputCertificationButton" class="dainBtn btn-abled" type="button" style="height: 32px; width: 20%; margin-left: 10px;">확인</button>
 			<div id="time_limit" style="width:20%; height:30px; color:#d8524a;  padding-top: 3%; margin-left: 2%;"></div>
 			</div>
 		</div>
@@ -436,7 +436,9 @@ function start_timer(){
 							$("#inputCertificationButton").removeClass('btn-abled');
 							$("#inputCertificationButton").attr("disabled", true);
 							$("#phoneFail").css("display", "none");
-							
+							$("#phoneChange").css("display", "none");
+						//    $("#phoneChangeBtn").css("display","inline");
+						//    $("#phoneChangeCancelBtn").css("display","none");
 							
 							$(".phoneFail").off();
 							$("#phoneBtn").off();

@@ -66,7 +66,7 @@ public class UserProfileController {
 	public ModelAndView uUpdatePhone(UserProfileVO vo, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("변경후:"+vo.toString());
-		service.updateUserinfo(vo);
+		service.updateUserphone(vo);
 		mav.setViewName("redirect:/user/infomanage.do");
 		
 		return mav;
