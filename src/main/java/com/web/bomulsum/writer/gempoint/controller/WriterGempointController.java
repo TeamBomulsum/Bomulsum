@@ -43,8 +43,10 @@ public class WriterGempointController {
 		mav.addObject("gemsum", gemSum);
 		
 		//사이드에 젬포인트 반영
-		code.setGemSum(Integer.parseInt(String.valueOf(gemSum.get("GEMSUM"))));
-		System.out.println("사이드반영:"+code);
+		
+		  code.setGemSum(Integer.parseInt(String.valueOf(gemSum.get("GEMSUM"))));
+		  System.out.println("사이드반영:"+code);
+	 
 		
 		return mav;
 	} 

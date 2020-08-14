@@ -39,8 +39,20 @@
 
       <div align="center">
         <!-- 작가 프로필 사진 -->
-        <a href="#"><img src="<c:url value='/upload/1596900594159보석로고_대지 1.png'/>" width="100" height="100"
-          style="background-color: white; margin: 4% 0 4% 0; border-radius: 50%;"></a><br>
+         <c:set var="checkWriterProfile" value='/upload/1596900594159보석로고_대지 1.png'/>
+        <c:set var="writerProfile" value="${proVO.profile }" />
+        <a href="#">
+        	<c:if test="${proVO.profile ne null}">
+       		 <img src="<c:url value='/upload/${proVO.profile }'/>" width="100" height="100"
+        	  style="background-color: white; margin: 4% 0 4% 0; border-radius: 50%;">     
+       		 </c:if>
+       		<c:if test="${proVO.profile eq null}">
+		      <img src="<c:url value='/upload/1596900594159보석로고_대지 1.png'/>" width="100" height="100"
+          		style="background-color: white; margin: 4% 0 4% 0; border-radius: 50%;">
+       		</c:if>
+          </a>
+          
+          <br>
         <a style="color:aliceblue; font-size: 15pt; font-weight: bold;">작가명</a>
         <div style="margin-top:2%;margin-bottom:2%;">
         	<table style="color: white; width:80%">
