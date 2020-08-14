@@ -43,10 +43,10 @@ public class WriterLoginController {
 		String result = null;
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		WriterRegisterVO checkVo = service.selectOne(vo.getWriterEmail());
-		System.out.printf("checkVo "+checkVo,vo.getWriterSeq());
-		Map<String, Object> point = gemPointService.getGemPointSum();
-		System.out.println("aa : " + point);
-		vo.setGemSum(point);
+//		Map<String, Object> point = gemPointService.getGemPointSum(vo.getWriterSeq());
+//		System.out.println(vo.getWriterSeq());
+//		System.out.println("aa : " + point);
+//		vo.setGemSum(point);
 //		Map<Stirng, Object> firstValue = "";
 //		if(vo.getGemSum() == null) {
 //			vo.setGemSum();
@@ -59,7 +59,6 @@ public class WriterLoginController {
 			session.setAttribute("writer_login", checkVo);
 			
 			long limitTime = 60*60*24*90;
-//			long limitTime = 1;
 			
 			//자동 로그인 체크시 처리해야할 내용
 			if(vo.isAutoLogin()) {
