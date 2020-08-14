@@ -49,7 +49,9 @@ public class WriterLoginController {
 				
 				Map<String, Object> gemSum = gemPointService.getGemPointSum(checkVo.getWriterSeq());
 				System.out.println(gemSum.get("GEMSUM"));
-			
+				
+					
+					checkVo.setGemSum(Integer.parseInt(String.valueOf(gemSum.get("GEMSUM"))));
 				
 		if(checkVo != null) {
 			if(encoder.matches(vo.getWriterPassword(), checkVo.getWriterPassword())) {
