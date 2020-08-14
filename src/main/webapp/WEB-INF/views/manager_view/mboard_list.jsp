@@ -67,9 +67,16 @@
 	margin-top: 20px;
 	text-align: center;
 	margin-bottom: 20px;
+	max-height:40px;
 	font-size: 18px;
 	display:flex;
 	justify-content: space-between;
+}
+
+.table_category{
+	margin-left:5px; text-align:center;
+	width:20%; border-color:#D8D8D8; color:#A4A4A4;
+	border-radius:5px;
 }
 </style>
 
@@ -83,7 +90,7 @@
 	<c:if test="${param.check eq 1}">
 		<script type="text/javascript">
 			alert("글이 수정 되었습니다.");
-			location.href = "/bomulsum/mboard/list.mdo";
+			location.href = "/bomulsum/manager/mboard/list.mdo";
 		</script>
 	</c:if>
 
@@ -285,10 +292,7 @@
 								</table>
 							</div>
 							<div class="minwoo_tableBottomLine">
-								<select name="table_category" id="table_category" 
-									style="margin-left:5px; text-align:center; width:20%;
-										border-color:#D8D8D8; color:#A4A4A4;
-										border-radius:5px;">
+								<select name="table_category" id="table_category" class="table_category">
 									<option value="0">---게시판 카테고리(전체)---</option>
 									<option value="이벤트">이벤트</option>
 									<option value="회원용-공지사항" >회원용-공지사항</option>
@@ -298,11 +302,11 @@
 									<option value="작가용-정책등록가이드">작가용-정책등록가이드</option>
 								</select>
 								<div id="pagination"></div>
-								<div style="margin-right:5px; width:25%; display:flex; justify-content: center;">
+								<div style="margin-right:5px; width:25%; max-height:35px; display:flex; justify-content: center;">
 									<input type="text" placeholder="검색할 글 제목을 입력하세요" 
 										name="search_box" id="search_box" style="border-color:#D8D8D8;
 										color:#A4A4A4; border-radius:5px; margin-right:5px; width:80%;">
-									<button class="btn btn-primary" onclick="search();">검색</button>
+									<button class="btn btn-primary" onclick="search();" style="min-width: 60px;">검색</button>
 								</div>
 							</div>
 						</div>
@@ -377,8 +381,8 @@
 				<div
 					style="display: flex; border-bottom: 1px solid #d9d9d9; height: 50px; margin: 12px 30px 6px 30px; align-items: center;">
 					<div id="staticBackdropTitle"
-						style="font-weight: bold; font-size: 18px; color: #4273df;">
-						제목 : <input type="text" id="modal-title" style="color: #858796;"
+						style="font-weight: bold; font-size: 18px; color: #4273df; width:100%;">
+						제목 : <input type="text" id="modal-title" style="color: #858796; width:85%;"
 							readonly="readonly">
 					</div>
 				</div>
@@ -396,14 +400,14 @@
 				<div class="modal-footer"
 					style="display: flex; justify-content: center;">
 					<!-- 여기서 글 수정 버튼 누르면 rewrite.jsp로 해당 시퀀스 값 갖고 넘어갈거임-->
-					<form action="<c:url value='/mboard/rewrite.mdo'/>" method="post">
+					<form action="<c:url value='/manager/mboard/rewrite.mdo'/>" method="post">
 						<input type="hidden" id="adminNoticeSeq" name="adminNoticeSeq" />
-						<input type="submit" style="font-size: 50%; margin: 10px;"
+						<input type="submit" style="margin: 10px; font-size:13px;"
 							class="btn btn-primary" value="수정">
-						<button style="font-size: 50%; margin: 10px;"
+						<button style="margin: 10px; font-size:13px;"
 							class="btn btn-primary" data-dismiss="modal" aria-label="Close">닫기</button>
 						<button type="button"
-							style="font-size: 50%; margin: 10px; background-color: #dd3333; color: #ffffff;"
+							style="font-size:13px; margin: 10px; background-color: #dd3333; color: #ffffff;"
 							class="btn btn-primary" id="delete_btn">삭제</button>
 					</form>
 				</div>
@@ -541,6 +545,7 @@
     
 	//검색 기능
 	var search = function(){//눌렀다 때서 안되나보다
+		searchResult = [];
     	var k = $("#search_box").val();
 		if(categoryCheck){
 			for(var i=0; i < categoryResult.length; i++){

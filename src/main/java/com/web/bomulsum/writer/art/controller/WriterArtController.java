@@ -34,15 +34,15 @@ public class WriterArtController {
 	@Autowired
 	WriterArtService service;
 	
-//	private static final String SAVE_PATH_AWS = "/upload";	//aws ¼­¹ö ÀúÀå°æ·Î
-	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //ÀúÀåÇÒ °æ·Î
+//	private static final String SAVE_PATH_AWS = "/upload";	//aws ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	
 	@GetMapping("/workRegister")
 	public String workRegister() {
 		return "/warticle/workRegister";
 	} 
 	
-	//ÆÇ¸ÅÁß ÀÛÇ° 
+	//ï¿½Ç¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° 
 	@RequestMapping(value="/workOnsale")
 	public ModelAndView workOnsale(WriterArtVO vo) {
 		ModelAndView mav = new ModelAndView("/warticle/onSale");
@@ -75,7 +75,7 @@ public class WriterArtController {
 	         @RequestParam("checkList[]") List<String> checkList,
 	         @RequestParam("useList[]") List<String> useList
 	         ) {
-		System.out.println("¿©±â·Î µé¾î¿È");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 	      List<WriterArtVOUP> volist = new ArrayList<WriterArtVOUP>();
 	      for (int i = 0; i < checkList.size(); i++) {
 	    	  WriterArtVOUP vo = new WriterArtVOUP();
@@ -87,22 +87,22 @@ public class WriterArtController {
 	      service.updateSalesArt(volist);
 	   }
 	/*
-	 * ÀÛÇ°µî·Ï form ¾×¼Ç
-	 * workRegister.jsp ¿¡¼­ form ÅÂ±×ÀÇ ¿¢¼Ç °ª  "/artregister"
+	 * ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ form ï¿½×¼ï¿½
+	 * workRegister.jsp ï¿½ï¿½ï¿½ï¿½ form ï¿½Â±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½  "/artregister"
 	 */ 
 	@RequestMapping(value="/artregister")
 	public ModelAndView insertArtwork(@RequestParam(value="orderPicture", required=false) List<MultipartFile> mf,
 			 HttpServletRequest request, WriterArtVO vo, WriterArtInfoDetailVO vo1, WriterArtOptionVO vo2){
 
 		
-		//»çÁø ÀúÀå
+		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String result="";
 		
 		for (MultipartFile file : mf) {
 			String originalfileName = file.getOriginalFilename();
 			String saveFile = System.currentTimeMillis() + originalfileName;
 			try {
-				file.transferTo(new File(SAVE_PATH, saveFile)); //ÀÌ¹ÌÁö1 SAVE_PATH¿¡ ÀúÀå
+				file.transferTo(new File(SAVE_PATH, saveFile)); //ï¿½Ì¹ï¿½ï¿½ï¿½1 SAVE_PATHï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			}catch(IllegalStateException e) { e.printStackTrace();}
 			catch(IOException e) { e.printStackTrace();	}
 			
@@ -110,31 +110,31 @@ public class WriterArtController {
 		}	
 		vo.setArtPhoto(result);
 		
-		//ÀÛ°¡ÄÚµå °¡Á®¿À±â
+		//ï¿½Û°ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		//HttpSession session =  request.getSession();
    //   WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");        
        // String seq = code.getWriterSeq();
        // vo.setWriterCodeSeq(seq);
 	
-		//ÀÛÇ° µî·Ï
+		//ï¿½ï¿½Ç° ï¿½ï¿½ï¿½
 		service.insertArt(vo);
 		System.out.println(vo.toString());
 		
-		//ÀÛÇ° ÄÚµå °¡Á®¿À±â
+		//ï¿½ï¿½Ç° ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String artCode = service.getArtCode(vo.getArtName());
 
 
 		ModelAndView mav = new ModelAndView();
 		
-		//ÀÛÇ°ÄÚµå ¼³Á¤
+		//ï¿½ï¿½Ç°ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
 		vo1.setArtCode(artCode);
 		vo2.setArtCodeSeq(artCode);
 
-		//ÀÛÇ° Á¤º¸Á¦°ø µî·Ï
+		//ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		service.insertArtInfoDetail(vo1);
 		System.out.println(vo1.toString());
 
-		//ÀÛÇ° ¿É¼Ç µî·Ï
+		//ï¿½ï¿½Ç° ï¿½É¼ï¿½ ï¿½ï¿½ï¿½
 		String[] optionCategoryArr = vo2.getArtOptionCategory().split(",");
 		String[] optionNameArr = vo2.getArtOptionName().split(",");
 		String[] optionPriceArr = vo2.getArtOptionPrice().split(",");
@@ -194,7 +194,7 @@ public class WriterArtController {
 		System.out.println(optionData);
 
 		mav.setViewName("redirect:/writer/workRegister.wdo"); 
-		mav.addObject("check", 1); // ºä·Î º¸³¾ µ¥ÀÌÅÍ °ª
+		mav.addObject("check", 1); // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		return mav;
 	}
 	

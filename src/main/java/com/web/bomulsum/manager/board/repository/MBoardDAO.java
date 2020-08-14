@@ -15,6 +15,7 @@ public class MBoardDAO {
 	//글 등록
 	public void mboardRegister(MBoardVO vo) {
 		sqlSessionTemplate.insert("mBoardDAO.insertMBoard", vo);
+		sqlSessionTemplate.insert("mBoardDAO.insertAlarmMBoard", vo);
 	}
 	
 	//게시판 글 목록 불러오기
