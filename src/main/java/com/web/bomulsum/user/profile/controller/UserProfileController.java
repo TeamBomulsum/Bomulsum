@@ -1,14 +1,17 @@
 package com.web.bomulsum.user.profile.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.user.login.repository.NowLoginVO;
 import com.web.bomulsum.user.profile.repository.UserProfileVO;
 import com.web.bomulsum.user.profile.service.UserProfileService;
 
@@ -19,8 +22,8 @@ public class UserProfileController {
 	@Autowired
 	UserProfileService service;
 	
-	//회원등급페이지 - 작가id받아오는거, 환불제외하는거(db에 어떻게들어갈지) 추가해야함, 
-	//3개월내 아무것도 안사면 브론즈로.  select(금액) where(날짜3개월이내) 한게 null이면 등급 브론즈.. 결제금액은 유지.. 
+	//회원등급페이지 ---------------------------------------------
+	//작가id받아오는거, 환불제외하는거(db에 어떻게들어갈지) 추가해야함, 
 	@RequestMapping(value="/membergrade")
 	public ModelAndView uMemberGrade(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/umyInfo/uinformation/uMemberGrade");
@@ -38,7 +41,7 @@ public class UserProfileController {
 		return mav;
 	} 
 	
-	// 회원 정보 관리
+	// 회원 정보 관리---------------------------------------------
 	@RequestMapping(value="/infomanage")
 	public ModelAndView uInfoManage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/umyInfo/uinformation/uInfoManage");
@@ -62,12 +65,31 @@ public class UserProfileController {
 	} 
 	
 	//전화번호 수정
-	@RequestMapping(value="/updateuserphone" , method = RequestMethod.POST)
-	public ModelAndView uUpdatePhone(UserProfileVO vo, HttpServletRequest request) {
+	@RequestMapping(value="/updateuserphone" , method = RequestMethod.GET)
+	public ModelAndView uUpdatePhone(UserProfileVO vo, HttpServletRequest request, 
+			@RequestParam(value="member_phone", required=false) String member_phone) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("변경후:"+vo.toString());
+		System.out.println("받아온 전화번호: "+ member_phone);
 		service.updateUserphone(vo);
 		mav.setViewName("redirect:/user/infomanage.do");
+		
+		return mav;
+	} 
+	
+	//회원 탈퇴
+	@RequestMapping(value="/deleteuser" , method = RequestMethod.GET)
+	public ModelAndView uDeleteUser(UserProfileVO vo, HttpServletRequest request){
+		/*//로그아웃  세션처리..
+		 * HttpSession session = request.getSession(); 
+		 * NowLoginVO loginVo = new NowLoginVO(); 
+		 * loginVo.setMemberCode((String)session.getAttribute("member"));
+		 * loginVo.setyORn("N"); session.invalidate();
+		 */
+		System.out.println("Delete 전:" + vo.toString());
+		service.deleteUser(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/home.do");
 		
 		return mav;
 	} 

@@ -50,4 +50,10 @@ public class UserProfileServiceImpl implements UserProfileService{
 		dao.updateUserphone(vo);
 	}
 
+	@Override
+	public void deleteUser(UserProfileVO vo) {
+		dao.deleteUser(vo);
+		
+	}
+
 }

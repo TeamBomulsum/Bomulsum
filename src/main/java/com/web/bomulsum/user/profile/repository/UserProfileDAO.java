@@ -38,5 +38,10 @@ public class UserProfileDAO {
 		public void updateUserphone(UserProfileVO vo) {
 			sqlSessionTemplate.update("userProfileDAO.updateUserPhone", vo);
 		}
+		//회원삭제
+		public void deleteUser(UserProfileVO vo) {
+			sqlSessionTemplate.delete("userProfileDAO.deleteUser", vo);
+		}
+	
 		
 }
