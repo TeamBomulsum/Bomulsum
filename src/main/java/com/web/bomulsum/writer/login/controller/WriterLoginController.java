@@ -42,7 +42,8 @@ public class WriterLoginController {
 	
 	@ResponseBody
 	@PostMapping("/loginCheck")
-	public String LoginCheck(@RequestBody WriterRegisterVO vo, HttpSession session,HttpServletResponse response,HttpServletRequest request,WriterProfileVO proVO) {
+	public String LoginCheck(@RequestBody WriterRegisterVO vo, HttpSession session,HttpServletResponse response,HttpServletRequest request,WriterProfileVO proVO,
+			HttpSession sessionPro,HttpServletRequest requestPro) {
 		System.out.println("/writer/loginCheck : Post 요청됨");
 		System.out.println("parameter : " + vo);
 		
@@ -58,11 +59,11 @@ public class WriterLoginController {
 		proVO = profileService.getWriterProfile(checkVo.getWriterSeq());
 		System.out.println(proVO);
 		System.out.println("proVO : " + proVO);
+			proVO.setWriterProfileImg(profile);
 		
-		
-		
-		HttpSession sessionPro = request.getSession();
-		sessionPro.setAttribute("proName", proVO);
+		sessionPro = requestPro.getSession();
+		sessionPro.setAttribute("proVO", proVO);
+		System.out.println("proVOIMG : "+ proVO.getWriterProfileImg());
 		checkVo.setGemSum(Integer.parseInt(String.valueOf(gemSum.get("GEMSUM"))));
 				
 		if(checkVo != null) {
