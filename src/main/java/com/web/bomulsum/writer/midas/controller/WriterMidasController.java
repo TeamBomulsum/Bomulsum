@@ -38,9 +38,10 @@ public class WriterMidasController {
 	}
 	
 	@PostMapping("/midasClassRegister")
-	public ModelAndView midasRegister(ModelAndView mav,@RequestParam(value="orderPicture", required=false) List<MultipartFile> mf,
-			 HttpServletRequest request,WriterMidasVO vo,WriterRegisterVO rvo) {
+	public ModelAndView midasRegister(WriterMidasVO vo,ModelAndView mav,@RequestParam(value="orderPicture[]", required=false) List<MultipartFile> mf,
+			 HttpServletRequest request) {
 			System.out.println("midasRegister 들어옴");
+			System.out.println(vo.getKeyword());
 			
 		//사진저장
 				String result="";
