@@ -2,6 +2,7 @@ package com.web.bomulsum.user.profile.repository;
 
 import java.sql.Date;
 
+
 public class UserProfileVO {
 	private String member_code_seq;
 	private String member_email;

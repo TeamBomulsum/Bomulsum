@@ -4,8 +4,7 @@
 
 <mapper namespace="userProfileDAO">
 
-	<!-- 
-		<resultMap type="com.web.bomulsum.user.profile.repository.UserProfileVO" id="uProfileMap">
+<!-- 		<resultMap type="com.web.bomulsum.user.profile.repository.UserProfileVO" id="uProfileMap">
 		<result property="couponName" column="member_code_seq" />
 		<result property="couponName" column="member_email" />
 		<result property="couponName" column="member_name" />
@@ -19,8 +18,9 @@
 		<result property="couponName" column="member_gender" />
 		<result property="couponName" column="member_grade" />
 		<result property="couponName" column="member_profile" />
-		</resultMap> 
-	-->
+		</resultMap>  -->
+
+<!-- 회원등급 -->
 
 	<!-- 회원 구매금액 산정 -->
 	<select id="getSumPay" parameterType="String" resultType="int" >
@@ -41,5 +41,32 @@
 		member_code_seq = 'daintest'
 	<!-- 	WHERE member_code_seq = #{writerCodeSeq} -->
 	</select>
+	
+	
+	
+	
+<!-- 회원정보관리 -->
 
+	<!-- 회원 정보 가져오기 -->
+	<select id="getUserInfo" parameterType="String" resultType="UserProfileVO" >
+		SELECT 
+		member_code_seq, member_name, member_email, member_phone, member_gender, member_birth, member_sms_agree, member_email_agree
+		FROM member_tb
+		WHERE member_code_seq = 'member_code_sq58'
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateUserInfo" parameterType="UserProfileVO">
+		UPDATE member_tb
+		
+		SET
+		member_name = #{member_name},
+		member_gender = #{member_gender},
+		member_birth = #{member_birth, jdbcType=DATE},
+		member_sms_agree = #{member_sms_agree},
+		member_email_agree = #{member_email_agree}
+		
+		WHERE member_code_seq = 'member_code_sq58'
+
+	</update>
 </mapper>

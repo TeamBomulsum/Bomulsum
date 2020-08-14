@@ -217,7 +217,7 @@ footer span{
 							<th class="daintdth" style="width: 15%;">젬포인트</th>
 							<td class="daintdth" style="width: 85%; color: #36a7b3;">
 							<span id="gemP"><fmt:formatNumber value="${pointsum.GEMSUM}" pattern="#,###"/>P</span>
-								<button class="btn2" onclick="location.href ='<c:url value='/writer/gempoint.wdo'/>'">포인트 충전</button>
+								<button type="submit" class="btn2" onclick="location.href ='<c:url value='/writer/gempoint.wdo'/>'">포인트 충전</button>
 							</td>
 						</tr>
 					</table>
