@@ -1,9 +1,8 @@
 package com.web.bomulsum.writer.art.repository;
 
 import java.sql.Date;
-import java.util.List;
 
-//작품 테이블
+
 public class WriterArtVO {
 	
 	private String artCodeSeq;
@@ -22,7 +21,11 @@ public class WriterArtVO {
 	private String artSaleState;
 	private Date artRecommendTime;
 	private Date artRegisterDate;
+	private int bookMarkCount;
+	private int commentCount;
+	private int reviewCount;
 	
+
 	@Override
 	public String toString() {
 		return "WriterArtVO [artCodeSeq=" + artCodeSeq + ", writerCodeSeq=" + writerCodeSeq + ", artPhoto=" + artPhoto
@@ -30,7 +33,8 @@ public class WriterArtVO {
 				+ artAmount + ", artDescription=" + artDescription + ", artCategory=" + artCategory + ", artKeyword="
 				+ artKeyword + ", artViewCount=" + artViewCount + ", artPoint=" + artPoint + ", artSaleCount="
 				+ artSaleCount + ", artSaleState=" + artSaleState + ", artRecommendTime=" + artRecommendTime
-				+ ", artRegisterDate=" + artRegisterDate + "]";
+				+ ", artRegisterDate=" + artRegisterDate + ", bookMarkCount=" + bookMarkCount + ", commentCount="
+				+ commentCount + ", reviewCount=" + reviewCount + "]";
 	}
 
 	public String getArtCodeSeq() {
@@ -160,7 +164,30 @@ public class WriterArtVO {
 	public void setArtRegisterDate(Date artRegisterDate) {
 		this.artRegisterDate = artRegisterDate;
 	}
+
+	public int getBookMarkCount() {
+		return bookMarkCount;
+	}
+
+	public void setBookMarkCount(int bookMarkCount) {
+		this.bookMarkCount = bookMarkCount;
+	}
+
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
 	
-	
-	
+
 }
