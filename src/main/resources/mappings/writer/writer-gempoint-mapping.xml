@@ -37,7 +37,7 @@
 	
 	<!-- 젬포인트 보유포인트 조회  -->
 	<select id="gempointSum" resultMap="gempointMap" parameterType="String" >
-     	SELECT nvl(SUM(gem_price),0) as gemSum
+     	SELECT SUM(gem_price) as gemSum
 		FROM gem_tb
 		WHERE writer_code_seq = #{writerCodeSeq}
 	</select>

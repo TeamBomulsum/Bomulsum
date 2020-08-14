@@ -51,9 +51,19 @@ public class UserProfileController {
 	} 
 	
 	// 회원 정보 수정
-	// 전화번호 변경 따로 추가 
 	@RequestMapping(value="/updateuserinfo" , method = RequestMethod.POST)
 	public ModelAndView uUpdateInfo(UserProfileVO vo, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("변경후:"+vo.toString());
+		service.updateUserinfo(vo);
+		mav.setViewName("redirect:/user/infomanage.do");
+		
+		return mav;
+	} 
+	
+	//전화번호 수정
+	@RequestMapping(value="/updateuserphone" , method = RequestMethod.POST)
+	public ModelAndView uUpdatePhone(UserProfileVO vo, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("변경후:"+vo.toString());
 		service.updateUserinfo(vo);

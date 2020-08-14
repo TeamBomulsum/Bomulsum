@@ -202,7 +202,7 @@ body a:link, a:visited, a:hover, a:active, :active{
 		<div style="color: #666666">주문, 배송시 등록된 번호로 SMS를 발송해 드립니다.</div>
 		<div id="phoneChange">
 			<p style="margin: 10px 0px 3px 0px" id="changeMent">변경할 전화번호를 입력해주세요.</p>
-			<input type="text" class="dainInput phoneFail" id="uPhone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+			<input type="text" name="member_phone" class="dainInput phoneFail" id="uPhone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
 		name="member_phone" placeholder="010-1234-5678" maxlength="20" autocomplete="off" style="min-width: 170px; max-width: 170px"/>
 		<button class="dainBtn" id="phoneBtn" type="button" style="height: 32px;">인증번호 요청</button>
 		<!-- 인증번호영역 -->
