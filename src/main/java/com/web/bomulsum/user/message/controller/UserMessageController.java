@@ -12,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.user.message.repository.UserChatRoomVO;
 import com.web.bomulsum.user.message.repository.UserInsertChatVo;
 import com.web.bomulsum.user.message.service.NodeDbServiceImpl;
 
@@ -41,10 +43,29 @@ public class UserMessageController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/message/reload")
+	public List<UserChatRoomVO> reload(@RequestParam String code, @RequestParam String writerCode){
+		return service.getChatroom(code);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/message/left")
+	public ModelAndView leftSide(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String userCode = (String)session.getAttribute("member");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("testWriter", service.testGetWriter());
+		mav.addObject("chatRoom", service.getChatroom(userCode));
+		return mav;
+		
+	}
+	
+	@ResponseBody
 	@GetMapping("/message/insertChat")
-	public void insertChat(UserInsertChatVo vo){
+	public String insertChat(UserInsertChatVo vo){
 		System.out.println(vo.toString());
-		service.insertChatRoom(vo);
+		return service.insertChatRoom(vo);
 	}
 	
 	@ResponseBody
@@ -53,7 +74,6 @@ public class UserMessageController {
 		
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		for(int i=0; i<writerCode.length; i++) {
-			System.out.println(writerCode[i]);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("memberCode", memberCode);
 			map.put("writerCode", writerCode[i]);
@@ -64,7 +84,6 @@ public class UserMessageController {
 			System.out.println(m.get("writerCode"));
 		}
 		service.deleteChatRoom(list);
-		
 	}
 
 	

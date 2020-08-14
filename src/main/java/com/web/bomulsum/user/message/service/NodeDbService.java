@@ -12,6 +12,6 @@ public interface NodeDbService {
 	List<String> getUserCodes();
 	List<UserChatRoomVO> getChatroom(String userCode);
 	List<UserChatRoomVO> testGetWriter();
-	void insertChatRoom(UserInsertChatVo vo);
+	String insertChatRoom(UserInsertChatVo vo);
 	void deleteChatRoom(List<HashMap<String, String>> list);
 }

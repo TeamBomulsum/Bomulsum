@@ -307,7 +307,7 @@
 						<div id="decision" class="deleteButtonClickedExit" style="display:none"><a>나가기</a></div>
 					</div>
 				</div>
-				<div style="overflow-y: auto; height:90%">
+				<div id="dndud_chatroom_div_list" style="overflow-y: auto; height:90%">
 					<c:forEach items="${chatRoom}" var="chat">
 						<div>
 							<div class="messageUserList enable">
@@ -335,6 +335,7 @@
 						</div>
 					</c:forEach>
 				</div>
+				
 			</div>
 			<!-- 선택된 채팅방 없을경우. -->
 			<div class="dndud_content_first_main_div">
@@ -425,42 +426,78 @@
 	<%@ include file="../../include/uFooter.jsp" %>
 </div>
 <script>
+var socket = io("http://localhost:82");
 var dd = document.getElementById('wonMessageContent');
 var isScrollUp = false;
 var lastScrollTop;
 var unreadCnt = 0;
-
+var receiveCode;
 $(function(){
 	$(document).ready(function(){
 		
 		
-		
-		var socket = io("http://localhost:82");
 		var code = '<%= (String)session.getAttribute("member") %>';
 		var member = '<%= (String)session.getAttribute("userName") %>';
-		var receiveCode;
 		
-		// ajax 동기식으로 디비값을 끌어와서.
 		
 		
 		socket.on(code, function(msg){
-			console.log("받는 로직 : " + msg);
+			var check = msg.split('*|*');
+			if(check[0] == 'reload'){
+				console.log(check[1]);
+				$.ajax({
+					url:'/bomulsum/user/message/reload.do',
+					data:{
+						code:code,
+						writerCode:check[1]
+					},
+					success: function(suc){
+						console.log(suc);
+						var htmlTag='';
+						for(var i=0; i<suc.length; i++){
+							var imgTag;
+							var nameTag;
+							if(suc[i].writerImg == null){
+								imgTag = `/bomulsum/resources/img/Logo_blue.png`;
+							}else{
+								imgTag = '/bomulsum/upload/'+suc[i].writerImg;
+							}
+							if(suc[i].writerBrandName == null){
+								nameTag = suc[i].writerName;
+							}else{
+								nameTag = suc[i].writerBrandName;
+							}
+							
+							htmlTag += '<div><div class="messageUserList enable"><img id="wonContentImg" src="'+imgTag+'" />'
+				                + '<div style="margin: 2%; font-size: 100%; display:flex; justify-content: space-between; width:165px">'
+				                + '<span class="dndud_chat_writer_name">'+nameTag+'</span>'
+				                + '<input type="hidden" class="writerCode" value='+suc[i].writerCode
+				                + '><input type="checkbox" class="deleteCheck" style="display:none">'
+								+ '</div></div></div>'
+							
+						}
+						$("#dndud_chatroom_div_list").empty();
+						$("#dndud_chatroom_div_list").html(htmlTag);
+						
+					},
+					error:function(err){
+						console.log(err);
+					}
+				});
+				return;
+			}
+			
 			var msgArray = msg.split('*|*');
-			var msgDate = msgArray[1];
-			let today = new Date(msgDate);
-			let year = today.getFullYear(); // 년도
-			let month = today.getMonth() + 1; // 월
-			let date = today.getDate(); // 날짜
-			let hours = today.getHours(); // 시
-			let minutes = today.getMinutes(); // 분
-			let day = month + '월' + date + "일  " + hours + ":" + minutes;
+			
+			if(receiveCode != msgArray[2]) return;
+			
+			
+			let day = msgArray[1];
 			
 			var dTag = document.createElement("div");
 			var Tag = document.createElement("div");
 			var tag = document.createElement('span');
 			let dayTag = document.createElement('span');
-			
-			
 			
 			dayTag.innerHTML = day;
 			tag.innerHTML = msgArray[0].replace(/\n/gi, '<br>');
@@ -476,7 +513,13 @@ $(function(){
 			document.getElementById('wonMessageList').appendChild(dTag);
 			
 			
-			// ajax로 디비 연결해서 저장.
+			$.ajax({
+				url:'/bomulsum/writer/message/updateChatStatus.wdo',
+				data:{
+					senderCode:msgArray[2],
+					receiverCode:code
+				}
+			});
 			
 			
 			$("#wonMessageScroll").scrollTop($("#wonMessageScroll")[0].scrollHeight);
@@ -519,13 +562,30 @@ $(function(){
 				dTag.appendChild(Tag);
 				document.getElementById('wonMessageList').appendChild(dTag);
 				
-				// 보내는 사람 아이디, 코드
+				// 보낼 사람 아이디, 코드
 				var sendToId = $("#headInfoId").text();
 				var sendToCode = $("#headInfoCode").val();
 				console.log("id : " + sendToId);
 				console.log("code : " + sendToCode);
 				
-				socket.emit("send_to_writer", sendToCode + "*|*" + sendToId + "*|*" + code + "*|*" + member + "*|*" + message + "*|*" + today);
+				$.ajax({
+					url:"/bomulsum/writer/message/sendMessage.wdo",
+					async: false,
+					data:{
+						messageOwner : code,
+						messageSenderCode : code,
+						messageReceiverCode : sendToCode,
+						messageContent : message + "*|*" + day
+					},
+					success : function(){
+						console.log('메세지 디비 저장 성공');
+					},
+					fail : function(err){
+						console.log(err);
+					}
+				});
+				socket.emit("send_to_writer", sendToCode + "*|*" + sendToId + "*|*" + code + "*|*" + member + "*|*" + message + "*|*" + day);
+				socket.emit('chatroomLogic', code + '*|*' + sendToCode);
 				
 				$('#wonMessageContent').val("");
 			}
@@ -544,10 +604,14 @@ $(function(){
 
 	});
 	
-	
+	var preClickedList;
 	function f_initListClickEvent(){
 		
-		$(".messageUserList").on('click', function(){ // 왼쪽 리스트 클릭 했을 경우.
+		$(document).on('click', ".messageUserList", function(){ // 왼쪽 리스트 클릭 했을 경우.
+			if($(this).attr('class') == 'messageUserList able'){
+				console.log('걸려줘라 제발');
+				return;
+			}
 			
 			$(".dndud_content_first_main_div").css("display","none");
 			$(".dndud_content_head_div").css("display", "flex");
@@ -573,12 +637,80 @@ $(function(){
 			$('.messageUserList').addClass('enable');
 			$(this).removeClass('enable');
 			$(this).addClass('able');
-			
+			var sendercode = '<%= (String)session.getAttribute("member") %>';
+			$("#wonMessageList").empty();
+			$.ajax({
+				url:"/bomulsum/writer/message/getChatList.wdo",
+				data:{
+					senderCode : sendercode,
+					receiverCode : receiveCode
+				},
+				success : function(data){
+					console.log(data);
+					
+					if(data.length == 0){
+						return;
+					}
+					for(var i=0; i<data.length; i++){
+						if(data[i].messageSenderCode == sendercode){
+							var test = data[i].messageContent.split('*|*');
+							var day = test[1];
+							var message = test[0];
+							
+							var dTag = document.createElement("div");
+							var Tag = document.createElement("div");
+							var tag = document.createElement('span');
+							let dayTag = document.createElement('span');
+							
+							dayTag.innerHTML = day;
+							tag.innerHTML = message.replace(/\n/gi, '<br>');
+							
+							Tag.setAttribute('style','padding: 10px 15px; background-color: #f5eacc;' +
+								'border-radius: 15px 0 15px 15px; font-size: 14px;max-width: 50%;');
+							dTag.setAttribute('style', 'padding: 1%; display:flex;flex-direction:row;' +
+								'justify-content: flex-end;align-items: center;margin: 15px;');
+							dayTag.setAttribute('style','font-size: 60%; padding: 1%; align-self: flex-end;');
+							
+							Tag.appendChild(tag);
+							dTag.appendChild(dayTag);
+							dTag.appendChild(Tag);
+							document.getElementById('wonMessageList').appendChild(dTag);
+							
+						}else if(data[i].messageReceiverCode == sendercode){
+							var msgArray = data[i].messageContent.split('*|*');
+							let day = msgArray[1];
+							
+							var dTag = document.createElement("div");
+							var Tag = document.createElement("div");
+							var tag = document.createElement('span');
+							let dayTag = document.createElement('span');
+							
+							dayTag.innerHTML = day;
+							tag.innerHTML = msgArray[0].replace(/\n/gi, '<br>');
+							Tag.setAttribute('style','padding: 10px 15px; background-color: #d6e5c8;'+
+								'border-radius: 0 15px 15px 15px; font-size: 14px;max-width: 50%;');
+							dTag.setAttribute('style', 'padding: 1%; display:flex;flex-direction:row;'+
+								'justify-content: flex-start;align-items: center;margin: 15px;');
+							
+							dayTag.setAttribute('style','font-size: 60%; padding: 1%; align-self: flex-end;');
+							Tag.appendChild(tag);
+							dTag.appendChild(Tag);
+							dTag.appendChild(dayTag);
+							document.getElementById('wonMessageList').appendChild(dTag);
+						}
+					}
+					$("#wonMessageScroll").scrollTop($("#wonMessageScroll")[0].scrollHeight);
+				},
+				fail : function(err){
+					console.log(err);
+				}
+			});
+			preClickedList = $(this);
 		});
 	}
 	
 	function f_offListClickEvent(){
-		$(".messageUserList").off("click");
+		$(document).off("click", ".messageUserList");
 	}
 	
 	f_initListClickEvent();
@@ -594,6 +726,7 @@ $(function(){
 		$(".dndud_content_main_div").css("display", "none");
 		$(".dndud_content_change_head_div").css("display","flex");
 		$(".dndud_content_change_main_div").css("display","flex");
+		$("#wonMessageList").empty();
 	});
 	
 	$(".div_writer").on('click', function(){
@@ -606,8 +739,12 @@ $(function(){
 				memberCode : memberCode,
 				writerCode : writerCode
 			},
-			success : function(){
-				console.log('저장 성공');
+			success : function(data){
+				if(data == 'success'){
+					console.log('저장 성공');					
+				}else{
+					alert('존재하는 채팅방 입니다.');
+				}
 				history.go(0);
 			},
 			fail : function(err){
@@ -662,8 +799,10 @@ $(function(){
 				"writerCode" : arr,
 		}
 		console.log(data);
-		
-		exitChat(data);
+		var result = confirm('정말 나가시겠습니까?\n(대화 내용은 유지됩니다.)');
+		if(result){
+			exitChat(data);
+		}
 		
 	});
 	
@@ -678,7 +817,10 @@ $(function(){
 		}
 		console.log(data);
 		
-		exitChat(data);
+		var result = confirm('현재까지 대화내용이 전부 삭제됩니다.');
+		if(result){
+			exitChat(data);
+		}
 	});
 	
 	

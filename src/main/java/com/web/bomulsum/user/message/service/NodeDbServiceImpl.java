@@ -38,13 +38,14 @@ public class NodeDbServiceImpl implements NodeDbService{
 	}
 
 	@Override
-	public void insertChatRoom(UserInsertChatVo vo) {
-		dao.insertChatRoom(vo);		
+	public String insertChatRoom(UserInsertChatVo vo) {
+		return dao.insertChatRoom(vo);		
 	}
 
 	@Override
 	public void deleteChatRoom(List<HashMap<String, String>> list) {
 		dao.deleteChatRoom(list);
 	}
+
 
 }

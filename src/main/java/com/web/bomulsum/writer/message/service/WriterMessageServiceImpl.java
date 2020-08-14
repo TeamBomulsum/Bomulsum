@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.user.message.repository.UserInsertChatVo;
+import com.web.bomulsum.writer.message.repository.MessageVO;
 import com.web.bomulsum.writer.message.repository.WriterChatroomVO;
 import com.web.bomulsum.writer.message.repository.WriterMessageDAO;
+import com.web.bomulsum.writer.message.repository.WriterSendMessageVO;
 
 @Service
 public class WriterMessageServiceImpl implements WriterMessageService{
@@ -27,13 +29,28 @@ public class WriterMessageServiceImpl implements WriterMessageService{
 	}
 
 	@Override
-	public void insertChatRoom(UserInsertChatVo vo) {
-		dao.insertChatRoom(vo);
+	public String insertChatRoom(UserInsertChatVo vo) {
+		return dao.insertChatRoom(vo);
 	}
 
 	@Override
 	public void exitChatRoom(List<HashMap<String, String>> list) {
 		dao.exitChatRoom(list);
+	}
+
+	@Override
+	public void sendMessage(WriterSendMessageVO vo) {
+		dao.sendMessage(vo);
+	}
+
+	@Override
+	public List<MessageVO> getChatList(HashMap<String, String> map) {
+		return dao.getChatList(map);
+	}
+
+	@Override
+	public void updateChatStatus(HashMap<String, String> map) {
+		dao.updateChatStatus(map);
 	}
 	
 }

@@ -29,12 +29,22 @@ public class NodeDbDAO {
 		return sqlSessionTemplate.selectList("NodeDbDAO.testGetWriter");
 	}
 	
-	public void insertChatRoom(UserInsertChatVo vo) {
-		sqlSessionTemplate.insert("NodeDbDAO.insertChatRoom", vo);
+	public String insertChatRoom(UserInsertChatVo vo) {
+		String result = "success";
+		String check = sqlSessionTemplate.selectOne("NodeDbDAO.insertChatRoomBefore", vo);
+		if(check == null) { 
+			sqlSessionTemplate.insert("NodeDbDAO.insertChatRoom", vo);	
+		}else if(check.equals("N")){			
+			sqlSessionTemplate.update("NodeDbDAO.updateChatRoom", vo);
+		}else {
+			result = "error";	
+		}
+		return result;
 	}
 	
 	public void deleteChatRoom(List<HashMap<String, String>> list) {
-		sqlSessionTemplate.delete("NodeDbDAO.delChatRoom", list);
+		sqlSessionTemplate.update("NodeDbDAO.delChatRoom", list);
 	}
+
 	
 }

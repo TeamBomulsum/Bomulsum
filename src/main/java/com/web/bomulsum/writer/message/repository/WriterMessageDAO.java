@@ -23,12 +23,34 @@ public class WriterMessageDAO {
 		return sqlSessionTemplate.selectList("writerMessageDAO.memberTest");
 	}
 	
-	public void insertChatRoom(UserInsertChatVo vo) {
-		sqlSessionTemplate.insert("writerMessageDAO.insertChatRoom", vo);
+	public String insertChatRoom(UserInsertChatVo vo) {
+		String result = "success";
+		String check = sqlSessionTemplate.selectOne("writerMessageDAO.insertChatRoomBefore", vo);
+		if(check == null) {
+			sqlSessionTemplate.insert("writerMessageDAO.insertChatRoom", vo);
+		}else if(check.equals("N")) {
+			sqlSessionTemplate.update("writerMessageDAO.updateChatRoom", vo);
+		}else {
+			result = "error";
+		}
+		return result;
 	}
 	
 	public void exitChatRoom(List<HashMap<String, String>> list) {
 		sqlSessionTemplate.delete("writerMessageDAO.delChatRoom", list);
+	}
+	
+	public void sendMessage(WriterSendMessageVO vo) {
+		sqlSessionTemplate.update("writerMessageDAO.sendMessageBefore", vo);
+		sqlSessionTemplate.insert("writerMessageDAO.sendMessage", vo);
+	}
+	
+	public List<MessageVO> getChatList(HashMap<String, String> map){
+		return sqlSessionTemplate.selectList("writerMessageDAO.getChatList", map);
+	}
+	
+	public void updateChatStatus(HashMap<String , String> map) {
+		sqlSessionTemplate.update("writerMessageDAO.updateChatStatus", map);
 	}
 
 }

@@ -43,7 +43,11 @@
 		ON 
 			w.writer_code_seq = c.writer_code_seq
 		WHERE 
-			c.member_code_seq = #{userCode}
+			(
+				c.member_code_seq = #{userCode}
+				AND
+				c.chatroom_in_member = 'Y'
+			)
 		ORDER BY 
 			c.chatroom_date
 	</select>
@@ -55,26 +59,57 @@
 			writer_tb
 	</select>
 	
+	<select id="insertChatRoomBefore" parameterType="com.web.bomulsum.user.message.repository.UserInsertChatVo"
+		resultType="String">
+		SELECT
+			chatroom_in_member
+		FROM
+			chatroom_tb
+		WHERE
+			(
+				member_code_seq=#{memberCode}
+				AND
+				writer_code_seq=#{writerCode}
+			)
+	</select>
+	
+	<update id="updateChatRoom" parameterType="com.web.bomulsum.user.message.repository.UserInsertChatVo">
+		UPDATE
+			chatroom_tb
+		SET
+			chatroom_in_member='Y'
+		WHERE
+			(
+				member_code_seq=#{memberCode}
+				AND
+				writer_code_seq=#{writerCode}
+			)
+	</update>
+	
 	<insert id="insertChatRoom" parameterType="com.web.bomulsum.user.message.repository.UserInsertChatVo">
 		INSERT INTO
 		chatroom_tb
 		(
 			chatroom_sq,
 			member_code_seq,
-			writer_code_seq
+			writer_code_seq,
+			chatroom_in_member
 		)
 		VALUES
 		(
 			'chatroom_sq' || TO_CHAR(chatroom_sq.nextval), 
 			#{memberCode}, 
-			#{writerCode}
+			#{writerCode},
+			'Y'
 		)
 	</insert>
 	
-	<delete id="delChatRoom" parameterType="java.util.List">
+	<update id="delChatRoom" parameterType="java.util.List">
 		
-		DELETE FROM 
-			chatroom_tb 
+		UPDATE
+			chatroom_tb
+		SET
+			chatroom_in_member='N'
 		<where>
 			<foreach collection="list" item="item" open="" close="" separator="OR">
 				(
@@ -84,6 +119,7 @@
 				)
 			</foreach>
 		</where>
-	</delete>
+	</update>
+	
 	
 </mapper>

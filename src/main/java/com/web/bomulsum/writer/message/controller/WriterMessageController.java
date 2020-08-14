@@ -16,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.user.message.repository.UserInsertChatVo;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
+import com.web.bomulsum.writer.message.repository.MessageVO;
+import com.web.bomulsum.writer.message.repository.WriterChatroomVO;
+import com.web.bomulsum.writer.message.repository.WriterSendMessageVO;
 import com.web.bomulsum.writer.message.service.WriterMessageServiceImpl;
 
 @Controller
@@ -32,7 +35,6 @@ public class WriterMessageController {
 		HttpSession session = request.getSession();
 		WriterRegisterVO vo = (WriterRegisterVO)session.getAttribute("writer_login");
 		
-		System.out.println("메시지 작가 코드 : " + vo.getWriterSeq());
 		
 		mav.addObject("testMember", service.testGetMember());
 		mav.addObject("chatRoom", service.getChatRoom(vo.getWriterSeq()));
@@ -42,15 +44,22 @@ public class WriterMessageController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="/message/reload")
+	public List<WriterChatroomVO> reloadChatRoom(@RequestParam String code, @RequestParam String memberCode) {
+		
+		return service.getChatRoom(code);
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="/message/insertChat")
-	public void insertChat(@RequestParam String memberCode, HttpServletRequest request) {
+	public String insertChat(@RequestParam String memberCode, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		WriterRegisterVO wvo = (WriterRegisterVO)session.getAttribute("writer_login");
 		UserInsertChatVo vo = new UserInsertChatVo();
 		vo.setMemberCode(memberCode);
 		vo.setWriterCode(wvo.getWriterSeq());
 		
-		service.insertChatRoom(vo);
+		return service.insertChatRoom(vo);
 	}
 	
 	@ResponseBody
@@ -63,11 +72,40 @@ public class WriterMessageController {
 			map.put("writerCode", writerCode);
 			list.add(map);
 		}
-		for(HashMap<String, String> m : list) {
-			System.out.println(m.get("memberCode"));
-			System.out.println(m.get("writerCode"));
-		}
 		service.exitChatRoom(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/message/sendMessage")
+	public void sendMessage(WriterSendMessageVO vo) {
+		service.sendMessage(vo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/message/getChatList")
+	public List<MessageVO> getChatList(@RequestParam String senderCode, @RequestParam String receiverCode){
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("sender", senderCode);
+		map.put("receiver", receiverCode);
+		List<MessageVO> vo = service.getChatList(map);
+		
+		HashMap<String, String> map2 = new HashMap<String, String>();
+		map2.put("sender", receiverCode);
+		map2.put("receiver", senderCode);
+		
+		service.updateChatStatus(map2);
+		
+		return vo;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/message/updateChatStatus")
+	public void updateChatStatus(@RequestParam String senderCode, @RequestParam String receiverCode) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("sender", senderCode);
+		map.put("receiver", receiverCode);
+		service.updateChatStatus(map);
 	}
 	
 }
