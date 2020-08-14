@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>알림</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
@@ -14,76 +14,36 @@
 <link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <!-- CSS 영역 -->
 <style>
-.alarmContainer {
-	width: 90%;
-	margin-left: 2%;
-}
-
-.topLine {
-	height: 40px;
-}
-
-.button {
-	background-color: white;
-	color: black;
-	border: 1px solid #008CBA;
+.minwoo_table_table_bordered_head tr th {
 	text-align: center;
-	padding: 2%, 2%;
+	vertical-align: middle;
 }
 
-.registerButton {
-	float: right;
-}
-
-.textTitle {
-	float: left;
-}
-
-.alarmTitle {
-	float: center;
-}
-
-.table {
-	margin-top: 10px;
+.minwoo_table_table_bordered_body tr td {
 	text-align: center;
-	vertical-align:middle;
-	text-valign: middle;
-	width: 100%;
-	table-layout: fixed;
+	vertical-align: middle;
+	resize: none;
+	font-size:14px;
 }
 
-.table td{
-	margin-top: 10px;
-	text-align: center;
-	vertical-align:middle;
-	text-valign: middle;
-	font-size:13px
-	
-}
-
-.alignLeft {
-	float: left;
-}
-
-.alignRight {
-	float: right;
-}
-
-.formAction {
-	float: right;
-}
-
-form {
-	display: inline;
-}
-
-.paging {
+.minwoo_tableBottomLine{
 	margin-top: 20px;
 	text-align: center;
-	margin-bottom: 100px;
+	margin-bottom: 20px;
+	font-size: 18px;
+	display:flex;
+	position:relative;
+	max-height:40px;
 }
 
-.paging a {
+.minwoo_pagination{
+	text-align: center;
+	font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+.minwoo_pagination a {
 	display: inline-block;
 	margin: 0 3px;
 	text-decoration: none;
@@ -100,114 +60,107 @@ form {
 .arrow next {
 	border: 0px;
 }
-
-.modal-body-top{
-	display: inline-block;
-	height: 15%;
-	width: 90%;
-	margin: 5% auto;
+.minwoo_rowPerPage{
+	margin-left:5px; text-align:center; width:20%;
+	border-color:#D8D8D8; color:#A4A4A4; border-radius:5px;
+	position: absolute;
 }
+
+.savebtn{
+   background-color: white;
+   margin-left : 10px;
+   border: 1px solid #e7e7e7;
+   height: 35px;
+   outline: none;
+   color: #666666;
+   border-radius: 3px;
+   margin-left:auto;
+   margin-right:auto;
+}
+.senderArea{
+	display: flex;
+	align-items: center;
+    justify-content: center;
+}
+.photo{
+	width:40px;
+	height:40px;
+	object-fit:cover;
+	border-radius: 50%;
+	max-height: 40px;
+	max-width: 40px;
+}
+
 
 </style>
 </head>
 <!-- body 시작 -->
-<body id="page-top">
-	<div id="wrapper">
-		<!-- Header/Nav -->
-	<%@ include file="../include/side.jsp" %>
-		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
-				<%@ include file="../include/head.jsp" %>
-				<!-- end Header/Nav -->
-				<!-- 구매 후기 영역 -->
-				<div class="alarmContainer">
-					<!-- topLine -->
-					<div class="topLine" style="width:100%;">
-						<div class="textTitle" style="width:70%; float:reft;">
-							<h4>알림</h4>
-						</div>
-						<div style="width:30%; float:right;">
-							<div style="width:35%; float:left; margin-left:5%;">
-								<a onClick="window.location.reload()" style="cursor: pointer;"><div class="button">새로고침</div></a>
-							</div>
-							<div style="float:right; margin-left:5%;">
-								<button type="button" class="button dropdown-toggle" data-toggle="dropdown">
-										<i class="fa fa-cog fa-fw"></i>
-										앱 알림 설정
-									</button>
-										<!-- 알림 아이콘 메뉴창 -->
-										<!-- <form> 나중에 여기다가 체크한거 푸시 알림 설정 값 넘겨줘야 함. -->
-									<form id="alarmCheck" action="post">
-										<ul class="dropdown-menu shadow">
-													<!--  
-													<h5 class="dropdown-header">앱 알림 설정(푸시)</h5>
-													<hr>
-													-->
-													<li><a class="dropdown-item d-flex align-items-center samll" tabIndex="-1" data-value="option1"><input type="checkbox" />메시지가 올 때</a></li>
-													<hr>
-													<li><a class="dropdown-item d-flex align-items-center samll" tabIndex="-1" data-value="option2"><input type="checkbox" />&nbsp;댓글이 달릴 때</a></li>
-													<hr>
-													<li><a class="dropdown-item d-flex align-items-center samll" tabIndex="-1" data-value="option3"><input type="checkbox" />&nbsp;주문 받을 때</a></li>
-													<hr>
-													<li><a class="dropdown-item d-flex align-items-center samll" tabIndex="-1" data-value="option4"><input type="checkbox" />&nbsp;작품이 매진 되었을 때</a></li>
-													<hr>
-													<li style="text-align:center;">
-														<input type="submit" class="button save" value="확인">
-      												</li>
-											</ul>
-									</form>
-							</div>
-						</div>
-					</div>
-					<!-- end of topLine -->
-					<hr>
-					<div class="middleLine"> 
-							<div class="formAction" style="float:right;">
-								<form action="#" class="show_number">
-									<select name="show" id="show_id">
-										<option value="showten">10개씩 보기</option>
-										<option value="showthirty">30개씩 보기</option>
-										<option value="showfifty">50개씩 보기</option>
-									</select>
-								</form>
-							</div>
-					</div>
-					<!-- middleLine -->
-					<br>
-					
-					<!-- 테이블 시작 -->
-					<div class="table">
-						<table id="alarmTable" style="width:100%;">
-							<thead>
-								<tr>
-									<th style="width:15%;">발신자</th>
-									<th style="width:15%;">일자</th>
-									<th style="width:70%;">내용</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>아이디어스</td>
-									<td>2019년 4월 25일</td>
-									<td><a href="#">작가님 추천 광고 입찰이 시작되었습니다작가님 추천 광고 입찰이 시작되었습니다작가님 추천 광고 입찰이 시작되었습니다작가님 추천 광고 입찰이 시작되었습니다작가님 추천 광고 입찰이 시작되었습니다작가님 추천 광고 입찰이 시작되었습니다작가님 추천 광고 입찰이 시작되었습니다작가님 추천 광고 입찰이 시작되었습니다작가님 추천 광고 입찰이 시작되었습니다작가님 추천 광고 입찰이 시작되었습니다</a></td>								
-								</tr>
-								<tr>
-									<td>아이디어스</td>
-									<td>2019년 4월 25일</td>
-									<td><a href="#">작가님 추천 광고 입찰이 시작되었습니다</a></td>								
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<!-- 테이블 끝 -->
+<body>
 
-					<!-- 페이징 처리 -->
-					<div class="paging">
-						<a class="arrow prev" href="#">이전</a><a href="#">1</a><a class="arrow next" href="#">다음</a>
+<!-- body 시작 -->
+<div id="wrapper">
+	<!-- Header/Nav -->
+	<jsp:include page="../include/side.jsp" />
+	<div id="content-wrapper" class="d-flex flex-column">
+
+		<div class="content">
+			<jsp:include page="../include/head.jsp" />
+			<!-- end Header/Nav -->
+
+				<!--민우 내용 추가한 부분 시작-->
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					<!-- Page Heading -->
+					<div style="display: flex; float: right;">
+						<button class="btn btn-primary" style="margin-left:5px;
+						margin-right:5px;" onClick="window.location.reload()">
+							<i class="fas fa-sync"></i>&nbsp;&nbsp;새로고침
+						</button>
+					</div>
+					<h1 class="h3 mb-2 text-gray-800">알림</h1>
+					<p class="mb-4">활동 알림 목록입니다.</p>
+
+					<!-- DataTales Example -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">알림 목록</h6>
+							
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="mboardTable">
+									<thead class="minwoo_table_table_bordered_head">
+										<tr>
+											<th style="width:12%">발신자</th>
+											<th style="width:13%">일자</th>
+											<th style="width:15%">카테고리</th>
+											<th style="width:60%">내용</th>
+										</tr>
+									</thead>
+									<tbody class="minwoo_table_table_bordered_body">
+										<!-- 데이터 들어올 영역 -->
+									</tbody>
+								</table>
+							</div>
+							<div class="minwoo_tableBottomLine">
+								<select name="rowPerPage" id="rowPerPage" class="minwoo_rowPerPage">
+									<option value="10">10개씩 보기</option>
+									<option value="30">30개씩 보기</option>
+									<option value="50" >50개씩 보기</option>
+								</select>
+								<div id="pagination" class="minwoo_pagination"></div>
+							</div>
+						</div>
 					</div>
 				</div>
-				
-				<!-- 모달 내용 부분 -->
+				<!-- /.container-fluid -->
+				<!--민우 내용 추가한 부분 종료-->
+		</div>
+		<!-- End of Main Content -->
+
+
+
 
 				<!-- end of Container -->
 				<%@ include file="../include/footer.jsp" %>
@@ -218,18 +171,150 @@ form {
 					class="fas fa-angle-up"></i>
 				</a>
 
-				<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-				<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+
+	</div>
+</div>
+	
+				<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 				<!-- Core plugin JavaScript-->
-				<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 				<!-- Custom scripts for all pages-->
 				<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
+	
 
-			</div>
-			<!-- end of content -->
-		</div>
-	</div>
+	<script>
+	$(document).ready(function(){
+		pagingFunc();
+		$("#rowPerPage").change(function(){
+			pagingFunc();
+		});
+	});
+	
+	var writerSeq =	"${writer_login.writerSeq}";
+		
+	console.log(writerSeq);
+
+	
+	//페이지 시작하면 처음 보여주면서 처리해야할 기능
+    //페이징 처리를 위한 스크립트
+	var alarmResult = new Array();
+	var result = new Array();
+	
+    <c:forEach var="i" items='${alarmList}'>
+       var json = new Object();//객체로 배열에 담기
+       json.alarmSeq = '${i.alarmSeq}';
+       json.senderCode = '${i.senderCode}';
+       json.recipientCode = '${i.recipientCode}';
+       json.alarmTitle = `${i.alarmTitle}`;
+       json.alarmDate = '${i.alarmDate}';
+       json.alarmContent = `${i.alarmContent}`;
+       json.alarmRead = '${i.alarmRead}';
+       if(`${i.memberName}` == ''){
+    	   json.memberName = '보물섬';
+       } else{
+    	   json.memberName = `${i.memberName}`;
+       }
+       json.memberProfile = '${i.memberProfile}';
+       alarmResult.push(json);
+    </c:forEach>
+	//전체 데이터에서, 카테고리 설정 했을 때&검색했을때 데이터에 따라 페이징이 바뀌어야 하므로 이 배열을 가공한 다른 배열들이 필요하다.
+	
+	var pageCount = 10; // 한 페이지에 보여질 개수
+	
+	var pagingFunc = function(){
+
+		result = alarmResult;
+
+		pageCount = $("#rowPerPage").val();// 셀렉박스에 몇개씩 볼지 선택된 값에 따라 페이징 다르게 해주기
+		var blockCount = 5; // 페이지 몇개를 하나의 그룹(?)으로 묶은  정의하는 블럭 개수
+		var totalPage = Math.ceil(result.length / pageCount); // 총 페이지가 몇개 나올지 - 총 입력된 데이터의 개수에서 한페이지에 보여줄 글 목록 개수로 나눴다.
+		var totalBlock = Math.ceil(totalPage / blockCount); // 총 블럭 개수가 몇개 나올지
+		var pagination = document.getElementById('pagination');//페이징 기능 들어갈 영역(테이블 영역 아래)
+		var testTable = document.getElementById('mboardTable').querySelector("tbody");//페이징 처리를 하면 표시될 데이터가 들어갈 테이블영역
+		
+		var renderTableAndPagination = function(page = 1){
+		   renderTable(page);//테이블 그리는 함수
+		   renderPagination(page);//페이징 처리 함수
+		};
+		
+		//테이블 그리는 함수
+		var renderTable = function(page){
+			var html = '';
+
+			var startNum = (pageCount * (page - 1)); 
+			var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
+			
+			//여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
+			for(var index = startNum; index < endNum; index++){//아랫줄 background-image로 교체하기
+		  		html += '<tr><td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\"' + result[index].member_profile
+		  			+ 'alt=\"\"></div>&nbsp;&nbsp;' + result[index].memberName + '</div></td>'
+		  			+ '<td>' + result[index].alarmDate + '</td>'
+		  			+ '<td>' + result[index].alarmTitle + '</td>'
+		  			+ '<td>' + result[index].alarmContent + '</td>';
+		  			+ '<td style="display:none;">' + result[index].alarmRead + '</td>';
+		  			+ '<td style="display:none;">' + result[index].alarmSeq + '</td></tr>';
+			}
+			testTable.innerHTML = html;
+		};
+	
+		//pagination 그리는 함수
+		 var renderPagination = function(page){
+			var block = Math.floor((page-1)/blockCount)+1;
+			var startPage = ((block-1)*blockCount)+1;
+			var endPage = ((startPage + blockCount - 1) > totalPage) ? totalPage : (startPage + blockCount - 1);
+			            
+			var paginationHTML = '';
+			            
+			if(page !== 1) paginationHTML += "<a style='cursor:pointer' class='first_page'>&nbsp;처음&nbsp;</a>";
+			if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>&nbsp;이전...&nbsp;&nbsp;</a>";
+			            
+			for(var index = startPage; index <= endPage; index++){
+				paginationHTML += (parseInt(page) === parseInt(index)) ? " <a style='color:#ff8400'>" + index + "</a> " :" <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> ";
+			}
+			            
+			if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";
+			if(page < totalPage) paginationHTML += "<a style='cursor:pointer' class='last_page'>&nbsp;끝&nbsp;</a>";
+			       
+			pagination.innerHTML = paginationHTML;
+			addEventPagination(startPage, endPage);
+		}; 
+	          
+		//클릭이벤트, 클릭할 때마다 테이블을 새로 그려주는 거임
+		var addEventPagination = function(startPage, endPage){
+			if(!!document.querySelector(".first_page")){
+			   document.querySelector(".first_page").addEventListener('click', ()=>{
+			      renderTableAndPagination(1);
+			   });
+			}
+			if(!!document.querySelector(".back_page")){
+			   document.querySelector(".back_page").addEventListener('click', ()=>{
+			      renderTableAndPagination(startPage-1);
+			   });
+			}
+			document.querySelectorAll(".go_page").forEach(goPage => {
+			   goPage.addEventListener('click', e => {
+			      renderTableAndPagination(parseInt(e.target.getAttribute('data-value')));
+			   });
+			});
+			if(!!document.querySelector(".next_page")){
+			   document.querySelector(".next_page").addEventListener('click', ()=>{
+			      renderTableAndPagination(endPage+1);
+			   });
+			}
+			if(!!document.querySelector(".last_page")){
+			   document.querySelector(".last_page").addEventListener('click', ()=>{
+			      renderTableAndPagination(totalPage);
+			   });
+			}
+		};  
+		renderTableAndPagination();
+		//페이징 처리 끝
+	};
+	
+	</script>
+
 </body>
 </html>

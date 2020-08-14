@@ -13,7 +13,7 @@
 		<result column="ADMIN_NOTICE_DATE" property="adminNoticeDate"/>
 	</resultMap>
 
-
+ 
 	<insert id="insertMBoard" parameterType="com.web.bomulsum.manager.board.repository.MBoardVO">
 		INSERT INTO admin_notice_tb
 		(
@@ -25,17 +25,42 @@
 		)
 		VALUES
 		(
-			'admin_notice_sq' || TO_CHAR(admin_notice_sq.nextval),
+			'admin_notice_seq' || TO_CHAR(admin_notice_sq.nextval),
 			#{adminNoticeCategory},
 			#{adminNoticeTitle},
 			#{adminNoticeContent},
 			#{adminNoticeCoupon}
 		)
 	</insert>
+	<insert id="insertAlarmMBoard" parameterType="com.web.bomulsum.manager.board.repository.MBoardVO">
+		INSERT INTO alarm_tb
+		(
+			alarm_seq,
+			sender_code,
+			recipient_code,
+			alarm_title,
+			alarm_content
+		)
+		VALUES
+		(
+			'alarm_seq' || TO_CHAR(alarm_sq.nextval),
+			'보물섬',
+			#{alarmUser},
+			#{alarmTitle},
+			#{alarmContent}
+		)
+	</insert>
+	
 	
 	<!-- 여기서 패키지 이름을 풀로 안쓸거면, mybatis-config.xml에서 얼라이어스 설정 해주면 된다. -->
 	<select id="selectMBoard" resultType="com.web.bomulsum.manager.board.repository.MBoardListVO">
-		SELECT * FROM admin_notice_tb
+		SELECT
+			ROWNUM, X.*
+		FROM
+		(
+			SELECT * FROM admin_notice_tb
+			ORDER BY admin_notice_date DESC
+		) X
 	</select>
 
 	<!-- 수정을 위한 셀렉트 문 -->

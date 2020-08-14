@@ -15,8 +15,10 @@ public class MBoardVO {
 	private String adminNoticeContent;
 	private String adminNoticeCoupon;
 	private Date adminNoticeDate;
+	private String alarmTitle;
+	private String alarmContent;
+	private String alarmUser;
 	
-
 	public String getAdminNoticeSeq() {
 		return adminNoticeSeq;
 	}
@@ -53,13 +55,31 @@ public class MBoardVO {
 	public void setAdminNoticeDate(Date adminNoticeDate) {
 		this.adminNoticeDate = adminNoticeDate;
 	}
+	public String getAlarmTitle() {
+		return alarmTitle;
+	}
+	public void setAlarmTitle(String alarmTitle) {
+		this.alarmTitle = alarmTitle;
+	}
+	public String getAlarmContent() {
+		return alarmContent;
+	}
+	public void setAlarmContent(String alarmContent) {
+		this.alarmContent = alarmContent;
+	}
+	
+	public String getAlarmUser() {
+		return alarmUser;
+	}
+	public void setAlarmUser(String alarmUser) {
+		this.alarmUser = alarmUser;
+	}
 	@Override
 	public String toString() {
 		return "MBoardVO [adminNoticeSeq=" + adminNoticeSeq + ", adminNoticeCategory=" + adminNoticeCategory
 				+ ", adminNoticeTitle=" + adminNoticeTitle + ", adminNoticeContent=" + adminNoticeContent
-				+ ", adminNoticeCoupon=" + adminNoticeCoupon + ", adminNoticeDate=" + adminNoticeDate + "]";
+				+ ", adminNoticeCoupon=" + adminNoticeCoupon + ", adminNoticeDate=" + adminNoticeDate + ", alarmTitle="
+				+ alarmTitle + ", alarmContent=" + alarmContent + ", alarmUser=" + alarmUser + "]";
 	}
-
-	
 	
 }

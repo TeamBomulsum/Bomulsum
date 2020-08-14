@@ -28,34 +28,62 @@
 	text-align: center;
 	vertical-align: middle;
 	resize: none;
-}
-
-.paging{
-	text-align: center;
-	font-size: 18px;
+	font-size:14px;
 }
 
 .minwoo_tableBottomLine{
 	margin-top: 20px;
 	text-align: center;
 	margin-bottom: 20px;
+	max-height:40px;
 	font-size: 18px;
 	display:flex;
 	position:relative;
+	
 }
 
 .minwoo_pagination{
+	text-align: center;
+	font-size: 18px;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
 }
+.minwoo_pagination a {
+	display: inline-block;
+	margin: 0 3px;
+	text-decoration: none;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	color: #999999;
+	background-color: #fff;
+}
 
+.arrow prev {
+	border: 0px;
+}
+
+.arrow next {
+	border: 0px;
+}
 .minwoo_rowPerPage{
 	margin-left:5px; text-align:center; width:20%;
 	border-color:#D8D8D8; color:#A4A4A4; border-radius:5px;
-	position: absolute;
+	position: absolute; max-height: 40px;
 }
-
+.senderArea{
+	display: flex;
+	align-items: center;
+    justify-content: center;
+}
+.photo{
+	width:40px;
+	height:40px;
+	object-fit:cover;
+	border-radius: 50%;
+	max-height: 40px;
+	max-width: 40px;
+}
 
 </style>
 
@@ -65,13 +93,13 @@
 	<c:if test="${param.check eq 3}">
 		<script type="text/javascript">
 			alert("댓글이 등록 되었습니다.");
-			location.href = "/bomulsum/writer/comments.wdo";
+			location.href = "/bomulsum/writer/activity/comments.wdo";
 		</script>
 	</c:if>
 		<c:if test="${param.check eq 4}">
 		<script type="text/javascript">
 			alert("댓글이 수정 되었습니다.");
-			location.href = "/bomulsum/writer/comments.wdo";
+			location.href = "/bomulsum/writer/activity/comments.wdo";
 		</script>
 	</c:if>
 
@@ -137,8 +165,8 @@
 	</div>
 	<!-- End of Content Wrapper -->
 
-  </div>
-  <!-- End of Page Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
 
 
 				<!-- 모달 내용 부분 -->
@@ -159,7 +187,7 @@
 							<div class="modal-footer" style="display: flex; flex-direction: column;">
 								<div style="display: flex; flex-direction: row; width: 100%;">
 									<!-- 폼 액션 넣기 -->
-									<form action="<c:url value='/writer/addReComment.wdo'/> " method="post"
+									<form action="<c:url value='/writer/activity/addReComment.wdo'/> " method="post"
 										style="display: flex; flex-direction: row; width: 100%;">
 										<div class="textwrap" style="display: flex; width: 85%;">
 											<textarea id="comment_recomment" name="comment_recomment" placeholder="댓글을 남겨 주세요."
@@ -167,8 +195,10 @@
 											<span id="counter" style="display: flex; margin-left:5px; align-items:center;">###</span>
 										</div>
 										<div style="width: 10%; margin-left: 2%">
+											<input type="hidden" id="writer_code_seq" name="writer_code_seq">
 											<input type="hidden" id="comment_seq" name="comment_seq">
 											<input type="hidden" id="comment_status" name="comment_status">
+											<input type="hidden" id="member_code_seq" name="member_code_seq">											
 											<input type="submit" id="comment_submit" name="comment_submit" class="btn btn-primary" value="등록">
 										</div>
 									</form>
@@ -219,6 +249,10 @@
 				pagingFunc();
 			});
 		});
+		
+		var writerSeq =	"${writer_login.writerSeq}";
+			
+		console.log(writerSeq);
 
 		
 		//페이지 시작하면 처음 보여주면서 처리해야할 기능
@@ -229,13 +263,16 @@
 	    <c:forEach var="i" items='${commentsList}'>
 	       var json = new Object();//객체로 배열에 담기
 	       json.comment_seq = '${i.comment_seq}';
-	       json.member_code_seq = '${i.member_code_seq}';
-	       json.art_code_seq = '${i.art_code_seq}';
+	       json.member_name = '${i.member_name}';
+	       json.art_name = '${i.art_name}';
 	       json.comment_content = `${i.comment_content}`;
 	       json.comment_status = '${i.comment_status}';
 	       json.comment_date = '${i.comment_date}';
 	       json.comment_recomment = '${i.comment_recomment}';
 	       json.comment_recomment_date = '${i.comment_recomment_date}';
+	       json.writer_code_seq = '${i.writer_code_seq}';
+	       json.member_code_seq = '${i.member_code_seq}';
+	       json.member_profile = '${i.member_profile}';
 	       commentsResult.push(json);
 	    </c:forEach>
 		//전체 데이터에서, 카테고리 설정 했을 때&검색했을때 데이터에 따라 페이징이 바뀌어야 하므로 이 배열을 가공한 다른 배열들이 필요하다.
@@ -276,15 +313,18 @@
 					}
 			  		html += '<tr><td>' + reStatus1 + '</td>'
 			  			+ '<td>' + result[index].comment_date + '</td>'
-			  			+ '<td> 작성자 :' + result[index].member_code_seq + '</td>'
-			  			+ '<td> 작품 :' + result[index].art_code_seq + '</td>'
+			  			+ '<td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\"'
+			  			+ result[index].member_profile
+			  			+ '\" alt=\"사진\"></div>&nbsp;&nbsp;' + result[index].member_name + '</div></td>'
+			  			+ '<td>' + result[index].art_name + '</td>'
 			  			+ '<td>' + result[index].comment_content + '</td>'
 			  			+ '<td>'
 						+ '<button name=\"recommentBtn\" data-toggle=\"modal\" data-target=\"#staticBackdrop\" class=\"btn btn-primary\">'
 						+ reSattus2 + '</button></td>'
 						+ '<td style="display:none;">' + result[index].comment_seq + '</td>'
 						+ '<td style="display:none;">' + result[index].comment_recomment + '</td>'
-						+ '<td style="display:none;">' + result[index].comment_status + '</td></tr>';
+						+ '<td style="display:none;">' + result[index].comment_status + '</td>'
+						+ '<td style="display:none;">' + result[index].member_code_seq + '</td></tr>';
 				}
 				testTable.innerHTML = html;
 				$("button[name=recommentBtn]").on('click',modal);
@@ -298,15 +338,15 @@
 				            
 				var paginationHTML = '';
 				            
-				if(page !== 1) paginationHTML += "<a style='cursor:pointer' class='first_page'>처음&nbsp;&nbsp;</a>";
-				if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전...&nbsp;&nbsp;</a>";
+				if(page !== 1) paginationHTML += "<a style='cursor:pointer' class='first_page'>&nbsp;처음&nbsp;</a>";
+				if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>&nbsp;이전...&nbsp;&nbsp;</a>";
 				            
 				for(var index = startPage; index <= endPage; index++){
-					paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
+					paginationHTML += (parseInt(page) === parseInt(index)) ? " <a style='color:#ff8400'>" + index + "</a> " :" <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> ";
 				}
 				            
 				if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";
-				if(page < totalPage) paginationHTML += "<a style='cursor:pointer' class='last_page'>&nbsp;&nbsp;끝</a>";
+				if(page < totalPage) paginationHTML += "<a style='cursor:pointer' class='last_page'>&nbsp;끝&nbsp;</a>";
 				       
 				pagination.innerHTML = paginationHTML;
 				addEventPagination(startPage, endPage);
@@ -364,23 +404,28 @@
 		seq = $.trim($(this).closest('tr').children('td').eq(6).text());
 		recomment = $.trim($(this).closest('tr').children('td').eq(7).text());
 		status = $.trim($(this).closest('tr').children('td').eq(8).text());
+		memberSeq = $.trim($(this).closest('tr').children('td').eq(9).text());
 		console.log(seq);
 		console.log(recomment);
+		console.log(writerSeq);
+		console.log(memberSeq);
 		
 		$('#comment_recomment').val('');
 		$('#comment_seq').val(seq);
 		$('#comment_status').val(status);
+		$('#writer_code_seq').val(writerSeq);
+		$('#member_code_seq').val(memberSeq);
 		
 		if(status == "Y"){
 			$('#comment_recomment').val(recomment);
 			$('#comment_submit').val('수정');
 			
-			console.log("여기 왔습니다.")
+			console.log("수정하러 왔습니다.")
 		}
 
 	};
-		//모달 부분 종료
-					
+	//모달 부분 종료
+
 	</script>
 		
 </body>

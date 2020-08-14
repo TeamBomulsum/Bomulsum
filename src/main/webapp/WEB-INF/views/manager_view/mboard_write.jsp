@@ -13,8 +13,10 @@
 
 <title>보물섬(관리자) | 게시판 글 등록</title>
 
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+		<link href="<c:url value='/resources/css/summernote/summernote-lite.css'/>" rel="stylesheet" type="text/css">  
 
-<link href="<c:url value='/resources/css/summernote/summernote-lite.css'/>" rel="stylesheet" type="text/css">
 <!-- Custom fonts for this template-->
 <link
 	href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>"
@@ -55,7 +57,7 @@
 	<c:if test="${param.check eq 1}">
 		<script type="text/javascript">
 			alert("글이 등록 되었습니다.");
-			location.href = "/bomulsum/mboard/write.mdo";
+			location.href = "/bomulsum/manager/mboard/write.mdo";
 		</script>
 	</c:if>
 
@@ -243,7 +245,7 @@
 						</div>
 						<div class="card-body">
 							<!--날짜값도 히든으로 같이 넣어줘야 합니당-->
-							<form action="<c:url value='/mboard/register.mdo'/> " method="post">
+							<form action="<c:url value='/manager/mboard/register.mdo'/> " method="post">
 								<div>
 									<!--
 									<br>
@@ -254,7 +256,7 @@
 										<span style="display:inline-block; width:250px;">
 										<!-- man_type에 하위 메뉴 하단 스크립트 '셀렉트박스 옵션' 참조 -->
 										<select name="adminNoticeCategory" id="admin_notice_category">
-											<option>---------------------------</option>
+											<option value="0">---------------------------</option>
 											<option value="이벤트">이벤트</option>
 											<option value="회원용-공지사항">회원용-공지사항</option>
 											<option value="회원용-자주묻는질문">회원용-자주묻는질문</option>
@@ -386,9 +388,12 @@
 		<!-- Page level custom scripts -->
 		<script src="<c:url value='/resources/js/demo/datatables-demo.js'/>"></script>
 
-		<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
-		<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
 
+	
+		<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
+		<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
+		
+		
 		
 		<script>
 		
@@ -413,16 +418,19 @@
 					$("#board_type_div").css("display", "none");
 				}
 			});
-/* 			
+	 			
 			$('#submit').click(function(){
-				if($('#admin_notice_category').val == ""){
+				if($('#admin_notice_category').val() == 0){
 					alert("카테고리를 선택해주세요");
-				} else if($('#admin_notice_title').val == ""){
+					location.href="write.mdo";
+				} else if($('#admin_notice_title').val() == ""){
 					alert("제목을 입력해주세요");
-				} else if($('#summernote').val == ""){
+					location.href="write.mdo";
+				} else if($('#summernote').val() == ""){
 					alert("내용을 입력해주세요");
+					location.href="write.mdo";
 				}
-			}); */
+			});
 	   });
 		
 		</script>

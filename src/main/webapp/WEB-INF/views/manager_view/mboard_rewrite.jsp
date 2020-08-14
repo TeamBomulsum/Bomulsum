@@ -241,7 +241,7 @@
 						</div>
 						<div class="card-body">
 							<!---->
-							<form action="<c:url value='/mboard/update.mdo'/> " method="post">
+							<form action="<c:url value='/manager/mboard/update.mdo'/> " method="post">
 								<div>
 									<!--
 									<br>

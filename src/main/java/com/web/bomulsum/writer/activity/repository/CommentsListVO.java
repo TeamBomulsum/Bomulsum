@@ -21,6 +21,8 @@ public class CommentsListVO {
 	private Date comment_date;
 	private String comment_recomment;
 	private Date comment_recomment_date;
+	private String writer_code_seq;
+	private String member_profile;
 	public String getComment_seq() {
 		return comment_seq;
 	}
@@ -33,11 +35,23 @@ public class CommentsListVO {
 	public void setMember_code_seq(String member_code_seq) {
 		this.member_code_seq = member_code_seq;
 	}
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	public String getArt_code_seq() {
 		return art_code_seq;
 	}
 	public void setArt_code_seq(String art_code_seq) {
 		this.art_code_seq = art_code_seq;
+	}
+	public String getArt_name() {
+		return art_name;
+	}
+	public void setArt_name(String art_name) {
+		this.art_name = art_name;
 	}
 	public String getComment_content() {
 		return comment_content;
@@ -69,17 +83,17 @@ public class CommentsListVO {
 	public void setComment_recomment_date(Date comment_recomment_date) {
 		this.comment_recomment_date = comment_recomment_date;
 	}
-	public String getMember_name() {
-		return member_name;
+	public String getWriter_code_seq() {
+		return writer_code_seq;
 	}
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+	public void setWriter_code_seq(String writer_code_seq) {
+		this.writer_code_seq = writer_code_seq;
 	}
-	public String getArt_name() {
-		return art_name;
+	public String getMember_profile() {
+		return member_profile;
 	}
-	public void setArt_name(String art_name) {
-		this.art_name = art_name;
+	public void setMember_profile(String member_profile) {
+		this.member_profile = member_profile;
 	}
 	@Override
 	public String toString() {
@@ -87,7 +101,8 @@ public class CommentsListVO {
 				+ member_name + ", art_code_seq=" + art_code_seq + ", art_name=" + art_name + ", comment_content="
 				+ comment_content + ", comment_status=" + comment_status + ", comment_date=" + comment_date
 				+ ", comment_recomment=" + comment_recomment + ", comment_recomment_date=" + comment_recomment_date
-				+ "]";
+				+ ", writer_code_seq=" + writer_code_seq + ", member_profile=" + member_profile + "]";
 	}
-
+	
+	
 }

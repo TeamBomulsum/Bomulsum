@@ -6,22 +6,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.manager.board.repository.MBoardVO;
-import com.web.bomulsum.writer.activity.repository.CommentsListDAO;
+import com.web.bomulsum.writer.activity.repository.AlarmVO;
+import com.web.bomulsum.writer.activity.repository.WriterActivityDAO;
+import com.web.bomulsum.writer.activity.repository.WriterActivityVO;
 import com.web.bomulsum.writer.activity.repository.CommentsListVO;
 
 @Service
 public class WriterActivityServiceImpl implements WriterActivityService {
 
 	@Autowired
-	private CommentsListDAO dao;
+	private WriterActivityDAO dao;
 	
 	@Override
-	public List<CommentsListVO> commentsList() {
-		return dao.commentsList();
+	public List<CommentsListVO> commentsList(String seq) {
+		System.out.println("서비스임플 :" + seq);
+		return dao.commentsList(seq);
 	}
 
 	@Override
-	public void addRecomment(CommentsListVO vo) {
-		dao.addRecomment(vo);
+	public void addRecomment(CommentsListVO vo, AlarmVO avo) {
+		dao.addRecomment(vo, avo);
+	}
+
+	@Override
+	public List<AlarmVO> alarmList(String seq) {
+		return dao.alarmList(seq);
+	}
+
+	@Override
+	public List<WriterActivityVO> reviewList(String seq) {
+		return dao.reviewList(seq);
 	}
 }

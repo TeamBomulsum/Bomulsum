@@ -108,13 +108,7 @@ public class WriterArtController {
 			result += saveFile+",";
 		}	
 		vo.setArtPhoto(result);
-		
-		//작가 코드 가져오기
-		//HttpSession session =  request.getSession();
-   //   WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");        
-       // String seq = code.getWriterSeq();
-       // vo.setWriterCodeSeq(seq);
-	
+
 		//작품 등록
 		service.insertArt(vo);
 		System.out.println(vo.toString());
