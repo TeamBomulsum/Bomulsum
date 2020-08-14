@@ -122,7 +122,7 @@ $(function() {
     $('#workName').keyup();
 });
 
-/*
+
 $(document).ready(function() {
     $('#summernote').summernote({
        height : 350, // 에디터 높이
@@ -133,7 +133,7 @@ $(document).ready(function() {
        placeholder:"작품 설명을 적어주세요." //placeholder 설정
 
     });
- });*/
+ });
  
 </script>
 </head>

@@ -21,7 +21,6 @@
 		<result property="artSaleState" column="art_sale_state"/>
 		<result property="artRecommendTime" column="art_recommend_time"/>
 		<result property="artRegisterDate" column="art_register_date"/>
-	
 	</resultMap>
 
 <!-- 작품 등록 -->
@@ -64,7 +63,7 @@
 			default
 		)
 	</insert>
-  
+  <!-- 작품 코드 검색 -->
 	<select id="getArtCode" parameterType="com.web.bomulsum.writer.art.repository.WriterArtVO" resultType="String">
 		SELECT art_code_seq
 		FROM art_tb
@@ -72,7 +71,7 @@
 		AND art_name=#{artName}	
 	</select>
 
-	
+<!-- 작품 상세 정보 등록 -->
 	<insert id="insertArtInfoDetail" parameterType="com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO">
 	INSERT INTO 	
 		art_info_detail_tb(
@@ -259,39 +258,91 @@
 <!-- 판매중 작품 -->
 
 	<select id="getArtOnsale" parameterType="String" resultMap="onSaleArt">
-		 SELECT * FROM art_tb 
-		 WHERE writer_code_seq=#{writerCodeSeq}
-		 AND art_sale_state='Y'
+		SELECT * FROM art_tb
+		WHERE writer_code_seq=#{writerCodeSeq}
+		AND
+		art_sale_state='Y'
 	</select>
- <!--   	
-	<select id="getArtOnsaleBookMark" parameterType="String" resultType="java.lang.Integer">
+ 
+	<select id="getArtOnsaleReview" parameterType="String" resultType="java.lang.Integer">
 		SELECT count(*) 
 		FROM review_tb 
-		WHERE review_tb.art_code_seq=#{artCodeSeq}
+		WHERE art_code_seq=#{artCodeSeq}
+	</select>
+ 
+	<select id="getArtOnsaleComment" parameterType="String" resultType="java.lang.Integer">
+		SELECT count(*) 
+		FROM comment_tb 
+		WHERE art_code_seq=#{artCodeSeq}
 	</select>
 
-	<select>
-	(select count(*) from comment_tb where comment_tb.art_code_seq=#{ArtCodeSeq}),
+	<select id="getArtOnsaleBookmark" parameterType="String" resultType="java.lang.Integer">
+		SELECT count(*) 
+		FROM wishlist_tb 
+		WHERE wishlist_option='좋아하는작품' 
+		AND wishlist_option_code=#{artCodeSeq}
 	</select>
-	
-	<select
-
-			
-			(select count(*) from wishlist_tb where wishlist_tb.wishlist_option='좋아하는 작품' and wishlist_tb.wishlist_option_code=#{ArtCodeSeq}')
-		FROM art_tb
-		WHERE art_tb.art_code_seq=#{ArtCodeSeq};
-
-
-
--->
-	<update id="updateSalesArt" parameterType="java.util.List">
-      <foreach collection="list" item="item" separator=",">
-  
-         UPDATE art_tb
-         SET ART_SALE_STATE='N'
-         WHERE ART_CODE_SEQ=#{item.ART_CODE_SEQ}
-      </foreach>
+ 
+ <!-- 판매일시중지 -->
+	<update id="updateSalesArt" parameterType="java.util.ArrayList">
+	     UPDATE 
+	    	art_tb
+        SET 
+        	art_sale_state='N'
+       	WHERE
+        	art_code_seq
+        IN
+	     <foreach collection="list" item="item" open="(" close=")" separator=",">
+	     	#{item}
+	     </foreach>
    </update>
    
+ <!-- 작품 삭제 -->
+   <delete id="deleteSalesArt" parameterType="java.util.ArrayList">
+	     DELETE 
+	    	art_tb
+       	WHERE
+        	art_code_seq
+        IN
+	     <foreach collection="list" item="item" open="(" close=")" separator=",">
+	     	#{item}
+	     </foreach>
+   </delete>
+   <delete id="deleteSalesArtDetail" parameterType="java.util.ArrayList">
+	     DELETE 
+	    	art_info_detail_tb
+       	WHERE
+        	art_code_seq
+        IN
+	     <foreach collection="list" item="item" open="(" close=")" separator=",">
+	     	#{item}
+	     </foreach>
+   </delete>
+   <delete id="deleteSalesArtOption" parameterType="java.util.ArrayList">
+	     DELETE 
+	    	art_option_tb
+       	WHERE
+        	art_code_seq
+        IN
+	     <foreach collection="list" item="item" open="(" close=")" separator=",">
+	     	#{item}
+	     </foreach>
+   </delete>
    
+   
+   
+    <!-- 카테고리별 정렬 
+    <select id="getSortArt" parameterType="hashMap" resultMap="onSaleArt">
+    	SELECT * FROM art_tb
+		WHERE writer_code_seq=#{ArtCodeSeq}
+		AND
+		art_sale_state='Y'
+		<trim prefix="ORDER BY">
+			<if test="SortItem == 'art_name'">art_name ASC</if>
+			<if test="SortItem == 'art_price'">art_price DESC</if>
+			<if test="SortItem == 'art_register_date'">art_register_date DESC</if>
+			<if test="SortItem == 'art_sale_count'">art_sale_count DESC</if>
+		</trim>
+    </select>
+    -->
 </mapper>
