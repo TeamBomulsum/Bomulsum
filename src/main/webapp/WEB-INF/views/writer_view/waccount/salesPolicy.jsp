@@ -106,7 +106,7 @@ footer span {
 					<h5 style="font-weight: bold;">배송비</h5>
 					<p>제주, 도서산간일 경우 기본료만 무료가 됩니다.</p>
 					<form action="<c:url value='/writer/updateSalespolicy.wdo'/>"
-						method="post">
+						method="post" id="frm">
 						<table class="daintable">
 							<tr>
 								<th class="daintdth" style="width: 15%;">결제방식</th>
@@ -129,21 +129,21 @@ footer span {
 								<td class="daintdth" style="width: 85%;"><input class="daininput" size="13"
 									type="text" pattern="[0-9]{1,5}" value="${salespolicy.writerSendPrice}"
 									placeholder="0" name="writerSendPrice" title="0원~99,999원 이하의 숫자만 입력하세요." 
-									style="text-align: right;" /> 원</td>
+									style="text-align: right;" required="required" id="primeShipping"/> 원</td>
 							</tr>
 							<tr>
 								<th class="daintdth" style="width: 15%;">제주 / 도서산간 추가비용</th>
 								<td class="daintdth" style="width: 85%;"><input size="13" class="daininput"
-									type="text" placeholder="0" name="writerPlusPrice"
+									type="text" placeholder="0" name="writerPlusPrice" required="required"
 									value="${salespolicy.writerPlusPrice}" title="0원~99,999원 이하의 숫자만 입력하세요." 
-									pattern="[0-9]{1,5}" style="text-align: right;" /> 원</td>
+									pattern="[0-9]{1,5}" style="text-align: right;" id="moreShipping"/> 원</td>
 							</tr>
 							<tr>
 								<th class="daintdth" style="width: 15%;">배송비 무료 조건</th>
 								<td class="daintdth" style="width: 85%;"><input size="13" class="daininput"
 									type="text" placeholder="0" name="writerSendfreeCase" pattern="[0-9]{1,6}"
 									value="${salespolicy.writerSendfreeCase}" title="0원~999,999원 이하의 숫자만 입력하세요."
-									style="text-align: right;" /> 원 이상</td>
+									style="text-align: right;" required="required" id="freeShipping"/> 원 이상</td>
 							</tr>
 						</table>
 
@@ -178,7 +178,7 @@ ${salespolicy.writerPolicyAbout}</textarea><br> <span id="counter">###</span></t
 
 						<div class="spButton" style="margin-bottom: 50px;">
 							<div style="text-align: center; width: 90%;">
-								<button class="btn btn-primary" type="submit"
+								<button class="btn btn-primary" type="submit" onclick= "formCheckBtn()"
 									>확인</button>
 							</div>
 						</div>
@@ -225,5 +225,25 @@ ${salespolicy.writerPolicyAbout}</textarea><br> <span id="counter">###</span></t
 		});
 		$('#content').keyup();
 	});
+	
+		//input pattern 체크
+	function formCheckBtn(){
+		var checkField1 = document.getElementById("content");
+		var checkField2 = document.getElementById("freeShipping");
+		var checkField3 = document.getElementById("moreShipping");
+		var checkField4 = document.getElementById("primeShipping");
+		theForm=document.frm;
+		console.log(checkField1.validity.patternMismatch);
+		console.log(checkField2.validity.patternMismatch);
+		console.log(checkField3.validity.patternMismatch);
+		console.log(checkField4.validity.patternMismatch);
+		if(!checkField1.validity.patternMismatch && !checkField2.validity.patternMismatch &&
+		!checkField3.validity.patternMismatch && !checkField4.validity.patternMismatch &&
+		(theForm.writerSendPrice.value!="" || theForm.writerPlusPrice.value!="" || theForm.writerSendfreeCase.value!="")){
+			  alert("등록되었습니다.");
+		}
+		
+
+
 </script>
 </html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userProfileDAO">
+
+<!-- 		<resultMap type="com.web.bomulsum.user.profile.repository.UserProfileVO" id="uProfileMap">
+		<result property="couponName" column="member_code_seq" />
+		<result property="couponName" column="member_email" />
+		<result property="couponName" column="member_name" />
+		<result property="couponName" column="member_phone" />
+		<result property="couponName" column="member_rec_code" />
+		<result property="couponName" column="member_term_agree" />
+		<result property="couponName" column="member_private_agree" />
+		<result property="couponName" column="member_sms_agree" />
+		<result property="couponName" column="member_email_agree" />
+		<result property="couponName" column="member_birth" />
+		<result property="couponName" column="member_gender" />
+		<result property="couponName" column="member_grade" />
+		<result property="couponName" column="member_profile" />
+		</resultMap>  -->
+
+<!-- 회원등급 -->
+
+	<!-- 회원 구매금액 산정 -->
+	<select id="getSumPay" parameterType="String" resultType="int" >
+		SELECT
+		nvl(SUM(order_pay_price),0)
+		FROM order_tb
+		WHERE member_code_seq = 'daintest'
+	<!-- 	WHERE member_code_seq = #{writerCodeSeq} -->
+	</select>
+	
+	<!-- 3개월 이내 구매금액 산정 -->
+	<select id="getSumPayPeriod" parameterType="String" resultType="int" >
+		SELECT
+		nvl(sum(order_pay_price),0)
+		FROM order_tb
+		WHERE order_date > sysdate-90 
+		AND
+		member_code_seq = 'daintest'
+	<!-- 	WHERE member_code_seq = #{writerCodeSeq} -->
+	</select>
+	
+	
+	
+	
+<!-- 회원정보관리 -->
+
+	<!-- 회원 정보 가져오기 -->
+	<select id="getUserInfo" parameterType="String" resultType="UserProfileVO" >
+		SELECT 
+		member_code_seq, member_name, member_email, member_phone, member_gender, member_birth, member_sms_agree, member_email_agree
+		FROM member_tb
+		WHERE member_code_seq = 'member_code_sq58'
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateUserInfo" parameterType="UserProfileVO">
+		UPDATE member_tb
+		
+		SET
+		member_name = #{member_name},
+		member_gender = #{member_gender},
+		member_birth = #{member_birth, jdbcType=DATE},
+		member_sms_agree = #{member_sms_agree},
+		member_email_agree = #{member_email_agree}
+		
+		WHERE member_code_seq = 'member_code_sq58'
+
+	</update>
+</mapper>

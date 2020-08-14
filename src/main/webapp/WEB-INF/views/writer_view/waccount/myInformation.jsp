@@ -19,6 +19,14 @@
 <!-- JQuery -->
 
 <script>
+	$(document).ready(function(){
+	    //보유 젬포인트 0원처리
+	    var jbText = $( '#gemP' ).text();
+	    if(jbText == 'P'){
+	   	$('#gemP').html("0P");
+	    }
+	 });
+ 
 /* 	function validCheck(){
 		 var pageAddress = $("#pageAddress").val();
 		 var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
@@ -40,6 +48,7 @@
 		  return true;
 		 }
 	} */
+	
 </script>
 
 <style>
@@ -147,7 +156,7 @@ footer span{
 								<form action="<c:url value='/writer/insertphone.wdo'/>">
 								<input type="text" value="${myinfo.writerPhone}" id="dainPhone" name="writerPhone" class="daininput"
 								placeholder="00*-000*-0000" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" />
-								<input class="btn2" type="submit" value="등록" id="dainPhoneBtn">
+								<input class="btn2" type="submit" value="등록" id="dainPhoneBtn" onclick="checkPhoneBtn()">
 								</form>
 							</td>
 							<!-- 여기 값 넣어야함 -->
@@ -161,7 +170,7 @@ footer span{
 										http://www.bomulsum.com/ 
 										<input type="text" value="${myinfo.writerUrl}" id="pageAddress" name="writerUrl" class="daininput"
 										 pattern="^([a-z0-9_]){5,20}$" maxlength="20" />
-										<input class="btn2" type="submit" value="등록" >
+										<input class="btn2" type="submit" value="등록" id="dainUrlBtn" onclick="checkUrlBtn()">
 									</form>
 								</div>
 								<p>※ 작가 URL은 최소 5자 이상 20자 이하의 영문 소문자, 숫자, 언더바(_)로만
@@ -207,11 +216,8 @@ footer span{
 						<tr>
 							<th class="daintdth" style="width: 15%;">젬포인트</th>
 							<td class="daintdth" style="width: 85%; color: #36a7b3;">
-							<c:if test="${pointsum.GEMSUM eq null}">
-							0
-							</c:if>
-							<fmt:formatNumber value="${pointsum.GEMSUM}" pattern="#,###"/>P
-								<button class="btn2" onclick="location.href ='<c:url value='/writer/gempoint.wdo'/>'">포인트 충전</button>
+							<span id="gemP"><fmt:formatNumber value="${pointsum.GEMSUM}" pattern="#,###"/>P</span>
+								<button type="submit" class="btn2" onclick="location.href ='<c:url value='/writer/gempoint.wdo'/>'">포인트 충전</button>
 							</td>
 						</tr>
 					</table>
@@ -284,6 +290,25 @@ footer span{
 
 		</div>
 	</div>
+<script>
+
+//전화번호 등록 alert 띄우려고 input pattern 체크
+function checkPhoneBtn(){
+	var numberField = document.getElementById("dainPhone");
+	//console.log(numberField.validity.patternMismatch);
+	if(!numberField.validity.patternMismatch){
+		   alert("등록되었습니다.");
+	}
+}
+
+function checkUrlBtn(){
+	var urlField = document.getElementById("pageAddress");
+	console.log(urlField.validity.patternMismatch);
+	if(!urlField.validity.patternMismatch){
+		   alert("등록되었습니다.");
+	}
+}
+</script>
 
 </body>
 </html>

@@ -136,6 +136,7 @@ footer span{
 }
 
 
+
 </style>
 
 </head>
@@ -163,31 +164,42 @@ footer span{
 							<tr>
 								<th class="daintdth" style="width: 15%;  text-align: center;">프로필 사진</th>
 								<td class="daintdth" style="font-size: 12px; width: 7%;">
-									<!-- 여기 이미지 썸네일 들어감 --> 
+									<c:if test="${profile.writerProfileImg eq null}">
+									<img id="coverPic" src="<c:url value='/resources/img/noimage.png'/>"/>
+									</c:if>
 									<c:if test="${profile.writerProfileImg ne null}">
-									
 									<img id="coverPic" src="<c:url value='/upload/${profile.writerProfileImg}'/>"/>
 									</c:if>
 								</td>
 								<td  class="daintdth" style="width: 28%;">
-									<input type="file" name="writerProfileImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
+									<input type="file" required="required" name="writerProfileImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
 									<div style="font-size: 12px">
 										<br>10MB 이하 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div>
 								</td>
 								<th class="daintdth" style="width: 15%;  text-align: center;" >커버 사진</th>
 								<td class="daintdth" style="font-size: 12px; width: 7%;">
-									<!-- 여기 이미지 썸네일 들어감 -->
-									<img id="coverPic2" src="<c:url value='/upload/${profile.writerCoverImg}'/>" /> </td>
+								<c:if test="${profile.writerCoverImg eq null}">
+									<img id="coverPic2" src="<c:url value='/resources/img/noimage.png'/>"/>
+								</c:if>
+								<c:if test="${profile.writerCoverImg ne null}">
+									<img id="coverPic2" src="<c:url value='/upload/${profile.writerCoverImg}'/>"/>
+								</c:if>
+								<%-- <c:if test="${profile.writerCoverImg ne null}">
+									<img id="coverPic2" src="<c:url value='/upload/${profile.writerCoverImg}'/>" /> 
+								</c:if> --%>
+								<%-- <img id="coverPic2" src="<c:url value='/upload/${profile.writerCoverImg}'/>" /> 
+								 --%>
+								</td>
 								<td class="daintdth" style="width: 28%; ">
-								<input type="file" name="writerCoverImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
+								<input type="file" required="required" name="writerCoverImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
 									<div style="font-size: 12px">
 										<br>10MB 이하 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div></td>
 							</tr>
 							<tr>
 								<th class="daintdth" style="width: 15%; text-align: center;">작가명<br>(브랜드)</th>
-								<td class="daintdth" colspan="5" style="width: 85%;"><input type="text" 
+								<td class="daintdth" colspan="5" style="width: 85%;"><input type="text" required="required"
 								id="content" name="writerBrandName" maxlength="20" autocomplete="off" value="${profile.writerBrandName}"
 								style="max-height: 30px; "/>
 								<span id="counter" style="font-size: 12px"> ### </span></td>

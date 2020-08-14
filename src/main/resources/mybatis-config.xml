@@ -5,6 +5,8 @@
 	<typeAliases>
 		<!-- user -->
 		<typeAlias type="com.web.bomulsum.user.login.repository.MemberVO" alias="memberVO"/>	
+		<typeAlias type="com.web.bomulsum.user.profile.repository.UserProfileVO" alias="UserProfileVO"/>	
+		<typeAlias type="com.web.bomulsum.user.profile.repository.UserProfileOrderVO" alias="UserProfileOrderVO"/>	
 		
 		<!-- manager -->
 		
@@ -21,6 +23,7 @@
 	<mappers>
 		<!--user -->
 		<mapper resource="mappings/user/login-mapping.xml" />		
+		<mapper resource="mappings/user/user-profile-mapping.xml" />
 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
