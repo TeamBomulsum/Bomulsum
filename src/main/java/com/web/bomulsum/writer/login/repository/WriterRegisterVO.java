@@ -11,16 +11,15 @@ public class WriterRegisterVO {
 	private String sessionId;
 	private String limitTime;
 	private boolean autoLogin;
-	private Map<String, Object> gemSum;
+	private int gemSum;
 	
-	
-	
-	public Map<String, Object> getGemSum() {
+	public int getGemSum() {
 		return gemSum;
 	}
-	public void setGemSum(Map<String, Object> gemSum) {
+	public void setGemSum(int gemSum) {
 		this.gemSum = gemSum;
 	}
+	
 	public String getWriterSeq() {
 		return writerSeq;
 	}

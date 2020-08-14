@@ -15,7 +15,7 @@ public class WriterGempointDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	//이용내역
+	//이용내역/
 	public List<Map<String, String>> getGemPoint(String writerCodeSeq) {
 		List<Map<String, String>> list = sqlSessionTemplate.selectList("writerGempointDAO.gempointSelect", writerCodeSeq );
 		System.out.println(list); //테스트
