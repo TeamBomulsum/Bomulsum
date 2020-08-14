@@ -34,4 +34,9 @@ public class UserProfileDAO {
 		public void updateUserinfo(UserProfileVO vo) {
 			sqlSessionTemplate.update("userProfileDAO.updateUserInfo", vo);
 		}
+		//회원전화번호 업데이트
+		public void updateUserphone(UserProfileVO vo) {
+			sqlSessionTemplate.update("userProfileDAO.updateUserPhone", vo);
+		}
+		
 }

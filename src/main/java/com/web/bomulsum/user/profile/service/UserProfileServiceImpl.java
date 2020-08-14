@@ -45,5 +45,9 @@ public class UserProfileServiceImpl implements UserProfileService{
 		dao.updateUserinfo(vo);
 	}
 
+	@Override
+	public void updateUserphone(UserProfileVO vo) {
+		dao.updateUserphone(vo);
+	}
 
 }

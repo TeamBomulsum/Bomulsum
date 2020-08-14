@@ -69,4 +69,14 @@
 		WHERE member_code_seq = 'member_code_sq58'
 
 	</update>
+	
+	<!-- 전화번호 수정 -->
+	<update id="updateUserPhone" parameterType="UserProfileVO">
+		UPDATE member_tb
+		
+		SET
+		member_phone = #{member_phone}
+		
+		WHERE member_code_seq = 'member_code_sq58'
+	</update>
 </mapper>
