@@ -1,5 +1,6 @@
 package com.web.bomulsum.writer.midas.repository;
 
+import java.util.Arrays;
 
 public class WriterMidasVO {
 
@@ -119,6 +120,8 @@ public class WriterMidasVO {
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
+	
+	
 	public String getKeyword() {
 		return keyword;
 	}
@@ -146,6 +149,8 @@ public class WriterMidasVO {
 				+ ", address1=" + address1 + ", address2=" + address2 + ", keyword=" + keyword + ", run=" + run
 				+ ", category=" + category + "]";
 	}
+	
+	
 	
 	
 }

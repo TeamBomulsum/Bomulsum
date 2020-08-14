@@ -13,7 +13,7 @@ import com.web.bomulsum.writer.login.repository.WriterRegisterDAO;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 
 @Service
-public class WriterRegisterServiceImpl implements WriterRegisterService{
+public class WriterRegisterServiceImpl implements WriterRegisterService {
 
 	@Autowired
 	WriterRegisterDAO dao;

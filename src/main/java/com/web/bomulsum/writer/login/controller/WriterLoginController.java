@@ -1,6 +1,7 @@
 package com.web.bomulsum.writer.login.controller;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.web.bomulsum.writer.gempoint.service.WriterGempointService;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.login.service.WriterRegisterService;
 
@@ -28,6 +30,9 @@ public class WriterLoginController {
 
 	@Autowired
 	WriterRegisterService service;
+	
+	@Autowired 
+	WriterGempointService gemPointService;
 	
 	@ResponseBody
 	@PostMapping("/loginCheck")
@@ -39,6 +44,14 @@ public class WriterLoginController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		WriterRegisterVO checkVo = service.selectOne(vo.getWriterEmail());
 		System.out.printf("checkVo "+checkVo,vo.getWriterSeq());
+		Map<String, Object> point = gemPointService.getGemPointSum();
+		System.out.println("aa : " + point);
+		vo.setGemSum(point);
+//		Map<Stirng, Object> firstValue = "";
+//		if(vo.getGemSum() == null) {
+//			vo.setGemSum();
+//		}
+		
 		if(checkVo != null) {
 			if(encoder.matches(vo.getWriterPassword(), checkVo.getWriterPassword())) {
 				

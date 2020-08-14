@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
+   <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 </head>
 <body>
 	
