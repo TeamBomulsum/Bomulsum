@@ -50,20 +50,19 @@ public class WriterLoginController {
 		String result = null;
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		WriterRegisterVO checkVo = service.selectOne(vo.getWriterEmail());
-		System.out.println(checkVo.getWriterSeq());
 		
 				
 		Map<String, Object> gemSum = gemPointService.getGemPointSum(checkVo.getWriterSeq());
-		System.out.println(gemSum.get("GEMSUM"));
-		String profile = profileService.getWriterProfileImg(checkVo.getWriterSeq());
+		
+		
+		
 		proVO = profileService.getWriterProfile(checkVo.getWriterSeq());
-		System.out.println(proVO);
-		System.out.println("proVO : " + proVO);
-			proVO.setWriterProfileImg(profile);
 		
 		sessionPro = requestPro.getSession();
 		sessionPro.setAttribute("proVO", proVO);
-		System.out.println("proVOIMG : "+ proVO.getWriterProfileImg());
+		
+		System.out.println("proVO : " + proVO.getWriterProfileImg());
+		
 		checkVo.setGemSum(Integer.parseInt(String.valueOf(gemSum.get("GEMSUM"))));
 				
 		if(checkVo != null) {

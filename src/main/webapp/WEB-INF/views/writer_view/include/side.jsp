@@ -20,7 +20,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- 왼쪽 메뉴바 -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../home.jsp">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value='/writer/home.wdo'/>"">
         <div>
           <!-- 보물섬 아이콘 -->
           <i><img src="<c:url value='/resources/img/MainLogo_white.png'/>" width="70" height="70" ></i>
@@ -40,14 +40,8 @@
       <div align="center">
         <!-- 작가 프로필 사진 -->
         <a href="#">
-        	<c:if test="${proVO.writerProfileImg eq proVO.writerProfileImg}">
        		 <img src="<c:url value='/upload/${proVO.writerProfileImg}'/>" width="100" height="100"
         	  style="background-color: white; margin: 4% 0 4% 0; border-radius: 50%;">     
-       		 </c:if>
-       		<c:if test="${proVO.writerProfileImg eq '1596900594159보석로고_대지 1.png'}">
-		      <img src="<c:url value='/upload/1596900594159보석로고_대지 1.png'/>" width="100" height="100"
-          		style="background-color: white; margin: 4% 0 4% 0; border-radius: 50%;">
-       		</c:if>
           </a>
           
           <br>
