@@ -1,6 +1,5 @@
 package com.web.bomulsum.writer.midas.repository;
 
-import java.util.Arrays;
 
 public class WriterMidasVO {
 

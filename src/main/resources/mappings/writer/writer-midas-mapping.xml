@@ -42,8 +42,45 @@
 			'Y'
 		)
 	</insert>
-
-
 	
+	<select id="getClassAllSelect" parameterType="com.web.bomulsum.writer.midas.repository.WriterMidasVO" resultMap="midasVO">
+		SELECT 
+			* 
+		FROM 
+			midas_tb 
+		WHERE 
+			writer_code_seq = #{writerCodeSeq}
+	</select>
+	
+	<select id="getClassArticle" parameterType="com.web.bomulsum.writer.midas.repository.WriterMidasVO" resultMap="midasVO">
+		SELECT
+			*
+		FROM
+			midas_tb
+		WHERE
+			midas_code_seq= #{orderSeq}
+	</select>
+
+	<resultMap type="com.web.bomulsum.writer.midas.repository.WriterMidasVO" id="midasVO">
+		<result column="midas_code_seq" property="orderSeq"/>
+		<result column="writer_code_seq" property="writerCodeSeq"/>
+		<result column="midas_img" property="orderImg"/>
+		<result column="midas_name" property="midasName"/>
+		<result column="midas_price" property="midasPrice"/>
+		<result column="midas_discount" property="midasDiscount"/>
+		<result column="midas_max" property="maxNumber"/>
+		<result column="midas_start_date" property="startDate"/>
+		<result column="midas_end_date" property="endDate"/>
+		<result column="midas_day" property="day"/>
+		<result column="midas_start_time" property="startTime"/>
+		<result column="midas_end_time" property="endTime"/>
+		<result column="midas_about" property="about"/>
+		<result column="midas_category" property="category"/>
+		<result column="midas_balance" property="balance"/>
+		<result column="midas_address1" property="address1"/>
+		<result column="midas_address2" property="address2"/>
+		<result column="midas_keyword" property="keyword"/>
+		<result column="midas_run" property="run"/>
+	</resultMap>
 
 </mapper>

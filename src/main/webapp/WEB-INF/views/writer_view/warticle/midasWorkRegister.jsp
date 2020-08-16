@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -15,7 +16,6 @@
 
 
 
-<!-- Custom styles for this template-->
 <link href="<c:url value='/resources/css/sb-admin-2.min.css'/>"
 	rel="stylesheet">
 <style>
@@ -177,7 +177,7 @@ function removeImg(){
 			<div id="content">
 				<%@ include file="../include/head.jsp"%>
 				<!-- end Header/Nav -->
-				<form action="<c:url value="/writer/midasClassRegister.wdo"/>" method="post" enctype="multipart/form-data" name="formSubmit">
+				<form action="<c:url value="/writer/midasClassModify.wdo"/>" method="post" enctype="multipart/form-data" name="formSubmit">
 
 
 					<div class="workRegisterContainer">
@@ -209,9 +209,12 @@ function removeImg(){
 										</div></td>
 								</tr>
 								<tr>
+								<fmt:formatNumber value="${writer_login.gemSum}" pattern="#,###"/>
 									<td class="left">가격</td>
-									<td><input type="number" name="midasPrice" id="midasPrice"
-										autocomplete="off" required="required"> 원</td>
+									<td>
+								
+								<input type="number" name="midasPrice" id="midasPrice" autocomplete="off" required="required"> 
+										원</td>
 								</tr>
 								<tr>
 									<td class="left">할인</td>
@@ -233,14 +236,14 @@ function removeImg(){
 								</tr>
 								<tr>
 									<td class="left" id="dayId">요일</td>
-									<td><input id="dayMon" type="checkbox" value="mon"
-										name="day">월&nbsp; <input id="dayTue" type="checkbox"
-										value="tue" name="day">화&nbsp; <input id="dayWen"
-										type="checkbox" value="wed" name="day">수&nbsp; <input
-										id="dayThu" type="checkbox" value="thu" name="day">목&nbsp;
-										<input id="dayFri" type="checkbox" value="fri" name="day">금&nbsp;
-										<input id="daySat" type="checkbox" value="sat" name="day">토&nbsp;
-										<input id="daySon" type="checkbox" value="son" name="day">일</td>
+									<td>
+										<input id="dayMon" type="checkbox" value="월"name="day">월&nbsp; 
+										<input id="dayTue" type="checkbox" value="화" name="day">화&nbsp; 
+										<input id="dayWen" type="checkbox" value="수" name="day">수&nbsp; 
+										<input id="dayThu" type="checkbox" value="목" name="day">목&nbsp;
+										<input id="dayFri" type="checkbox" value="금" name="day">금&nbsp;
+										<input id="daySat" type="checkbox" value="토" name="day">토&nbsp;
+										<input id="daySon" type="checkbox" value="일" name="day">일</td>
 								</tr>
 								<tr>
 									<td class="left" id="timeId">시간</td>
@@ -259,9 +262,9 @@ function removeImg(){
 									<td class="left">난이도</td>
 									<td><select id="balance" name="balance">
 											<option value="nulll">선택창</option>
-											<option value="hard">상</option>
-											<option value="nomal">중</option>
-											<option value="easy">하</option>
+											<option value="상">상</option>
+											<option value="중">중</option>
+											<option value="하">하</option>
 									</select></td>
 								</tr>
 								<tr>
@@ -269,17 +272,16 @@ function removeImg(){
 									<td><select name="category" id="category_id"
 										name="category">
 											<option value="nulll">선택창</option>
-											<option value="crafts">공예</option>
-											<option value="cook">요리</option>
-											<option value="art">미술</option>
-											<option value="flower">플라워</option>
-											<option value="beauty">뷰티</option>
-											<option value="exp">체험 및 기타</option>
+											<option value="공예">공예</option>
+											<option value="요리">요리</option>
+											<option value="미술">미술</option>
+											<option value="플라워">플라워</option>
+											<option value="뷰티">뷰티</option>
+											<option value="체험 및 기타">체험 및 기타</option>
 
 									</select></td>
 								</tr>
 							</table>
-
 						</div>
 						<!-- end 기본정보 영역  -->
 
@@ -312,7 +314,6 @@ function removeImg(){
 							</table>
 
 						</div>
-						<!-- end 작품 정보 제공 고시 영역  -->
 
 						<!-- 타겟설정 영역 -->
 						<div class="targetContainer">
@@ -341,11 +342,6 @@ function removeImg(){
 
 						</div>
 
-						<!-- end 타겟 설정 영역 -->
-
-						<!-- 옴션설정 영역 -->
-
-						<!-- end 옵션 영역 -->
 					</div>
 					<!-- end workRegisterContainer -->
 					<div class="savecontainer">
@@ -474,7 +470,7 @@ var i = 0;
 		var keywordValue='';
 		for(var j = 0; j < valueTag.length; j++){
 			let copyTag =  valueTag[j].innerText;
-			keywordValue += copyTag + ',';
+			keywordValue += copyTag + ' ';
 			console.log(keywordValue);
 		}
 		copyKeyword.value = keywordValue;

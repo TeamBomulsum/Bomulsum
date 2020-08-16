@@ -1,5 +1,7 @@
 package com.web.bomulsum.writer.midas.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,16 @@ public class WriterMidasServiceImpl implements WriterMidasService{
 	@Override
 	public String selectWriterCode(String writerEmail) {
 		return  dao.writerEmail(writerEmail);
+	}
+
+	@Override
+	public List<WriterMidasVO> getClassAllSelect(String writerCodeSeq) {
+		return dao.getClassAllSelect(writerCodeSeq);
+	}
+
+	@Override
+	public WriterMidasVO getClassArticle(String orderSeq) {
+		return dao.getClassArticle(orderSeq);
 	}
 
 

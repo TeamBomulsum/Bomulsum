@@ -100,7 +100,7 @@
             <a class="collapse-item" href="<c:url value='/view/warticle/pauseOnSales.jsp'/>">판매 일시중지</a>
             <a class="collapse-item" href="<c:url value='/writer/workRegister.wdo'/>">작품등록</a>
             <a class="collapse-item" href="<c:url value='/writer/midasRegister.wdo'/>">금손작품등록</a>
-            <a class="collapse-item" href="<c:url value='/view/warticle/classInfo.jsp'/>">강의정보</a>
+            <a class="collapse-item" href="<c:url value='/writer/classInfo.wdo'/>">강의정보</a>
           </div>
         </div>
       </li>
