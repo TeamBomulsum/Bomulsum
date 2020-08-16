@@ -94,4 +94,13 @@ public class UserProfileController {
 		return mav;
 	} 
 	
+	
+	//회원 배송지관리------------------------------------------
+	@RequestMapping(value="/registeraddress" , method = RequestMethod.GET)
+	public ModelAndView registerAddress() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/umyInfo/uinformation/uAddressManage");
+		return mav;
+	} 
+	
 }

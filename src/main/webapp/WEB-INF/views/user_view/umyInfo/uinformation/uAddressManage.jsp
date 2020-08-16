@@ -59,7 +59,7 @@ $(document).ready(function () {
 		$('.dai2').css("border" ,"1px solid #acacac");
 		$('.di2').css("border" ,"1px solid #acacac");
 		$(".di2").removeAttr("readonly");
-		$('#editBtn2').html("취소");
+		//$('#editBtn2').html("취소");
 		$('#editBtn2').css("display", "none");
 		$('#editCancelBtn2').css("display", "inline");
 	  });
@@ -84,7 +84,7 @@ $(document).ready(function () {
 		$('.dai3').css("border" ,"1px solid #acacac");
 		$('.di3').css("border" ,"1px solid #acacac");
 		$(".di3").removeAttr("readonly");
-		$('#editBtn3').html("취소");
+		//$('#editBtn3').html("취소");
 		$('#editBtn3').css("display", "none");
 		$('#editCancelBtn3').css("display", "inline");
 	  });

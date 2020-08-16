@@ -50,7 +50,7 @@ public class WriterMidasController {
 					String originalfileName = file.getOriginalFilename();
 					String saveFile = System.currentTimeMillis() + originalfileName;
 					try {
-						file.transferTo(new File(SAVE_PATH, saveFile)); //占싱뱄옙占쏙옙1 SAVE_PATH占쏙옙 占쏙옙占쏙옙
+						file.transferTo(new File(SAVE_PATH, saveFile));
 					}catch(IllegalStateException e) { e.printStackTrace();}
 					catch(IOException e) { e.printStackTrace();	}
 					

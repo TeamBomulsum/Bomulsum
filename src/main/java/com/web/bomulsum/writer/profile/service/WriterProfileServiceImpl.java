@@ -13,13 +13,19 @@ public class WriterProfileServiceImpl implements WriterProfileService{
 	WriterProfileDAO dao;
 	
 	@Override
-	public void updateWriterProfile(WriterProfileVO vo) {
-		dao.updateWriterProfile(vo);
+	public void updateWriterProfile(WriterProfileVO vo) {	
+			dao.updateWriterProfile(vo);
 	}
 
-	@Override
+	@Override 
 	public WriterProfileVO getWriterProfile(String writerCodeSeq) {
-		return dao.getWriterProfile(writerCodeSeq);
+		WriterProfileVO vo = dao.getWriterProfile(writerCodeSeq);
+		if(vo == null) {
+			vo = new WriterProfileVO();
+			vo.setWriterBrandName("미설정");
+			vo.setWriterProfileImg("1596900594159보석로고_대지 1.png");
+		}
+		return vo;
 	}
 
 	@Override
