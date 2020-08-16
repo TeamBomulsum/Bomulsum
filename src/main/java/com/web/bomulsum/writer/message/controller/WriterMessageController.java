@@ -46,7 +46,12 @@ public class WriterMessageController {
 	@ResponseBody
 	@RequestMapping(value="/message/reload")
 	public List<WriterChatroomVO> reloadChatRoom(@RequestParam String code, @RequestParam String memberCode) {
-		
+		return service.getChatRoom(code);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/message/head/reload")
+	public List<WriterChatroomVO> reloadHead(@RequestParam String code){
 		return service.getChatRoom(code);
 	}
 	
@@ -78,6 +83,11 @@ public class WriterMessageController {
 	@ResponseBody
 	@RequestMapping(value="/message/sendMessage")
 	public void sendMessage(WriterSendMessageVO vo) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("sender", vo.getMessageSenderCode());
+		map.put("receiver", vo.getMessageReceiverCode());
+		
+		vo.setChatroomCode(service.getChatroomCode(map));
 		service.sendMessage(vo);
 	}
 	

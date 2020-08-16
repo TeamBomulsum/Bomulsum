@@ -2,10 +2,18 @@ package com.web.bomulsum.writer.message.repository;
 
 public class WriterSendMessageVO {
 	private String messageOwner;
+	private String chatroomCode;
 	private String messageSenderCode;
 	private String messageReceiverCode;
 	private String messageContent;
 	
+	
+	public String getChatroomCode() {
+		return chatroomCode;
+	}
+	public void setChatroomCode(String chatroomCode) {
+		this.chatroomCode = chatroomCode;
+	}
 	public String getMessageOwner() {
 		return messageOwner;
 	}
@@ -32,9 +40,11 @@ public class WriterSendMessageVO {
 	}
 	@Override
 	public String toString() {
-		return "WriterSendMessageVO [messageOwner=" + messageOwner + ", messageSenderCode=" + messageSenderCode
-				+ ", messageReceiverCode=" + messageReceiverCode + ", messageContent=" + messageContent + "]";
+		return "WriterSendMessageVO [messageOwner=" + messageOwner + ", chatroomCode=" + chatroomCode
+				+ ", messageSenderCode=" + messageSenderCode + ", messageReceiverCode=" + messageReceiverCode
+				+ ", messageContent=" + messageContent + "]";
 	}
+	
 	
 	
 	

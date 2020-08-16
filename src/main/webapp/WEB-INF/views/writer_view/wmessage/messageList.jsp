@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,6 +116,17 @@
 	cursor:pointer;
 }
 
+.dndud_chat_nonRead{
+	padding: 2px 5px;
+    font-size: 10px;
+    color: white !important;
+    background-color: #1F76BB;
+    border: #1F76bb;
+    border-radius: 50%;
+    position: absolute;
+    transform: translateX(1550%);
+}
+
 </style>
 
 
@@ -181,12 +193,20 @@
 										</a>
 									</div>
 									<div>
+										<c:if test="${chat.nonReadMsgCount > 0}">
+											<a class="dndud_chat_nonRead">${chat.nonReadMsgCount }</a>
+										</c:if>
 										<div class="dndud_writer_message_who_text">
 											<a>${chat.memberName }</a>
 										</div>
 										<hr>
 										<div class="dndud_writer_message_who_text">
-											<a>${chat.memberName }와 대화 내용이 출력</a>
+											<c:if test="${empty chat.lastMessage }">
+												<a class="dndud_last_msg"></a>
+											</c:if>
+											<c:if test="${not empty chat.lastMessage }">
+												<a class="dndud_last_msg">${fn:split(chat.lastMessage,'*|*')[0]}&nbsp;&nbsp;${fn:split(chat.lastMessage,'*|*')[1]}</a>
+											</c:if>
 										</div>
 										<!--  사용자 정보 끝 -->
 									</div>
@@ -343,7 +363,54 @@
 	
 	$(document).ready(function(){
 		
-		
+		var reloadFunc = function(send, receive){
+			$.ajax({
+				url:'/bomulsum/writer/message/reload.wdo',
+				data:{
+					code:send,
+					memberCode:receive
+				},
+				success:function(suc){
+					console.log('통신 성공');
+					console.log(suc);
+					var htmlTag='';
+					for(var i=0; i<suc.length; i++){
+						var imgTag;
+						var lastmsg;
+						console.log('membercode : ' + suc[i].memberCode);
+						console.log('membername : ' + suc[i].memberName);
+						if(suc[i].memberImg == null){
+							imgTag = '/bomulsum/resources/img/Logo_blue.png';
+						}else{
+							imgTag = '/bomulsum/upload/'+suc[i].memberImg;
+						}
+						if(suc[i].lastMessage == null || suc[i].lastMessage == 'null'){
+							lastmsg='';
+						}else{
+							var lastmsgArray = suc[i].lastMessage.split('*|*');
+							lastmsg = lastmsgArray[0] + '&nbsp;&nbsp;' + lastmsgArray[1];
+						}
+						
+						htmlTag += '<div class="dndud_chatroom_div"><div style="width: 30%; display: flex;" class="messageList"><img style="width: 90px; height: 90px;" name="uProfile"src="'+imgTag+'"/>'
+							+ '</div><div>';
+						if(suc[i].nonReadMsgCount > 0){
+							htmlTag += '<a class="dndud_chat_nonRead">'+ suc[i].nonReadMsgCount +'</a>';
+						}
+						htmlTag += '<div class="dndud_writer_message_who_text"><a>'+suc[i].memberName+'</a></div><hr><div class="dndud_writer_message_who_text">'
+							+ '<a class="dndud_last_msg">'+lastmsg+'</a></div></div><div class="delete_check_div"><input type="checkbox" class="chatRoomCheckBox">'
+							+ '<input type="hidden" class="chatRoomMemberName" value='+suc[i].memberName+'><input type="hidden" class="chatRoomMemberCode" value='+suc[i].memberCode+'></div></div><hr>'
+					    
+					}
+					
+					$("#dndud_chatroom_div_list").empty();
+					$("#dndud_chatroom_div_list").html(htmlTag);
+					console.log(htmlTag);
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
+		}
 		
 		<%
 			WriterRegisterVO vo = (WriterRegisterVO)session.getAttribute("writer_login");
@@ -357,41 +424,7 @@
 			var check = msg.split('*|*');
 			if(check[0] == 'reload'){
 				console.log(check[1]);
-				$.ajax({
-					url:'/bomulsum/writer/message/reload.wdo',
-					data:{
-						code:code,
-						memberCode:check[1]
-					},
-					success:function(suc){
-						console.log('통신 성공');
-						console.log(suc);
-						var htmlTag='';
-						for(var i=0; i<suc.length; i++){
-							var imgTag;
-							console.log('membercode : ' + suc[i].memberCode);
-							console.log('membername : ' + suc[i].memberName);
-							if(suc[i].memberImg == null){
-								imgTag = `/bomulsum/resources/img/Logo_blue.png`;
-							}else{
-								imgTag = '/bomulsum/upload/'+suc[i].memberImg;
-							}
-							
-							htmlTag += '<div class="dndud_chatroom_div"><div style="width: 30%; display: flex;" class="messageList"><img style="width: 90px; height: 90px;" name="uProfile"src="'+imgTag+'"/>'
-								+ '</div><div><div class="dndud_writer_message_who_text"><a>'+suc[i].memberName+'</a></div><hr><div class="dndud_writer_message_who_text">'
-								+ '<a>'+suc[i].memberName+'와 대화 내용이 출력이 되빈다 제발 좀 끝내줘..</a></div></div><div class="delete_check_div"><input type="checkbox" class="chatRoomCheckBox">'
-								+ '<input type="hidden" class="chatRoomMemberName" value='+suc[i].memberName+'><input type="hidden" class="chatRoomMemberCode" value='+suc[i].memberCode+'></div></div><hr>'
-						    
-						}
-						
-						$("#dndud_chatroom_div_list").empty();
-						$("#dndud_chatroom_div_list").html(htmlTag);
-						console.log(htmlTag);
-					},
-					error:function(err){
-						console.log(err);
-					}
-				});
+				reloadFunc(code, check[1]);
 				return;
 			}
 			
@@ -454,7 +487,6 @@
 			var message = document
 					.getElementById('messageContent').value;
 			let day = month + '월' + date + "일 " + hours + ":" + minutes;
-			console.log(day);
 			
 			var dTag = document.createElement("div");
 			var Tag = document.createElement("div");
@@ -477,9 +509,6 @@
 				dTag.appendChild(dayTag);
 				dTag.appendChild(Tag);
 				
-				console.log(memberCode);
-				console.log(memberName);
-				
 				$.ajax({
 					url:"/bomulsum/writer/message/sendMessage.wdo",
 					data:{
@@ -496,6 +525,17 @@
 						console.log(err);
 					}
 				});
+				var count=0;
+				$(".dndud_chatroom_div").each(function(){
+					if($(this).find('.chatRoomMemberCode').val() == memberCode){
+						$(this).find('.dndud_last_msg').html(message + '&nbsp;&nbsp;' + day);
+						count++;
+						return;
+					}
+					if(count == 1) return;
+				});
+				
+				
 				socket.emit('send_to_writer', memberCode + "*|*" + memberName + "*|*" + code + "*|*" + writer + "*|*" + message + "*|*" + day);
 				socket.emit('chatroomLogic', code + '*|*' + memberCode);
 				
@@ -527,6 +567,7 @@
 				return;
 			}
 			$("#listP").empty();
+			$(this).next().find('.dndud_chat_nonRead').remove();
 			memberCode = $(this).next().next().find('.chatRoomMemberCode').val();
 			memberName = $(this).next().next().find('.chatRoomMemberName').val();
 			$("#nowChatMember").html(memberName);
@@ -649,5 +690,23 @@
 	
 		
 	});
+</script>
+<script>
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+</script>
+<script>
+var chatroomMemberCode = getParameter('member');
+$(document).ready(function(){
+	$('.chatRoomMemberCode').each(function(){
+		if($(this).val() == chatroomMemberCode){
+			$(this).parent().prev().prev().trigger('click');
+		}
+	});
+});
 </script>
 </html>

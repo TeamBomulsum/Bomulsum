@@ -29,7 +29,24 @@ public class NodeDbServiceImpl implements NodeDbService{
 
 	@Override
 	public List<UserChatRoomVO> getChatroom(String userCode) {
-		return dao.getChatroom(userCode);
+		List<UserChatRoomVO> vo = dao.getChatroom(userCode);
+		
+		for(UserChatRoomVO chat : vo) {
+			HashMap<String, String> map = new HashMap<String, String>();
+			HashMap<String, String> map2 = new HashMap<String, String>();
+			
+			map2.put("chatroomCode", chat.getChatroomCode());
+			map2.put("receiver", userCode);
+			
+			chat.setNonReadMsgCount(dao.getNonReadMsg(map2));
+			map.put("memberCode", userCode);
+			map.put("chatRoomCode", chat.getChatroomCode());
+			
+			String msg = dao.getNonReadMsgContent(map);
+			chat.setLastMessage(msg);
+		}
+		
+		return vo;
 	}
 
 	@Override

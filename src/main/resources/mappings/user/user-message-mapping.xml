@@ -18,6 +18,7 @@
 		<result property="writerName" column="writer_name"/>
 		<result property="writerImg" column="writer_profile_img"/>
 		<result property="writerBrandName" column="writer_brand_name"/>
+		<result property="chatroomCode" column="chatroom_sq" />
 	</resultMap>
 
 	
@@ -30,12 +31,34 @@
 		FROM member_tb
 	</select>
 	
+	<select id="getChatroomCode" parameterType="hashMap" resultType="String">
+		SELECT
+			chatroom_sq
+		FROM
+			chatroom_tb
+		WHERE
+		(
+			(
+				member_code_seq=#{sender}
+				AND
+				writer_code_seq=#{receiver}
+			)
+			OR
+			(
+				member_code_seq=#{receiver}
+				AND
+				writer_code_seq=#{sender}
+			)
+		)
+	</select>
+	
 	<select id="getChatroom" parameterType="String" resultMap="chatVo">
 		SELECT 
 			w.writer_code_seq, 
 			w.writer_name, 
 			w.writer_brand_name,
-			w.writer_profile_img
+			w.writer_profile_img,
+			c.chatroom_sq
 		FROM 
 			writer_tb w
 		INNER JOIN 
@@ -50,6 +73,44 @@
 			)
 		ORDER BY 
 			c.chatroom_date
+	</select>
+	
+	<select id="getNonReadMsg" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) FROM
+			message_tb
+		WHERE
+			chatroom_sq=#{chatroomCode}
+			AND
+			message_read='N'
+			AND
+			message_receiver_code=#{receiver}
+	</select>
+	
+	<select id="getNonReadMsgContent" parameterType="hashMap" resultType="String">
+		SELECT
+			message_content
+		FROM
+		(
+			SELECT 
+				message_content
+			FROM 
+				message_tb
+			WHERE
+			(
+				message_receiver_code=#{memberCode}
+				AND
+				chatroom_sq=#{chatRoomCode}
+			)
+			OR
+			(
+				message_sender_code=#{memberCode}
+				AND
+				chatroom_sq=#{chatRoomCode}
+			)
+			ORDER BY
+				message_time desc
+		)
+		WHERE rownum=1
 	</select>
 	
 	<select id="testGetWriter" resultMap="chatVo">

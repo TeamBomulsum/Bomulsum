@@ -284,6 +284,16 @@
     -webkit-box-orient: vertical;
 }
 
+.dndud_chat_nonRead{
+	padding: 2px 5px;
+    font-size: 10px;
+    color: white;
+    background-color: #1F76BB;
+    border: #1F76bb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+}
 </style>
 </head>
 <body>
@@ -322,12 +332,15 @@
 								<div style="margin: 2%; font-size: 100%; display:flex; justify-content: space-between; width:165px">
 									<c:choose>
 										<c:when test="${not empty chat.writerBrandName }">
-											<span class="dndud_chat_writer_name">${chat.writerBrandName }</span>
+											<span class="dndud_chat_writer_name">${chat.writerBrandName }											</span>
 										</c:when>
 										<c:otherwise>
 											<span class="dndud_chat_writer_name">${chat.writerName}</span>
 										</c:otherwise>
 									</c:choose>
+									<c:if test="${chat.nonReadMsgCount > 0}">
+										<a class="dndud_chat_nonRead">${chat.nonReadMsgCount }</a>
+									</c:if>
 									<input type="hidden" class="writerCode" value="${chat.writerCode}">
 									<input type="checkbox" class="deleteCheck" style="display:none">
 								</div>
@@ -425,6 +438,7 @@
 	
 	<%@ include file="../../include/uFooter.jsp" %>
 </div>
+
 <script>
 var socket = io("http://localhost:82");
 var dd = document.getElementById('wonMessageContent');
@@ -470,10 +484,13 @@ $(function(){
 							
 							htmlTag += '<div><div class="messageUserList enable"><img id="wonContentImg" src="'+imgTag+'" />'
 				                + '<div style="margin: 2%; font-size: 100%; display:flex; justify-content: space-between; width:165px">'
-				                + '<span class="dndud_chat_writer_name">'+nameTag+'</span>'
-				                + '<input type="hidden" class="writerCode" value='+suc[i].writerCode
+				                + '<span class="dndud_chat_writer_name">'+nameTag+'</span>';
+				            if(suc[i].nonReadMsgCount > 0){
+				            	htmlTag += '<a class="dndud_chat_nonRead">'+suc[i].nonReadMsgCount+'</a>';
+				            }
+				            htmlTag += '<input type="hidden" class="writerCode" value='+suc[i].writerCode
 				                + '><input type="checkbox" class="deleteCheck" style="display:none">'
-								+ '</div></div></div>'
+								+ '</div></div></div>';
 							
 						}
 						$("#dndud_chatroom_div_list").empty();
@@ -612,6 +629,7 @@ $(function(){
 				console.log('걸려줘라 제발');
 				return;
 			}
+			$(this).find('.dndud_chat_nonRead').remove();
 			
 			$(".dndud_content_first_main_div").css("display","none");
 			$(".dndud_content_head_div").css("display", "flex");
@@ -745,7 +763,7 @@ $(function(){
 				}else{
 					alert('존재하는 채팅방 입니다.');
 				}
-				history.go(0);
+				location.href='/bomulsum/user/message.do';
 			},
 			fail : function(err){
 				console.log(err);
@@ -778,7 +796,7 @@ $(function(){
 			data:data,
 			success : function(){
 				console.log('나가기 성공');
-				history.go(0);
+				location.href='/bomulsum/user/message.do';
 			},
 			fail : function(err){
 				console.log(err);
@@ -799,11 +817,14 @@ $(function(){
 				"writerCode" : arr,
 		}
 		console.log(data);
-		var result = confirm('정말 나가시겠습니까?\n(대화 내용은 유지됩니다.)');
-		if(result){
-			exitChat(data);
+		if(arr.length > 0){
+			var result = confirm('정말 나가시겠습니까?\n(대화 내용은 유지됩니다.)');
+			if(result){
+				exitChat(data);
+			}
+		}else{
+			alert('선택된 채팅방이 없습니다.');
 		}
-		
 	});
 	
 	$("#exitButton").on('click', function(){
@@ -828,6 +849,24 @@ $(function(){
 	
 	
 	
+});
+</script>
+<script>
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+</script>
+<script>
+var chatroomCode = getParameter('writer');
+$(document).ready(function(){
+	$('.messageUserList').each(function(){
+		if($(this).find('.writerCode').val() == chatroomCode){
+			$(this).trigger('click');
+		}
+	});
 });
 </script>
 </body>

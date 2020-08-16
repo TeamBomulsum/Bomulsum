@@ -16,4 +16,5 @@ public interface WriterMessageService {
 	void sendMessage(WriterSendMessageVO vo);
 	List<MessageVO> getChatList(HashMap<String, String> map);
 	void updateChatStatus(HashMap<String , String> map);
+	String getChatroomCode(HashMap<String, String> map);
 }

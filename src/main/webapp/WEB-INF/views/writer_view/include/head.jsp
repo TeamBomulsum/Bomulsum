@@ -1,3 +1,4 @@
+<%@page import="com.web.bomulsum.writer.login.repository.WriterRegisterVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,6 +9,25 @@
 <title>header</title>
    <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 </head>
+<style>
+.dndud_name_count{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dndud_count_num{
+    padding: 0 5px;
+    background-color: #E74A3B;
+    color: white;
+    border-radius: 50%;
+}
+
+#message_count_all{
+	display:none;
+}
+
+</style>
 <body>
 	
 
@@ -150,65 +170,18 @@
 						</div></li>
 
 					<!-- 메세지 아이콘 -->
-					<li class="nav-item dropdown no-arrow mx-1"><a
-						class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i> <!-- Counter - Messages -->
-							<span class="badge badge-danger badge-counter">7</span>
-					</a> <!-- Dropdown - Messages -->
-						<div
-							class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+					<li class="nav-item dropdown no-arrow mx-1">
+						<a class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> 
+							<i class="fas fa-envelope fa-fw"></i> <!-- Counter - Messages -->
+							<span id="message_count_all" class="badge badge-danger badge-counter">7</span>
+						</a> <!-- Dropdown - Messages -->
+						<div id="message_drop_down_div" class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 							aria-labelledby="messagesDropdown">
-							<h6 class="dropdown-header">Message Center</h6>
-							<a class="dropdown-item d-flex align-items-center" href="#">
-								<div class="dropdown-list-image mr-3">
-									<  class="rounded-circle"
-										src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-									<div class="status-indicator bg-success"></div>
-								</div>
-								<div class="font-weight-bold">
-									<div class="text-truncate">Hi there! I am wondering if
-										you can help me with a problem I've been having.</div>
-									<div class="small text-gray-500">Emily Fowler · 58m</div>
-								</div>
-							</a> <a class="dropdown-item d-flex align-items-center" href="#">
-								<div class="dropdown-list-image mr-3">
-									<img class="rounded-circle"
-										src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-									<div class="status-indicator"></div>
-								</div>
-								<div>
-									<div class="text-truncate">I have the photos that you
-										ordered last month, how would you like them sent to you?</div>
-									<div class="small text-gray-500">Jae Chun · 1d</div>
-								</div>
-							</a> <a class="dropdown-item d-flex align-items-center" href="#">
-								<div class="dropdown-list-image mr-3">
-									<img class="rounded-circle"
-										src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-									<div class="status-indicator bg-warning"></div>
-								</div>
-								<div>
-									<div class="text-truncate">Last month's report looks
-										great, I am very happy with the progress so far, keep up the
-										good work!</div>
-									<div class="small text-gray-500">Morgan Alvarez · 2d</div>
-								</div>
-							</a> <a class="dropdown-item d-flex align-items-center" href="#">
-								<div class="dropdown-list-image mr-3">
-									<img class="rounded-circle"
-										src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-									<div class="status-indicator bg-success"></div>
-								</div>
-								<div>
-									<div class="text-truncate">Am I a good boy? The reason I
-										ask is because someone told me that people say this to all
-										dogs, even if they aren't good...</div>
-									<div class="small text-gray-500">Chicken the Dog · 2w</div>
-								</div>
-							</a> <a class="dropdown-item text-center small text-gray-500"
-								href="<c:url value='/view/wmessage/messageList.jsp'/>">전체 메세지 보기</a>
-						</div></li>
+							<!-- 메시지 내부 내용. -->
+						</div>
+					</li>
 
 					<!-- 물음표 아이콘 -->
 					<li class="nav-item dropdown no-arrow mx-1"><a
@@ -249,4 +222,70 @@
 
 
 </body>
+
+<script>
+	<% WriterRegisterVO headvo = (WriterRegisterVO)session.getAttribute("writer_login"); %>
+	code = '<%= headvo.getWriterSeq() %>';
+	var timeCon = null;
+	$(function(){
+		var reload = function(){
+			$.ajax({
+				url:"/bomulsum/writer/message/head/reload.wdo",
+				data:{
+					code:code
+				},
+				success : function(data){
+					var countNum=0;
+					var htmlTag = '<h6 class="dropdown-header">메시지</h6>';
+					for(var i=0; i<data.length; i++){
+						var imgTag='';
+						if(data[i].writerImg == null){
+							imgTag = `/bomulsum/resources/img/Logo_blue.png`;
+						}else{
+							imgTag = '/bomulsum/upload/'+data[i].writerImg;
+						}
+						
+						var msg = '';
+						var date = '';
+						if(data[i].lastMessage != null){
+							var msgArray = data[i].lastMessage.split('*|*');
+							msg = msgArray[0];
+							date = msgArray[1].split(' ')[0];
+						}
+						
+						htmlTag += '<a class="dropdown-item d-flex align-items-center" href="/bomulsum/writer/message.wdo?member='+ data[i].memberCode +'">'
+							+ '<div class="dropdown-list-image mr-3"><img class="rounded-circle"'
+							+ ' src="'+ imgTag +'" alt=""><div class="status-indicator bg-success"></div>'
+							+ '</div><div style="width:100%;"><div class="text-truncate">'+ msg +'</div>'
+							+ '<div class="small text-gray-500 dndud_name_count">' + data[i].memberName +'|'+ date;
+						
+						if(data[i].nonReadMsgCount > 0){
+							htmlTag += '<span class="dndud_count_num">'+ data[i].nonReadMsgCount +'</span>';
+						}
+						htmlTag += '</div></div></a>';
+						
+						countNum += data[i].nonReadMsgCount;
+					}
+					
+					htmlTag += '<a class="dropdown-item text-center small text-gray-500"'
+						+ ' href="/bomulsum/writer/message.wdo">전체 메세지 보기</a>';
+						
+					$('#message_drop_down_div').html(htmlTag);
+					
+					if(countNum > 0){						
+						$("#message_count_all").css('display','block');
+						$("#message_count_all").text(countNum);
+					}else{
+						$("#message_count_all").css('display','none');
+					}
+					
+				},
+				error: function(err){
+				}
+			});
+			
+		};
+		timeCon = setInterval(reload, 1000);
+	});
+</script>
 </html>
