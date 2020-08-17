@@ -714,7 +714,7 @@ body {
 					</li>
 					<li class="dropBox">
 						<a class="dain-header-topA" href="#" style="color: #666666;"><i class="fas fa-bell" style="font-size:13px"></i> 알림</a>
-						<div class="alarmDropBox">
+						<div class="alarmDropBox"> 
 							<div class="dndud_alarmDrop_top">
 								<span>알림</span>
 							</div>
@@ -899,7 +899,6 @@ body {
 $(function(){
 	var code = '<%= (String)session.getAttribute("member") %>';
 	var reload = function(){
-		console.log('실행');
 		$.ajax({
 			url:"/bomulsum/user/message/head/reload.do",
 			data:{

@@ -108,7 +108,7 @@
 .content_img{
 	width: 100%;
 	height: 50%;
-	background-image: URL('../../resources/img/category_testimg.png');
+	background-image: URL('<c:url value="/resources/img/category_testimg.png"/> ');
 	background-repeat: no-repeat;
 	background-size: 100%;
 	display:flex;
@@ -135,6 +135,11 @@
 	color:#999999;
 	font-size:14px;
 	margin-bottom:1.5%;
+	overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
 }
 
 .content_detail_title{

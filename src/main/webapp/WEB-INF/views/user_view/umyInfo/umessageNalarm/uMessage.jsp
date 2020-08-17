@@ -9,6 +9,10 @@
 <meta charset="UTF-8">
 <title>보물섬|메세지</title>
 <script src="http://localhost:82/socket.io/socket.io.js"></script>
+<!--
+아마존 
+<script src="http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82/socket.id/socket.io.js"></script> 
+ -->
 <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 
 <style type="text/css">
@@ -577,6 +581,7 @@ $(function(){
 				Tag.appendChild(tag);
 				dTag.appendChild(dayTag);
 				dTag.appendChild(Tag);
+	
 				document.getElementById('wonMessageList').appendChild(dTag);
 				
 				// 보낼 사람 아이디, 코드
