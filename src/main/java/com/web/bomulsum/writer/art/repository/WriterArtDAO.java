@@ -64,42 +64,63 @@ public class WriterArtDAO{
 		return artList;
 	}
 	
+	//판매 일시중지 작품 목록
+	public List<WriterArtVO> getArtPauseOnsale(String seq) {
+		List<WriterArtVO> artList = sqlSessionTemplate.selectList(
+				"com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtPauseOnsale", seq);
+		return artList;
+	}
+	
 	//즐겨찾기 카운트
-	public int getArtOnsaleBookmark(String artCode) {
-		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtOnsaleBookmark", artCode);
+	public int getArtSaleBookmark(String artCode) {
+		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtSaleBookmark", artCode);
 	}
 	
 	//후기 카운트 
-	public int getArtOnsaleReview(String artCode) {
-		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtOnsaleReview", artCode);
+	public int getArtSaleReview(String artCode) {
+		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtSaleReview", artCode);
 	}
 	
 	//댓글 카운트
-	public int getArtOnsaleComment(String artCode) {
-		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtOnsaleComment", artCode);
+	public int getArtSaleComment(String artCode) {
+		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtSaleComment", artCode);
 	}
 	
-	//판매중 작품 업데이트
-	public void updateSalesArt(List<String> checkArr) {
-		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateSalesArt",checkArr);
+	//판매일시중지로 바꾸기
+	public void changePauseSalesArt(List<String> checkArr) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.pauseSalesArt",checkArr);
 	}
+	
+	//판매중으로 바꾸기
+	public void changeStartSalesArt(List<String> checkArr) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.startSalesArt",checkArr);
+	}
+	
+	
 	
 	//작품 삭제
 	public void deleteArt(List<String> deleteCheck) {
-		sqlSessionTemplate.delete("com.web.bomulsum.writer.art.repository.WriterArtDAO.deleteSalesArt",deleteCheck);
-		sqlSessionTemplate.delete("com.web.bomulsum.writer.art.repository.WriterArtDAO.deleteSalesArtDetail",deleteCheck);
-		sqlSessionTemplate.delete("com.web.bomulsum.writer.art.repository.WriterArtDAO.deleteSalesArtOption",deleteCheck);
+		sqlSessionTemplate.delete("com.web.bomulsum.writer.art.repository.WriterArtDAO.deleteArt",deleteCheck);
+		sqlSessionTemplate.delete("com.web.bomulsum.writer.art.repository.WriterArtDAO.deleteArtDetail",deleteCheck);
+		sqlSessionTemplate.delete("com.web.bomulsum.writer.art.repository.WriterArtDAO.deleteArtOption",deleteCheck);
 	}
 
 	
-	//작품 정렬
-	public List<WriterArtVO> getSortList(Map<String, Object> map) {
-		//System.out.println(sortItem);
-		List<WriterArtVO> artList = sqlSessionTemplate.selectList(
-				"com.web.bomulsum.writer.art.repository.WriterArtDAO.getSortArt", map);
-		System.out.println("DB 갔다 옴");
-		System.out.println(artList);
-		return artList;
-
+	//작품 수정 목록 받아오기
+	public List<WriterArtVO> getUpdateArt(String artCode){
+		List<WriterArtVO> updateArtList = sqlSessionTemplate.selectList(
+				"com.web.bomulsum.writer.art.repository.WriterArtDAO.getUpdateArt", artCode);
+		return updateArtList;
 	}
+	public List<WriterArtInfoDetailVO> getUpdateArtInfo(String artCode){
+		List<WriterArtInfoDetailVO> updateArtInfoList = sqlSessionTemplate.selectList(
+				"com.web.bomulsum.writer.art.repository.WriterArtDAO.getUpdateArtInfo", artCode);
+		return updateArtInfoList;
+	}
+	public List<WriterArtOptionVO> getUpdateArtOption(String artCode){
+		List<WriterArtOptionVO> updateArtOptionList = sqlSessionTemplate.selectList(
+				"com.web.bomulsum.writer.art.repository.WriterArtDAO.getUpdateArtOption", artCode);
+		return updateArtOptionList;
+	}
+
 }

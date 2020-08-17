@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>작품등록</title>
+<title>보물섬 작가홈 | 작품 등록</title>
 
 <link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
 <link href="<c:url value='/resources/css/summernote/summernote-lite.css'/>" rel="stylesheet" type="text/css">
@@ -82,16 +82,16 @@ input[type="number"]::-webkit-inner-spin-button {
 #keyword1,#keyword2,#keyword3,#keyword4,#keyword5,#keyword6,#keyword7,#keyword8{
 	margin:5px;
 }
-
+	
+.keywordContainer {
+	width: 100%;
+	height: fit-content;
+	padding: 1% 0;
+}	
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script> 
-function removeImg(){
-   var id = document.getElementById('imgs');
-   id.removeChild(id);
-
-}
 function setThumbnail(event) {  
 	$(".imageContainer").empty();
    for (var image of event.target.files) { 
@@ -100,11 +100,16 @@ function setThumbnail(event) {
 
          var img = document.createElement("img"); 
          img.setAttribute("src", event.target.result); 
-                
+        
+            // 파일 유효성 검사
+            const fileEx = image.name.slice(image.name.lastIndexOf(".")+1).toLowerCase();
+            if(fileEx != "jpg" && fileEx != "png" && fileEx != "gif" && fileEx != "bmp" && fileEx != "jpeg") {
+               alert('파일은 이미지파일(jpg, jpeg, png, gif, bmp)만 가능합니다.');
+               return false;
+            }
+         
+         
          var divEle = document.createElement("a");
-        // divEle.setAttribute("href","#");
-         //divEle.setAttribute("onclick","removeImg();")
-         //divEle.setAttribute("id","imgs")
          divEle.appendChild(img);
          document.querySelector("div.imageContainer").appendChild(divEle);
       }; 
@@ -135,6 +140,201 @@ $(document).ready(function() {
     });
  });
  
+//유효성 검사 
+var i = 0;
+function saveWork(event){
+	event.preventDefault();
+	
+	let valueTag = document.getElementsByClassName('valueTag');
+	let copyKeyword = document.getElementById('copyKeyword');
+	var keywordValue='';
+	for(var j = 0; j < valueTag.length; j++){
+		let copyTag =  valueTag[j].innerText;
+		keywordValue += copyTag + ',';
+		console.log(keywordValue);
+	}
+	copyKeyword.value = keywordValue;
+	console.log(copyKeyword.value);
+	
+	let image = document.getElementById('image');
+	let workName = document.getElementById('workName');
+	let workPrice = document.getElementById('workPrice');
+	let salePrice = document.getElementById('salePrice');
+	let num = document.getElementById('num');
+	let summernote = document.getElementById('summernote');
+	let categoryId = document.getElementById('categoryId');
+	let category = document.getElementById('category_id');
+	let wWeight = document.getElementById('wWeight');
+	let wProduce = document.getElementById('wProduce');
+	let wIngredient = document.getElementById('wIngredient');
+	let wDate = document.getElementById('wDate');
+	let wManage = document.getElementById('wManage');
+	let wConfig = document.getElementById('wConfig');
+	let wManual = document.getElementById('wManual');
+	
+	
+	if(image.value == ''){
+		alert('사진을 등록해 주세요.');
+		image.focus();
+		return false;
+	}
+	if(workName.value == ''){
+		alert('작품명을 입력해 주세요.');
+		workName.focus();
+		return false;
+	}
+	if(workPrice.value == ''){
+		alert('가격을 입력해 주세요.');
+		workPrice.focus();
+		return false;
+	}
+	if(salePrice.value == ''){ 
+		alert('할인가격을 입력해 주세요.');
+		salePrice.focus();
+		return false;
+
+	}
+	
+	if(num.value == ''){
+		alert('수량을 입력해 주세요.');
+		num.focus();
+		return false;
+	}
+	
+	if(summernote.value == ''){
+		alert('작품 설명을 등록해 주세요.');
+		summernote.focus();
+		return false;
+	}
+
+	if(categoryId.value == 'nulll'){
+		alert('카테고리를 정해주세요.');
+		categoryId.focus();
+		return false;
+	}
+	if(category.value == 'nulll'){
+		alert('카테고리를 정해주세요.');
+		category.focus();
+		return false;
+	}
+	
+	if(wWeight.value == ''){
+		alert('포장 단위별 용량을 등록해주세요.')
+		wWeight.focus();
+		return false;
+	}
+	if(wProduce.value == ''){
+		alert('생산자 및 소재지를 등록해주세요.')
+		wProduce.focus();
+		return false;
+	}
+	if(wIngredient.value == ''){
+		alert('원재료명 및 함량을 등록해주세요.')
+		wIngredient.focus();
+		return false;
+	}
+	if(wDate.value == ''){
+		alert('제조년월일, 유통기한을 등록해주세요.')
+		wDate.focus();
+		return false;
+	}
+	if(wManage.value == ''){
+		alert('관리법상 표시사항을 등록해주세요.')
+		wManage.focus();
+		return false;
+	}
+	if(wConfig.value == ''){
+		alert('구성을 등록해주세요.')
+		wConfig.focus();
+		return false;
+	}
+	if(wManual.value == ''){
+		alert('보관방법 또는 취급 방법을 등록해주세요.')
+		wManual.focus();
+		return false;
+	}
+	if(keywordNum.innerHTML == 0){
+        alert('키워드를 등록해 주세요.');
+        keyword.focus();
+        return false;
+     }
+	
+	formSubmit.submit();	
+}
+
+window.onload = function(){
+	document.getElementById('keywordBtn').onclick = function(){
+		let keyword = document.getElementById('keyword');
+		let container = document.getElementById('keywordContainer');
+		let keywordNum = document.getElementById('keywordNum');
+		var regExp6 = /^[가-힣a-zA-Z]+$/; //한글+영문
+		
+		if(i > 0){
+			
+				let valueTag = document.getElementsByClassName('valueTag');
+				let copyKeyword = document.getElementById('copyKeyword');
+					for(var j = 0; j < valueTag.length; j++){
+						let copyTag =  valueTag[j].innerText;
+						console.log(copyTag)
+						if(keyword.value == copyTag){
+							alert('동일한 키워드가 존재합니다.');
+							keyword.value = '';
+							return false;
+						}
+					}
+		}	
+		if(keyword.value == ''){
+			alert('키워드를 입력해주세요.');
+			return false;
+		}if(!regExp6.test(keyword.value)){
+			alert('한글과 영문 5자 이내 작성가능합니다. 초성 및 숫자 특수문자는 사용이 불가합니다.');
+			keyword.value = '';
+			return false;
+		}else {
+			
+			i+=1;
+			keywordNum.innerHTML = i;
+			if(i==11){
+				alert('최대 키워드는 10개 입니다.');
+				keyword.value = '';
+				keywordNum.innerHTML = 10;
+				i=10;
+				return false;
+			}
+		
+			let keywordTag = document.createElement('a');
+			let shopTag = document.createElement('span');
+			let valueTag = document.createElement('span');
+			
+			keywordTag.setAttribute('style','cursor:pointer; margin-right:10px; padding: 5px 10px;background-color: #4e73df;border-radius: 10px;color: white; font-size: 13px');
+			keywordTag.setAttribute('class','keyword');
+			valueTag.setAttribute('id','valueTag');
+			valueTag.setAttribute('class','valueTag');
+			shopTag.innerHTML = '#';
+			valueTag.innerHTML = keyword.value;
+
+			keywordTag.append(valueTag);
+			keywordTag.prepend(shopTag);
+			container.append(keywordTag);
+			console.log(keywordTag);
+			keyword.value = '';
+		}
+	}
+};
+
+$(function(){
+	$(document).on('click', ".keyword", function(){
+		console.log('clickEvent');
+		console.log($(this));
+		$(this).remove();
+		i-=1;
+		keywordNum.innerHTML = i;
+		
+	});
+});
+
+
+
 </script>
 </head>
 <body id="page-top">
@@ -167,7 +367,7 @@ $(document).ready(function() {
                <!-- end of topLine -->
             
             <!-- form 시작 -->
-           	<form action="<c:url value='/writer/artregister.wdo'/> " method="post" enctype="multipart/form-data">
+           	<form action="<c:url value='/writer/artregister.wdo'/> " method="post" enctype="multipart/form-data" name="formSubmit">
                <table border="1" class="jeongabasicInfoTable">
 
                   <tr>
@@ -206,7 +406,8 @@ $(document).ready(function() {
                   <tr>
                      <td class="left">카테고리</td>
                      <td>                    
-                           <select name="artCategory" id="category_id">
+                           <select name="artCategory" id="categoryId">
+                           	  <option value="nulll">선택창</option>
                               <option value="식음료">식음료</option>
                               <option value="문구팬시">문구팬시</option>
                               <option value="전자기기">전자기기</option>
@@ -245,7 +446,8 @@ $(document).ready(function() {
                      <td>
                         <div class="categoryDiv">
 
-                              <select name="artInfoDetailCategory" id="categoryId">
+                              <select name="artInfoDetailCategory" id="category_id">
+                              	 <option value="nulll">선택창</option>
                                  <option value="식음료">식음료</option>
                                  <option value="문구팬시">문구팬시</option>
                                  <option value="전자기기">전자기기</option>
@@ -317,21 +519,18 @@ $(document).ready(function() {
                <!-- end of topLine -->
                   <tr>
                      <td class="left" style="width: 20%">작품키워드</td>
-                     <td>
-                        <!-- 키워드 추가 수정 -->
-                             <input type="text" id="keyword1" name = "artKeyword" placeholder="키워드1" maxlength="15" autocomplete="off">
-                             <input type="text" id="keyword2" name = "artKeyword" placeholder="키워드2" maxlength="15" autocomplete="off">
-                             <input type="text" id="keyword3" name = "artKeyword" placeholder="키워드3" maxlength="15" autocomplete="off">
-                             <input type="text" id="keyword4" name = "artKeyword" placeholder="키워드4" maxlength="15" autocomplete="off">
-                             <input type="text" id="keyword5" name = "artKeyword" placeholder="키워드5" maxlength="15" autocomplete="off">
-                             <input type="text" id="keyword6" name = "artKeyword" placeholder="키워드6" maxlength="15" autocomplete="off">
-                             <input type="text" id="keyword7" name = "artKeyword" placeholder="키워드7" maxlength="15" autocomplete="off">
-                             <input type="text" id="keyword8" name = "artKeyword" placeholder="키워드8" maxlength="15" autocomplete="off">
-
-                         <br>
-                        <span style="font-size:14px;">* 띄어쓰기, 문장 기호가 특수 문자를 사용한 등록이 불가능하며, 최대 8개까지 등록이 가능합니다.</span>
-                     </td>
-                  </tr>
+					<td>
+						<div id="add" style="display: flex; flex-direction: row;">
+							<input type="text" id="keyword" autocomplete="off" maxlength="5"> 
+							<input type="button" value="추가" id="keywordBtn">
+							<div style="margin-left: 1%;"></div>
+						</div>
+							<div id="keywordContainer" class="keywordContainer"></div> 
+							<span id="keywordNum">0</span>/10개
+							<br> 띄어쓰기, 문장 기호가 특수 문자를 사용한 등록이 불가능하며, 최대 10개까지 등록이 가능합니다. 
+							<input type="hidden" name="artKeyword" id="copyKeyword">
+					</td>
+				 </tr>
             <!-- end 타겟 설정 영역 -->
 
             <!-- 옴션설정 영역 -->
@@ -476,8 +675,8 @@ $(document).ready(function() {
                      </td>
                   </tr>
                </table>
-			<div style="margin-left:46%">
-	 		<input type="submit" value="글 등록" class="btn btn-primary" id="registerbtn" style="margin:10px;">
+			<div id="saveContainer" style="margin-left:46%">
+	 		<input type="button" value="작품 등록" class="btn btn-primary" id="registerbtn" style="margin:10px;"onclick="saveWork(event);">
 	 		</div>
 	 		</form>
             </div> <!-- end basicInformationContainer -->
@@ -488,13 +687,12 @@ $(document).ready(function() {
             <%@ include file="../include/footer.jsp" %>
             <!-- end footer -->
             <!-- Scroll to Top Button-->
-            <a class="scroll-to-top rounded" href="#page-top"> <i
-               class="fas fa-angle-up"></i>
+            <a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
             </a>
 
             <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
             <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-			<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
+			<!--  <script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>-->
       		<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
             <!-- Core plugin JavaScript-->
             <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
