@@ -37,4 +37,9 @@ public class WriterActivityServiceImpl implements WriterActivityService {
 	public List<WriterActivityVO> reviewList(String seq) {
 		return dao.reviewList(seq);
 	}
+
+	@Override
+	public void updateReviewComment(WriterActivityVO vo) {
+		dao.updateReviewComment(vo);;
+	}
 }

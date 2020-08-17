@@ -405,6 +405,8 @@
 		recomment = $.trim($(this).closest('tr').children('td').eq(7).text());
 		status = $.trim($(this).closest('tr').children('td').eq(8).text());
 		memberSeq = $.trim($(this).closest('tr').children('td').eq(9).text());
+		$('#counter').html(recomment.length + '/1000')
+		
 		console.log(seq);
 		console.log(recomment);
 		console.log(writerSeq);

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.writer.activity.repository.AlarmVO;
 import com.web.bomulsum.writer.activity.repository.CommentsListVO;
+import com.web.bomulsum.writer.activity.repository.WriterActivityVO;
 import com.web.bomulsum.writer.activity.service.WriterActivityServiceImpl;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 
@@ -108,4 +109,28 @@ public class WriterActivityController {
 		
 		return mav;
 	}
+	
+	/*댓글 - 작가가 댓글 등록 */
+	@RequestMapping(value="/activity/updateReviewComment", method=RequestMethod.POST)
+	public ModelAndView updateReviewComment(WriterActivityVO vo, HttpServletRequest request){
+		//모델엔뷰란? - 데이터와 뷰를 동시에 설정이 가능하다!
+		
+		//로그인한 작가 정보 가져오기
+		HttpSession session = request.getSession();
+		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
+		String seq = code.getWriterSeq();
+		
+		System.out.println("updateReviewComment : "+ vo.toString());
+		service.updateReviewComment(vo);
+		ModelAndView mav = new ModelAndView();
+		
+		if(vo.getReviewCommentReStatus().equals("Y")) {
+			mav.addObject("check", 4); // 뷰로 보낼 데이터 값			
+		} else {
+			mav.addObject("check", 3); 
+		}
+		mav.setViewName("redirect:/writer/activity/review.wdo"); // 뷰 이름 _ 어떤 뷰로 보낼 지
+		return mav;
+	}
+	
 }
