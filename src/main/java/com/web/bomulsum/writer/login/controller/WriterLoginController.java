@@ -1,6 +1,7 @@
 package com.web.bomulsum.writer.login.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -23,6 +24,8 @@ import org.springframework.web.util.WebUtils;
 import com.web.bomulsum.writer.gempoint.service.WriterGempointService;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.login.service.WriterRegisterService;
+import com.web.bomulsum.writer.profile.repository.WriterProfileVO;
+import com.web.bomulsum.writer.profile.service.WriterProfileService;
 
 @Controller
 @RequestMapping(value="/writer")
@@ -34,24 +37,34 @@ public class WriterLoginController {
 	@Autowired 
 	WriterGempointService gemPointService;
 	
+	@Autowired
+	WriterProfileService profileService;
+	
 	@ResponseBody
 	@PostMapping("/loginCheck")
-	public String LoginCheck(@RequestBody WriterRegisterVO vo, HttpSession session,HttpServletResponse response) {
+	public String LoginCheck(@RequestBody WriterRegisterVO vo, HttpSession session,HttpServletResponse response,HttpServletRequest request,WriterProfileVO proVO,
+			HttpSession sessionPro,HttpServletRequest requestPro) {
 		System.out.println("/writer/loginCheck : Post 요청됨");
 		System.out.println("parameter : " + vo);
 		
 		String result = null;
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		WriterRegisterVO checkVo = service.selectOne(vo.getWriterEmail());
-//		Map<String, Object> point = gemPointService.getGemPointSum(vo.getWriterSeq());
-//		System.out.println(vo.getWriterSeq());
-//		System.out.println("aa : " + point);
-//		vo.setGemSum(point);
-//		Map<Stirng, Object> firstValue = "";
-//		if(vo.getGemSum() == null) {
-//			vo.setGemSum();
-//		}
 		
+				
+		Map<String, Object> gemSum = gemPointService.getGemPointSum(checkVo.getWriterSeq());
+		
+		
+		
+		proVO = profileService.getWriterProfile(checkVo.getWriterSeq());
+		
+		sessionPro = requestPro.getSession();
+		sessionPro.setAttribute("proVO", proVO);
+		
+		System.out.println("proVO : " + proVO.getWriterProfileImg());
+		
+		checkVo.setGemSum(Integer.parseInt(String.valueOf(gemSum.get("GEMSUM"))));
+				
 		if(checkVo != null) {
 			if(encoder.matches(vo.getWriterPassword(), checkVo.getWriterPassword())) {
 				

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
+import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
 
 public interface WriterArtService {
@@ -30,19 +31,29 @@ public interface WriterArtService {
 	
 	//판매중 작품 목록
 	List<WriterArtVO> getArtOnsaleList(String seq);
+	//판매 일시중지 작품 목록
+	List<WriterArtVO> getArtPauseOnsale(String seq);
 	//댓글 카운트
-	int getArtOnsaleComment(String artCode);
+	int getArtSaleComment(String artCode);
 	//후기 카운트
-	int getArtOnsaleReview(String artCode);
+	int getArtSaleReview(String artCode);
 	//즐겨찾기 카운트
-	int getArtOnsaleBookmark(String artCode);
+	int getArtSaleBookmark(String artCode);
 	
 	
-	//판매중 작품 업데이트
-	void updateSalesArt(String[] checkArr);
+	//판매일시 중지로 바꾸기
+	void changePauseSalesArt(String[] checkArr);
+	//판매중으로 바꾸기
+	void changeStartSalesArt(String[] checkArr);
+	
 	//작품 삭제
-	void deleteSalesArt(String[] deleteCheck);
+	void deleteArt(String[] deleteCheck);
 
-	//작품 정렬
-	List<WriterArtVO> getSortList(Map<String, Object> map);
+	
+	
+	//작품 수정 목록
+	List<WriterArtVO> getUpdateArt(String artCode);
+	List<WriterArtInfoDetailVO> getUpdateArtInfo(String artCode);
+	List<WriterArtOptionVO> getUpdateArtOption(String artCode);
+	
 }

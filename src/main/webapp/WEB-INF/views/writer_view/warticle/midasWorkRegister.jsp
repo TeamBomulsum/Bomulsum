@@ -517,7 +517,7 @@ var i = 0;
 		let chk = false
 		
 		
-		
+		console.log(keywordNum.innerHTML);
 		
 		if(image.value == ''){
 			alert('사진을 등록해 주세요.');
@@ -617,7 +617,7 @@ var i = 0;
 			return false;
 		}
 		
-		if(keywordNum.value == 0){
+		if(keywordNum.innerHTML == 0){
 			alert('키워드를 등록해 주세요.');
 			keyword.focus();
 			return false;

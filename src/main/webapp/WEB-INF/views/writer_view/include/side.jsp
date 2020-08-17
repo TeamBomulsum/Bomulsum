@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- 왼쪽 메뉴바 -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../home.jsp">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value='/writer/home.wdo'/>"">
         <div>
           <!-- 보물섬 아이콘 -->
           <i><img src="<c:url value='/resources/img/MainLogo_white.png'/>" width="70" height="70" ></i>
@@ -38,9 +39,13 @@
 
       <div align="center">
         <!-- 작가 프로필 사진 -->
-        <a href="#"><img src="<c:url value='/upload/1596900594159보석로고_대지 1.png'/>" width="100" height="100"
-          style="background-color: white; margin: 4% 0 4% 0; border-radius: 50%;"></a><br>
-        <a style="color:aliceblue; font-size: 15pt; font-weight: bold;">작가명</a>
+        <a href="#">
+       		 <img src="<c:url value='/upload/${proVO.writerProfileImg}'/>" width="100" height="100"
+        	  style="background-color: white; margin: 4% 0 4% 0; border-radius: 50%;">     
+          </a>
+          
+          <br>
+        <a style="color:aliceblue; font-size: 15pt; font-weight: bold;">${proVO.writerBrandName }</a>
         <div style="margin-top:2%;margin-bottom:2%;">
         	<table style="color: white; width:80%">
         		<tr>
@@ -48,7 +53,7 @@
         				<i class="fas fa-gem" style="color:gold"></i>&nbsp;젬포인트
         			</th>	
         			<th style="text-align:right; width:40%">
-        				<a>${ sessionScope.writer_login.gemSum}</a>P
+        				<a><fmt:formatNumber value="${writer_login.gemSum}" pattern="#,###"/>P</a>
         			</th>	
         		</tr>
         	</table>
@@ -92,7 +97,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <!--<h6 class="collapse-header">Custom Components:</h6>-->
             <a class="collapse-item" href="<c:url value='/writer/workOnsale.wdo'/>">판매중</a>
-            <a class="collapse-item" href="<c:url value='/view/warticle/pauseOnSales.jsp'/>">판매 일시중지</a>
+            <a class="collapse-item" href="<c:url value='/writer/pauseOnsale.wdo'/>">판매 일시중지</a>
             <a class="collapse-item" href="<c:url value='/writer/workRegister.wdo'/>">작품등록</a>
             <a class="collapse-item" href="<c:url value='/writer/midasRegister.wdo'/>">금손작품등록</a>
             <a class="collapse-item" href="<c:url value='/view/warticle/classInfo.jsp'/>">강의정보</a>

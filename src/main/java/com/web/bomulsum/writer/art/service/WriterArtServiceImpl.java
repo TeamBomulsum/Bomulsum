@@ -1,7 +1,6 @@
 package com.web.bomulsum.writer.art.service;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.writer.art.repository.WriterArtDAO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
+import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
 
 
@@ -90,35 +90,47 @@ public class WriterArtServiceImpl implements WriterArtService{
 		return dao.getArtOnsaleList(seq);
 	}
 	@Override
-	public int getArtOnsaleReview(String artCode) {
-		return dao.getArtOnsaleReview(artCode);
+	public int getArtSaleReview(String artCode) {
+		return dao.getArtSaleReview(artCode);
 	}
 
 	@Override
-	public int getArtOnsaleComment(String artCode) {
-		return dao.getArtOnsaleComment(artCode);
+	public int getArtSaleComment(String artCode) {
+		return dao.getArtSaleComment(artCode);
 	}
 
 	@Override
-	public int getArtOnsaleBookmark(String artCode) {
-		return dao.getArtOnsaleBookmark(artCode);
+	public int getArtSaleBookmark(String artCode) {
+		return dao.getArtSaleBookmark(artCode);
 	}
 
-	//판매 일시중지
+	//판매 일시중지로 바꾸기
 	@Override
-	public void updateSalesArt(String[] checkArr) {
+	public void changePauseSalesArt(String[] checkArr) {
 		List<String> list = new ArrayList<String>();
 		
 		for(int i=0; i<checkArr.length; i++) {
 			list.add(checkArr[i]);
 		}
-		dao.updateSalesArt(list);
+		dao.changePauseSalesArt(list);
 	}
+	
+	//판매중으로 바꾸기
+	@Override
+	public void changeStartSalesArt(String[] checkArr) {
+		List<String> list = new ArrayList<String>();
+		
+		for(int i=0; i<checkArr.length; i++) {
+			list.add(checkArr[i]);
+		}
+		dao.changeStartSalesArt(list);
+	}
+
 
 	
 	//작품 삭제
 	@Override
-	public void deleteSalesArt(String[] deleteCheck) {
+	public void deleteArt(String[] deleteCheck) {
 		List<String> list = new ArrayList<String>();
 		
 		for(int i=0; i<deleteCheck.length; i++) {
@@ -127,11 +139,25 @@ public class WriterArtServiceImpl implements WriterArtService{
 		dao.deleteArt(list);
 		
 	}
-	
-	//작품 정렬
+
+	//판매 일시중지 작품 목록
 	@Override
-	public List<WriterArtVO> getSortList(Map<String, Object> map) {
-		return dao.getSortList(map);
+	public List<WriterArtVO> getArtPauseOnsale(String seq) {
+		return dao.getArtPauseOnsale(seq);
+	}
+	
+	//수정 작품 목록
+	@Override
+	public List<WriterArtVO> getUpdateArt(String artCode) {
+		return dao.getUpdateArt(artCode);
+	}
+	@Override
+	public List<WriterArtInfoDetailVO> getUpdateArtInfo(String artCode) {
+		return dao.getUpdateArtInfo(artCode);
+	}
+	@Override
+	public List<WriterArtOptionVO> getUpdateArtOption(String artCode) {
+		return dao.getUpdateArtOption(artCode);
 	}
 	
 

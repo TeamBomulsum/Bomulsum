@@ -39,8 +39,8 @@ public class WriterArtController {
 	public String workRegister() {
 		return "/warticle/workRegister";
 	} 
-	
-	//판매중 작품 
+
+	//판매중 작품 목록
 	@RequestMapping(value="/workOnsale")
 	public ModelAndView workOnsale(WriterArtVO vo, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("warticle/onSale");
@@ -58,9 +58,9 @@ public class WriterArtController {
 			for(int i=0; i<artList.size(); i++) {
 				WriterArtVO tempVO = artList.get(i);
 				String[] photoArray = tempVO.getArtPhoto().split(",");
-				int reviewCount = service.getArtOnsaleReview(tempVO.getArtCodeSeq());
-				int commentCount = service.getArtOnsaleComment(tempVO.getArtCodeSeq());
-				int bookMarkCount = service.getArtOnsaleBookmark(tempVO.getArtCodeSeq());
+				int reviewCount = service.getArtSaleReview(tempVO.getArtCodeSeq());
+				int commentCount = service.getArtSaleComment(tempVO.getArtCodeSeq());
+				int bookMarkCount = service.getArtSaleBookmark(tempVO.getArtCodeSeq());
 				tempVO.setArtPhoto(photoArray[0]);
 				tempVO.setBookMarkCount(bookMarkCount);
 				tempVO.setCommentCount(commentCount);
@@ -77,63 +77,97 @@ public class WriterArtController {
 
 	//판매일시중지 작품으로 변경
 	@ResponseBody
-	@RequestMapping(value="/updateSalesArt")
-	   public void updateSalesArtlist( @RequestParam(value="saleState[]") String[] checkArr) {
+	@RequestMapping(value="/pauseSalesArt")
+	   public void updateSalesArtlist( @RequestParam(value="saleState[]") String[] checkArr, HttpServletRequest request) {
 			System.out.println(Arrays.toString(checkArr));
-	        service.updateSalesArt(checkArr);
+	        service.changePauseSalesArt(checkArr);
 	        System.out.println("판매일시중지 변경 완료");
 	   }
+	
+	//판매 작품으로 변경
+	@ResponseBody
+	@RequestMapping(value="/salesStartArt")
+	   public void updateSalesStartArt( @RequestParam(value="saleState[]") String[] checkArr, HttpServletRequest request) {
+			System.out.println(Arrays.toString(checkArr));
+	        service.changeStartSalesArt(checkArr);
+	        System.out.println("판매일시중지 변경 완료");
+	   }
+	
 	//작품 삭제
 	@ResponseBody
-	@RequestMapping(value="/deleteSalesArt")
-	   public void deleteArtlist( @RequestParam(value="artDelete[]") String[] deleteCheck) {
+	@RequestMapping(value="/deleteArt")
+	   public void deleteArtlist( @RequestParam(value="artDelete[]") String[] deleteCheck, HttpServletRequest request) {
 			System.out.println(Arrays.toString(deleteCheck));
-	        service.deleteSalesArt(deleteCheck);
+	        service.deleteArt(deleteCheck);
 	        System.out.println("작품 삭제");
 	   }
-	/*
-	//작품 정렬
-	@RequestMapping(value="categorySort")
-	public ModelAndView sortList(@RequestParam("sortList") String sortItem,  HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("warticle/onSale");
+
+
+	//작품 수정
+	@RequestMapping(value="/updateWork")
+	public ModelAndView artUpdate(@RequestParam(value="modifyArtCode") String artCodeUpdate, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/warticle/updateWork");
+		System.out.println("여기서 받음");
+		System.out.println(artCodeUpdate);
+		List<WriterArtVO> artList = service.getUpdateArt(artCodeUpdate);
+		List<WriterArtInfoDetailVO> artInfoList = service.getUpdateArtInfo(artCodeUpdate);
+		List<WriterArtOptionVO> artOptionList = service.getUpdateArtOption(artCodeUpdate);
+		System.out.println(artList);
+		System.out.println(artInfoList);
+		System.out.println(artOptionList);
+		
+		if(artList.size() >= 1) {
+			for(int i=0; i<artList.size(); i++) {
+				String[] photoArray = artList.get(i).getArtPhoto().split(",");
+				System.out.println(photoArray[i].toString());
+			}
+		}
+		
+		
+		
+		
+		
+		mav.addObject("updateArtList", artList);
+		mav.addObject("updateArtInfoList", artInfoList);
+		mav.addObject("updateArtOptionList", artOptionList);
+		return mav;
+	} 
+	
+	//판매 일시 중지 작품 목록
+	@RequestMapping(value="/pauseOnsale")
+	public ModelAndView pauseOnsale(WriterArtVO vo, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("warticle/pauseOnsale");
 		
 		//작가코드 받아오기
 		HttpSession session =  request.getSession();
-		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");        
-		String seq = code.getWriterSeq();
-		        
-		//정렬 기준
-		System.out.println("이제 들어간다"+sortItem);
+        WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");        
+        String seq = code.getWriterSeq();
 		
-		Map<String, Object> sortData = new HashMap<String, Object>();
-		sortData.put("ArtCodeSeq", seq);
-		sortData.put("SortItem",sortItem);		
-	
-		// 정렬 결과
-		List<WriterArtVO> artList = service.getSortList(sortData);
+        //해당 작가의 판매일시중지 작품
+		List<WriterArtVO> artList  = service.getArtPauseOnsale(seq);
+		//System.out.println(artList);
 
-		if (artList.size() >= 1) {
-			for (int i = 0; i < artList.size(); i++) {
+		if(artList.size() >= 1) {
+			for(int i=0; i<artList.size(); i++) {
 				WriterArtVO tempVO = artList.get(i);
 				String[] photoArray = tempVO.getArtPhoto().split(",");
-				int reviewCount = service.getArtOnsaleReview(tempVO.getArtCodeSeq());
-				int commentCount = service.getArtOnsaleComment(tempVO.getArtCodeSeq());
-				int bookMarkCount = service.getArtOnsaleBookmark(tempVO.getArtCodeSeq());
+				int reviewCount = service.getArtSaleReview(tempVO.getArtCodeSeq());
+				int commentCount = service.getArtSaleComment(tempVO.getArtCodeSeq());
+				int bookMarkCount = service.getArtSaleBookmark(tempVO.getArtCodeSeq());
 				tempVO.setArtPhoto(photoArray[0]);
 				tempVO.setBookMarkCount(bookMarkCount);
 				tempVO.setCommentCount(commentCount);
 				tempVO.setReviewCount(reviewCount);
 				artList.remove(i);
-				artList.add(i, tempVO);
+				artList.add(i, tempVO);		
 			}
-			
-			//System.out.println("갔다가 옴");
+			//System.out.println(artList);
 		}
-		System.out.println(artList);
-		mav.addObject("sortSaleList", artList);
+
+		mav.addObject("pauseOnSale", artList);
 		return mav;
-	}
-*/
+	} 
+
 	
 	//작품 등록 액션
 	@RequestMapping(value="/artregister")
