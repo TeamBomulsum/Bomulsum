@@ -86,4 +86,41 @@
 		FROM member_tb
 		WHERE member_code_seq = 'member_code_sq62'
 	</delete>
+	
+	
+<!-- 회원 배송지 관리 -->
+	<!--회원 배송지 등록 -->
+	<insert id="insertUserAddress" parameterType="UserProfileAddressVO">
+		insert into member_address_tb 
+		(member_address_seq, member_code_seq, member_address_zipcode, member_address_first, 
+		member_address_second, member_address_name, member_address_phone)
+		
+		VALUES 
+		('member_address_seq' || TO_CHAR(member_address_sq.nextval),
+		'시퀀스번호넣기', #{member_address_zipcode}, #{member_address_first}, 
+		#{member_address_second}, #{member_address_name}, #{member_address_phone})
+
+	</insert> 
+	
+	<!-- 회원 배송지 select -->
+	<select id="selectUserAddress" resultType="UserProfileAddressVO">
+		SELECT * FROM member_address_tb
+	    WHERE member_code_seq in ('시퀀스번호넣기')
+	    ORDER BY member_address_seq ASC
+	</select>
+	
+	
+	<!-- 회원 배송지 update -->
+	<update id="updateUserAddress" parameterType="UserProfileAddressVO">
+		UPDATE member_address_tb
+		
+		SET
+		member_address_zipcode = #{member_address_zipcode}, 
+		member_address_first = #{member_address_first}, 
+		member_address_second = #{member_address_second}, 
+		member_address_name = #{member_address_name}, 
+		member_address_phone = #{member_address_phone}
+		
+		WHERE member_address_seq = #{member_address_seq}
+	</update>
 </mapper>

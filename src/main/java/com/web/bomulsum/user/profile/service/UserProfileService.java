@@ -1,5 +1,8 @@
 package com.web.bomulsum.user.profile.service;
 
+import java.util.List;
+
+import com.web.bomulsum.user.profile.repository.UserProfileAddressVO;
 import com.web.bomulsum.user.profile.repository.UserProfileVO;
 
 public interface UserProfileService {
@@ -12,4 +15,9 @@ public interface UserProfileService {
 	void updateUserinfo(UserProfileVO vo); //회원정보 수정
 	void updateUserphone(UserProfileVO vo); //전화번호 수정
 	void deleteUser(UserProfileVO vo); //회원 탈퇴
+	
+	//-----------회원배송지관리
+	void insertUserAddress(UserProfileAddressVO vo); //회원 주소지 입력
+	List<UserProfileAddressVO> selectUserAddress(); //회원 주소지 가져오기
+	void updateUserAddress(UserProfileAddressVO vo); //회원 주소지 수정
 }

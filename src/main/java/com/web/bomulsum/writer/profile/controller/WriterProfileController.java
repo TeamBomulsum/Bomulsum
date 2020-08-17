@@ -42,6 +42,7 @@ public class WriterProfileController {
 			WriterProfileVO result = service.getWriterProfile(seq);
 			System.out.println("다시들어옴: " + result);
 			mav.addObject("profile", result);
+			System.out.println("mav확인:"+mav);
 			
 //			//테스트 :: 이미지 넘기는거 
 //			Map<String, String> imgTest = new HashMap<String, String>();

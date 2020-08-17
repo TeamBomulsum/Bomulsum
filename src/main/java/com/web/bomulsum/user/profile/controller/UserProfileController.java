@@ -1,5 +1,7 @@
 package com.web.bomulsum.user.profile.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.user.login.repository.NowLoginVO;
+import com.web.bomulsum.user.profile.repository.UserProfileAddressVO;
 import com.web.bomulsum.user.profile.repository.UserProfileVO;
 import com.web.bomulsum.user.profile.service.UserProfileService;
 
@@ -100,7 +103,47 @@ public class UserProfileController {
 	public ModelAndView registerAddress() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/umyInfo/uinformation/uAddressManage");
+		
+		//회원 주소지 조회
+		List<UserProfileAddressVO> selectAddress = service.selectUserAddress();
+		System.out.println(selectAddress);
+		
+		UserProfileAddressVO[] userAddress;
+		userAddress = new UserProfileAddressVO[3];
+
+		for (int i = 0; i < 3; i++) {
+			userAddress[i] = selectAddress.get(i);
+			// System.out.println("vo배열 값 확인:" + selectAddress.get(i));
+			System.out.println("vo배열 값 확인:" + userAddress[i]);
+		}
+		mav.addObject("address1", userAddress[0]);
+		mav.addObject("address2", userAddress[1]);
+		mav.addObject("address3", userAddress[2]);
+		 
+		System.out.println("mav확인:"+mav);
 		return mav;
 	} 
+	
+	  //회원 주소지 등록
+	  @RequestMapping(value="/insertAddress") 
+	  public ModelAndView insertAddress(UserProfileAddressVO vo, HttpServletRequest request) {
+	  ModelAndView mav = new ModelAndView(); 
+	  System.out.println("회원 배송지 확인:"+ vo);
+	  service.insertUserAddress(vo);
+	  mav.setViewName("/umyInfo/uinformation/uAddressManage"); 
+	  return mav; 
+	  }
+	  
+	  
+	  //회원 주소지 수정
+	  @RequestMapping(value="/updateAddress" , method = RequestMethod.GET)
+		public ModelAndView updateAddress(UserProfileAddressVO vo, HttpServletRequest request){
+		ModelAndView mav = new ModelAndView();
+		System.out.println("수정전 정보: "+ vo);
+		service.updateUserAddress(vo);
+		System.out.println("수정후 정보: "+ vo);
+		mav.setViewName("redirect:/user/registeraddress.do");
+		return mav;
+		} 
 	
 }

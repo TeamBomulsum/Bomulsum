@@ -7,6 +7,7 @@
 		<typeAlias type="com.web.bomulsum.user.login.repository.MemberVO" alias="memberVO"/>	
 		<typeAlias type="com.web.bomulsum.user.profile.repository.UserProfileVO" alias="UserProfileVO"/>	
 		<typeAlias type="com.web.bomulsum.user.profile.repository.UserProfileOrderVO" alias="UserProfileOrderVO"/>	
+		<typeAlias type="com.web.bomulsum.user.profile.repository.UserProfileAddressVO" alias="UserProfileAddressVO"/>	
 		
 		<!-- manager -->
 		
