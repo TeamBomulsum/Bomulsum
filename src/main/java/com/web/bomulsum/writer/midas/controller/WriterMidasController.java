@@ -6,24 +6,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.bomulsum.writer.art.repository.WriterArtVO;
-import com.web.bomulsum.writer.board.repository.writerBoardVO;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 import com.web.bomulsum.writer.midas.service.WriterMidasService;
@@ -82,11 +77,11 @@ public class WriterMidasController {
 		
 		return mav;
 	}
-	@PostMapping("/midasClassModify")
+	
+	@PostMapping("/midasModify")
 	public ModelAndView midasModify(WriterMidasVO vo,ModelAndView mav,@RequestParam(value="orderPicture[]", required=false) List<MultipartFile> mf,
-			 HttpServletRequest request) {
-			System.out.println("midasRegister 들어옴");
-			System.out.println(vo.getKeyword());
+			 HttpServletRequest request,@RequestParam(value="orderSeq", required=false)  String orderSeq) {
+			System.out.println("midasModify 들어옴");
 			
 		//사진저장
 				String result="";
@@ -101,25 +96,26 @@ public class WriterMidasController {
 					
 					result += saveFile+",";
 				}	
-				System.out.println(vo.getEndTime().toString());
 				vo.setOrderImg(result);
-				HttpSession session =  request.getSession();
-				WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
-				
-				String seq = code.getWriterSeq();
-				
-				vo.setWriterCodeSeq(seq);
-				
-				System.out.println(session);
-				
-				System.out.println(vo.toString());
-
-				service.midasRegister(vo);
+				System.out.println(result);
+				service.midasModify(vo);
 				mav.setViewName("redirect:/writer/classInfo.wdo"); 
 				mav.addObject("check", 1); 
 		
 		return mav;
 	}
+	@PostMapping("/midasDelete")
+	public @ResponseBody String midasDelete(@RequestParam(value="orderSeq", required=false) String[] orderSeq,ModelAndView mav) {
+		System.out.println("DELETE 들어옴");
+		System.out.println("orderSeq : "+orderSeq);
+		for(int i =0; i<orderSeq.length; i++) {
+			String a = orderSeq[i];
+			System.out.println(a);
+			service.midasDelete(a);
+		}
+		return "redirect:/writer/classInfo.wdo";
+	}
+	
 	@GetMapping("classInfo")
 	public ModelAndView classInfo(ModelAndView mav,HttpServletRequest request) {
 		System.out.println("classInfo 들어옴");
@@ -127,7 +123,7 @@ public class WriterMidasController {
 		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
 		String writerCodeSeq = code.getWriterSeq();
 		List<WriterMidasVO> classList = service.getClassAllSelect(writerCodeSeq);
-		
+		System.out.println(classList);
 		mav.addObject("classList", classList);
 		mav.setViewName("/warticle/classInfo");			
 		
@@ -141,6 +137,24 @@ public class WriterMidasController {
 		model.addAttribute("article",vo);
 		System.out.println(orderSeq);
 		System.out.println(vo);
+		return vo;
+	}
+	@PostMapping("midasRunUpdate")
+	public @ResponseBody WriterMidasVO midasRunUpdate(@RequestParam String[] orderSeq,WriterMidasVO vo) {
+		for(int i=0; i<orderSeq.length; i++) {
+			String a = orderSeq[i];
+			vo = service.getClassArticle(a);
+			if(vo.getRun().equals("Y")) {
+				vo.setRun("N");
+				service.midasRunUpdate(vo);
+				System.out.println("if(Y)" + vo);
+			}else {
+				vo.setRun("Y");
+				service.midasRunUpdate(vo);
+				System.out.println("else : "+vo);
+			}
+		}
+		
 		return vo;
 	}
 

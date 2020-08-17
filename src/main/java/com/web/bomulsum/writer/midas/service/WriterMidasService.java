@@ -13,4 +13,11 @@ public interface WriterMidasService {
 	List<WriterMidasVO> getClassAllSelect(String writerCodeSeq);
 	
 	WriterMidasVO getClassArticle(String orderSeq);
+	
+	void midasModify(WriterMidasVO vo);
+	
+	void midasDelete(String orderSeq);
+	
+	void midasRunUpdate(WriterMidasVO vo);
+	
 }

@@ -1,47 +1,232 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>클래스목록</title>
-<link
-	href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>"
-	href="<c:url value='/resources/vendor/clockpicker-gh-pages/src/clockpicker'/>"
-	type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+<title>강의정보</title>
+<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
+   type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
+<!-- CSS 영역 -->
+<style>
+.onSaleContainer{
+	width:90%;
+	margin-left:2%;
+}
+.topLine{
+	height:40px;
+}
+.button {
+	background-color: white;
+	color: black;
+	border: 1px solid #008CBA;
+	text-align: center;
+	padding:2%,2%;
+}
 
+.registerButton {
+	float: right;
+}
 
+.textTitle {
+	float: left;
+}
 
-<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>"
-	rel="stylesheet">		
+.onSaleTitle {
+	float: center;
+}
+
+.ttable {
+	margin-top:10px;
+	text-align:center;
+}
+
+.bottomLine{
+	margin:1%;
+}
+
+#ordertable{
+	width:100%;
+	table-layout:fixed;
+	border-top: 1px solid #ddd;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 1px solid #ddd;
+}
+
+.alignLeft{
+	float:left;
+}
+
+.alignRight{
+	float:right;
+}
+.formAction {
+	float: right;
+}
+
+form {
+	display: inline;
+}
+
+.paging {
+ 	margin-top:20px;
+    text-align: center;
+    margin-bottom:100px;
+}
+
+ .paging a {
+    display: inline-block;
+    margin:0 3px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border:1px solid #ccc;
+    color:#999999;
+    background-color:#fff;
+ }
+ .arrow prev{
+ 	border:0px;
+ }
+.arrow next{
+	border:0px;
+}
+
+</style>
+<style>
+.workRegisterContainer {
+	width: 80%;
+}
+
+.basicInformationContainer {
+	width: 100%;
+	margin-left: 2%;
+}
+
+.provideInformationContainer, .targetContainer, .optionContainer,
+	.savecontainer {
+	width: 100%;
+	margin-left: 2%;
+	margin-top: 3%;
+}
+
+.loadButton {
+	float: right;
+}
+
+.basicInfoTable, .provideInfoTable, .targetTable, .optionTable {
+	margin-top: 1%;
+	width: 100%;
+	table-layout: fixed;
+	border-top: 1px solid #ddd;
+	border-left: 0px;
+	border-right: 0px;
+	border-bottom: 1px solid #ddd;
+}
+
+td {
+	padding: 10px;
+}
+
+h4 {
+	margin: 0px;
+}
+
+.left {
+	background-color: #f2f2f2;
+}
+
+.workNameRegister {
+	width: 30%;
+	height: 10%;
+	position: relative;
+	display: inline-block;
+}
+
+#counter {
+	border-radius: 0.5em;
+	padding: 0 .5em 0 .5em;
+	font-size: 0.75em;
+}
+
+.imageContainer {
+	width: 800px;
+	margin: 10px;
+	display: flex;
+	flex-direction: center;
+}
+
+.imageContainer img {
+	max-width: 100px;
+}
+
+.flexcontainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.flexCon {
+	display: flex;
+	flex-direction: row;
+}
+
+.savecontainer {
+	display: flex;
+	justify-content: center;
+	align-item: center;
+	margin-left: 0;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	margin-right: 0;
+}
+
+#imgs {
+	margin-right: 2%;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.keywordContainer {
+	width: 100%;
+	height: fit-content;
+	padding: 1% 0;
+}
+</style>
 </head>
-     
-     
-     
-          
+<c:if test="${param.check eq 1}">
+ 	<script type="text/javascript">
+ 			alert("글이 등록 되었습니다.");
+			location.href="/bomulsum/writer/classInfo.wdo";
+ 		</script>
+  </c:if>
 <!-- body 시작 -->
 <body id="page-top">
    <div id="wrapper">
-		<!-- Header/Nav -->
-		<%@ include file="../include/side.jsp"%>
-		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
-				<%@ include file="../include/head.jsp"%>
+      <!-- Header/Nav -->
+      <%@ include file="../include/side.jsp" %>
+      <div id="content-wrapper" class="d-flex flex-column">
+         <div id="content">
+            <%@ include file="../include/head.jsp" %>
             <!-- end Header/Nav -->
-     <!-- 판매중 작품 영역 -->	
-     <div class="onSaleContainer">
+     <!-- 판매중 작품 영역 -->
+	<div class="onSaleContainer">
 		<!-- topLine -->
 		<div class="topLine">           
 			<div class="textTitle">
 				<h4>강의정보</h4>
 			</div>
 			<div class="registerButton">
-				<a href="<c:url value='/writer/midasRegister.wdo'/>">
-					<button class="button" type="button">클래스등록</button>
+				<a class="collapse-item" href="<c:url value='/writer/midasRegister.wdo'/>">
+					<button class="button"id="register" type="button">작품등록</button>
 				</a>
 			</div>
 		</div> 	<!-- end of topLine -->
@@ -77,14 +262,17 @@
 	<div class="ttable">
 		<table border="1" id="ordertable">
 			<tr>
-				<th style="width:4%"><input type="checkbox"></th>
-				<th colspan="4" style="width:40%">강의명</th>
+				<th style="width:4%"><input type="checkbox" id="checkAll"></th>
+				<th style="width:20%">상품번호</th>
+				<th style="width:7%">이미지</th>
+				<th style="width:20%">강의명</th>
 				<th style="width:7%">정상가</th>
 				<th style="width:7%">할인가</th>
 				<th style="width:7%">즐겨찾기</th>
 				<th style="width:5%">댓글</th>
 				<th>조회수</th>
 				<th>수강인원</th>
+				<th>진행여부</th>
 				<th></th>
 			</tr>
 			<c:if test="${classList.size() <= 0 }">
@@ -95,13 +283,14 @@
 				</tr>
 			</c:if>
 			<c:if test="${classList.size() > 0}">
-			
 			<c:forEach var="classList" items="${classList }">
-			<tr id="${classList.orderSeq }">
-				<td><input type="checkbox"></td>
+			<c:set var="disCountPrice" value="${classList.midasPrice-classList.midasDiscount }"/>
+				<tr id=${classList.orderSeq }>
+				<td><input type="checkbox" name="listCheck" value="${classList.orderSeq }"></td>
+				<td id="orderSeq">${classList.orderSeq }</td>
 				<td><img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px"
 					src="<c:url value='/upload/${classList.orderImg }'/>" /></td>
-				<td colspan="3">
+				<td >
 					<div class="alignLeft" style="text-align: center;">
 						<a style="color: black; cursor:pointer; text-style: bold;" data-toggle="modal"
 						data-target="#classInfoModal">
@@ -109,24 +298,27 @@
 						
 					</div>
 					<div class="alignRight" style="text-align: right">
-						<br> <label style="text-decoration: line-through; margin-bottom: 0rem">${classList.midasDiscount }원</label>
-						<br> <label style="margin-bottom: 0rem; color: #28E7FF">${classList.midasPrice }원</label>
+						<br> <label style="text-decoration: line-through; margin-bottom: 0rem"><fmt:formatNumber value="${classList.midasPrice }" pattern="#,###"/>원</label>
+						<br> <label style="margin-bottom: 0rem; color: #28E7FF" id="calc"><fmt:formatNumber value="${disCountPrice }" pattern="#,###"/>원</label>
 					</div>
 				</td>
-				<td>${classList.midasPrice }원</td>
-				<td>${classList.midasPrice }원</td>
+				<td><fmt:formatNumber value="${classList.midasPrice }" pattern="#,###"/>원</td>
+				<td><fmt:formatNumber value="${disCountPrice }" pattern="#,###"/>원</td>
 				<td>1</td>
 				<td>6</td>
 				<td>1</td>
 				<td>334</td>
+				<td id="runYN">${classList.run }</td>
 				<td><button id="update" type="button" class="btn btn-primary" data-toggle="modal"
-						data-target="#staticBackdrop">수정</button></td>
+						data-target="#staticBackdrop">수정</button>
+				</td>
 			</tr>
-			<script type="text/javascript">
-					$(function(){		
+			<script>
+					$(function(){
+							var calc = ${classList.midasPrice} - ${classList.midasDiscount };
 						$('#<c:out value='${classList.orderSeq }'/>').click(function(){
 									var seq = '<c:out value='${classList.orderSeq }'/>'
-									console.log(seq);	
+									
 							$.ajax({
 								url: "${pageContext.request.contextPath}"+"/writer/classInfoArticle.wdo", //클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 								data:   {"orderSeq" : seq}, //HTTP 요청과 함꼐 서버로 보낼 데이터
@@ -134,9 +326,8 @@
 								dataType: "json",
 								success: function(data){
 									const jsData = data;
-									console.log(data);
-									console.log(jsData);
 									
+									$('#classInfo_Modal_OrderSeq').text(jsData.orderSeq);
 									$('#classInfo_Modal_OrderImg').text(jsData.oderImg);
 									$('#classInfo_Modal_ClassName').text(jsData.midasName);
 									$('#classInfo_Modal_StartDate').text(jsData.startDate);
@@ -153,6 +344,7 @@
 									$('#classInfo_Modal_Run').text(jsData.run);
 									$('#classInfo_Modal_About').text(jsData.about);
 									
+									$('#modOrderSeq').val(jsData.orderSeq);
 									$('#image').val(jsData.oderImg);
 									$('#midasName').val(jsData.midasName);
 									$('#midasPrice').val(jsData.midasPrice);
@@ -165,27 +357,111 @@
 									$('#endDate').val(jsData.endDate);
 									$('#startTime').val(jsData.startTime);
 									$('#endTime').val(jsData.endTime);
-								
-									
-								
-									
-								
-									
-								
+									$('#keywordContainer').text(jsData.keyword);
+				
 								}
 							});
-							
 						});
 					});
-					
 			</script>
 			</c:forEach>
 			</c:if>
 
 		</table>
+		<script>
+			$(function(){
+				$("#checkAll").click(function(){
+					if($("#checkAll").prop("checked")){
+			   	    	$("input[name=listCheck]").prop("checked",true);
+			   	    		
+					}else{
+						$("input[name=listCheck]").prop("checked",false);
+					}
+				});
+			 
+			 $('#deleteWork').click(function(){
+					var i = 0;
+					deleteList = [];
+					 $("input[name=listCheck]:checked").each(function(i) { 
+						 deleteList.push($(this).val());
+						 
+					 });
+					 console.log(deleteList);
+					 if(deleteList == ''){
+							alert('삭제하실 상품을 선택해주세요.');
+							return false;
+						}
+					 $.ajax({
+							 
+							url: "${pageContext.request.contextPath}"+"/writer/midasDelete.wdo", //클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+							data:   {"orderSeq" : deleteList}, //HTTP 요청과 함꼐 서버로 보낼 데이터
+							method: "POST", // HTTP 요청 메소드 (GET , POST 등)
+							traditional: true,
+							success: function(data){
+								const jsData = data;
+								alert('삭제가 완료되었습니다.');
+								location.href="classInfo.wdo";
+							},
+							error: function(data){
+								alert('오류가 발생하였습니다.');
+								console.log(data);
+							}
+						 });
+						
+					});
+					 $('#pauseSales').click(function(){
+							
+							var i = 0;
+							reList = [];
+							
+							 $("input[name=listCheck]:checked").each(function(i) { 
+								 reList.push($(this).val());
+							 });
+							 console.log(reList);
+							 if(reList == ''){
+									alert('정지 및 재개하실 상품을 선택해주세요.');
+									return false;
+								}
+							 $.ajax({
+									url: "${pageContext.request.contextPath}"+"/writer/midasRunUpdate.wdo", //클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+									data:   {"orderSeq" : reList}, //HTTP 요청과 함꼐 서버로 보낼 데이터
+									dataType: 'json',
+									method: "POST", // HTTP 요청 메소드 (GET , POST 등)
+									traditional: true,
+									success: function(data){
+										const jsData = data;
+										const run = jsData.run;
+										let id = jsData.orderSeq;
+										console.log(id.querySelect);	
+										for(var i =0; i<reList.length; i++){
+											var message = [];
+											if(run == 'Y' && reList.length == 1){
+												message = reList[i] + ' 강의를 재개합니다.';
+												alert(message);
+											}else if(run == 'N' && reList.length == 1){
+												message = reList[i] + ' 강의를 중지합니다.';
+												alert(message);
+											}else if(reList.length > 1){
+												alert('수정이 완료되었습니다.');
+												break;
+											}
+										}
+										location.href="classInfo.wdo";
+									},
+									error: function(data){
+										alert('오류가 발생하였습니다.');
+										
+									}
+								 });
+							});
+			 });
+			</script>
+			<c:if test="${param.check eq 1}">
+				 	<script type="text/javascript">
+				 			
+				 		</script>
+				  </c:if>
 	</div>
-</div>
-
 					<!-- 테이블 끝 -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document" style="max-width:1000px;">
@@ -196,13 +472,22 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 									<!-- 강의 정보 -->
+	<c:if test="${param.check eq 1}">
+ 		<script type="text/javascript">
+ 			alert("글이 수정 되었습니다.");
+			location.href="/bomulsum/writer/classInfo.wdo";
+ 		</script>
+  	</c:if>
 			</div>
-				<form action="<c:url value="/writer/midasClassModify.wdo"/>" method="post" enctype="multipart/form-data" name="formSubmit">
+  		<form action="<c:url value="/writer/midasModify.wdo"/>" method="post" enctype="multipart/form-data" name="formSubmit">
 					<div class="workRegisterContainer">
-						<!-- 기본정보 영역 -->
 						<div class="basicInformationContainer">
-							<!-- topLine -->
 							<table border="1" class="basicInfoTable">
+								<tr>
+									<td class="left" style="width: 20%">상품번호</td>
+									<td><input id="modOrderSeq" name="orderSeq" readonly style="border: none;">
+										</td>
+								</tr>
 								<tr>
 									<td class="left" style="width: 20%">사진등록</td>
 									<td><input type="file" id="image" accept="image/*"
@@ -220,7 +505,8 @@
 								</tr>
 								<tr>
 									<td class="left">가격</td>
-									<td><input type="number" name="midasPrice" id="midasPrice"
+									<td>
+									<input type="number" name="midasPrice" id="midasPrice"
 										autocomplete="off" required="required"> 원</td>
 								</tr>
 								<tr>
@@ -261,9 +547,9 @@
 								<tr>
 									<td class="left">강의설명</td>
 									<td><textarea rows="4" cols="80"
-											style="overflow-y: scroll;" name="about" id="summernote"
-											required="required"></textarea>
-									</td>
+											style="overflow-y: scroll;" name="about"
+											placeholder="작품 설명을 적어주세요." id="summernote"
+											required="required"></textarea></td>
 								</tr>
 								<tr>
 									<td class="left">난이도</td>
@@ -321,7 +607,6 @@
 							</table>
 
 						</div>
-						<!-- end 작품 정보 제공 고시 영역  -->
 
 						<!-- 타겟설정 영역 -->
 						<div class="targetContainer">
@@ -347,77 +632,22 @@
 									</td>
 								</tr>
 							</table>
+		
 
 						</div>
 
-						<!-- end 타겟 설정 영역 -->
-
-						<!-- 옴션설정 영역 -->
-
-						<!-- end 옵션 영역 -->
 					</div>
+				</form>
 					<!-- end workRegisterContainer -->
 					<div class="savecontainer">
-						<input id="save" value="수정하기" type="button" onclick="saveWork(event);"> 
+						<input id="save" value="저장하기" type="button" onclick="saveWork(event);"> 
 					</div>
 					<!-- content -->
-				</form>
-			</div>
+				
+		</div>
 	</div>
 </div>
 <!-- end of 수정 modal -->
-<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script> 
-function removeImg(){
-	   var id = document.getElementById('imgs');
-	   id.removeChild(id);
-
-	}
-	function setThumbnail(event) {  
-		$(".imageContainer").empty();
-	   for (var image of event.target.files) { 
-	      var reader = new FileReader(); 
-	      reader.onload = function(event) { 
-
-	         var img = document.createElement("img"); 
-	         img.setAttribute("src", event.target.result); 
-	        
-	            // 파일 유효성 검사
-	            const fileEx = image.name.slice(image.name.lastIndexOf(".")+1).toLowerCase();
-	            if(fileEx != "jpg" && fileEx != "png" && fileEx != "gif" && fileEx != "bmp" && fileEx != "jpeg") {
-	               alert('파일은 이미지파일(jpg, jpeg, png, gif, bmp)만 가능합니다.');
-	               return false;
-	            }
-	         
-	         
-	         var divEle = document.createElement("a");
-	        // divEle.setAttribute("href","#");
-	         //divEle.setAttribute("onclick","removeImg();")
-	         //divEle.setAttribute("id","imgs")
-	         divEle.appendChild(img);
-	         document.querySelector("div.imageContainer").appendChild(divEle);
-	      }; 
-	      console.log(image); 
-	      reader.readAsDataURL(image);
-	   }  
-	}
-	
-	
-</script>
-<script
-					src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
-				<script
-					src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-
-				<!-- Core plugin JavaScript-->
-				<script
-					src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
-
-				<!-- Custom scripts for all pages-->
-				<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
-				<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
-
 
 <!-- 강의정보 modalList -->
 <div class="modal fade"  id="classInfoModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"aria-hidden="true">
@@ -435,7 +665,7 @@ function removeImg(){
 			<div>
 				<table class="basicInfoTable"style="padding: 1%; margin: 1%; width:100%;">
 				<tr style="border-bottom: 1px solid #ABABAB; padding: 1%;margin: 1%;">
-<!-- 강의명 -->		<td style="border-right: 1px solid #ABABAB;  background-color: #f2f2f2;">강의명</td>
+<!-- 강의명 -->		<td style="border-right: 1px solid #ABABAB;width:20%;  background-color: #f2f2f2;">강의명</td>
 					<td>
 						<div style="padding: 1%;margin: 1%;">
 							<span id="classInfo_Modal_ClassName"></span>
@@ -530,8 +760,7 @@ function removeImg(){
 <!-- listModal end -->
 					<!-- 아래 버튼 -->
 	<div class="bottomLine">
-	<button class="button" id="selectTotal" type="button"><input type="checkbox">전체선택</button>
-	<button class="button" id="pauseSales" type="button">강의 중지</button>
+	<button class="button" id="pauseSales" type="button">강의 정지/재개</button>
 	<button class="button" id="deleteWork" type="button">강의 삭제</button>
 	</div>
 	<!-- 아래 버튼 끝 -->
@@ -550,16 +779,31 @@ function removeImg(){
                class="fas fa-angle-up"></i>
             </a>
 
-            <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
-            <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+            <script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
+            <script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
             <!-- Core plugin JavaScript-->
-            <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
-</div>
-</div>
-</div>
+            <script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+            <script
+					src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+				<script
+					src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+
+				<!-- Core plugin JavaScript-->
+				<script
+					src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+
+				<!-- Custom scripts for all pages-->
+				<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
+            
+
+ 
+
+         </div> <!-- end of content -->
+      </div>
+   </div>
+  </div>
 </body>
-<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css"
 	rel="stylesheet">
@@ -639,11 +883,13 @@ function removeImg(){
 
 </script>
 <!-- 도로명 주소 -->
-
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- 등록 검사 -->
 <script type="text/javascript">
 var i = 0;
 	function saveWork(event){
+		console.log('saveWork 들어옴');
 		event.preventDefault();
 		
 		let valueTag = document.getElementsByClassName('valueTag');
@@ -657,7 +903,6 @@ var i = 0;
 		copyKeyword.value = keywordValue;
 		
 		
-		console.log(copyKeyword.value);
 		
 		let today = new Date();
 		today = new Date(today.getFullYear(),today.getMonth(),today.getDate());
@@ -693,8 +938,17 @@ var i = 0;
 		
 		let chk = false
 		
+		console.log(salePrice.value);
+		console.log(midasPrice.value);
+		console.log(maxNumber.value);
 		
-		console.log(keywordNum.innerHTML);
+		parseInt(salePrice.value);
+		parseInt(maxNumber.value);
+		parseInt(midasPrice.value);
+		
+		console.log(parseInt(salePrice.value));
+		console.log(parseInt(midasPrice.value));
+		console.log(parseInt(maxNumber.value));
 		
 		if(image.value == ''){
 			alert('사진을 등록해 주세요.');
@@ -805,7 +1059,7 @@ var i = 0;
 		}
 		
 		
-		formSubmit.submit();						
+		formSubmit.submit();			
 	};
 
 
@@ -887,11 +1141,99 @@ $(function(){
 		
 	});
 });
+</script>
+<script>
+//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+function sample4_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
 
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample4_postcode').value = data.zonecode;
+            document.getElementById("sample4_roadAddress").value = roadAddr;
+            document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+            
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            if(roadAddr !== ''){
+                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+            } else {
+                document.getElementById("sample4_extraAddress").value = '';
+            }
+
+            var guideTextBox = document.getElementById("guide");
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+
+            }  else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+            }
+        }
+    }).open();
+}
 
 </script>
+<!-- 도로명 주소 -->
+<script> 
+function removeImg(){
+	   var id = document.getElementById('imgs');
+	   id.removeChild(id);
 
+	}
+	function setThumbnail(event) {  
+		$(".imageContainer").empty();
+	   for (var image of event.target.files) { 
+	      var reader = new FileReader(); 
+	      reader.onload = function(event) { 
+
+	         var img = document.createElement("img"); 
+	         img.setAttribute("src", event.target.result); 
+	        
+	            // 파일 유효성 검사
+	            const fileEx = image.name.slice(image.name.lastIndexOf(".")+1).toLowerCase();
+	            if(fileEx != "jpg" && fileEx != "png" && fileEx != "gif" && fileEx != "bmp" && fileEx != "jpeg") {
+	               alert('파일은 이미지파일(jpg, jpeg, png, gif, bmp)만 가능합니다.');
+	               return false;
+	            }
+	         
+	         
+	         var divEle = document.createElement("a");
+	        // divEle.setAttribute("href","#");
+	         //divEle.setAttribute("onclick","removeImg();")
+	         //divEle.setAttribute("id","imgs")
+	         divEle.appendChild(img);
+	         document.querySelector("div.imageContainer").appendChild(divEle);
+	      }; 
+	      console.log(image); 
+	      reader.readAsDataURL(image);
+	   }  
+	}
+	
+	
+</script>
 
 
 </html>

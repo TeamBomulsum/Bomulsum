@@ -35,5 +35,22 @@ public class WriterMidasServiceImpl implements WriterMidasService{
 	}
 
 
+	@Override
+	public void midasModify(WriterMidasVO vo) {
+		dao.midasModify(vo);	
+	}
+
+	@Override
+	public void midasDelete(String orderSeq) {
+		dao.midasDelete(orderSeq);
+	}
+
+	@Override
+	public void midasRunUpdate(WriterMidasVO vo) {
+		dao.midasRunUpdate(vo);
+		
+	}
+
+
 
 }

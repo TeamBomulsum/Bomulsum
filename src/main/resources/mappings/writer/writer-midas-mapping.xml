@@ -60,6 +60,53 @@
 		WHERE
 			midas_code_seq= #{orderSeq}
 	</select>
+	<update id="midasModify" parameterType="com.web.bomulsum.writer.midas.repository.WriterMidasVO">
+		UPDATE 
+			midas_tb 
+		SET
+			midas_img 
+				= #{orderImg},
+			midas_name 
+				= #{midasName},
+			midas_price 
+				= #{midasPrice},
+			midas_discount 
+				= #{midasDiscount},
+			midas_max 
+				= #{maxNumber},
+			midas_start_date 
+				= #{startDate},
+			midas_end_date 
+				= #{endDate},
+			midas_day 
+				= #{day},
+			midas_start_time 
+				= #{startTime},
+			midas_end_time 
+				= #{endTime},
+			midas_about 
+				= #{about},
+			midas_category 
+				= #{category},
+			midas_balance 
+				= #{balance},
+			midas_address1 
+				= #{address1},
+			midas_address2 
+				= #{address2}, 
+			midas_keyword 
+				= #{keyword}
+		WHERE 
+			midas_code_seq=#{orderSeq}
+	</update>
+	<delete id="midasDelete" parameterType="com.web.bomulsum.writer.midas.repository.WriterMidasVO">
+		DELETE FROM midas_tb WHERE 
+			midas_code_seq=#{orderSeq}
+	</delete>
+	<update id="midasRunUpdate">
+		UPDATE midas_tb SET midas_run=#{run} WHERE 
+			midas_code_seq=#{orderSeq}
+	</update>
 
 	<resultMap type="com.web.bomulsum.writer.midas.repository.WriterMidasVO" id="midasVO">
 		<result column="midas_code_seq" property="orderSeq"/>
@@ -82,5 +129,7 @@
 		<result column="midas_keyword" property="keyword"/>
 		<result column="midas_run" property="run"/>
 	</resultMap>
+	
+	
 
 </mapper>

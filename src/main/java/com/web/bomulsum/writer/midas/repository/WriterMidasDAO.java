@@ -29,4 +29,18 @@ public class WriterMidasDAO {
 	public WriterMidasVO getClassArticle(String orderSeq) {
 		return template.selectOne("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.getClassArticle", orderSeq);
 	}
+	 public int midasModify(String orderSeq) {
+		 return  template.update("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.midasModify", orderSeq);
+		
+	 }
+	 public void midasModify(WriterMidasVO vo) {
+			template.update("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.midasModify", vo);		
+	 }
+	 public void midasDelete(String orderSeq) {
+		 template.delete("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.midasDelete", orderSeq);	
+	 }
+	 public void midasRunUpdate(WriterMidasVO vo) {
+		 template.update("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.midasRunUpdate", vo);
+	 }
+	 
 }

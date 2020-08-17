@@ -177,7 +177,7 @@ function removeImg(){
 			<div id="content">
 				<%@ include file="../include/head.jsp"%>
 				<!-- end Header/Nav -->
-				<form action="<c:url value="/writer/midasClassModify.wdo"/>" method="post" enctype="multipart/form-data" name="formSubmit">
+				<form action="<c:url value="/writer/midasClassRegister.wdo"/>" method="post" enctype="multipart/form-data" name="formSubmit">
 
 
 					<div class="workRegisterContainer">
@@ -209,12 +209,10 @@ function removeImg(){
 										</div></td>
 								</tr>
 								<tr>
-								<fmt:formatNumber value="${writer_login.gemSum}" pattern="#,###"/>
 									<td class="left">가격</td>
 									<td>
-								
-								<input type="number" name="midasPrice" id="midasPrice" autocomplete="off" required="required"> 
-										원</td>
+									<input type="number" name="midasPrice" id="midasPrice"
+										autocomplete="off" required="required"> 원</td>
 								</tr>
 								<tr>
 									<td class="left">할인</td>
