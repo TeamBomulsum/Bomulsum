@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
@@ -128,28 +129,19 @@ $(function() {
 
 
 $(document).ready(function() {
-	//var artPhotoArr = new Array();	
-	//var keywordArr = new Array();
 	var updateOption = new Array();
+
 	
 	//이미 저장되어진 값 - 기본정보
 	<c:forEach var="i" items="${updateArtList}">
-	  // var json = new Object();
-	   //var keyword = new Object();
-	   //json.artPhotoList = '${i.artPhoto}';
+	   $('#workCode').val('${i.artCodeSeq}');
 	   $('#workName').val('${i.artName}');
 	   $('#workPrice').val('${i.artPrice}');
 	   $('#salePrice').val('${i.artDiscount}');
 	   $('#num').val('${i.artAmount}');
 	   $('#summernote').val('${i.artDescription}');
 	   $('#categoryId').val('${i.artCategory}');
-	   //keyword.keywordList = '${i.artKeyword}';
-	   //artPhotoArr=json;
-	   //keywordArr=keyword;
 	</c:forEach>
-	//console.log(artPhotoArr);
-
-	
 	//이미 저장되어진 값 - 정보제공 
 	<c:forEach var="i" items="${updateArtInfoList}">
 	   $('#category_id').val('${i.artInfoDetailCategory}');
@@ -164,45 +156,44 @@ $(document).ready(function() {
 	//이미 저장되어진 값 - 옵션
 	
 	<c:forEach var="i" items='${updateArtOptionList}'>
-	   var json = new Object();//객체로 배열에 담기
+	   var json = new Object();
+	   json.artOptionSeq = '${i.artOptionSeq}';
 	   json.artOptionCategory = '${i.artOptionCategory}';
 	   json.artOptionName = '${i.artOptionName}';
 	   json.artOptionPrice = '${i.artOptionPrice}';
 	   updateOption.push(json);
 	</c:forEach>
-	
+	$('#optionCode1').val(updateOption[0].artOptionSeq);
 	$('#option1').val(updateOption[0].artOptionCategory);
 	$('#name1').val(updateOption[0].artOptionName);
 	$('#price1').val(updateOption[0].artOptionPrice);
+	$('#optionCode2').val(updateOption[1].artOptionSeq);
 	$('#name2').val(updateOption[1].artOptionName);
 	$('#price2').val(updateOption[1].artOptionPrice);
+	$('#optionCode3').val(updateOption[2].artOptionSeq);
 	$('#name3').val(updateOption[2].artOptionName);
 	$('#price3').val(updateOption[2].artOptionPrice);
+	$('#optionCode4').val(updateOption[3].artOptionSeq);
 	$('#option2').val(updateOption[3].artOptionCategory);
 	$('#name4').val(updateOption[3].artOptionName);
 	$('#price4').val(updateOption[3].artOptionPrice);
+	$('#optionCode5').val(updateOption[4].artOptionSeq);
 	$('#name5').val(updateOption[4].artOptionName);
 	$('#price5').val(updateOption[4].artOptionPrice);
+	$('#optionCode6').val(updateOption[5].artOptionSeq);
 	$('#name6').val(updateOption[5].artOptionName);
 	$('#price6').val(updateOption[5].artOptionPrice);
+	$('#optionCode7').val(updateOption[6].artOptionSeq);
 	$('#option3').val(updateOption[6].artOptionCategory);
 	$('#name7').val(updateOption[6].artOptionName);
 	$('#price7').val(updateOption[6].artOptionPrice);
+	$('#optionCode8').val(updateOption[7].artOptionSeq);
 	$('#name8').val(updateOption[7].artOptionName);
 	$('#price8').val(updateOption[7].artOptionPrice);
+	$('#optionCode9').val(updateOption[8].artOptionSeq);
 	$('#name9').val(updateOption[8].artOptionName);
 	$('#price9').val(updateOption[8].artOptionPrice);
-	/*
-	var img = document.createElement("img"); 
-    img.setAttribute("src", artPhotoArr.artPhotoList);
-   	document.querySelector("div.imageContainer").appendChild(img);
-    console.log(img);
-    
-   
-   // var photoArray = artPhotoArr.artPhotoList.split(",");
-	//console.log(photoArray);
 
-		console.log(artPhotoArr.artPhotoList);*/
 
     $('#summernote').summernote({
        height : 350, // 에디터 높이
@@ -214,8 +205,6 @@ $(document).ready(function() {
 
     });
  });
-
-
 
 //유효성 검사 
 var i = 0;
@@ -248,12 +237,12 @@ function saveWork(event){
 	let wManage = document.getElementById('wManage');
 	let wConfig = document.getElementById('wConfig');
 	let wManual = document.getElementById('wManual');
-	
+/*	
 	if(image.value == ''){
 		alert('사진을 등록해 주세요.');
 		image.focus();
 		return false;
-	}
+	}*/
 	if(workName.value == ''){
 		alert('작품명을 입력해 주세요.');
 		workName.focus();
@@ -338,6 +327,30 @@ function saveWork(event){
 }
 
 window.onload = function(){  
+
+	 <c:forEach var="keywordArray" items="${keywordArr}" varStatus="status">
+	 	var containers = document.getElementById('keywordContainer');
+		var keywordsTag = document.createElement('a');
+		var shopsTag = document.createElement('span');
+		var valuesTag = document.createElement('span');
+		var keywordsNum = document.getElementById('keywordNum');
+		
+		keywordsTag.setAttribute('style','cursor:pointer; margin-right:10px; padding: 5px 10px;background-color: #4e73df;border-radius: 10px;color: white; font-size: 13px');
+		keywordsTag.setAttribute('class','keyword');
+		valuesTag.setAttribute('id','valueTag');
+		valuesTag.setAttribute('class','valueTag');
+		shopsTag.innerHTML = '#';
+		valuesTag.innerHTML = '${keywordArray}';
+
+		keywordsTag.append(valuesTag);
+		keywordsTag.prepend(shopsTag);
+		containers.append(keywordsTag);
+		console.log(keywordsTag);
+		i=i+1;
+	</c:forEach> 
+	keywordsNum.innerHTML = i;
+	
+	
 	document.getElementById('keywordBtn').onclick = function(){
 		let keyword = document.getElementById('keyword');
 		let container = document.getElementById('keywordContainer');
@@ -414,13 +427,6 @@ $(function(){
 
 </head>
 <body id="page-top">
-	<c:if test="${param.check eq 1}">
-		<script type="text/javascript">
-			alert("글이 수정 되었습니다.");
-			location.href="/bomulsum/writer/updateWork.wdo";
-		</script>
-	</c:if>
-
 
    <div id="wrapper">
       <!-- Header/Nav -->
@@ -441,9 +447,9 @@ $(function(){
                </div>
                <!-- end flexcontainer -->
                <!-- end of topLine -->
-            
+
             <!-- form 시작 -->
-           	<form action="<c:url value='/writer/artregister.wdo'/> " method="post" enctype="multipart/form-data" name="formSubmit">
+           	<form action="<c:url value='/writer/updateWorkArt.wdo'/> " method="post" enctype="multipart/form-data" name="formSubmit">
                <table border="1" class="jeongabasicInfoTable">
 
                   <tr>
@@ -451,7 +457,11 @@ $(function(){
                      <td>
                      <input type="file" id="image" accept="image/*" name="artPicture"
                         onchange="setThumbnail(event);" multiple />
-                        <div class="imageContainer">          
+                        <div class="imageContainer"> 
+                        <c:forEach var="photoArray" items="${photoArr}">
+                      	  <img src="<c:url value='/upload/${photoArray}'/>"/>
+                        </c:forEach>    
+                        
                         </div>
                         <span style="font-size:14px">* 파일 선택시 한 번에 여러장의 이미지를 올려주세요</span>
                      </td>
@@ -465,6 +475,7 @@ $(function(){
                   <tr>
                      <td class="left">가격</td>
                      <td><input type="number" id="workPrice" name = "artPrice" autocomplete="off">&nbsp;원</td>
+                   	 <td style="display:none"><input type="text" id="workCode" name = "artCodeSeq"></td>
                   </tr>
                   <tr>
                      <td class="left">할인</td>
@@ -639,13 +650,13 @@ $(function(){
                            <div class="flexCon">
                               <div class="nameGroup" style="margin-left:3%">
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="hidden" name="artOptionSeq" id="optionCode1"><input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="hidden" name="artOptionSeq" id="optionCode2"><input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="hidden" name="artOptionSeq" id="optionCode3"><input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
                                  </div>
                               </div>
                               <div class="priceGroup" style="margin-left:9%">
@@ -682,13 +693,13 @@ $(function(){
                            <div class="flexCon">
                               <div class="nameGroup" style="margin-left:3%">
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name4" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="hidden" name="artOptionSeq" id="optionCode4"><input type="text" name="artOptionName" id="name4" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name5" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="hidden" name="artOptionSeq" id="optionCode5"><input type="text" name="artOptionName" id="name5" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name6" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="hidden" name="artOptionSeq" id="optionCode6"><input type="text" name="artOptionName" id="name6" size="30%" autocomplete="off">
                                  </div>
 
                               </div>
@@ -725,13 +736,13 @@ $(function(){
                            <div class="flexCon">
                               <div class="nameGroup" style="margin-left:3%">
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name7" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="hidden" name="artOptionSeq" id="optionCode7"><input type="text" name="artOptionName" id="name7" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name8" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="hidden" name="artOptionSeq" id="optionCode8"><input type="text" name="artOptionName" id="name8" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name9" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="hidden" name="artOptionSeq" id="optionCode9"><input type="text" name="artOptionName" id="name9" size="30%" autocomplete="off">
                                  </div>
 
                               </div>

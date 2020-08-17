@@ -56,4 +56,19 @@ public interface WriterArtService {
 	List<WriterArtInfoDetailVO> getUpdateArtInfo(String artCode);
 	List<WriterArtOptionVO> getUpdateArtOption(String artCode);
 	
+	//작품 수정
+	void updateArt(WriterArtVO vo);
+	void updateArtInfoDetail(WriterArtInfoDetailVO vo);
+	//작품 옵션 수정
+	void updateArtOption1(Map<String, Object> map);
+	void updateArtOption2(Map<String, Object> map);
+	void updateArtOption3(Map<String, Object> map);
+	void updateArtOption4(Map<String, Object> map);
+	void updateArtOption5(Map<String, Object> map);
+	void updateArtOption6(Map<String, Object> map);
+	void updateArtOption7(Map<String, Object> map);
+	void updateArtOption8(Map<String, Object> map);
+	void updateArtOption9(Map<String, Object> map);
+
+	
 }

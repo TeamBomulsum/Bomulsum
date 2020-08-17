@@ -96,11 +96,30 @@ form {
 .arrow next {
 	border: 0px;
 }
+
+
+.minwoo_pagination a {
+   display: inline-block;
+   margin: 0 3px;
+   text-decoration: none;
+   padding: 5px 10px;
+   border: 1px solid #ccc;
+   color: #999999;
+   background-color: #fff;
+}
+
 </style>
 </head>
 
 <!-- body 시작 -->
 <body id="page-top">
+	<c:if test="${param.check eq 1}">
+		<script type="text/javascript">
+			alert("글이 수정 되었습니다.");
+			location.href="/bomulsum/writer/workOnsale.wdo";
+		</script>
+	</c:if>
+
 
 	<div id="wrapper">
 		<!-- Header/Nav -->
@@ -113,7 +132,7 @@ form {
 				<div class="jeongaonSaleContainer">
 					<!-- topLine -->
 					<div class="topLine">
-						<h4>판매 일시 중지 작품</h4>
+						<h4>판매 일시중지 작품</h4>
 					</div>
 					<!-- end of topLine -->
 					<hr>
@@ -210,7 +229,7 @@ form {
 				</div>
 				<!-- end of Container -->
 				<!-- 페이징 처리 -->
-				<div id="jeongapagination"></div>
+				<div id="jeongapagination" class="minwoo_pagination"></div>
 
 				<%@ include file="../include/footer.jsp"%>
 				<!-- end footer -->
@@ -234,8 +253,7 @@ form {
 		</div>
 	</div>
 </body>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 	pagingFunc();
@@ -243,7 +261,7 @@ $(document).ready(function(){
 	$("#rowPerPage").change(function(){
         pagingFunc();
      });
-	
+});
     //최상단 체크박스 클릭
     $("#selectAll").click(function(){
         //클릭되었으면
@@ -257,7 +275,7 @@ $(document).ready(function(){
         }
     });
     
-    //판매 시작버튼
+  //판매 시작버튼
     $("#saleStart").on('click', function(){ 
        var arr = [];
        $(".selectCheckBox:checked").each(function(){
@@ -326,10 +344,8 @@ $(document).ready(function(){
          }).done(function(data){
          	console.log(data);
          });
-      }    	
-});
-
-
+      }   
+ 
 //페이지 시작하면 처음 보여주면서 처리해야할 기능
 //페이징 처리를 위한 스크립트
 var onSaleResult = new Array();
@@ -485,7 +501,10 @@ var pagingFunc = function(){
 				'<td>'+ result[index].bookMarkCount+'</td>' + '<td>'+ result[index].commentCount+'</td>' +
 				'<td>'+ result[index].artViewCount+'</td>' + '<td>'+ result[index].artSaleCount+'</td>' +
 				'<td>'+ result[index].reviewCount+'</td>' + 
-				'<td>'+`<input type="button" id= "jeongaUpdate" value="수정" onClick="location.href ='<c:url value='/writer/updateWork.wdo'/>'">`+'</td></tr>'
+				'<td>'+'<form action="${pageContext.request.contextPath}/writer/updateWork.wdo" method="post" enctype="multipart/form-data">'
+				+'<input type="hidden" name="modifyArtCode" value="'+result[index].artCodeSeq + '">'
+				+'<button type="submit" id="update">수정'+'</button>'+'</td></tr>'
+
 		}
 		testTable.innerHTML = html;
 	};
@@ -502,7 +521,7 @@ var pagingFunc = function(){
 		if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전...&nbsp;&nbsp;</a>";
 		            
 		for(var index = startPage; index <= endPage; index++){
-			paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
+			paginationHTML += (parseInt(page) === parseInt(index)) ? "<a style='color:#ff8400'>" + index + "</a> " :" <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> ";
 		}
 		            
 		if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";

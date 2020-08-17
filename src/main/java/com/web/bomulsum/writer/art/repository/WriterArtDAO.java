@@ -123,4 +123,50 @@ public class WriterArtDAO{
 		return updateArtOptionList;
 	}
 
+	
+	//작품 수정
+	public void updateArts(WriterArtVO vo) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArts", vo);	
+	}
+	public void updateArtInfoDetail(WriterArtInfoDetailVO vo) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtsInfo", vo);
+	}
+
+	// 작품 옵션 수정
+	public void updateArtOption1(Map<String, Object> map) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption1", map);
+	}
+
+	public void updateArtOption2(Map<String, Object> map) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption2", map);
+	}
+
+	public void updateArtOption3(Map<String, Object> map) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption3", map);
+	}
+
+	public void updateArtOption4(Map<String, Object> map) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption4", map);
+	}
+
+	public void updateArtOption5(Map<String, Object> map) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption5", map);
+	}
+
+	public void updateArtOption6(Map<String, Object> map) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption6", map);
+	}
+
+	public void updateArtOption7(Map<String, Object> map) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption7", map);
+	}
+
+	public void updateArtOption8(Map<String, Object> map) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption8", map);
+	}
+
+	public void updateArtOption9(Map<String, Object> map) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption9", map);
+	}
+	
 }
