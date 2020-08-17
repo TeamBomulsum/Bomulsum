@@ -855,29 +855,29 @@ body {
 				<div class="menu">
 				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
 				margin-bottom:15px;" >
-				  <li class="dainCatLi"><a class="dainCatA" href="#">식음료</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">문구팬시</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">전자기기</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">패션잡화</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=식음료'/> ">식음료</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=문구팬시'/> ">문구팬시</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=전자기기'/> ">전자기기</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=패션잡화'/> ">패션잡화</a></li>
 				</ul>
 				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
 				margin-bottom:15px; border-left: 1px solid #d9d9d9; border-right: 1px solid #d9d9d9">
-				  <li class="dainCatLi"><a class="dainCatA" href="#">반려동물 용품</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">인테리어 소품</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">신발</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">의류</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=반려동물 용품'/> ">반려동물 용품</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=인테리어 소품'/> ">인테리어 소품</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=신발'/> ">신발</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=의류'/> ">의류</a></li>
 				</ul>
 				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
 				margin-bottom:15px;">
-				  <li class="dainCatLi"><a class="dainCatA" href="#">육아,아동</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">인형,장난감</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">공예</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">기타</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=육아,아동'/> ">육아,아동</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=인형,장난감'/> ">인형,장난감</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=공예'/> ">공예</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=기타'/> ">기타</a></li>
 				</ul>
 				</div>
    			</div>
 		</div>
-		<div><a class="dain-hb-menu" href="#">홈</a></div>
+		<div><a class="dain-hb-menu" href="<c:url value='/home.do'/> ">홈</a></div>
 		<div><a class="dain-hb-menu" href="#">추천 작품</a></div>
 		<div><a class="dain-hb-menu" href="#">실시간 후기</a></div>
 		<div><a class="dain-hb-menu" href="#">작가님 추천</a></div>

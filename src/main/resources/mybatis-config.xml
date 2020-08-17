@@ -24,6 +24,10 @@
 		<!--user -->
 		<mapper resource="mappings/user/login-mapping.xml" />		
 		<mapper resource="mappings/user/user-profile-mapping.xml" />
+		<mapper resource="mappings/user/user-message-mapping.xml" />
+		<mapper resource="mappings/user/user-board-mapping.xml" />
+		<mapper resource="mappings/user/user-coupon-mapping.xml" />
+		<mapper resource="mappings/user/user-article-mapping.xml" />
 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
@@ -33,9 +37,6 @@
 		<mapper resource="mappings/writer/writer-gempoint-mapping.xml" />
 		<mapper resource="mappings/writer/writer-login-mapping.xml" />
 		<mapper resource="mappings/writer/writer-art-mapping.xml" />
-		<mapper resource="mappings/user/user-message-mapping.xml" />
-		<mapper resource="mappings/user/user-board-mapping.xml" />
-		<mapper resource="mappings/user/user-coupon-mapping.xml" />
 		<mapper resource="mappings/writer/writer-profile-mapping.xml" />
 		<mapper resource="mappings/writer/writer-salespolicy-mapping.xml" />
 		<mapper resource="mappings/writer/writer-midas-mapping.xml" />

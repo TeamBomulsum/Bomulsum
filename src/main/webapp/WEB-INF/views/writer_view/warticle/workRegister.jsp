@@ -692,7 +692,7 @@ $(function(){
 
             <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
             <script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-			<!--  <script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>-->
+			<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
       		<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
             <!-- Core plugin JavaScript-->
             <script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
