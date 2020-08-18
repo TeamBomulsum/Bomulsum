@@ -139,12 +139,7 @@
 		WHERE 
 			writer_code_seq=#{writerCodeSeq}
 	</select>
-	<select id="getArticleListPaging" resultMap="BoardMap">
-		SELECT * 
-		FROM midas_tb 
-		ORDER BY board_no DESC 
-		LIMIT #{pageStart}, #{countPerPage}
-	</select>
+	
 
 	
 	
