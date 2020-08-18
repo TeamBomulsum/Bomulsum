@@ -194,8 +194,6 @@ body a:link, a:visited, a:hover, a:active {
 var slideIndex = 0;
 showSlides(slideIndex);
 
-
-
 function plusSlides(n) {
   var slides1 = document.getElementById("jeonga-imageSlides1");
   slides1.style.display="none";
@@ -246,7 +244,7 @@ function showSlides(n) {
 						<div class="jeonga-wprofile-split">
 							<div class="jeonga-wprofile-image">
 							<a href="#" target="#" class="jeonga-wrpofile-image-link">
-								<img id="jeonga-wprofileImage" src="<c:url value='/resources/img/earings.jpg'/>"/>
+								<img style="width:80px; height:80px" id="jeonga-wprofileImage" src="<c:url value='/resources/img/earings.jpg'/>"/>
 							 </a></div>
 						</div>
 						<div class="jeonga-wprofile-split">
