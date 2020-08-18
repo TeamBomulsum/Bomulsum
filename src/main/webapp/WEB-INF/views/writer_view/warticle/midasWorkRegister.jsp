@@ -664,6 +664,8 @@ var i = 0;
 				if(i==11){
 					alert('최대 키워드는 10개 입니다.');
 					keyword.value = '';
+					keywordNum.innerHTML = 10;
+					i = 10;
 					return false;
 				}
 			

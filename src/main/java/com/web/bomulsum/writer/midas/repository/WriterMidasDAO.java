@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.bomulsum.common.PageVO;
+
 
 @Repository
 public class WriterMidasDAO {
@@ -43,8 +45,10 @@ public class WriterMidasDAO {
 	 public void midasRunUpdate(WriterMidasVO vo) {
 		 template.update("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.midasRunUpdate", vo);
 	 }
-	 public int countArticles(WriterMidasVO vo) {
-		return template.selectOne("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.countArticles",vo);
+	 public int countArticles(PageVO paging) {
+		return template.selectOne("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.countArticles",paging);
 	 }
-	 
+	 public List<WriterMidasVO> getArticleListPaging(PageVO paging){
+		 return template.selectList("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.getArticleListPaging",paging);
+	 }
 }

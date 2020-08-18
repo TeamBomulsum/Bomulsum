@@ -267,11 +267,13 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<option value="numberofsales">수강인원</option>
 			</select>
 		</form>
-			<select name="show" id="count-per-page">
-				<option class="showten" value="10">10개씩 보기</option>
-				<option class="showten" value="20">30개씩 보기</option>
-				<option class="showten" value="30">50개씩 보기</option>
-			</select>
+		<select id="count-per-page" onchange="pageValue(this.value)">
+			<option>페이지 수 선택</option>
+			<option class="PageValue" value="5">5개씩 보기</option>
+			<option class="PageValue" value="10">10개씩 보기</option>
+			<option class="PageValue" value="15">15개씩 보기</option>			
+		</select>	
+		
 		</div>
 	</div>	<!-- middleLine -->
 	<!-- 테이블 시작 -->
@@ -330,6 +332,12 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				</td>
 			</tr>
 			<script>
+				var pageValue = function(value){
+					const keyword = "${param.keyword}";
+					const condition = "${param.condition}";
+					location.href='/bomulsum/writer/classInfo.wdo?page=${pc.paging.page}&countPerPage=' + value;
+			
+				}
 					$(function(){
 							var calc = ${classList.midasPrice} - ${classList.midasDiscount };
 						$('#<c:out value='${classList.orderSeq }'/>').click(function(){
@@ -814,13 +822,24 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<!-- 아래 버튼 끝 -->
 	<!-- 페이징 처리 -->
 	 <div class="paging">
-	   <a class="page-link" href="<c:url value='/writer/classInfo.wdo' />">
+	 <c:if test="${pc.prev}">
+	   <a class="page-link" href="<c:url value='/writer/classInfo.wdo${pc.makeURI(pc.beginPage - 1)}' />">
 	   	이전
 	   </a>
-	 
-        <a class="page-link " href="<c:url value='/writer/classInfo.wdo'/>">1</a>
-     
-       <a class="page-link" href="<c:url value='/writer/classInfo.wdo' />" >다음</a>
+	   </c:if>
+	 <c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
+        <a class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : '' }" 
+        	href="<c:url value='/writer/classInfo.wdo${pc.makeURI(pageNum)}'/>">
+        ${pageNum}
+        </a>
+     </c:forEach>
+        <c:if test="${pc.next}">
+       <a class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : '' }" 
+       href="<c:url value='/writer/classInfo.wdo${pc.makeURI(pc.endPage + 1)}' />" >
+     	  다음
+       </a>
+       </c:if>
+      
     </div>
 
             <%@ include file="../include/footer.jsp" %>
@@ -1153,6 +1172,8 @@ window.onload = function(){
 				if(i==11){
 					alert('최대 키워드는 10개 입니다.');
 					keyword.value = '';
+					keywordNum.innerHTML = 10;
+					i = 10;
 					return false;
 				}
 			
@@ -1283,7 +1304,55 @@ function removeImg(){
 	      reader.readAsDataURL(image);
 	   }  
 	}
+	function wonDisChangReturnDo(){
+		var wonDisWorkInfo = document.getElementById('count-per-page');
+		var wonInfoWorkButton = document.getElementById('ds');
+		if(wonInfoWorkButton.style.display == 'none'){
+			wonInfoWorkButton.style.display = 'block';
+		}else{
+			wonInfoWorkButton.style.display = 'none';
+		}
+	}
+	//start jQuery
+	$(function() {
 	
+		//목록 갯수가 변동하는 이벤트 처리
+		$("#count-per-page .btn-izone").click(function() {
+			console.log("목록 버튼이 클릭됨!");
+			//this는 클릭의 주체가 되는 객체
+			console.log($(this).val());
+			let count = $(this).val();
+			const keyword = "${param.keyword}";
+			const condition = "${param.condition}";
+			location.href='/bomulsum/writer/classInfo.wdo?page=${pc.paging.page}&countPerPage=' + count;
+		});
+		
+		
+		//검색 버튼 이벤트 처리
+		$("#searchBtn").click(function() {
+			console.log("검색 버튼이 클릭됨!");
+			const keyword = $("#keywordInput").val();
+			console.log("검색어: " + keyword);
+			
+
+			location.href="/bomulsum/writer/classInfo.wdo?keyword=" + keyword
+						
+			});
+		
+		//엔터키 입력 이벤트
+		$("#keywordInput").keydown(function (key) {
+			if(key.keyCode == 13) { //키가 13번이면 실행 (엔터 -> 13)
+				$("#searchBtn").click();
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
+	}); //end jQuery
 	
 	
 </script>

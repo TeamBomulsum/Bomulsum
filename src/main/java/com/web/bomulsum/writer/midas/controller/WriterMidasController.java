@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.common.PageCreator;
+import com.web.bomulsum.common.PageVO;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 import com.web.bomulsum.writer.midas.service.WriterMidasService;
@@ -116,17 +118,26 @@ public class WriterMidasController {
 	}
 	
 	@GetMapping("classInfo")
-	public String classInfo(ModelAndView mav,HttpServletRequest request,Model model) {
+	public String classInfo(PageVO vo, ModelAndView mav,HttpServletRequest request,Model model) {
 		System.out.println("classInfo 들어옴");
-
+		System.out.println("parameter(페이지 번호): " + vo.getPage());
+		
 		HttpSession session =  request.getSession();
 		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
 		String writerCodeSeq = code.getWriterSeq();
+		vo.setWriterCodeSeq(writerCodeSeq);
+		System.out.println(vo);
+		PageCreator pc = new PageCreator();
+		pc.setPaging(vo);
+		pc.setArticleTotalCount(service.countArticles(vo));
+		System.out.println(pc.getArticleTotalCount());
 		
-		
-		List<WriterMidasVO> classList = service.getClassAllSelect(writerCodeSeq);
+		System.out.println("startPage : "+vo.getPageStart());
+		System.out.println("nextPage : "+vo.getPageNext());
+		System.out.println("endPage : " + pc.getEndPage());
+		List<WriterMidasVO> classList = service.getArticleListPaging(vo);
 		model.addAttribute("classList", classList);
-
+		model.addAttribute("pc",pc);
 		return "warticle/classInfo";
 	}
 	

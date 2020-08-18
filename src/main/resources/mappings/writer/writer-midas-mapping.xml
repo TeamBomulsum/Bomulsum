@@ -139,7 +139,30 @@
 		WHERE 
 			writer_code_seq=#{writerCodeSeq}
 	</select>
-	
+	<select id="getArticleListPaging" resultMap="midasVO">
+		SELECT 
+			*
+		FROM(
+			SELECT 
+				ROWNUM rnum, A.
+					*
+				FROM(
+					SELECT 
+						* 
+					FROM 
+						midas_tb 
+        			WHERE 
+        				writer_code_seq=#{writerCodeSeq} 
+        			ORDER 
+        				BY midas_code_seq desc
+        			) 
+        		A
+        	)
+		WHERE 
+			rnum 
+		between 
+			#{pageStart} and #{pageNext}
+	</select>
 
 	
 	

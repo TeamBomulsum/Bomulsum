@@ -14,7 +14,7 @@ public class PageCreator {
 		private boolean next; //다음 버튼 활성화 여부
 		
 		//한 화면에 보여질 페이지 버튼 수
-		private final int displayPageNum = 10;
+		private final int displayPageNum = 5;
 		
 		//URI 파라미터를 쉽게 만들어주는 유틸 메서드 선언.
 		public String makeURI(int page) {
@@ -44,9 +44,10 @@ public class PageCreator {
 			//마지막 페이지인지 여부 확인 후 다음 버튼 비활성화 판단.
 			next = (articleTotalCount <= (endPage * paging.getCountPerPage())) ? false : true;
 			
+			
 			//다음 버튼 비활성화라면 끝 페이지 재보정 하기.
 			if(!isNext()) {
-				endPage = (int) Math.ceil(articleTotalCount / (double)paging.getCountPerPage()); 
+				endPage = (int) Math.ceil(articleTotalCount / (double)paging.getCountPerPage());
 			}
 
 		}
