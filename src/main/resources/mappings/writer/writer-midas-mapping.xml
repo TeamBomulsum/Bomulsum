@@ -3,7 +3,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.web.bomulsum.writer.midas.repository.WriterMidasDAO">
-
+	<sql id="search">
+		<!-- 동적 SQL구문 -->
+		<if test="condition == 'midas_name'">
+		AND midas_name  LIKE ('%' || #{keyword} || '%') 
+		</if>
+		
+	</sql>
 
 	<select id="selectWriterCode"
 		parameterType="com.web.bomulsum.writer.login.repository.WriterRegisterVO">
@@ -138,6 +144,7 @@
 			midas_tb 
 		WHERE 
 			writer_code_seq=#{writerCodeSeq}
+		<include refid="search" />
 	</select>
 	<select id="getArticleListPaging" resultMap="midasVO">
 		SELECT 
@@ -153,9 +160,17 @@
 						midas_tb 
         			WHERE 
         				writer_code_seq=#{writerCodeSeq} 
+        				<include refid="search" />
+        		
+        			<if test="condition == 'midasName'">
+						ORDER BY (CONVERT midas_name,'ISO2022-KR')
+					</if>
+					<if test="condition == null and condition == 'midas_name'">
         			ORDER 
         				BY midas_code_seq desc
-        			) 
+        			
+					</if>
+        			)
         		A
         	)
 		WHERE 

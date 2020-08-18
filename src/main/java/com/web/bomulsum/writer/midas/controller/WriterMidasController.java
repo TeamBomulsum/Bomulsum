@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.common.PageCreator;
 import com.web.bomulsum.common.PageVO;
+import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 import com.web.bomulsum.writer.midas.service.WriterMidasService;
@@ -118,7 +119,7 @@ public class WriterMidasController {
 	}
 	
 	@GetMapping("classInfo")
-	public String classInfo(PageVO vo, ModelAndView mav,HttpServletRequest request,Model model) {
+	public String classInfo(SearchVO vo,HttpServletRequest request,Model model) {
 		System.out.println("classInfo 들어옴");
 		System.out.println("parameter(페이지 번호): " + vo.getPage());
 		
@@ -129,13 +130,13 @@ public class WriterMidasController {
 		System.out.println(vo);
 		PageCreator pc = new PageCreator();
 		pc.setPaging(vo);
-		pc.setArticleTotalCount(service.countArticles(vo));
 		System.out.println(pc.getArticleTotalCount());
 		
 		System.out.println("startPage : "+vo.getPageStart());
 		System.out.println("nextPage : "+vo.getPageNext());
 		System.out.println("endPage : " + pc.getEndPage());
 		List<WriterMidasVO> classList = service.getArticleListPaging(vo);
+		pc.setArticleTotalCount(service.countArticles(vo));
 		model.addAttribute("classList", classList);
 		model.addAttribute("pc",pc);
 		return "warticle/classInfo";
@@ -153,6 +154,7 @@ public class WriterMidasController {
 	@PostMapping("midasRunUpdate")
 	public @ResponseBody WriterMidasVO midasRunUpdate(@RequestParam String[] orderSeq,WriterMidasVO vo) {
 		for(int i=0; i<orderSeq.length; i++) {
+			System.out.println("RunUpdate in !!!");
 			String a = orderSeq[i];
 			vo = service.getClassArticle(a);
 			if(vo.getRun().equals("Y")) {
@@ -164,8 +166,16 @@ public class WriterMidasController {
 				service.midasRunUpdate(vo);
 				System.out.println("else : "+vo);
 			}
+			System.out.println(vo);
+			PageCreator pc = new PageCreator();
+			pc.setPaging(vo);
+			pc.setArticleTotalCount(service.countArticles(vo));
+			System.out.println(pc.getArticleTotalCount());
+			
+			System.out.println("startPage : "+vo.getPageStart());
+			System.out.println("nextPage : "+vo.getPageNext());
+			System.out.println("endPage : " + pc.getEndPage());
 		}
-		
 		return vo;
 	}
 

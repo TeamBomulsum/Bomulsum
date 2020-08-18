@@ -1,7 +1,8 @@
 package com.web.bomulsum.writer.midas.repository;
 
+import com.web.bomulsum.common.PageVO;
 
-public class WriterMidasVO {
+public class WriterMidasVO extends PageVO{
 
 	private String orderSeq;
 	private String writerCodeSeq;

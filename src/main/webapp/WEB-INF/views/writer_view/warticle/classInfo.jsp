@@ -251,20 +251,22 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<hr>
 	<div class="middleLine">
 	<form class="search" action="#" >
-		<input id="keywordInput"  type="text"  placeholder="강의명을 입력하세요" name="search2">
-		<button class="button" type="button" id="searchBtn">검색</button>
+		<input id="keywordInput"  type="text"  placeholder="강의명을 입력하세요" name="search2" value="${param.keyword}" >
+		<input class="button" type="button" id="searchBtn" value="검색">
+		<a href="classInfo.wdo"><input type="button" value="검색 초기화" class="button"></a>
+		<input id="keywordValue"value="midas_name" ${param.condition == 'title' ? 'selected' : ''} type="hidden">
 	</form>
 
 	<div class="formAction">
 		<form action="#" class="menu_search">
-			<select name="menu" id="menu_id">
-				<option value="registerdate">등록일</option>
-				<option value="workname">강의명</option>
-				<option value="price">정상가격</option>
-				<option value="saleprice">할인가격</option>
-				<option value="bookmark">즐겨찾기</option>
-				<option value="comment">댓글</option>
-				<option value="numberofsales">수강인원</option>
+			<select name="menu" id="menu_id" onchange="conditionValue(this.value)">
+				<option class="conditionValue" value="registerdate">등록일</option>
+				<option class="conditionValue" value="midasName">강의명</option>
+				<option class="conditionValue" value="price">정상가격</option>
+				<option class="conditionValue" value="saleprice">할인가격</option>
+				<option class="conditionValue" value="bookmark">즐겨찾기</option>
+				<option class="conditionValue" value="comment">댓글</option>
+				<option class="conditionValue" value="numberofsales">수강인원</option>
 			</select>
 		</form>
 		<select id="count-per-page" onchange="pageValue(this.value)">
@@ -285,7 +287,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<th style="width:7%">이미지</th>
 				<th style="width:20%">강의명</th>
 				<th style="width:7%">정상가</th>
-				<th style="width:7%">할인가</th>
+				<th style="width:7%">할인</th>
 				<th style="width:7%">즐겨찾기</th>
 				<th style="width:5%">댓글</th>
 				<th>조회수</th>
@@ -321,7 +323,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 					</div>
 				</td>
 				<td><fmt:formatNumber value="${classList.midasPrice }" pattern="#,###"/>원</td>
-				<td><fmt:formatNumber value="${disCountPrice }" pattern="#,###"/>원</td>
+				<td><fmt:formatNumber value="${classList.midasDiscount }" pattern="#,###"/>원</td>
 				<td>1</td>
 				<td>6</td>
 				<td>1</td>
@@ -336,6 +338,12 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 					const keyword = "${param.keyword}";
 					const condition = "${param.condition}";
 					location.href='/bomulsum/writer/classInfo.wdo?page=${pc.paging.page}&countPerPage=' + value;
+			
+				}
+				var conditionValue = function(value){
+					const keyword = "${param.keyword}";
+					const condition = "${param.condition}";
+					location.href="/bomulsum/writer/classInfo.wdo?keyword=" + "&condition=" + value;
 			
 				}
 					$(function(){
@@ -487,6 +495,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 									success: function(data){
 										const jsData = data;
 										const run = jsData.run;
+										const value = $('.PageValue');
 										let id = jsData.orderSeq;
 										console.log(id.querySelect);	
 										for(var i =0; i<reList.length; i++){
@@ -502,7 +511,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 												break;
 											}
 										}
-										location.href="classInfo.wdo";
+										location.href="classInfo.wdo?page=${pc.paging.page}&countPerPage=${pc.paging.countPerPage}";
 									},
 									error: function(data){
 										alert('오류가 발생하였습니다.');
@@ -834,7 +843,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
         </a>
      </c:forEach>
         <c:if test="${pc.next}">
-       <a class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : '' }" 
+       <a class="page-link" 
        href="<c:url value='/writer/classInfo.wdo${pc.makeURI(pc.endPage + 1)}' />" >
      	  다음
        </a>
@@ -1304,40 +1313,22 @@ function removeImg(){
 	      reader.readAsDataURL(image);
 	   }  
 	}
-	function wonDisChangReturnDo(){
-		var wonDisWorkInfo = document.getElementById('count-per-page');
-		var wonInfoWorkButton = document.getElementById('ds');
-		if(wonInfoWorkButton.style.display == 'none'){
-			wonInfoWorkButton.style.display = 'block';
-		}else{
-			wonInfoWorkButton.style.display = 'none';
-		}
-	}
 	//start jQuery
 	$(function() {
 	
-		//목록 갯수가 변동하는 이벤트 처리
-		$("#count-per-page .btn-izone").click(function() {
-			console.log("목록 버튼이 클릭됨!");
-			//this는 클릭의 주체가 되는 객체
-			console.log($(this).val());
-			let count = $(this).val();
-			const keyword = "${param.keyword}";
-			const condition = "${param.condition}";
-			location.href='/bomulsum/writer/classInfo.wdo?page=${pc.paging.page}&countPerPage=' + count;
-		});
 		
-		
-		//검색 버튼 이벤트 처리
+	
 		$("#searchBtn").click(function() {
 			console.log("검색 버튼이 클릭됨!");
 			const keyword = $("#keywordInput").val();
 			console.log("검색어: " + keyword);
 			
-
-			location.href="/bomulsum/writer/classInfo.wdo?keyword=" + keyword
-						
-			});
+			const condition = $("#keywordValue").val();
+			console.log("검색 조건: " + condition);
+			
+			location.href="/bomulsum/writer/classInfo.wdo?keyword=" + keyword +  "&condition=" + condition;
+			keyword = ' ';	
+		});
 		
 		//엔터키 입력 이벤트
 		$("#keywordInput").keydown(function (key) {
