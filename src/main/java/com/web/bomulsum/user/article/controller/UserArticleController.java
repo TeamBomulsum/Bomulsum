@@ -35,10 +35,10 @@ public class UserArticleController {
 		int pageCnt = page;
 		if(pageCnt == 1) {
 			vo.setStartNum(1);
-			vo.setEndNum(20);
+			vo.setEndNum(10);
 		}else {
-			vo.setStartNum(pageCnt + (19*(pageCnt-1)));
-			vo.setEndNum(pageCnt*20);
+			vo.setStartNum(pageCnt + (9*(pageCnt-1)));
+			vo.setEndNum(pageCnt*10);
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<UserArticleCategoryVO> data = service.getListForCategory(vo);

@@ -304,7 +304,7 @@ $(function(){
 });
 
 $(window).scroll(function() {
-    if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+    if ( Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()) {
     	getList(page);
     	page++;
     }
