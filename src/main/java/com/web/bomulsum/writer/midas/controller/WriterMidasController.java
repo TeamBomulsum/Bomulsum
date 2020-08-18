@@ -6,14 +6,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -76,5 +77,104 @@ public class WriterMidasController {
 		return mav;
 	}
 	
+	@PostMapping("/midasModify")
+	public ModelAndView midasModify(WriterMidasVO vo,ModelAndView mav,@RequestParam(value="orderPicture[]", required=false) List<MultipartFile> mf,
+			 HttpServletRequest request,@RequestParam(value="orderSeq", required=false)  String orderSeq) {
+			System.out.println("midasModify 들어옴");
+			
+		//사진저장
+				String result="";
+				
+				for (MultipartFile file : mf) {
+					String originalfileName = file.getOriginalFilename();
+					String saveFile = System.currentTimeMillis() + originalfileName;
+					try {
+						file.transferTo(new File(SAVE_PATH, saveFile));
+					}catch(IllegalStateException e) { e.printStackTrace();}
+					catch(IOException e) { e.printStackTrace();	}
+					
+					result += saveFile+",";
+				}	
+				vo.setOrderImg(result);
+				System.out.println(result);
+				service.midasModify(vo);
+				mav.setViewName("redirect:/writer/classInfo.wdo"); 
+				mav.addObject("check", 1); 
+		
+		return mav;
+	}
+	@PostMapping("/midasDelete")
+	public @ResponseBody String midasDelete(@RequestParam(value="orderSeq", required=false) String[] orderSeq,ModelAndView mav) {
+		System.out.println("DELETE 들어옴");
+		System.out.println("orderSeq : "+orderSeq);
+		for(int i =0; i<orderSeq.length; i++) {
+			String a = orderSeq[i];
+			System.out.println(a);
+			service.midasDelete(a);
+		}
+		return "redirect: warticle/classInfo";
+	}
+	
+	@GetMapping("classInfo")
+	public String classInfo(ModelAndView mav,HttpServletRequest request,Model model) {
+		System.out.println("classInfo 들어옴");
+
+		HttpSession session =  request.getSession();
+		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
+		String writerCodeSeq = code.getWriterSeq();
+		
+		
+		List<WriterMidasVO> classList = service.getClassAllSelect(writerCodeSeq);
+		model.addAttribute("classList", classList);
+
+		return "warticle/classInfo";
+	}
+	
+	@GetMapping("classInfoArticle")
+	public @ResponseBody WriterMidasVO classInfoOrderSeq(@RequestParam String orderSeq,Model model) {
+		
+		WriterMidasVO vo = service.getClassArticle(orderSeq);
+		model.addAttribute("article",vo);
+		System.out.println(orderSeq);
+		System.out.println(vo);
+		return vo;
+	}
+	@PostMapping("midasRunUpdate")
+	public @ResponseBody WriterMidasVO midasRunUpdate(@RequestParam String[] orderSeq,WriterMidasVO vo) {
+		for(int i=0; i<orderSeq.length; i++) {
+			String a = orderSeq[i];
+			vo = service.getClassArticle(a);
+			if(vo.getRun().equals("Y")) {
+				vo.setRun("N");
+				service.midasRunUpdate(vo);
+				System.out.println("if(Y)" + vo);
+			}else {
+				vo.setRun("Y");
+				service.midasRunUpdate(vo);
+				System.out.println("else : "+vo);
+			}
+		}
+		
+		return vo;
+	}
+
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

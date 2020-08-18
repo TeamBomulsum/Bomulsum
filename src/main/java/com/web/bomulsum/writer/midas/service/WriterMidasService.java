@@ -1,5 +1,7 @@
 package com.web.bomulsum.writer.midas.service;
 
+import java.util.List;
+
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 
 public interface WriterMidasService {
@@ -7,4 +9,17 @@ public interface WriterMidasService {
 	void midasRegister(WriterMidasVO vo);
 	
 	String selectWriterCode(String writerEmail);
+	
+	List<WriterMidasVO> getClassAllSelect(String writerCodeSeq);
+	
+	int countArticles(WriterMidasVO vo);
+	
+	WriterMidasVO getClassArticle(String orderSeq);
+	
+	void midasModify(WriterMidasVO vo);
+	
+	void midasDelete(String orderSeq);
+	
+	void midasRunUpdate(WriterMidasVO vo);
+	
 }
