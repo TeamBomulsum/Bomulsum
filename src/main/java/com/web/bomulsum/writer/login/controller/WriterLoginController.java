@@ -161,6 +161,4 @@ public class WriterLoginController {
 		}
 		return new ModelAndView("redirect:login.wdo");
 	}
-
-		
 }

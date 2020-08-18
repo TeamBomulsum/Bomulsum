@@ -42,11 +42,33 @@ public class WriterProfileController {
 			WriterProfileVO result = service.getWriterProfile(seq);
 			System.out.println("다시들어옴: " + result);
 			mav.addObject("profile", result);
+			System.out.println("mav확인:"+mav);
 			
 //			//테스트 :: 이미지 넘기는거 
 //			Map<String, String> imgTest = new HashMap<String, String>();
 //			imgTest.put("test", "1596879911463point.png" );
 //			mav.addObject("imgtest", imgTest); 
+			
+			
+			//사이드에 프로필 변경 반영-----
+			String changedBrandName= result.getWriterBrandName(); 
+			String  changedProfileImg = result.getWriterProfileImg();
+		  	code.setWriterName(changedBrandName);
+		  
+		  
+			session = request.getSession();
+			session.setAttribute("proVO", result);
+			
+			System.out.println("proVO : " + session.getAttribute("proVO"));
+			
+			//vo에 담아서 세션에 세션의 proVO에 넣기
+			WriterProfileVO changedPro = new WriterProfileVO();
+			changedPro.setWriterBrandName(changedBrandName);
+			changedPro.setWriterProfileImg(changedProfileImg);
+			
+			session.setAttribute("proVO", changedPro);
+			System.out.println("변경후 proVO : " + session.getAttribute("proVO"));
+		  
 			
 			return mav;
 		} 

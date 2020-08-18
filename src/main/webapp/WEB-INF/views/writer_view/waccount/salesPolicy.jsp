@@ -242,6 +242,7 @@ ${salespolicy.writerPolicyAbout}</textarea><br> <span id="counter">###</span></t
 		(theForm.writerSendPrice.value!="" || theForm.writerPlusPrice.value!="" || theForm.writerSendfreeCase.value!="")){
 			  alert("등록되었습니다.");
 		}
+	}
 		
 
 

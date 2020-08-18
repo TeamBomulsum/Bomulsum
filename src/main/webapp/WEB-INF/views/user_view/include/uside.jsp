@@ -148,15 +148,15 @@
 			<!-- 할인혜택 -->
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">할인혜택</b> 
-				<a class="jeonga-collapse-item" href="#">적립금</a> 
+				<a class="jeonga-collapse-item" href="<c:url value='/user/reserves.do'/>">적립금</a> 
 				<a class="jeonga-collapse-item" href="<c:url value='/user/coupon/list.do'/> ">쿠폰함</a>
 			</li>
 			<!-- 내정보 -->
 			<li class="jeonga-navItem1">
 				<b class="jeonga-b">내정보</b> 
-				<a class="jeonga-collapse-item" href="#">회원 등급</a> 
-				<a class="jeonga-collapse-item" href="#">회원 정보 관리</a>
-				<a class="jeonga-collapse-item" href="#">주소(배송지)관리</a>
+				<a class="jeonga-collapse-item" href="<c:url value='/user/membergrade.do'/>">회원 등급</a> 
+				<a class="jeonga-collapse-item" href="<c:url value='/user/infomanage.do'/>">회원 정보 관리</a>
+				<a class="jeonga-collapse-item" href="<c:url value='/user/registeraddress.do'/>">주소(배송지)관리</a>
 			</li>
 		</ul>
 	</div>

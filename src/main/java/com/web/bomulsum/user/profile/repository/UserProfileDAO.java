@@ -1,5 +1,8 @@
 package com.web.bomulsum.user.profile.repository;
 
+
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,4 +37,32 @@ public class UserProfileDAO {
 		public void updateUserinfo(UserProfileVO vo) {
 			sqlSessionTemplate.update("userProfileDAO.updateUserInfo", vo);
 		}
+		//회원전화번호 업데이트
+		public void updateUserphone(UserProfileVO vo) {
+			sqlSessionTemplate.update("userProfileDAO.updateUserPhone", vo);
+		}
+		//회원삭제
+		public void deleteUser(UserProfileVO vo) {
+			sqlSessionTemplate.delete("userProfileDAO.deleteUser", vo);
+		}
+	
+		
+		//회원 배송지 관리------------------------------
+		//회원 배송지 입력
+		public void insertUserAddress(UserProfileAddressVO vo) {
+			sqlSessionTemplate.insert("userProfileDAO.insertUserAddress" , vo);
+		}
+		
+		//회원 배송지 조회
+		public List<UserProfileAddressVO> selectUserAddress(){
+			List<UserProfileAddressVO> result = 
+					sqlSessionTemplate.selectList("userProfileDAO.selectUserAddress");
+			return result;
+		}
+		
+		//회원 배송지 업데이트
+		public void updateUserAddress(UserProfileAddressVO vo){
+			sqlSessionTemplate.insert("userProfileDAO.updateUserAddress",vo);
+		}
+		
 }

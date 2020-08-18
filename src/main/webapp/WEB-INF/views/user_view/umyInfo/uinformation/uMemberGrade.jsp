@@ -203,19 +203,19 @@ a:link, a:visited, a:hover, a:active{
 					<div style="margin-left: 24px;">
 						<c:if test="${paysum < 100000 or paysumperiod eq 0}">
 							<h1>브론즈</h1>
-							<p style="color: #29aae1; font-size: 14px; font-weight: bold;">작품 구매시 적립률 0.5%</p>
+							<p style="color: #29aae1; font-size: 14px; font-weight: bold;">작품 구매시 적립률 10%</p>
 						</c:if>
 						<c:if test="${paysum < 1000000 and paysum >= 100000 and paysumperiod ne 0}">
 							<h1>실버</h1>
-							<p style="color: #29aae1; font-size: 14px; font-weight: bold;">작품 구매시 적립률 1.0%</p>
+							<p style="color: #29aae1; font-size: 14px; font-weight: bold;">작품 구매시 적립률 10%<br>3만원 쿠폰 제공</p>
 						</c:if>
 						<c:if test="${paysum < 5000000 and paysum >= 1000000 and paysumperiod ne 0}">
 							<h1>골드</h1>
-							<p style="color: #29aae1; font-size: 14px; font-weight: bold;">작품 구매시 적립률 1.5%</p>
+							<p style="color: #29aae1; font-size: 14px; font-weight: bold;">작품 구매시 적립률 10%<br>5만원 쿠폰 제공</p>
 						</c:if>
 						<c:if test="${paysum >= 5000000 and paysumperiod ne 0}">
 							<h1>다이아</h1>
-							<p style="color: #29aae1; font-size: 14px; font-weight: bold;">작품 구매시 적립률 2.0%</p>
+							<p style="color: #29aae1; font-size: 14px; font-weight: bold;">작품 구매시 적립률 10%<br>10만원 쿠폰 제공</p>
 						</c:if>
 					
 					</div>
@@ -266,8 +266,8 @@ a:link, a:visited, a:hover, a:active{
 					</div>
 					<div style="margin-left: 24px;">
 					<dl>
-						<dt style="font-size: 12px;">작품 구매시 적립률</dt>
-						<dd style="font-size: 16px; margin: 0px; font-weight: bold; color: #1f76bb">2.0%</dd>
+						<dt style="font-size: 12px;">작품 구매시 혜택</dt>
+						<dd style="font-size: 13px; margin: 0px; font-weight: bold; color: #1f76bb">적립률 10%<br>10만원 쿠폰 제공</dd>
 						<dt style="font-size: 12px; margin-top: 16px;">등급조건</dt>
 						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">500만원 이상 구매시</dd>
 					</dl>
@@ -282,8 +282,8 @@ a:link, a:visited, a:hover, a:active{
 					</div>
 					<div style="margin-left: 24px;">
 					<dl>
-						<dt style="font-size: 12px;">작품 구매시 적립률</dt>
-						<dd style="font-size: 16px; margin: 0px; font-weight: bold; color: #1f76bb">1.5%</dd>
+						<dt style="font-size: 12px;">작품 구매시 혜택</dt>
+						<dd style="font-size: 13px; margin: 0px; font-weight: bold; color: #1f76bb">적립률 10%<br>5만원 쿠폰 제공</dd>
 						<dt style="font-size: 12px; margin-top: 16px;">등급조건</dt>
 						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">100만원 이상, 500만원 미만 구매시</dd>
 					</dl>
@@ -300,8 +300,8 @@ a:link, a:visited, a:hover, a:active{
 					</div>
 					<div style="margin-left: 24px;">
 					<dl>
-						<dt style="font-size: 12px;">작품 구매시 적립률</dt>
-						<dd style="font-size: 16px; margin: 0px; font-weight: bold; color: #1f76bb;">1.0%</dd>
+						<dt style="font-size: 12px;">작품 구매시 혜택</dt>
+						<dd style="font-size: 13px; margin: 0px; font-weight: bold; color: #1f76bb;">적립률 10%<br>3만원 쿠폰 제공</dd>
 						<dt style="font-size: 12px; margin-top: 16px;">등급조건</dt>
 						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">10만원 이상, 100만원 미만 구매시</dd>
 					</dl>
@@ -316,8 +316,8 @@ a:link, a:visited, a:hover, a:active{
 					</div>
 					<div style="margin-left: 24px;">
 					<dl>
-						<dt style="font-size: 12px;">작품 구매시 적립률</dt>
-						<dd style="font-size: 16px; margin: 0px; font-weight: bold; color: #1f76bb">0.5%</dd>
+						<dt style="font-size: 12px;">작품 구매시 혜택</dt>
+						<dd style="font-size: 13px; margin: 0px; font-weight: bold; color: #1f76bb">적립률 10%</dd>
 						<dt style="font-size: 12px; margin-top: 16px;">등급조건</dt>
 						<dd style="font-size: 14px; margin: 0px; font-weight: bold;">10만원 미만 구매시</dd>
 					</dl>
