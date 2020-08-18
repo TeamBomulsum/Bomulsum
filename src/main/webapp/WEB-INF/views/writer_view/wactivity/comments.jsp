@@ -311,12 +311,16 @@
 						reSattus2 = '수정'
 						//${"recommentBtn"}.prop("disabled", true);
 					}
+					var reArtName = result[index].art_name;
+					if(reArtName == ''){
+						reArtName = '삭제된 작품입니다.'
+					}
 			  		html += '<tr><td>' + reStatus1 + '</td>'
 			  			+ '<td>' + result[index].comment_date + '</td>'
 			  			+ '<td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\"'
 			  			+ result[index].member_profile
 			  			+ '\" alt=\"사진\"></div>&nbsp;&nbsp;' + result[index].member_name + '</div></td>'
-			  			+ '<td>' + result[index].art_name + '</td>'
+			  			+ '<td>' + reArtName  + '</td>'
 			  			+ '<td>' + result[index].comment_content + '</td>'
 			  			+ '<td>'
 						+ '<button name=\"recommentBtn\" data-toggle=\"modal\" data-target=\"#staticBackdrop\" class=\"btn btn-primary\">'
