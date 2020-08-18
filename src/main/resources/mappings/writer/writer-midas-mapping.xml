@@ -43,7 +43,7 @@
 		)
 	</insert>
 	
-	<select id="getClassAllSelect" parameterType="com.web.bomulsum.common.SearchVO" resultMap="midasVO">
+	<select id="getClassAllSelect" parameterType="com.web.bomulsum.writer.midas.repository.WriterMidasVO" resultMap="midasVO">
 		SELECT 
 			* 
 		FROM 
@@ -132,8 +132,18 @@
 	</resultMap>
 	
 	<select id="countArticles" resultType="int">
-		SELECT COUNT(*) 
-		FROM midas_tb where writer_code_seq=#{writerCodeSeq}
+		SELECT 
+			COUNT(*) 
+		FROM 
+			midas_tb 
+		WHERE 
+			writer_code_seq=#{writerCodeSeq}
+	</select>
+	<select id="getArticleListPaging" resultMap="BoardMap">
+		SELECT * 
+		FROM midas_tb 
+		ORDER BY board_no DESC 
+		LIMIT #{pageStart}, #{countPerPage}
 	</select>
 
 	

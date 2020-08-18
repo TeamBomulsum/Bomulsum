@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.bomulsum.common.PagingCreator;
-import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 import com.web.bomulsum.writer.midas.service.WriterMidasService;
@@ -120,8 +118,7 @@ public class WriterMidasController {
 	@GetMapping("classInfo")
 	public String classInfo(ModelAndView mav,HttpServletRequest request,Model model) {
 		System.out.println("classInfo 들어옴");
-		
-		
+
 		HttpSession session =  request.getSession();
 		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
 		String writerCodeSeq = code.getWriterSeq();
