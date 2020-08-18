@@ -26,11 +26,11 @@
 	</select>
 
 	<!-- 구매목록 불러오기 -->
-	<select id="" parameterType="String" resultMap="">
+	<!-- <select id="" parameterType="String" resultMap="">
 	</select>
 
-	<!-- 구매후기 등록하기 -->
+	구매후기 등록하기
 	<insert id="" parameterType="">
-	</insert>
+	</insert> -->
 
 </mapper>
