@@ -43,13 +43,14 @@
 		)
 	</insert>
 	
-	<select id="getClassAllSelect" parameterType="com.web.bomulsum.writer.midas.repository.WriterMidasVO" resultMap="midasVO">
+	<select id="getClassAllSelect" parameterType="com.web.bomulsum.common.SearchVO" resultMap="midasVO">
 		SELECT 
 			* 
 		FROM 
 			midas_tb 
 		WHERE 
-			writer_code_seq = #{writerCodeSeq}
+			writer_code_seq=#{writerCodeSeq }
+		
 	</select>
 	
 	<select id="getClassArticle" parameterType="com.web.bomulsum.writer.midas.repository.WriterMidasVO" resultMap="midasVO">
@@ -129,6 +130,12 @@
 		<result column="midas_keyword" property="keyword"/>
 		<result column="midas_run" property="run"/>
 	</resultMap>
+	
+	<select id="countArticles" resultType="int">
+		SELECT COUNT(*) 
+		FROM midas_tb where writer_code_seq=#{writerCodeSeq}
+	</select>
+
 	
 	
 

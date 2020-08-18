@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.common.PagingCreator;
+import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 import com.web.bomulsum.writer.midas.service.WriterMidasService;
@@ -113,21 +114,23 @@ public class WriterMidasController {
 			System.out.println(a);
 			service.midasDelete(a);
 		}
-		return "redirect:/writer/classInfo.wdo";
+		return "redirect: warticle/classInfo";
 	}
 	
 	@GetMapping("classInfo")
-	public ModelAndView classInfo(ModelAndView mav,HttpServletRequest request) {
+	public String classInfo(ModelAndView mav,HttpServletRequest request,Model model) {
 		System.out.println("classInfo 들어옴");
+		
+		
 		HttpSession session =  request.getSession();
 		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
 		String writerCodeSeq = code.getWriterSeq();
-		List<WriterMidasVO> classList = service.getClassAllSelect(writerCodeSeq);
-		System.out.println(classList);
-		mav.addObject("classList", classList);
-		mav.setViewName("/warticle/classInfo");			
 		
-		return mav;
+		
+		List<WriterMidasVO> classList = service.getClassAllSelect(writerCodeSeq);
+		model.addAttribute("classList", classList);
+
+		return "warticle/classInfo";
 	}
 	
 	@GetMapping("classInfoArticle")

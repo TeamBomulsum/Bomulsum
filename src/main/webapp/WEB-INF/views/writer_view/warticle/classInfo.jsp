@@ -21,6 +21,24 @@
 .topLine{
 	height:40px;
 }
+.page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+  z-index: 2;
+  color: #0056b3;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
 .button {
 	background-color: white;
 	color: black;
@@ -195,7 +213,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	margin: 0;
 }
 
-.keywordContainer {
+#keywordContainer {
 	width: 100%;
 	height: fit-content;
 	padding: 1% 0;
@@ -233,8 +251,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<hr>
 	<div class="middleLine">
 	<form class="search" action="#" >
-		<input type="text" placeholder="강의명을 입력하세요" name="search2">
-		<button class="button" type="submit">검색</button>
+		<input id="keywordInput"  type="text"  placeholder="강의명을 입력하세요" name="search2">
+		<button class="button" type="button" id="searchBtn">검색</button>
 	</form>
 
 	<div class="formAction">
@@ -249,13 +267,11 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<option value="numberofsales">수강인원</option>
 			</select>
 		</form>
-		<form action="#" class="show_number">
-			<select name="show" id="show_id">
-				<option value="showten">10개씩 보기</option>
-				<option value="showthirty">30개씩 보기</option>
-				<option value="showfifty">50개씩 보기</option>
+			<select name="show" id="count-per-page">
+				<option class="showten" value="10">10개씩 보기</option>
+				<option class="showten" value="20">30개씩 보기</option>
+				<option class="showten" value="30">50개씩 보기</option>
 			</select>
-		</form>
 		</div>
 	</div>	<!-- middleLine -->
 	<!-- 테이블 시작 -->
@@ -309,7 +325,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<td>1</td>
 				<td>334</td>
 				<td id="runYN">${classList.run }</td>
-				<td><button id="update" type="button" class="btn btn-primary" data-toggle="modal"
+				<td><button id="update" onchange="keywordResetting(e)" type="button" class="btn btn-primary" data-toggle="modal"
 						data-target="#staticBackdrop">수정</button>
 				</td>
 			</tr>
@@ -344,6 +360,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 									$('#classInfo_Modal_Run').text(jsData.run);
 									$('#classInfo_Modal_About').text(jsData.about);
 									
+									
+								
 									$('#modOrderSeq').val(jsData.orderSeq);
 									$('#image').val(jsData.oderImg);
 									$('#midasName').val(jsData.midasName);
@@ -357,8 +375,38 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 									$('#endDate').val(jsData.endDate);
 									$('#startTime').val(jsData.startTime);
 									$('#endTime').val(jsData.endTime);
-									$('#keywordContainer').text(jsData.keyword);
-				
+									
+									
+									var keywordArr = jsData.keyword.split(' ');
+									var value = [];
+									let keywordTagArr = [];
+									let keywordTag = 	document.createElement('a');
+									let shopTagArr = [];
+									let shopTag = document.createElement('span');
+									let valueTagArr = []; 
+									let valueTag = document.createElement('span');
+									keywordTag.setAttribute('style','cursor:pointer; margin-right:10px; padding: 5px 10px;background-color: #4e73df;border-radius: 10px;color: white; font-size: 13px');
+									keywordTag.setAttribute('class','keyword');
+									valueTag.setAttribute('id','valueTag');
+									valueTag.setAttribute('class','valueTag');
+									shopTag.innerHTML = '#';
+								
+									
+									for(i=0; i<keywordArr.length-1; i++){
+										console.log('value : ' + keywordArr[i].html);
+										
+										valueTagArr[i] = '<a id="valueTag" class="keyword" style='+'"cursor:pointer; margin-right:10px; padding: 5px 10px;background-color: #4e73df;border-radius: 10px;color: white; font-size: 13px"><span>#</span><span class="valueTag">' + keywordArr[i] + '</span></a>';
+										$('#keywordNum').text(i+1);
+									}
+										$('#keywordContainer').html(valueTagArr);
+										$('#copyKeyword').val(keywordArr);
+							
+									
+									
+									
+									
+									
+									
 								}
 							});
 						});
@@ -459,7 +507,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			<c:if test="${param.check eq 1}">
 				 	<script type="text/javascript">
 				 			
-				 		</script>
+				 	</script>
 				  </c:if>
 	</div>
 					<!-- 테이블 끝 -->
@@ -625,7 +673,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 												id="keywordBtn">
 											<div style="margin-left: 1%;"></div>
 										</div>
-										<div id="keywordContainer" class="keywordContainer"></div> <span
+										<div id="keywordContainer"></div> <span
 										id="keywordNum">0</span>/10개<br> 띄어쓰기, 문장 기호가 특수 문자를 사용한
 										등록이 불가능하며, 최대 10개까지 등록이 가능합니다. <input type="hidden"
 										name="keyword" id="copyKeyword" name="keyword">
@@ -766,9 +814,13 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<!-- 아래 버튼 끝 -->
 	<!-- 페이징 처리 -->
 	 <div class="paging">
-	   <a class="arrow prev" href="#">이전</a>
-        <a href="#">1</a>
-       <a class="arrow next" href="#">다음</a>
+	   <a class="page-link" href="<c:url value='/writer/classInfo.wdo' />">
+	   	이전
+	   </a>
+	 
+        <a class="page-link " href="<c:url value='/writer/classInfo.wdo'/>">1</a>
+     
+       <a class="page-link" href="<c:url value='/writer/classInfo.wdo' />" >다음</a>
     </div>
 
             <%@ include file="../include/footer.jsp" %>
@@ -1064,7 +1116,7 @@ var i = 0;
 
 
 
-	window.onload = function(){
+window.onload = function(){
 		document.getElementById('keywordBtn').onclick = function(){
 			let keyword = document.getElementById('keyword');
 			let container = document.getElementById('keywordContainer');
@@ -1231,6 +1283,7 @@ function removeImg(){
 	      reader.readAsDataURL(image);
 	   }  
 	}
+	
 	
 	
 </script>

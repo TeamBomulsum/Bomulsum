@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.bomulsum.common.SearchVO;
+
 @Repository
 public class WriterMidasDAO {
 	
@@ -21,13 +23,13 @@ public class WriterMidasDAO {
 		return template.selectOne(
 				"com.web.bomulsum.writer.midas.repository.WriterMidasDAO.selectWriterCode", writerEmail);
 	}
-	public List<WriterMidasVO> getClassAllSelect(String writerCodeSeq){
+	public List<WriterMidasVO> getClassAllSelect(String orderSeq){
 		return template.selectList(
-				"com.web.bomulsum.writer.midas.repository.WriterMidasDAO.getClassAllSelect", writerCodeSeq
+				"com.web.bomulsum.writer.midas.repository.WriterMidasDAO.getClassAllSelect", orderSeq
 				);
 	}
-	public WriterMidasVO getClassArticle(String orderSeq) {
-		return template.selectOne("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.getClassArticle", orderSeq);
+	public WriterMidasVO getClassArticle(String writerCodeSeq) {
+		return template.selectOne("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.getClassArticle", writerCodeSeq);
 	}
 	 public int midasModify(String orderSeq) {
 		 return  template.update("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.midasModify", orderSeq);
@@ -41,6 +43,9 @@ public class WriterMidasDAO {
 	 }
 	 public void midasRunUpdate(WriterMidasVO vo) {
 		 template.update("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.midasRunUpdate", vo);
+	 }
+	 public int countArticles(WriterMidasVO vo) {
+		return template.selectOne("com.web.bomulsum.writer.midas.repository.WriterMidasDAO.countArticles",vo);
 	 }
 	 
 }

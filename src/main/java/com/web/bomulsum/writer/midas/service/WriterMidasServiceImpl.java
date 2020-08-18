@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasDAO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 
@@ -25,13 +26,13 @@ public class WriterMidasServiceImpl implements WriterMidasService{
 	}
 
 	@Override
-	public List<WriterMidasVO> getClassAllSelect(String writerCodeSeq) {
-		return dao.getClassAllSelect(writerCodeSeq);
+	public List<WriterMidasVO> getClassAllSelect(String orderSeq) {
+		return dao.getClassAllSelect(orderSeq);
 	}
 
 	@Override
-	public WriterMidasVO getClassArticle(String orderSeq) {
-		return dao.getClassArticle(orderSeq);
+	public WriterMidasVO getClassArticle(String writerCodeSeq) {
+		return dao.getClassArticle(writerCodeSeq);
 	}
 
 
@@ -49,6 +50,11 @@ public class WriterMidasServiceImpl implements WriterMidasService{
 	public void midasRunUpdate(WriterMidasVO vo) {
 		dao.midasRunUpdate(vo);
 		
+	}
+
+	@Override
+	public int countArticles(WriterMidasVO vo) {
+		return dao.countArticles(vo);
 	}
 
 
