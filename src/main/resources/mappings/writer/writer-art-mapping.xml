@@ -383,6 +383,133 @@
 	<select id="getUpdateArtOption" parameterType="String" resultMap="artOptionList">
 		SELECT * FROM art_option_tb
 		WHERE art_code_seq=#{artCodeSeq}
-	</select>			
-
+		ORDER BY art_option_seq ASC
+	</select>		
+	
+	<!-- 작품수정 	-->
+	<update id="updateArts" parameterType="com.web.bomulsum.writer.art.repository.WriterArtVO">
+	     UPDATE 
+	    	art_tb
+        SET 
+        	art_photo=#{artPhoto},
+    		art_name=#{artName},
+    		art_price=#{artPrice},
+    		art_discount=#{artDiscount},
+    		art_amount=#{artAmount},
+    		art_description=#{artDescription},
+    		art_category=#{artCategory},
+		    art_keyword=#{artKeyword}       	
+       	WHERE
+        	art_code_seq=#{artCodeSeq}
+   </update>
+   <!-- 작품수정 상세정보 -->
+   	<update id="updateArtsInfo" parameterType="com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO">
+	     UPDATE 
+	    	art_info_detail_tb
+        SET 
+  			art_info_detail_category=#{artInfoDetailCategory},
+   			art_info_detail_weight=#{artInfoDetailWeight},
+    		art_info_detail_from=#{artInfoDetailFrom},
+    		art_info_detail_material=#{artInfoDetailMaterial},
+   			art_info_detail_expdate=#{artInfoDetailExpdate},
+    		art_info_detail_must=#{artInfoDetailMust},
+    		art_info_detail_component=#{artInfoDetailComponent},
+    		art_info_detail_way=#{artInfoDetailWay}
+       	WHERE
+        	art_code_seq=#{artCode}
+   </update>
+   
+   <!-- 작푸수정 옵션 -->
+	<update id="updateArtOption1" parameterType="hashMap" >
+		UPDATE
+			art_option_tb
+		SET 
+    		art_option_category=#{OptionCategory1},
+    		art_option_name=#{optionName1},
+    		art_option_price=#{optionPrice1}
+		WHERE 
+			art_option_seq=#{optionSeq1}
+	</update>
+	<update id="updateArtOption2" parameterType="hashMap" >
+		UPDATE
+			art_option_tb
+		SET 
+    		art_option_category=#{OptionCategory1},
+    		art_option_name=#{optionName2},
+    		art_option_price=#{optionPrice2}
+		WHERE 
+			art_option_seq=#{optionSeq2}
+	</update>
+	<update id="updateArtOption3" parameterType="hashMap" >
+		UPDATE
+			art_option_tb
+		SET 
+    		art_option_category=#{OptionCategory1},
+    		art_option_name=#{optionName3},
+    		art_option_price=#{optionPrice3}
+		WHERE 
+			art_option_seq=#{optionSeq3}
+	</update>
+	<update id="updateArtOption4" parameterType="hashMap" >
+		UPDATE
+			art_option_tb
+		SET 
+    		art_option_category=#{OptionCategory2},
+    		art_option_name=#{optionName4},
+    		art_option_price=#{optionPrice4}
+		WHERE 
+			art_option_seq=#{optionSeq4}
+	</update>
+	<update id="updateArtOption5" parameterType="hashMap" >
+		UPDATE
+			art_option_tb
+		SET 
+    		art_option_category=#{OptionCategory2},
+    		art_option_name=#{optionName5},
+    		art_option_price=#{optionPrice5}
+		WHERE 
+			art_option_seq=#{optionSeq5}
+	</update>
+	<update id="updateArtOption6" parameterType="hashMap" >
+		UPDATE
+			art_option_tb
+		SET 
+    		art_option_category=#{OptionCategory2},
+    		art_option_name=#{optionName6},
+    		art_option_price=#{optionPrice6}
+		WHERE 
+			art_option_seq=#{optionSeq6}
+	</update>
+	<update id="updateArtOption7" parameterType="hashMap" >
+		UPDATE
+			art_option_tb
+		SET 
+    		art_option_category=#{OptionCategory3},
+    		art_option_name=#{optionName7},
+    		art_option_price=#{optionPrice7}
+		WHERE 
+			art_option_seq=#{optionSeq7}
+	</update>
+	<update id="updateArtOption8" parameterType="hashMap" >
+		UPDATE
+			art_option_tb
+		SET 
+    		art_option_category=#{OptionCategory3},
+    		art_option_name=#{optionName8},
+    		art_option_price=#{optionPrice8}
+		WHERE 
+			art_option_seq=#{optionSeq8}
+	</update>
+	<update id="updateArtOption9" parameterType="hashMap" >
+		UPDATE
+			art_option_tb
+		SET 
+    		art_option_category=#{OptionCategory3},
+    		art_option_name=#{optionName9},
+    		art_option_price=#{optionPrice9}
+		WHERE 
+			art_option_seq=#{optionSeq9}
+	</update>
+	
+	
 </mapper>

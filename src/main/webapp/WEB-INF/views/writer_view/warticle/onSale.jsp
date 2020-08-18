@@ -113,6 +113,13 @@ form {
 
 <!-- body 시작 -->
 <body id="page-top">
+	<c:if test="${param.check eq 1}">
+		<script type="text/javascript">
+			alert("글이 수정 되었습니다.");
+			location.href="/bomulsum/writer/workOnsale.wdo";
+		</script>
+	</c:if>
+
 
 	<div id="wrapper">
 		<!-- Header/Nav -->

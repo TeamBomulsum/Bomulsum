@@ -160,5 +160,53 @@ public class WriterArtServiceImpl implements WriterArtService{
 		return dao.getUpdateArtOption(artCode);
 	}
 	
+	//작품 수정
+	@Override
+	public void updateArt(WriterArtVO vo) {
+		dao.updateArts(vo);
+		
+	}
+	@Override
+	public void updateArtInfoDetail(WriterArtInfoDetailVO vo) {
+		dao.updateArtInfoDetail(vo);
+	}
+	//작품 옵션 수정
+	@Override
+	public void updateArtOption1(Map<String, Object> map) {
+		dao.updateArtOption1(map);
+	}
+	@Override
+	public void updateArtOption2(Map<String, Object> map) {
+		dao.updateArtOption2(map);
+	}
+	@Override
+	public void updateArtOption3(Map<String, Object> map) {
+		dao.updateArtOption3(map);
+	}
+	@Override
+	public void updateArtOption4(Map<String, Object> map) {
+		dao.updateArtOption4(map);
+	}
+	@Override
+	public void updateArtOption5(Map<String, Object> map) {
+		dao.updateArtOption5(map);
+	}
+	@Override
+	public void updateArtOption6(Map<String, Object> map) {
+		dao.updateArtOption6(map);
+	}
+	@Override
+	public void updateArtOption7(Map<String, Object> map) {
+		dao.updateArtOption7(map);
+	}
+	@Override
+	public void updateArtOption8(Map<String, Object> map) {
+		dao.updateArtOption8(map);
+	}
+	@Override
+	public void updateArtOption9(Map<String, Object> map) {
+		dao.updateArtOption9(map);
+	}
+	
 
 }
