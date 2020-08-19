@@ -71,8 +71,6 @@ public class WriterMidasController {
 				
 				System.out.println(session);
 				
-				System.out.println(vo.toString());
-
 				service.midasRegister(vo);
 				mav.setViewName("redirect:/writer/midasRegister.wdo"); 
 				mav.addObject("check", 1); 
@@ -132,9 +130,7 @@ public class WriterMidasController {
 		pc.setPaging(vo);
 		System.out.println(pc.getArticleTotalCount());
 		
-		System.out.println("startPage : "+vo.getPageStart());
-		System.out.println("nextPage : "+vo.getPageNext());
-		System.out.println("endPage : " + pc.getEndPage());
+		
 		List<WriterMidasVO> classList = service.getArticleListPaging(vo);
 		pc.setArticleTotalCount(service.countArticles(vo));
 		model.addAttribute("classList", classList);

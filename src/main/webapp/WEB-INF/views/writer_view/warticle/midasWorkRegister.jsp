@@ -252,7 +252,7 @@ function removeImg(){
 								<tr>
 									<td class="left">강의설명</td>
 									<td><textarea rows="4" cols="80"
-											style="overflow-y: scroll;" name="about"
+											style="overflow-y: scroll;" 
 											placeholder="작품 설명을 적어주세요." id="summernote"
 											required="required"></textarea></td>
 								</tr>
@@ -280,6 +280,7 @@ function removeImg(){
 									</select></td>
 								</tr>
 							</table>
+							<textarea style="display: none;" name="about" id="copysummer"></textarea>
 						</div>
 						<!-- end 기본정보 영역  -->
 
@@ -378,6 +379,10 @@ function removeImg(){
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
 <!-- include summernote css/js-->
+<script
+	src="<c:url value='/resources/js/summernote/summernote.js'/>"></script>
+<script
+	src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css"
 	rel="stylesheet">
@@ -386,10 +391,6 @@ function removeImg(){
 <link
 	href="<c:url value='/resources/css/summernote/summernote-lite.css'/>"
 	rel="stylesheet" type="text/css">
-<script
-	src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
-<script
-	src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
@@ -445,6 +446,7 @@ function removeImg(){
 
 </script>
 <script>
+$(function(){
 	$(document).ready(function() {
 	      $('#summernote').summernote({
 	         height : 350, // 에디터 높이
@@ -456,13 +458,13 @@ function removeImg(){
 
 	      });
 	   });
-</script>
+});
+	</script>
 <!-- 등록 검사 -->
 <script type="text/javascript">
 var i = 0;
 	function saveWork(event){
 		event.preventDefault();
-		
 		let valueTag = document.getElementsByClassName('valueTag');
 		let copyKeyword = document.getElementById('copyKeyword');
 		var keywordValue='';
@@ -473,6 +475,7 @@ var i = 0;
 		}
 		copyKeyword.value = keywordValue;
 		
+	
 		
 		console.log(copyKeyword.value);
 		
@@ -503,7 +506,11 @@ var i = 0;
 		let fri = document.getElementById('dayFri').checked;
 		let sat = document.getElementById('daySat').checked;
 		let son = document.getElementById('daySon').checked;
+		let copysummer = document.getElementById('copysummer');
 		
+		copysummer.value = summernote.value;
+		
+		console.log(copysummer.value);
 		var regex= /[^0-9]/g
 		
 		let chkArr = new Array(mon,tue,wen,thu,fri,sat,son);
@@ -700,6 +707,7 @@ $(function(){
 	$(document).on('click', ".keyword", function(){
 		console.log('clickEvent');
 		console.log($(this));
+		const param = $.trim($(this).closest('tr').children('td').eq(2).text());
 		$(this).remove();
 		i-=1;
 		keywordNum.innerHTML = i;

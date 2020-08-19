@@ -21,6 +21,20 @@
 .topLine{
 	height:40px;
 }
+.name-link{
+  float:left;
+  position: relative;
+  display: block;
+  color: #007bff;
+  cursor: pointer;
+}
+.name-link:hover {
+  z-index: 2;
+  color: #0056b3;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
 .page-link {
   position: relative;
   display: block;
@@ -260,10 +274,11 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<div class="formAction">
 		<form action="#" class="menu_search">
 			<select name="menu" id="menu_id" onchange="conditionValue(this.value)">
-				<option class="conditionValue" value="registerdate">등록일</option>
+				<option>정렬</option>
+				<option class="conditionValue" value="regDate">등록일</option>
 				<option class="conditionValue" value="midasName">강의명</option>
-				<option class="conditionValue" value="price">정상가격</option>
-				<option class="conditionValue" value="saleprice">할인가격</option>
+				<option class="conditionValue" value="midasPrice">정상가격</option>
+				<option class="conditionValue" value="midasDiscount">할인가격</option>
 				<option class="conditionValue" value="bookmark">즐겨찾기</option>
 				<option class="conditionValue" value="comment">댓글</option>
 				<option class="conditionValue" value="numberofsales">수강인원</option>
@@ -283,16 +298,17 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 		<table border="1" id="ordertable">
 			<tr>
 				<th style="width:4%"><input type="checkbox" id="checkAll"></th>
-				<th style="width:20%">상품번호</th>
+				<th style="width:15%">상품번호</th>
 				<th style="width:7%">이미지</th>
-				<th style="width:20%">강의명</th>
+				<th style="width:18%">강의명</th>
 				<th style="width:7%">정상가</th>
 				<th style="width:7%">할인</th>
-				<th style="width:7%">즐겨찾기</th>
-				<th style="width:5%">댓글</th>
+				<th style="width:4%">즐겨찾기</th>
+				<th style="width:4%">댓글</th>
 				<th>조회수</th>
 				<th>수강인원</th>
 				<th>진행여부</th>
+				<th>등록일</th>
 				<th></th>
 			</tr>
 			<c:if test="${classList.size() <= 0 }">
@@ -311,8 +327,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<td><img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px"
 					src="<c:url value='/upload/${classList.orderImg }'/>" /></td>
 				<td >
-					<div class="alignLeft" style="text-align: center;">
-						<a style="color: black; cursor:pointer; text-style: bold;" data-toggle="modal"
+					<div style="text-align: center;">
+						<a class="name-link ${(pc.paging.page == pageNum) ? 'page-active' : '' }" style="color: black; cursor:pointer; text-style: bold;" data-toggle="modal"
 						data-target="#classInfoModal">
 						${classList.midasName }</a><br>
 						
@@ -329,6 +345,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<td>1</td>
 				<td>334</td>
 				<td id="runYN">${classList.run }</td>
+				<td id="regDate"><fmt:formatDate value="${classList.regDate }" pattern="MM/dd/YY"></fmt:formatDate></td>
 				<td><button id="update" onchange="keywordResetting(e)" type="button" class="btn btn-primary" data-toggle="modal"
 						data-target="#staticBackdrop">수정</button>
 				</td>
@@ -374,12 +391,13 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 									$('#classInfo_Modal_Address2').text(jsData.address2);
 									$('#classInfo_Modal_Keyword').text(jsData.keyword);
 									$('#classInfo_Modal_Run').text(jsData.run);
-									$('#classInfo_Modal_About').text(jsData.about);
+									var classInfo_Modal_About = $('#classInfo_Modal_About');
+									classInfo_Modal_About.html(jsData.about);
 									
 									
 								
 									$('#modOrderSeq').val(jsData.orderSeq);
-									$('#image').val(jsData.oderImg);
+									$('#image').html(jsData.oderImg);
 									$('#midasName').val(jsData.midasName);
 									$('#midasPrice').val(jsData.midasPrice);
 									$('#maxNumber').val(jsData.maxNumber);
@@ -391,6 +409,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 									$('#endDate').val(jsData.endDate);
 									$('#startTime').val(jsData.startTime);
 									$('#endTime').val(jsData.endTime);
+									$('#summernote').val(jsData.about);
+									$('.note-editable').html(jsData.about);
+								
 									
 									
 									var keywordArr = jsData.keyword.split(' ');
@@ -640,6 +661,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 									</select></td>
 								</tr>
 							</table>
+								<textarea style="display: none;" name="about" id="copysummer"></textarea>
 						</div>
 						<!-- end 기본정보 영역  -->
 
@@ -1011,6 +1033,9 @@ var i = 0;
 		let fri = document.getElementById('dayFri').checked;
 		let sat = document.getElementById('daySat').checked;
 		let son = document.getElementById('daySon').checked;
+		let copysummer = document.getElementById('copysummer');
+		
+		copysummer.value = summernote.value;
 		
 		var regex= /[^0-9]/g
 		
@@ -1336,8 +1361,6 @@ function removeImg(){
 				$("#searchBtn").click();
 			}
 		});
-		
-		
 		
 		
 		

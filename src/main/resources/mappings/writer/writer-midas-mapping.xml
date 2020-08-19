@@ -45,7 +45,8 @@
 			#{address1},
 			#{address2},
 			#{keyword},
-			'Y'
+			'Y',
+			sysdate
 		)
 	</insert>
 	
@@ -135,6 +136,7 @@
 		<result column="midas_address2" property="address2"/>
 		<result column="midas_keyword" property="keyword"/>
 		<result column="midas_run" property="run"/>
+		<result column="midas_regdate" property="regDate"/>
 	</resultMap>
 	
 	<select id="countArticles" resultType="int">
@@ -163,13 +165,25 @@
         				<include refid="search" />
         		
         			<if test="condition == 'midasName'">
-						ORDER BY (CONVERT midas_name,'ISO2022-KR')
+						ORDER by convert (midas_name,'ISO2022-KR')
+					</if>
+					<if test="condition == 'midasPrice'">
+						ORDER by 
+     						midas_price desc
+					</if>
+					<if test="condition == 'midasDiscount'">
+						ORDER by 
+     						midas_discount desc
+					</if>
+					<if test="condition == 'regDate'">
+						ORDER by 
+     						midas_regdate desc
 					</if>
 					<if test="condition == null and condition == 'midas_name'">
         			ORDER 
         				BY midas_code_seq desc
-        			
 					</if>
+					
         			)
         		A
         	)
