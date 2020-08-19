@@ -633,7 +633,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 								<tr>
 									<td class="left">강의설명</td>
 									<td><textarea rows="4" cols="80"
-											style="overflow-y: scroll;" name="about"
+											style="overflow-y: scroll;"
 											placeholder="작품 설명을 적어주세요." id="summernote"
 											required="required"></textarea></td>
 								</tr>
@@ -1036,6 +1036,8 @@ var i = 0;
 		let copysummer = document.getElementById('copysummer');
 		
 		copysummer.value = summernote.value;
+		
+		console.log(copysummer.value);
 		
 		var regex= /[^0-9]/g
 		
