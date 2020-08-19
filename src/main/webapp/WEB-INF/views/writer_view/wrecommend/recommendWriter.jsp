@@ -4,15 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
+		<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 <meta charset="UTF-8">
 <title>실시간 추천</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <!-- Custom styles for this template-->
-<link href="<c:url value='/css/sb-admin-2.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 <!-- 요소 복사 -->
 <script type="text/javascript">
 
@@ -109,33 +109,17 @@
                 </div>
                 <div>
                     <hr>
+                    <c:forEach var="artList" items="${artList }">
                     <div>
                         <ul id="choiceBox">
                             <li style="display: flex; flex-direction: row;" id="workOriginal">
 	                            <input style="margin: 6%" type="checkbox" name="###" id="cloneCheckBox">&nbsp;&nbsp;
-	                            <img style="width: 10%;" src="<c:url value='/resources/img/text.png'/>" id="abc">&nbsp;&nbsp;
-	                            <p style="margin: 5%" id="def">작품명이다다다다다다다다다다다다다</p>
-	                            
+	                            <img style="width: 10%;" src="<c:url value='/upload/${artList.artPhoto }'/>" id="abc">&nbsp;&nbsp;
+	                            <p style="margin: 5%" id="def">${artList.artName }</p>          
                             </li>
-                            <li style="display: flex; flex-direction: row;" id="workOriginal1">
-	                            <input style="margin: 6%" type="checkbox" name="###" id="cloneCheckBox">&nbsp;&nbsp;
-	                            <p style="margin: 5%" id="def">작품명이11111</p>
-	                            
-                            </li>
-                            <!--                     <li style="display: flex; flex-direction: row;"> -->
-                            <!--                     <input style="margin: 6%" type="checkbox" name="###">&nbsp;&nbsp;<img style="width: 10%;" src="text.png">&nbsp;&nbsp; -->
-                            <!--                    <p style="margin: 5%">작품명이다다다다다다다다다다다다다</p> -->
-                            <!--                    </li> -->
-                            <!--                     <li style="display: flex; flex-direction: row;"> -->
-                            <!--                     <input style="margin: 6%" type="checkbox" name="###">&nbsp;&nbsp;<img style="width: 10%;" src="text.png">&nbsp;&nbsp; -->
-                            <!--                    <p style="margin: 5%">작품명이다다다다다다다다다다다다다</p> -->
-                            <!--                    </li> -->
-                            <!--                     <li style="display: flex; flex-direction: row;"> -->
-                            <!--                     <input style="margin: 6%" type="checkbox" name="###">&nbsp;&nbsp;<img style="width: 10%;" src="text.png">&nbsp;&nbsp; -->
-                            <!--                    <p style="margin: 5%">작품명이다다다다다다다다다다다다다</p> -->
-                            <!--                    </li> -->
                         </ul>
                     </div>
+                    </c:forEach>
                 </div>
                 <div style="margin-top: auto; margin-bottom: 2%;  width: 100%; display:flex;justify-content: center;" >
                     <input style="margine: 1%" type="button" value="이전">&nbsp;<input
@@ -185,10 +169,10 @@
 				</a>
 
 		
-				<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 				<!-- Core plugin JavaScript-->
-				<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 				<!-- Custom scripts for all pages-->
 				<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
