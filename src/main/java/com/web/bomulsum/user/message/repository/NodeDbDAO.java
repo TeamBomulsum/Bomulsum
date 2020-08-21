@@ -45,6 +45,17 @@ public class NodeDbDAO {
 	public void deleteChatRoom(List<HashMap<String, String>> list) {
 		sqlSessionTemplate.update("NodeDbDAO.delChatRoom", list);
 	}
-
+	
+	public String getChatroomCode(HashMap<String, String> map) {
+		return sqlSessionTemplate.selectOne("NodeDbDAO.getChatroomCode", map);
+	}
+	
+	public int getNonReadMsg(HashMap<String, String> map) {
+		return sqlSessionTemplate.selectOne("NodeDbDAO.getNonReadMsg", map);
+	}
+	
+	public String getNonReadMsgContent(HashMap<String, String> map) {
+		return sqlSessionTemplate.selectOne("NodeDbDAO.getNonReadMsgContent", map);
+	}
 	
 }

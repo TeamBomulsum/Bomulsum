@@ -20,7 +20,24 @@ public class WriterMessageServiceImpl implements WriterMessageService{
 	
 	@Override
 	public List<WriterChatroomVO> getChatRoom(String writerCode) {
-		return dao.getChatRoom(writerCode);
+		List<WriterChatroomVO> vo = dao.getChatRoom(writerCode);
+		for(WriterChatroomVO chat : vo) {
+			HashMap<String, String> map = new HashMap<String, String>();
+			HashMap<String, String> map2 = new HashMap<String, String>();
+			
+			map2.put("chatroomCode", chat.getChatroomCode());
+			map2.put("receiver", writerCode);
+			// 채팅방 코드 가져오기
+			chat.setNonReadMsgCount(dao.getNonReadMsg(map2));
+			
+			map.put("writerCode", writerCode);
+			map.put("chatRoomCode", chat.getChatroomCode());
+			// 마지막 메세지 가져오기
+			String msg = dao.getNonReadMsgContent(map);
+			chat.setLastMessage(msg);
+		}
+		
+		return vo;
 	}
 
 	@Override
@@ -51,6 +68,11 @@ public class WriterMessageServiceImpl implements WriterMessageService{
 	@Override
 	public void updateChatStatus(HashMap<String, String> map) {
 		dao.updateChatStatus(map);
+	}
+
+	@Override
+	public String getChatroomCode(HashMap<String, String> map) {
+		return dao.getChatroomCode(map);
 	}
 	
 }

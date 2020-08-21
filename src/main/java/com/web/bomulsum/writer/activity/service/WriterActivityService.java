@@ -17,4 +17,6 @@ public interface WriterActivityService {
 	List<AlarmVO> alarmList(String seq);
 	
 	List<WriterActivityVO> reviewList(String seq);
+
+	void updateReviewComment(WriterActivityVO vo);
 }

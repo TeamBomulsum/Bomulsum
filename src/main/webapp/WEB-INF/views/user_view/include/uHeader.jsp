@@ -81,6 +81,9 @@ body {
 .dain-header-topA {
 	margin-left: 12px;
 	margin-right: 12px;
+	height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .dainheader-middle {
@@ -593,6 +596,11 @@ body {
 	display:flex;
 	flex-direction:row;
 	border-bottom: 1px solid #d9d9d9;
+	cursor: pointer;
+}
+
+.dndud_message_content:hover{
+	background-color: #81BEF7
 }
 
 .dndud_message_content_img{
@@ -625,26 +633,46 @@ body {
 }
 
 .dndud_message_content_bottom{
-	width:90%;
-	height:40px;
-	font-size:12px;
+    width: 100%;
+    display: flex;
+    height: 40px;
+    font-size: 12px;
+    flex-direction: row;
+    align-items: center;
 }
 
-#dndud_message_date{
+.dndud_message_date{
 	color:#d9d9d9;
 }
 
-#dndud_message_content{
+.dndud_message_content_text{
 	margin-top: 5px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    width: 100%;
+    width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+.dndud_message_nonReadCount{
+	background-color: #1F76BB;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 50%;
+}
 
+.dndud_header_num{
+	display:none;
+    position: absolute;
+    margin-left: 55px;
+    margin-bottom: 10px;
+    background-color: #1F76BB;
+    color: white;
+    padding: 2.5px 4.5px 4px 5px;
+    border-radius: 50%;
+    font-size: 1px;
+}
 
 
 </style>
@@ -686,7 +714,7 @@ body {
 					</li>
 					<li class="dropBox">
 						<a class="dain-header-topA" href="#" style="color: #666666;"><i class="fas fa-bell" style="font-size:13px"></i> 알림</a>
-						<div class="alarmDropBox">
+						<div class="alarmDropBox"> 
 							<div class="dndud_alarmDrop_top">
 								<span>알림</span>
 							</div>
@@ -741,140 +769,19 @@ body {
 						</div>
 					</li>
 					<!-- 메세지 -->
-					<li class="dropBox">
-						<a class="dain-header-topA" href="#" style="color: #666666;"><i class="fas fa-comment" style="font-size:13px"></i> 메시지</a>
+					<li id="dndud_head_message" class="dropBox">
+						<a class="dain-header-topA" href="#" style="color: #666666;">
+							<i class="fas fa-comment" style="font-size:13px"></i>메시지
+						</a>
+						<span class="dndud_header_num"></span>
 						<div class="messageDropBox">
 							<div class="dndud_messageDrop_top">
 								<span>메시지</span>
 							</div>
 							<div class="dndud_messageDrop_main">
 								<!-- for -->
-								<div class="dndud_message_content">
-									<div class="dndud_message_content_img">
-										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
-									</div>
-									<div class="dndud_message_content_main">
-										<div class="dndud_message_content_title">
-											<span>
-												<span id="dndud_message_from_who">보물섬</span>
-											</span>
-											<span id="dndud_message_date">08월 24일</span>
-										</div>
-										<div class="dndud_message_content_bottom">
-											<span id="dndud_message_content">
-												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="dndud_message_content">
-									<div class="dndud_message_content_img">
-										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
-									</div>
-									<div class="dndud_message_content_main">
-										<div class="dndud_message_content_title">
-											<span>
-												<span id="dndud_message_from_who">보물섬</span>
-											</span>
-											<span id="dndud_message_date">08월 24일</span>
-										</div>
-										<div class="dndud_message_content_bottom">
-											<span id="dndud_message_content">
-												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="dndud_message_content">
-									<div class="dndud_message_content_img">
-										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
-									</div>
-									<div class="dndud_message_content_main">
-										<div class="dndud_message_content_title">
-											<span>
-												<span id="dndud_message_from_who">보물섬</span>
-											</span>
-											<span id="dndud_message_date">08월 24일</span>
-										</div>
-										<div class="dndud_message_content_bottom">
-											<span id="dndud_message_content">
-												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="dndud_message_content">
-									<div class="dndud_message_content_img">
-										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
-									</div>
-									<div class="dndud_message_content_main">
-										<div class="dndud_message_content_title">
-											<span>
-												<span id="dndud_message_from_who">보물섬</span>
-											</span>
-											<span id="dndud_message_date">08월 24일</span>
-										</div>
-										<div class="dndud_message_content_bottom">
-											<span id="dndud_message_content">
-												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="dndud_message_content">
-									<div class="dndud_message_content_img">
-										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
-									</div>
-									<div class="dndud_message_content_main">
-										<div class="dndud_message_content_title">
-											<span>
-												<span id="dndud_message_from_who">보물섬</span>
-											</span>
-											<span id="dndud_message_date">08월 24일</span>
-										</div>
-										<div class="dndud_message_content_bottom">
-											<span id="dndud_message_content">
-												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="dndud_message_content">
-									<div class="dndud_message_content_img">
-										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
-									</div>
-									<div class="dndud_message_content_main">
-										<div class="dndud_message_content_title">
-											<span>
-												<span id="dndud_message_from_who">보물섬</span>
-											</span>
-											<span id="dndud_message_date">08월 24일</span>
-										</div>
-										<div class="dndud_message_content_bottom">
-											<span id="dndud_message_content">
-												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
-											</span>
-										</div>
-									</div>
-								</div>
-								<div class="dndud_message_content">
-									<div class="dndud_message_content_img">
-										<img src="<c:url value='/upload/1597020793753dog.jpg'/>"/>
-									</div>
-									<div class="dndud_message_content_main">
-										<div class="dndud_message_content_title">
-											<span>
-												<span id="dndud_message_from_who">보물섬</span>
-											</span>
-											<span id="dndud_message_date">08월 24일</span>
-										</div>
-										<div class="dndud_message_content_bottom">
-											<span id="dndud_message_content">
-												어떠한 내용이 들어가게 됩니다. 자동 줄바꿈도 되어야하고 양이 넘치면 ...으로 표기를 해야합니다.dddddddddddddddddddddddddddddddddddddddddddd
-											</span>
-										</div>
-									</div>
-								</div>
+								
+								
 								<!-- for end -->
 							</div>
 							<div id="toMessage" class="dndud_messageDrop_All">
@@ -896,6 +803,7 @@ body {
 		</c:if>
 	</div>
 </div>
+
 <!-- Header 중앙영역 -->
 <div class="dainheader-middle">
 	<div class="dainheader-middle-inner">
@@ -947,29 +855,29 @@ body {
 				<div class="menu">
 				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
 				margin-bottom:15px;" >
-				  <li class="dainCatLi"><a class="dainCatA" href="#">식음료</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">문구팬시</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">전자기기</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">패션잡화</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=식음료'/> ">식음료</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=문구팬시'/> ">문구팬시</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=전자기기'/> ">전자기기</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=패션잡화'/> ">패션잡화</a></li>
 				</ul>
 				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
 				margin-bottom:15px; border-left: 1px solid #d9d9d9; border-right: 1px solid #d9d9d9">
-				  <li class="dainCatLi"><a class="dainCatA" href="#">반려동물 용품</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">인테리어 소품</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">신발</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">의류</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=반려동물 용품'/> ">반려동물 용품</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=인테리어 소품'/> ">인테리어 소품</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=신발'/> ">신발</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=의류'/> ">의류</a></li>
 				</ul>
 				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
 				margin-bottom:15px;">
-				  <li class="dainCatLi"><a class="dainCatA" href="#">육아,아동</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">인형,장난감</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">공예</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="#">기타</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=육아,아동'/> ">육아,아동</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=인형,장난감'/> ">인형,장난감</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=공예'/> ">공예</a></li>
+				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=기타'/> ">기타</a></li>
 				</ul>
 				</div>
    			</div>
 		</div>
-		<div><a class="dain-hb-menu" href="#">홈</a></div>
+		<div><a class="dain-hb-menu" href="<c:url value='/home.do'/> ">홈</a></div>
 		<div><a class="dain-hb-menu" href="#">추천 작품</a></div>
 		<div><a class="dain-hb-menu" href="#">실시간 후기</a></div>
 		<div><a class="dain-hb-menu" href="#">작가님 추천</a></div>
@@ -985,5 +893,80 @@ body {
 <a href="#dainHeader" class="dainToTop" style="display: none; bottom: 66px; color: #fff; text-decoration: none;">
     <i class="fa fa-angle-up fa-lg" ></i><span style="padding:0px; margin: 0px; display: block; ">Top</span>
 </a>
+
 </body>
+<script>
+$(function(){
+	var code = '<%= (String)session.getAttribute("member") %>';
+	var reload = function(){
+		$.ajax({
+			url:"/bomulsum/user/message/head/reload.do",
+			data:{
+				memberCode : code
+			},
+			success: function(data){
+				var countNum=0;
+				var htmlTag='';
+				for(var i=0; i<data.length; i++){
+					var imgTag='';
+					var nameTag='';
+					if(data[i].writerImg == null){
+						imgTag = `/bomulsum/resources/img/Logo_blue.png`;
+					}else{
+						imgTag = '/bomulsum/upload/'+data[i].writerImg;
+					}
+					
+					if(data[i].writerBrandName == null){
+						nameTag = data[i].writerName;
+					}else{
+						nameTag = data[i].writerBrandName;
+					}
+					
+					var msg = '';
+					var date = '';
+					if(data[i].lastMessage != null){
+						var msgArray = data[i].lastMessage.split('*|*');
+						msg = msgArray[0];
+						date = msgArray[1].split(' ')[0];
+					}
+					
+					htmlTag += '<div class="dndud_message_content"><input type="hidden" value="'+ data[i].writerCode +'">'
+						+ '<div class="dndud_message_content_img"><img src="'+ imgTag +'"/></div>'
+						+ '<div class="dndud_message_content_main"><div class="dndud_message_content_title"><span>'
+						+ '<span class="dndud_message_from_who">'+ nameTag +'</span></span>'
+						+ '<span class="dndud_message_date">'+ date +'</span></div>'
+						+ '<div class="dndud_message_content_bottom"><span class="dndud_message_content_text">' + msg + '</span>';
+					if(data[i].nonReadMsgCount > 0){
+						htmlTag += '<span class="dndud_message_nonReadCount">'+ data[i].nonReadMsgCount + '</span>';
+					}
+					htmlTag += '</div></div></div>';
+					countNum += data[i].nonReadMsgCount;
+				}
+				
+				
+				if(countNum > 0){
+					$('.dndud_header_num').css('display', 'block');
+					$('.dndud_header_num').text(countNum);
+				}else if(countNum <= 0){
+					$('.dndud_header_num').css('display', 'none');
+				}
+				
+				$(".dndud_messageDrop_main").empty();
+				$(".dndud_messageDrop_main").html(htmlTag);
+				
+			},
+			error: function(err){
+				
+			} 
+		});
+	};
+	
+	var timeCon = setInterval(reload, 1000);
+	
+	$(document).on('click', '.dndud_message_content', function(){
+		var code = $(this).children('input').val();
+		location.href= '/bomulsum/user/message.do?writer='+code;
+	});
+});
+</script>
 </html>

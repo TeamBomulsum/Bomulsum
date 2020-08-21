@@ -55,6 +55,14 @@ function setThumbnail2(event) {
 	};
 	reader.readAsDataURL(event.target.files[0]);
 }
+
+function submitCheck(){
+	//작가명이 '미설정'이면 경고
+	var x = document.getElementById("content").value;
+	if(x == '미설정'){
+		alert('작품을 판매하기 위해서 작가명을 등록해주세요!');
+	}
+}
 </script>
 
 
@@ -172,7 +180,12 @@ footer span{
 									</c:if>
 								</td>
 								<td  class="daintdth" style="width: 28%;">
-									<input type="file" required="required" name="writerProfileImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
+									<c:if test="${profile.writerProfileImg eq '1596900594159보석로고_대지 1.png'}">
+									<input type="file" name="writerProfileImgg" id="image" accept=".jpg, .jpeg, .png" required="required" onchange="setThumbnail(event);"/>
+									</c:if>
+									<c:if test="${profile.writerProfileImg ne '1596900594159보석로고_대지 1.png'}">
+									<input type="file" name="writerProfileImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail(event);"/>
+									</c:if>
 									<div style="font-size: 12px">
 										<br>10MB 이하 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div>
@@ -192,7 +205,12 @@ footer span{
 								 --%>
 								</td>
 								<td class="daintdth" style="width: 28%; ">
-								<input type="file" required="required" name="writerCoverImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
+								<c:if test="${profile.writerCoverImg eq null}">
+								<input type="file" name="writerCoverImgg" id="image" accept=".jpg, .jpeg, .png" required="required" onchange="setThumbnail2(event);"/>
+								</c:if>
+								<c:if test="${profile.writerCoverImg ne null}">
+								<input type="file" name="writerCoverImgg" id="image" accept=".jpg, .jpeg, .png" onchange="setThumbnail2(event);"/>
+								</c:if>
 									<div style="font-size: 12px">
 										<br>10MB 이하 정사각형 이미지<br>확장자 jpg,png만 가능
 									</div></td>
@@ -217,7 +235,7 @@ footer span{
 						<br> <br /> <br>
 						<div class="spButton">
 							<div style="text-align: center; width: 90%;">
-								<button type="submit" class="btn btn-primary">확인</button>
+								<button type="submit" class="btn btn-primary" onclick="submitCheck()">확인</button>
 							</div>
 						</div>
 					</form>

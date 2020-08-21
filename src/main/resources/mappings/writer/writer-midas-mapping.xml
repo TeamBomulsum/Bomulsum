@@ -188,9 +188,7 @@
         		A
         	)
 		WHERE 
-			rnum 
-		between 
-			#{pageStart} and #{pageNext}
+			rnum between #{pageStart} and #{pageNext}
 	</select>
 
 	

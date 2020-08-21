@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.common.PageCreator;
-import com.web.bomulsum.common.PageVO;
 import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
@@ -125,10 +124,8 @@ public class WriterMidasController {
 		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
 		String writerCodeSeq = code.getWriterSeq();
 		vo.setWriterCodeSeq(writerCodeSeq);
-		System.out.println(vo);
 		PageCreator pc = new PageCreator();
 		pc.setPaging(vo);
-		System.out.println(pc.getArticleTotalCount());
 		
 		
 		List<WriterMidasVO> classList = service.getArticleListPaging(vo);
@@ -143,8 +140,6 @@ public class WriterMidasController {
 		
 		WriterMidasVO vo = service.getClassArticle(orderSeq);
 		model.addAttribute("article",vo);
-		System.out.println(orderSeq);
-		System.out.println(vo);
 		return vo;
 	}
 	@PostMapping("midasRunUpdate")

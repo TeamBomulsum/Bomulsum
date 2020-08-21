@@ -29,8 +29,11 @@ public class WriterActivityDAO {
 		avo.setAlarmContent((String)vo.getComment_recomment());
 		System.out.println("형변환후 :" + avo.toString());
 		avo.setWriterSeq((String)vo.getWriter_code_seq());
-		
-		sqlSessionTemplate.insert("writerActivityDAO.addAlarm", avo);
+		String check = vo.getComment_status();
+		System.out.println(vo.getComment_status());
+		if(check.equals("N")) {
+			sqlSessionTemplate.insert("writerActivityDAO.addAlarm", avo);			
+		}
 		sqlSessionTemplate.update("writerActivityDAO.addRecomment", vo);
 	}
 	
@@ -42,5 +45,15 @@ public class WriterActivityDAO {
 	
 	public List<WriterActivityVO> reviewList(String seq){
 		return sqlSessionTemplate.selectList("writerActivityDAO.selectReviewList", seq);
+	}
+	
+	//후기 답글 등록
+	public void updateReviewComment(WriterActivityVO vo) {
+		String check = vo.getReviewCommentReStatus();
+		if(check.equals("N")) {
+			vo.setAlarmContent(vo.getReviewCommentRe());
+			sqlSessionTemplate.insert("writerActivityDAO.insertAlarmMBoard", vo);
+		}
+		sqlSessionTemplate.update("writerActivityDAO.updateReviewComment", vo);
 	}
 }

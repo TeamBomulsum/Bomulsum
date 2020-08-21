@@ -5,7 +5,29 @@ public class UserChatRoomVO {
 	private String writerName;
 	private String writerImg;
 	private String writerBrandName;
+	private String chatroomCode;
+	private int nonReadMsgCount;
+	private String lastMessage;
 	
+	
+	public String getChatroomCode() {
+		return chatroomCode;
+	}
+	public void setChatroomCode(String chatroomCode) {
+		this.chatroomCode = chatroomCode;
+	}
+	public int getNonReadMsgCount() {
+		return nonReadMsgCount;
+	}
+	public void setNonReadMsgCount(int nonReadMsgCount) {
+		this.nonReadMsgCount = nonReadMsgCount;
+	}
+	public String getLastMessage() {
+		return lastMessage;
+	}
+	public void setLastMessage(String lastMessage) {
+		this.lastMessage = lastMessage;
+	}
 	public String getWriterBrandName() {
 		return writerBrandName;
 	}
@@ -33,8 +55,10 @@ public class UserChatRoomVO {
 	@Override
 	public String toString() {
 		return "UserChatRoomVO [writerCode=" + writerCode + ", writerName=" + writerName + ", writerImg=" + writerImg
-				+ ", writerBrandName=" + writerBrandName + "]";
+				+ ", writerBrandName=" + writerBrandName + ", chatroomCode=" + chatroomCode + ", nonReadMsgCount="
+				+ nonReadMsgCount + ", lastMessage=" + lastMessage + "]";
 	}
+	
 
 	
 	

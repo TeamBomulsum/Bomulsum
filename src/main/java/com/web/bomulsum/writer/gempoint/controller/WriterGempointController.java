@@ -42,7 +42,12 @@ public class WriterGempointController {
 		Map<String, Object> gemSum = service.getGemPointSum(seq);
 		mav.addObject("gemsum", gemSum);
 		
-	
+		//사이드에 젬포인트 반영
+		
+		  code.setGemSum(Integer.parseInt(String.valueOf(gemSum.get("GEMSUM"))));
+		  System.out.println("사이드반영:"+code);
+	 
+		
 		return mav;
 	} 
 	
@@ -58,13 +63,13 @@ public class WriterGempointController {
 		Map<String, Object> gemMap = new HashMap<String, Object>();
 		gemMap.put("writerCodeSeq", seq);
 		
-				
 		//포인트 충전
 		System.out.println("충전한 포인트 : " + chargeMoney);
 		ModelAndView mav = new ModelAndView("redirect:/writer/gempoint.wdo");
 		gemMap.put("chargeMoney", chargeMoney);
 		service.insertGemPointCharge(gemMap);
 		System.out.println("맵에 들어간 내용:" + chargeMoney);
+
 		return mav;
 	}
 

@@ -1,15 +1,17 @@
 package com.web.bomulsum.writer.art.service;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.bomulsum.common.PageVO;
+import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.art.repository.WriterArtDAO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
+import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
 
 
@@ -90,35 +92,47 @@ public class WriterArtServiceImpl implements WriterArtService{
 		return dao.getArtOnsaleList(seq);
 	}
 	@Override
-	public int getArtOnsaleReview(String artCode) {
-		return dao.getArtOnsaleReview(artCode);
+	public int getArtSaleReview(String artCode) {
+		return dao.getArtSaleReview(artCode);
 	}
 
 	@Override
-	public int getArtOnsaleComment(String artCode) {
-		return dao.getArtOnsaleComment(artCode);
+	public int getArtSaleComment(String artCode) {
+		return dao.getArtSaleComment(artCode);
 	}
 
 	@Override
-	public int getArtOnsaleBookmark(String artCode) {
-		return dao.getArtOnsaleBookmark(artCode);
+	public int getArtSaleBookmark(String artCode) {
+		return dao.getArtSaleBookmark(artCode);
 	}
 
-	//판매 일시중지
+	//판매 일시중지로 바꾸기
 	@Override
-	public void updateSalesArt(String[] checkArr) {
+	public void changePauseSalesArt(String[] checkArr) {
 		List<String> list = new ArrayList<String>();
 		
 		for(int i=0; i<checkArr.length; i++) {
 			list.add(checkArr[i]);
 		}
-		dao.updateSalesArt(list);
+		dao.changePauseSalesArt(list);
 	}
+	
+	//판매중으로 바꾸기
+	@Override
+	public void changeStartSalesArt(String[] checkArr) {
+		List<String> list = new ArrayList<String>();
+		
+		for(int i=0; i<checkArr.length; i++) {
+			list.add(checkArr[i]);
+		}
+		dao.changeStartSalesArt(list);
+	}
+
 
 	
 	//작품 삭제
 	@Override
-	public void deleteSalesArt(String[] deleteCheck) {
+	public void deleteArt(String[] deleteCheck) {
 		List<String> list = new ArrayList<String>();
 		
 		for(int i=0; i<deleteCheck.length; i++) {
@@ -127,12 +141,108 @@ public class WriterArtServiceImpl implements WriterArtService{
 		dao.deleteArt(list);
 		
 	}
-	
-	//작품 정렬
+
+	//판매 일시중지 작품 목록
 	@Override
-	public List<WriterArtVO> getSortList(Map<String, Object> map) {
-		return dao.getSortList(map);
+	public List<WriterArtVO> getArtPauseOnsale(String seq) {
+		return dao.getArtPauseOnsale(seq);
 	}
+	
+	//수정 작품 목록
+	@Override
+	public List<WriterArtVO> getUpdateArt(String artCode) {
+		return dao.getUpdateArt(artCode);
+	}
+	@Override
+	public List<WriterArtInfoDetailVO> getUpdateArtInfo(String artCode) {
+		return dao.getUpdateArtInfo(artCode);
+	}
+	@Override
+	public List<WriterArtOptionVO> getUpdateArtOption(String artCode) {
+		return dao.getUpdateArtOption(artCode);
+	}
+	
+	//작품 수정
+	@Override
+	public void updateArt(WriterArtVO vo) {
+		dao.updateArts(vo);
+		
+	}
+	@Override
+	public void updateArtInfoDetail(WriterArtInfoDetailVO vo) {
+		dao.updateArtInfoDetail(vo);
+	}
+	//작품 옵션 수정
+	@Override
+	public void updateArtOption1(Map<String, Object> map) {
+		dao.updateArtOption1(map);
+	}
+	@Override
+	public void updateArtOption2(Map<String, Object> map) {
+		dao.updateArtOption2(map);
+	}
+	@Override
+	public void updateArtOption3(Map<String, Object> map) {
+		dao.updateArtOption3(map);
+	}
+	@Override
+	public void updateArtOption4(Map<String, Object> map) {
+		dao.updateArtOption4(map);
+	}
+	@Override
+	public void updateArtOption5(Map<String, Object> map) {
+		dao.updateArtOption5(map);
+	}
+	@Override
+	public void updateArtOption6(Map<String, Object> map) {
+		dao.updateArtOption6(map);
+	}
+	@Override
+	public void updateArtOption7(Map<String, Object> map) {
+		dao.updateArtOption7(map);
+	}
+	@Override
+	public void updateArtOption8(Map<String, Object> map) {
+		dao.updateArtOption8(map);
+	}
+	@Override
+	public void updateArtOption9(Map<String, Object> map) {
+		dao.updateArtOption9(map);
+	}
+	//원희 수정
+	@Override
+	public List<WriterArtVO> getRecommendSelect(SearchVO vo) {
+		return dao.getRecommendSelect(vo);
+	}
+
+	@Override
+	public int getArtCount(PageVO vo) {
+		return dao.getArtCount(vo);
+	}
+	@Override
+	public void getTempUpdate(String artCodeSeq) {
+		dao.getTempUpdate(artCodeSeq);
+	}
+	@Override
+	public List<WriterArtVO> getRecommendSelectTemp(WriterArtVO vo) {
+		return dao.getRecommendSelectTemp(vo);
+	}
+	@Override
+	public void getTempUpdateN(String artCodeSeq) {
+		 dao.getTempUpdateN(artCodeSeq);
+	}
+	public int checkArtList(String writerCodeSeq){
+		return dao.checkArtList(writerCodeSeq);
+	}
+	@Override
+	public void recommendUp(String writerCodeSeq) {
+		dao.recommendUp(writerCodeSeq);
+	}
+	@Override
+	public void getTempUpdateReN(String writerCodeSeq) {
+		dao.getTempUpdateReN(writerCodeSeq);
+	}
+	
 	
 
 }

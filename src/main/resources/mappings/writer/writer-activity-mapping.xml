@@ -32,6 +32,35 @@
 		<result column="MEMBER_PROFILE" property="memberProfile"/>
 	</resultMap>
  
+ 
+ 	<!-- 회원이 남긴 후기에 댓글을 등록 & 알람 테이블 인써트 -->
+ 	<update id="updateReviewComment" parameterType="com.web.bomulsum.writer.activity.repository.WriterActivityVO">
+ 		UPDATE review_tb
+		SET review_comment_re = #{reviewCommentRe},
+		    review_comment_re_date = SYSDATE,
+		    review_comment_re_status = 'Y'
+		WHERE review_code_seq = #{reviewCodeSeq}
+ 	</update>
+ 	<insert id="insertAlarmMBoard" parameterType="com.web.bomulsum.writer.activity.repository.WriterActivityVO">
+		INSERT INTO alarm_tb
+		(
+			alarm_seq,
+			sender_code,
+			recipient_code,
+			alarm_title,
+			alarm_content
+		)
+		VALUES
+		(
+			'alarm_seq' || TO_CHAR(alarm_sq.nextval),
+			#{writerSeq},
+			#{memberCodeSeq},
+			'댓글',
+			#{alarmContent}
+		)
+	</insert>
+ 	
+ 
 	<!-- 댓글 등록 / 회원이 이미 작성한 댓글에 다시 댓글을 다는 형식이라 업데이트문을 이용한다.-->
 	<!-- 코멘트 테이블 업데이트-->
 	<update id="addRecomment" parameterType="com.web.bomulsum.writer.activity.repository.CommentsListVO">
@@ -128,6 +157,7 @@
 				a.art_code_seq = c.art_code_seq
 			WHERE
 				(c.writer_code_seq = #{writerSeq})
+			ORDER BY a.review_date DESC
 		) X
 	</select>
 

@@ -13,4 +13,16 @@ public class UserMyInfoController {
 		return "/umyInfo/uMyHome";
 	}
 	
+	@RequestMapping(value="/ugift/receive")
+	public String myInfoGiftReceive() {
+		return "/umyInfo/ugift/uRGiftList";
+	}
+	
+	@RequestMapping(value="/ugift/receive/check")
+	public String myInfoGiftReceiveCheck() {
+		return "/umyInfo/ugift/uRGiftCheck";
+	}
+
+	
+	
 }

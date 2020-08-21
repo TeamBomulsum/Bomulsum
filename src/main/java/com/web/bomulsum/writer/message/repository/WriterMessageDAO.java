@@ -52,5 +52,17 @@ public class WriterMessageDAO {
 	public void updateChatStatus(HashMap<String , String> map) {
 		sqlSessionTemplate.update("writerMessageDAO.updateChatStatus", map);
 	}
+	
+	public String getChatroomCode(HashMap<String, String> map) {
+		return sqlSessionTemplate.selectOne("writerMessageDAO.getChatroomCode", map);
+	}
+	
+	public int getNonReadMsg(HashMap<String, String> map) {
+		return sqlSessionTemplate.selectOne("writerMessageDAO.getNonReadMsg", map);
+	}
+	
+	public String getNonReadMsgContent(HashMap<String, String> map) {
+		return sqlSessionTemplate.selectOne("writerMessageDAO.getNonReadMsgContent", map);
+	}
 
 }

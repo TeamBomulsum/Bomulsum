@@ -8,6 +8,7 @@
 		<result property="memberCode" column="member_code_seq" />
 		<result property="memberName" column="member_name" />
 		<result property="memberImg" column="member_profile" />
+		<result property="chatroomCode" column="chatroom_sq" />
 	</resultMap>
 	
 	<resultMap type="com.web.bomulsum.writer.message.repository.MessageVO" id="messageVO">
@@ -17,11 +18,33 @@
 		<result property="messageContent" column="message_content" />
 	</resultMap>
 	
+	<select id="getChatroomCode" parameterType="hashMap" resultType="String">
+		SELECT
+			chatroom_sq
+		FROM
+			chatroom_tb
+		WHERE
+		(
+			(
+				member_code_seq=#{sender}
+				AND
+				writer_code_seq=#{receiver}
+			)
+			OR
+			(
+				member_code_seq=#{receiver}
+				AND
+				writer_code_seq=#{sender}
+			)
+		)
+	</select>
+	
 	<select id="getChatroom" parameterType="String" resultMap="writerChatVo">
 		SELECT 
 			m.member_code_seq, 
 			m.member_name,
-			m.member_profile
+			m.member_profile,
+			c.chatroom_sq
 		FROM 
 			member_tb m
 		INNER JOIN 
@@ -36,6 +59,44 @@
 			)
 		ORDER BY 
 			c.chatroom_date
+	</select>
+	
+	<select id="getNonReadMsg" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) FROM
+			message_tb
+		WHERE
+			chatroom_sq=#{chatroomCode}
+			AND
+			message_read='N'
+			AND
+			message_receiver_code=#{receiver}
+	</select>
+	
+	<select id="getNonReadMsgContent" parameterType="hashMap" resultType="String">
+		SELECT
+			message_content
+		FROM
+		(
+			SELECT 
+				message_content
+			FROM 
+				message_tb
+			WHERE
+			(
+				message_receiver_code=#{writerCode}
+				AND
+				chatroom_sq=#{chatRoomCode}
+			)
+			OR
+			(
+				message_sender_code=#{writerCode}
+				AND
+				chatroom_sq=#{chatRoomCode}
+			)
+			ORDER BY
+				message_time desc
+		)
+		WHERE rownum=1
 	</select>
 	
 	<select id="memberTest" resultMap="writerChatVo">
@@ -136,6 +197,7 @@
 			message_tb
 		(
 			message_seq,
+			chatroom_sq,
 			message_sender_code,
 			message_receiver_code,
 			message_content
@@ -143,6 +205,7 @@
 		VALUES
 		(
 			'message_sq' || TO_CHAR(message_sq.nextval),
+			#{chatroomCode},
 			#{messageSenderCode},
 			#{messageReceiverCode},
 			#{messageContent}

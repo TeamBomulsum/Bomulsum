@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,6 +45,12 @@ public class UserMessageController {
 	@RequestMapping("/message/reload")
 	public List<UserChatRoomVO> reload(@RequestParam String code, @RequestParam String writerCode){
 		return service.getChatroom(code);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/message/head/reload")
+	public List<UserChatRoomVO> headReload(@RequestParam String memberCode) {
+		return service.getChatroom(memberCode);
 	}
 	
 	@ResponseBody

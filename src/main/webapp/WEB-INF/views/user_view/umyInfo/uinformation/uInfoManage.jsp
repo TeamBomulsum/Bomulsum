@@ -33,17 +33,30 @@ $(document).ready(function () {
 	    $("#phoneChangeCancelBtn").css("display","inline");
 	});
 	
-	//전화 변경 취소
+ 	//전화 변경 취소
 	$('#phoneChangeCancelBtn').click(function(){
 		$('#phoneChange').css("display", "none");
 	    $("#phoneChangeBtn").css("display","inline");
 	    $("#phoneChangeCancelBtn").css("display","none");
-	  });
+	  }); 
 	
 	//회원탈퇴 클릭시
 	$(withdrawBtn).click(function(){
 	var withdrawCheck = confirm("정말로 탈퇴하시겠습니까?");
 	console.log(withdrawCheck);	//회원탈퇴여부 true/false
+	
+	if(withdrawCheck == true){
+	      $.ajax({
+				url : "/bomulsum/user/deleteuser.do",
+				data : {
+				},
+				type:'get',
+				success : function(){
+				console.log("회원탈퇴!"); 
+				 location.href="/bomulsum/home.do";
+				}
+   		    });
+		}
 	});
 	
 });
@@ -202,15 +215,15 @@ body a:link, a:visited, a:hover, a:active, :active{
 		<div style="color: #666666">주문, 배송시 등록된 번호로 SMS를 발송해 드립니다.</div>
 		<div id="phoneChange">
 			<p style="margin: 10px 0px 3px 0px" id="changeMent">변경할 전화번호를 입력해주세요.</p>
-			<input type="text" class="dainInput phoneFail" id="uPhone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+			<input type="text" name="member_phone" class="dainInput phoneFail" id="uPhone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
 		name="member_phone" placeholder="010-1234-5678" maxlength="20" autocomplete="off" style="min-width: 170px; max-width: 170px"/>
 		<button class="dainBtn" id="phoneBtn" type="button" style="height: 32px;">인증번호 요청</button>
 		<!-- 인증번호영역 -->
 		<div id="phoneCertification" style="width:100%; flex-direction: row; height:50px; margin-bottom:1%; margin-top: 2%;">
 			<div class="inputCertification" style="display: flex; flex-direction: row; height:40px; width:70%; margin-right:1%;">
 			<input id="inputCertificationNum" class="dainInput" maxlength="6" type="text" placeholder="인증코드를 입력해주세요." style="min-width: 170px;">
-			<button id="inputCertificationButton" class="dainBtn btn-abled" style="height: 32px; width: 20%; margin-left: 10px;">확인</button>
-			<div id="time_limit" style="width:20%; height:30px; color:#d8524a;  padding-top: 3%; margin-left: 2%;"></div>
+			<button id="inputCertificationButton" class="dainBtn btn-abled" type="button" style="height: 32px; width: 20%; margin-left: 10px;">확인</button>
+			<div id="time_limit" style="width:20%; height:30px; color:#d8524a;  padding-top: 1%; margin-left: 2%;"></div>
 			</div>
 		</div>
 		<a id="phoneFail" style="display:none; color:#d8524a; font-size:12px; margin-bottom:5%;">필수 항목입니다.</a>
@@ -435,13 +448,30 @@ function start_timer(){
 							$("#inputCertificationButton").addClass('btn-disabled');
 							$("#inputCertificationButton").removeClass('btn-abled');
 							$("#inputCertificationButton").attr("disabled", true);
-							$("#phoneFail").css("display", "none");
-							
+							$("#time_limit").css("color",'#ffffff');
+						//	$("#phoneFail").css("display", "none");
+						//	$("#phoneChange").css("display", "none");
+						//  $("#phoneChangeBtn").css("display","inline");
+						//  $("#phoneChangeCancelBtn").css("display","none");
 							
 							$(".phoneFail").off();
 							$("#phoneBtn").off();
 							$("#inputCertificationNum").off();
 							phoneCheck = true;
+							
+							
+							//컨트롤러에 넘겨서 update
+							var changePhone = $("#uPhone").val();
+					       //  location.href="/bomulsum/user/updateuserphone.do?member_phone="+changePhone;
+					         $.ajax({
+									url : "/bomulsum/user/updateuserphone.do",
+									//?msg=" + sendMsg + "&receiver=" + receiveNum
+									data : {
+										member_phone : changePhone
+									},
+									type:'get',
+									success : console.log("전화번호 변경!")
+					         });
 						}
 					});
 					
@@ -465,7 +495,6 @@ function start_timer(){
 					console.log("전송 실패")
 				}
 			});
-			
 			
 			
 			

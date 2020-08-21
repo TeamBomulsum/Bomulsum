@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매중 작품</title>
+<title>보물섬 작가홈 | 판매중 작품</title>
 <link
 	href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>"
 	rel="stylesheet" type="text/css">
@@ -96,10 +96,164 @@ form {
 .arrow next {
 	border: 0px;
 }
+
+
+.minwoo_pagination a {
+   display: inline-block;
+   margin: 0 3px;
+   text-decoration: none;
+   padding: 5px 10px;
+   border: 1px solid #ccc;
+   color: #999999;
+   background-color: #fff;
+}
+
 </style>
 </head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- body 시작 -->
+<body id="page-top">
+	<c:if test="${param.check eq 1}">
+		<script type="text/javascript">
+			alert("글이 수정 되었습니다.");
+			location.href="/bomulsum/writer/workOnsale.wdo";
+		</script>
+	</c:if>
+
+
+	<div id="wrapper">
+		<!-- Header/Nav -->
+		<%@ include file="../include/side.jsp"%>
+		<div id="content-wrapper" class="d-flex flex-column">
+			<div id="content">
+				<%@ include file="../include/head.jsp"%>
+				<!-- end Header/Nav -->
+				<!-- 판매중 작품 영역 -->
+				<div class="jeongaonSaleContainer">
+					<!-- topLine -->
+					<div class="topLine">
+						<h4>판매중 작품</h4>
+					</div>
+					<!-- end of topLine -->
+					<hr>
+					<div class="middleLine">
+						<input type="text" placeholder="작품명을 입력하세요" id="search_box"
+							autocomplete="off">
+						<button class="button" type="submit" onclick="search()">검색</button>
+
+						<div class="formAction">
+							<!--  <form action="<c:url value='/writer/categorySort.wdo'/> "
+								class="sortSearch">-->
+								<select id="sortList" onchange="formAction()">
+									<option value="art_name">작품명</option>
+									<option value="art_register_date">등록일</option>
+									<option value="art_price">정상가격</option>
+									<option value="art_sale_count">판매수</option>
+								</select>
+							<!--  </form>-->
+							<select name="show" id="rowPerPage">
+								<option value="10">10개씩 보기</option>
+								<option value="30">30개씩 보기</option>
+								<option value="50">50개씩 보기</option>
+							</select>
+						</div>
+					</div>
+					<!-- middleLine -->
+					<!-- 테이블 시작 -->
+					<div class="jeongaSaleTable">
+						<table border="1" id="ordertable">
+							<thead>
+								<tr>
+									<th style="width: 4%"><input type="checkbox"
+										id="selectAll"></th>
+									<th colspan="4" style="width: 40%">작품명</th>
+									<th style="width: 5%">수량</th>
+									<th style="width: 7%">정상가</th>
+									<th style="width: 7%">할인가</th>
+									<th style="width: 7%">즐겨찾기</th>
+									<th style="width: 5%">댓글</th>
+									<th>조회수</th>
+									<th>판매수</th>
+									<th style="width: 5%">후기</th>
+									<th>수정</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<%-- 	<c:forEach var="onSaleArt" items="${onSaleList}">
+			<tr>
+		
+				<td><input type="checkbox" class="selectCheckBox" name="selectCheck"value="Y"></td>
+				<td style="display:none"> <span class="artCode">${onSaleArt.artCodeSeq}</span></td>
+				<td>
+				<img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px"
+					src="<c:url value='/upload/${onSaleArt.artPhoto}'/>"/></td> <!-- ${onSaleArt.artPhoto} -->
+				<td colspan="3">
+					<div class="alignLeft" style="text-align: left">
+						<a href="#" style="color: black; text-style: bold;">
+						${onSaleArt.artName}</a> 
+						<label style="text-align: center; background-color: #5EC75E; width: auto; margin-bottom: 0rem; color: white">
+							<i class="fas fa-tags"></i>
+						</label>
+					</div>
+					<div class="alignRight" style="text-align: right">
+						<br> <label style="text-decoration: line-through; margin-bottom: 0rem"> ${onSaleArt.artPrice}원</label>
+						<br> <label style="margin-bottom: 0rem; color: #28E7FF">${onSaleArt.artDiscount}원 </label>
+					</div>
+				</td>
+				
+				<td>${onSaleArt.artAmount}</td>
+				<td>${onSaleArt.artPrice}원</td>
+				<td>${onSaleArt.artDiscount}원</td>
+				<td>${onSaleArt.bookMarkCount}</td>
+				<td>${onSaleArt.commentCount}</td>
+				<td>${onSaleArt.artViewCount}</td>
+				<td>${onSaleArt.artSaleCount}</td>
+				<td>${onSaleArt.reviewCount}</td>
+				<td><button id="update" type="button" onClick="location.href ='<c:url value='/writer/workRegister.wdo'/>'">수정</button></td>
+				
+			</tr>
+			</c:forEach> --%>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- 테이블 끝 -->
+
+					<!-- 아래 버튼 -->
+					<div class="bottomLine">
+						<button class="button" id="pauseSales" type="button">판매 일시 중지</button>
+						<button class="button" id="deleteArt" type="button">작품 삭제</button>
+					</div>
+					<!-- 아래 버튼 끝 -->
+				</div>
+				<!-- end of Container -->
+				<!-- 페이징 처리 -->
+				<div id="jeongapagination" class="minwoo_pagination"></div>
+
+				<%@ include file="../include/footer.jsp"%>
+				<!-- end footer -->
+
+				<!-- Scroll to Top Button-->
+				<a class="scroll-to-top rounded" href="#page-top"> <i
+					class="fas fa-angle-up"></i>
+				</a>
+
+				<script
+					src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+				<script
+					src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+
+				<!-- Core plugin JavaScript-->
+				<script
+					src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+
+			</div>
+			<!-- end of content -->
+		</div>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 	pagingFunc();
@@ -107,7 +261,7 @@ $(document).ready(function(){
 	$("#rowPerPage").change(function(){
         pagingFunc();
      });
-	
+});
     //최상단 체크박스 클릭
     $("#selectAll").click(function(){
         //클릭되었으면
@@ -140,7 +294,7 @@ $(document).ready(function(){
     //판매일시중지 값 넘기기
     function pauseSale(data){   
         $.ajax({
-           url:"/bomulsum/writer/updateSalesArt.wdo",
+           url:"/bomulsum/writer/pauseSalesArt.wdo",
            data:data,
            success : function(){
               alert('변경에 성공했습니다.');
@@ -178,7 +332,7 @@ $(document).ready(function(){
  	//작품 삭제 값 넘기기
      function deleteArt(data){   
          $.ajax({
-            url:"/bomulsum/writer/deleteSalesArt.wdo",
+            url:"/bomulsum/writer/deleteArt.wdo",
             data:data,
             success : function(){
                alert('변경에 성공했습니다.');
@@ -190,10 +344,8 @@ $(document).ready(function(){
          }).done(function(data){
          	console.log(data);
          });
-      }    	
-});
-
-
+      }   
+ 
 //페이지 시작하면 처음 보여주면서 처리해야할 기능
 //페이징 처리를 위한 스크립트
 var onSaleResult = new Array();
@@ -349,7 +501,10 @@ var pagingFunc = function(){
 				'<td>'+ result[index].bookMarkCount+'</td>' + '<td>'+ result[index].commentCount+'</td>' +
 				'<td>'+ result[index].artViewCount+'</td>' + '<td>'+ result[index].artSaleCount+'</td>' +
 				'<td>'+ result[index].reviewCount+'</td>' + 
-				'<td>'+`<input type="button" id= "jeongaUpdate" value="수정" onClick="location.href ='<c:url value='/writer/workRegister.wdo'/>'">`+'</td></tr>'
+				'<td>'+'<form action="${pageContext.request.contextPath}/writer/updateWork.wdo" method="post" enctype="multipart/form-data">'
+				+'<input type="hidden" name="modifyArtCode" value="'+result[index].artCodeSeq + '">'
+				+'<button type="submit" id="update">수정'+'</button>'+'</td></tr>'
+
 		}
 		testTable.innerHTML = html;
 	};
@@ -366,7 +521,7 @@ var pagingFunc = function(){
 		if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전...&nbsp;&nbsp;</a>";
 		            
 		for(var index = startPage; index <= endPage; index++){
-			paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
+			paginationHTML += (parseInt(page) === parseInt(index)) ? "<a style='color:#ff8400'>" + index + "</a> " :" <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> ";
 		}
 		            
 		if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";
@@ -409,140 +564,4 @@ var pagingFunc = function(){
 };
 
 </script>
-<!-- body 시작 -->
-<body id="page-top">
-
-	<div id="wrapper">
-		<!-- Header/Nav -->
-		<%@ include file="../include/side.jsp"%>
-		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content">
-				<%@ include file="../include/head.jsp"%>
-				<!-- end Header/Nav -->
-				<!-- 판매중 작품 영역 -->
-				<div class="jeongaonSaleContainer">
-					<!-- topLine -->
-					<div class="topLine">
-						<h4>판매중 작품</h4>
-					</div>
-					<!-- end of topLine -->
-					<hr>
-					<div class="middleLine">
-						<input type="text" placeholder="작품명을 입력하세요" id="search_box"
-							autocomplete="off">
-						<button class="button" type="submit" onclick="search()">검색</button>
-
-						<div class="formAction">
-							<!--  <form action="<c:url value='/writer/categorySort.wdo'/> "
-								class="sortSearch">-->
-								<select id="sortList" onchange="formAction()">
-									<option value="art_name">작품명</option>
-									<option value="art_register_date">등록일</option>
-									<option value="art_price">정상가격</option>
-									<option value="art_sale_count">판매수</option>
-								</select>
-							<!--  </form>-->
-							<select name="show" id="rowPerPage">
-								<option value="10">10개씩 보기</option>
-								<option value="30">30개씩 보기</option>
-								<option value="50">50개씩 보기</option>
-							</select>
-						</div>
-					</div>
-					<!-- middleLine -->
-					<!-- 테이블 시작 -->
-					<div class="jeongaSaleTable">
-						<table border="1" id="ordertable">
-							<thead>
-								<tr>
-									<th style="width: 4%"><input type="checkbox"
-										id="selectAll"></th>
-									<th colspan="4" style="width: 40%">작품명</th>
-									<th style="width: 5%">수량</th>
-									<th style="width: 7%">정상가</th>
-									<th style="width: 7%">할인가</th>
-									<th style="width: 7%">즐겨찾기</th>
-									<th style="width: 5%">댓글</th>
-									<th>조회수</th>
-									<th>판매수</th>
-									<th style="width: 5%">후기</th>
-									<th>수정</th>
-								</tr>
-							</thead>
-							<tbody>
-
-								<%-- 	<c:forEach var="onSaleArt" items="${onSaleList}">
-			<tr>
-		
-				<td><input type="checkbox" class="selectCheckBox" name="selectCheck"value="Y"></td>
-				<td style="display:none"> <span class="artCode">${onSaleArt.artCodeSeq}</span></td>
-				<td>
-				<img style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px"
-					src="<c:url value='/upload/${onSaleArt.artPhoto}'/>"/></td> <!-- ${onSaleArt.artPhoto} -->
-				<td colspan="3">
-					<div class="alignLeft" style="text-align: left">
-						<a href="#" style="color: black; text-style: bold;">
-						${onSaleArt.artName}</a> 
-						<label style="text-align: center; background-color: #5EC75E; width: auto; margin-bottom: 0rem; color: white">
-							<i class="fas fa-tags"></i>
-						</label>
-					</div>
-					<div class="alignRight" style="text-align: right">
-						<br> <label style="text-decoration: line-through; margin-bottom: 0rem"> ${onSaleArt.artPrice}원</label>
-						<br> <label style="margin-bottom: 0rem; color: #28E7FF">${onSaleArt.artDiscount}원 </label>
-					</div>
-				</td>
-				
-				<td>${onSaleArt.artAmount}</td>
-				<td>${onSaleArt.artPrice}원</td>
-				<td>${onSaleArt.artDiscount}원</td>
-				<td>${onSaleArt.bookMarkCount}</td>
-				<td>${onSaleArt.commentCount}</td>
-				<td>${onSaleArt.artViewCount}</td>
-				<td>${onSaleArt.artSaleCount}</td>
-				<td>${onSaleArt.reviewCount}</td>
-				<td><button id="update" type="button" onClick="location.href ='<c:url value='/writer/workRegister.wdo'/>'">수정</button></td>
-				
-			</tr>
-			</c:forEach> --%>
-							</tbody>
-						</table>
-					</div>
-
-					<!-- 테이블 끝 -->
-
-					<!-- 아래 버튼 -->
-					<div class="bottomLine">
-						<button class="button" id="pauseSales" type="button">판매
-							일시 중지</button>
-						<button class="button" id="deleteArt" type="button">작품 삭제</button>
-					</div>
-					<!-- 아래 버튼 끝 -->
-				</div>
-				<!-- end of Container -->
-				<!-- 페이징 처리 -->
-				<div id="jeongapagination"></div>
-
-				<%@ include file="../include/footer.jsp"%>
-				<!-- end footer -->
-
-				<!-- Scroll to Top Button-->
-				<a class="scroll-to-top rounded" href="#page-top"> <i
-					class="fas fa-angle-up"></i>
-				</a>
-
-				<script
-					src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
-				<script
-					src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
-
-				<!-- Core plugin JavaScript-->
-				<script
-					src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
-
-			</div>
-			<!-- end of content -->
-		</div>
-	</div>
-</body>
 </html>

@@ -26,6 +26,7 @@
 	vertical-align: middle;
 	resize: none;
 	font-size:12px;
+	height: 30px;
 }
 
 .minwoo_tableBottomLine{
@@ -80,9 +81,26 @@
 	max-height: 40px;
 	max-width: 40px;
 }
+.review_photo{
+	width:40px;
+	height:40px;
+	object-fit:cover;
+	max-height: 40px;
+	max-width: 40px;
+	background-color: yellow;
+	margin-left: 5px;
+}
+.review_photo_td{
+	display: inline-flex;
+}
+
 .openUpdateModal {
 	cursor: pointer;
+	height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 .btn2{
    background-color: white;
    margin-left : 10px;
@@ -104,14 +122,99 @@
 
 .reviewCommentRe{
 	width: 100%; resize: none; font-size: 12px;
-	; max-height:48px; min-height:48px;
-	border:none; placeholder:"댓글을 남겨 주세요.";
+	max-height:48px; min-height:48px;
+	border:none;
+	outline: none;
+	-ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
+/*스크롤바 안보이게 하기*/
+.reviewCommentRe::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+
+
+/*별점 표현하기*/
+.minwoo_starRev{
+/* 	width:100%;
+	height:30px;
+	margin-left: 5px;
+    margin-right: 5px;
+    margin-top:7px;
+    margin-bottom: 7px; */
+    display: inline-flex;
+}
+
+.minwoo_starR1{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat -38px 0;
+    background-size: auto 100%;
+    width: 11px;
+    height: 22px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR2{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat right 0;
+    background-size: auto 100%;
+    width: 11px;
+    height: 22px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR1.on{background-position:0 0;}
+.minwoo_starR2.on{background-position:-11px 0;}
+
+/*모달 별점 - 크기 좀더 크게*/
+.minwoo_modalStarRev{
+	width:100%;
+	height:30px;
+	margin-left: 80px;
+    margin-right: 80px;
+    margin-top:7px;
+    margin-bottom: 7px;
+}
+
+.minwoo_modal_starR1{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat -52px 0;
+    background-size: auto 100%;
+    width: 15px;
+    height: 30px;
+    float:left;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.minwoo_modal_starR2{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat right 0;
+    background-size: auto 100%;
+    width: 15px;
+    height: 30px;
+    float:left;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.minwoo_modal_starR1.on{background-position:0 0;}
+.minwoo_modal_starR2.on{background-position:-15px 0;}
+
+
 </style>
 </head>
 <!-- body 시작 -->
 <body>
 
+	<c:if test="${param.check eq 3}">
+		<script type="text/javascript">
+			alert("구매후기에 댓글이 등록 되었습니다.");
+			location.href = "/bomulsum/writer/activity/review.wdo";
+		</script>
+	</c:if>
+		<c:if test="${param.check eq 4}">
+		<script type="text/javascript">
+			alert("구매후기에 댓글이 수정 되었습니다.");
+			location.href = "/bomulsum/writer/activity/review.wdo";
+		</script>
+	</c:if>
+	
 <div id="wrapper">
 	<!-- Header/Nav -->
 	<jsp:include page="../include/side.jsp" />
@@ -221,28 +324,34 @@
 										</div>
 										<div style="dispaly: flex; flex-direction: column;">
 											<div style="font-size: 15px;" id="artName"></div>
-											<div style="font-size: 10px; margin-top: 3%;" id="">옵션 없음 0</div>
+											<!-- <div style="font-size: 10px; margin-top: 3%;" id="">옵션 없음 0</div> -->
 										</div>
 									</div>
-									<!-- <div style="margin-left: auto; margin-right: auto; display: flex; flex-direction: column;"> -->
-										<div class="starPoint" id="starPoint"></div>
-										<div class="reviewComment" id="reviewComment"></div>
-									<!-- </div> -->
+									<div class="minwoo_modalStarRev">
+											<span class="minwoo_modal_starR1" id="modalStarId1">별1_왼쪽</span> <span class="minwoo_modal_starR2" id="modalStarId2">별1_오른쪽</span>
+											<span class="minwoo_modal_starR1" id="modalStarId3">별2_왼쪽</span> <span class="minwoo_modal_starR2" id="modalStarId4">별2_오른쪽</span>
+											<span class="minwoo_modal_starR1" id="modalStarId5">별3_왼쪽</span> <span class="minwoo_modal_starR2" id="modalStarId6">별3_오른쪽</span>
+											<span class="minwoo_modal_starR1" id="modalStarId7">별4_왼쪽</span> <span class="minwoo_modal_starR2" id="modalStarId8">별4_오른쪽</span>
+											<span class="minwoo_modal_starR1" id="modalStarId9">별5_왼쪽</span> <span class="minwoo_modal_starR2" id="modalStarId10">별5_오른쪽</span>
+									</div>	
+									<div class="reviewComment" id="reviewComment"></div>
 								</div>
 							</div>
 							<div class="modal-footer"
 								style="display: flex; flex-direction: column;">
 								<!-- 글자수 채워지는거 기능 추가 해야 함 -->
-								<form action="" method="post" style="width:100%">
+								<form action="<c:url value='updateReviewComment.wdo'/>" method="post" style="width:100%">
 									<div style="width: 100%; text-align: -webkit-center;">
 										<div style="display:flex; flex-direction:row; width: 80%; border: 1px solid; height:50px;">
-											<textarea class="reviewCommentRe" id="reviewCommentRe" name="reviewCommentRe" maxlength="1000"></textarea>
+											<textarea class="reviewCommentRe" id="reviewCommentRe"
+												name="reviewCommentRe" maxlength="1000" placeholder="댓글을 남겨 주세요."></textarea>
 											<span id="counter" style="font-size:12px; text-align-last: right;">###</span>
 										</div>
 											<input type="hidden" id="memberCodeSeq" name="memberCodeSeq">
 											<input type="hidden" id="reviewCodeSeq" name="reviewCodeSeq">
-											<input type="hidden" id="" name="comment_status">
-											<button id="reviewCommentSubmit" type="submit" class="btn btn-primary" style="height:33px;">등록</button>
+											<input type="hidden" id="writerSeq" name="writerSeq">
+											<input type="hidden" id="reviewCommentReStatus" name="reviewCommentReStatus">
+											<input type="submit" id="reviewCommentSubmit"  class="btn btn-primary" style="height:33px; margin-top:5px;" value="등록">
 									</div>
 								</form>
 								<div>
@@ -286,6 +395,14 @@
 		pagingFunc();
 		$("#rowPerPage").change(function(){
 			pagingFunc();
+		});
+		//목록에서 별점 뿌려주기
+		var starRevPoint = $('.minwoo_starRev');
+		starRevPoint.each(function(){
+			var targetScore = $(this).attr('data-rate');
+			console.log(targetScore);
+			$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
+			$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
 		});
 	});
 		
@@ -374,19 +491,36 @@
 			
 			//여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
 			for(var index = startNum; index < endNum; index++){
+				/*후기 사진 주소 자르기*/
+				var photoOrg = result[index].reviewPhoto;
+				var photo = photoOrg.split('-');
+				var photo1 = photo[0];
+				var photo2= photo[1];
+				var photo3= photo[2];
+				var photo4= photo[3];
+				var photo5= photo[4];
+				
 		  		html += '<tr><td>' + result[index].reviewDate
 					+ '</td><td>' + result[index].artName
-					+ '</td><td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\" alt=\"사진\"></div>&nbsp;&nbsp;'
+					+ '</td><td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\"></div>&nbsp;&nbsp;'
 					+ result[index].memberName
-					+ '</div></td><td>' + result[index].reviewStar
-					+ '</td><td>' + result[index].reviewPhoto
-					+ '</td><td data-toggle=\"modal\" data-target=\"#staticBackdrop2\" class=\"openUpdateModal\">' + result[index].reviewComment
-					+ '</td><td style=\"display:none;\">' + result[index].reviewCodeSeq
+					+ '</div></td>'
+					+ '<td><div class=\"minwoo_starRev\" data-rate=\"' + result[index].reviewStar + '\">'
+					+ '<span class=\"minwoo_starR1\">별1_왼쪽</span> <span class=\"minwoo_starR2\">별1_오른쪽</span>'
+					+ '<span class=\"minwoo_starR1\">별2_왼쪽</span> <span class=\"minwoo_starR2\">별2_오른쪽</span>'
+					+ '<span class=\"minwoo_starR1\">별3_왼쪽</span> <span class=\"minwoo_starR2\">별3_오른쪽</span>'
+					+ '<span class=\"minwoo_starR1\">별4_왼쪽</span> <span class=\"minwoo_starR2\">별4_오른쪽</span>'
+					+ '<span class=\"minwoo_starR1\">별5_왼쪽</span> <span class=\"minwoo_starR2\">별5_오른쪽</span>'
+					+ '</div></td><td><div class="review_photo_td"><div class=\"review_photo\">' + result[index].reviewPhoto
+					+ '</div><div class=\"review_photo\"></div><div class=\"review_photo\"></div><div class=\"review_photo\"></div><div class=\"review_photo\"></div>'
+					+ '</div></td><td><div data-toggle=\"modal\" data-target=\"#staticBackdrop2\" class=\"openUpdateModal\">' + result[index].reviewComment
+					+ '</div></td><td style=\"display:none;\">' + result[index].reviewCodeSeq
 					+ '</td><td style=\"display:none;\">' + result[index].memberCodeSeq
 					+ '</td><td style=\"display:none;\">' + result[index].artCodeSeq
 					+ '</td><td style=\"display:none;\">' + result[index].reviewCommentRe
 					+ '</td><td style=\"display:none;\">' + result[index].reviewCommentReStatus
-					+ '</td></tr>'
+					+ '</td><td style=\"display:none;\">' + result[index].reviewStar
+					+ '</td></tr>';
 			}
 			testTable.innerHTML = html;
 			$(".openUpdateModal").on('click',modal);
@@ -475,14 +609,16 @@
 			modalArtName = $.trim($(this).closest('tr').children('td').eq(1).children('div').text());
 			modalMemberName = $.trim($(this).closest('tr').children('td').eq(2).children('div').text());
 			modalMemberProfile = $.trim($(this).closest('tr').children('td').eq(2).children('div').text());//사진 가져온느거 어떻게 가져오지?
-			modalStarPoint = $.trim($(this).closest('tr').children('td').eq(3).text());
-			modalReviewPhoto = $.trim($(this).closest('tr').children('td').eq(4).text()); // 사진으로 바꿔줘야됨.
+			modalReviewPhoto = $.trim($(this).closest('tr').children('td').eq(4).text()); //사진으로 바꿔줘야됨.
 			modalReviewComment = $.trim($(this).closest('tr').children('td').eq(5).text());
 			modalreviewSeq = $.trim($(this).closest('tr').children('td').eq(6).text());
 			modalMemberCodeSeq = $.trim($(this).closest('tr').children('td').eq(7).text());
 			modalArtCodeSeq = $.trim($(this).closest('tr').children('td').eq(8).text());
 			modalreviewCommentRe = $.trim($(this).closest('tr').children('td').eq(9).text());
 			modalreviewCommentReStatus = $.trim($(this).closest('tr').children('td').eq(10).text());
+			modalStarPoint = $.trim($(this).closest('tr').children('td').eq(11).text());
+			$('#counter').html(modalreviewCommentRe.length + '/1000')
+			
 			
 			console.log('모달 맴버 이름 :' + modalMemberName);
 			console.log('모달 맴버 사진 :' + modalMemberProfile);
@@ -495,26 +631,76 @@
 			console.log('리뷰작품코드시퀀스 : '+ modalArtCodeSeq);
 			console.log('모달리뷰코멘트스테투스 : ' + modalreviewCommentReStatus);
 			
-			$('#reviewComment').text(modalReviewComment); // 수정으로 들어갔을때 값이 남아있지 않게 초기화 시켜주고, 다시 불러오기
-			$('#reviewCommentRe').text(''); // 수정으로 들어갔을때 값이 남아있지 않게 초기화 시켜주고, 다시 불러오기
+			//모달에 띄워주는변수들
+			$('#reviewComment').text(modalReviewComment);
+			$('#reviewCommentRe').val(''); // 수정으로 들어갔을때 값이 남아있지 않게 초기화 시켜주고, 다시 불러오기
 			$('#memberName1').text(modalMemberName);
 			$('#reviewDate1').text(modalReviewDate);
 			$('#artName').text(modalArtName);
-			$('#starPoint').text(modalStarPoint);
+			
+			//모달에서 폼 으로 데이터 넘길 때 물고가야 할 것들
 			$('#reviewCommentReStatus').val(modalreviewCommentReStatus);
 			$('#memberCodeSeq').val(modalMemberCodeSeq);
 			$('#reviewCodeSeq').val(modalreviewSeq);
+			$('#writerSeq').val(writerSeq);
 			
+	
 			
-			if(status == "Y"){
-				$('#reviewCommentRe').text(modalReviewComment);
+			switch(modalStarPoint){
+				case "1" :
+					$('#modalStarId1').parent().children('span').removeClass('on');
+					$('#modalStarId1').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "2" :
+					$('#modalStarId2').parent().children('span').removeClass('on');
+					$('#modalStarId2').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "3" :
+					$('#modalStarId3').parent().children('span').removeClass('on');
+					$('#modalStarId3').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "4" :
+					$('#modalStarId4').parent().children('span').removeClass('on');
+					$('#modalStarId4').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "5" :
+					$('#modalStarId5').parent().children('span').removeClass('on');
+					$('#modalStarId5').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "6" :
+					$('#modalStarId6').parent().children('span').removeClass('on');
+					$('#modalStarId6').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "7" :
+					$('#modalStarId7').parent().children('span').removeClass('on');
+					$('#modalStarId7').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "8" :
+					$('#modalStarId8').parent().children('span').removeClass('on');
+					$('#modalStarId8').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "9" :
+					$('#modalStarId9').parent().children('span').removeClass('on');
+					$('#modalStarId9').addClass('on').prevAll('span').addClass('on');
+					break;
+				default :
+					$('#modalStarId10').parent().children('span').removeClass('on');
+					$('#modalStarId10').addClass('on').prevAll('span').addClass('on');
+			}
+
+			
+			if(modalreviewCommentReStatus == "Y"){
+				$('#reviewCommentRe').val(modalreviewCommentRe);
 				$('#reviewCommentSubmit').val('수정');
-				
 				console.log("수정하러 왔습니다.")
+			} else{
+				$('#reviewCommentSubmit').val('등록');			
 			}
 	
 		};
 		//모달 부분 종료
+		
+
 		
 	</script>
 </body>

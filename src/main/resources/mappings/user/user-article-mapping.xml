@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="articleDao">
+
+	<resultMap
+		type="com.web.bomulsum.user.article.repository.UserArticleCategoryVO"
+		id="articleVO">
+		<result property="artCode" column="art_code_seq" />
+		<result property="writerCode" column="writer_code_seq" />
+		<result property="writerName" column="writer_name" />
+		<result property="writerBrandName" column="writer_brand_name" />
+		<result property="writerSendPrice" column="writer_send_price" />
+		<result property="artPhoto" column="art_photo" />
+		<result property="artCategory" column="art_category" />
+		<result property="artName" column="art_name" />
+		<result property="artPrice" column="art_price" />
+		<result property="artDiscount" column="art_discount" />
+		<result property="artViewcount" column="art_viewcount" />
+		<result property="artKeyword" column="art_keyword" />
+		<result property="artRegisterDate" column="art_register_date"/>
+	</resultMap>
+
+	<sql id="header">
+		SELECT T.*
+		FROM (
+		SELECT ROWNUM AS RNUM, A.*
+		FROM (
+	</sql>
+	<sql id="footer">
+		) A ) T
+		WHERE T.RNUM BETWEEN #{startNum} AND #{endNum}
+		<!-- <if test="orderColumn != null and orderValue != null"> -->
+			ORDER BY art_register_date
+		<!-- </if> -->
+	</sql>
+
+	<select id="articleForCategory" parameterType="com.web.bomulsum.user.article.repository.UserArticlePagingVO" 
+		resultMap="articleVO">
+		<include refid="header"/>
+		SELECT
+			a.art_code_seq,
+			a.writer_code_seq,
+			w.writer_name,
+			w.writer_brand_name,
+			w.writer_send_price,
+			a.art_photo,
+			a.art_category,
+			a.art_name,
+			a.art_price,
+			a.art_discount,
+			a.art_viewcount,
+			a.art_keyword,
+			a.art_register_date
+		FROM
+			art_tb a
+		INNER JOIN
+			writer_tb w
+		ON
+			w.writer_code_seq = a.writer_code_seq
+		WHERE
+			(
+				a.art_sale_state='Y'
+			)
+		<include refid="footer"/>
+	</select>
+	
+	<select id="getCategoryArticleCount" parameterType="String" resultType="int">
+	SELECT
+		COUNT(*)
+	FROM
+		art_tb
+	WHERE
+		(
+			art_sale_state='Y'
+		)
+	</select>
+	
+</mapper>
+
+

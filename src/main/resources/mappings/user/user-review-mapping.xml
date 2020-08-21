@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userReviewDAO">
+
+	<resultMap type="com.web.bomulsum.user.review.repository.UserReviewVO" id="reviewListMap">
+		<id column="REVIEW_CODE_SEQ" property="reviewCodeSeq"/>
+		<result column="ORDER_CODE_SEQ" property="orderCodeSeq"/>
+		<result column="MEMBER_CODE_SEQ" property="memberCodeSeq"/>
+		<result column="ART_CODE_SEQ" property="artCodeSeq"/>
+		<result column="REVIEW_DATE" property="reviewDate"/>
+		<result column="REVIEW_COMMENT" property="reviewComment"/>
+		<result column="REVIEW_STAR" property="reviewStar"/>
+		<result column="REVIEW_PHOTO" property="reviewPhoto"/>
+		<result column="REVIEW_COMMENT_RE" property="reviewCommentRe"/>
+		<result column="REVIEW_COMMENT_RE_STATUS" property="reviewCommentReStatus"/>
+		
+		<result column="ART_NAME" property="artName"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_PROFILE" property="memberProfile"/>
+	</resultMap>
+
+	<!-- 내가 쓴 구매 후기 목록 불러오기 -->
+	<select id="" parameterType="String" resultMap="reviewListMap">
+	</select>
+
+	<!-- 구매목록 불러오기 -->
+	<!-- <select id="" parameterType="String" resultMap="">
+	</select>
+
+	구매후기 등록하기
+	<insert id="" parameterType="">
+	</insert> -->
+
+</mapper>
