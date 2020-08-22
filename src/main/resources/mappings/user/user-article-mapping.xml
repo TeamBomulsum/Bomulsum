@@ -61,6 +61,8 @@
 			w.writer_code_seq = a.writer_code_seq
 		WHERE
 			(
+				a.art_category=#{category}
+				AND
 				a.art_sale_state='Y'
 			)
 		<include refid="footer"/>
@@ -73,6 +75,8 @@
 		art_tb
 	WHERE
 		(
+			art_category=#{category}
+			AND
 			art_sale_state='Y'
 		)
 	</select>

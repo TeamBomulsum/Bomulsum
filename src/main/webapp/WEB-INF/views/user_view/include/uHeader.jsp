@@ -130,6 +130,7 @@ body {
 	border-radius: 5px;
 }
 
+
 .middle-search-form input[type=text] {
 	width: 280px;
 	font-size: 16px;
@@ -142,6 +143,7 @@ body {
 	color: #acacac;
 	margin: 1px 1px 0px 1px;
 	color: black;
+	outline: none;
 }
 
 .middle-search-form > input:focus {
@@ -881,7 +883,6 @@ body {
 		<div><a class="dain-hb-menu" href="#">추천 작품</a></div>
 		<div><a class="dain-hb-menu" href="#">실시간 후기</a></div>
 		<div><a class="dain-hb-menu" href="#">작가님 추천</a></div>
-		<div><a class="dain-hb-menu" href="#">스토리</a></div>
 		<div><a class="dain-hb-menu" href="#">인기작가</a></div>
 		<div><a class="dain-hb-menu" href="#">인기작품</a></div>
 	</div>

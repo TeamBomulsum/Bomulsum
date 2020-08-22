@@ -36,11 +36,6 @@
 	margin-bottom:3%;
 }
 
-.dndud_main_category_searchBox div{
-	display:flex;
-	flex-direction:row;
-	width:100%;
-}
 
 .dndud_main_category_searchBox span{
     display: flex;
@@ -73,10 +68,9 @@
 }
 
 .dndud_main_category_search_detail div{
-	border:solid 1px #d9d9d9;
+	border:none;
 	border-radius: 2px;
-	cursor:pointer;
-	color:#666666;
+	color:#FFFFFF;
 	font-size: 13px;
 	padding:0.5%;
 }
@@ -193,6 +187,40 @@
 	color:#999999;
 }
 
+.category_option_checkbox{
+	cursor:pointer;
+}
+
+.category_option_selected{
+	display:none;
+	background-color:#f5f5f5;
+}
+
+.category_option_selected div{
+	display: flex;
+	background: white;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1.5%;
+	width: 12.5%;
+	border: 1px solid #d9d9d9;
+	border-radius: 15px;
+}
+
+.selected_option_span{
+	padding: 5px 10px;
+}
+
+.atag{
+	cursor:pointer;
+}
+
+.category_option_list{
+	display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 </style>
 <body>
 <div>
@@ -203,29 +231,32 @@
 		<div class="dndud_main_category_title">
 			<span class="title">${param.category}</span>
 			<div class="dndud_main_category_searchBox">
-				<div>
+				<div class="category_option_list">
 					<span>배송</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="free"><a>무료배송</a> 만 보기</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="무료배송"><a>무료배송</a> 만 보기</span>
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 				</div>
-				<div>
+				<div class="category_option_list">
 					<span>가격대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="underMan">1만원 미만</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="inMan">1만원대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="in2Man">2만원대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="in3Man">3만원대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="in4Man">4만원대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="in5Man">5만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="1만원 미만">1만원 미만</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="1만원대">1만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="2만원대">2만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="3만원대">3만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="4만원대">4만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="5만원대">5만원대</span>
+				</div>
+				<div class="category_option_selected">
+					<span style="cursor:pointer" id="cancle_check_all">전체해제</span>
+					
 				</div>
 			</div>
 			
 			<div class="dndud_main_category_search_detail">
 				<div id="show_only_image">
-					<input id="show_only_image_check" type="checkbox">
 					<span>이미지만 볼래요</span>
 				</div>
 				<select>
@@ -276,26 +307,12 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-$(function(){
-	$("#show_only_image").on('click', function(){ // 이미지만 볼래요 클릭시.
-		if($("input:checkbox[id='show_only_image_check']").is(":checked")){
-			$("input:checkbox[id='show_only_image_check']").prop("checked", false);
-		}else{
-			$("input:checkbox[id='show_only_image_check']").prop("checked", true);
-		}
-	});
-	
-	$(".content_img").on('click', function(){
-		
-		var clickIcon = $(this).children();
-		
-		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
-			clickIcon.css("color", "#d64640");
-		}else{
-			clickIcon.css("color", "gray");
-		}
-	});
-});
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+var likeArticleFunc;
+var categoryOptionFunc;
+var ajaxFilterFunc;
+var filtArr = [];
+
 var page = 1;
 
 $(function(){
@@ -312,9 +329,8 @@ $(window).scroll(function() {
 
 function comma(x) { return !x ? '0' : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 
-var test;
 
-function getList(page){
+function getList(page, filter){
 	var category = $('.title').text();
 	
 	$.ajax({
@@ -322,7 +338,8 @@ function getList(page){
 		dataType : 'json',
 		data:{
 			'category':category,
-			'page':page
+			'page':page,
+			'filter':filter
 		},
 		url : '/bomulsum/category/info.do',
 		success :function(returnData){
@@ -389,6 +406,9 @@ function getList(page){
 				$('.dndud_main_category_contents').append(htmldiv);
 			}
 			
+			$(".fs").click(likeArticleFunc);
+			
+			
 		},
 		error:function(e){
 			if(e.status == 300){
@@ -397,6 +417,111 @@ function getList(page){
 		}
 	});
 }
+
+$(function(){
+	
+	$(".category_option_checkbox").on('click', function(){
+		var check = $(this).find('input[name=check]');
+		
+		if(check.is(":checked")){
+			check.prop('checked', false);
+			$(".selected_option").each(function(){
+				if($(this).children(":first").text() == check.val()){
+					$(this).remove();
+					return;
+				}
+			});
+		}else{
+			check.prop('checked', true);
+			var html = '<div class="selected_option"><a class="selected_option_span">'+ check.val() +'</a>'
+				+ '<a class="selected_option_span atag">X</a></div>';
+			$(".category_option_selected").append(html);
+			
+			$('.atag').click(function(){
+				var tag = $(this).parent();
+				var value = $(this).prev().text();
+				$('input[name=check]').each(function(){
+					if($(this).val() == value){
+						tag.remove();
+						$(this).prop('checked', false);
+					}
+				});
+				categoryOptionFunc();
+				ajaxFilterFunc();
+			});
+		}
+		
+		categoryOptionFunc();
+		ajaxFilterFunc();
+	});
+	
+	$("#cancle_check_all").on('click', function(){
+		$('input[name=check]').prop('checked', false);
+		categoryOptionFunc();
+		ajaxFilterFunc();
+	});
+	
+	categoryOptionFunc = function(box){
+		if($("input[name=check]").is(':checked')){
+			$(".category_option_selected").css('display', 'flex');
+		}else{
+			$(".category_option_selected").css("display", "none");
+			$('.selected_option').remove();
+		}
+	}
+	
+	ajaxFilterFunc = function(){
+		filtArr = [];
+		$('input[name=check]').each(function(){
+			if($(this).is(':checked')){
+				filtArr.push($(this).val());
+			}
+		});
+		page = 1;
+		getList(page, filtArr);
+	}
+	
+	
+	likeArticleFunc = function(){
+		
+		/* if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+		} */
+		
+		var artCode = $(this).parent().prev().val();
+		var option = '좋아하는작품';
+		
+		/* $.ajax({
+			url:'',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':artCode
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); */
+		
+		var clickIcon = $(this);
+		console.log(clickIcon);
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+		}else{
+			clickIcon.css("color", "gray");
+		}
+	};
+	
+});
+
+
+
 
 </script>
 </html>

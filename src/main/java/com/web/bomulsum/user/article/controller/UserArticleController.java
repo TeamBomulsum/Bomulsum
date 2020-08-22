@@ -27,8 +27,13 @@ public class UserArticleController {
 	
 	@ResponseBody
 	@RequestMapping(value="/info", method=RequestMethod.POST)
-	public HashMap<String, Object> categoryInfo(String category, int page) {
+	public HashMap<String, Object> categoryInfo(String category, int page, String[] filter) {
 		UserArticlePagingVO vo = new UserArticlePagingVO();
+		
+		if(filter != null) {
+			System.out.println(filter.toString());
+		}
+		
 		vo.setCategory(category);
 		int totalCnt = service.getCategoryArticleCount(vo);
 		
@@ -46,6 +51,12 @@ public class UserArticleController {
 		map.put("startNum", vo.getStartNum());
 		map.put("data", data);
 		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/filtering", method=RequestMethod.POST)
+	public void filterInfo(String[] filter, int page) {
+		
 	}
 	
 }
