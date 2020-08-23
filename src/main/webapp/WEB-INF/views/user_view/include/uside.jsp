@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>side</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
 	
 <style>
 .myInfo{

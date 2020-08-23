@@ -149,7 +149,7 @@ body a:link, a:visited, a:hover, a:active {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 30px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -163,16 +163,15 @@ body a:link, a:visited, a:hover, a:active {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
+  padding-top: 5px;
   border: 1px solid #888;
-  width: 700px;
+  width: 620px;
+  max-height: 660px;
 }
 
 /* 모달 닫기 버튼 */
 .minwoo_close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+  color: #1f76bb;
 }
 
 .minwoo_close:hover,
@@ -219,6 +218,20 @@ body a:link, a:visited, a:hover, a:active {
 
 .imageContainer img {
    max-width: 100px;
+}
+
+.reviewComment{
+	max-height:110px; min-height:80px;
+	border:none;
+	outline: none;
+	-ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    resize: none;
+    font-size: 15px; padding: 2%;
+}
+/*스크롤바 안보이게 하기*/
+.reviewComment::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
 
 
@@ -297,7 +310,7 @@ body a:link, a:visited, a:hover, a:active {
 		 
 		<!-- 구매후기 쓸 수 있는 작품 리스트 영역 / 구매한 내역이 있을 때 -->
 		
-		<div id="minwoo_uWriteReviewList">
+		<div id="minwoo_uWriteReviewList" style="margin-top:10px;">
 			<div class="minwoo_uWriteReview_ListContent">
 			
 				<div class="minwoo_uWriteReview_ListContent_body">
@@ -321,42 +334,10 @@ body a:link, a:visited, a:hover, a:active {
 						<li>옵션명4 : 내용</li>
 					</ul>
 				</div>
-				<button id="minwoo_myBtn" class="minwoo_uWriteReview_ListContent_button">구매후기 작성하기</button>
+				<button id="btn" class="minwoo_uWriteReview_ListContent_button">구매후기 작성하기</button>
 			</div>
 			
-			<div class="minwoo_uWriteReview_ListContent">
-				<div class="minwoo_uWriteReview_ListContent_body">
-					<div class="minwoo_uWriteReview_ListContent_body_head">
-						<div class="minwoo_uWriteReview_ListContent_body_head_photo">
-							<img src="<c:url value='/resources/img/KMWcake.jpg'/>" style="width:100%; height:100%;">
-						</div>
-						<div style="margin-left:10px; margin-top:3px;">
-							<div style="font-weight:bold;">
-								<a href="#" style="text-decoration:none;">작품제목</a>
-							</div>
-							<div style="margin-top:3px;">
-								<a href="#" style="text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;">작가이름</a>
-							</div>
-						</div>
-					</div>
-					<ul class="minwoo_contentOptionUl">
-						<li>옵션명1 : 내용</li>
-						<li>옵션명2 : 내용</li>
-						<li>옵션명3 : 내용</li>
-						<li>옵션명4 : 내용</li>
-					</ul>
-					<hr>
-					<ul class="minwoo_contentOptionUl">
-						<li>옵션명1 : 내용</li>
-						<li>옵션명2 : 내용</li>
-						<li>옵션명3 : 내용</li>
-						<li>옵션명4 : 내용</li>
-					</ul>
-				</div>
-				<button id="minwoo_myBtn" class="minwoo_uWriteReview_ListContent_button">구매후기 작성하기</button>		
-			</div>
 		</div>
-		
 		<!-- 구매후기 쓸 수 있는 작품 리스트 영역 끝 / 구매한 내역이 있을 때 -->
 		
 		
@@ -369,27 +350,23 @@ body a:link, a:visited, a:hover, a:active {
 					<!-- 모달 속 영역 -->
 					<div class="minwoo_modal-content">
 						<!--모달 헤더 시작-->
-						<div style="display: flex; width: 100%; height: 50px;">
-							<div style="width: 80%;">
-								<h2 style="color: #585858;">구매후기 작성</h2>
-							</div>
-							<span class="minwoo_close"
-								style="width: 20%; height: 100%; text-align: right; font-size: xxx-large; color: #1f76bb;">&times;</span>
+						<div style="display: flex; width: 100%; height: 50px; justify-content: space-between; align-items: center;">
+							<h2 style="color: #585858;">구매후기 작성</h2>
+							<i class="minwoo_close fa fa-times fa-3x"></i>
 						</div>
 						<hr style="border: 0; height: 4px; background: #585858;">
 						<!--모달 헤더 끝-->
 						<!-- 불러올 구매한 작품 영역 시작-->
 						<div style="display: flex; height: 70px; margin-top: 2%;">
-							<div style="width: 10%; height: 100%;">
-								<img style="width:100%; height:100%;" src='<c:url value='/resources/img/KMWcake.jpg'/>'>
+							<div style="width: 70px; height: 70px;">
+								<img style="width:70px; height:70px;" src='<c:url value='/resources/img/KMWcake.jpg'/>'>
 							</div>
 							<div style="flex-direction: column; width: 90%; margin-left: 2%;">
 								<div style="height: 40%; font-size: 18px; font-weight: bold;">
 								작품 제목 입력
 								</div>
 								<!--옵션 내용 영역 시작 - 동일한 작품의 옵션이 서로 다른 물품들을 구매한 경우 포문 돌면서 값 가져오기 -->
-								<div
-									style="display: flex; flex-direction: column; height: 60%; overflow: auto; font-size: 15px;">
+								<div style="display: flex; flex-direction: column; height: 60%; overflow: auto; font-size: 15px;">
 									<!--여기서부터 옵션 이 다른 물품 하나씩의 값-->
 										<div style="margin-top: 1px; display: flex; flex-direction: row;">
 											<div style="width: 90%;">
@@ -436,9 +413,10 @@ body a:link, a:visited, a:hover, a:active {
 								</div>
 								<!--별점 끝-->
 								<!-- 후기 입력 시작-->
-								<div style="height: 160px; padding: 10px; border-top: 1px solid #D8D8D8;">
-									<textarea style=" resize: none; height:130px; width:650px; border:1px solid #BDBDBD; font-size: 15px; padding: 2%;"
-										placeholder="후기를 입력해주세요" maxlength="1000"></textarea>
+								<div style="display:flex; flex-direction:column; height: 130px; padding: 10px">
+									<textarea class="reviewComment" id="reviewComment"
+										name="reviewComment" maxlength="1000" placeholder="후기를 입력해주세요."></textarea>
+									<span id="counter" style="font-size:12px; text-align-last: right;">###</span>
 								</div>
 								<!-- 후기 입력 끝-->
 								<!-- 사진 등록 시작 -->
@@ -486,7 +464,7 @@ body a:link, a:visited, a:hover, a:active {
 		<script>
 		/* 모달 구동 스크립트 영역*/
 		var minwoo_modal = document.getElementById("minwoo_myModal");
-		var minwoo_btn = document.getElementById("minwoo_myBtn");
+		var minwoo_btn = document.getElementById("btn");
 		var minwoo_span = document.getElementsByClassName("minwoo_close")[0];
 		// 버튼 클릭시 모달 띄우기
 		minwoo_btn.onclick = function() {
@@ -514,10 +492,23 @@ body a:link, a:visited, a:hover, a:active {
 			});
 		/* 별점 주기 스크립트 영역*/
 		
+		$('.minwoo_starRev span').click(function(){
+			var targetNum = $(this).index() + 1;
+			console.log(targetNum);
+		});
+		
+		$('#reviewComment').keyup(function(e) {
+			var comment = $(this).val();
+			$(this).height(((comment.split('\n').length + 1) * 1.5) + 'em');
+			$('#counter').html(comment.length + '/1000');
+		});
+		$('#reviewComment').keyup();
+		
+		$('#reviewCommentRe').val('');
 		
 		/*작업 마무리 못함 추가 작업 필요..*/
 		/*이미지 업로드(and 제거) 썸네일 생성 이벤트*/
-		/*
+		
 		function removeImg(){
 		   var id = document.getElementById('imgs');
 		   id.removeChild(id);
@@ -542,7 +533,7 @@ body a:link, a:visited, a:hover, a:active {
 			   }
 			}
 		});
-		*/
+		
 		
 		</script>
 		<!-- 스크립트 -->
