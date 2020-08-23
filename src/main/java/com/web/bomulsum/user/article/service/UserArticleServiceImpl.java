@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.article.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,22 @@ public class UserArticleServiceImpl implements UserArticleService{
 
 	@Override
 	public int getCategoryArticleCount(UserArticlePagingVO vo) {
-		return dao.getCategoryArticleCount(vo.getCategory());
+		return dao.getCategoryArticleCount(vo);
+	}
+
+	@Override
+	public void likeArticle(HashMap<String, String> map) {
+		dao.likeArticle(map);
+	}
+
+	@Override
+	public void nonLikeArticle(HashMap<String, String> map) {
+		dao.nonLikeArticle(map);
+	}
+
+	@Override
+	public List<String> getLikeArticles(String member) {
+		return dao.getLikeArticles(member);
 	}
 	
 }

@@ -174,6 +174,7 @@
 .categories{
 	display:flex;
 	flex-wrap: wrap;
+	margin-bottom:50px;
 }
 
 .category{
@@ -186,6 +187,7 @@
 	border: 1px solid #d9d9d9;
 	border-radius:4px;
 	background-color:#f8f9fb;
+	cursor:pointer;
 }
 
 .category span{
@@ -668,19 +670,58 @@
 					</span>
 					<div class="categories">
 						
-						<c:forEach var="i" begin="1" end="12">
-							<div class="category">
-								<div class="category_img"></div>
-								<span>음료(커피, 차 등)</span>
-							</div>
-						</c:forEach>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=식음료';">
+							<div class="category_img"></div>
+							<span>식음료</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=문구팬시';">
+							<div class="category_img"></div>
+							<span>문구팬시</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=전자기기';">
+							<div class="category_img"></div>
+							<span>전자기기</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=패션잡화';">
+							<div class="category_img"></div>
+							<span>패션잡화</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=반려동물 용품';">
+							<div class="category_img"></div>
+							<span>반려동물 용품</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=인테리어 소품';">
+							<div class="category_img"></div>
+							<span>인테리어 소품</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=신발';">
+							<div class="category_img"></div>
+							<span>신발</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=의류';">
+							<div class="category_img"></div>
+							<span>의류</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=육아,아동';">
+							<div class="category_img"></div>
+							<span>육아,아동</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=인형,장난감';">
+							<div class="category_img"></div>
+							<span>인형,장난감</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=공예';">
+							<div class="category_img"></div>
+							<span>공예</span>
+						</div>
+						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=기타';">
+							<div class="category_img"></div>
+							<span>기타</span>
+						</div>
 						
 						
 					</div>
 					
-					<div class="go_button">
-						<span>인기작가 더보기</span>
-					</div>
 				</div>
 				
 				

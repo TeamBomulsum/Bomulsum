@@ -205,6 +205,7 @@
 	width: 12.5%;
 	border: 1px solid #d9d9d9;
 	border-radius: 15px;
+	font-size:10px
 }
 
 .selected_option_span{
@@ -259,11 +260,11 @@
 				<div id="show_only_image">
 					<span>이미지만 볼래요</span>
 				</div>
-				<select>
-					<option>인기순</option>
-					<option>최신순 (NEW)</option>
-					<option>낮은 가격순</option>
-					<option>높은 가격순</option>
+				<select id="dndud_order_option">
+					<option value="orderByLike">인기순</option>
+					<option value="orderByRecently">최신순 (NEW)</option>
+					<option value="orderByLowPrice">낮은 가격순</option>
+					<option value="orderByHighPrice">높은 가격순</option>
 				</select>
 			</div>
 			
@@ -312,6 +313,7 @@ var likeArticleFunc;
 var categoryOptionFunc;
 var ajaxFilterFunc;
 var filtArr = [];
+var orderBy = 'orderByLike';
 
 var page = 1;
 
@@ -330,7 +332,7 @@ $(window).scroll(function() {
 function comma(x) { return !x ? '0' : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 
 
-function getList(page, filter){
+function getList(page){
 	var category = $('.title').text();
 	
 	$.ajax({
@@ -339,10 +341,13 @@ function getList(page, filter){
 		data:{
 			'category':category,
 			'page':page,
-			'filter':filter
+			'filtArr':filtArr,
+			'orderBy':orderBy,
+			'member':memberCode
 		},
 		url : '/bomulsum/category/info.do',
 		success :function(returnData){
+			console.log(returnData.totalCnt);
 			var htmldiv = '';
 			var writerName = '';
 			var artImg = '';
@@ -369,7 +374,20 @@ function getList(page, filter){
 						htmldiv += '<div class="dndud_main_category_content_box">'
 							+ '<input class="artCode" type="hidden" value="'+ data[i].artCode +'"/>'
 							+ '<div class="content_img" style="background-image: URL(\'/bomulsum/upload/'
-							+ artImg +'\' )"><i class="fa fa-star fs"></i></div><div class="content_detail">'
+							+ artImg +'\' )">';
+						var imsi = 0;
+						for(var j=0; j<returnData.wishList.length; j++){
+							if(data[i].artCode == returnData.wishList[j]){
+								htmldiv += '<i class="fa fa-star fs" style="color:#d64640"></i>';
+								imsi = 1;
+								break;
+							}
+						}
+						if(imsi == 0){
+							htmldiv += '<i class="fa fa-star fs"></i>'; 
+						}
+							
+						htmldiv += '</div><div class="content_detail">'
 							+ '<span class="content_detail_writer">'+ writerName +'</span>'
 							+ '<span class="content_detail_title">'+ data[i].artName +'</span>'
 							+ '<span class="content_detail_price_decount">';
@@ -455,6 +473,13 @@ $(function(){
 		ajaxFilterFunc();
 	});
 	
+	$("#dndud_order_option").on('change', function(){
+		orderBy = $("#dndud_order_option option:selected").val();
+		console.log(orderBy);
+		page = 1;
+		getList(page);
+	});
+	
 	$("#cancle_check_all").on('click', function(){
 		$('input[name=check]').prop('checked', false);
 		categoryOptionFunc();
@@ -478,26 +503,40 @@ $(function(){
 			}
 		});
 		page = 1;
-		getList(page, filtArr);
+		getList(page);
 	}
 	
 	
 	likeArticleFunc = function(){
 		
-		/* if(memberCode == null || memberCode == 'null'){
+		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='/bomulsum/user/login.do';
-		} */
+		}
 		
 		var artCode = $(this).parent().prev().val();
 		var option = '좋아하는작품';
 		
-		/* $.ajax({
-			url:'',
+		
+		var clickIcon = $(this);
+		console.log(clickIcon);
+		var tORf;
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+			tORf = true;
+		}else{
+			clickIcon.css("color", "gray");
+			tORf = false;
+		}
+		
+		$.ajax({
+			url:'/bomulsum/category/wish.do',
 			data:{
 				'member':memberCode,
 				'option':option,
-				'optionCode':artCode
+				'optionCode':artCode,
+				'bool': tORf
 			},
 			type:'POST',
 			success:function(data){
@@ -506,15 +545,11 @@ $(function(){
 			error:function(e){
 				console.log(e);
 			}
-		}); */
-		
-		var clickIcon = $(this);
-		console.log(clickIcon);
-		
-		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
-			clickIcon.css("color", "#d64640");
+		}); 
+		if(tORf){
+			alert('좋아하는 작품에 추가되었습니다.');
 		}else{
-			clickIcon.css("color", "gray");
+			alert('해제되었습니다.');
 		}
 	};
 	
