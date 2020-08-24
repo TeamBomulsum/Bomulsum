@@ -24,6 +24,10 @@ public class WriterArtVO {
 	private int bookMarkCount;
 	private int commentCount;
 	private int reviewCount;
+	private String temp;
+	
+
+	
 	
 
 	@Override
@@ -34,8 +38,19 @@ public class WriterArtVO {
 				+ artKeyword + ", artViewCount=" + artViewCount + ", artPoint=" + artPoint + ", artSaleCount="
 				+ artSaleCount + ", artSaleState=" + artSaleState + ", artRecommendTime=" + artRecommendTime
 				+ ", artRegisterDate=" + artRegisterDate + ", bookMarkCount=" + bookMarkCount + ", commentCount="
-				+ commentCount + ", reviewCount=" + reviewCount + "]";
+				+ commentCount + ", reviewCount=" + reviewCount + ", temp=" + temp + "]";
 	}
+
+
+	public String getTemp() {
+		return temp;
+	}
+
+
+	public void setTemp(String temp) {
+		this.temp = temp;
+	}
+
 
 	public String getArtCodeSeq() {
 		return artCodeSeq;

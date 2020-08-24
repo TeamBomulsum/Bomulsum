@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.common.PageCreator;
+import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 import com.web.bomulsum.writer.midas.service.WriterMidasService;
@@ -68,8 +70,6 @@ public class WriterMidasController {
 				
 				System.out.println(session);
 				
-				System.out.println(vo.toString());
-
 				service.midasRegister(vo);
 				mav.setViewName("redirect:/writer/midasRegister.wdo"); 
 				mav.addObject("check", 1); 
@@ -116,17 +116,22 @@ public class WriterMidasController {
 	}
 	
 	@GetMapping("classInfo")
-	public String classInfo(ModelAndView mav,HttpServletRequest request,Model model) {
+	public String classInfo(SearchVO vo,HttpServletRequest request,Model model) {
 		System.out.println("classInfo 들어옴");
-
+		System.out.println("parameter(페이지 번호): " + vo.getPage());
+		
 		HttpSession session =  request.getSession();
 		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
 		String writerCodeSeq = code.getWriterSeq();
+		vo.setWriterCodeSeq(writerCodeSeq);
+		PageCreator pc = new PageCreator();
+		pc.setPaging(vo);
 		
 		
-		List<WriterMidasVO> classList = service.getClassAllSelect(writerCodeSeq);
+		List<WriterMidasVO> classList = service.getArticleListPaging(vo);
+		pc.setArticleTotalCount(service.countArticles(vo));
 		model.addAttribute("classList", classList);
-
+		model.addAttribute("pc",pc);
 		return "warticle/classInfo";
 	}
 	
@@ -135,13 +140,12 @@ public class WriterMidasController {
 		
 		WriterMidasVO vo = service.getClassArticle(orderSeq);
 		model.addAttribute("article",vo);
-		System.out.println(orderSeq);
-		System.out.println(vo);
 		return vo;
 	}
 	@PostMapping("midasRunUpdate")
 	public @ResponseBody WriterMidasVO midasRunUpdate(@RequestParam String[] orderSeq,WriterMidasVO vo) {
 		for(int i=0; i<orderSeq.length; i++) {
+			System.out.println("RunUpdate in !!!");
 			String a = orderSeq[i];
 			vo = service.getClassArticle(a);
 			if(vo.getRun().equals("Y")) {
@@ -153,8 +157,16 @@ public class WriterMidasController {
 				service.midasRunUpdate(vo);
 				System.out.println("else : "+vo);
 			}
+			System.out.println(vo);
+			PageCreator pc = new PageCreator();
+			pc.setPaging(vo);
+			pc.setArticleTotalCount(service.countArticles(vo));
+			System.out.println(pc.getArticleTotalCount());
+			
+			System.out.println("startPage : "+vo.getPageStart());
+			System.out.println("nextPage : "+vo.getPageNext());
+			System.out.println("endPage : " + pc.getEndPage());
 		}
-		
 		return vo;
 	}
 

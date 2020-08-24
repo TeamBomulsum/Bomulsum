@@ -2,6 +2,7 @@ package com.web.bomulsum.writer.midas.service;
 
 import java.util.List;
 
+import com.web.bomulsum.common.PageVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 
 public interface WriterMidasService {
@@ -12,7 +13,7 @@ public interface WriterMidasService {
 	
 	List<WriterMidasVO> getClassAllSelect(String writerCodeSeq);
 	
-	int countArticles(WriterMidasVO vo);
+	int countArticles(PageVO paging);
 	
 	WriterMidasVO getClassArticle(String orderSeq);
 	
@@ -21,5 +22,7 @@ public interface WriterMidasService {
 	void midasDelete(String orderSeq);
 	
 	void midasRunUpdate(WriterMidasVO vo);
+	
+	List<WriterMidasVO> getArticleListPaging(PageVO paging);
 	
 }
