@@ -21,6 +21,7 @@
 		<result property="artSaleState" column="art_sale_state"/>
 		<result property="artRecommendTime" column="art_recommend_time"/>
 		<result property="artRegisterDate" column="art_register_date"/>
+		<result property="temp" column="art_recommend_temp"/>
 	</resultMap>
 
 	<resultMap id="artInfoList" type="com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO">	
@@ -511,5 +512,125 @@
 			art_option_seq=#{optionSeq9}
 	</update>
 	
-	
+	<!-- 원희 수정 -->
+	<sql id="search">
+		<!-- 동적 SQL구문 -->
+		<if test="condition == ''">
+		AND art_name  LIKE ('%' || #{keyword} || '%') 
+		</if>
+		
+	</sql>
+<select id="getRecommendSelect" resultMap="artList">
+SELECT 
+    * 
+FROM(    
+    SELECT      
+        ROWNUM rnum, A.      
+    		*     
+   			FROM( 
+    			SELECT        
+    				*       
+    			FROM        
+    				art_tb             
+    			WHERE              
+    				writer_code_seq=#{writerCodeSeq} 
+    			AND 
+    				art_sale_state='Y' 
+    			AND 
+    				art_recommend_time = '91/12/05'
+    			AND art_recommend_temp = 'N'
+    			<include refid="search" />
+    				ORDER BY art_code_seq desc                       
+    			)           
+    		A         
+    )   
+WHERE     
+	rnum BETWEEN #{pageStart} AND #{pageNext}
+</select>
+<select id="getArtCount" resultType="int">
+	SELECT 
+		COUNT(*) 
+	FROM 
+		art_tb 
+	WHERE 
+		writer_code_seq=#{writerCodeSeq} AND art_sale_state='Y' AND art_recommend_temp = 'N'
+	AND 
+		art_recommend_state = 'N'
+</select>
+<sql id="temp">
+		<!-- 동적 SQL구문 -->
+		
+		
+	</sql>
+<update id="getTempUpdate" parameterType="String">
+	UPDATE 
+		art_tb
+	SET 
+		art_recommend_temp = 'Y'
+	WHERE
+		art_code_seq=#{artCodeSeq}
+</update>
+<update id="getTempUpdateN" parameterType="String">
+	UPDATE 
+		art_tb
+	SET 
+		art_recommend_temp = 'N'
+	WHERE
+		art_code_seq=#{artCodeSeq}
+</update>
+<select id="getRecommendSelectTemp" resultMap="artList">
+	SELECT
+		*
+	FROM
+		art_tb
+	WHERE
+		writer_code_seq=#{writerCodeSeq}
+	AND
+		art_sale_state='Y'
+	AND
+		art_recommend_time = '91/12/05'
+	AND 
+		art_recommend_temp = 'Y'
+</select> 			
+<select id="checkArtList" resultType="int">
+	SELECT 
+		COUNT(*) 
+	FROM 
+		art_tb 
+	WHERE 
+		writer_code_seq=#{writerCodeSeq} 
+		AND 
+			art_sale_state='Y' 
+		AND 
+			art_recommend_temp = 'Y' 
+		AND
+			art_recommend_time = '91/12/05'
+
+</select>
+<update id="recommendUp">
+	UPDATE
+		art_tb
+	SET
+		art_recommend_time = sysdate,
+		art_recommend_state = 'Y'
+	WHERE 
+		writer_code_seq=#{writerCodeSeq}
+	AND
+		art_sale_state='Y'
+	AND 
+		art_recommend_temp = 'Y'
+</update>
+<update id="getTempUpdateReN">
+	UPDATE
+		art_tb
+	SET
+      art_recommend_temp = 'N'
+	WHERE
+		writer_code_seq=#{writerCodeSeq}
+	AND
+		art_sale_state='Y'
+	AND 
+		art_recommend_state = 'Y'
+</update>
+
 </mapper>
