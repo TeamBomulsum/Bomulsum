@@ -19,7 +19,7 @@ import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
 import com.web.bomulsum.writer.art.service.WriterArtService;
 import com.web.bomulsum.writer.login.repository.WriterRegisterVO;
-
+//
 @Controller
 @RequestMapping("writer")
 public class WriterRecomendController {
