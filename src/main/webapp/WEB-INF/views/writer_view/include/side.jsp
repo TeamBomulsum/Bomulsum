@@ -131,9 +131,9 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <!--<h6 class="collapse-header">Custom Utilities:</h6>
             <a class="collapse-item" href="utilities-color.html">Colors</a>-->
-            <a class="collapse-item" href="<c:url value='/view/wactivity/alarm.jsp'/>">알림</a>
-            <a class="collapse-item" href="<c:url value='/view/wactivity/review.jsp'/>">구매후기</a>
-            <a class="collapse-item" href="<c:url value='/view/wactivity/comments.jsp'/>">댓글</a>
+            <a class="collapse-item" href="<c:url value='/writer/activity/alarm.wdo'/>">알림</a>
+            <a class="collapse-item" href="<c:url value='/writer/activity/review.wdo'/>">구매후기</a>
+            <a class="collapse-item" href="<c:url value='/writer/activity/comments.wdo'/>">댓글</a>
           </div>
         </div>
       </li>

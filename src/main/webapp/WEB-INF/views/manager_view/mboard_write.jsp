@@ -245,7 +245,7 @@
 						</div>
 						<div class="card-body">
 							<!--날짜값도 히든으로 같이 넣어줘야 합니당-->
-							<form action="<c:url value='/manager/mboard/register.mdo'/> " method="post">
+							<form id="mboardWrite" action="<c:url value='/manager/mboard/register.mdo'/> " method="post">
 								<div>
 									<!--
 									<br>
@@ -400,7 +400,23 @@
 		/*셀렉트 박스 영역*/
 		
 		/* 이벤트 버튼 눌럿을 때 버튼 생성하기*/
-
+		$('#submit').click(function(){
+				if($('#admin_notice_category').val() == 0){
+					alert("카테고리를 선택해주세요");
+					$('#admin_notice_category').focus();
+					return false;
+				} else if($('#admin_notice_title').val() == ""){
+					alert("제목을 입력해주세요");
+					$('#admin_notice_title').focus();
+					return false;
+				} else if($('#summernote').val() == ""){
+					alert("내용을 입력해주세요");
+					$('#summernote').focus();
+					return false;
+				}
+					$('#mboardWrite').submit();
+			});
+		
 		$(document).ready(function() {
 			$('#summernote').summernote({
 				height : 350, // 에디터 높이
@@ -416,19 +432,6 @@
 					$("#board_type_div").css("display", "inline-block");
 				} else {
 					$("#board_type_div").css("display", "none");
-				}
-			});
-	 			
-			$('#submit').click(function(){
-				if($('#admin_notice_category').val() == 0){
-					alert("카테고리를 선택해주세요");
-					location.href="write.mdo";
-				} else if($('#admin_notice_title').val() == ""){
-					alert("제목을 입력해주세요");
-					location.href="write.mdo";
-				} else if($('#summernote').val() == ""){
-					alert("내용을 입력해주세요");
-					location.href="write.mdo";
 				}
 			});
 	   });
