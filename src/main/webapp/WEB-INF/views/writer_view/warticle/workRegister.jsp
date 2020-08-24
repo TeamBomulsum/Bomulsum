@@ -377,7 +377,9 @@ $(function(){
                         onchange="setThumbnail(event);" multiple />
                         <div class="imageContainer">                         
                         </div>
-                        <span style="font-size:14px">* 파일 선택시 한 번에 여러장의 이미지를 올려주세요</span>
+                        <span style="font-size:14px; color:red">* 파일 선택시 한 번에 여러장의 이미지를 올려주세요<br>
+                        	* 사진은 가로,세로 비율이 같은 정사각형 모양의 사진으로 올려주세요
+                        </span>
                      </td>
                   </tr>
                   <tr>
