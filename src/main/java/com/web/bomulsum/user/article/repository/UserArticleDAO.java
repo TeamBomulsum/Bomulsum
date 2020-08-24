@@ -33,4 +33,12 @@ public class UserArticleDAO {
 		return sqlSessionTemplate.selectList("articleDao.getLikeArticles", member);
 	}
 	
+	public int getSearchArticleCount(UserSearchPagingVO vo) {
+		return sqlSessionTemplate.selectOne("articleDao.getSearchArticleCount", vo);
+	}
+	
+	public List<UserArticleCategoryVO> getArticleListForSearch(UserSearchPagingVO vo) {
+		return sqlSessionTemplate.selectList("articleDao.articleForSearch", vo);
+	}
+	
 }

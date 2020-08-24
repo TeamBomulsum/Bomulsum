@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.web.bomulsum.user.article.repository.UserArticleCategoryVO;
 import com.web.bomulsum.user.article.repository.UserArticlePagingVO;
+import com.web.bomulsum.user.article.repository.UserSearchPagingVO;
 
 public interface UserArticleService {
 	List<UserArticleCategoryVO> getListForCategory(UserArticlePagingVO vo);
@@ -12,4 +13,6 @@ public interface UserArticleService {
 	void likeArticle(HashMap<String, String> map);
 	void nonLikeArticle(HashMap<String, String> map);
 	List<String> getLikeArticles(String member);
+	int getSearchArticleCount(UserSearchPagingVO vo);
+	List<UserArticleCategoryVO> getArticleListForSearch(UserSearchPagingVO vo);
 }

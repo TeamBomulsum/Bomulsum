@@ -38,7 +38,6 @@ public class UserArticleController {
 		UserArticlePagingVO vo = new UserArticlePagingVO();
 		List<String> priceArr = new ArrayList<String>();
 		
-		
 		if(filtArr != null) {
 			for(String s : filtArr) {
 				if(s.equals("무료배송") && filtArr.size() == 1) {
@@ -57,7 +56,6 @@ public class UserArticleController {
 		vo.setOrderBy(orderBy);
 		vo.setCategory(category);
 		int totalCnt = service.getCategoryArticleCount(vo);
-		System.out.println(totalCnt);
 		int pageCnt = page;
 		if(pageCnt == 1) {
 			vo.setStartNum(1);

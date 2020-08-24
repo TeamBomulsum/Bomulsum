@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.web.bomulsum.user.article.repository.UserArticleCategoryVO;
 import com.web.bomulsum.user.article.repository.UserArticleDAO;
 import com.web.bomulsum.user.article.repository.UserArticlePagingVO;
+import com.web.bomulsum.user.article.repository.UserSearchPagingVO;
 
 @Service
 public class UserArticleServiceImpl implements UserArticleService{
@@ -39,6 +40,16 @@ public class UserArticleServiceImpl implements UserArticleService{
 	@Override
 	public List<String> getLikeArticles(String member) {
 		return dao.getLikeArticles(member);
+	}
+
+	@Override
+	public int getSearchArticleCount(UserSearchPagingVO vo) {
+		return dao.getSearchArticleCount(vo);
+	}
+
+	@Override
+	public List<UserArticleCategoryVO> getArticleListForSearch(UserSearchPagingVO vo) {
+		return dao.getArticleListForSearch(vo);
 	}
 	
 }
