@@ -4,45 +4,113 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
+<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 <meta charset="UTF-8">
 <title>실시간 추천</title>
-<link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
-	type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template-->
-<link href="<c:url value='/css/sb-admin-2.min.css'/>" rel="stylesheet">
-<!-- 요소 복사 -->
+<link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
+<style type="text/css">
+.page-link {
+  position: relative;
+  display: block;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+  z-index: 2;
+  color: #0056b3;
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+</style>
 <script type="text/javascript">
-
 	$(function() {
-		var pay = 0;
-		$('#cloneCheckBox').click(function(){
-			var tag = 'workOriginal';
-			if(this.checked){
-			console.log(document.getElementById(tag));
-			document.getElementById('cloneWorkOriginal').appendChild(document.getElementById(tag));
-			pay += 3000;
-				
-			} else{
-				document.getElementById('choiceBox').appendChild(document.getElementById(tag));
-				pay -= 3000;
+		$.ajax({			 
+			url: "${pageContext.request.contextPath}"+"/writer/checkArtList.wdo",  //클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			type: "POST", // HTTP 요청 메소드 (GET , POST 등)
+			dataType: "json",
+			success: function(data){
+			const jsData = data;
+			$('#recommandPay').text(jsData);
+			},
+			error: function(data){
+				alert('에러입니다');
 			}
-			document.getElementById("recommandPay").innerHTML = pay;
+		 });	
+		$(this).click(function(){
+				$("input[id=artListCheckBox]:checked").each(function(i) {
+					const id = this.value;
+					const tmep = this.name;
+					const data = [
+						id,
+						tmep
+					];
+					console.log(data);
+					console.log(id);
+					console.log(tmep);
+					$.ajax({			 
+						url: "${pageContext.request.contextPath}"+"/writer/getTempUpdate.wdo", //클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+						data:   {
+							"seq" : data
+						}, //HTTP 요청과 함꼐 서버로 보낼 데이터
+						method: "POST", // HTTP 요청 메소드 (GET , POST 등)
+						traditional: true,
+						success: function(data){
+						const jsData = data; 
+						location.href = "/bomulsum/writer/recommendWriter.wdo";
+						},
+						error: function(data){
+						}
+					 });					
+				});
+				
 		});
-		
-		
-		$('#pay').click(function() {
-			alert('ㅎㅇㅎㅇㅎㅇ')
-		});
-		
-	});
-	
-	
+		//검색 버튼 이벤트 처리
+		$("#searchBtn")
+				.click(
+						function() {
+							console.log("검색 버튼이 클릭됨!");
+							const keyword = $("#keywordInput").val();
 
-	
-	
+							const condition = $("#condition option:selected")
+									.val();
+
+							location.href = "/bomulsum/writer/recommendWriter.wdo?keyword="
+									+ keyword
+						});
+
+		//엔터키 입력 이벤트
+		$("#keywordInput").keydown(function(key) {
+			if (key.keyCode == 13) { //키가 13번이면 실행 (엔터 -> 13)
+				$("#searchBtn").click();
+			}
+		});
+		$('#pay').click(function(){
+			const size = $('#conatainerNext').attr('class');
+			console.log(size);
+			if(size <= 0){
+				alert('추천상품을 선택해 주세요');
+				return false;
+			}else{
+				$.ajax({
+					url : "/bomulsum/writer/recommendUp.wdo",
+					method : "POST",
+					success : function(){
+						location.href = "/bomulsum/writer/recommendWriter.wdo";
+					},
+					error: function(){
+						alert('오류입니다.');
+					}
+				});
+			}
+			
+		});
+	});
 </script>
 </head>
 <body id="page-top">
@@ -99,50 +167,44 @@
 					<br>
         <div style="display: flex; flex-direction: row; margin-top: auto; align-items: flex-end;">
             <div style="display: flex; flex-direction:column; border: 1px solid rgba(24, 7, 7, 0.13); width: 45%; height: 500px; margin: 2%;">
-                <div style="display: flex; flex-direction: row;">
+                <div style="display: flex; flex-direction: row; justify-content: space-between;">
                     <div style="margin-left: 1%;">
                         <p style="margin-top: 30%; width: 120%;">작품선택</p>
                     </div>
-                    <div style="margin-top: 2.4%; float: right; margin-left: 60%;">
-                        <input style="width: 70%;" type="search" name="#" placeholder="검색어"><input type="submit" name="#"value="검색">
+                    <div style="margin-top: 2.4%; margin-right: 1%;">
+                        <input type="text" name="keyword" value="${param.keyword}" id="keywordInput" placeholder="검색어" style="color: #007bff; background-color: #fff;  border: 1px solid #dee2e6;">
+	                    	<input type="button" value="검색" id="searchBtn" style="color: #007bff; background-color: #fff;  border: 1px solid #dee2e6;">                                       
                     </div>
                 </div>
                 <div>
                     <hr>
-                    <div>
-                        <ul id="choiceBox">
-                            <li style="display: flex; flex-direction: row;" id="workOriginal">
-	                            <input style="margin: 6%" type="checkbox" name="###" id="cloneCheckBox">&nbsp;&nbsp;
-	                            <img style="width: 10%;" src="<c:url value='/resources/img/text.png'/>" id="abc">&nbsp;&nbsp;
-	                            <p style="margin: 5%" id="def">작품명이다다다다다다다다다다다다다</p>
-	                            
+					
+                    <div id="containerPrev">
+                    <c:if test="${artList.size() <= 0 }">
+                    <div style="width:100%; text-align: center; margin-top: 10%;">
+	                      검색결과가 존재하지 않습니다.    
+                    </div>
+					</c:if>
+					<c:if test="${artList.size() > 0}">
+					<c:forEach var="artList" items="${artList}">
+                        <ul id="${artList.artCodeSeq }">
+                            <li style="display: flex; flex-direction: row;">
+	                            <input style="margin: 6%" type="checkbox" id="artListCheckBox" name="${artList.temp }" value="${artList.artCodeSeq }">&nbsp;&nbsp;
+	                            <img style="width: 10%;" src="<c:url value='/upload/${artList.artPhoto }'/>" id="abc">&nbsp;&nbsp;
+	                            <p style="margin: 5%" id="def">${artList.artName }</p>   
                             </li>
-                            <li style="display: flex; flex-direction: row;" id="workOriginal1">
-	                            <input style="margin: 6%" type="checkbox" name="###" id="cloneCheckBox">&nbsp;&nbsp;
-	                            <p style="margin: 5%" id="def">작품명이11111</p>
-	                            
-                            </li>
-                            <!--                     <li style="display: flex; flex-direction: row;"> -->
-                            <!--                     <input style="margin: 6%" type="checkbox" name="###">&nbsp;&nbsp;<img style="width: 10%;" src="text.png">&nbsp;&nbsp; -->
-                            <!--                    <p style="margin: 5%">작품명이다다다다다다다다다다다다다</p> -->
-                            <!--                    </li> -->
-                            <!--                     <li style="display: flex; flex-direction: row;"> -->
-                            <!--                     <input style="margin: 6%" type="checkbox" name="###">&nbsp;&nbsp;<img style="width: 10%;" src="text.png">&nbsp;&nbsp; -->
-                            <!--                    <p style="margin: 5%">작품명이다다다다다다다다다다다다다</p> -->
-                            <!--                    </li> -->
-                            <!--                     <li style="display: flex; flex-direction: row;"> -->
-                            <!--                     <input style="margin: 6%" type="checkbox" name="###">&nbsp;&nbsp;<img style="width: 10%;" src="text.png">&nbsp;&nbsp; -->
-                            <!--                    <p style="margin: 5%">작품명이다다다다다다다다다다다다다</p> -->
-                            <!--                    </li> -->
                         </ul>
+                    </c:forEach>
+                    </c:if>
                     </div>
                 </div>
-                <div style="margin-top: auto; margin-bottom: 2%;  width: 100%; display:flex;justify-content: center;" >
-                    <input style="margine: 1%" type="button" value="이전">&nbsp;<input
-                        style="margine: 1%" type="button" value=" 1 ">&nbsp;<input
-                        type="button" value="다음" style="margine: 1%">
+             <div style="margin-top: auto; margin-bottom: 2%;  width: 100%; display:flex;justify-content: center;" >
+                <c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
+                    <a class="page-link" style="margine: 1%" href="<c:url value='/writer/recommendWriter.wdo${pc.makeURI(pageNum)}' />">${pageNum }</a>&nbsp;
+                </c:forEach>
                 </div>
             </div>
+               
             <!--end of 작품선택 상자-->
             
             
@@ -151,17 +213,30 @@
 							<div style="margin-left: 1%; height: 80%; overflow: auto;">
 								<p style="margin: 4%;">추천작품선택</p>
 								<hr>
-								<ul id="xyz">
-									<li style="display: flex; flex-direction: row;" id="cloneWorkOriginal">
-										
-									</li>
-								</ul>
+								<div id="conatainerNext" class="${tempList.size()}">
+								 <c:if test="${tempList.size() <= 0 }">
+			                    <div style="width:100%; text-align: center; margin-top: 10%;">
+				                      	추천작품이 존재하지 않습니다.    
+			                    </div>
+								</c:if>
+								<c:if test="${tempList.size() > 0 }">
+								<c:forEach var="tempList" items="${tempList }">
+										 <ul id="${tempList.artCodeSeq }">
+                            <li style="display: flex; flex-direction: row;">
+	                            <input style="margin: 6%" type="checkbox" id="artListCheckBox" name="${tempList.temp }" value="${tempList.artCodeSeq }">&nbsp;&nbsp;
+	                            <img style="width: 10%;" src="<c:url value='/upload/${tempList.artPhoto }'/>" id="abc">&nbsp;&nbsp;
+	                            <p style="margin: 5%" id="def">${tempList.artName }</p>   
+                            </li>
+                        </ul>
+									</c:forEach>
+									</c:if>
+								</div>
 							</div>
 							<div>
 								<hr>
 								<div style="display: flex; flex-direction: row;">
 									<h1 style="width: 60%; padding: 1%;">결제할 금액 : &nbsp;</h1>
-									<h1 id="recommandPay">0</h1>&nbsp;&nbsp;&nbsp;
+									<h1 id="recommandPay"></h1>&nbsp;&nbsp;&nbsp;
 									<h2 style="width: 40%; padding: 1%;">원</h2>
 								</div>
 							</div>
@@ -172,7 +247,7 @@
 
     </section>
     <div style="text-align: center;">
-        <input id="pay" type="button" onclick="javascript:pay" value="추천up" style="padding: 1%; margin: 1%">
+        <input id="pay" type="button" value="추천up" style="padding: 1%; margin: 1%;color: #007bff; background-color: #fff;  border: 1px solid #dee2e6;">
     </div> 
 
 
@@ -185,10 +260,10 @@
 				</a>
 
 		
-				<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 				<!-- Core plugin JavaScript-->
-				<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+				<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 				<!-- Custom scripts for all pages-->
 				<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>

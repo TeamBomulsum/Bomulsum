@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.bomulsum.common.PageVO;
+import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.art.repository.WriterArtDAO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
 import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
@@ -207,6 +209,40 @@ public class WriterArtServiceImpl implements WriterArtService{
 	public void updateArtOption9(Map<String, Object> map) {
 		dao.updateArtOption9(map);
 	}
+	//원희 수정
+	@Override
+	public List<WriterArtVO> getRecommendSelect(SearchVO vo) {
+		return dao.getRecommendSelect(vo);
+	}
+
+	@Override
+	public int getArtCount(PageVO vo) {
+		return dao.getArtCount(vo);
+	}
+	@Override
+	public void getTempUpdate(String artCodeSeq) {
+		dao.getTempUpdate(artCodeSeq);
+	}
+	@Override
+	public List<WriterArtVO> getRecommendSelectTemp(WriterArtVO vo) {
+		return dao.getRecommendSelectTemp(vo);
+	}
+	@Override
+	public void getTempUpdateN(String artCodeSeq) {
+		 dao.getTempUpdateN(artCodeSeq);
+	}
+	public int checkArtList(String writerCodeSeq){
+		return dao.checkArtList(writerCodeSeq);
+	}
+	@Override
+	public void recommendUp(String writerCodeSeq) {
+		dao.recommendUp(writerCodeSeq);
+	}
+	@Override
+	public void getTempUpdateReN(String writerCodeSeq) {
+		dao.getTempUpdateReN(writerCodeSeq);
+	}
+	
 	
 
 }

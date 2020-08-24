@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.bomulsum.common.PageVO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasDAO;
 import com.web.bomulsum.writer.midas.repository.WriterMidasVO;
 
@@ -52,8 +53,13 @@ public class WriterMidasServiceImpl implements WriterMidasService{
 	}
 
 	@Override
-	public int countArticles(WriterMidasVO vo) {
-		return dao.countArticles(vo);
+	public int countArticles(PageVO paging) {
+		return dao.countArticles(paging);
+	}
+
+	@Override
+	public List<WriterMidasVO> getArticleListPaging(PageVO paging) {
+		return dao.getArticleListPaging(paging);
 	}
 
 
