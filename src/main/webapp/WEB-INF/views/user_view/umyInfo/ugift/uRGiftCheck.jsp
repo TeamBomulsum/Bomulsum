@@ -111,6 +111,17 @@ body a:link, a:visited, a:hover, a:active{
 	text-decoration: none;
 	color:black;
 }
+#jeonga-ugift-gift-check{
+	background-color: #1f76bb;
+	padding:2% 11%;
+	margin-top:3%;
+	margin-left:35%;
+	color:white;
+	cursor: pointer;
+	border:none;
+	font-size: 13pt;
+}
+input:focus {outline:none;}
 </style>
 
 <script type="text/javascript">
@@ -251,6 +262,7 @@ function doOtherDisplay(){
 					④ 동의를 거부할 수 있으며, 동의 거부시 서비스가 제공되지 않습니다.
 				</div>
 			</div>
+			<input type="submit" id="jeonga-ugift-gift-check" value="선물받기"/>
 		</div><!-- end uRGiftCheckWrap -->
 	</div>
 	<!-- 푸터  -->

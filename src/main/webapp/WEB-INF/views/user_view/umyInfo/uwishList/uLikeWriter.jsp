@@ -143,6 +143,7 @@ body a:link, a:visited, a:hover, a:active {
   	
 }
 /* Hide the images by default*/ 
+/*
 .jeonga-imageSlides1 {
 	display:flex;
 	justify-content: space-between;
@@ -173,7 +174,7 @@ body a:link, a:visited, a:hover, a:active {
 	padding:0;
  
 }
-/* 
+*/
 #jeonga-imageSlides1 {
 	display:flex;
 	justify-content: space-between;
@@ -183,7 +184,7 @@ body a:link, a:visited, a:hover, a:active {
 	height:168.25px;
 
  
-} */
+} 
 
 
 /* Next & previous buttons */
@@ -219,12 +220,13 @@ body a:link, a:visited, a:hover, a:active {
  opacity: 100;
 }
 
+
 </style>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link href="<c:url value='/resources/css/jqery.bxslider.min.css'/>" rel="stylesheet" type="text/css"/>
-<script src="<c:url value='/resources/js/jquery.bxslider.min.js'/>"></script>
+<script src="<c:url value='/resources/js/jquery.bxslider.min.js'/>"></script> --%>
 
 
 
@@ -251,7 +253,8 @@ body a:link, a:visited, a:hover, a:active {
 			})
 
 	});
-	  $('.bxslider').bxSlider();  // ul에 있는 class명을 기준으로 선언을 합니다. 즉, 이미지구성요소들을 감싸고있는 객체에 선언해 줍니다. 
+	slide();
+	 // $('.bxslider').bxSlider();  // ul에 있는 class명을 기준으로 선언을 합니다. 즉, 이미지구성요소들을 감싸고있는 객체에 선언해 줍니다. 
 
  });
 	
@@ -381,28 +384,30 @@ body a:link, a:visited, a:hover, a:active {
 						</div>
 
 					<!-- 이미지 슬라이더 -->
-					<!-- <div class="joenga-wprofile-imageslider"> -->
-					 <!-- 	<div class="jeonga-imageSlides-buttons">
+					 <div class="joenga-wprofile-imageslider"> 
+					  	<div class="jeonga-imageSlides-buttons">
   						<a class="jeonga-imageSlides-prev" onclick="plusSlides(-1)">❮</a>
  						<a class="jeonga-imageSlides-next" onclick="plusSlides(1)">❯</a>
-						</div> -->
+						</div> 
 						<!-- 슬라이드 기본 세트 -->
-  						<%-- <div id="jeonga-imageSlides1">
+  						<div id="jeonga-imageSlides1">
 							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>">
-  						</div> --%>
-  						<ul class="bxslider">
+  						</div>
+  			<%-- 			<div class="slide">
+  						<ul class="panel">
 						<li>
-   							<img src="<c:url value='/resources/img/test.png'/>">
+   							<img src="<c:url value='/resources/img/test.png'/>" style="width:100px;height:100px">
   						</li>		
   						<!-- 슬라이드 한 세트 -->	
   						<li>
-							<img src="<c:url value='/resources/img/MainLogo.png'/>">
+							<img src="<c:url value='/resources/img/MainLogo.png'/>" style="width:100px;height:100px">
   						</li>
   						<!-- 슬라이드 한 세트 -->	
   						<li>
-							<img src="<c:url value='/resources/img/text.png'/>">
+							<img src="<c:url value='/resources/img/text.png'/>" style="width:100px;height:100px">
   						</li>
 						</ul>
+						</div> --%>
 						<%-- <!-- 슬라이드 한 세트 -->
 					 	<div class="jeonga-imageSlides">
    							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>">

@@ -108,6 +108,7 @@ body a:link, a:visited, a:hover, a:active{
   	display: inline-block;
   	font-size: 12px;
   	width:92px;
+  	color:black;
 }
 
 .jeonga-ugift-sbody-list{
@@ -142,6 +143,7 @@ body a:link, a:visited, a:hover, a:active{
 	margin-top:6px;
 
 }
+
 </style>
 </head>
 <body>
@@ -157,37 +159,39 @@ body a:link, a:visited, a:hover, a:active{
 			<div class="jeonga-ugift-stitle">
 				<h2 id="jeonga-ugift-stitle-text">보낸 선물함</h2>
 			</div>
+			<c:forEach var="sendList" items='${sendGiftList}'>
 			<div class="jeonga-ugift-sendList">
 				<div class="jeonga-ugift-shead">
 					<div class="jeonga-ugift-shead-left">
-						<div class="jeonga-ugift-shead-date">2020-07-21</div>
+						<div class="jeonga-ugift-shead-date">${sendList.order_date}</div>
 						<div class="jeonga-ugift-shead-divide">|</div>
-						<div class="jeonga-ugift-shead-address" style="color:#DF3A01">배송주소 입력대기</div>
+						<div class="jeonga-ugift-shead-address" style="color:#DF3A01">${sendList.order_address_input}</div><!-- 배송주소 입력대기 -->
 					</div>
 					<div class="jeonga-ugift-shead-right">
-						<a href="uSGiftCheck.jsp" class="jeonga-ugift-slink"> 홍길동님에게 보낸 선물 > </a>
+						<a href="/bomulsum/user/sendGift/${sendList.order_code_seq}.do" class="jeonga-ugift-slink"> ${sendList.gift_recipient_name}님에게 보낸 선물 > </a>
 					</div>
 				</div>
 				<div class="jeonga-ugift-sbody">
 					<div class="jeong-ugift-sbody-image">
-						<img src="<c:url value='/resources/img/test.png'/>" style="width:70px; height:70px;">
+						<img src="<c:url value='/upload/${sendList.art_photo}'/>" style="width:70px; height:70px;">
 					</div>
 					<div class="jeonga-ugift-sbody-order">
-						<div class="jeonga-ugift-sbody-title">(카페)주문제작 감성 일러스트 엽서</div>
-						<div class="jeong-ugift-sbody-option">1500원 / 1개</div>
+						<div class="jeonga-ugift-sbody-title">${sendList.b_art_name}</div>
+						<div class="jeong-ugift-sbody-option">${sendList.order_pay_price} / ${sendList.b_art_option_count}개</div>
 					</div>
 					<div class="jeonga-ugift-sbody-sellerpart">
 						<div class="jeonga-ugift-sbody-seller">
-						령쓰<br>
-						<button id="jeonga-ugift-sbody-button">메시지로 문의</button>
+						${sendList.writer_brand_name}<br>
+						<a href="/bomulsum/user/message.do?writer=${sendList.b_writer_code_seq}" id="jeonga-ugift-sbody-button">메시지로 문의</a>
 						</div>
 					</div>
 					<div class="jeonga-ugift-sbody-list">
-						<button type="button" onclick="location.href='uSGiftCheck.jsp'" id="jeonga-ugift-sbody-list-address">배송주소 직접 입력</button><br>
+						<button type="button" disabled id="jeonga-ugift-sbody-list-address">배송주소 직접 입력</button><br>
 						<button type="button" onclick="#"id="jeonga-ugift-sbody-list-cancel">주문 취소</button>
 					</div>
 				</div>
 			</div>
+			</c:forEach>
 		</div>
 	</div>
 	<!-- 푸터  -->
