@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.article.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,19 @@ public class UserSearchController {
 
 	@RequestMapping(value="/result", method=RequestMethod.GET)
 	public String getSearch(@RequestParam String headerSearch) {
+		if(!headerSearch.equals("null") || headerSearch != null) {
+			int count = service.selectWord(headerSearch);
+			if(count == 0) {
+				service.insertWord(headerSearch);
+			}else {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				Date time = new Date(System.currentTimeMillis());
+				map.put("word", headerSearch);
+				map.put("time", time);
+				map.put("count", ++count);
+				service.updateWord(map);
+			}
+		}
 		return "/usearch/uSearch";
 	}
 	

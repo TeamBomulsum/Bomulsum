@@ -15,4 +15,7 @@ public interface UserArticleService {
 	List<String> getLikeArticles(String member);
 	int getSearchArticleCount(UserSearchPagingVO vo);
 	List<UserArticleCategoryVO> getArticleListForSearch(UserSearchPagingVO vo);
+	int selectWord(String word);
+	void insertWord(String word);
+	void updateWord(HashMap<String, Object> map);
 }

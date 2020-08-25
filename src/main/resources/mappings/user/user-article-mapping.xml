@@ -234,6 +234,40 @@
 			wishlist_option='좋아하는작품'
 	</select>
 	
+	<!-- 검색어 디비 select -->
+	<select id="wordSelect" parameterType="String" resultType="int">
+		SELECT
+			keyword_count
+		FROM
+			keyword_tb
+		WHERE
+			keyword_word=#{word}
+	</select>
+	
+	<!-- 검색어 디비 insert -->
+	<insert id="wordInsert" parameterType="String">
+		INSERT INTO keyword_tb
+		(
+			keyword_seq,
+			keyword_word
+		)
+		VALUES
+		(
+			'keyword_sq' || TO_CHAR(keyword_sq.nextval),
+			#{word}
+		)
+	</insert>
+	
+	<update id="wordUpdate" parameterType="hashMap">
+		UPDATE 
+			keyword_tb
+		SET
+			keyword_count = #{count},
+			keyword_date = #{time}
+		WHERE
+			keyword_word = #{word}
+	</update>
+	
 	<!-- 검색 처리 (작품) -->
 	
 	<select id="articleForSearch" parameterType="com.web.bomulsum.user.article.repository.UserSearchPagingVO" 

@@ -41,4 +41,20 @@ public class UserArticleDAO {
 		return sqlSessionTemplate.selectList("articleDao.articleForSearch", vo);
 	}
 	
+	public int selectWord(String word) {
+		if(sqlSessionTemplate.selectOne("articleDao.wordSelect", word) == null) {
+			return 0;
+		}else {			
+			return sqlSessionTemplate.selectOne("articleDao.wordSelect", word);
+		}
+	}
+	
+	public void insertWord(String word) {
+		sqlSessionTemplate.insert("articleDao.wordInsert", word);
+	}
+	
+	public void updateWord(HashMap<String, Object> map) {
+		sqlSessionTemplate.update("articleDao.wordUpdate", map);
+	}
+	
 }

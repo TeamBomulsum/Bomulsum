@@ -8,6 +8,7 @@
 		<result property="memberCode" column="member_code_seq"/>
 		<result property="memberEmail" column="member_email"/>
 		<result property="memberName" column="member_name"/>
+		<result property="memberPhone" column="member_phone"/>
 		<result property="memberLoginStat" column="member_login"/>
 		<result property="memberImg" column="member_profile" />
 		<result property="memberBirth" column="member_birth" />
@@ -97,7 +98,8 @@
 		SELECT 
 			member_code_seq, 
 			member_email, 
-			member_name, 
+			member_name,
+			member_phone,
 			member_login, 
 			member_profile,
 			member_birth,

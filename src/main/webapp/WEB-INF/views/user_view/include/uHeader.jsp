@@ -881,7 +881,6 @@ body {
 				  <li><p>버즈케이스<p></li>
 				  <li><p>에코백<p></li>
 				  <li><p>케이크<p></li>
-				  
 				</ol> 
 			</div>
 		 	<span style="color: red">1. </span> <span style="color:#666666 ">폰케이스</span>

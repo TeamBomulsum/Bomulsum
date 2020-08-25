@@ -51,5 +51,20 @@ public class UserArticleServiceImpl implements UserArticleService{
 	public List<UserArticleCategoryVO> getArticleListForSearch(UserSearchPagingVO vo) {
 		return dao.getArticleListForSearch(vo);
 	}
+
+	@Override
+	public void insertWord(String word) {
+		dao.insertWord(word);		
+	}
+
+	@Override
+	public int selectWord(String word) {
+		return dao.selectWord(word);
+	}
+
+	@Override
+	public void updateWord(HashMap<String, Object> map) {
+		dao.updateWord(map);
+	}
 	
 }
