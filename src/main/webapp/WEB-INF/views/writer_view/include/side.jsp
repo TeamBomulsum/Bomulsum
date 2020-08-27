@@ -179,7 +179,7 @@
         <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
 
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<c:url value='/view/wrecommend/recommendWriter.jsp'/>">작가님 추천</a>
+            <a class="collapse-item" href="<c:url value='/writer/recommendWriter.wdo'/>">작가님 추천</a>
             <!--
             <h6 class="collapse-header">Login Screens:</h6>
             <a class="collapse-item" href="login.html">Login</a>

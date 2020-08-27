@@ -3,6 +3,8 @@ package com.web.bomulsum.writer.art.service;
 import java.util.List;
 import java.util.Map;
 
+import com.web.bomulsum.common.PageVO;
+import com.web.bomulsum.common.SearchVO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
 import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
 import com.web.bomulsum.writer.art.repository.WriterArtVO;
@@ -69,6 +71,14 @@ public interface WriterArtService {
 	void updateArtOption7(Map<String, Object> map);
 	void updateArtOption8(Map<String, Object> map);
 	void updateArtOption9(Map<String, Object> map);
-
 	
+	//원희 수정
+	List<WriterArtVO> getRecommendSelect(SearchVO vo);
+	int getArtCount(PageVO vo);
+	void getTempUpdate(String artCodeSeq);
+	List<WriterArtVO> getRecommendSelectTemp(WriterArtVO vo);
+	void getTempUpdateN(String artCodeSeq);
+	int checkArtList(String writerCodeSeq);
+	public void recommendUp(String writerCodeSeq);
+	public void getTempUpdateReN(String writerCodeSeq);
 }

@@ -12,7 +12,6 @@ public class UserArticlePagingVO {
 	private String orderBy;
 	
 	
-	
 	public String getOrderBy() {
 		return orderBy;
 	}

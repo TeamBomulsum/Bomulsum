@@ -33,4 +33,28 @@ public class UserArticleDAO {
 		return sqlSessionTemplate.selectList("articleDao.getLikeArticles", member);
 	}
 	
+	public int getSearchArticleCount(UserSearchPagingVO vo) {
+		return sqlSessionTemplate.selectOne("articleDao.getSearchArticleCount", vo);
+	}
+	
+	public List<UserArticleCategoryVO> getArticleListForSearch(UserSearchPagingVO vo) {
+		return sqlSessionTemplate.selectList("articleDao.articleForSearch", vo);
+	}
+	
+	public int selectWord(String word) {
+		if(sqlSessionTemplate.selectOne("articleDao.wordSelect", word) == null) {
+			return 0;
+		}else {			
+			return sqlSessionTemplate.selectOne("articleDao.wordSelect", word);
+		}
+	}
+	
+	public void insertWord(String word) {
+		sqlSessionTemplate.insert("articleDao.wordInsert", word);
+	}
+	
+	public void updateWord(HashMap<String, Object> map) {
+		sqlSessionTemplate.update("articleDao.wordUpdate", map);
+	}
+	
 }

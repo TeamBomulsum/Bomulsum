@@ -1,7 +1,10 @@
 package com.web.bomulsum.writer.midas.repository;
 
+import java.util.Date;
 
-public class WriterMidasVO {
+import com.web.bomulsum.common.PageVO;
+
+public class WriterMidasVO extends PageVO{
 
 	private String orderSeq;
 	private String writerCodeSeq;
@@ -22,6 +25,7 @@ public class WriterMidasVO {
 	private String keyword;
 	private String run;
 	private String category;
+	private Date regDate;
 	
 	public String getOrderSeq() {
 		return orderSeq;
@@ -139,6 +143,12 @@ public class WriterMidasVO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
 	@Override
 	public String toString() {
 		return "WriterMidasVO [orderSeq=" + orderSeq + ", writerCodeSeq=" + writerCodeSeq + ", orderImg=" + orderImg
@@ -146,8 +156,9 @@ public class WriterMidasVO {
 				+ ", maxNumber=" + maxNumber + ", startDate=" + startDate + ", endDate=" + endDate + ", day=" + day
 				+ ", startTime=" + startTime + ", endTime=" + endTime + ", about=" + about + ", balance=" + balance
 				+ ", address1=" + address1 + ", address2=" + address2 + ", keyword=" + keyword + ", run=" + run
-				+ ", category=" + category + "]";
+				+ ", category=" + category + ", regDate=" + regDate + "]";
 	}
+	
 	
 	
 	

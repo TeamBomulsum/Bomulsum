@@ -7,6 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.web.bomulsum.common.PageVO;
+import com.web.bomulsum.common.SearchVO;
+
 @Repository
 public class WriterArtDAO{
 
@@ -167,6 +170,32 @@ public class WriterArtDAO{
 
 	public void updateArtOption9(Map<String, Object> map) {
 		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.updateArtOption9", map);
+	}
+	
+	//원희 수정
+	public List<WriterArtVO> getRecommendSelect(SearchVO vo) {
+		return sqlSessionTemplate.selectList("com.web.bomulsum.writer.art.repository.WriterArtDAO.getRecommendSelect",vo);
+	}
+	public int getArtCount(PageVO vo) {
+		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.getArtCount",vo);
+	}
+	public void getTempUpdate(String artCodeSeq) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.getTempUpdate",artCodeSeq);
+	}
+	public List<WriterArtVO> getRecommendSelectTemp(WriterArtVO vo){
+		return sqlSessionTemplate.selectList("com.web.bomulsum.writer.art.repository.WriterArtDAO.getRecommendSelectTemp",vo);
+	}
+	public void getTempUpdateN(String artCodeSeq) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.getTempUpdateN",artCodeSeq);
+	}
+	public int checkArtList(String writerCodeSeq){
+		return sqlSessionTemplate.selectOne("com.web.bomulsum.writer.art.repository.WriterArtDAO.checkArtList",writerCodeSeq);
+	}
+	public void recommendUp(String writerCodeSeq) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.recommendUp",writerCodeSeq);
+	}
+	public void getTempUpdateReN(String writerCodeSeq) {
+		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.getTempUpdateReN",writerCodeSeq);
 	}
 	
 }

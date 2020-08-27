@@ -233,6 +233,233 @@
 			AND
 			wishlist_option='좋아하는작품'
 	</select>
+	
+	<!-- 검색어 디비 select -->
+	<select id="wordSelect" parameterType="String" resultType="int">
+		SELECT
+			keyword_count
+		FROM
+			keyword_tb
+		WHERE
+			keyword_word=#{word}
+	</select>
+	
+	<!-- 검색어 디비 insert -->
+	<insert id="wordInsert" parameterType="String">
+		INSERT INTO keyword_tb
+		(
+			keyword_seq,
+			keyword_word
+		)
+		VALUES
+		(
+			'keyword_sq' || TO_CHAR(keyword_sq.nextval),
+			#{word}
+		)
+	</insert>
+	
+	<update id="wordUpdate" parameterType="hashMap">
+		UPDATE 
+			keyword_tb
+		SET
+			keyword_count = #{count},
+			keyword_date = #{time}
+		WHERE
+			keyword_word = #{word}
+	</update>
+	
+	<!-- 검색 처리 (작품) -->
+	
+	<select id="articleForSearch" parameterType="com.web.bomulsum.user.article.repository.UserSearchPagingVO" 
+		resultMap="articleVO">
+		<include refid="header"/>
+		SELECT
+			a.art_code_seq,
+			a.writer_code_seq,
+			w.writer_name,
+			w.writer_brand_name,
+			w.writer_send_price,
+			a.art_photo,
+			a.art_category,
+			a.art_name,
+			a.art_price,
+			a.art_discount,
+			a.art_viewcount,
+			a.art_keyword,
+			a.art_register_date
+		FROM
+			art_tb a
+		INNER JOIN
+			writer_tb w
+		ON
+			w.writer_code_seq = a.writer_code_seq
+		WHERE
+			(
+				(
+					a.art_keyword LIKE '%' || #{word} || '%'
+					OR
+					a.art_name LIKE '%' || #{word} || '%'
+					OR
+					w.writer_name LIKE '%' || #{word} || '%'
+					OR
+					w.writer_brand_name LIKE '%' || #{word} || '%'
+				)
+				AND
+				a.art_sale_state='Y'
+				<if test="category != null">
+					AND
+					<foreach collection="category" item="category" open="(" close=")" separator="or">
+						a.art_category=#{category}
+					</foreach>
+				</if>
+				<if test="sendPrice != null">
+					AND
+					w.writer_send_price = 0
+				</if>
+				<if test="filtArr != null">
+					AND
+					<foreach collection="filtArr" item="filt" open="(" close=")" separator="or">
+						<choose>
+							<when test="filt == '1만원 미만'">
+								(a.art_discount <![CDATA[<]]> 10000)
+							</when>
+							<when test="filt == '1만원대'">
+								(
+								a.art_discount >= 10000
+								AND
+								a.art_discount <![CDATA[<]]> 20000
+								)
+							</when>
+							<when test="filt == '2만원대'">
+								(
+								a.art_discount >= 20000
+								AND
+								a.art_discount <![CDATA[<]]> 30000
+								)
+							</when>
+							<when test="filt == '3만원대'">
+								(
+								a.art_discount >= 30000
+								AND
+								a.art_discount <![CDATA[<]]> 40000
+								)
+							</when>
+							<when test="filt == '4만원대'">
+								(
+								a.art_discount >= 40000
+								AND
+								a.art_discount <![CDATA[<]]> 50000
+								)
+							</when>
+							<when test="filt == '5만원대'">
+								(
+								a.art_discount >= 50000
+								AND
+								a.art_discount <![CDATA[<]]> 60000
+								)
+							</when>
+						</choose>
+					</foreach>
+				</if>
+			)
+			ORDER BY
+			<if test="orderBy == 'orderByLike'">
+				art_register_date
+			</if>
+			<if test="orderBy == 'orderByRecently'">
+				art_register_date DESC
+			</if>
+			<if test="orderBy == 'orderByLowPrice'">
+				art_discount ASC
+			</if>
+			<if test="orderBy == 'orderByHighPrice'">
+				art_discount DESC
+			</if>
+		<include refid="footer"/>
+	</select>
+	
+	
+	<select id="getSearchArticleCount" parameterType="com.web.bomulsum.user.article.repository.UserSearchPagingVO"
+		resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			art_tb a
+		INNER JOIN
+			writer_tb w
+		ON
+			w.writer_code_seq = a.writer_code_seq
+		WHERE
+		(
+			(
+				a.art_keyword LIKE '%' || #{word} || '%'
+				OR
+				a.art_name LIKE '%' || #{word} || '%'
+				OR
+				w.writer_name LIKE '%' || #{word} || '%'
+				OR
+				w.writer_brand_name LIKE '%' || #{word} || '%'
+			)
+			AND
+			a.art_sale_state='Y'
+			<if test="category != null">
+				AND
+				<foreach collection="category" item="category" open="(" close=")" separator="or">
+					a.art_category=#{category}
+				</foreach>
+			</if>
+			<if test="sendPrice != null">
+				AND
+				w.writer_send_price = 0
+			</if>
+			<if test="filtArr != null">
+				AND
+				<foreach collection="filtArr" item="filt" open="(" close=")" separator="or">
+					<choose>
+						<when test="filt == '1만원 미만'">
+							(a.art_discount <![CDATA[<]]> 10000)
+						</when>
+						<when test="filt == '1만원대'">
+							(
+							a.art_discount >= 10000
+							AND
+							a.art_discount <![CDATA[<]]> 20000
+							)
+						</when>
+						<when test="filt == '2만원대'">
+							(
+							a.art_discount >= 20000
+							AND
+							a.art_discount <![CDATA[<]]> 30000
+							)
+						</when>
+						<when test="filt == '3만원대'">
+							(
+							a.art_discount >= 30000
+							AND
+							a.art_discount <![CDATA[<]]> 40000
+							)
+						</when>
+						<when test="filt == '4만원대'">
+							(
+							a.art_discount >= 40000
+							AND
+							a.art_discount <![CDATA[<]]> 50000
+							)
+						</when>
+						<when test="filt == '5만원대'">
+							(
+							a.art_discount >= 50000
+							AND
+							a.art_discount <![CDATA[<]]> 60000
+							)
+						</when>
+					</choose>
+				</foreach>
+			</if>
+		)
+	</select>
+	
 </mapper>
 
 
