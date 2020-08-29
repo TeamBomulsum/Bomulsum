@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMidasDAO">
+
+	<resultMap type="com.web.bomulsum.user.midas.repository.UserMidasVO" id="userMidasVO">
+		<result column="midas_code_seq" property="midasCodeSeq" />
+		<result column="writer_code_seq" property="writerCodeSeq" />
+		<result column="midas_img" property="midasImg" />
+		<result column="midas_name" property="midasName" />
+		<result column="midas_price" property="midasPrice" />
+		<result column="midas_discount" property="midasDiscount" />
+		<result column="midas_max" property="midasMax" />
+		<result column="midas_start_date" property="midasStartDate" />
+		<result column="midas_end_date" property="midasEndDate" />
+		<result column="midas_about" property="midasAbout" />
+		<result column="midas_category" property="midasCategory" />
+		<result column="midas_balance" property="midasBalance" />
+		<result column="midas_address1" property="midasAddress1" />
+		<result column="midas_address2" property="midasAddress2" />
+		<result column="midas_keyword" property="midasKeyword" />
+		<result column="midas_run" property="midasRun" />
+	</resultMap>
+
+	<sql id="header">
+	SELECT Y.*
+		FROM (
+			SELECT ROWNUM AS RNUM, X.*
+			FROM (
+	</sql>
+	<sql id="footer">
+		) X ) Y
+		WHERE Y.RNUM BETWEEN #{startNum} AND #{endNum}
+		ORDER BY midas_regdate DESC
+		<!-- <if test="orderColumn != null and orderValue != null"> -->
+		<!-- </if> -->
+	</sql>
+
+	<select id="midasCategoryList" resultMap="userMidasVO">
+		<include refid="header"/>
+			SELECT * FROM midas_tb
+			WHERE midas_run='Y' AND midas_category = #{category}
+		<include refid="footer"/>
+	</select>
+
+	<select id="getCategoryMidasCount" parameterType="String" resultType="int">
+	SELECT
+		COUNT(*)
+	FROM
+		midas_tb
+	WHERE
+		(
+			midas_run='Y' AND midas_category = #{category}
+		)
+	</select>
+
+</mapper>

@@ -33,6 +33,7 @@
 		<mapper resource="mappings/user/user-article-mapping.xml" />
 		<mapper resource="mappings/user/user-reserves-mapping.xml" />
 		<mapper resource="mappings/user/user-wishlist-mapping.xml" />
+		<mapper resource="mappings/user/user-midas-mapping.xml" />
 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />

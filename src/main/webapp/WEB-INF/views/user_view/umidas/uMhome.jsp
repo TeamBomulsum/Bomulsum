@@ -266,37 +266,37 @@ function showSlides(n) {
 		<div class="jeonga_uMhome_category">
         	<nav class="jeonga_uMhome_nav_group">
         		<div class="jeonga_uMhome_nav_con">
-                <a href="#" class="jeonga_uMhome_nav_link">
+                <a href="<c:url value='/midas/detail.do?category=공예'/>" class="jeonga_uMhome_nav_link">
                 	<img src="https://image.idus.com/static/edu/cate_icon_craft.png" >
                 	<span>공예</span>
             	</a>
             	</div>
             	<div class="jeonga_uMhome_nav_con">
-                <a href="#" class="jeonga_uMhome_nav_link">
+                <a href="<c:url value='/midas/detail.do?category=요리'/>" class="jeonga_uMhome_nav_link">
                 	<img src="https://image.idus.com/static/edu/cate_icon_cook.png">
                 	<span>요리</span>
             	</a>
             	</div>
             	<div class="jeonga_uMhome_nav_con">
-                <a href="#" class="jeonga_uMhome_nav_link">
+                <a href="<c:url value='/midas/detail.do?category=미술'/>" class="jeonga_uMhome_nav_link">
                 	<img src="https://image.idus.com/static/edu/cate_icon_art.png" >
                 	<span>미술</span>
             	</a>
             	</div>
             	<div class="jeonga_uMhome_nav_con">
-                <a href="#" class="jeonga_uMhome_nav_link">
+                <a href="<c:url value='/midas/detail.do?category=플라워'/>" class="jeonga_uMhome_nav_link">
                 	<img src="https://image.idus.com/static/edu/cate_icon_flower.png">
                 	<span>플라워</span>
             	</a>
             	</div>
             	<div class="jeonga_uMhome_nav_con">
-                <a href="#" class="jeonga_uMhome_nav_link">
+                <a href="<c:url value='/midas/detail.do?category=뷰티'/>" class="jeonga_uMhome_nav_link">
                 	<img src="https://image.idus.com/static/edu/cate_icon_perfume.png">
                 	<span>뷰티</span>
             	</a>
             	</div>
             	<div class="jeonga_uMhome_nav_con">
-                <a href="#" class="jeonga_uMhome_nav_link">
+                <a href="<c:url value='/midas/detail.do?category=체험 및 기타'/>" class="jeonga_uMhome_nav_link">
                 	<img src="https://image.idus.com/static/edu/cate_icon_hand.png"/>
                 	<span>체험 및 기타</span>
            		 </a>
