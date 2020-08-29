@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!-- user -->
+		<typeAlias type="com.web.bomulsum.user.login.repository.MemberVO" alias="memberVO"/>	
+		<typeAlias type="com.web.bomulsum.user.profile.repository.UserProfileVO" alias="UserProfileVO"/>	
+		<typeAlias type="com.web.bomulsum.user.profile.repository.UserProfileOrderVO" alias="UserProfileOrderVO"/>	
+		<typeAlias type="com.web.bomulsum.user.profile.repository.UserProfileAddressVO" alias="UserProfileAddressVO"/>	
+		<typeAlias type="com.web.bomulsum.user.reserves.repository.UserReservesVO" alias="UserReservesVO"/>	
+		<typeAlias type="com.web.bomulsum.user.wishlist.repository.UserLikeWriterVO" alias="UserLikeWriterVO"/>
+		
+		<!-- manager -->
+		
+		<!-- writer -->
+		<typeAlias type="com.web.bomulsum.writer.board.repository.writerBoardVO" alias="writerBoardVO"/>	
+		<typeAlias type="com.web.bomulsum.writer.gempoint.repository.WriterGempointVO" alias="WriterGempointVO"/>	
+		<typeAlias type="com.web.bomulsum.writer.login.repository.WriterRegisterVO" alias="WriterRegisterVO"/>
+		<typeAlias type="com.web.bomulsum.writer.profile.repository.WriterProfileVO" alias="WriterProfileVO"/>
+		<typeAlias type="com.web.bomulsum.writer.salespolicy.repository.WriterSalesPolicyVO" alias="WriterSalesPolicyVO"/>
+		<typeAlias type="com.web.bomulsum.writer.midas.repository.WriterMidasVO" alias="WriterMidasVO"/>
+		<typeAlias type="com.web.bomulsum.writer.myinfo.repository.WriterMyinfoVO" alias="WriterMyinfoVO"/>
+	</typeAliases>
+
+	<mappers>
+		<!--user -->
+		<mapper resource="mappings/user/login-mapping.xml" />		
+		<mapper resource="mappings/user/user-profile-mapping.xml" />
+		<mapper resource="mappings/user/user-message-mapping.xml" />
+		<mapper resource="mappings/user/user-board-mapping.xml" />
+		<mapper resource="mappings/user/user-coupon-mapping.xml" />
+		<mapper resource="mappings/user/user-article-mapping.xml" />
+		<mapper resource="mappings/user/user-reserves-mapping.xml" />
+		<mapper resource="mappings/user/user-wishlist-mapping.xml" />
+		
+		<!-- manager -->
+		<mapper resource="mappings/manager/manager-board-mapping.xml" />
+		
+		<!-- writer -->
+		<mapper resource="mappings/writer/writer-board-mapping.xml" />	
+		<mapper resource="mappings/writer/writer-gempoint-mapping.xml" />
+		<mapper resource="mappings/writer/writer-login-mapping.xml" />
+		<mapper resource="mappings/writer/writer-art-mapping.xml" />
+		<mapper resource="mappings/writer/writer-profile-mapping.xml" />
+		<mapper resource="mappings/writer/writer-salespolicy-mapping.xml" />
+		<mapper resource="mappings/writer/writer-midas-mapping.xml" />
+		<mapper resource="mappings/writer/writer-activity-mapping.xml" />
+		<mapper resource="mappings/writer/writer-myinfo-mapping.xml" />
+		<mapper resource="mappings/writer/writer-message-mapping.xml" />
+	</mappers>
+</configuration>
