@@ -460,6 +460,23 @@
 		)
 	</select>
 	
+	<!-- 실시간 검색어 -->
+	<select id="realTimeKeyword" resultType="String">
+		SELECT
+			keyword_word
+		FROM
+		(
+			SELECT 
+				* 
+			FROM
+				keyword_tb 
+			ORDER BY
+				keyword_count
+			DESC
+		)
+		WHERE ROWNUM <![CDATA[<]]>= 10
+	</select>
+	
 </mapper>
 
 

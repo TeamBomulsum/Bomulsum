@@ -713,6 +713,46 @@ body {
 }
 
 
+#rank-list a {
+    color: #666666;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#rank-list a:hover {
+    text-decoration: underline;
+}
+
+#rank-list {
+    overflow: hidden;
+    width: 160px;
+    height: 20px;
+    margin: 0;
+}
+
+#rank-list dt {
+    display: none;
+}
+
+#rank-list dd {
+    position: relative;
+    margin: 0;
+}
+
+#rank-list ol {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#rank-list li {
+    height: 20px;
+    line-height: 20px;
+}
+
 </style>
 </head>
 <body>
@@ -868,22 +908,23 @@ body {
 		<div class="dainpopsearch">
 			<div class="dainDropDownSearch"> <!-- 인기검색어 드롭다운영역 -->
 				<div style="padding-bottom:10px; border-bottom: 1px solid black;">
-				<span style="font-size: 11px; font-weight: bold;">실시간 인기검색어</span>
+					<span style="font-size: 11px; font-weight: bold;">실시간 인기검색어</span>
 				</div>
 				<ol class="dainol">
-				  <li><p>폰케이스<p></li>
-				  <li><p>마스크스트랩<p></li>
-				  <li><p>생일선물<p></li>
-				  <li><p>키링<p></li>
-				  <li><p>에어팟케이스<p></li>
-				  <li><p>반지<p></li>
-				  <li><p>카드지갑<p></li>
-				  <li><p>버즈케이스<p></li>
-				  <li><p>에코백<p></li>
-				  <li><p>케이크<p></li>
+				  
 				</ol> 
 			</div>
-		 	<span style="color: red">1. </span> <span style="color:#666666 ">폰케이스</span>
+			<dl id="rank-list">
+	            <dt>실시간 급상승 검색어</dt>
+	            <dd>
+	                <ol class="dndudol">
+	                    
+	                </ol>
+	            </dd>
+	        </dl>
+			<!-- <div id="favoriteKeyword">
+		 		<span style="color: red">1. </span> <span style="color:#666666 ">폰케이스</span>
+		 	</div> -->
 		</div>
 		
 		
@@ -950,6 +991,54 @@ body {
 </a>
 
 </body>
+<script>
+var keywordClick = function(event){
+	location.href='/bomulsum/search/result.do?headerSearch='+event;
+};
+
+var getRealTime = function(){
+	$.ajax({
+		type:'POST',
+		url:"/bomulsum/search/realTime.do",
+		success: function(data){
+/* 				dndud = > <li><a><span style="color:red">1.</span> 폰케이스</a></li>
+            dain = > <li><p>폰케이스<p></li> */
+			console.log(data);
+            var dndud='';
+            var dain='';
+            for(var i=0; i<data.length; i++){
+            	dndud += '<li><a><span style="color:red">'+(i+1)+'.</span> '+data[i]+'</a></li>';
+            	dain += '<li><p class="dndud_class">'+data[i]+'</p></li>';
+            }
+			$('.dndudol').html(dndud);
+			$('.dainol').html(dain);
+			
+			var count = $('#rank-list li').length;
+		    var height = $('#rank-list li').height();
+		    
+		    $('.dndud_class').on('click', function(){
+		    	keywordClick($(this).text());
+		    });
+		
+		    function step(index){
+		        $('#rank-list ol').delay(2000).animate({
+		            top: -height * index,
+		        }, 500, function() {
+		            step((index + 1) % count);
+		        });
+		    }
+		    step(1);
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
+	
+};
+$(document).ready(function(){
+    getRealTime();
+});
+</script>
 <script>
 $(function(){
 	var code = '<%= (String)session.getAttribute("member") %>';

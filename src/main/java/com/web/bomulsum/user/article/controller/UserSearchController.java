@@ -108,5 +108,11 @@ public class UserSearchController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/realTime", method = RequestMethod.POST)
+	public List<String> realTimeKeyword(){
+		return service.realTimeKeyword();
+	}
+	
 	
 }
