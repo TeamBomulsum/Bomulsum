@@ -174,8 +174,14 @@
         		<form method="POST" enctype="multipart/form-data" id="frm_profile_img" >
         		<label for="dainImageInput"> 
         			<div id="dain-profileEditMsg">수정</div>
+        			<c:if test="${sessionScope.user.memberImg ne null}">
 					<img id="jeonga-profileImage" src="<c:url value='/upload/${sessionScope.user.memberImg}'/>" 
 					style="cursor: pointer; position: absolute; top:0px; left:0px;"/>
+					</c:if>
+        			<c:if test="${sessionScope.user.memberImg eq null}">
+					<img id="jeonga-profileImage" src="<c:url value='/resources/img/test.png'/>" 
+					style="cursor: pointer; position: absolute; top:0px; left:0px;"/>
+					</c:if>
         			<input type="file" name="fileProfile" id="dainImageInput" onchange="fileUpload(this)" style="display: none;" />
 				</label>
 				</form>
