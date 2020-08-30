@@ -86,6 +86,11 @@ body a:link, a:visited, a:hover, a:active {
 	width: 80%;
 }
 
+
+ul {
+  list-style: none;
+}
+
 .dainTitle{
 	padding: 22px 24px;
 	background-color: #555555;

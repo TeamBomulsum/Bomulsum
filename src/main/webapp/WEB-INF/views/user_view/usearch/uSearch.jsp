@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>보물섬 | 카테고리</title>
+<title>보물섬 | 검색</title>
 </head>
 <style>
 .dndud_main_category{
@@ -16,7 +16,6 @@
 }
 
 .dndud_main_category_title{
-	margin-top:5%;
 	margin-bottom:3%;
 }
 
@@ -28,7 +27,7 @@
 .dndud_main_category_searchBox{
 	font-size:13px;
 	color:#333;
-	margin-top:3%;
+	margin-top:1px;
 	display:flex;
 	flex-direction:column;
 	width:100%;
@@ -44,11 +43,11 @@
 	width:13%;
 }
 
-.dndud_main_category_searchBox div:nth-child(1){
+/* .dndud_main_category_searchBox category_option_list:nth-child(1){
 	border-bottom:1px solid #f5f5f5;
-}
+} */
 
-.dndud_main_category_searchBox div:nth-child(1) span:nth-child(2) a{
+.dndud_main_category_searchBox div:nth-child(2) span:nth-child(2) a{
 	font-size:13px;
 	font-weight:bold;
 	padding:1%;
@@ -98,7 +97,7 @@
 }
 
 .dndud_main_category_content_box:hover{
-	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+	box-shadow:2px 2px 2px 2px #d9d9d9;
 	transition: .5s;
 }
 
@@ -196,16 +195,14 @@
 	background-color:#f5f5f5;
 }
 
-.category_option_selected div{
-	display: flex;
-	background: white;
-	justify-content: space-between;
-	align-items: center;
-	margin: 1.5%;
-	width: 12.5%;
-	border: 1px solid #d9d9d9;
-	border-radius: 15px;
-	font-size:10px
+.selected_option{
+	display: inline-block;
+    background: white;
+    margin: 5px 1%;
+    padding: 5px 0;
+    border: 1px solid #d9d9d9;
+    border-radius: 15px;
+    font-size: 10px;
 }
 
 .selected_option_span{
@@ -220,7 +217,72 @@
 	display: flex;
     flex-direction: row;
     width: 100%;
+    border-bottom: 1px solid #d9d9d9;
 }
+
+.category_option_list_2{
+	display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.category_option_div{
+	display: flex;
+    flex-direction: row;
+    width: 100%;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.category_option_div div:nth-child(1){
+	border-right: 1px solid #d9d9d9;
+}
+
+.category_option_div span{
+	margin: 2.5% 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.div_active{
+    width: 50%;
+    border: 0;
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+
+.div_active a{
+	color:#333333;
+}
+
+/* .div_active span{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin: 0;
+	justify-content: center;
+} */
+
+.div_active_none{
+	cursor:pointer;
+	width: 50%;
+    border: 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d9d9d9;
+    background-color: #f5f5f5;
+}
+
+/* .div_active_none span{
+	width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    justify-content: center;
+} */
 
 </style>
 <body>
@@ -230,8 +292,21 @@
 	<div class="dndud_main_category">
 	
 		<div class="dndud_main_category_title">
-			<span class="title">${param.category}</span>
 			<div class="dndud_main_category_searchBox">
+				<div class="category_option_div">
+					<div id="art" class="div_active">
+						<span>
+							<a>"${param.headerSearch }"</a>
+							에 대한 작품 검색결과
+						</span>	
+					</div>
+					<div id="midas" class="div_active_none">
+						<span>
+							<a>"${param.headerSearch }"</a>
+							에 대한 금손 클래스 검색결과
+						</span>
+					</div>
+				</div>
 				<div class="category_option_list">
 					<span>배송</span>
 					<span class="category_option_checkbox"><input type="checkbox" name="check" value="무료배송"><a>무료배송</a> 만 보기</span>
@@ -250,9 +325,28 @@
 					<span class="category_option_checkbox"><input type="checkbox" name="check" value="4만원대">4만원대</span>
 					<span class="category_option_checkbox"><input type="checkbox" name="check" value="5만원대">5만원대</span>
 				</div>
+				<div class="category_option_list_2">
+					<span>카테고리</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|식음료">식음료</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|문구팬시">문구팬시</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|전자기기">전자기기</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|패션잡화">패션잡화</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|반려동물 용품">반려동물 용품</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|인테리어 소품">인테리어 소품</span>
+				</div>
+				<div class="category_option_list_2">
+					<span></span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|신발">신발</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|의류">의류</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|육아,아동">육아,아동</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|인형,장난감">인형,장난감</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|공예">공예</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="c|기타">기타</span>
+				</div>
 				<div class="category_option_selected">
 					<span style="cursor:pointer" id="cancle_check_all">전체해제</span>
-					
+					<div class="category_test" style="width:84%;padding: 1% 0;">
+					</div>
 				</div>
 			</div>
 			
@@ -309,13 +403,17 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 var memberCode = '<%= (String)session.getAttribute("member") %>';
+var word = '<%= (String)request.getParameter("headerSearch") %>';
 var likeArticleFunc;
 var categoryOptionFunc;
 var ajaxFilterFunc;
+var artORclass = 'art';
 var filtArr = [];
 var orderBy = 'orderByLike';
-
+var category = [];
+var option = '좋아하는작품';
 var page = 1;
+var changeClass;
 
 $(function(){
 	getList(page);
@@ -333,99 +431,110 @@ function comma(x) { return !x ? '0' : x.toString().replace(/\B(?=(\d{3})+(?!\d))
 
 
 function getList(page){
-	var category = $('.title').text();
-	
 	$.ajax({
 		type:'POST',
 		dataType : 'json',
 		data:{
-			'category':category,
+			'artORclass':artORclass,
+			'word':word,
 			'page':page,
 			'filtArr':filtArr,
+			'category':category,
 			'orderBy':orderBy,
 			'member':memberCode
 		},
-		url : '/bomulsum/category/info.do',
+		url : '/bomulsum/search/info.do',
 		success :function(returnData){
-			console.log(returnData.totalCnt);
-			var htmldiv = '';
-			var writerName = '';
-			var artImg = '';
-			var pricePer = 0;
-			var data = returnData.data;
-			console.log(returnData);
-			if(page == 1){
-				$('.dndud_main_category_contents').html('');
-			}
-			if(returnData.startNum <= returnData.totalCnt){
-				if(data.length > 0){
-					// for
-					for(var i=0; i<data.length; i++){
-						console.log(data[i]);
-						if(data[i].writerBrandName == null){
-							writerName = data[i].writerName;
-						}else{
-							writerName = data[i].writerBrandName;
-						}
-						artImg = data[i].artPhoto.split(',')[0];
-						
-						pricePer = (data[i].artPrice - data[i].artDiscount) / data[i].artPrice * 100;
-						
-						htmldiv += '<div class="dndud_main_category_content_box">'
-							+ '<input class="artCode" type="hidden" value="'+ data[i].artCode +'"/>'
-							+ '<div class="content_img" style="background-image: URL(\'/bomulsum/upload/'
-							+ artImg +'\' )">';
-						var imsi = 0;
-						for(var j=0; j<returnData.wishList.length; j++){
-							if(data[i].artCode == returnData.wishList[j]){
-								htmldiv += '<i class="fa fa-star fs" style="color:#d64640"></i>';
-								imsi = 1;
-								break;
+			
+			// 작품 검색 결과 출력
+			if(artORclass = 'art'){
+				var htmldiv = '';
+				var writerName = '';
+				var artImg = '';
+				var pricePer = 0;
+				var data = returnData.data;
+				if(page == 1){
+					$('.dndud_main_category_contents').html('');
+				}
+				if(returnData.startNum <= returnData.totalCnt){
+					console.log('data');
+					if(data.length > 0){
+						// for
+						for(var i=0; i<data.length; i++){
+							if(data[i].writerBrandName == null){
+								writerName = data[i].writerName;
+							}else{
+								writerName = data[i].writerBrandName;
 							}
-						}
-						if(imsi == 0){
-							htmldiv += '<i class="fa fa-star fs"></i>'; 
-						}
+							artImg = data[i].artPhoto.split(',')[0];
 							
-						htmldiv += '</div><div class="content_detail">'
-							+ '<span class="content_detail_writer">'+ writerName +'</span>'
-							+ '<span class="content_detail_title">'+ data[i].artName +'</span>'
-							+ '<span class="content_detail_price_decount">';
-						
-						if(pricePer != 0){
-							htmldiv += '<a class="discount_price">'+ comma(Math.round(pricePer)) +'%  </a>'
-								+ '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>'
-								+ '<span class="content_detail_price_orgin">'+ comma(data[i].artPrice) +'원</span>';
-						}else{
-							htmldiv += '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>';
-						}
-						htmldiv += '<span class="content_detail_other">';
-						if(data[i].writerSendPrice == 0){
-							htmldiv += '<span>무료배송</span>';
-						}
-						
-						htmldiv += '</span><span class="content_detail_star">'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<span>(<a>num</a>)</span></span></div></div>';
-					}// end for
+							pricePer = (data[i].artPrice - data[i].artDiscount) / data[i].artPrice * 100;
+							
+							htmldiv += '<div class="dndud_main_category_content_box">'
+								+ '<input class="artCode" type="hidden" value="'+ data[i].artCode +'"/>'
+								+ '<div class="content_img" style="background-image: URL(\'/bomulsum/upload/'
+								+ artImg +'\' )">';
+							var imsi = 0;
+							for(var j=0; j<returnData.wishList.length; j++){
+								if(data[i].artCode == returnData.wishList[j]){
+									htmldiv += '<i class="fa fa-star fs" style="color:#d64640"></i>';
+									imsi = 1;
+									break;
+								}
+							}
+							if(imsi == 0){
+								htmldiv += '<i class="fa fa-star fs"></i>'; 
+							}
+								
+							htmldiv += '</div><div class="content_detail">'
+								+ '<span class="content_detail_writer">'+ writerName +'</span>'
+								+ '<span class="content_detail_title">'+ data[i].artName +'</span>'
+								+ '<span class="content_detail_price_decount">';
+							
+							if(pricePer != 0){
+								htmldiv += '<a class="discount_price">'+ comma(Math.round(pricePer)) +'%  </a>'
+									+ '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>'
+									+ '<span class="content_detail_price_orgin">'+ comma(data[i].artPrice) +'원</span>';
+							}else{
+								htmldiv += '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>';
+							}
+							htmldiv += '<span class="content_detail_other">';
+							if(data[i].writerSendPrice == 0){
+								htmldiv += '<span>무료배송</span>';
+							}
+							
+							htmldiv += '</span><span class="content_detail_star">'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								+ '<span>(<a>num</a>)</span></span></div></div>';
+						}// end for
+					}
 				}else{
 					//데이터 없을때.
+					if($('.dndud_main_category_contents').children().length == 0){
+						console.log('nodata' + page);
+						htmldiv += '<p style="width:100%; margin:50px 0; display:flex; justify-content:center;">'
+							+ '<a style="font-size:20px; color:#333; font-weight:bold">\''+ word +'\'</a><a style="font-size:20px; color:#666">'
+							+ '에 대한 검색 결과가 없습니다.</a></p>';
+						$('.dndud_main_category_contents').html(htmldiv);
+					}
 				}
-			}
-			
-			htmldiv = htmldiv.replace(/%20/gi, ' ');
-			if(page == 1){
-				$('.dndud_main_category_contents').html(htmldiv);				
+				
+				htmldiv = htmldiv.replace(/%20/gi, ' ');
+				if(page == 1){
+					$('.dndud_main_category_contents').html(htmldiv);				
+				}else{
+					$('.dndud_main_category_contents').append(htmldiv);
+				}
+				
+				$(".fs").click(likeArticleFunc);
+				
 			}else{
-				$('.dndud_main_category_contents').append(htmldiv);
+				// 금손 클래스 검색 결과 출력
 			}
-			
-			$(".fs").click(likeArticleFunc);
-			
 			
 		},
 		error:function(e){
@@ -444,22 +553,28 @@ $(function(){
 		if(check.is(":checked")){
 			check.prop('checked', false);
 			$(".selected_option").each(function(){
-				if($(this).children(":first").text() == check.val()){
+				if($(this).children(":first").text() == check.val() || ('c|' + $(this).children(":first").text()) == check.val()){
 					$(this).remove();
 					return;
 				}
 			});
 		}else{
 			check.prop('checked', true);
-			var html = '<div class="selected_option"><a class="selected_option_span">'+ check.val() +'</a>'
+			var html='';
+			if(check.val().split('|')[0] != 'c'){
+				html = '<div class="selected_option"><a class="selected_option_span">'+ check.val() +'</a>'
+					+ '<a class="selected_option_span atag">X</a></div>';
+			}else{
+				html = '<div class="selected_option"><a class="selected_option_span">'+ check.val().split('|')[1] +'</a>'
 				+ '<a class="selected_option_span atag">X</a></div>';
-			$(".category_option_selected").append(html);
+			}
+			$(".category_test").append(html);
 			
 			$('.atag').click(function(){
 				var tag = $(this).parent();
 				var value = $(this).prev().text();
 				$('input[name=check]').each(function(){
-					if($(this).val() == value){
+					if($(this).val() == ('c|'+value)){
 						tag.remove();
 						$(this).prop('checked', false);
 					}
@@ -475,7 +590,6 @@ $(function(){
 	
 	$("#dndud_order_option").on('change', function(){
 		orderBy = $("#dndud_order_option option:selected").val();
-		console.log(orderBy);
 		page = 1;
 		getList(page);
 	});
@@ -497,9 +611,14 @@ $(function(){
 	
 	ajaxFilterFunc = function(){
 		filtArr = [];
+		category = [];
 		$('input[name=check]').each(function(){
 			if($(this).is(':checked')){
-				filtArr.push($(this).val());
+				if($(this).val().split('|')[0] == 'c'){
+					category.push($(this).val().split('|')[1]);
+				}else{					
+					filtArr.push($(this).val());
+				}
 			}
 		});
 		page = 1;
@@ -516,8 +635,6 @@ $(function(){
 		}
 		
 		var artCode = $(this).parent().prev().val();
-		var option = '좋아하는작품';
-		
 		
 		var clickIcon = $(this);
 		console.log(clickIcon);
@@ -553,6 +670,25 @@ $(function(){
 			alert('해제되었습니다.');
 		}
 	};
+	
+	$(".div_active_none").on('click', changeClass = function(){
+		var div = $('.div_active');
+		div.attr('class', 'div_active_none');
+		$('.div_active_none').click(changeClass);
+		$(this).attr('class', 'div_active');
+		
+		if($(this).attr('id') == 'midas'){
+			artORclass = 'midas';
+			page = 1;
+			option='즐겨찾는 클래스';
+			getList(page);			
+		}else{
+			artORclass = 'art';
+			page = 1;
+			option='좋아하는작품';
+			getList(page);
+		}
+	});
 	
 });
 
