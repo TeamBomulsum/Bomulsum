@@ -18,4 +18,5 @@ public interface UserArticleService {
 	int selectWord(String word);
 	void insertWord(String word);
 	void updateWord(HashMap<String, Object> map);
+	List<String> realTimeKeyword();
 }

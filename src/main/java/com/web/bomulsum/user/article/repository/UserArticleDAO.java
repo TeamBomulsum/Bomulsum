@@ -57,4 +57,8 @@ public class UserArticleDAO {
 		sqlSessionTemplate.update("articleDao.wordUpdate", map);
 	}
 	
+	public List<String> realTimeKeyword(){
+		return sqlSessionTemplate.selectList("articleDao.realTimeKeyword");
+	}
+	
 }

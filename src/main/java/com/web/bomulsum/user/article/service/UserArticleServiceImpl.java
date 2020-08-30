@@ -66,5 +66,10 @@ public class UserArticleServiceImpl implements UserArticleService{
 	public void updateWord(HashMap<String, Object> map) {
 		dao.updateWord(map);
 	}
+
+	@Override
+	public List<String> realTimeKeyword() {
+		return dao.realTimeKeyword();
+	}
 	
 }

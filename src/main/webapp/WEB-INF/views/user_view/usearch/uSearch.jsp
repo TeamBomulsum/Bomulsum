@@ -431,10 +431,6 @@ function comma(x) { return !x ? '0' : x.toString().replace(/\B(?=(\d{3})+(?!\d))
 
 
 function getList(page){
-	console.log(word);
-	console.log(filtArr);
-	console.log(category);
-	console.log(orderBy);
 	$.ajax({
 		type:'POST',
 		dataType : 'json',
@@ -457,15 +453,14 @@ function getList(page){
 				var artImg = '';
 				var pricePer = 0;
 				var data = returnData.data;
-				console.log(returnData);
 				if(page == 1){
 					$('.dndud_main_category_contents').html('');
 				}
 				if(returnData.startNum <= returnData.totalCnt){
+					console.log('data');
 					if(data.length > 0){
 						// for
 						for(var i=0; i<data.length; i++){
-							console.log(data[i]);
 							if(data[i].writerBrandName == null){
 								writerName = data[i].writerName;
 							}else{
@@ -516,8 +511,15 @@ function getList(page){
 								+ '<i class="fa fa-star" style="color:gold"></i>'
 								+ '<span>(<a>num</a>)</span></span></div></div>';
 						}// end for
-					}else{
-						//데이터 없을때.
+					}
+				}else{
+					//데이터 없을때.
+					if($('.dndud_main_category_contents').children().length == 0){
+						console.log('nodata' + page);
+						htmldiv += '<p style="width:100%; margin:50px 0; display:flex; justify-content:center;">'
+							+ '<a style="font-size:20px; color:#333; font-weight:bold">\''+ word +'\'</a><a style="font-size:20px; color:#666">'
+							+ '에 대한 검색 결과가 없습니다.</a></p>';
+						$('.dndud_main_category_contents').html(htmldiv);
 					}
 				}
 				
@@ -529,6 +531,7 @@ function getList(page){
 				}
 				
 				$(".fs").click(likeArticleFunc);
+				
 			}else{
 				// 금손 클래스 검색 결과 출력
 			}
@@ -628,6 +631,7 @@ $(function(){
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='/bomulsum/user/login.do';
+			return;
 		}
 		
 		var artCode = $(this).parent().prev().val();
