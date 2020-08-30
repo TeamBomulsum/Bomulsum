@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.midas.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,22 @@ public class UserMidasServiceImpl implements UserMidasService {
 	@Override
 	public int getAllMidasCount(UserMidasPagingVO vo) {
 		return dao.getAllMidasCount();
+	}
+
+	
+	@Override
+	public void likeClass(HashMap<String, String> map) {
+		dao.likeClass(map);
+	}
+
+	@Override
+	public void nonLikeClass(HashMap<String, String> map) {
+		dao.nonLikeClass(map);	
+	}
+
+	@Override
+	public List<String> getLikeClass(String member) {
+		return dao.getLikeClass(member);
 	}
 
 

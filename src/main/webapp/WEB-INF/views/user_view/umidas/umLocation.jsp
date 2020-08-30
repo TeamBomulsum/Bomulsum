@@ -328,7 +328,9 @@ body a:link, a:visited, a:hover, a:active {
 
 
 <script>
-	
+	var memberCode = '<%= (String)session.getAttribute("member") %>';
+	var likeClassFunc;
+
 	var page = 1;  //페이징과 같은 방식이라고 생각하면 된다. 
 	 
 	$(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
@@ -338,16 +340,12 @@ body a:link, a:visited, a:hover, a:active {
 	}); 
 	 
 	$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-		if($(window).scrollTop() >= $(document).height() - $(window).height()){
+		if(Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()){
 			console.log(page);
 			getList(page);
 			page++;   
 		} 
 	});
-		 
-
-
-	var test;
 
 	function getList(page){
 		var location = $('.title').text();
@@ -357,7 +355,8 @@ body a:link, a:visited, a:hover, a:active {
 			dataType : 'json',
 			data:{
 				'location':location,
-				'page':page
+				'page':page,
+				'member':memberCode
 			},
 			url : '/bomulsum/midas/lcinfo.do',
 			success :function(returnData){
@@ -389,9 +388,22 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<div class=\"minwoo_uMhome_content_card_img\">'
 								+ '<input class=\"midasCodeSeq\" type=\"hidden\" value=\"'+ data[i].midasCodeSeq +'\"/>'
 								+ '<div class=\"minwoo_uMhome_content_card_locagion\">' + midasAddress + '</div>'
-								+ '<div class=\"minwoo_uMhome_content_card_star\">'
-								+ '<i id=\"' + i + 'bookmark\" class=\"fa fa-star fs\"></i>'
-								+ '</div>'
+								+ '<div class=\"minwoo_uMhome_content_card_star\">';
+								
+								var imsi = 0;
+								for(var j=0; j<returnData.wishList.length; j++){
+									if(data[i].midasCodeSeq == returnData.wishList[j]){
+										htmldiv += '<i class=\"fa fa-star fs\" style=\"color:#d64640\"></i>';
+										console.log("같다!");
+										imsi = 1;
+										break;
+									}
+								}
+								if(imsi == 0){
+									htmldiv += '<i class=\"fa fa-star fs\"></i>'; 
+								}
+								
+								htmldiv +=  '</div>'
 								+ '<div class=\"minwoo_uMhome_content_card_img_link\">'
 								+ '<img src=\"<c:url value=' + midasImg + '/>\" style=\"width:250px; height:250px\">'
 								+ '</div>'
@@ -424,6 +436,7 @@ body a:link, a:visited, a:hover, a:active {
 				}else{
 					$('.minwoo_class_space').append(htmldiv);
 				}
+				$(".fs").click(likeClassFunc);
 				
 			},
 			error:function(e){
@@ -434,7 +447,52 @@ body a:link, a:visited, a:hover, a:active {
 		});
 	};
 	
-	
+	likeClassFunc = function(){
+		
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
+		
+		var midasCode = $(this).parent().prev().prev().val();
+		var option = '즐겨찾는클래스';
+		
+		
+		var clickIcon = $(this);
+		console.log(clickIcon);
+		var tORf;
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+			tORf = true;
+		}else{
+			clickIcon.css("color", "gray");
+			tORf = false;
+		}
+		
+		$.ajax({
+			url:'/bomulsum/midas/wish.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':midasCode,
+				'bool': tORf
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+		if(tORf){
+			alert('즐겨찾는 클래스에 추가되었습니다.');
+		}else{
+			alert('해제되었습니다.');
+		}
+	};
 	</script>
 
 

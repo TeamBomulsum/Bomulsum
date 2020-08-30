@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -347,6 +348,9 @@ body a:link, a:visited, a:hover, a:active {
 
 
 	<script>
+	var memberCode = '<%= (String)session.getAttribute("member") %>';
+	var likeClassFunc;
+	
 	
 	var page = 1;  //페이징과 같은 방식이라고 생각하면 된다. 
 	 
@@ -356,14 +360,11 @@ body a:link, a:visited, a:hover, a:active {
 	}); 
 	 
 	$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-	     if($(window).scrollTop() >= $(document).height() - $(window).height()){
+	     if(Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()){
 	          getList(page);
 	           page++;   
 	     } 
 	});
-	 
-
-	var test;
 
 	function getList(page){
 		var category = $('.title').text();
@@ -373,7 +374,8 @@ body a:link, a:visited, a:hover, a:active {
 			dataType : 'json',
 			data:{
 				'category':category,
-				'page':page
+				'page':page,
+				'member':memberCode
 			},
 			url : '/bomulsum/midas/info.do',
 			success :function(returnData){
@@ -405,10 +407,22 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<div class=\"minwoo_uMhome_content_card_img\">'
 								+ '<input class=\"midasCodeSeq\" type=\"hidden\" value=\"'+ data[i].midasCodeSeq +'\"/>'
 								+ '<div class=\"minwoo_uMhome_content_card_locagion\">' + midasAddress + '</div>'
-								+ '<div class=\"minwoo_uMhome_content_card_star\">'
-								+ '<i id=\"' + i + 'bookmark\" class=\"fa fa-star fs\"></i>'
-								+ '</div>'
-								+ '<div class=\"minwoo_uMhome_content_card_img_link\">'
+								+ '<div class=\"minwoo_uMhome_content_card_star\">';
+								
+								var imsi = 0;
+								for(var j=0; j<returnData.wishList.length; j++){
+									if(data[i].midasCodeSeq == returnData.wishList[j]){
+										htmldiv += '<i class=\"fa fa-star fs\" style=\"color:#d64640\"></i>';
+										console.log("같다!");
+										imsi = 1;
+										break;
+									}
+								}
+								if(imsi == 0){
+									htmldiv += '<i class=\"fa fa-star fs\"></i>'; 
+								}
+								
+								htmldiv += '</div><div class=\"minwoo_uMhome_content_card_img_link\">'
 								+ '<img src=\"<c:url value=' + midasImg + '/>\" style=\"width:250px; height:250px\">'
 								+ '</div>' 
 								+ '</div>' //이미지 영역 종료
@@ -427,7 +441,7 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<span style="font-size:14px; color:gray">'+ '참여후기 개수' +'</span>'
 								+ '</div>'
 								+ '</div>'
-								+ '</div>'
+								+ '</div>';
 						}// end for
 					}else{
 						//데이터 없을때.
@@ -441,6 +455,8 @@ body a:link, a:visited, a:hover, a:active {
 					$('.minwoo_class_space').append(htmldiv);
 				}
 				
+				$(".fs").click(likeClassFunc);
+				
 			},
 			error:function(e){
 				if(e.status == 300){
@@ -450,6 +466,52 @@ body a:link, a:visited, a:hover, a:active {
 		});
 	};
 	
+	likeClassFunc = function(){
+		
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
+		
+		var midasCode = $(this).parent().prev().prev().val();
+		var option = '즐겨찾는클래스';
+		
+		
+		var clickIcon = $(this);
+		console.log(clickIcon);
+		var tORf;
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+			tORf = true;
+		}else{
+			clickIcon.css("color", "gray");
+			tORf = false;
+		}
+		
+		$.ajax({
+			url:'/bomulsum/midas/wish.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':midasCode,
+				'bool': tORf
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+		if(tORf){
+			alert('즐겨찾는 클래스에 추가되었습니다.');
+		}else{
+			alert('해제되었습니다.');
+		}
+	};
 	
 	</script>
 

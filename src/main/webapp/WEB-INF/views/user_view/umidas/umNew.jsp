@@ -112,10 +112,9 @@ body a:link, a:visited, a:hover, a:active {
 
 
 .minwoo_class_space {
-	width:75%;
+	width:100%;
 	display: flex;
 	flex-wrap: wrap;
-	margin-left: 2%;
 }
 
 .minwoo_class_space_one{
@@ -234,19 +233,10 @@ body a:link, a:visited, a:hover, a:active {
 		
 		<!--상단 헤더 시작-->
 		<div class="minwoo_class_category_head">
-			<!-- 타이틀 / 선택된 카테고리 시작 -->
-			<div class="minwoo_class_category_head_title">
-				<a href="<c:url value='/midas/'/>" class="title">신규 클래스</a>
-				<hr>
-			</div>
-			<!-- 타이틀 / 선택된 카테고리 종료 -->
-			
-			<!-- 우측 댑쓰 시작-->
 			<div class="minwoo_class_category_head_depth">
 				<a href="<c:url value='/midas/class.do'/>">금손 클래스 &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 				<a href="<c:url value='/midas/'/>">신규 클래스</a>
 			</div>
-			<!-- 우측 상단 댑쓰 종료 -->
 		</div>
 		<!-- 상단 헤더 종료 -->
 		
@@ -333,6 +323,8 @@ body a:link, a:visited, a:hover, a:active {
 
 
 	<script>
+	var memberCode = '<%= (String)session.getAttribute("member") %>';
+	var likeClassFunc;
 	
 	var page = 1;  //페이징과 같은 방식이라고 생각하면 된다. 
 	 
@@ -342,15 +334,12 @@ body a:link, a:visited, a:hover, a:active {
 	}); 
 	 
 	$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-	     if($(window).scrollTop() >= $(document).height() - $(window).height()){
+		if(Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()){
 	          getList(page);
 	           page++;   
 	     } 
 	});
 	 
-
-
-	var test;
 
 	function getList(page){
 		
@@ -358,9 +347,10 @@ body a:link, a:visited, a:hover, a:active {
 			type:'POST',
 			dataType : 'json',
 			data:{
-				'page':page
+				'page':page,
+				'member':memberCode
 			},
-			url : '/bomulsum/midas/info.do',
+			url : '/bomulsum/midas/ninfo.do',
 			success :function(returnData){
 				var htmldiv = '';
 				var midasAddress = '';
@@ -390,9 +380,22 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<div class=\"minwoo_uMhome_content_card_img\">'
 								+ '<input class=\"midasCodeSeq\" type=\"hidden\" value=\"'+ data[i].midasCodeSeq +'\"/>'
 								+ '<div class=\"minwoo_uMhome_content_card_locagion\">' + midasAddress + '</div>'
-								+ '<div class=\"minwoo_uMhome_content_card_star\">'
-								+ '<i id=\"' + i + 'bookmark\" class=\"fa fa-star fs\"></i>'
-								+ '</div>'
+								+ '<div class=\"minwoo_uMhome_content_card_star\">';
+								
+								var imsi = 0;
+								for(var j=0; j<returnData.wishList.length; j++){
+									if(data[i].midasCodeSeq == returnData.wishList[j]){
+										htmldiv += '<i class=\"fa fa-star fs\" style=\"color:#d64640\"></i>';
+										console.log("같다!");
+										imsi = 1;
+										break;
+									}
+								}
+								if(imsi == 0){
+									htmldiv += '<i class=\"fa fa-star fs\"></i>'; 
+								}
+							
+								htmldiv += '</div>'
 								+ '<div class=\"minwoo_uMhome_content_card_img_link\">'
 								+ '<img src=\"<c:url value=' + midasImg + '/>\" style=\"width:250px; height:250px\">'
 								+ '</div>' 
@@ -425,6 +428,7 @@ body a:link, a:visited, a:hover, a:active {
 				}else{
 					$('.minwoo_class_space').append(htmldiv);
 				}
+				$(".fs").click(likeClassFunc);
 				
 			},
 			error:function(e){
@@ -435,7 +439,52 @@ body a:link, a:visited, a:hover, a:active {
 		});
 	};
 	
-	
+	likeClassFunc = function(){
+		
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
+		
+		var midasCode = $(this).parent().prev().prev().val();
+		var option = '즐겨찾는클래스';
+		
+		
+		var clickIcon = $(this);
+		console.log(clickIcon);
+		var tORf;
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+			tORf = true;
+		}else{
+			clickIcon.css("color", "gray");
+			tORf = false;
+		}
+		
+		$.ajax({
+			url:'/bomulsum/midas/wish.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':midasCode,
+				'bool': tORf
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+		if(tORf){
+			alert('즐겨찾는 클래스에 추가되었습니다.');
+		}else{
+			alert('해제되었습니다.');
+		}
+	};
 	</script>
 
 

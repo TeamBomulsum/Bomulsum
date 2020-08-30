@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.bomulsum.manager.board.repository.MBoardListVO;
 import com.web.bomulsum.user.midas.repository.UserMidasPagingVO;
 import com.web.bomulsum.user.midas.repository.UserMidasVO;
 import com.web.bomulsum.user.midas.service.UserMidasServiceImpl;
@@ -45,7 +45,10 @@ public class UserMidasController {
 	
 	@ResponseBody
 	@RequestMapping(value="/info", method=RequestMethod.POST)
-	public HashMap<String, Object> categoryInfo(String category, int page){
+	public HashMap<String, Object> categoryInfo(
+			@RequestParam(value="category") String category, 
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member) {
 		UserMidasPagingVO vo = new UserMidasPagingVO();
 		vo.setCategory(category);
 		int totalCnt = service.getCategoryMidasCount(vo);
@@ -64,6 +67,11 @@ public class UserMidasController {
 		map.put("totalCnt", totalCnt);
 		map.put("startNum", vo.getStartNum());
 		map.put("data", data);
+		
+		if(!member.equals("null") || member != null) {
+			map.put("wishList",service.getLikeClass(member));
+		}
+		
 		return map;
 	}
 	
@@ -76,7 +84,10 @@ public class UserMidasController {
 	
 	@ResponseBody
 	@RequestMapping(value="/lcinfo", method=RequestMethod.POST)
-	public HashMap<String, Object> locationInfo(String location, int page){
+	public HashMap<String, Object> locationInfo(
+			@RequestParam(value="location") String location, 
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member) {
 		UserMidasPagingVO vo = new UserMidasPagingVO();
 		vo.setLocation(location+'%');
 		int totalCnt = service.getLocationMidasCount(vo);
@@ -95,6 +106,11 @@ public class UserMidasController {
 		map.put("totalCnt", totalCnt);
 		map.put("startNum", vo.getStartNum());
 		map.put("data", data);
+		
+		if(!member.equals("null") || member != null) {
+			map.put("wishList",service.getLikeClass(member));
+		}
+		
 		return map;
 	}
 	
@@ -106,7 +122,9 @@ public class UserMidasController {
 	
 	@ResponseBody
 	@RequestMapping(value="/ninfo", method=RequestMethod.POST)
-	public HashMap<String, Object> newInfo(int page){
+	public HashMap<String, Object> newInfo(
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member) {
 		UserMidasPagingVO vo = new UserMidasPagingVO();
 		int totalCnt = service.getAllMidasCount(vo);
 		
@@ -124,8 +142,34 @@ public class UserMidasController {
 		map.put("totalCnt", totalCnt);
 		map.put("startNum", vo.getStartNum());
 		map.put("data", data);
+		
+		if(!member.equals("null") || member != null) {
+			map.put("wishList",service.getLikeClass(member));
+		}
+		
 		return map;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/wish", method=RequestMethod.POST)
+	public void filterInfo(
+			@RequestParam(value="member") String member,
+			@RequestParam(value="option") String option,
+			@RequestParam(value="optionCode") String optionCode,
+			@RequestParam(value="bool") Boolean bool ) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("member", member);
+		map.put("option", option);
+		map.put("optionCode", optionCode);
+		if(bool) {
+			// wishlist테이블에 인서트
+			service.likeClass(map);
+		}else {
+			// 해당 정보들 테이블에서 삭제
+			service.nonLikeClass(map);
+		}
+	}
+	
 	
 	/*인기 클래스*/
 	@RequestMapping(value="/pupular")

@@ -35,6 +35,7 @@
 		<!-- </if> -->
 	</sql>
 
+	<!-- 카테고리별 클래스 목록 가져오기 -->
 	<select id="midasCategoryList" resultMap="userMidasVO">
 		<include refid="header" />
 		SELECT * FROM midas_tb
@@ -53,6 +54,7 @@
 			)
 	</select>
 
+	<!-- 지역별 클래스 목록 가져오기 -->
 	<select id="midasLocationList" resultMap="userMidasVO">
 		<include refid="header" />
 		SELECT * FROM midas_tb
@@ -71,10 +73,12 @@
 			)
 	</select>
 	
+	<!-- 전체 클래스 목록 가져오기 -->
 	<select id="midasNewList" resultMap="userMidasVO">
 		<include refid="header" />
 		SELECT * FROM midas_tb
 		WHERE midas_run='Y'
+		ORDER BY midas_regdate DESC
 		<include refid="footer" />
 	</select>
 	
@@ -88,5 +92,46 @@
 			midas_run='Y'
 			)
 	</select>
+
+
+	<insert id="likeClass" parameterType="hashMap">
+		INSERT INTO wishlist_tb
+		(
+			wishlist_seq,
+			member_code_seq,
+			wishlist_option,
+			wishlist_option_code
+		)
+		VALUES
+		(
+			'wishlist_seq' || TO_CHAR(wishlist_sq.nextval),
+			#{member},
+			#{option},
+			#{optionCode}
+		)
+	</insert>
+	
+	<delete id="nonLikeClass" parameterType="hashMap">
+		DELETE FROM
+			wishlist_tb
+		WHERE
+			member_code_seq = #{member}
+			AND
+			wishlist_option = #{option}
+			AND
+			wishlist_option_code = #{optionCode}
+	</delete>
+	
+	<select id="getLikeClass" parameterType="String" resultType="String">
+		SELECT
+			wishlist_option_code
+		FROM
+			wishlist_tb
+		WHERE
+			member_code_seq = #{member}
+			AND
+			wishlist_option = '즐겨찾는클래스'
+	</select>
+
 
 </mapper>

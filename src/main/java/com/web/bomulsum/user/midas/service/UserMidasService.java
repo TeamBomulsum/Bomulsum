@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.midas.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.web.bomulsum.user.midas.repository.UserMidasPagingVO;
@@ -18,4 +19,9 @@ public interface UserMidasService {
 	//신규 리스트 불러오기
 	List<UserMidasVO> midasNewList(UserMidasPagingVO vo);
 	int getAllMidasCount(UserMidasPagingVO vo);
+	
+	//즐겨찾기 추가
+	void likeClass(HashMap<String, String> map);
+	void nonLikeClass(HashMap<String, String> map);
+	List<String> getLikeClass(String member);
 }
