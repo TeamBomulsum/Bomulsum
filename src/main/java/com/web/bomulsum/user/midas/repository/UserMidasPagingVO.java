@@ -5,12 +5,19 @@ public class UserMidasPagingVO {
 	private int startNum;
 	private int endNum;
 	private String category;
+	private String location;
 	
 	public String getCategory() {
 		return category;
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	public int getNowPage() {
 		return nowPage;
@@ -33,7 +40,8 @@ public class UserMidasPagingVO {
 	@Override
 	public String toString() {
 		return "UserMidasPagingVO [nowPage=" + nowPage + ", startNum=" + startNum + ", endNum=" + endNum + ", category="
-				+ category + "]";
+				+ category + ", location=" + location + "]";
 	}
+	
 	
 }

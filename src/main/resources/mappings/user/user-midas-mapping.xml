@@ -22,7 +22,7 @@
 	</resultMap>
 
 	<sql id="header">
-	SELECT Y.*
+		SELECT Y.*
 		FROM (
 			SELECT ROWNUM AS RNUM, X.*
 			FROM (
@@ -36,21 +36,57 @@
 	</sql>
 
 	<select id="midasCategoryList" resultMap="userMidasVO">
-		<include refid="header"/>
-			SELECT * FROM midas_tb
-			WHERE midas_run='Y' AND midas_category = #{category}
-		<include refid="footer"/>
+		<include refid="header" />
+		SELECT * FROM midas_tb
+		WHERE midas_run='Y' AND midas_category = #{category}
+		<include refid="footer" />
 	</select>
 
 	<select id="getCategoryMidasCount" parameterType="String" resultType="int">
-	SELECT
-		COUNT(*)
-	FROM
-		midas_tb
-	WHERE
-		(
+		SELECT
+			COUNT(*)
+		FROM
+			midas_tb
+		WHERE
+			(
 			midas_run='Y' AND midas_category = #{category}
-		)
+			)
+	</select>
+
+	<select id="midasLocationList" resultMap="userMidasVO">
+		<include refid="header" />
+		SELECT * FROM midas_tb
+		WHERE midas_run='Y' AND midas_address1 LIKE #{location}
+		<include refid="footer" />
+	</select>
+
+	<select id="getLocationMidasCount" parameterType="String" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			midas_tb
+		WHERE
+			(
+			midas_run='Y' AND midas_address1 LIKE #{location}
+			)
+	</select>
+	
+	<select id="midasNewList" resultMap="userMidasVO">
+		<include refid="header" />
+		SELECT * FROM midas_tb
+		WHERE midas_run='Y'
+		<include refid="footer" />
+	</select>
+	
+	<select id="getAllMidasCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			midas_tb
+		WHERE
+			(
+			midas_run='Y'
+			)
 	</select>
 
 </mapper>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 금손 클래스 | 서울</title>
+<title> 금손 클래스 | 인기 클래스</title>
 <style>
 
 
@@ -175,7 +175,6 @@ body a:link, a:visited, a:hover, a:active {
 }
 .minwoo_uMhome_content_card{
 	width:250px;
-	height:352px;
 	border:0.5px solid #D8D8D8;
 	border-radius:5px 5px 5px 5px;
 	margin:6px;
@@ -237,7 +236,7 @@ body a:link, a:visited, a:hover, a:active {
 		<div class="minwoo_class_category_head">
 			<!-- 타이틀 / 선택된 카테고리 시작 -->
 			<div class="minwoo_class_category_head_title">
-				<a href="#">지역별</a>
+				<a href="<c:url value='/midas/'/>" class="title">신규 클래스</a>
 				<hr>
 			</div>
 			<!-- 타이틀 / 선택된 카테고리 종료 -->
@@ -245,7 +244,7 @@ body a:link, a:visited, a:hover, a:active {
 			<!-- 우측 댑쓰 시작-->
 			<div class="minwoo_class_category_head_depth">
 				<a href="<c:url value='/midas/class.do'/>">금손 클래스 &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-				<a href="<c:url value='/midas/location.do?location=${param.location}'/>" class="title">${param.location}</a>
+				<a href="<c:url value='/midas/'/>">신규 클래스</a>
 			</div>
 			<!-- 우측 상단 댑쓰 종료 -->
 		</div>
@@ -253,33 +252,39 @@ body a:link, a:visited, a:hover, a:active {
 		
 		<!-- 바디 영역 시작 -->
 		<div class="minwoo_class_category_body">
-			<!-- 바디 좌측 메뉴 영역 시작 -->
-			<div class="minwoo_class_category_side">
-				<ul>
-					<li>
-						<a href="<c:url value='/midas/location.do?location=서울'/>">서울<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=경기'/>">경기<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=인천'/>">인천<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=부산'/>">부산<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=대구'/>">대구<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=충남'/>">충남<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=광주'/>">광주<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=강원'/>">강원<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=대전'/>">대전<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=경북'/>">경북<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=제주'/>">제주<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=세종'/>">세종<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=울산'/>">울산<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=충북'/>">충북<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="<c:url value='/midas/location.do?location=전남'/>">전남<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-					</li>
-				</ul>
-			</div>
-			<!-- 바디 좌측 메뉴 영역 종료 -->
-	
+
 			<!-- 작품 목록 들어올 영역 시작 -->
 			<div class="minwoo_class_space">
-				
+			<%-- <c:forEach begin="1" end="10">
+				<div class="minwoo_uMhome_content_card">
+   					<div class="minwoo_uMhome_content_card_img">
+   						<div class="minwoo_uMhome_content_card_locagion">서울 마포구</div>
+   						<div class="minwoo_uMhome_content_card_star">
+   						<i id="${i}bookmark" class="fa fa-star fs"></i>
+   						</div>
+   						<div class="minwoo_uMhome_content_card_img_link">
+   						<!--  <a href="#" class="minwoo_uMhome_content_card_link">-->
+   						<img src="<c:url value='/resources/img/earings.jpg'/>" style="width:250px; height:250px">
+   						<!--  </a>-->
+   						</div>	
+   					</div>
+   					<div class="minwoo_uMhome_content_detail">
+                		<div class="minwoo_uMhome_content_info">
+                    		<a href="#" class="minwoo_uMhome_card_label"><span>공예</span></a><br/>
+                    		<a href="#" class="minwoo_uMhome_card_text">
+                    		<b style="font-size:14px">[홍대] 보석 귀걸이 만들기</b></a>
+                        </div>
+                        <div class="minwoo_uMhome_card_rating">
+   							<i class="fa fa-star" style="color:gold"></i>
+							<i class="fa fa-star" style="color:gold"></i>
+							<i class="fa fa-star" style="color:gold"></i>
+							<i class="fa fa-star" style="color:gold"></i>
+							<i class="fa fa-star" style="color:gold"></i>
+							<span style="font-size:14px; color:gray">(1)</span>
+            		    </div>
+                   </div>
+   				</div>
+   			</c:forEach> --%>
 				<%-- <c:forEach begin="1" end="10">
 				<!-- 작품한개 영역 시작 -->
 				<div class="minwoo_class_space_one">
@@ -327,39 +332,35 @@ body a:link, a:visited, a:hover, a:active {
 </div>
 
 
-<script>
+	<script>
 	
 	var page = 1;  //페이징과 같은 방식이라고 생각하면 된다. 
 	 
 	$(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
-		console.log(page); 
-		getList(page);
-		page++;
+	     getList(page);
+	     page++;
 	}); 
 	 
 	$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-		if($(window).scrollTop() >= $(document).height() - $(window).height()){
-			console.log(page);
-			getList(page);
-			page++;   
-		} 
+	     if($(window).scrollTop() >= $(document).height() - $(window).height()){
+	          getList(page);
+	           page++;   
+	     } 
 	});
-		 
+	 
 
 
 	var test;
 
 	function getList(page){
-		var location = $('.title').text();
 		
 		$.ajax({
 			type:'POST',
 			dataType : 'json',
 			data:{
-				'location':location,
 				'page':page
 			},
-			url : '/bomulsum/midas/lcinfo.do',
+			url : '/bomulsum/midas/info.do',
 			success :function(returnData){
 				var htmldiv = '';
 				var midasAddress = '';
@@ -394,7 +395,7 @@ body a:link, a:visited, a:hover, a:active {
 								+ '</div>'
 								+ '<div class=\"minwoo_uMhome_content_card_img_link\">'
 								+ '<img src=\"<c:url value=' + midasImg + '/>\" style=\"width:250px; height:250px\">'
-								+ '</div>'
+								+ '</div>' 
 								+ '</div>' //이미지 영역 종료
 								+ '<div class=\"minwoo_uMhome_content_detail\">'
 								+ '<div class=\"minwoo_uMhome_content_info\">'
@@ -436,8 +437,6 @@ body a:link, a:visited, a:hover, a:active {
 	
 	
 	</script>
-
-
 
 
 </body>

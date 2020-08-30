@@ -175,6 +175,7 @@ body a:link, a:visited, a:hover, a:active {
 }
 .minwoo_uMhome_content_card{
 	width:250px;
+	height:352px;
 	border:0.5px solid #D8D8D8;
 	border-radius:5px 5px 5px 5px;
 	margin:6px;
@@ -361,7 +362,6 @@ body a:link, a:visited, a:hover, a:active {
 	     } 
 	});
 	 
-
 
 	var test;
 

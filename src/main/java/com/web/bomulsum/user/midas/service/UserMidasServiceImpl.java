@@ -25,5 +25,25 @@ public class UserMidasServiceImpl implements UserMidasService {
 		return dao.getCategoryMidasCount(vo.getCategory());
 	}
 
+	@Override
+	public List<UserMidasVO> midasLocationList(UserMidasPagingVO vo) {
+		return dao.midasLocationList(vo);
+	}
+
+	@Override
+	public int getLocationMidasCount(UserMidasPagingVO vo) {
+		return dao.getLocationMidasCount(vo.getLocation());
+	}
+
+	@Override
+	public List<UserMidasVO> midasNewList(UserMidasPagingVO vo) {
+		return dao.midasNewList(vo);
+	}
+
+	@Override
+	public int getAllMidasCount(UserMidasPagingVO vo) {
+		return dao.getAllMidasCount();
+	}
+
 
 }

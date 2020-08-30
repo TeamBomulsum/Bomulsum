@@ -21,4 +21,19 @@ public class UserMidasDAO {
 		return sqlSessionTemplate.selectOne("userMidasDAO.getCategoryMidasCount", category);
 	}
 	
+	public List<UserMidasVO> midasLocationList(UserMidasPagingVO vo){
+		return sqlSessionTemplate.selectList("userMidasDAO.midasLocationList", vo);
+	}
+	
+	public int getLocationMidasCount(String location) {
+		return sqlSessionTemplate.selectOne("userMidasDAO.getLocationMidasCount", location);
+	}
+	
+	public List<UserMidasVO> midasNewList(UserMidasPagingVO vo){
+		return sqlSessionTemplate.selectList("userMidasDAO.midasNewList", vo);
+	}
+	
+	public int getAllMidasCount() {
+		return sqlSessionTemplate.selectOne("userMidasDAO.getAllMidasCount");
+	}
 }

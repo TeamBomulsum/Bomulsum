@@ -857,7 +857,7 @@ body {
 		<div><a class="dainheader-bi-a" href="#">홈</a></div>
 		<div><a class="dainheader-bi-a" href="<c:url value='/midas/detail.do?category=공예'/>">카테고리</a></div>
 		<div><a class="dainheader-bi-a" href="#">인기 클래스</a></div>
-		<div><a class="dainheader-bi-a" href="#">지역별</a></div>
+		<div><a class="dainheader-bi-a" href="<c:url value='/midas/location.do?location=서울'/>">지역별</a></div>
 		<div><a class="dainheader-bi-a" href="#">신규</a></div>
 	</div>
 </div>

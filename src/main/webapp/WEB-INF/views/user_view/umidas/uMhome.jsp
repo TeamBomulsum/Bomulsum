@@ -316,7 +316,7 @@ function showSlides(n) {
        		
 			
    			<div class="jeonga_uMhome_content_section" style="display:flex;flex-wrap:wrap;  width:1056px;">
-   			<c:forEach begin="1" end="8">
+   			<%-- <c:forEach begin="1" end="8">
    				<div class="jeonga_uMhome_content_card">
    					<div class="jeonga_uMhome_content_card_img">
    						<div class="jeonga_uMhome_content_card_locagion">서울 마포구</div>
@@ -345,7 +345,7 @@ function showSlides(n) {
             		    </div>
                    </div>
    				</div>
-   			</c:forEach>
+   			</c:forEach> --%>
    			</div>
  	
     </div>

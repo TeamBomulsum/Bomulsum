@@ -68,13 +68,69 @@ public class UserMidasController {
 	}
 	
 	
-	@RequestMapping(value="/product")
-	public String midas2() {
-		return "/umidas/uMidasProduct";
-	}
-	
+	/*금손 클래스 지역별 리스트 보여주기*/
 	@RequestMapping(value="/location")
-	public String midas3() {
+	public String locationList(String location) {
 		return "/umidas/umLocation";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/lcinfo", method=RequestMethod.POST)
+	public HashMap<String, Object> locationInfo(String location, int page){
+		UserMidasPagingVO vo = new UserMidasPagingVO();
+		vo.setLocation(location+'%');
+		int totalCnt = service.getLocationMidasCount(vo);
+		
+		int pageCnt = page;
+		if(pageCnt == 1) {
+			vo.setStartNum(1);
+			vo.setEndNum(21);
+		} else {
+			vo.setStartNum(pageCnt+ (20*(pageCnt-1)));
+			vo.setEndNum(pageCnt*21);
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<UserMidasVO> data = service.midasLocationList(vo);
+		//map.put("categoryList", list);
+		map.put("totalCnt", totalCnt);
+		map.put("startNum", vo.getStartNum());
+		map.put("data", data);
+		return map;
+	}
+	
+	/*신규 클래스*/
+	@RequestMapping(value="/new")
+	public String newList() {
+		return "/umidas/umNew";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/ninfo", method=RequestMethod.POST)
+	public HashMap<String, Object> newInfo(int page){
+		UserMidasPagingVO vo = new UserMidasPagingVO();
+		int totalCnt = service.getAllMidasCount(vo);
+		
+		int pageCnt = page;
+		if(pageCnt == 1) {
+			vo.setStartNum(1);
+			vo.setEndNum(21);
+		} else {
+			vo.setStartNum(pageCnt+ (20*(pageCnt-1)));
+			vo.setEndNum(pageCnt*21);
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<UserMidasVO> data = service.midasNewList(vo);
+		//map.put("categoryList", list);
+		map.put("totalCnt", totalCnt);
+		map.put("startNum", vo.getStartNum());
+		map.put("data", data);
+		return map;
+	}
+	
+	/*인기 클래스*/
+	@RequestMapping(value="/pupular")
+	public String popularList(String popular) {
+		return "/umdias/umPopular";
+	}
+	
 }
