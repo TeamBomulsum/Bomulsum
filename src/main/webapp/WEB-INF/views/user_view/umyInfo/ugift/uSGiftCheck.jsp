@@ -26,67 +26,66 @@ body a:link, a:visited, a:hover, a:active {
 }
 
 /*선물 상세 내역 테이블*/
-.jeonga-ugift-sctable{
+.jeonga_ugift_sctable{
 	border:1px solid #D8D8D8;
 	border-collapse: collapse;
 	width:100%;
 }
 
-.jeonga-ugift-schead{
+.jeonga_ugift_schead{
 	display:flex;
 	background-color: #f2f2f2;
 	font-size: 13px;
 }
-.jeonga-ugift-sctable-left-top{
+.jeonga_ugift_sctable_left_top{
 	border-top:1px solid #D8D8D8;
 	border-bottom:1px solid #D8D8D8;
 	display:flex;
 }
 
-
-.jeonga-ugift-sctable-middle,.jeonga-ugift-sctable-right {
+.jeonga_ugift_sctable_middle, .jeonga_ugift_sctable_right {
 	border:1px solid #D8D8D8;
 	width:15%;
 }
 
-.jeonga-ugift-schead-date{
+.jeonga_ugift_schead_date{
 	padding:2%;
 	padding-right:0;
 
 }
- .jeonga-ugift-schead-address{
+ .jeonga_ugift_schead_address{
  	padding:2%;
  	padding-left:0;
  }
-.jeonga-ugift-schead-divide{
+.jeonga_ugift_schead_divide{
 	padding:2%;
 }
-.jeonga-ugift-send-order{
+.jeonga_ugift_send_order{
 	width:100%;
 }
-.jeonga-ugift-scbody-title{
+.jeonga_ugift_scbody_title{
 	margin:2%;
 	font-weight:bold;
 	font-size: 14px;
 }
 
-.jeong-ugift-scbody-option{
+.jeong_ugift_scbody_option{
 	margin:2%;
 	font-size:13px;
 } 
-.jeonga-ugift-scbody-seller{
+.jeonga_ugift_scbody_seller{
 	text-align:center;
 	font-size: 13px;
 }
-.jeonga-ugift-sctable-left, .jeonga-ugift-sctable-left-bottom{
+.jeonga_ugift_sctable_left, .jeonga_ugift_sctable_left_bottom{
 	padding:2%;
 	font-size: 13px;
 }
-.jeonga-ugift-scbody-sellerpart{
+.jeonga_ugift_scbody_sellerpart{
 	margin:13px;
 }
 
-#jeonga-ugift-scbody-button{
+#jeonga_ugift_scbody_button{
 	margin-top:10%;
 	background-color: white;
 	border:1px solid #D8D8D8;
@@ -97,12 +96,12 @@ body a:link, a:visited, a:hover, a:active {
   	font-size: 12px;
   	width:92px;
   	color:black;
-  }
- .jeonga-ugift-scbody-list{
- 	margin-left:5px;
  }
+.jeonga_ugift_scbody_list{
+ 	margin-left:5px;
+}
   
-  #jeonga-ugift-scbody-list-address{
+#jeonga_ugift_scbody_list_address{
 	background-color: white;
 	border:1px solid #D8D8D8;
 	padding:7px;
@@ -115,7 +114,7 @@ body a:link, a:visited, a:hover, a:active {
 	margin-left:10px;
 	margin-right:10px;
 }
-#jeonga-ugift-scbody-list-cancel{
+#jeonga_ugift_scbody_list_cancel{
 	background-color: white;
 	border:1px solid #D8D8D8;
 	padding:7px;
@@ -128,40 +127,40 @@ body a:link, a:visited, a:hover, a:active {
 	margin-left:10px;
 	margin-right:10px;
 }
-.jeonga-ugift-scbody-request{
+.jeonga_ugift_scbody_request{
 	background-color:#f2f2f2;
 	margin-top:2%;
 }
 /* 다른 정보들 박스*/
-.jeonga-ugift-gift-receiver-info, .jeonga-ugift-gift-scdispatch, .jeonga-ugift-gift-payment-info{
+.jeonga_ugift_gift_receiver_info, .jeonga_ugift_gift_scdispatch, .jeonga_ugift_gift_payment_info{
 	margin-top:1%;
 	border:1px solid #D8D8D8;
 	padding:24px;
 }
-.jeonga-ugift-gift-receiver-title, .jeonga-ugift-gift-scdispatch-title, .jeonga-ugift-gift-payment-title{
+.jeonga_ugift_gift_receiver_title, .jeonga_ugift_gift_scdispatch_title, .jeonga_ugift_gift_payment_title{
 	font-size:16px; 
 	font-weight:bold;
 }
-.jeonga-ugift-gift-receiver-info-left, .jeong-ugift-gift-scdispatch-detail-left, .jeonga-ugift-gift-payment-info-left{
+.jeonga_ugift_gift_receiver_info_left, .jeong_ugift_gift_scdispatch_detail_left, .jeonga_ugift_gift_payment_info_left{
 	font-size:14px; 
 	font-weight: bold;
 	width:111px;
 }
 
-.jeonga-ugift-gift-receiver-info-right, .jeong-ugift-gift-scdispatch-detail-right, .jeonga-ugift-gift-payment-info-right{
+.jeonga_ugift_gift_receiver_info_right, .jeonga_ugift_gift_scdispatch_detail_right, .jeonga_ugift_gift_payment_info_right{
 	font-size:14px; 
 	padding:8px 20px;
 
 }
-.jeong-ugift-gift-receiver-infotable, .jeong-ugift-gift-scdispatch-detail, .jeong-ugift-gift-payment-infotable{
+.jeonga_ugift_gift_receiver_infotable, .jeonga_ugift_gift_scdispatch_detail, .jeonga_ugift_gift_payment_infotable{
 	margin-top:2%;
 }
-.jeonga-ugift-gift-final-pay{
+.jeonga_ugift_gift_final_pay{
 	margin-top:2%;
 	border-top:1px solid #D8D8D8;
 }
 
-.jeonga-ugift-gift-standard-table{
+.jeonga_ugift_gift_standard_table{
 	margin-top:15px;
 	margin-left:20px;
 	padding:10px;
@@ -169,7 +168,7 @@ body a:link, a:visited, a:hover, a:active {
 	color:#6E6E6E;
 	font-size:12px;
 }
-.jeonga-ugift-gift-standard-table-left{
+.jeonga_ugift_gift_standard_table_left{
 	font-weight:bold;
 }
 
@@ -186,122 +185,122 @@ body a:link, a:visited, a:hover, a:active {
 	<!-- 내용 여기다 넣으시오 -->
 	
 		<div class="uSGiftCheckWrap">
-			<div class="jeonga-ugift-sctitle">
-				<h2 id="jeonga-ugift-sctitle-text">보낸선물 상세보기</h2>
+			<div class="jeonga_ugift_sctitle">
+				<h2 id="jeonga_ugift_sctitle_text">보낸선물 상세보기</h2>
 			</div>
 			<!-- 보낸 선물 상세 내역 -->
 			<c:forEach var="sendGiftList" items='${sendGiftCheckList}'>
-			<table class="jeonga-ugift-sctable">
+			<table class="jeonga_ugift_sctable">
 				<tr>
-					<td colspan="3" class="jeonga-ugift-sctable-head">
-						<div class="jeonga-ugift-schead">
-							<div class="jeonga-ugift-schead-date">${sendGiftList.order_date}</div>
-							<div class="jeonga-ugift-schead-divide">|</div>
-							<div class="jeonga-ugift-schead-address">${sendGiftList.order_address_input}(유효기간 : 2020-07-31)</div>
+					<td colspan="3" class="jeonga_ugift_sctable_head">
+						<div class="jeonga_ugift_schead">
+							<div class="jeonga_ugift_schead_date">${sendGiftList.order_date}</div>
+							<div class="jeonga_ugift_schead_divide">|</div>
+							<div class="jeonga_ugift_schead_address">${sendGiftList.order_address_input}</div>
 					</div></td>
 				</tr>
 				<tr>
-					<td class="jeonga-ugift-sctable-left-top">
-						<div class="jeonga-ugift-send-image">
+					<td class="jeonga_ugift_sctable_left_top">
+						<div class="jeonga_ugift_send_image">
 						<img src="<c:url value='/upload/${sendGiftList.art_photo}'/>" style="width: 100px; height:100px; padding:5px;">
 						</div>
-						<div class="jeonga-ugift-send-order">
-						<div class="jeonga-ugift-scbody-title">${sendGiftList.b_art_name}</div>
-						<div class="jeong-ugift-scbody-option">${sendGiftList.order_pay_price}원 / ${sendGiftList.b_art_option_count}개</div>
+						<div class="jeonga_ugift_send_order">
+						<div class="jeonga_ugift_scbody_title">${sendGiftList.b_art_name}</div>
+						<div class="jeonga_ugift_scbody_option">${sendGiftList.order_pay_price}원 / ${sendGiftList.b_art_option_count}개</div>
 					</div>
 					</td>
-					<td rowspan="3" class="jeonga-ugift-sctable-middle">
-					<div class="jeonga-ugift-scbody-sellerpart">
-						<div class="jeonga-ugift-scbody-seller">
+					<td rowspan="3" class="jeonga_ugift_sctable_middle">
+					<div class="jeonga_ugift_scbody_sellerpart">
+						<div class="jeonga_ugift_scbody_seller">
 						${sendGiftList.writer_brand_name}<br>
-						<a href="/bomulsum/user/message.do?writer=${sendGiftList.b_writer_code_seq}" id="jeonga-ugift-scbody-button">메시지로 문의</a>
+						<a href="/bomulsum/user/message.do?writer=${sendGiftList.b_writer_code_seq}" id="jeonga_ugift_scbody_button">메시지로 문의</a>
 						</div>
 					</div> </td>
-					<td rowspan="3" class="jeonga-ugift-sctable-right">
-						<div class="jeonga-ugift-scbody-list">
-						<button id="jeonga-ugift-scbody-list-address" disabled>배송지 입력</button><br>
-						<button id="jeonga-ugift-scbody-list-cancel">주문 취소</button>
+					<td rowspan="3" class="jeonga_ugift_sctable_right">
+						<div class="jeonga_ugift_scbody_list">
+						<button id="jeonga_ugift_scbody_list_address" disabled>배송지 입력</button><br>
+						<button id="jeonga_ugift_scbody_list_cancel">주문 취소</button>
 					</div> </td>
 				</tr>
 				<tr>
-					<td class="jeonga-ugift-sctable-left">배송비:우편(+500원)<br/>문구 및 디자인 추가:X 도안 그대로</td>
+					<td class="jeonga_ugift_sctable_left">배송비:우편(+500원)<br/>문구 및 디자인 추가:X 도안 그대로</td>
 				</tr>
 				<tr>
-					<td class="jeonga-ugift-sctable-left-bottom">요청사항 <br/>
-					<textarea disabled class="jeonga-ugift-scbody-request" cols="75" rows="5">${sendGiftList.order_request}</textarea><br></td>
+					<td class="jeonga_ugift_sctable_left_bottom">요청사항 <br/>
+					<textarea disabled class="jeonga_ugift_scbody_request" cols="75" rows="5">${sendGiftList.order_request}</textarea><br></td>
 				</tr>
 			</table>
 			<!-- 선물 받는분 -->
-			<div class="jeonga-ugift-gift-receiver-info">
-				<div class="jeonga-ugift-gift-receiver-title">
+			<div class="jeonga_ugift_gift_receiver_info">
+				<div class="jeonga_ugift_gift_receiver_title">
 					선물 받는 분
 				</div>
-				<table class="jeong-ugift-gift-receiver-infotable">
+				<table class="jeonga_ugift_gift_receiver_infotable">
 					<tr>
-						<td class="jeonga-ugift-gift-receiver-info-left">받는 분</td>
-						<td class="jeonga-ugift-gift-receiver-info-right">${sendGiftList.gift_recipient_name}</td>
+						<td class="jeonga_ugift_gift_receiver_info_left">받는 분</td>
+						<td class="jeonga_ugift_gift_receiver_info_right">${sendGiftList.gift_recipient_name}</td>
 					</tr>
 					<tr>
-						<td class="jeonga-ugift-gift-receiver-info-left">전화</td>
-						<td class="jeonga-ugift-gift-receiver-info-right">${sendGiftList.gift_recipient_phone}</td>
+						<td class="jeonga_ugift_gift_receiver_info_left">전화</td>
+						<td class="jeonga_ugift_gift_receiver_info_right">${sendGiftList.gift_recipient_phone}</td>
 					</tr>
 					<tr>
-						<td class="jeonga-ugift-gift-receiver-info-left">선물메시지</td>
-						<td class="jeonga-ugift-gift-receiver-info-right">${sendGiftList.gift_message}</td>
+						<td class="jeonga_ugift_gift_receiver_info_left">선물메시지</td>
+						<td class="jeonga_ugift_gift_receiver_info_right">${sendGiftList.gift_message}</td>
 					</tr>
 				
 				</table>
 			</div>
 			<!-- 선물 발송 관리 -->
-			<div class="jeonga-ugift-gift-scdispatch">
-				<div class="jeonga-ugift-gift-scdispatch-title">
+			<div class="jeonga_ugift_gift_scdispatch">
+				<div class="jeonga_ugift_gift_scdispatch_title">
 					선물발송관리
 				</div>
-				<table class="jeong-ugift-gift-scdispatch-detail">
+				<table class="jeonga_ugift_gift_scdispatch_detail">
 					<tr>
-						<td class="jeong-ugift-gift-scdispatch-detail-left">발송 상태</td>
-						<td class="jeong-ugift-gift-scdispatch-detail-right">${sendGiftList.order_status}</td>
+						<td class="jeonga_ugift_gift_scdispatch_detail_left">발송 상태</td>
+						<td class="jeonga_ugift_gift_scdispatch_detail_right">${sendGiftList.order_status}</td>
 					</tr>
 					<tr>
-						<td class="jeong-ugift-gift-scdispatch-detail-left">유효기간</td>
-						<td class="jeong-ugift-gift-scdispatch-detail-right">2020-07-28</td>
+						<td class="jeonga_ugift_gift_scdispatch_detail_left">유효기간</td>
+						<td class="jeonga_ugift_gift_scdispatch_detail_right">${sendGiftList.limitDate}</td>
 					</tr>
 				</table>
 			</div>
 			
 			<!-- 결제정보 -->
-			<div class="jeonga-ugift-gift-payment-info">
-				<div class="jeonga-ugift-gift-payment-title">
+			<div class="jeonga_ugift_gift_payment_info">
+				<div class="jeonga_ugift_gift_payment_title">
 					결제정보
 				</div>
-				<table class="jeong-ugift-gift-payment-infotable">
+				<table class="jeonga_ugift_gift_payment_infotable">
 					<tr>
-						<td class="jeonga-ugift-gift-payment-info-left">결제방식</td>
-						<td class="jeonga-ugift-gift-payment-info-right">${sendGiftList.order_payment}</td>
+						<td class="jeonga_ugift_gift_payment_info_left">결제방식</td>
+						<td class="jeonga_ugift_gift_payment_info_right">${sendGiftList.order_payment}</td>
 					</tr>
 					<tr>
-						<td class="jeonga-ugift-gift-payment-info-left">금액</td>
-						<td class="jeonga-ugift-gift-payment-info-right">${sendGiftList.order_pay_price}원</td>
+						<td class="jeonga_ugift_gift_payment_info_left">금액</td>
+						<td class="jeonga_ugift_gift_payment_info_right">${sendGiftList.order_pay_price}원</td>
 					</tr>
 					<tr>
-						<td class="jeonga-ugift-gift-payment-info-left">배송비</td>
-						<td class="jeonga-ugift-gift-payment-info-right">0원</td>
+						<td class="jeonga_ugift_gift_payment_info_left">배송비</td>
+						<td class="jeonga_ugift_gift_payment_info_right">0원</td>
 					</tr>
 						<tr>
-						<td class="jeonga-ugift-gift-payment-info-left">후원</td>
-						<td class="jeonga-ugift-gift-payment-info-right">0원</td>
+						<td class="jeonga_ugift_gift_payment_info_left">후원</td>
+						<td class="jeonga_ugift_gift_payment_info_right">0원</td>
 					</tr>
 					<tr>
-						<td class="jeonga-ugift-gift-payment-info-left">쿠폰 할인</td>
-						<td class="jeonga-ugift-gift-payment-info-right">0원</td>
+						<td class="jeonga_ugift_gift_payment_info_left">쿠폰 할인</td>
+						<td class="jeonga_ugift_gift_payment_info_right">0원</td>
 					</tr>
 							<tr>
-						<td class="jeonga-ugift-gift-payment-info-left">적립금 사용 금액</td>
-						<td class="jeonga-ugift-gift-payment-info-right">0원</td>
+						<td class="jeonga_ugift_gift_payment_info_left">적립금 사용 금액</td>
+						<td class="jeonga_ugift_gift_payment_info_right">0원</td>
 					</tr>
 				</table>
-				<div class="jeonga-ugift-gift-final-pay">
-					<table class="jeonga-ugift-final-pay-table">
+				<div class="jeonga_ugift_gift_final_pay">
+					<table class="jeonga_ugift_final_pay_table">
 						<tr>
 							<td style="font-weight:bold; font-size:16px; width:111px;">최종 결제 금액</td>
 							<td style="font-weight:bold; font-size:30px; color:#DF3A01; padding:8px 20px;">${sendGiftList.order_pay_price}원</td>
@@ -313,14 +312,14 @@ body a:link, a:visited, a:hover, a:active {
 						<tr>
 							<td></td>
 							<td>
-								<table class="jeonga-ugift-gift-standard-table">
+								<table class="jeonga_ugift_gift_standard_table">
 									<tr>
-									<td class="jeonga-ugift-gift-standard-table-left">적립 기준: </td>
-									<td class="jeonga-ugift-gift-standard-table-right">결제 완료 시 적립 예정 상태로 바로 적립</td>
+									<td class="jeonga_ugift_gift_standard_table_left">적립 기준: </td>
+									<td class="jeonga_ugift_gift_standard_table_right">결제 완료 시 적립 예정 상태로 바로 적립</td>
 									</tr>
 									<tr>
-									<td class="jeonga-ugift-gift-standard-table-left">가용 시점: </td>
-									<td class="jeonga-ugift-gift-standard-table-right">결제 완료일로부터 7일 후 적립금 사용 가능</td>
+									<td class="jeonga_ugift_gift_standard_table_left">가용 시점: </td>
+									<td class="jeonga_ugift_gift_standard_table_right">결제 완료일로부터 7일 후 적립금 사용 가능</td>
 									</tr>
 								</table>
 						</td>

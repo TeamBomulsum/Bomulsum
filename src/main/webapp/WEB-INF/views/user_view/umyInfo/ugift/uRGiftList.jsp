@@ -23,10 +23,10 @@ body  a:link, a:visited, a:hover, a:active{
 	width:80%;
 	margin-left:2%;
 }
-#jeonga-ugift-rtitle-text{
+#jeonga_ugift_rtitle_text{
 	margin-top:0;
 }
-.jeonga-ugift-rhead {
+.jeonga_ugift_rhead {
 	background-color:#f2f2f2;
 	border: 1px solid #D8D8D8;
 	display: flex;
@@ -35,61 +35,61 @@ body  a:link, a:visited, a:hover, a:active{
 	height:46px;
 }
 
-.jeonga-ugift-rhead-left {
+.jeonga_ugift_rhead_left {
 	width:80%;
 	display: flex;
 }
-.jeonga-ugift-rhead-right{
-	width:25%;
+.jeonga_ugift_rhead_right{
+	width:20%;
 	padding:1.5%;
 }
 
-.jeonga-ugift-rhead-date{
+.jeonga_ugift_rhead_date{
 	padding:2%;
 	padding-right:0;
 
 }
- .jeonga-ugift-rhead-address{
+ .jeonga_ugift_rhead_address{
  	padding:2%;
  	padding-left:0;
  }
 
-.jeonga-ugift-rhead-divide{
+.jeonga_ugift_rhead_divide{
 	padding:2%;
 
 }
-.jeonga-ugift-rlink{
+.jeonga_ugift_rlink{
 	text-decoration:none;
 	color:black;
 }
-.jeonga-ugift-rbody {
+.jeonga_ugift_rbody {
 	height:95px;
 	border: 1px solid #D8D8D8;
 	border-top:0px;
 	display: flex;
 	justify-content: space-between;
 }
-.jeong-ugift-rbody-image{
+.jeong_ugift_rbody_image{
 	width:8%;
 	padding:1%;
 }
-.jeonga-ugift-rbody-title{
+.jeonga_ugift_rbody_title{
 	width:62%;
 	padding-top:2%;
 	font-weight: bold;
 	font-size:14px;
 }
-.jeonga-ugift-rbody-sellerpart {
+.jeonga_ugift_rbody_sellerpart {
 	width:30%;
 	border-left: 1px solid #D8D8D8;
 }
-.jeonga-ugift-rbody-seller{
+.jeonga_ugift_rbody_seller{
 	text-align:center;
 	padding-top:6%;
 	padding-bottom:0;
 	font-size: 13px;
 }
-#jeonga-ugift-rseller-message{
+#jeonga_ugift_rseller_message{
 	margin-top:3%;
 	background-color: white;
 	border:1px solid #D8D8D8;
@@ -98,6 +98,7 @@ body  a:link, a:visited, a:hover, a:active{
   	text-decoration: none;
   	display: inline-block;
   	font-size: 11px;
+  	color:black;
 }
 </style>
 </head>
@@ -111,33 +112,35 @@ body  a:link, a:visited, a:hover, a:active{
 		<%@ include file="../../include/uside.jsp"%>
 		<!-- 내용 여기다 넣으시오 -->
 		<div class="ugift">
-			<div class="jeonga-ugift-rtitle">
-				<h2 id="jeonga-ugift-rtitle-text">받은 선물함</h2>
+			<div class="jeonga_ugift_rtitle">
+				<h2 id="jeonga_ugift_rtitle_text">받은 선물함</h2>
 			</div>
-			<div class="jeonga-ugift-receiveList">
-				<div class="jeonga-ugift-rhead">
-					<div class="jeonga-ugift-rhead-left">
-						<div class="jeonga-ugift-rhead-date">2020-07-21</div>
-						<div class="jeonga-ugift-rhead-divide">|</div>
-						<div class="jeonga-ugift-rhead-address"><a href="uRGiftCheck.jsp"class="jeonga-ugift-rlink" style="color:#DF3A01">배송주소를 입력하세요(유효기간: 2020-07-30)</a></div>
+			<c:forEach var="receiveList" items='${receiveGiftCheckList}'>
+			<div class="jeonga_ugift_receiveList">
+				<div class="jeonga_ugift_rhead">
+					<div class="jeonga_ugift_rhead_left">
+						<div class="jeonga_ugift_rhead_date">${receiveList.order_date}</div>
+						<div class="jeonga_ugift_rhead_divide">|</div>
+						<div class="jeonga_ugift_rhead_address"><a href="/bomulsum/user/receiveGift/${receiveList.order_code_seq}.do"class="jeonga_ugift_rlink" style="color:#DF3A01">${receiveList.order_address_input}</a></div>
 					</div>
-					<div class="jeonga-ugift-rhead-right">
-						<a href="uRGiftCheck.jsp" class="jeonga-ugift-rlink"> 홍길동(010-****-1111)님의 선물 > </a>
+					<div class="jeonga_ugift_rhead_right">
+						<a href="/bomulsum/user/receiveGift/${receiveList.order_code_seq}.do" class="jeonga_ugift_rlink"> ${receiveList.member_name}(${receiveList.member_phone})님의 선물 > </a>
 					</div>
 				</div>
-				<div class="jeonga-ugift-rbody">
-					<div class="jeong-ugift-rbody-image">
-						<img src="<c:url value='/resources/img/test.png'/>" style="width:70px; height:70px;">
+				<div class="jeonga_ugift_rbody">
+					<div class="jeong_ugift_rbody_image">
+						<img src="<c:url value='/upload/${receiveList.art_photo}'/>" style="width:70px; height:70px;">
 					</div>
-					<div class="jeonga-ugift-rbody-title">(카페)주문제작 감성 일러스트 엽서</div>
-					<div class="jeonga-ugift-rbody-sellerpart">
-						<div class="jeonga-ugift-rbody-seller">
-						령쓰<br>
-						<button id="jeonga-ugift-rseller-message">메시지로 문의</button>
+					<div class="jeonga_ugift_rbody_title">${receiveList.b_art_name}</div>
+					<div class="jeonga_ugift_rbody_sellerpart">
+						<div class="jeonga_ugift_rbody_seller">
+						${receiveList.writer_brand_name}<br>
+						<a href="/bomulsum/user/message.do?writer=${receiveList.b_writer_code_seq}" id="jeonga_ugift_rseller_message">메시지로 문의</a>
 						</div>
 					</div>
 				</div>
 			</div>
+			</c:forEach>
 		</div>
 	</div>
 	<!-- 푸터  -->

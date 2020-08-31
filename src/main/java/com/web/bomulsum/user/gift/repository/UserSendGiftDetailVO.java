@@ -8,6 +8,7 @@ public class UserSendGiftDetailVO {
 	private String gift_recipient_name;
 	private String gift_recipient_phone;
 	private String gift_message;
+	private Date limitDate;
 	private Date order_date;
 	private String order_address_input;
 	private String order_payment;
@@ -22,16 +23,16 @@ public class UserSendGiftDetailVO {
 	private String art_photo;
 	private int art_point;
 	
-
 	@Override
 	public String toString() {
 		return "UserSendGiftDetailVO [order_code_seq=" + order_code_seq + ", gift_recipient_name=" + gift_recipient_name
-				+ ", gift_recipient_phone=" + gift_recipient_phone + ", gift_message=" + gift_message + ", order_date="
-				+ order_date + ", order_address_input=" + order_address_input + ", order_payment=" + order_payment
-				+ ", order_status=" + order_status + ", order_pay_price=" + order_pay_price + ", order_request="
-				+ order_request + ", writer_brand_name=" + writer_brand_name + ", b_art_code_seq=" + b_art_code_seq
-				+ ", b_art_name=" + b_art_name + ", b_writer_code_seq=" + b_writer_code_seq + ", b_art_option_count="
-				+ b_art_option_count + ", art_photo=" + art_photo + ", art_point=" + art_point + "]";
+				+ ", gift_recipient_phone=" + gift_recipient_phone + ", gift_message=" + gift_message + ", limitDate="
+				+ limitDate + ", order_date=" + order_date + ", order_address_input=" + order_address_input
+				+ ", order_payment=" + order_payment + ", order_status=" + order_status + ", order_pay_price="
+				+ order_pay_price + ", order_request=" + order_request + ", writer_brand_name=" + writer_brand_name
+				+ ", b_art_code_seq=" + b_art_code_seq + ", b_art_name=" + b_art_name + ", b_writer_code_seq="
+				+ b_writer_code_seq + ", b_art_option_count=" + b_art_option_count + ", art_photo=" + art_photo
+				+ ", art_point=" + art_point + "]";
 	}
 
 	public String getOrder_code_seq() {
@@ -170,7 +171,13 @@ public class UserSendGiftDetailVO {
 		this.art_point = art_point;
 	}
 
+	public Date getLimitDate() {
+		return limitDate;
+	}
 
+	public void setLimitDate(Date limitDate) {
+		this.limitDate = limitDate;
+	}
 
 }
 

@@ -35,4 +35,37 @@ public class UserGiftDAO {
 		
 	}
 	
+
+	//받은 선물함 정보
+	public List<UserReceiveGiftVO> getReceiveGift(Map<String,Object> memberInfo){
+		
+		List<String> receiveGiftCode = sqlSessionTemplate.selectList("userGiftDAO.selectreceiveCode", memberInfo);
+		System.out.println(receiveGiftCode);
+		
+		Map<String, Object> orderGiftList = new HashMap<String,Object>();
+		orderGiftList.put("orderGiftList", receiveGiftCode);
+		
+		List<UserReceiveGiftVO> sendGiftList = sqlSessionTemplate.selectList("userGiftDAO.selectReceiveGift", orderGiftList);
+		//System.out.println(sendGiftList);
+		return sendGiftList;
+	}
+	//받은  선물함 상세정보
+	public List<UserReceiveGiftDetailVO> getReceiveGiftCheck(String orderCode){
+		List<UserReceiveGiftDetailVO> receiveGiftDetailCheck = sqlSessionTemplate.selectList("userGiftDAO.selectReceiveGiftCheck", orderCode);
+		return receiveGiftDetailCheck;
+		
+	}
+	
+	// 배송지 입력
+	public void addressUpdate(Map<String, Object> map) {
+		sqlSessionTemplate.update("userGiftDAO.updateAddress", map);
+	}
+	//정보제공동의
+	public void infoAgreeUpdate(Map<String, Object> map) {
+		sqlSessionTemplate.update("userGiftDAO.updateInfoAgree", map);
+	}
+	
+	
+	
+	
 }

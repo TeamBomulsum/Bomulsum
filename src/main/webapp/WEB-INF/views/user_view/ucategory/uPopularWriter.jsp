@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>보물섬 | 인기 작가</title>
+
 <style>
 a:link, a:visited, a:hover, a:active{
    text-decoration: none;
@@ -92,6 +93,8 @@ a:link, a:visited, a:hover, a:active{
 
 .jeonga-profile{
 	display:flex;
+	padding-top:3%;
+	padding-bottom:3%;
 }
 .jeonga-profile-split-img{
 	width:160px;
@@ -111,7 +114,7 @@ a:link, a:visited, a:hover, a:active{
 	display:flex;
 }
 
-#jeonga-profile-button-add{
+.jeonga-profile-button-add{
 	cursor: pointer;
 	border:1px solid #D8D8D8;
 	color:#DF3A01;
@@ -123,7 +126,20 @@ a:link, a:visited, a:hover, a:active{
 	width:78px;
 	margin:3px;
 }
-
+/*
+#jeonga-profile-button-liked{
+	cursor: pointer;
+	border:1px solid #DF3A01;
+	background-color:#DF3A01;
+	color:white;
+	padding:7px;
+	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	font-size: 12px;
+	width:78px;
+	margin:3px;
+}*/
 #jeonga-profile-writer-home{
 	background-color: white;
 	border:1px solid #D8D8D8;
@@ -159,7 +175,7 @@ a:link, a:visited, a:hover, a:active{
 }
 
 .joenga-profile-imageslider_one {
-	padding:2%;
+	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
  	height:168.25px;
@@ -240,7 +256,7 @@ a:link, a:visited, a:hover, a:active{
 }
 
 .joenga-profile-imageslider_two {
-	padding:2%;
+	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
  	height:168.25px;
@@ -256,7 +272,7 @@ a:link, a:visited, a:hover, a:active{
   	position: absolute;
   	
 }
-/* Hide the images by default*/ 
+
 .jeonga-imageSlides_two {
 	display:flex;
 	justify-content: space-between;
@@ -278,7 +294,6 @@ a:link, a:visited, a:hover, a:active{
 }
 
 
-/* Next & previous buttons */
 .jeonga-imageSlides_two-prev {
   right:10;
   cursor: pointer;
@@ -313,7 +328,7 @@ a:link, a:visited, a:hover, a:active{
 
 /*이미지 슬라이더3 CSS*/
 .joenga-profile-imageslider_three {
-	padding:2%;
+	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
  	height:168.25px;
@@ -329,7 +344,6 @@ a:link, a:visited, a:hover, a:active{
   	position: absolute;
   	
 }
-/* Hide the images by default*/ 
 .jeonga-imageSlides_three {
 	display:flex;
 	justify-content: space-between;
@@ -351,7 +365,6 @@ a:link, a:visited, a:hover, a:active{
 }
 
 
-/* Next & previous buttons */
 .jeonga-imageSlides_three-prev {
   right:10;
   cursor: pointer;
@@ -377,16 +390,14 @@ a:link, a:visited, a:hover, a:active{
  	-webkit-user-select: none;
 	opacity: 0;
 }
-/* On hover, add a black background color with a little bit see-through */
 .jeonga-imageSlides_three-prev:hover, .jeonga-imageSlides_three-next:hover{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
  opacity: 100;
 }
 /*이미지 슬라이더4 CSS*/
-
 .joenga-profile-imageslider_four {
-	padding:2%;
+	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
  	height:168.25px;
@@ -402,7 +413,6 @@ a:link, a:visited, a:hover, a:active{
   	position: absolute;
   	
 }
-/* Hide the images by default*/ 
 .jeonga-imageSlides_four {
 	display:flex;
 	justify-content: space-between;
@@ -424,7 +434,6 @@ a:link, a:visited, a:hover, a:active{
 }
 
 
-/* Next & previous buttons */
 .jeonga-imageSlides_four-prev {
   right:10;
   cursor: pointer;
@@ -450,7 +459,6 @@ a:link, a:visited, a:hover, a:active{
  	-webkit-user-select: none;
 	opacity: 0;
 }
-/* On hover, add a black background color with a little bit see-through */
 .jeonga-imageSlides_four-prev:hover, .jeonga-imageSlides_four-next:hover{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
@@ -458,8 +466,9 @@ a:link, a:visited, a:hover, a:active{
 }
 
 /*이미지 슬라이더5 CSS*/
+
 .joenga-profile-imageslider_five {
-	padding:2%;
+	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
  	height:168.25px;
@@ -496,7 +505,6 @@ a:link, a:visited, a:hover, a:active{
 }
 
 
-/* Next & previous buttons */
 .jeonga-imageSlides_five-prev {
   right:10;
   cursor: pointer;
@@ -522,14 +530,100 @@ a:link, a:visited, a:hover, a:active{
  	-webkit-user-select: none;
 	opacity: 0;
 }
-/* On hover, add a black background color with a little bit see-through */
 .jeonga-imageSlides_five-prev:hover, .jeonga-imageSlides_five-next:hover{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
  opacity: 100;
-}
+} 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+//좋아하는 작가 확인
+ $(document).ready(function(){
+	 $('.jeonga-profile-button-add').click(LikeWriterFunction);
+	 
+	 LikeWriterFunction = function(){
+			
+			if(memberCode == null || memberCode == 'null'){
+				alert('로그인이 필요한 서비스입니다.');
+				location.href='/bomulsum/user/login.do';
+			}
+			
+			var $data = $(this).next().text();
+			var writerCode = $data;
+			var option = '좋아하는작가';
+			
+			var addButton = $(this);
+			var tf;
+			
+			if(addButton.css("color") == "#DF3A01"){
+				clickIcon.css("color", "#d64640");
+				tORf = true;
+			}else{
+				clickIcon.css("color", "gray");
+				tORf = false;
+			}
+			
+			$.ajax({
+				url:'/bomulsum/category/wish.do',
+				data:{
+					'member':memberCode,
+					'option':option,
+					'optionCode':artCode,
+					'bool': tORf
+				},
+				type:'POST',
+				success:function(data){
+					
+				},
+				error:function(e){
+					console.log(e);
+				}
+			}); 
+			if(tORf){
+				alert('좋아하는 작품에 추가되었습니다.');
+			}else{
+				alert('해제되었습니다.');
+			}
+		};
+	 
+	 
+	{ 
+			var $data = $(this).next().text();
+			 console.log($data);
+			 var param = $data;
+			 console.log(param);
+			 
+			 $.ajax({
+					url : "/bomulsum/user/wishlist/unLikeWriter.do",
+					data : {"writer_code_seq" : param},
+					success : function() {
+						alert('좋아하는 작가를 취소합니다.');
+						location.reload(true);
+					},
+					error : function(err) {
+						console.log(err);
+					}
+				})
+	 });
+ });
+/* 	var checkLike1 = '${rank1.writer_code_seq}';
+	var checkLike2 = '${rank2.writer_code_seq}';
+	var checkLike3 = '${rank3.writer_code_seq}';
+	var checkLike4 = '${rank4.writer_code_seq}';
+	var checkLike5 = '${rank5.writer_code_seq}';
+	console.log(checkLike1);
+	console.log(checkLike2);
+	console.log(checkLike3);
+	console.log(checkLike4);
+	console.log(checkLike5);
+	 
+
+ */
+	
+	 
+
+
 var slideIndex = 0;
 showSlides(slideIndex);
 
@@ -560,7 +654,7 @@ function plusSlides_five(n) {
 	  var slides1 = document.getElementById("jeonga-imageSlides1_five");
 	  slides1.style.display="none";
 	  showSlides_five(slideIndex += n);
-}
+} 
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
@@ -619,7 +713,8 @@ function showSlides_five(n) {
 	  }
 	  slides[slideIndex-1].style.display = "block";
 
-}
+} 
+
 </script>
 </head>
 <body>
@@ -637,46 +732,38 @@ function showSlides_five(n) {
    		<div class="jeonga_artist_wrap">
    			<!-- 좋아하는 작가 목록 -->
 			<ul class="jeonga-artist-list">
+
 				<!-- 1등 -->
 				<li class="jeonga-artist-list-item">
 					<!-- 작가 프로필  -->
-					<div class="jeonga-profile  ">
+					<div class="jeonga-profile">
 						<!-- 작가 프로필 사진 -->
 						<div class="jeonga-profile-split-img">
 							<div class="jeonga-profile-rank">
 									<img src="<c:url value='/resources/img/1.png'/>" style="width:150px; height:150px">
 							</div>
 							<div class="jeonga-profile-image">
-							<a href="#" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/resources/img/earings.jpg'/>" style="width:100px; height:100px">
+							<a href="${rank1.writer_url}" target="#" class="jeonga-rpofile-image-link">
+								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank1.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga-profile-split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga-profile-content">
-							<a href="#" class="jeonga-profile-title" target="">령쓰</a>
-							<div class="jeonga-stars" data-ui="rating" data-value="5">
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>  
-							</div>
-							<p class="jeonga-profile-text">안녕하세요 령쓰입니다(*´꒳`*) 여러분들의 추억을 저만의 독특한 감성으로 그려드립니다</p>
-							
+							<a href="${rank1.writer_url}" class="jeonga-profile-title" target="">${rank1.writer_brand_name}</a>
+							<p class="jeonga-profile-text">${rank1.writer_intro}</p>
 							<div class="jeonga-profile-buttons">
 								<div class="jeonga-profile-buttons-top">
-								<!-- <a href="#" class="btn btn-s btn-white toggle-heart"
-									data-name="starred-toolbar" data-starred-type="artist"
-									data-init="" data-starred="" target=""
-									data-target-id="">--><!-- <em class="txt active">♥︎하는 작가</em> 	</a>-->
-								<div id="jeonga-profile-button-add">♥︎작가로 추가</div>
+								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
+								<div style="display:none">${rank1.writer_code_seq}</div>
+								<!-- <div id="jeonga-profile-button-liked">♥︎하는 작가</div> -->
 									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="#">작가홈</a>
+									<a class="jeonga-profile-button" href="${rank1.writer_url}">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga-profile-message">
-									<a href="#" class="jeonga-profile-button">메시지 보내기</a>
+									<a href="/bomulsum/user/message.do?writer=${rank1.writer_code_seq}" class="jeonga-profile-button">메시지 보내기</a>
+									<div id="jeonga_wprofile_code" style="display:none">${rank1.writer_code_seq}</div>
 								</div>
 							</div>
 							</div>
@@ -707,8 +794,9 @@ function showSlides_five(n) {
   					</div> 
 				</div>
 				</li>
+
 		
-			<!-- 2등 -->
+		<!-- 2등 -->
 				<li class="jeonga-artist-list-item">
 					<!-- 작가 프로필  -->
 					<div class="jeonga-profile  ">
@@ -718,32 +806,21 @@ function showSlides_five(n) {
 									<img src="<c:url value='/resources/img/2.png'/>" style="width:150px; height:150px">
 							</div>
 							<div class="jeonga-profile-image">
-							<a href="#" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/resources/img/earings.jpg'/>" style="width:100px; height:100px">
+							<a href="${rank2.writer_url}" target="#" class="jeonga-rpofile-image-link">
+								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank2.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga-profile-split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga-profile-content">
-							<a href="#" class="jeonga-profile-title" target="">령쓰</a>
-							<div class="jeonga-stars" data-ui="rating" data-value="5">
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>  
-							</div>
-							<p class="jeonga-profile-text">안녕하세요 령쓰입니다(*´꒳`*) 여러분들의 추억을 저만의 독특한 감성으로 그려드립니다</p>
+							<a href="${rank2.writer_url}" class="jeonga-profile-title" target="">${rank2.writer_brand_name}</a>
+							<p class="jeonga-profile-text">${rank2.writer_intro}</p>
 							
 							<div class="jeonga-profile-buttons">
 								<div class="jeonga-profile-buttons-top">
-								<!-- <a href="#" class="btn btn-s btn-white toggle-heart"
-									data-name="starred-toolbar" data-starred-type="artist"
-									data-init="" data-starred="" target=""
-									data-target-id="">--><!-- <em class="txt active">♥︎하는 작가</em> 	</a>-->
-								<div id="jeonga-profile-button-add">♥︎작가로 추가</div>
+								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
 									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="#">작가홈</a>
+									<a class="jeonga-profile-button" href="${rank2.writer_url}">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga-profile-message">
@@ -788,32 +865,22 @@ function showSlides_five(n) {
 									<img src="<c:url value='/resources/img/3.png'/>" style="width:147px; height:147px;">
 							</div>
 							<div class="jeonga-profile-image1">
-							<a href="#" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/resources/img/earings.jpg'/>" style="width:100px; height:100px">
+							<a href="${rank3.writer_url}" target="#" class="jeonga-rpofile-image-link">
+								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank3.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga-profile-split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga-profile-content">
-							<a href="#" class="jeonga-profile-title" target="">령쓰</a>
-							<div class="jeonga-stars" data-ui="rating" data-value="5">
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>  
-							</div>
-							<p class="jeonga-profile-text">안녕하세요 령쓰입니다(*´꒳`*) 여러분들의 추억을 저만의 독특한 감성으로 그려드립니다</p>
+							<a href="${rank3.writer_url}" class="jeonga-profile-title" target="">${rank3.writer_brand_name}</a>
+							<p class="jeonga-profile-text">${rank3.writer_intro}</p>
 							
 							<div class="jeonga-profile-buttons">
 								<div class="jeonga-profile-buttons-top">
-								<!-- <a href="#" class="btn btn-s btn-white toggle-heart"
-									data-name="starred-toolbar" data-starred-type="artist"
-									data-init="" data-starred="" target=""
-									data-target-id="">--><!-- <em class="txt active">♥︎하는 작가</em> 	</a>-->
-								<div id="jeonga-profile-button-add">♥︎작가로 추가</div>
+								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
+								<!-- <div id="jeonga-profile-button-add">♥︎하는 작가</div> -->
 									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="#">작가홈</a>
+									<a class="jeonga-profile-button" href="${rank3.writer_url}">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga-profile-message">
@@ -858,32 +925,21 @@ function showSlides_five(n) {
 									<img src="<c:url value='/resources/img/3.png'/>" style="width:147px; height:147px;">
 							</div>
 							<div class="jeonga-profile-image1">
-							<a href="#" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/resources/img/earings.jpg'/>" style="width:100px; height:100px">
+							<a href="${rank4.writer_url}" target="#" class="jeonga-rpofile-image-link">
+								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank4.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga-profile-split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga-profile-content">
-							<a href="#" class="jeonga-profile-title" target="">령쓰</a>
-							<div class="jeonga-stars" data-ui="rating" data-value="5">
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>  
-							</div>
-							<p class="jeonga-profile-text">안녕하세요 령쓰입니다(*´꒳`*) 여러분들의 추억을 저만의 독특한 감성으로 그려드립니다</p>
+							<a href="${rank4.writer_url}" class="jeonga-profile-title" target="">${rank4.writer_brand_name}</a>
+							<p class="jeonga-profile-text">${rank4.writer_intro}</p>
 							
 							<div class="jeonga-profile-buttons">
 								<div class="jeonga-profile-buttons-top">
-								<!-- <a href="#" class="btn btn-s btn-white toggle-heart"
-									data-name="starred-toolbar" data-starred-type="artist"
-									data-init="" data-starred="" target=""
-									data-target-id="">--><!-- <em class="txt active">♥︎하는 작가</em> 	</a>-->
-								<div id="jeonga-profile-button-add">♥︎작가로 추가</div>
+								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
 									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="#">작가홈</a>
+									<a class="jeonga-profile-button" href="${rank4.writer_url}">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga-profile-message">
@@ -928,32 +984,21 @@ function showSlides_five(n) {
 									<img src="<c:url value='/resources/img/3.png'/>" style="width:147px; height:147px;">
 							</div>
 							<div class="jeonga-profile-image1">
-							<a href="#" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/resources/img/earings.jpg'/>" style="width:100px; height:100px">
+							<a href="${rank5.writer_url}" target="#" class="jeonga-rpofile-image-link">
+								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank5.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga-profile-split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga-profile-content">
-							<a href="#" class="jeonga-profile-title" target="">령쓰</a>
-							<div class="jeonga-stars" data-ui="rating" data-value="5">
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>  
-							</div>
-							<p class="jeonga-profile-text">안녕하세요 령쓰입니다(*´꒳`*) 여러분들의 추억을 저만의 독특한 감성으로 그려드립니다</p>
+							<a href="${rank5.writer_url}" class="jeonga-profile-title" target="">${rank5.writer_brand_name}</a>
+							<p class="jeonga-profile-text">${rank5.writer_intro}</p>
 							
 							<div class="jeonga-profile-buttons">
 								<div class="jeonga-profile-buttons-top">
-								<!-- <a href="#" class="btn btn-s btn-white toggle-heart"
-									data-name="starred-toolbar" data-starred-type="artist"
-									data-init="" data-starred="" target=""
-									data-target-id="">--><!-- <em class="txt active">♥︎하는 작가</em> 	</a>-->
-								<div id="jeonga-profile-button-add">♥︎작가로 추가</div>
+								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
 									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="#">작가홈</a>
+									<a class="jeonga-profile-button" href="${rank5.writer_url}">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga-profile-message">

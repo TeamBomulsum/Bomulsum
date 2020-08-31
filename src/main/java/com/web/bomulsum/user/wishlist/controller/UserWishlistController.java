@@ -59,6 +59,7 @@ public class UserWishlistController {
 		
 	}
 	
+	//좋아하는 작가 취소
 	@RequestMapping(value="/unLikeWriter")
 	   public void unLikeWriter( @RequestParam(value="writer_code_seq") String writerCode, HttpServletRequest request) {
 		String memberCode = "member_code_seq58";    
