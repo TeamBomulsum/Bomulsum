@@ -341,7 +341,34 @@ function showSlides(n) {
 
 				<div class="jeonga_uMhome_content_section"style="display: flex; flex-wrap: wrap; width: 1056px;">
 				</div>
+				
+				<div class="jeonga_uMhome_content_title">
+					<div>
+						<h2 class="jeonga_uMhome_content_title_txt">
+							인기 금손 클래스
+						</h2>
+					</div>
+					<a href="<c:url value='/midas/popular.do'/>" class="jeonga_uMhome_content_more">
+					<span style="color: #01A9DB; margin: 0">더보기 &gt;</span></a>
+				</div>
 
+
+				<div class="jeonga_uMhome_content_section"style="display: flex; flex-wrap: wrap; width: 1056px;">
+				</div>
+				
+				<div class="jeonga_uMhome_content_title">
+					<div>
+						<h2 class="jeonga_uMhome_content_title_txt">
+							신규 금손 클래스
+						</h2>
+					</div>
+					<a href="<c:url value='/midas/new.do'/>" class="jeonga_uMhome_content_more">
+					<span style="color: #01A9DB; margin: 0">더보기 &gt;</span></a>
+				</div>
+
+
+				<div class="jeonga_uMhome_content_section"style="display: flex; flex-wrap: wrap; width: 1056px;">
+				</div>
 			</div>
 
 		</div>

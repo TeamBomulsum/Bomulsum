@@ -37,6 +37,11 @@ public class UserMidasDAO {
 		return sqlSessionTemplate.selectList("userMidasDAO.midasNewList", vo);
 	}
 	
+	//좋아요 순으로 클래스 목록 불러오기
+	public List<UserMidasVO> midasPopularList(UserMidasPagingVO vo){
+		return sqlSessionTemplate.selectList("userMidasDAO.midasBestLikeClassList", vo);
+	}
+	
 	//전체 클래스 개수 불러오기
 	public int getAllMidasCount() {
 		return sqlSessionTemplate.selectOne("userMidasDAO.getAllMidasCount");

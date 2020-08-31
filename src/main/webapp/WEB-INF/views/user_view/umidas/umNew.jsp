@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 금손 클래스 | 인기 클래스</title>
+<title> 금손 클래스 | 신규 클래스</title>
 <style>
 
 
@@ -235,7 +235,7 @@ body a:link, a:visited, a:hover, a:active {
 		<div class="minwoo_class_category_head">
 			<div class="minwoo_class_category_head_depth">
 				<a href="<c:url value='/midas/class.do'/>">금손 클래스 &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-				<a href="<c:url value='/midas/'/>">신규 클래스</a>
+				<a href="<c:url value='/midas/new.do'/>">신규 클래스</a>
 			</div>
 		</div>
 		<!-- 상단 헤더 종료 -->

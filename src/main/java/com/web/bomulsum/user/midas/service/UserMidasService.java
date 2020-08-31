@@ -20,6 +20,9 @@ public interface UserMidasService {
 	List<UserMidasVO> midasNewList(UserMidasPagingVO vo);
 	int getAllMidasCount(UserMidasPagingVO vo);
 	
+	//인기 리스트 불러오기
+	List<UserMidasVO> midasPopularList(UserMidasPagingVO vo);
+	
 	//즐겨찾기 추가
 	void likeClass(HashMap<String, String> map);
 	void nonLikeClass(HashMap<String, String> map);

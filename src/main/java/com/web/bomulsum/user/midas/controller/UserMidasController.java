@@ -40,7 +40,24 @@ public class UserMidasController {
 		mav.addObject("categoryList", list);
 		mav.setViewName("/umidas/umCategory");
 		return mav;
-		//return "/umidas/umCategory";
+	}
+	
+	/*금손 클래스 지역별 리스트 보여주기*/
+	@RequestMapping(value="/location")
+	public String locationList(String location) {
+		return "/umidas/umLocation";
+	}
+	
+	/*신규 클래스*/
+	@RequestMapping(value="/new")
+	public String newList() {
+		return "/umidas/umNew";
+	}
+
+	/*인기 클래스*/
+	@RequestMapping(value="/popular")
+	public String popularList() {
+		return "/umidas/umPopular";
 	}
 	
 	@ResponseBody
@@ -76,11 +93,7 @@ public class UserMidasController {
 	}
 	
 	
-	/*금손 클래스 지역별 리스트 보여주기*/
-	@RequestMapping(value="/location")
-	public String locationList(String location) {
-		return "/umidas/umLocation";
-	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/lcinfo", method=RequestMethod.POST)
@@ -114,11 +127,7 @@ public class UserMidasController {
 		return map;
 	}
 	
-	/*신규 클래스*/
-	@RequestMapping(value="/new")
-	public String newList() {
-		return "/umidas/umNew";
-	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/ninfo", method=RequestMethod.POST)
@@ -138,7 +147,6 @@ public class UserMidasController {
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<UserMidasVO> data = service.midasNewList(vo);
-		//map.put("categoryList", list);
 		map.put("totalCnt", totalCnt);
 		map.put("startNum", vo.getStartNum());
 		map.put("data", data);
@@ -150,6 +158,37 @@ public class UserMidasController {
 		return map;
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="/pinfo", method=RequestMethod.POST)
+	public HashMap<String, Object> popInfo(
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member) {
+		UserMidasPagingVO vo = new UserMidasPagingVO();
+		int totalCnt = service.getAllMidasCount(vo);
+		
+		int pageCnt = page;
+		if(pageCnt == 1) {
+			vo.setStartNum(1);
+			vo.setEndNum(21);
+		} else {
+			vo.setStartNum(pageCnt+ (20*(pageCnt-1)));
+			vo.setEndNum(pageCnt*21);
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<UserMidasVO> data = service.midasPopularList(vo);
+		map.put("totalCnt", totalCnt);
+		map.put("startNum", vo.getStartNum());
+		map.put("data", data);
+		
+		if(!member.equals("null") || member != null) {
+			map.put("wishList",service.getLikeClass(member));
+		}
+		
+		return map;
+	}
+	
+	/*즐겨찾기 기능*/
 	@ResponseBody
 	@RequestMapping(value="/wish", method=RequestMethod.POST)
 	public void filterInfo(
@@ -170,11 +209,5 @@ public class UserMidasController {
 		}
 	}
 	
-	
-	/*인기 클래스*/
-	@RequestMapping(value="/pupular")
-	public String popularList(String popular) {
-		return "/umdias/umPopular";
-	}
 	
 }

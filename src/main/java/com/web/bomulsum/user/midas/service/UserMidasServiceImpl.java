@@ -62,5 +62,10 @@ public class UserMidasServiceImpl implements UserMidasService {
 		return dao.getLikeClass(member);
 	}
 
+	@Override
+	public List<UserMidasVO> midasPopularList(UserMidasPagingVO vo) {
+		return dao.midasPopularList(vo);
+	}
+
 
 }

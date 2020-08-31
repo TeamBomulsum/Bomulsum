@@ -34,6 +34,12 @@
 		<!-- <if test="orderColumn != null and orderValue != null"> -->
 		<!-- </if> -->
 	</sql>
+	<sql id="footerN">
+		) X ) Y
+		WHERE Y.RNUM BETWEEN #{startNum} AND #{endNum}
+		<!-- <if test="orderColumn != null and orderValue != null"> -->
+		<!-- </if> -->
+	</sql>
 
 	<!-- 카테고리별 클래스 목록 가져오기 -->
 	<select id="midasCategoryList" resultMap="userMidasVO">
@@ -73,7 +79,7 @@
 			)
 	</select>
 	
-	<!-- 전체 클래스 목록 가져오기 -->
+	<!-- 전체 클래스에서 최신등록 순으로  클래스 목록 가져오기 -->
 	<select id="midasNewList" resultMap="userMidasVO">
 		<include refid="header" />
 		SELECT * FROM midas_tb
@@ -133,5 +139,32 @@
 			wishlist_option = '즐겨찾는클래스'
 	</select>
 
+	<select id="midasBestLikeClassList" resultMap="userMidasVO">
+		<include refid="header" />
+			SELECT
+				a.midas_code_seq, a.writer_code_seq, a.midas_img, a.midas_name,
+				a.midas_category, a.midas_address1, NVL(b.cnt, 0)
+			FROM
+				midas_tb a
+			LEFT OUTER JOIN
+				(
+				SELECT
+					wishlist_option_code, COUNT(wishlist_option_code) cnt
+				FROM
+					wishlist_tb
+				WHERE
+					wishlist_option='즐겨찾는클래스' 
+				GROUP BY
+					wishlist_option_code
+				ORDER BY
+					cnt DESC
+				) b
+			ON
+				a.midas_code_seq = b.wishlist_option_code
+			WHERE
+				a.midas_run = 'Y'
+			ORDER BY NVL(b.cnt, 0) DESC
+		<include refid="footerN" />
+	</select>
 
 </mapper>

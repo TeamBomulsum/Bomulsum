@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 금손 클래스 | 카테고리</title>
+<title> 금손 클래스 | ${param.category}</title>
 <style>
 
 
