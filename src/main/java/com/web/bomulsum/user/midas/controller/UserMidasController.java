@@ -25,8 +25,10 @@ public class UserMidasController {
 	private UserMidasServiceImpl service;
 	
 	@RequestMapping(value="/class")
-	public String midasHome() {
-		return "/umidas/uMhome";
+	public ModelAndView midasHome() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/umidas/uMhome.do");
+		return mav;
 	}
 	
 	/*금손 클래스 카테고리별 리스트 보여주기*/
