@@ -17,4 +17,12 @@ public class UserReviewController {
 		mav.setViewName("/umyInfo/uReview/uWriteReview");
 		return mav;
 	}
+	
+	@RequestMapping("/reviewList")
+	public ModelAndView myReviewList(HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/umyInfo/uReview/uWriteReviewMe");
+		return mav;
+	}
 }

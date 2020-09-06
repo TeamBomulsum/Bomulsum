@@ -458,6 +458,23 @@
 				placeholder : ''//placeholder 설정
 			});
 		});
+		
+		$('#submit').click(function(){
+			if($('#admin_notice_category').val() == 0){
+				alert("카테고리를 선택해주세요");
+				$('#admin_notice_category').focus();
+				return false;
+			} else if($('#admin_notice_title').val() == ""){
+				alert("제목을 입력해주세요");
+				$('#admin_notice_title').focus();
+				return false;
+			} else if($('#summernote').val() == ""){
+				alert("내용을 입력해주세요");
+				$('#summernote').focus();
+				return false;
+			}
+				$('#mboardWrite').submit();
+		});
 	</script>
 
 

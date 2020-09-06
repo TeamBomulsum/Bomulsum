@@ -26,11 +26,15 @@
 	</select>
 
 	<!-- 구매목록 불러오기 -->
-	<!-- <select id="" parameterType="String" resultMap="">
+ 	<!-- <select id="" parameterType="String" resultMap="">
+ 		SELECT * FROM buy_art_tb
+ 		WHERE 
+ 			(member_code_seq = #{memberCodeSeq})
+ 			AND (b_art_review = 'N')
 	</select>
-
-	구매후기 등록하기
-	<insert id="" parameterType="">
+ -->
+	<!-- 구매후기 등록하기 -->
+	<!-- <insert id="" parameterType="">
 	</insert> -->
 
 </mapper>
