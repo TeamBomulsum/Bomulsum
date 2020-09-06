@@ -8,6 +8,7 @@
 <title>보물섬 | 주문 결제하기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+
 $(document).ready(function () {
 	$('.dain_payment_customer_info').click(function(){
 		if ( $(".dain_payment_customer_info_detail").css("display") == "none" ){

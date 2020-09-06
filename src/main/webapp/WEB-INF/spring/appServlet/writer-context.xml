@@ -20,7 +20,7 @@
 	<context:component-scan base-package="com.web.bomulsum.writer">
 	</context:component-scan>
 
-	<mybatis-spring:scan base-package="com.web.bomulsum.writer.interceptor"/>
+<!-- 	<mybatis-spring:scan base-package="com.web.bomulsum.writer.interceptor"/> -->
 	
 	<bean id="autoLoginIntercepter" class="com.web.bomulsum.writer.interceptor.AutoLoginInterceptor"/>
 	<bean id="intercepter" class="com.web.bomulsum.writer.interceptor.Interceptor"/>

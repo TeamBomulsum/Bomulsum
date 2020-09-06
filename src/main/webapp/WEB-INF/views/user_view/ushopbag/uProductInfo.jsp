@@ -1,12 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
+<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+<script src="<c:url value='/resources/vendor/clipboard/clipboard.min.js'/>"></script>
 <script type="text/javascript">
-	function wonDisWorkInfoDo(){
+function AddComma(num){
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	return num.toString().replace(regexp, ',');
+}
+
+window.addEventListener('scroll', () => {
+	input = document.getElementById('ShareUrl');
+	wonSlides = document.getElementById('hoddenTop');
+	hoddenBottom = document.getElementById('hoddenBottom');
+	let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+	let windowHeight = window.innerHeight; // 스크린 창
+	
+	let footerLocation1 = document.getElementById('product_Footer').scrollHeight;
+	let footerLocation2 = document.querySelector('footer').scrollHeight;
+	let fullHeight = document.body.scrollHeight;
+	
+	
+	let calc = fullHeight-(footerLocation1+footerLocation2) + 200;
+	
+	let positionFixed = document.getElementById('positionFixed');
+	
+ 	if(scrollLocation+windowHeight >= calc){
+ 		positionFixed.style.display = 'none';
+ 		hoddenTop.append(input);
+ 	}else{
+ 		positionFixed.style.display = 'block';
+ 		hoddenBottom.append(input);
+ 	}
+	
+	
+});
+
+	function wonDisWorkInfoDo(){//작품 정보제공 고시
 		var wonDisWorkInfo = document.getElementById('wonDisWorkInfo');
 		var wonInfoWorkButton = document.getElementsByClassName('wonInfoWorkButton');
 		console.log("wonInfoWorkButton : " + wonInfoWorkButton);
@@ -18,7 +53,7 @@
 			document.getElementById('wonInfoWorkButton').className= 'fa fa-arrow-down';
 		}
 	}
-	function wonDisSellInfoDo(){
+	function wonDisSellInfoDo(){//판매 작가 정보
 		var wonDisWorkInfo = document.getElementById('wonDisSellInfo');
 		var wonInfoWorkButton = document.getElementsByClassName('wonInfoSellInfoButton');
 		console.log("wonInfoSellInfoButton : " + wonInfoWorkButton);
@@ -30,7 +65,7 @@
 			document.getElementById('wonInfoSellInfoButton').className= 'fa fa-arrow-down';
 		}
 	} 
-	function wonDisChangReturnDo(){
+	function wonDisChangReturnDo(){//배송 교환 환불
 		var wonDisWorkInfo = document.getElementById('wonDisChangReturn');
 		var wonInfoWorkButton = document.getElementsByClassName('wonChangReturnButton');
 		console.log("wonChangReturnButton : " + wonInfoWorkButton);
@@ -43,9 +78,20 @@
 		}
 	}
 
-	function wonAuctionClose(){
+	function wonAuctionClose(){//전체옵션 선택
 		var closeButton = document.getElementById('wonAuctionClose');
 		var display = document.getElementById('wonActionDisplay');
+		var tempPriceChange = document.getElementById('tempPrice');
+		var tempPrice = parseInt(document.getElementById('tempPrice').innerHTML);
+		var totalPrice = parseInt(document.getElementById('totalPrice').innerHTML.replace(',',''));
+		var changePrice = totalPrice - tempPrice;
+		var lastPrice = document.getElementById('totalPrice');
+		var wonActionDetailDisplay = document.getElementById('wonActionDetailDisplay');
+		var optionSelectDetail = document.getElementById('optionSelectDetail');
+		
+		tempPriceChange.innerHTML = "0";
+		wonActionDetailDisplay.innerHTML = "";
+		optionSelectDetail.style.display = 'none'
 		
 			display.style.removeProperty('position');
 			display.style.display = 'none';
@@ -54,50 +100,99 @@
 	function wonAuctionOpen(){
 		var openButton = document.getElementById('wonActionButton');
 		var display = document.getElementById('wonActionDisplay');
-	
+		
 		display.style.setProperty('position', 'absolute');
-		display.style.setProperty('display','block')
+		display.style.setProperty('display','block');
 	}
-	function wonDetailAuction() {
-		var openButton = document.getElementById('wonDetailAuction');
-		var display = document.getElementById('wonActionDetailDisplay');
+	function wonDetailAuction(e) {
 		var display1 = document.getElementById('wonActionDisplay');
+		var option = e.querySelector('div');
+		var select = e.querySelector('button');
+		if(option.style.display == 'none'){		
+			option.style.setProperty('display','block');
+			
+		}else{
+			option.style.setProperty('display','none');
+		}
 		
-		display1.style.removeProperty('position');
-		display1.style.display = 'none';
-		
-		display.style.setProperty('display','block')
 	}
 	function wonAuctionDetailClose() {
-		var openButton = document.getElementById('wonAuctionDetailClose');
+		var tempPriceChange = document.getElementById('tempPrice');
+		var tempPrice = parseInt(document.getElementById('tempPrice').innerHTML);
+		var totalPrice = parseInt(document.getElementById('totalPrice').innerHTML.replace(',',''));
+		var changePrice = totalPrice - tempPrice;
+		var lastPrice = document.getElementById('totalPrice');
 		var display = document.getElementById('wonActionDetailDisplay');
-		display.style.display = 'none';
-	}
-	function wonMinusButton(){
-		var minus = document.getElementById('wonMinusButton');
-		var value = parseInt(document.getElementById('wonAuctionAmount').value);
-	
-			if(value > 1){
-				value -= 1;
-				console.log(value);
-				document.getElementById('wonAuctionAmount').value = value;
-			}else if(value == 1){
-				alert('수량을 확인해 주세요');
-			
-			} 
-	}
-	function wonPlusButton(){
-		var plus =  document.getElementById('wonPlusButton');
-		var value = parseInt(document.getElementById('wonAuctionAmount').value);
-			if(value > 0 && value < 10){
-				value += 1;
-				console.log(value);
-				document.getElementById('wonAuctionAmount').value = value;
-			}else if(value == 10){
-				alert('수량을 확인해 주세요');
-			} 
+		var optionSelectDetail = document.getElementById('optionSelectDetail');
+		
+		tempPriceChange.innerHTML = "0";
+		lastPrice.innerHTML = AddComma(changePrice);
+		display.innerHTML = "";
+		optionSelectDetail.style.display = 'none'
+		
 		
 	}
+
+	function imgChage(e){
+		var img = e.querySelector('img');
+		var mainPhoto = document.getElementById('mainPhoto');
+		console.log(img.src);
+		mainPhoto.src = img.src;
+		
+	}
+	function optionSelect(e){
+		content = e.innerHTML;
+		var price = parseInt(e.value);
+		
+		var display1 = document.getElementById('wonActionDetailDisplay');
+		var tempPrice = parseInt(document.getElementById('tempPrice').innerHTML);
+		var tempPricee = document.getElementById('tempPrice');
+		var i = display1.innerHTML += content +" /";
+		var temptotal = tempPrice += price;
+		tempPricee.innerHTML = temptotal;
+
+	}
+	function completeSelect(){
+		var checkDisp = document.getElementById('wonActionDetailDisplay');
+		var disp = document.getElementById('optionSelectDetail');
+		var tempPrice = parseInt(document.getElementById('tempPrice').innerHTML);
+		var totalPrice = parseInt(document.getElementById('totalPrice').innerHTML.replace(',',''));
+		var changePrice = totalPrice + tempPrice;
+		var lastPrice = document.getElementById('totalPrice');
+		var display = document.getElementById('wonActionDisplay');
+		
+
+		if(checkDisp.innerHTML == ''){
+			alert('옵션을 선택해주세요.');
+		}else{
+			console.log(checkDisp.innerHTML)
+			lastPrice.innerHTML = AddComma(changePrice);
+			display.style.display = 'none';
+			disp.style.display = 'block';			
+		}
+
+	}
+	function bookmarkCount(){
+		var bookMark = document.getElementById('won_bookMark_star');
+		if(bookMark.className == 'fa fa-star-o fa-1x'){
+			bookMark.className = "fas fa-star";
+		}else{
+			bookMark.className = 'fa fa-star-o fa-1x';
+		}
+	}
+	function copy_trackback(){
+		var obShareUrl = document.getElementById("ShareUrl");
+		obShareUrl.value = window.document.location.href;  // 현재 URL 을 세팅해 줍니다.
+		console.log(obShareUrl.value)
+		obShareUrl.select();  // 해당 값이 선택되도록 select() 합니다
+		document.execCommand("copy"); // 클립보드에 복사합니다.
+		alert("URL이 클립보드에 복사되었습니다.\n원하는 곳에 붙여넣기 해주세요"); 
+	}
+
+	
+
+
+
 </script>
 <style>
 #wondSumImg{
@@ -168,79 +263,31 @@
 }
 
 </style>
-<script type="text/javascript">
-var slideIndex = 1;
-showSlides(slideIndex);
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-  console(showSlides(slideIndex += n));
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-  console(showSlides(slideIndex = n));
-}
-function showSlides(n) {
-	  var i;
-	  var slides = document.getElementsByClassName("wonSlides");
-	  var dots = document.getElementsByClassName("demo");
-	  if (n > slides.length) {slideIndex = 1}
-	  if (n < 1) {slideIndex = slides.length}
-	  for (i = 0; i < slides.length; i++) {
-	      slides[i].style.display = "none";
-	  }
-	  for (i = 0; i < dots.length; i++) {
-	      dots[i].className = dots[i].className.replace(" active", "");
-	  }
-	  slides[slideIndex-1].style.display = "block";
-	  dots[slideIndex-1].className += " active";
-	  captionText.innerHTML = dots[slideIndex-1].alt;
-	}
-</script>
 <meta charset="UTF-8">
 <title>상품소개!</title>
 </head>
 <body>
 <div>
 	<%@ include file="../include/uHeader.jsp"  %>
-		<div style="width:70%; margin-left: 15%; margin-top: 1%; margin-right: 50%; display: flex; flex-direction: row;">
-		<!-- 전체틀 -->
+		<div style="width:70%; margin-left: 15%; margin-top: 1%; margin-right: 50%; display: flex; flex-direction: row; z-index: 1" id="productScroll">
 			<div style="width:50%;">
+		<!-- 전체틀 --><div id="hoddenTop"></div>
 				<!-- 사진영역 -->
+				
 				<div style="margin-top: 2%; display: flex; justify-content:center;" class="wonSlides">
-					<img style="width:80%;" src="<c:url value='/resources/img/test.png'/>">
-				</div>
-				<div style="margin-top: 2%; display: none; justify-content:center;" class="wonSlides">
-					<img style="width:80%;" src="<c:url value='/resources/img/test.png'/>">
-				</div>
-				<div style="margin-top: 2%; display: none; justify-content:center;" class="wonSlides">
-					<img style="width:80%;" src="<c:url value='/resources/img/test.png'/>">
-				</div>
-				<div style="margin-top: 2%; display: none; justify-content:center;" class="wonSlides">
-					<img style="width:80%;" src="<c:url value='/resources/img/test.png'/>">
-				</div>
-				<div style="margin-top: 2%; display: none; justify-content:center;" class="wonSlides">
-					<img style="width:80%;" src="<c:url value='/resources/img/test.png'/>">
+					<img id="mainPhoto" style="width:80%; height:500px;" src="<c:url value='/upload/${firstPhoto}'/>">
 				</div>
 				
 				<div style="display: flex; justify-content:center; margin-bottom: 2%;">
 					<!-- 썸네일 -->
-					<button class="wonSumSlides" id="wondSumImg"><img style="width:100%;" src="<c:url value='/resources/img/test.png'/>"></button>
-					<button class="wonSumSlides" id="wondSumImg"><img style="width:100%;" src="<c:url value='/resources/img/cart.png'/>"></button>
-					<button class="wonSumSlides" id="wondSumImg"><img style="width:100%;" src="<c:url value='/resources/img/test.png'/>"></button>
-					<button class="wonSumSlides" id="wondSumImg"><img style="width:100%;" src="<c:url value='/resources/img/cart.png'/>"></button>
-					<button class="wonSumSlides" id="wondSumImg"><img style="width:100%;" src="<c:url value='/resources/img/test.png'/>"></button>
+			<c:forEach items="${artPhotoSplit }" varStatus="vs">
+					<button class="wonSumSlides" id="wondSumImg" onclick="imgChage(this);"><img style="width:100%;" src="<c:url value='/upload/${artPhotoSplit[vs.index]}'/>"></button>
+					
+			</c:forEach>
 				</div>
 				<!-- 화면전환버튼 -->
-				<div style="width: 100%; display: flex; justify-content: space-between;">
-					<div style="margin-left: 10%;">
-						<a class="prev" onclick="plusSlides(-1)">❮</a>
-					</div>
-					<div style="margin-right: 10%;">
-  						<a class="next" onclick="plusSlides(1)">❯</a>
-					</div>
-				</div>
+				
 				<!-- 화면전환버튼end -->
 				<hr>
 				
@@ -255,7 +302,7 @@ function showSlides(n) {
 				<div>
 					<!-- 내용 작품 소개 -->
 					<div>
-						작품내용을 쓰거라				
+						${artList.artDescription }				
 					</div>
 				</div>
 				<hr>
@@ -266,16 +313,12 @@ function showSlides(n) {
 					<strong>카테고리</strong>
 				</div>
 				<ul style="margin: 5%;display: flex; list-style: none;padding-left: 0px; justify-content: center; flex-wrap: wrap;">
-					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#카테고리</li>
-					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#카테고</li>
-					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#카테</li>
-					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#카</li>
-					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#카테고리카</li>
-					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#카테고리카테</li>
-					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#카테고리카테고</li>
-					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#카테고리카테고리</li>
+				<c:forEach items="${keywordSplit }" varStatus="vs">
+					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#${keywordSplit[vs.index] }</li>
+				</c:forEach>
 				</ul>
 				<hr>
+				<c:forEach var="artInfo" items="${artInfo }">
 				<div style="display: flex; justify-content: space-between; flex-direction: row; padding:18px 16px;">
 					<span>작품 정보제공 고시</span>
 					<span id="wonInfoWorkButton" onclick="wonDisWorkInfoDo()" class="fa fa-arrow-down"></span>
@@ -284,15 +327,15 @@ function showSlides(n) {
 					<table style="width:100%;">
 						<tr>
 							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; border:1px solid  width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">작품명</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">작품명</td>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${artList.artName }</td>
 						</tr>
 						<tr>
 							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>법에 의한 인증,허가 등을 받았음을 확인할 수 있는 경우 그에 대한 사항</span></th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${artInfo.artInfoDetailCategory}</td>
 						</tr>
 						<tr>
 							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">제조자 / 제조국</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${artInfo.artInfoDetailFrom}</td>
 						</tr>
 					</table>
 				</div>
@@ -305,15 +348,15 @@ function showSlides(n) {
 					<table style="width:100%;">
 						<tr>
 							<th style="border:1px #ABABAB solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">대표자명</th>
-							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">작품명</td>
+							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${writer.writerName}</td>
 						</tr>
 						<tr>
 							<th style="border:1px #ABABAB solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">이메일</th>
-							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
+							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${writer.writerEmail }</td>
 						</tr>
 						<tr>
 							<th style="border:1px #ABABAB solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">전화번호</th>
-							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
+							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${writer.writerPhone}</td>
 						</tr>
 					</table>
 				</div>
@@ -326,7 +369,11 @@ function showSlides(n) {
 					<table style="width:100%;">
 						<tr>
 							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">배송비</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">작품명</td>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">
+								<span>기본료 : </span><span><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/> 원</span>  <br>
+								<span>배송비 무료 조건 :</span> <span>${writer.writerSendfreeCase }</span><br>
+								<span>제주, 도서산간일 경우 기본료만 무료가 됩니다.</span><br>
+								<span>제주 / 도서산간 추가비용 : </span><span><fmt:formatNumber value="${writer.writerSendPrice }"/>원</span></td>
 						</tr>
 						<tr>
 							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>제작 / 배송</span></th>
@@ -334,10 +381,18 @@ function showSlides(n) {
 						</tr>
 						<tr>
 							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">교환 / 환불</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
+							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">
+							<c:if test="${writer.writerRefund eq 'y'}">
+								<span>교환 및 환불이 가능합니다.</span>
+							</c:if>
+							<c:if test="${writer.writerRefund eq 'n'}">
+								<span>주문 전 판매 작가님과 연락하여 확인해주세요.신선식품이기에 단순변심에의한 교환및 환불은불가합니다</span>
+							</c:if>
+							</td>
 						</tr>
 					</table>
 				</div>
+				</c:forEach><!-- 작품정보 제공공시 -->
 				<hr>
 				<div style="padding: 2%; display: flex; justify-content: space-between; ">
 					<span>구매후기(구매후기 수)</span>
@@ -364,7 +419,7 @@ function showSlides(n) {
 						<a id="wonUproductPagingButtonPrev">
 							<span style="text-align: center;">&lt;이전 |</span>
 						</a>
-						<a id=wonUproductPagingButtonNext>
+						<a id="wonUproductPagingButtonNext">
 							<span style="text-align: center;">| 다음&gt;</span>
 						</a>
 				</div>
@@ -390,12 +445,12 @@ function showSlides(n) {
 				<!-- 댓글 end -->
 			</div>
 			<!-- 상품정보 선택 -->
-			<div style="margin: 3%; width:50%;">
-				<div style="border:1px #ABABAB solid; position: fixed;  width:32.7%;">
+			<div style="margin: 3%; width:50%; z-index: 1;">
+				<div style="border:1px #ABABAB solid; position: fixed; width:32.7%;" id="positionFixed">
 					<div style="margin:1%; padding: 1%; display: flex; justify-content: space-between;">
 						<span style="display: flex; flex-direction: row; width:50%; margin: 1%; padding: 1%;">
-							<img style="width: 10%; height:80%;" src="<c:url value='/resources/img/test.png'/>">
-							<span style="font-size: 80%; justify-content:center;">판매자 프로필 이름</span>
+							<img style="width: 10%; height:80%;" src="<c:url value='/upload/${writer.writeProfileImg }'/>">
+							<span style="font-size: 80%; justify-content:center;">${writer.writerBrandName }</span>
 						</span>
 					<div>
 						<a style="text-decoration: none; display: flex; justify-content: flex-end;"href="#">
@@ -403,26 +458,51 @@ function showSlides(n) {
 						</a>
 					</div>
 					</div>
+					<div id="wonActionDisplay" style=" width: 80%; border: 1px solid; border-radius: 2px; background-color: #fff; font-size: 100%; vertical-align: baseline; display: none; flex-direction: column;">
+								<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 100%; vertical-align: baseline; box-sizing: border-box; border">
+									<span style="font-size: 12px;color: #fff;">전체옵션 선택</span>
+									<button id="wonAuctionClose" onclick="wonAuctionClose()" style="float: right; background-color: #333; border:none; color: #fff;">X</button>
+								</div>
+								<!-- 선택사항 -->
+								<c:forEach var="b" items="${artOption }">
+										<div  style="display: flex; flex-direction: column;"><!-- 선택사항 1 -->
+											<div id="wonDetailAuction" onclick="wonDetailAuction(this);">
+												<span style="padding: 1%; margin: 1%;">${b.artOptionCategory }</span>
+												<i style=" padding: 1%; margin: 1%; float: right;"class="fa fa-arrow-down"></i>
+											<div id="wonDetailAuctionSelect"  style="display: none; flex-direction: column; border: none; width: 100%;">
+												<button value="${b.artOptionPrice }" onclick="optionSelect(this);" style="background-color: white; border: none; width: 100%;">
+												<span style="padding: 1%; margin: 1%;">${b.artOptionName }</span>
+												<span style="padding: 1%; margin: 1%;">+${b.artOptionPrice }</span></button>
+											</div>
+											</div>
+											
+										</div>
+								</c:forEach>
+								<!-- 선택사항  end -->
+								<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 100%; vertical-align: baseline; box-sizing: border-box;">
+									<span onclick="completeSelect();" style="font-size: 12px;color: #fff; cursor: pointer;">선택완료</span>
+								</div>
+							</div>
 					<div style="margin-left: 2.5%;"><!-- 할인율 가격 판매제목  -->
-						<strong style="font-size: 150%; padding: 1%; margin: 1%;">판매 제목</strong><br>
+						<strong style="font-size: 150%; padding: 1%; margin: 1%;">${artList.artName }</strong><br>
 						<div style="padding:1%; margin:1%; display: flex; flex-direction: row; justify-content:space-between;">
 							<div style="width:70%; display: flex; flex-direction: row;">
-								<p style="color: red; padding-top:2%; margin-top: 2%; font-size: 100%;">할인률%</p>
-								<p style="padding: 1%; margin: 1%; font-size: 150%;">1000000 원</p>
-								<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 80%; text-decoration: line-through;">50000 원</p>
+								<p style="color: red; padding-top:2%; margin-top: 2%; font-size: 100%;">할인<br>${ artList.artDiscount}&nbsp;원</p>
+								<p style="padding: 1%; margin: 1%; font-size: 150%;"> <fmt:formatNumber value="${artList.artPrice - artList.artDiscount}" pattern="#,###"/>원</p>
+								<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 80%; text-decoration: line-through;"><fmt:formatNumber value="${artList.artPrice}" pattern="#,###"/> 원</p>
 							</div>
 							<div style="width: 30%; display:flex; justify-content: flex-end;">
-								<button style="background: white; border:none; display:flex; flex-direction: column; font-size: 60%;margin:1%; margin-top: 5%;">
-									<i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-									<span>200</span>
-								</button>
-								<button id="wonShareButton" style="background: white; border:none;">
-								<i class="fa fa-share-alt-square fa-3x" aria-hidden="true"></i>
-								</button>
+								<div style="display: flex; flex-direction: column; margin: 1%; padding: 1%;">
+									<i class="fa fa-star-o fa-1x" aria-hidden="true" onclick="bookmarkCount();" id="won_bookMark_star"></i>
+									<span style="align-self: center;"><fmt:formatNumber value="${artList.bookMarkCount }" pattern="#,###"/></span>
+								</div>
+									<i class="fa fa-share-alt-square fa-3x" aria-hidden="true" onclick="copy_trackback();">
+										
+									</i>
 							</div>
 						</div>
 						<div style="display:flex; justify-content: flex-end; margin-right: 3%;">
-							<span style="color: #666666; font-weight: bold; font-size:14px; margin-right: 1%;">몇명</span>&nbsp;
+							<span style="color: #666666; font-weight: bold; font-size:14px; margin-right: 1%;">${artList.artSaleCount }</span>&nbsp;
 							<span style="color: #666666; font-size:14px;">구매</span><!-- 할인율 가격 판매제목  -->
 						</div>					
 						<div style="display:flex; flex-direction: row; padding: 1%; margin: 1%;">
@@ -433,7 +513,7 @@ function showSlides(n) {
 								<span style="margin: 3%; padding: 3%; color: #666666;">수량</span>
 							</div>
 							<div style="display:flex; flex-direction: column; margin-left: 5%;width:30%;">
-								<span style="margin: 3%; padding: 3%;">70P</span>
+								<span style="margin: 3%; padding: 3%;"><fmt:formatNumber value="${(artList.artPrice- artList.artDiscount)*0.01}" pattern="#,###"/> P</span>
 								<span style="margin: 3%; padding: 3%;">
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<i class="fa fa-star" aria-hidden="true"></i>
@@ -441,61 +521,37 @@ function showSlides(n) {
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<i class="fa fa-star" aria-hidden="true"></i>
 								</span>
-								<span style="margin: 3%; padding: 3%;">2,500원</span>
-								<span style="margin: 3%; padding: 3%;">주문시 제작</span>
+								<span style="margin: 3%; padding: 3%;"><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/>원</span>
+								<span style="margin: 3%; padding: 3%;">${artList.artAmount }</span>
 							</div>
 						</div>
-						<div id="wonActionDisplay" style=" width: 80%; border: 1px solid; border-radius: 2px; background-color: #fff; font-size: 100%; vertical-align: baseline; display: none; flex-direction: column;">
-								<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 100%; vertical-align: baseline; box-sizing: border-box; border">
-									<span style="font-size: 12px;color: #fff;">전체옵션 선택</span>
-									<button id="wonAuctionClose" onclick="wonAuctionClose()" style="float: right; background-color: #333; border:none; color: #fff;">X</button>
-								</div>
-								<!-- 선택사항 -->
-								<div>
-									<div>
-										<div style="display: flex; flex-direction: column;"><!-- 선택사항 1 -->
-											<div id="wonDetailAuction" onclick="wonDetailAuction()">
-												<span style="padding: 1%; margin: 1%;">사이즈</span>
-												<span style="padding: 1%; margin: 1%; margin-left: 60%;">선택출력</span>
-												<i style=" padding: 1%; margin: 1%; float: right;"class="fa fa-arrow-down"></i>
-											</div>
-											<div style="display: none; flex-direction: column;">
-												<button style="background-color: white;border: 1px #333 solid;"><span style="padding: 1%; margin: 1%;">500ml</span></button>
-												<button style="background-color: white;border: 1px #333 solid;"><span style="padding: 1%; margin: 1%;">700ml(+3000원)</span></button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- 선택사항  end -->
-							</div>
+						
 						<div style="padding: 1%; margin: 1%;">
 							<button id="wonActionButton" style="width:80%; display: flex; justify-content: space-between; margin: 1%;"
 							onclick="wonAuctionOpen()">
 								<span>옵션</span>
 								<span id="wonActionArrow" style="margin: 1%;"class="fa fa-arrow-down"></span>
 							</button>
-							<div style="display: none; flex-direction:column; width:80%;margin: 1%; background-color: #F5F5F5;" id="wonActionDetailDisplay">
-								<div style="margin: 1%;padding: 1%;"><!-- 옵션 선택사항 -->
-									<span style="font-size: 80%; color: #666666; padding: 1%;">
-									향1: (NEW)스위트 머스캣(+1,000원)/ 향2: (NEW)스위트 머스캣(+1,000원)/ 향3: (NEW)스위트 머스캣(+1,000원)
+							<div id="optionSelectDetail" style="display: none; flex-direction:column; width:80%;margin: 1%; background-color: #F5F5F5;" >
+								<div style="margin: 1%;padding: 1%; " ><!-- 옵션 선택사항 -->
+									<span style="font-size: 80%; color: #666666; padding: 1%;" id="wonActionDetailDisplay">
+									
 									</span>
 								</div>
 								<div style="display: flex; justify-content: space-between; margin: 1%;padding: 1%;">
 									<div style="display: flex; flex-direction: row;">
-										<button id="wonMinusButton" onclick="wonMinusButton()"><span style="border-color: #ABABAB;">-</span></button>
-										<input id="wonAuctionAmount" style="width:10%; text-align: center;" value="1" readonly>
-										<button id="wonPlusButton" onclick="wonPlusButton()"><span style="border-color: #ABABAB;">+</span></button>
+									
 									</div>
 									<div>
-										<span style="font-size: 12px; color: #666666;">가격</span>
+										<span id="tempPrice" style="font-size: 12px; color: #666666;">0</span><span>원</span>
 										<button id="wonAuctionDetailClose" onclick="wonAuctionDetailClose()">X</button>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div style="display: flex; justify-content:space-between; padding: 1%; margin: 1%;">
-							<span>총작품금액</span>
-							<span style="font-size: 20px; color: #333333;">17,000 원</span>
+						<div style="display: flex;  padding: 1%; margin: 1%;">
+							<span style="width:68%;">총작품금액</span>
+							<span id="totalPrice" style="font-size: 20px; color: #333333;"><fmt:formatNumber value="${artList.artPrice - artList.artDiscount}"/></span><span>원</span>
 						</div>
 						<div style="display: flex; flex-direction: row; padding: 1%; margin: 1%;">
 							<button style="width:40%; background-color:white; 
@@ -508,8 +564,9 @@ function showSlides(n) {
 					</div>
 				</div>
 			</div><!-- 상품정보 end -->
+			
 		</div>
-	<div style="width:70%; margin-left: 15%; margin-top: 1%; margin-right: 50%; background-color: #F5F5F5; z-index: 999;">
+	<div style="width:70%; margin-left: 15%; margin-top: 1%; margin-right: 50%; background-color: #F5F5F5; position: relative; z-index: 9999" id="product_Footer">
 		<div style="width: 100%; display: flex; flex-direction: row; padding: 1%;">
 			<div style="width:50%; margin: 3%; border-right: 1px solid #ABABAB;">
 				<div style="display: flex; justify-content: space-between;">
@@ -566,6 +623,7 @@ function showSlides(n) {
 			</div>
 		</div>
 	</div>
+<div id="hoddenBottom"><input type="text" id="ShareUrl" style="width:0.1%;"></div>
 	<%@ include file="../include/uFooter.jsp" %>
 </div>
 </body>

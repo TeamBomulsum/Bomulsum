@@ -315,6 +315,28 @@ var ajaxFilterFunc;
 var filtArr = [];
 var orderBy = 'orderByLike';
 
+
+$(function(){
+	$("#show_only_image").on('click', function(){ // 이미지만 볼래요 클릭시.
+		if($("input:checkbox[id='show_only_image_check']").is(":checked")){
+			$("input:checkbox[id='show_only_image_check']").prop("checked", false);
+		}else{
+			$("input:checkbox[id='show_only_image_check']").prop("checked", true);
+		}
+	});
+	
+	$(".content_img").on('click', function(){
+		
+		var clickIcon = $(this).children();
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+		}else{
+			clickIcon.css("color", "gray");
+		}
+	});
+});
+
 var page = 1;
 
 $(function(){
@@ -371,7 +393,7 @@ function getList(page){
 						
 						pricePer = (data[i].artPrice - data[i].artDiscount) / data[i].artPrice * 100;
 						
-						htmldiv += '<div class="dndud_main_category_content_box">'
+						htmldiv += '<div class="dndud_main_category_content_box" onclick="artCode(this);" id="'+data[i].artCode+'">'
 							+ '<input class="artCode" type="hidden" value="'+ data[i].artCode +'"/>'
 							+ '<div class="content_img" style="background-image: URL(\'/bomulsum/upload/'
 							+ artImg +'\' )">';
@@ -435,6 +457,12 @@ function getList(page){
 		}
 	});
 }
+function artCode(e){
+		var art_code = e.id;
+			location.href = "/bomulsum/user/uProductInfo/"+art_code+".do";
+}
+
+
 
 $(function(){
 	

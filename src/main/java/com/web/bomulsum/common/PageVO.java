@@ -1,6 +1,7 @@
 package com.web.bomulsum.common;
 
-public class PageVO {
+
+public class PageVO{
 
 	private int page; //사용자가 요청한 페이지 번호 
 	private int countPerPage; //한 페이지당 들어갈 게시물의 수.

@@ -36,6 +36,7 @@
 		<mapper resource="mappings/user/user-wishlist-mapping.xml" />
 		<mapper resource="mappings/user/user-midas-mapping.xml" />
 		<mapper resource="mappings/user/user-whome-mapping.xml" />
+		<mapper resource="mappings/user/user-productInfo-mapping.xml" />
 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
