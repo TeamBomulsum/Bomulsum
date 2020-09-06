@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userWhomeDAO">
+
+	<!-- 작가 정보 및 작품정보 -->
+	<select id="getWriterSalesArt" resultType="UserWHomeVO">
+		SELECT * 
+		FROM art_tb , writer_tb 
+		WHERE art_tb.writer_code_seq = writer_tb .writer_code_seq
+		AND
+		art_sale_state = 'Y'
+	<!-- 	AND
+		art_tb.writer_code_seq = 작가코드 -->		
+	</select>
+	
+	
+	
+	<!-- 작가 판매중인 작품수 -->
+	<select id="getSalesArtCount" resultType="int">
+		SELECT count(art_tb.art_name)
+		FROM art_tb , writer_tb 
+		WHERE art_tb.writer_code_seq = writer_tb .writer_code_seq
+		AND
+		art_sale_state = 'Y'
+	<!-- 	AND
+		art_tb.writer_code_seq = 작가코드 -->
+	</select>
+	
+	
+	
+	<!-- 작가 구매후기 개수 -->
+	<select id="getReviewTotal" resultType="int">
+		SELECT count(*) 
+		FROM review_tb, art_tb
+		WHERE art_tb.art_code_seq = review_tb.art_code_seq
+	<!-- 	AND
+		art_tb.writer_code_seq = 작가코드 -->
+	</select>	
+	
+	
+	<!-- 좋아하는 작가로 추가된 개수 -->
+	<select id="getAddLikes" resultType="int">
+		SELECT COUNT(*) 
+		FROM wishlist_tb
+		WHERE wishlist_option_code = 'writer_code_seq107'
+	<!-- 	
+		wishlist_option_code = 작가코드 -->
+	</select>	
+	
+</mapper>
