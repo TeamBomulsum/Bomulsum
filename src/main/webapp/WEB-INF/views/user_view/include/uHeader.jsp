@@ -975,11 +975,11 @@ body {
    			</div>
 		</div>
 		<div><a class="dain-hb-menu" href="<c:url value='/home.do'/> ">홈</a></div>
-		<div><a class="dain-hb-menu" href="#">추천 작품</a></div>
-		<div><a class="dain-hb-menu" href="#">실시간 후기</a></div>
-		<div><a class="dain-hb-menu" href="#">작가님 추천</a></div>
+		<div><a class="dain-hb-menu" href="<c:url value='/category/recommended.do'/> ">추천 작품</a></div>
+		<div><a class="dain-hb-menu" href="<c:url value='/category/realTime.do'/> ">실시간 후기</a></div>
+		<div><a class="dain-hb-menu" href="<c:url value='/category/artistRecommend.do'/> ">작가님 추천</a></div>
 		<div><a class="dain-hb-menu" href="#">인기작가</a></div>
-		<div><a class="dain-hb-menu" href="#">인기작품</a></div>
+		<div><a class="dain-hb-menu" href="<c:url value='/category/bestwork.do'/> ">인기작품</a></div>
 	</div>
 </div>
 </header>

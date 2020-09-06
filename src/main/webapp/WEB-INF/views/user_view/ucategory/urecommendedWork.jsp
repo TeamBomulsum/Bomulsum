@@ -12,7 +12,7 @@
 	display:flex;
 	width:100%;
 	height:210px;
-	background-image: url('../../resources/img/articles_head.png');
+	background-image: url("<c:url value='/resources/img/articles_head.png'/> ");
 	background-repeat: no-repeat;
 	background-size:100%;
 	flex-direction: column;
@@ -68,7 +68,7 @@
 .article_img{
 	display:flex;
 	flex-direction: column;
-	background-image: url('../../resources/img/recommendedWork_img.PNG');
+	background-image: url("<c:url value='/resources/img/recommendedWork_img.PNG' /> ");
 	width:196px;
 	height:196px;
 	background-size: 196px;

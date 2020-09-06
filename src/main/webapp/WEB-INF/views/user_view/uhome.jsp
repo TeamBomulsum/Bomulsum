@@ -22,7 +22,7 @@
 /* Slideshow container */
 .slideshow-container {
 	position: relative;
-	margin: auto;
+    margin-top: 2px;
 }
 
 /* Next & previous buttons */
@@ -498,7 +498,7 @@
 						</c:forEach>
 					</div>
 					
-					<div class="go_button">
+					<div class="go_button" onclick="location.href='/bomulsum/category/recommended.do';">
 						<span>오늘의 추천 작품 더보기</span>
 					</div>
 				</div>

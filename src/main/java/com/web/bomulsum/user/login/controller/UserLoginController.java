@@ -34,10 +34,12 @@ public class UserLoginController {
 	public ModelAndView userLogin(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		Cookie cookie[] = request.getCookies();
-		for(Cookie c : cookie) {
-			if(c.getName().equals("rememberEmail")) {
-				if(c.getValue() != null) {
-					mav.addObject("rememberedEmail", c.getValue());
+		if(cookie != null) {
+			for(Cookie c : cookie) {
+				if(c.getName().equals("rememberEmail")) {
+					if(c.getValue() != null) {
+						mav.addObject("rememberedEmail", c.getValue());
+					}
 				}
 			}
 		}

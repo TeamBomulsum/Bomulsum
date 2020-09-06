@@ -22,6 +22,26 @@ public class UserArticleController {
 	@Autowired
 	private UserArticleService service;
 	
+	@RequestMapping(value="/recommended")
+	public String recommended() {
+		return "/ucategory/urecommendedWork";
+	}
+	
+	@RequestMapping(value="/realTime")
+	public String realTime() {
+		return "/ucategory/uRealtimeReview";
+	}
+	
+	@RequestMapping(value="/artistRecommend")
+	public String artistRecommend() {
+		return "/ucategory/uArtistRecommend";
+	}
+	
+	@RequestMapping(value="/bestwork")
+	public String bestWork() {
+		return "/ucategory/ubestWork";
+	}
+	
 	@RequestMapping(value="/detail")
 	public String categoryHome(String category) {
 		return "/ucategory/ucategory";

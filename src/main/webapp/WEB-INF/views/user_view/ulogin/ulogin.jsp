@@ -133,35 +133,39 @@
     </div>
 </body>
 
-<script src="<c:url value='/vendor/jquery/jquery.min.js'/>" ></script>
-<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>" ></script>
+<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>" ></script>
+<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>" ></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/> "></script>
+<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/> "></script>
 
 
 <script>
     //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('ce0c9f8553e32b9149185202978c0507');  //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
+    Kakao.init('dbab6039d51f4966a42e02bf4f7b5dd0');  //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
     // 카카오 로그인 버튼을 생성합니다.
     Kakao.Auth.createLoginButton({
         container: '#kakao-login-btn',
         success: function (authObj) {
             alert(JSON.stringify(authObj));
-            kakao.API.request({
+            Kakao.API.request({
+            	url: '',
             	success:function(res){
-            		alert(JSON.stringify(res));
-            		alert(JSON.stringify(authObj)); //<----Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력
+         			 //<----Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력
                     console.log(res.id);//<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
                     console.log(res.kaccount_email);//<---- 콘솔 로그에 email 정보 출력 (어딨는지 알겠죠?)
                     console.log(res.properties['nickname']);//<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 
                 											// res.properties.nickname으로도 접근 가능 )
                     console.log(authObj.access_token);
+                    
+            	},
+            	fail:function(e){
+            		alert(e);
             	}
-            })
+            });
         },
         fail: function (err) {
             alert(JSON.stringify(err));
