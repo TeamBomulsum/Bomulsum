@@ -36,11 +36,6 @@
 	margin-bottom:3%;
 }
 
-.dndud_main_category_searchBox div{
-	display:flex;
-	flex-direction:row;
-	width:100%;
-}
 
 .dndud_main_category_searchBox span{
     display: flex;
@@ -73,10 +68,9 @@
 }
 
 .dndud_main_category_search_detail div{
-	border:solid 1px #d9d9d9;
+	border:none;
 	border-radius: 2px;
-	cursor:pointer;
-	color:#666666;
+	color:#FFFFFF;
 	font-size: 13px;
 	padding:0.5%;
 }
@@ -104,7 +98,7 @@
 }
 
 .dndud_main_category_content_box:hover{
-	box-shadow:2px 2px 2px 2px #d9d9d9;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: .5s;
 }
 
@@ -193,6 +187,41 @@
 	color:#999999;
 }
 
+.category_option_checkbox{
+	cursor:pointer;
+}
+
+.category_option_selected{
+	display:none;
+	background-color:#f5f5f5;
+}
+
+.category_option_selected div{
+	display: flex;
+	background: white;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1.5%;
+	width: 12.5%;
+	border: 1px solid #d9d9d9;
+	border-radius: 15px;
+	font-size:10px
+}
+
+.selected_option_span{
+	padding: 5px 10px;
+}
+
+.atag{
+	cursor:pointer;
+}
+
+.category_option_list{
+	display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 </style>
 <body>
 <div>
@@ -203,36 +232,39 @@
 		<div class="dndud_main_category_title">
 			<span class="title">${param.category}</span>
 			<div class="dndud_main_category_searchBox">
-				<div>
+				<div class="category_option_list">
 					<span>배송</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="free"><a>무료배송</a> 만 보기</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="무료배송"><a>무료배송</a> 만 보기</span>
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 				</div>
-				<div>
+				<div class="category_option_list">
 					<span>가격대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="underMan">1만원 미만</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="inMan">1만원대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="in2Man">2만원대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="in3Man">3만원대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="in4Man">4만원대</span>
-					<span class="category_option_checkbox"><input type="checkbox" value="in5Man">5만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="1만원 미만">1만원 미만</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="1만원대">1만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="2만원대">2만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="3만원대">3만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="4만원대">4만원대</span>
+					<span class="category_option_checkbox"><input type="checkbox" name="check" value="5만원대">5만원대</span>
+				</div>
+				<div class="category_option_selected">
+					<span style="cursor:pointer" id="cancle_check_all">전체해제</span>
+					
 				</div>
 			</div>
 			
 			<div class="dndud_main_category_search_detail">
 				<div id="show_only_image">
-					<input id="show_only_image_check" type="checkbox">
 					<span>이미지만 볼래요</span>
 				</div>
-				<select>
-					<option>인기순</option>
-					<option>최신순 (NEW)</option>
-					<option>낮은 가격순</option>
-					<option>높은 가격순</option>
+				<select id="dndud_order_option">
+					<option value="orderByLike">인기순</option>
+					<option value="orderByRecently">최신순 (NEW)</option>
+					<option value="orderByLowPrice">낮은 가격순</option>
+					<option value="orderByHighPrice">높은 가격순</option>
 				</select>
 			</div>
 			
@@ -276,7 +308,6 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-<<<<<<< HEAD
 var memberCode = '<%= (String)session.getAttribute("member") %>';
 var likeArticleFunc;
 var categoryOptionFunc;
@@ -285,8 +316,6 @@ var filtArr = [];
 var orderBy = 'orderByLike';
 
 
-=======
->>>>>>> db0b00a4a24e9e6c297e74da04bf52fe4abdefc7
 $(function(){
 	$("#show_only_image").on('click', function(){ // 이미지만 볼래요 클릭시.
 		if($("input:checkbox[id='show_only_image_check']").is(":checked")){
@@ -307,10 +336,7 @@ $(function(){
 		}
 	});
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> db0b00a4a24e9e6c297e74da04bf52fe4abdefc7
 var page = 1;
 
 $(function(){
@@ -327,7 +353,6 @@ $(window).scroll(function() {
 
 function comma(x) { return !x ? '0' : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 
-var test;
 
 function getList(page){
 	var category = $('.title').text();
@@ -337,10 +362,14 @@ function getList(page){
 		dataType : 'json',
 		data:{
 			'category':category,
-			'page':page
+			'page':page,
+			'filtArr':filtArr,
+			'orderBy':orderBy,
+			'member':memberCode
 		},
 		url : '/bomulsum/category/info.do',
 		success :function(returnData){
+			console.log(returnData.totalCnt);
 			var htmldiv = '';
 			var writerName = '';
 			var artImg = '';
@@ -367,7 +396,20 @@ function getList(page){
 						htmldiv += '<div class="dndud_main_category_content_box" onclick="artCode(this);" id="'+data[i].artCode+'">'
 							+ '<input class="artCode" type="hidden" value="'+ data[i].artCode +'"/>'
 							+ '<div class="content_img" style="background-image: URL(\'/bomulsum/upload/'
-							+ artImg +'\' )"><i class="fa fa-star fs"></i></div><div class="content_detail">'
+							+ artImg +'\' )">';
+						var imsi = 0;
+						for(var j=0; j<returnData.wishList.length; j++){
+							if(data[i].artCode == returnData.wishList[j]){
+								htmldiv += '<i class="fa fa-star fs" style="color:#d64640"></i>';
+								imsi = 1;
+								break;
+							}
+						}
+						if(imsi == 0){
+							htmldiv += '<i class="fa fa-star fs"></i>'; 
+						}
+							
+						htmldiv += '</div><div class="content_detail">'
 							+ '<span class="content_detail_writer">'+ writerName +'</span>'
 							+ '<span class="content_detail_title">'+ data[i].artName +'</span>'
 							+ '<span class="content_detail_price_decount">';
@@ -404,6 +446,9 @@ function getList(page){
 				$('.dndud_main_category_contents').append(htmldiv);
 			}
 			
+			$(".fs").click(likeArticleFunc);
+			
+			
 		},
 		error:function(e){
 			if(e.status == 300){
@@ -419,7 +464,6 @@ function artCode(e){
 
 
 
-<<<<<<< HEAD
 $(function(){
 	
 	$(".category_option_checkbox").on('click', function(){
@@ -543,7 +587,5 @@ $(function(){
 
 
 
-=======
->>>>>>> db0b00a4a24e9e6c297e74da04bf52fe4abdefc7
 </script>
 </html>
