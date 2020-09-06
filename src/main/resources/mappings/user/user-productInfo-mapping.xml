@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProductInfoDAO">
+
+	<resultMap id="artList" type="com.web.bomulsum.writer.art.repository.WriterArtVO">	
+		<result property="artCodeSeq" column="art_code_seq"/>
+		<result property="writerCodeSeq" column="writer_code_seq"/>
+		<result property="artPhoto" column="art_photo"/>
+		<result property="artName" column="art_name"/>
+		<result property="artPrice" column="art_price"/>
+		<result property="artDiscount" column="art_discount"/>
+		<result property="artAmount" column="art_amount"/>
+		<result property="artDescription" column="art_description"/>
+		<result property="artCategory" column="art_category"/>
+		<result property="artKeyword" column="art_keyword"/>
+		<result property="artViewCount" column="art_viewcount"/>
+		<result property="artPoint" column="art_point"/>
+		<result property="artSaleCount" column="art_sale_count"/>
+		<result property="artSaleState" column="art_sale_state"/>
+		<result property="artRecommendTime" column="art_recommend_time"/>
+		<result property="artRegisterDate" column="art_register_date"/>
+		<result property="temp" column="art_recommend_temp"/>
+	</resultMap>
+
+	<resultMap id="artInfoList" type="com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO">	
+		<result property="artInfoDetailCodeSeq" column="art_info_detail_code"/>
+		<result property="artInfoDetailCategory" column="art_info_detail_category"/>
+		<result property="artInfoDetailWeight" column="art_info_detail_weight"/>
+		<result property="artInfoDetailFrom" column="art_info_detail_from"/>
+		<result property="artInfoDetailMaterial" column="art_info_detail_material"/>
+		<result property="artInfoDetailExpdate" column="art_info_detail_expdate"/>
+		<result property="artInfoDetailMust" column="art_info_detail_must"/>
+		<result property="artInfoDetailComponent" column="art_info_detail_component"/>
+		<result property="artInfoDetailWay" column="art_info_detail_way"/>	
+	</resultMap>
+	
+	<resultMap id="artOptionList" type="com.web.bomulsum.writer.art.repository.WriterArtOptionVO">	
+		<result property="artOptionSeq" column="art_option_seq"/>
+		<result property="artOptionCategory" column="art_option_category"/>
+		<result property="artOptionName" column="art_option_name"/>
+		<result property="artOptionPrice" column="art_option_price"/>
+	</resultMap>
+	<resultMap type="com.web.bomulsum.user.productInfo.repository.WriterVO" id="writerVO">
+		<result property="writerCodeSeq" column="writer_code_seq"/>
+		<result property="writerName" column="writer_name"/>
+		<result property="writerEmail" column="writer_email"/>
+		<result property="writerPassword" column="writer_password"/>
+		<result property="writerPhone" column="writer_phone"/>
+		<result property="writerUrl" column="writer_url"/>
+		<result property="writerHonorName" column="writer_honor_name"/>
+		<result property="writerAboutDispatch" column="writer_about_dispatch"/>
+		<result property="writerHonorAccount" column="writer_honor_account"/>
+		<result property="writeProfileImg" column="writer_profile_img"/>
+		<result property="writerCoverImg" column="writer_cover_img"/>
+		<result property="writerBrandName" column="writer_brand_name"/>
+		<result property="writerIntro" column="writer_intro "/>
+		<result property="writerPayment" column="writer_payment"/>
+		<result property="writerSendPrice" column="writer_send_price"/>
+		<result property="writerPlusPrice" column="writer_plus_price"/>
+		<result property="writerSendfreeCase" column="writer_sendfree_case"/>
+		<result property="writerRefund" column="writer_refund"/>
+		<result property="writerPolicyAbout" column="writer_policy_about"/>
+	</resultMap>
+	
+	<select id="getListProductInfo" resultMap="artList">
+		SELECT
+			* 
+		FROM 
+			art_tb 
+		WHERE 
+			art_code_seq=#{artCodeSeq}
+	</select>
+	<select id="getListProductInfoOption" resultMap="artOptionList">
+		SELECT 
+			*
+		FROM
+			art_option_tb
+		WHERE 
+			art_code_seq=#{artCodeSeq}
+	</select>
+	<select id="getListProductartInfoList" resultMap="artInfoList">
+		SELECT 
+			*
+		FROM
+			art_info_detail_tb
+		WHERE 
+			art_code_seq=#{artCodeSeq}
+	</select>
+	<select id="getWriterInfo" resultMap="writerVO">
+		SELECT
+			writer_code_seq,
+			writer_name,
+			writer_email,
+			writer_password,
+			writer_phone,
+			writer_url,
+			writer_honor_name,
+			writer_about_dispatch,
+			writer_honor_account,
+			writer_profile_img,
+			writer_cover_img,
+			writer_brand_name,
+			writer_intro,
+			writer_payment,
+			writer_send_price,
+			writer_plus_price,
+			writer_sendfree_case,
+			writer_refund,
+			writer_policy_about
+		FROM
+			writer_tb
+		WHERE
+			writer_code_seq=#{writerCodeSeq}
+	</select>
+
+	
+
+</mapper>

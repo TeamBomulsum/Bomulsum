@@ -157,15 +157,6 @@ public class WriterMidasController {
 				service.midasRunUpdate(vo);
 				System.out.println("else : "+vo);
 			}
-			System.out.println(vo);
-			PageCreator pc = new PageCreator();
-			pc.setPaging(vo);
-			pc.setArticleTotalCount(service.countArticles(vo));
-			System.out.println(pc.getArticleTotalCount());
-			
-			System.out.println("startPage : "+vo.getPageStart());
-			System.out.println("nextPage : "+vo.getPageNext());
-			System.out.println("endPage : " + pc.getEndPage());
 		}
 		return vo;
 	}
