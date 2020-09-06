@@ -25,10 +25,77 @@ public class UserMidasController {
 	private UserMidasServiceImpl service;
 	
 	@RequestMapping(value="/class")
-	public ModelAndView midasHome() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/umidas/uMhome.do");
-		return mav;
+	public String midasHome() {
+		return "/umidas/uMhome";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/hInfoL", method=RequestMethod.POST)
+	public HashMap<String, Object> homeInfoL(
+			@RequestParam(value="location") String location,
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member) {
+		UserMidasPagingVO vo = new UserMidasPagingVO();
+		vo.setLocation(location+'%');
+		
+		int totalCnt = 4;
+		vo.setStartNum(1);
+		vo.setEndNum(4);
+	
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<UserMidasVO> dataL = service.midasLocationList(vo);
+		map.put("totalCnt", totalCnt);
+		map.put("startNum", vo.getStartNum());
+		map.put("dataL", dataL);
+
+		if(!member.equals("null") || member != null) {
+			map.put("wishList",service.getLikeClass(member));
+		}
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping(value="/hInfoN", method=RequestMethod.POST)
+	public HashMap<String, Object> homeInfoN(
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member) {
+		UserMidasPagingVO vo = new UserMidasPagingVO();
+		
+		int totalCnt = 4;
+		vo.setStartNum(1);
+		vo.setEndNum(4);
+	
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<UserMidasVO> dataN = service.midasNewList(vo);
+		map.put("totalCnt", totalCnt);
+		map.put("startNum", vo.getStartNum());
+		map.put("dataN", dataN);
+
+		if(!member.equals("null") || member != null) {
+			map.put("wishList",service.getLikeClass(member));
+		}
+		return map;
+	}
+	@ResponseBody
+	@RequestMapping(value="/hInfoP", method=RequestMethod.POST)
+	public HashMap<String, Object> homeInfoP(
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member) {
+		UserMidasPagingVO vo = new UserMidasPagingVO();
+		
+		int totalCnt = 4;
+		vo.setStartNum(1);
+		vo.setEndNum(4);
+	
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<UserMidasVO> dataP = service.midasPopularList(vo);
+		map.put("totalCnt", totalCnt);
+		map.put("startNum", vo.getStartNum());
+		map.put("dataP", dataP);
+
+		if(!member.equals("null") || member != null) {
+			map.put("wishList",service.getLikeClass(member));
+		}
+		return map;
 	}
 	
 	/*금손 클래스 카테고리별 리스트 보여주기*/
