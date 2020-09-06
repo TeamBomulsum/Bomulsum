@@ -48,23 +48,23 @@ a:link, a:visited, a:hover, a:active{
 	width:1100px;
 	margin:0 auto;
 }
-.jeonga-artist-list{
+.jeonga_artist_list{
 	padding:0px;
 	list-style-type: none;
 
 }
-.jeonga-artist-list-item{
+.jeonga_artist_list_item{
 	border-bottom:1px solid #D8D8D8;
 }
 
-.jeonga-profile-rank{
+.jeonga_profile_rank{
 	padding-top:18px;
 	padding-left:8px;
 	position:absolute;
 	z-index: 10;
 }
 
-.jeonga-profile-image{
+.jeonga_profile_image{
 	margin-top:30px;
 	margin-left:31.6px;
 	width:100px;
@@ -74,7 +74,7 @@ a:link, a:visited, a:hover, a:active{
 	position:relative;
 	z-index: 99;
 }
-.jeonga-profile-image1{
+.jeonga_profile_image1{
 	margin-top:33.5px;
 	margin-left:30.5px;
 	width:100px;
@@ -85,39 +85,37 @@ a:link, a:visited, a:hover, a:active{
 	z-index: 99;
 }
 
-.jeonga-profileImage{
+.jeonga_profileImage{
 	width:100%;
 	height:100%;
 	object-fit:cover;
 }
 
-.jeonga-profile{
+.jeonga_profile{
 	display:flex;
 	padding-top:3%;
 	padding-bottom:3%;
 }
-.jeonga-profile-split-img{
+.jeonga_profile_split_img{
 	width:160px;
 }
-.jeonga-profile-split{
+.jeonga_profile_split{
 	padding:18px;
 }
 
-.jeonga-profile-content{
+.jeonga_profile_content{
 	width:200px;
 }
-.jeonga-profile-text{
+.jeonga_profile_text{
 	padding:2%;
 	font-size:14px;
 }
-.jeonga-profile-buttons-top{
+.jeonga_profile_buttons_top{
 	display:flex;
 }
 
-.jeonga-profile-button-add{
+.jeonga_profile_button_add{
 	cursor: pointer;
-	border:1px solid #D8D8D8;
-	color:#DF3A01;
 	padding:7px;
 	text-align: center;
   	text-decoration: none;
@@ -126,21 +124,8 @@ a:link, a:visited, a:hover, a:active{
 	width:78px;
 	margin:3px;
 }
-/*
-#jeonga-profile-button-liked{
-	cursor: pointer;
-	border:1px solid #DF3A01;
-	background-color:#DF3A01;
-	color:white;
-	padding:7px;
-	text-align: center;
-  	text-decoration: none;
-  	display: inline-block;
-  	font-size: 12px;
-	width:78px;
-	margin:3px;
-}*/
-#jeonga-profile-writer-home{
+
+#jeonga_profile_writer_home{
 	background-color: white;
 	border:1px solid #D8D8D8;
 	padding:7px;
@@ -152,7 +137,7 @@ a:link, a:visited, a:hover, a:active{
 	margin:3px;
 }
 
-#jeonga-profile-message{
+#jeonga_profile_message{
 	background-color: white;
 	border:1px solid #D8D8D8;
 	padding:7px;
@@ -167,14 +152,14 @@ a:link, a:visited, a:hover, a:active{
 
 }
 /*이미지 슬라이더 CSS*/
-.jeonga-imageSlides-img{
+.jeonga_imageSlides_img{
 	width:168.25px;
 	height:168.25px;
 	margin:0;
 	padding:0;
 }
 
-.joenga-profile-imageslider_one {
+.joenga_profile_imageslider_one {
 	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
@@ -182,7 +167,7 @@ a:link, a:visited, a:hover, a:active{
  	margin-left:380px;
  	
 }
-.jeonga-imageSlides-buttons_one{
+.jeonga_imageSlides_buttons_one{
 	width:673.25px;
 	height:168.25px;
 	/*visibility:hidden;*/
@@ -193,7 +178,7 @@ a:link, a:visited, a:hover, a:active{
   	
 }
 /* Hide the images by default*/ 
-.jeonga-imageSlides_one {
+.jeonga_imageSlides_one {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -204,7 +189,7 @@ a:link, a:visited, a:hover, a:active{
  
 }
 
-#jeonga-imageSlides1_one {
+#jeonga_imageSlides1_one {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -215,7 +200,7 @@ a:link, a:visited, a:hover, a:active{
 
 
 /* Next & previous buttons */
-.jeonga-imageSlides_one-prev {
+.jeonga_imageSlides_one_prev {
   right:10;
   cursor: pointer;
   width: auto;
@@ -228,7 +213,7 @@ a:link, a:visited, a:hover, a:active{
   opacity: 0;
   
 }
-.jeonga-imageSlides_one-next{
+.jeonga_imageSlides_one_next{
 	right:0;
  	cursor: pointer;
  	width: auto;
@@ -241,21 +226,21 @@ a:link, a:visited, a:hover, a:active{
 	opacity: 0;
 }
 /* On hover, add a black background color with a little bit see-through */
-.jeonga-imageSlides_one-prev:hover, .jeonga-imageSlides_one-next:hover{
+.jeonga_imageSlides_one_prev:hover, .jeonga_imageSlides_one_next:hover{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
  opacity: 100;
 }
 
 /*이미지 슬라이더2 CSS*/
-.jeonga-imageSlides-img{
+.jeonga_imageSlides_img{
 	width:168.25px;
 	height:168.25px;
 	margin:0;
 	padding:0;
 }
 
-.joenga-profile-imageslider_two {
+.joenga_profile_imageslider_two {
 	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
@@ -263,17 +248,16 @@ a:link, a:visited, a:hover, a:active{
  	margin-left:380px;
  	
 }
-.jeonga-imageSlides-buttons_two{
+.jeonga_imageSlides_buttons_two{
 	width:673.25px;
 	height:168.25px;
   	z-index:99;
   	display:flex;
   	justify-content: space-between;
   	position: absolute;
-  	
 }
 
-.jeonga-imageSlides_two {
+.jeonga_imageSlides_two {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -284,7 +268,7 @@ a:link, a:visited, a:hover, a:active{
  
 }
 
-#jeonga-imageSlides1_two {
+#jeonga_imageSlides1_two {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -294,7 +278,7 @@ a:link, a:visited, a:hover, a:active{
 }
 
 
-.jeonga-imageSlides_two-prev {
+.jeonga_imageSlides_two_prev {
   right:10;
   cursor: pointer;
   width: auto;
@@ -307,7 +291,7 @@ a:link, a:visited, a:hover, a:active{
   opacity: 0;
   
 }
-.jeonga-imageSlides_two-next{
+.jeonga_imageSlides_two_next{
 	right:0;
  	cursor: pointer;
  	width: auto;
@@ -320,14 +304,14 @@ a:link, a:visited, a:hover, a:active{
 	opacity: 0;
 }
 /* On hover, add a black background color with a little bit see-through */
-.jeonga-imageSlides_two-prev:hover, .jeonga-imageSlides_two-next:hover{
+.jeonga_imageSlides_two_prev:hover, .jeonga_imageSlides_two_next:hover{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
- opacity: 100;
+  opacity: 100;
 }
 
 /*이미지 슬라이더3 CSS*/
-.joenga-profile-imageslider_three {
+.joenga_profile_imageslider_three {
 	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
@@ -335,7 +319,7 @@ a:link, a:visited, a:hover, a:active{
  	margin-left:380px;
  	
 }
-.jeonga-imageSlides-buttons_three{
+.jeonga_imageSlides_buttons_three{
 	width:673.25px;
 	height:168.25px;
   	z-index:99;
@@ -344,7 +328,7 @@ a:link, a:visited, a:hover, a:active{
   	position: absolute;
   	
 }
-.jeonga-imageSlides_three {
+.jeonga_imageSlides_three {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -355,7 +339,7 @@ a:link, a:visited, a:hover, a:active{
  
 }
 
-#jeonga-imageSlides1_three {
+#jeonga_imageSlides1_three {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -365,7 +349,7 @@ a:link, a:visited, a:hover, a:active{
 }
 
 
-.jeonga-imageSlides_three-prev {
+.jeonga_imageSlides_three_prev {
   right:10;
   cursor: pointer;
   width: auto;
@@ -378,7 +362,7 @@ a:link, a:visited, a:hover, a:active{
   opacity: 0;
   
 }
-.jeonga-imageSlides_three-next{
+.jeonga_imageSlides_three_next{
 	right:0;
  	cursor: pointer;
  	width: auto;
@@ -390,13 +374,13 @@ a:link, a:visited, a:hover, a:active{
  	-webkit-user-select: none;
 	opacity: 0;
 }
-.jeonga-imageSlides_three-prev:hover, .jeonga-imageSlides_three-next:hover{
+.jeonga_imageSlides_three_prev:hover, .jeonga_imageSlides_three_next:hover{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
- opacity: 100;
+  opacity: 100;
 }
 /*이미지 슬라이더4 CSS*/
-.joenga-profile-imageslider_four {
+.joenga_profile_imageslider_four {
 	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
@@ -404,7 +388,7 @@ a:link, a:visited, a:hover, a:active{
  	margin-left:380px;
  	
 }
-.jeonga-imageSlides-buttons_four{
+.jeonga_imageSlides_buttons_four{
 	width:673.25px;
 	height:168.25px;
   	z-index:99;
@@ -413,7 +397,7 @@ a:link, a:visited, a:hover, a:active{
   	position: absolute;
   	
 }
-.jeonga-imageSlides_four {
+.jeonga_imageSlides_four {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -421,10 +405,9 @@ a:link, a:visited, a:hover, a:active{
 	width:673.25px;
 	height:168.25px;
 	padding:0;
- 
 }
 
-#jeonga-imageSlides1_four {
+#jeonga_imageSlides1_four {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -434,7 +417,7 @@ a:link, a:visited, a:hover, a:active{
 }
 
 
-.jeonga-imageSlides_four-prev {
+.jeonga_imageSlides_four_prev {
   right:10;
   cursor: pointer;
   width: auto;
@@ -447,7 +430,7 @@ a:link, a:visited, a:hover, a:active{
   opacity: 0;
   
 }
-.jeonga-imageSlides_four-next{
+.jeonga_imageSlides_four_next{
 	right:0;
  	cursor: pointer;
  	width: auto;
@@ -459,7 +442,7 @@ a:link, a:visited, a:hover, a:active{
  	-webkit-user-select: none;
 	opacity: 0;
 }
-.jeonga-imageSlides_four-prev:hover, .jeonga-imageSlides_four-next:hover{
+.jeonga_imageSlides_four_prev:hover, .jeonga_imageSlides_four_next:hover{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
  opacity: 100;
@@ -467,7 +450,7 @@ a:link, a:visited, a:hover, a:active{
 
 /*이미지 슬라이더5 CSS*/
 
-.joenga-profile-imageslider_five {
+.joenga_profile_imageslider_five {
 	padding:1% 2%;
  	position: absolute;
  	width:673.25px;
@@ -475,7 +458,7 @@ a:link, a:visited, a:hover, a:active{
  	margin-left:380px;
  	
 }
-.jeonga-imageSlides-buttons_five{
+.jeonga_imageSlides_buttons_five{
 	width:673.25px;
 	height:168.25px;
   	z-index:99;
@@ -484,7 +467,7 @@ a:link, a:visited, a:hover, a:active{
   	position: absolute;
   	
 }
-.jeonga-imageSlides_five {
+.jeonga_imageSlides_five {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -495,7 +478,7 @@ a:link, a:visited, a:hover, a:active{
  
 }
 
-#jeonga-imageSlides1_five {
+#jeonga_imageSlides1_five {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -505,7 +488,7 @@ a:link, a:visited, a:hover, a:active{
 }
 
 
-.jeonga-imageSlides_five-prev {
+.jeonga_imageSlides_five_prev {
   right:10;
   cursor: pointer;
   width: auto;
@@ -518,7 +501,7 @@ a:link, a:visited, a:hover, a:active{
   opacity: 0;
   
 }
-.jeonga-imageSlides_five-next{
+.jeonga_imageSlides_five_next{
 	right:0;
  	cursor: pointer;
  	width: auto;
@@ -530,128 +513,105 @@ a:link, a:visited, a:hover, a:active{
  	-webkit-user-select: none;
 	opacity: 0;
 }
-.jeonga-imageSlides_five-prev:hover, .jeonga-imageSlides_five-next:hover{
+.jeonga_imageSlides_five_prev:hover, .jeonga_imageSlides_five_next:hover{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
- opacity: 100;
+  opacity: 100;
 } 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+var memberCode = '<%= (String)session.getAttribute("member") %>';
 //좋아하는 작가 확인
  $(document).ready(function(){
-	 $('.jeonga-profile-button-add').click(LikeWriterFunction);
-	 
-	 LikeWriterFunction = function(){
-			
-			if(memberCode == null || memberCode == 'null'){
-				alert('로그인이 필요한 서비스입니다.');
-				location.href='/bomulsum/user/login.do';
-			}
-			
-			var $data = $(this).next().text();
-			var writerCode = $data;
-			var option = '좋아하는작가';
-			
-			var addButton = $(this);
-			var tf;
-			
-			if(addButton.css("color") == "#DF3A01"){
-				clickIcon.css("color", "#d64640");
-				tORf = true;
-			}else{
-				clickIcon.css("color", "gray");
-				tORf = false;
-			}
-			
-			$.ajax({
-				url:'/bomulsum/category/wish.do',
-				data:{
-					'member':memberCode,
-					'option':option,
-					'optionCode':artCode,
-					'bool': tORf
-				},
-				type:'POST',
-				success:function(data){
-					
-				},
-				error:function(e){
-					console.log(e);
-				}
-			}); 
-			if(tORf){
-				alert('좋아하는 작품에 추가되었습니다.');
-			}else{
-				alert('해제되었습니다.');
-			}
-		};
-	 
-	 
-	{ 
-			var $data = $(this).next().text();
-			 console.log($data);
-			 var param = $data;
-			 console.log(param);
-			 
-			 $.ajax({
-					url : "/bomulsum/user/wishlist/unLikeWriter.do",
-					data : {"writer_code_seq" : param},
-					success : function() {
-						alert('좋아하는 작가를 취소합니다.');
-						location.reload(true);
-					},
-					error : function(err) {
-						console.log(err);
-					}
-				})
-	 });
- });
-/* 	var checkLike1 = '${rank1.writer_code_seq}';
-	var checkLike2 = '${rank2.writer_code_seq}';
-	var checkLike3 = '${rank3.writer_code_seq}';
-	var checkLike4 = '${rank4.writer_code_seq}';
-	var checkLike5 = '${rank5.writer_code_seq}';
-	console.log(checkLike1);
-	console.log(checkLike2);
-	console.log(checkLike3);
-	console.log(checkLike4);
-	console.log(checkLike5);
-	 
-
- */
+	 $('.jeonga_profile_button_add').click(LikeWriterFunction);
 	
-	 
+ });
+
+LikeWriterFunction = function(){
+		
+		/* if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+		} */
+		
+		//else{
+		var $data = $(this).next().text();
+		var writerCode = $data;
+		var option = '좋아하는작가';
+		
+		var addButton = $(this);
+		var tf;
+		var text = $(this).text();
+
+		if(text == '♥︎작가로 추가'){
+			$(this).text('♥︎하는 작가');
+			$(this).css("color","white");
+			$(this).css("border","1px solid #DF3A01");
+			$(this).css("background-color","#DF3A01");
+			tf = true;
+		}else{
+			$(this).text('♥︎작가로 추가');
+			$(this).css("color","#DF3A01");
+			$(this).css("border","1px solid #D9D9D9");
+			$(this).css("background-color","white");
+			tf = false;
+		}
+
+		$.ajax({
+			url:'/bomulsum/user/likeWriter.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':writerCode,
+				'bool': tf
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+		if(tf){
+			alert('좋아하는 작가에 추가되었습니다.');
+		}else{
+			alert('좋아하는 작가를 취소합니다.');
+		} 
+		//}
+};
+
 
 
 var slideIndex = 0;
 showSlides(slideIndex);
 
 function plusSlides_one(n) {
-  var slides1 = document.getElementById("jeonga-imageSlides1_one");
+  var slides1 = document.getElementById("jeonga_imageSlides1_one");
   slides1.style.display="none";
   showSlides(slideIndex += n);
 }
 
 function plusSlides_two(n) {
-	  var slides1 = document.getElementById("jeonga-imageSlides1_two");
+	  var slides1 = document.getElementById("jeonga_imageSlides1_two");
 	  slides1.style.display="none";
 	  showSlides_two(slideIndex += n);
 }
 
 function plusSlides_three(n) {
-	  var slides1 = document.getElementById("jeonga-imageSlides1_three");
+	  var slides1 = document.getElementById("jeonga_imageSlides1_three");
 	  slides1.style.display="none";
 	  showSlides_three(slideIndex += n);
 }
 
 function plusSlides_four(n) {
-	  var slides1 = document.getElementById("jeonga-imageSlides1_four");
+	  var slides1 = document.getElementById("jeonga_imageSlides1_four");
 	  slides1.style.display="none";
 	  showSlides_four(slideIndex += n);
 }
 function plusSlides_five(n) {
-	  var slides1 = document.getElementById("jeonga-imageSlides1_five");
+	  var slides1 = document.getElementById("jeonga_imageSlides1_five");
 	  slides1.style.display="none";
 	  showSlides_five(slideIndex += n);
 } 
@@ -661,7 +621,7 @@ function currentSlide(n) {
 
 function showSlides(n) {
   var i;
-  var slides = document.getElementsByClassName("jeonga-imageSlides_one");
+  var slides = document.getElementsByClassName("jeonga_imageSlides_one");
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}
   for (i = 0; i < slides.length; i++) {
@@ -672,7 +632,7 @@ function showSlides(n) {
 }
 function showSlides_two(n) {
 	  var i;
-	  var slides = document.getElementsByClassName("jeonga-imageSlides_two");
+	  var slides = document.getElementsByClassName("jeonga_imageSlides_two");
 	  if (n > slides.length) {slideIndex = 1}
 	  if (n < 1) {slideIndex = slides.length}
 	  for (i = 0; i < slides.length; i++) {
@@ -683,7 +643,7 @@ function showSlides_two(n) {
 
 function showSlides_three(n) {
 	  var i;
-	  var slides = document.getElementsByClassName("jeonga-imageSlides_three");
+	  var slides = document.getElementsByClassName("jeonga_imageSlides_three");
 	  if (n > slides.length) {slideIndex = 1}
 	  if (n < 1) {slideIndex = slides.length}
 	  for (i = 0; i < slides.length; i++) {
@@ -694,7 +654,7 @@ function showSlides_three(n) {
 }
 function showSlides_four(n) {
 	  var i;
-	  var slides = document.getElementsByClassName("jeonga-imageSlides_four");
+	  var slides = document.getElementsByClassName("jeonga_imageSlides_four");
 	  if (n > slides.length) {slideIndex = 1}
 	  if (n < 1) {slideIndex = slides.length}
 	  for (i = 0; i < slides.length; i++) {
@@ -705,7 +665,7 @@ function showSlides_four(n) {
 }
 function showSlides_five(n) {
 	  var i;
-	  var slides = document.getElementsByClassName("jeonga-imageSlides_five");
+	  var slides = document.getElementsByClassName("jeonga_imageSlides_five");
 	  if (n > slides.length) {slideIndex = 1}
 	  if (n < 1) {slideIndex = slides.length}
 	  for (i = 0; i < slides.length; i++) {
@@ -731,38 +691,46 @@ function showSlides_five(n) {
    		<!-- 콘텐츠 -->
    		<div class="jeonga_artist_wrap">
    			<!-- 좋아하는 작가 목록 -->
-			<ul class="jeonga-artist-list">
+			<ul class="jeonga_artist_list">
 
 				<!-- 1등 -->
-				<li class="jeonga-artist-list-item">
+				<li class="jeonga_artist_list_item">
 					<!-- 작가 프로필  -->
-					<div class="jeonga-profile">
+					<div class="jeonga_profile">
 						<!-- 작가 프로필 사진 -->
-						<div class="jeonga-profile-split-img">
-							<div class="jeonga-profile-rank">
+						<div class="jeonga_profile_split_img">
+							<div class="jeonga_profile_rank">
 									<img src="<c:url value='/resources/img/1.png'/>" style="width:150px; height:150px">
 							</div>
-							<div class="jeonga-profile-image">
-							<a href="${rank1.writer_url}" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank1.writer_profile_img}'/>" style="width:100px; height:100px">
+							<div class="jeonga_profile_image">
+							<a href="${rank1.writer_url}" target="#" class="jeonga_profile_image_link">
+								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank1.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
-						<div class="jeonga-profile-split">
+						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
-							<div class="jeonga-profile-content">
-							<a href="${rank1.writer_url}" class="jeonga-profile-title" target="">${rank1.writer_brand_name}</a>
-							<p class="jeonga-profile-text">${rank1.writer_intro}</p>
-							<div class="jeonga-profile-buttons">
-								<div class="jeonga-profile-buttons-top">
-								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
+							<div class="jeonga_profile_content">
+							<a href="${rank1.writer_url}" class="jeonga_profile_title" target="">${rank1.writer_brand_name}</a>
+							<p class="jeonga_profile_text">${rank1.writer_intro}</p>
+							<div class="jeonga_profile_buttons">
+								<div class="jeonga_profile_buttons_top">
+									<c:if test="${rank1.likeWriter eq 'true'}">
+										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
+										♥︎하는 작가
+										</div>
+									</c:if>
+									<c:if test="${rank1.likeWriter eq null}">
+										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
+										♥︎작가로 추가
+										</div>
+									</c:if>
 								<div style="display:none">${rank1.writer_code_seq}</div>
-								<!-- <div id="jeonga-profile-button-liked">♥︎하는 작가</div> -->
-									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="${rank1.writer_url}">작가홈</a>
+									<div id="jeonga_profile_writer_home">
+									<a class="jeonga_profile_button" href="${rank1.writer_url}">작가홈</a>
 									</div>
 								</div>
-								<div id="jeonga-profile-message">
-									<a href="/bomulsum/user/message.do?writer=${rank1.writer_code_seq}" class="jeonga-profile-button">메시지 보내기</a>
+								<div id="jeonga_profile_message">
+									<a href="/bomulsum/user/message.do?writer=${rank1.writer_code_seq}" class="jeonga_profile_button">메시지 보내기</a>
 									<div id="jeonga_wprofile_code" style="display:none">${rank1.writer_code_seq}</div>
 								</div>
 							</div>
@@ -770,26 +738,26 @@ function showSlides_five(n) {
 						</div>
 
 					<!-- 이미지 슬라이더 -->
-					<div class="joenga-profile-imageslider_one">
-					 	<div class="jeonga-imageSlides-buttons_one">
-  						<a class="jeonga-imageSlides_one-prev" onclick="plusSlides_one(-1)">❮</a>
- 						<a class="jeonga-imageSlides_one-next" onclick="plusSlides_one(1)">❯</a>
+					<div class="joenga_profile_imageslider_one">
+					 	<div class="jeonga_imageSlides_buttons_one">
+  						<a class="jeonga_imageSlides_one_prev" onclick="plusSlides_one(-1)">❮</a>
+ 						<a class="jeonga_imageSlides_one_next" onclick="plusSlides_one(1)">❯</a>
 						</div>
 						<!-- 슬라이드 기본 세트 -->
-  						<div id="jeonga-imageSlides1_one">
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>">
+  						<div id="jeonga_imageSlides1_one">
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto4}'/>" >
   						</div>
 						<!-- 슬라이드 한 세트 -->
-					 	<div class="jeonga-imageSlides_one" style="display:none">
-   							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+					 	<div class="jeonga_imageSlides_one" style="display:none">
+   							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto5}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto6}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto7}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto8}'/>" >
   						</div>		
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_one" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>">
+  						<div class="jeonga_imageSlides_one" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto9}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto10}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto11}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto12}'/>" >
   						</div>
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_one" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+  						<div class="jeonga_imageSlides_one" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank1.artPhoto4}'/>" >
   						</div>
   					</div> 
 				</div>
@@ -797,238 +765,274 @@ function showSlides_five(n) {
 
 		
 		<!-- 2등 -->
-				<li class="jeonga-artist-list-item">
+				<li class="jeonga_artist_list_item">
 					<!-- 작가 프로필  -->
-					<div class="jeonga-profile  ">
+					<div class="jeonga_profile">
 						<!-- 작가 프로필 사진 -->
-						<div class="jeonga-profile-split-img">
-							<div class="jeonga-profile-rank">
+						<div class="jeonga_profile_split_img">
+							<div class="jeonga_profile_rank">
 									<img src="<c:url value='/resources/img/2.png'/>" style="width:150px; height:150px">
 							</div>
-							<div class="jeonga-profile-image">
-							<a href="${rank2.writer_url}" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank2.writer_profile_img}'/>" style="width:100px; height:100px">
+							<div class="jeonga_profile_image">
+							<a href="${rank2.writer_url}" target="#" class="jeonga_profile_image_link">
+								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank2.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
-						<div class="jeonga-profile-split">
+						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
-							<div class="jeonga-profile-content">
-							<a href="${rank2.writer_url}" class="jeonga-profile-title" target="">${rank2.writer_brand_name}</a>
-							<p class="jeonga-profile-text">${rank2.writer_intro}</p>
+							<div class="jeonga_profile_content">
+							<a href="${rank2.writer_url}" class="jeonga_profile_title" target="">${rank2.writer_brand_name}</a>
+							<p class="jeonga_profile_text">${rank2.writer_intro}</p>
 							
-							<div class="jeonga-profile-buttons">
-								<div class="jeonga-profile-buttons-top">
-								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
-									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="${rank2.writer_url}">작가홈</a>
+							<div class="jeonga_profile_buttons">
+								<div class="jeonga_profile_buttons_top">
+									<c:if test="${rank2.likeWriter eq 'true'}">
+									<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
+										♥︎하는 작가
+										</div>
+									</c:if>
+									<c:if test="${rank2.likeWriter eq null}">
+									<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
+										♥︎작가로 추가
+										</div>
+									</c:if>
+								
+									<div id="jeonga_profile_writer_home">
+									<a class="jeonga_profile_button" href="${rank2.writer_url}">작가홈</a>
 									</div>
 								</div>
-								<div id="jeonga-profile-message">
-									<a href="#" class="jeonga-profile-button">메시지 보내기</a>
+								<div id="jeonga_profile_message">
+									<a href="#" class="jeonga_profile_button">메시지 보내기</a>
 								</div>
 							</div>
 							</div>
 						</div>
 
 					<!-- 이미지 슬라이더 -->
-					<div class="joenga-profile-imageslider_two">
-					 	<div class="jeonga-imageSlides-buttons_two">
-  						<a class="jeonga-imageSlides_two-prev" onclick="plusSlides_two(-1)">❮</a>
- 						<a class="jeonga-imageSlides_two-next" onclick="plusSlides_two(1)">❯</a>
+					<div class="joenga_profile_imageslider_two">
+					 	<div class="jeonga_imageSlides_buttons_two">
+  						<a class="jeonga_imageSlides_two_prev" onclick="plusSlides_two(-1)">❮</a>
+ 						<a class="jeonga_imageSlides_two_next" onclick="plusSlides_two(1)">❯</a>
 						</div>
 						<!-- 슬라이드 기본 세트 -->
-  						<div id="jeonga-imageSlides1_two">
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>">
+  						<div id="jeonga_imageSlides1_two">
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto4}'/>" >
   						</div>
 						<!-- 슬라이드 한 세트 -->
-					 	<div class="jeonga-imageSlides_two" style="display:none">
-   							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+					 	<div class="jeonga_imageSlides_two" style="display:none">
+   							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto5}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto6}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto7}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto8}'/>" >
   						</div>		
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_two" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>">
+  						<div class="jeonga_imageSlides_two" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto9}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto10}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto11}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto12}'/>" >
   						</div>
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_two" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+  						<div class="jeonga_imageSlides_two" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank2.artPhoto4}'/>" >
   						</div>
   					</div> 
 				</div>
 				</li>
 				<!-- 3등 -->
-				<li class="jeonga-artist-list-item">
+				<li class="jeonga_artist_list_item">
 					<!-- 작가 프로필  -->
-					<div class="jeonga-profile  ">
+					<div class="jeonga_profile">
 						<!-- 작가 프로필 사진 -->
-						<div class="jeonga-profile-split-img">
-							<div class="jeonga-profile-rank">
+						<div class="jeonga_profile_split_img">
+							<div class="jeonga_profile_rank">
 									<img src="<c:url value='/resources/img/3.png'/>" style="width:147px; height:147px;">
 							</div>
-							<div class="jeonga-profile-image1">
-							<a href="${rank3.writer_url}" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank3.writer_profile_img}'/>" style="width:100px; height:100px">
+							<div class="jeonga_profile_image1">
+							<a href="${rank3.writer_url}" target="#" class="jeonga_profile_image_link">
+								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank3.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
-						<div class="jeonga-profile-split">
+						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
-							<div class="jeonga-profile-content">
-							<a href="${rank3.writer_url}" class="jeonga-profile-title" target="">${rank3.writer_brand_name}</a>
-							<p class="jeonga-profile-text">${rank3.writer_intro}</p>
+							<div class="jeonga_profile_content">
+							<a href="${rank3.writer_url}" class="jeonga_profile_title" target="">${rank3.writer_brand_name}</a>
+							<p class="jeonga_profile_text">${rank3.writer_intro}</p>
 							
-							<div class="jeonga-profile-buttons">
-								<div class="jeonga-profile-buttons-top">
-								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
-								<!-- <div id="jeonga-profile-button-add">♥︎하는 작가</div> -->
-									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="${rank3.writer_url}">작가홈</a>
+							<div class="jeonga_profile_buttons">
+								<div class="jeonga_profile_buttons_top">
+									<c:if test="${rank3.likeWriter eq 'true'}">
+										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
+										♥︎하는 작가
+										</div>
+									</c:if>
+									<c:if test="${rank3.likeWriter eq null}">
+										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
+										♥︎작가로 추가
+										</div>
+									</c:if>
+									<div id="jeonga_profile_writer_home">
+									<a class="jeonga_profile_button" href="${rank3.writer_url}">작가홈</a>
 									</div>
 								</div>
-								<div id="jeonga-profile-message">
-									<a href="#" class="jeonga-profile-button">메시지 보내기</a>
+								<div id="jeonga_profile_message">
+									<a href="#" class="jeonga_profile_button">메시지 보내기</a>
 								</div>
 							</div>
 							</div>
 						</div>
 
 					<!-- 이미지 슬라이더 -->
-					<div class="joenga-profile-imageslider_three">
-					 	<div class="jeonga-imageSlides-buttons_three">
-  						<a class="jeonga-imageSlides_three-prev" onclick="plusSlides_three(-1)">❮</a>
- 						<a class="jeonga-imageSlides_three-next" onclick="plusSlides_three(1)">❯</a>
+					<div class="joenga_profile_imageslider_three">
+					 	<div class="jeonga_imageSlides_buttons_three">
+  						<a class="jeonga_imageSlides_three_prev" onclick="plusSlides_three(-1)">❮</a>
+ 						<a class="jeonga_imageSlides_three_next" onclick="plusSlides_three(1)">❯</a>
 						</div>
 						<!-- 슬라이드 기본 세트 -->
-  						<div id="jeonga-imageSlides1_three">
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>">
+  						<div id="jeonga_imageSlides1_three">
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto4}'/>" >
   						</div>
 						<!-- 슬라이드 한 세트 -->
-					 	<div class="jeonga-imageSlides_three" style="display:none">
-   							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+					 	<div class="jeonga_imageSlides_three" style="display:none">
+   							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto5}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto6}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto7}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto8}'/>" >
   						</div>		
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_three" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>">
+  						<div class="jeonga_imageSlides_three" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto9}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto10}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto11}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto12}'/>" >
   						</div>
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_three" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+  						<div class="jeonga_imageSlides_three" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank3.artPhoto4}'/>" >
   						</div>
   					</div> 
 				</div>
 				</li>
 				<!-- 4등 -->
-				<li class="jeonga-artist-list-item">
+				<li class="jeonga_artist_list_item">
 					<!-- 작가 프로필  -->
-					<div class="jeonga-profile  ">
+					<div class="jeonga_profile">
 						<!-- 작가 프로필 사진 -->
-						<div class="jeonga-profile-split-img">
-							<div class="jeonga-profile-rank">
+						<div class="jeonga_profile_split_img">
+							<div class="jeonga_profile_rank">
 									<img src="<c:url value='/resources/img/3.png'/>" style="width:147px; height:147px;">
 							</div>
-							<div class="jeonga-profile-image1">
-							<a href="${rank4.writer_url}" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank4.writer_profile_img}'/>" style="width:100px; height:100px">
+							<div class="jeonga_profile_image1">
+							<a href="${rank4.writer_url}" target="#" class="jeonga_profile_image_link">
+								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank4.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
-						<div class="jeonga-profile-split">
+						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
-							<div class="jeonga-profile-content">
-							<a href="${rank4.writer_url}" class="jeonga-profile-title" target="">${rank4.writer_brand_name}</a>
-							<p class="jeonga-profile-text">${rank4.writer_intro}</p>
+							<div class="jeonga_profile_content">
+							<a href="${rank4.writer_url}" class="jeonga_profile_title" target="">${rank4.writer_brand_name}</a>
+							<p class="jeonga_profile_text">${rank4.writer_intro}</p>
 							
-							<div class="jeonga-profile-buttons">
-								<div class="jeonga-profile-buttons-top">
-								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
-									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="${rank4.writer_url}">작가홈</a>
+							<div class="jeonga_profile_buttons">
+								<div class="jeonga_profile_buttons_top">
+									<c:if test="${rank4.likeWriter eq 'true'}">
+										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
+										♥︎하는 작가
+										</div>
+									</c:if>
+									<c:if test="${rank4.likeWriter eq null}">
+										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
+										♥︎작가로 추가
+										</div>
+									</c:if>
+									<div id="jeonga_profile_writer_home">
+									<a class="jeonga_profile_button" href="${rank4.writer_url}">작가홈</a>
 									</div>
 								</div>
-								<div id="jeonga-profile-message">
-									<a href="#" class="jeonga-profile-button">메시지 보내기</a>
+								<div id="jeonga_profile_message">
+									<a href="#" class="jeonga_profile_button">메시지 보내기</a>
 								</div>
 							</div>
 							</div>
 						</div>
 
 					<!-- 이미지 슬라이더 -->
-					<div class="joenga-profile-imageslider_four">
-					 	<div class="jeonga-imageSlides-buttons_four">
-  						<a class="jeonga-imageSlides_four-prev" onclick="plusSlides_four(-1)">❮</a>
- 						<a class="jeonga-imageSlides_four-next" onclick="plusSlides_four(1)">❯</a>
+					<div class="joenga_profile_imageslider_four">
+					 	<div class="jeonga_imageSlides_buttons_four">
+  						<a class="jeonga_imageSlides_four_prev" onclick="plusSlides_four(-1)">❮</a>
+ 						<a class="jeonga_imageSlides_four_next" onclick="plusSlides_four(1)">❯</a>
 						</div>
 						<!-- 슬라이드 기본 세트 -->
-  						<div id="jeonga-imageSlides1_four">
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>">
+  						<div id="jeonga_imageSlides1_four">
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto4}'/>" >
   						</div>
 						<!-- 슬라이드 한 세트 -->
-					 	<div class="jeonga-imageSlides_four" style="display:none">
-   							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+					 	<div class="jeonga_imageSlides_four" style="display:none">
+   							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto5}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto6}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto7}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto8}'/>" >
   						</div>		
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_four" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>">
+  						<div class="jeonga_imageSlides_four" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto9}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto10}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto11}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto12}'/>" >
   						</div>
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_four" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+  						<div class="jeonga_imageSlides_four" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank4.artPhoto4}'/>" >
   						</div>
   					</div> 
 				</div>
 				</li>
 				<!-- 5등 -->
-				<li class="jeonga-artist-list-item1">
+				<li class="jeonga_artist_list_item1">
 					<!-- 작가 프로필  -->
-					<div class="jeonga-profile  ">
+					<div class="jeonga_profile">
 						<!-- 작가 프로필 사진 -->
-						<div class="jeonga-profile-split-img">
-							<div class="jeonga-profile-rank">
+						<div class="jeonga_profile_split_img">
+							<div class="jeonga_profile_rank">
 									<img src="<c:url value='/resources/img/3.png'/>" style="width:147px; height:147px;">
 							</div>
-							<div class="jeonga-profile-image1">
-							<a href="${rank5.writer_url}" target="#" class="jeonga-rpofile-image-link">
-								<img class="jeonga-profileImage" src="<c:url value='/upload/${rank5.writer_profile_img}'/>" style="width:100px; height:100px">
+							<div class="jeonga_profile_image1">
+							<a href="${rank5.writer_url}" target="#" class="jeonga_profile_image_link">
+								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank5.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
-						<div class="jeonga-profile-split">
+						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
-							<div class="jeonga-profile-content">
-							<a href="${rank5.writer_url}" class="jeonga-profile-title" target="">${rank5.writer_brand_name}</a>
-							<p class="jeonga-profile-text">${rank5.writer_intro}</p>
+							<div class="jeonga_profile_content">
+							<a href="${rank5.writer_url}" class="jeonga_profile_title" target="">${rank5.writer_brand_name}</a>
+							<p class="jeonga_profile_text">${rank5.writer_intro}</p>
 							
-							<div class="jeonga-profile-buttons">
-								<div class="jeonga-profile-buttons-top">
-								<div class="jeonga-profile-button-add">♥︎작가로 추가</div>
-									<div id="jeonga-profile-writer-home">
-									<a class="jeonga-profile-button" href="${rank5.writer_url}">작가홈</a>
+							<div class="jeonga_profile_buttons">
+								<div class="jeonga_profile_buttons_top">
+									<c:if test="${rank5.likeWriter eq 'true'}">
+										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
+										♥︎하는 작가
+										</div>
+									</c:if>
+									<c:if test="${rank5.likeWriter eq null}">
+										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
+										♥︎작가로 추가
+										</div>
+									</c:if>
+									<div id="jeonga_profile_writer_home">
+									<a class="jeonga_profile_button" href="${rank5.writer_url}">작가홈</a>
 									</div>
 								</div>
-								<div id="jeonga-profile-message">
-									<a href="#" class="jeonga-profile-button">메시지 보내기</a>
+								<div id="jeonga_profile_message">
+									<a href="#" class="jeonga_profile_button">메시지 보내기</a>
 								</div>
 							</div>
 							</div>
 						</div>
 
 					<!-- 이미지 슬라이더 -->
-					<div class="joenga-profile-imageslider_five">
-					 	<div class="jeonga-imageSlides-buttons_five">
-  						<a class="jeonga-imageSlides_five-prev" onclick="plusSlides_five(-1)">❮</a>
- 						<a class="jeonga-imageSlides_five-next" onclick="plusSlides_five(1)">❯</a>
+					<div class="joenga_profile_imageslider_five">
+					 	<div class="jeonga_imageSlides_buttons_five">
+  						<a class="jeonga_imageSlides_five_prev" onclick="plusSlides_five(-1)">❮</a>
+ 						<a class="jeonga_imageSlides_five_next" onclick="plusSlides_five(1)">❯</a>
 						</div>
 						<!-- 슬라이드 기본 세트 -->
-  						<div id="jeonga-imageSlides1_five">
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>">
+  						<div id="jeonga_imageSlides1_five">
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto4}'/>" >
   						</div>
 						<!-- 슬라이드 한 세트 -->
-					 	<div class="jeonga-imageSlides_five" style="display:none">
-   							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+					 	<div class="jeonga_imageSlides_five" style="display:none">
+   							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto5}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto6}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto7}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto8}'/>" >
   						</div>		
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_five" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>">
+  						<div class="jeonga_imageSlides_five" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto9}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto10}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto11}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto12}'/>" >
   						</div>
   						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides_five" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>">
+  						<div class="jeonga_imageSlides_five" style="display:none" >
+							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto1}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto2}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto3}'/>" ><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${rank5.artPhoto4}'/>" >
   						</div>
   					</div> 
 				</div>

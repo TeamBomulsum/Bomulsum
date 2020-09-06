@@ -130,6 +130,7 @@ body {
 	border-radius: 5px;
 }
 
+
 .middle-search-form input[type=text] {
 	width: 280px;
 	font-size: 16px;
@@ -142,6 +143,7 @@ body {
 	color: #acacac;
 	margin: 1px 1px 0px 1px;
 	color: black;
+	outline: none;
 }
 
 .middle-search-form > input:focus {
@@ -167,11 +169,47 @@ body {
 	float: right;
 }
 
+/*인기검색어*/
 .dainpopsearch {
+	position: relative;
 	width: 220px;
 	height: 21px;
 	margin-left: 30px;
 	font-size: 14px;
+}
+/*인기검색어 드롭다운*/
+.dainDropDownSearch{
+	width: 160px;
+	height: 260px;
+	border:1px solid black;
+	display: none;
+ 	position: absolute;
+ 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  	z-index: 999;
+  	background-color: white;
+  	padding: 10px 20px 10px 20px;
+  	color: #282828;
+}
+
+.dainpopsearch:hover .dainDropDownSearch {
+  display: block;
+}
+
+.dainol{
+	padding: 0px 15px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.dainol li p {
+    font-weight: normal;
+    margin: 6px 0px;
+}
+
+.dainol li:hover{
+	cursor: pointer;
+	color: #1f76bb;
+	text-decoration: underline;
 }
 
 .dainiconbtn {
@@ -819,14 +857,32 @@ body {
 		<!-- 검색창 영역 -->
 		<div class="dainheader-middle-search">
 			<div class="middle-search-form">
-				<form action="#">
+				<form action="/bomulsum/search/result.do">
 					<input autocomplete="off" type="text" id="headerSearch" name="headerSearch" placeholder="작품, 작가 검색" >
 					<button class="dainsearchbtn"><i class="fa fa-search fa-lg" aria-hidden="true" ></i></button>
 				</form>
 			</div>
 		</div>
 		<!-- 인기검색어 영역 -->
+		
 		<div class="dainpopsearch">
+			<div class="dainDropDownSearch"> <!-- 인기검색어 드롭다운영역 -->
+				<div style="padding-bottom:10px; border-bottom: 1px solid black;">
+				<span style="font-size: 11px; font-weight: bold;">실시간 인기검색어</span>
+				</div>
+				<ol class="dainol">
+				  <li><p>폰케이스<p></li>
+				  <li><p>마스크스트랩<p></li>
+				  <li><p>생일선물<p></li>
+				  <li><p>키링<p></li>
+				  <li><p>에어팟케이스<p></li>
+				  <li><p>반지<p></li>
+				  <li><p>카드지갑<p></li>
+				  <li><p>버즈케이스<p></li>
+				  <li><p>에코백<p></li>
+				  <li><p>케이크<p></li>
+				</ol> 
+			</div>
 		 	<span style="color: red">1. </span> <span style="color:#666666 ">폰케이스</span>
 		</div>
 		
@@ -881,8 +937,7 @@ body {
 		<div><a class="dain-hb-menu" href="#">추천 작품</a></div>
 		<div><a class="dain-hb-menu" href="#">실시간 후기</a></div>
 		<div><a class="dain-hb-menu" href="#">작가님 추천</a></div>
-		<div><a class="dain-hb-menu" href="#">스토리</a></div>
-		<div><a class="dain-hb-menu" href="#">인기작가</a></div>
+		<div><a class="dain-hb-menu" href="<c:url value='user/popular/writer.do'/> ">인기작가</a></div>
 		<div><a class="dain-hb-menu" href="#">인기작품</a></div>
 	</div>
 </div>

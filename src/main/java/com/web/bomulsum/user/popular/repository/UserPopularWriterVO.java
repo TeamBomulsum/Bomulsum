@@ -7,15 +7,32 @@ public class UserPopularWriterVO {
 	private String writer_brand_name;
 	private String writer_intro;
 	private String writer_url;
+	private String wishlist_option_code;
 	private String likeWriter;
-	
+	private String artPhoto1;
+	private String artPhoto2;
+	private String artPhoto3;
+	private String artPhoto4;
+	private String artPhoto5;
+	private String artPhoto6;
+	private String artPhoto7;
+	private String artPhoto8;
+	private String artPhoto9;
+	private String artPhoto10;
+	private String artPhoto11;
+	private String artPhoto12;
+
 
 
 	@Override
 	public String toString() {
 		return "UserPopularWriterVO [writer_code_seq=" + writer_code_seq + ", writer_profile_img=" + writer_profile_img
 				+ ", writer_brand_name=" + writer_brand_name + ", writer_intro=" + writer_intro + ", writer_url="
-				+ writer_url + ", likeWriter=" + likeWriter + "]";
+				+ writer_url + ", wishlist_option_code=" + wishlist_option_code + ", likeWriter=" + likeWriter
+				+ ", artPhoto1=" + artPhoto1 + ", artPhoto2=" + artPhoto2 + ", artPhoto3=" + artPhoto3 + ", artPhoto4="
+				+ artPhoto4 + ", artPhoto5=" + artPhoto5 + ", artPhoto6=" + artPhoto6 + ", artPhoto7=" + artPhoto7
+				+ ", artPhoto8=" + artPhoto8 + ", artPhoto9=" + artPhoto9 + ", artPhoto10=" + artPhoto10
+				+ ", artPhoto11=" + artPhoto11 + ", artPhoto12=" + artPhoto12 + "]";
 	}
 
 	public String getWriter_code_seq() {
@@ -65,6 +82,112 @@ public class UserPopularWriterVO {
 	public void setLikeWriter(String likeWriter) {
 		this.likeWriter = likeWriter;
 	}
+
+	public String getArtPhoto1() {
+		return artPhoto1;
+	}
+
+	public void setArtPhoto1(String artPhoto1) {
+		this.artPhoto1 = artPhoto1;
+	}
+
+	public String getArtPhoto2() {
+		return artPhoto2;
+	}
+
+	public void setArtPhoto2(String artPhoto2) {
+		this.artPhoto2 = artPhoto2;
+	}
+
+	public String getArtPhoto3() {
+		return artPhoto3;
+	}
+
+	public void setArtPhoto3(String artPhoto3) {
+		this.artPhoto3 = artPhoto3;
+	}
+
+	public String getArtPhoto4() {
+		return artPhoto4;
+	}
+
+	public void setArtPhoto4(String artPhoto4) {
+		this.artPhoto4 = artPhoto4;
+	}
+
+	public String getArtPhoto5() {
+		return artPhoto5;
+	}
+
+	public void setArtPhoto5(String artPhoto5) {
+		this.artPhoto5 = artPhoto5;
+	}
+
+	public String getArtPhoto6() {
+		return artPhoto6;
+	}
+
+	public void setArtPhoto6(String artPhoto6) {
+		this.artPhoto6 = artPhoto6;
+	}
+
+	public String getArtPhoto7() {
+		return artPhoto7;
+	}
+
+	public void setArtPhoto7(String artPhoto7) {
+		this.artPhoto7 = artPhoto7;
+	}
+
+	public String getArtPhoto8() {
+		return artPhoto8;
+	}
+
+	public void setArtPhoto8(String artPhoto8) {
+		this.artPhoto8 = artPhoto8;
+	}
+
+	public String getArtPhoto9() {
+		return artPhoto9;
+	}
+
+	public void setArtPhoto9(String artPhoto9) {
+		this.artPhoto9 = artPhoto9;
+	}
+
+	public String getArtPhoto10() {
+		return artPhoto10;
+	}
+
+	public void setArtPhoto10(String artPhoto10) {
+		this.artPhoto10 = artPhoto10;
+	}
+
+	public String getArtPhoto11() {
+		return artPhoto11;
+	}
+
+	public void setArtPhoto11(String artPhoto11) {
+		this.artPhoto11 = artPhoto11;
+	}
+
+	public String getArtPhoto12() {
+		return artPhoto12;
+	}
+
+	public void setArtPhoto12(String artPhoto12) {
+		this.artPhoto12 = artPhoto12;
+	}
+
+	public String getWishlist_option_code() {
+		return wishlist_option_code;
+	}
+
+	public void setWishlist_option_code(String wishlist_option_code) {
+		this.wishlist_option_code = wishlist_option_code;
+	}
+
+
 
 
 }
