@@ -1,19 +1,26 @@
 package com.web.bomulsum.user.profile.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.user.login.repository.LoginVO;
+import com.web.bomulsum.user.login.repository.MemberSessionVO;
+import com.web.bomulsum.user.login.repository.MemberVO;
 import com.web.bomulsum.user.login.repository.NowLoginVO;
+import com.web.bomulsum.user.login.service.MemberService;
+import com.web.bomulsum.user.login.service.MemberServiceImpl;
 import com.web.bomulsum.user.profile.repository.UserProfileAddressVO;
 import com.web.bomulsum.user.profile.repository.UserProfileVO;
 import com.web.bomulsum.user.profile.service.UserProfileService;
@@ -22,8 +29,15 @@ import com.web.bomulsum.user.profile.service.UserProfileService;
 @RequestMapping(value="/user")
 public class UserProfileController {
 
+	
 	@Autowired
 	UserProfileService service;
+	
+	@Autowired
+	MemberServiceImpl memberservice;
+	
+	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
+	
 	
 	//회원등급페이지 ---------------------------------------------
 	//작가id받아오는거, 환불제외하는거(db에 어떻게들어갈지) 추가해야함, 
@@ -146,5 +160,40 @@ public class UserProfileController {
 		return mav;
 		} 
 	
+	  //회원 프로필사진 수정
+	  @RequestMapping(value= "/updateUserProfile", method=RequestMethod.POST)
+		public ModelAndView updateUserProfile(HttpServletRequest request, UserProfileVO vo,
+				@RequestParam(value="fileProfile", required=false) MultipartFile mf)throws IOException  {
+		ModelAndView mav = new ModelAndView();
+		/* mav.setViewName("/umyInfo/uMyHome"); */
+		System.out.println("hihi");
+		System.out.println(mf);
+		
+		
+		String originalfileName = mf.getOriginalFilename();
+		String saveFile = System.currentTimeMillis() + originalfileName;
+		System.out.println(saveFile);
+		
+		//DB에 바뀐 프로필사진 넣기
+		service.updateUserProfileImg(saveFile); 
+		
+		
+		//세션에 반영
+		HttpSession session = request.getSession();
+		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		System.out.println("바뀐 멤버VO:"+memberservice.getUser(memberCode));
+		session.setAttribute("user", memberservice.getUser(memberCode)); //세션에 넣기
+		
+		try {
+			mf.transferTo(new File(SAVE_PATH, saveFile));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return mav;
+	  }
 
 }

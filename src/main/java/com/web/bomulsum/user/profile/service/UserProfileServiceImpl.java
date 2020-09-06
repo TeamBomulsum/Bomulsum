@@ -94,6 +94,14 @@ public class UserProfileServiceImpl implements UserProfileService{
 	public void updateUserAddress(UserProfileAddressVO vo) {
 		dao.updateUserAddress(vo);
 	}
+
+	
+	//---------회원 사이드메뉴 프로필 관리
+	@Override
+	public void updateUserProfileImg(String pimg) {
+		dao.updateUserProfileImg(pimg);
+		
+	}
 	
 
 }

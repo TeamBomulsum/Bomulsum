@@ -123,4 +123,13 @@
 		
 		WHERE member_address_seq = #{member_address_seq}
 	</update>
+	
+	<!-- 회원내정보 사이드 _ 프로필 이미지 변경 -->
+	<update id="updateUserProfile" parameterType="String">
+		UPDATE member_tb
+		SET 
+		member_profile = #{pimg} 
+		WHERE 
+		member_code_seq = 'member_code_sq56' <!-- 작가코드 받아오기 -->
+	</update>
 </mapper>
