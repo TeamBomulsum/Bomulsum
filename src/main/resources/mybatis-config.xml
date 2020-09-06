@@ -11,6 +11,12 @@
 		<typeAlias type="com.web.bomulsum.user.reserves.repository.UserReservesVO" alias="UserReservesVO"/>	
 		<typeAlias type="com.web.bomulsum.user.wishlist.repository.UserLikeWriterVO" alias="UserLikeWriterVO"/>
 		<typeAlias type="com.web.bomulsum.user.whome.repository.UserWHomeVO" alias="UserWHomeVO"/>
+		<typeAlias type="com.web.bomulsum.user.gift.repository.UserSendGiftVO" alias="UserSendGiftVO"/>
+		<typeAlias type="com.web.bomulsum.user.gift.repository.UserSendGiftDetailVO" alias="UserSendGiftDetailVO"/>
+		<typeAlias type="com.web.bomulsum.user.gift.repository.UserReceiveGiftVO" alias="UserReceiveGiftVO"/>
+		<typeAlias type="com.web.bomulsum.user.gift.repository.UserReceiveGiftDetailVO" alias="UserReceiveGiftDetailVO"/>
+		<typeAlias type="com.web.bomulsum.user.popular.repository.UserPopularWriterVO" alias="UserPopularWriterVO"/>
+		
 		
 		<!-- manager -->
 		
@@ -37,6 +43,8 @@
 		<mapper resource="mappings/user/user-midas-mapping.xml" />
 		<mapper resource="mappings/user/user-whome-mapping.xml" />
 		<mapper resource="mappings/user/user-productInfo-mapping.xml" />
+		<mapper resource="mappings/user/user-gift-mapping.xml" />
+		<mapper resource="mappings/user/user-popular-writer-mapping.xml" />
 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -104,10 +105,9 @@ public class WriterArtController {
 
 
 	//작품 수정
-	@RequestMapping(value="/updateWork")
-	public ModelAndView artUpdate(@RequestParam(value="modifyArtCode") String artCodeUpdate, HttpServletRequest request) {
+	@RequestMapping(value = "/updateWork/{artCodeUpdate}")
+	public ModelAndView artUpdate(@PathVariable String artCodeUpdate, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/warticle/updateWork");
-		System.out.println("여기서 받음");
 		System.out.println(artCodeUpdate);
 		List<WriterArtVO> artList = service.getUpdateArt(artCodeUpdate);
 		List<WriterArtInfoDetailVO> artInfoList = service.getUpdateArtInfo(artCodeUpdate);
@@ -115,11 +115,10 @@ public class WriterArtController {
 		System.out.println(artList);
 		System.out.println(artInfoList);
 		System.out.println(artOptionList);
-		
+
 		String photo = artList.get(0).getArtPhoto();
 		String keyword = artList.get(0).getArtKeyword();
 
-		
 		String[] photoArray = photo.split(",");
 		String[] keywordArray = keyword.split(",");
 		mav.addObject("photoArr", photoArray);
@@ -128,7 +127,9 @@ public class WriterArtController {
 		mav.addObject("updateArtInfoList", artInfoList);
 		mav.addObject("updateArtOptionList", artOptionList);
 		return mav;
-	} 
+	}
+
+
 	
 	
 	

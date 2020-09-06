@@ -29,12 +29,7 @@ public class UserWishlistController {
 	@RequestMapping(value="/likeWriter")
 	public ModelAndView likeWriter(UserLikeWriterVO vo, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/umyInfo/uwishList/uLikeWriter");
-		/*
-		//회원 코드 가져오기
-		HttpSession session =  request.getSession();
-		String memberCode = (String) session.getAttribute("member");
-		System.out.println(memberCode);
-		*/
+	
 		String memberCode = "member_code_seq58";
 		//작가정보
 		List<UserLikeWriterVO> artList = service.getWriterInfo(memberCode, vo);
@@ -59,6 +54,7 @@ public class UserWishlistController {
 		
 	}
 	
+	//좋아하는 작가 취소
 	@RequestMapping(value="/unLikeWriter")
 	   public void unLikeWriter( @RequestParam(value="writer_code_seq") String writerCode, HttpServletRequest request) {
 		String memberCode = "member_code_seq58";    

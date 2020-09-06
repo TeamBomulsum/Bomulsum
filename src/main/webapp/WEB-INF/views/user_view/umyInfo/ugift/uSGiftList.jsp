@@ -23,13 +23,13 @@ body a:link, a:visited, a:hover, a:active{
 	width:80%;
 	margin-left:2%;
 }
-#jeonga-ugift-stitle-text{
+#jeonga_ugift_stitle_text{
 	margin-top:0;
 }
-.jeonga-ugift-sendList{
+.jeonga_ugift_sendList{
 	margin-top:2%;
 }
-.jeonga-ugift-shead {
+.jeonga_ugift_shead {
 	background-color:#f2f2f2;
 	border: 1px solid #D8D8D8;
 	display: flex;
@@ -38,67 +38,67 @@ body a:link, a:visited, a:hover, a:active{
 	height:46px;
 }
 
-.jeonga-ugift-shead-left {
+.jeonga_ugift_shead_left {
 	width:80%;
 	display: flex;
 }
-.jeonga-ugift-shead-right{
+.jeonga_ugift_shead_right{
 	height:46px;
 	width:20%;
 	padding:1.5%;
 }
 
-.jeonga-ugift-shead-date{
+.jeonga_ugift_shead_date{
 	padding:2%;
 	padding-right:0;
 
 }
- .jeonga-ugift-shead-address{
+ .jeonga_ugift_shead_address{
  	padding:2%;
  	padding-left:0;
  }
-.jeonga-ugift-shead-divide{
+.jeonga_ugift_shead_divide{
 	padding:2%;
 
 }
-.jeonga-ugift-slink{
+.jeonga_ugift_slink{
 	text-decoration:none;
 	color:black;
 }
-.jeonga-ugift-sbody {
+.jeonga_ugift_sbody {
 	height:95px;
 	border: 1px solid #D8D8D8;
 	border-top:0px;
 	display: flex;
 	justify-content: space-between;
 }
-.jeong-ugift-sbody-image{
+.jeong_ugift_sbody_image{
 	width:8%;
 	padding:1%;
 }
-.jeonga-ugift-sbody-order{
+.jeonga_ugift_sbody_order{
 	width:62%;
 	padding-top:2%;
 
 }
-.jeonga-ugift-sbody-title{
+.jeonga_ugift_sbody_title{
 	font-weight: bold;
 	font-size:14px;
 }
-.jeong-ugift-sbody-option{
+.jeonga_ugift_sbody_option{
 	padding-top:1%;
 	font-size:13px;
 }
-.jeonga-ugift-sbody-sellerpart {
+.jeonga_ugift_sbody_sellerpart {
 	width:15%;
 	border-left: 1px solid #D8D8D8;
 }
-.jeonga-ugift-sbody-seller{
+.jeonga_ugift_sbody_seller{
 	text-align:center;
 	margin-top:20px;
 	font-size: 13px;
 }
-#jeonga-ugift-sbody-button{
+#jeonga_ugift_sbody_button{
 	margin-top:3%;
 	background-color: white;
 	border:1px solid #D8D8D8;
@@ -108,14 +108,15 @@ body a:link, a:visited, a:hover, a:active{
   	display: inline-block;
   	font-size: 12px;
   	width:92px;
+  	color:black;
 }
 
-.jeonga-ugift-sbody-list{
+.jeonga_ugift_sbody_list{
 	width:15%;
 	border-left:1px solid #D8D8D8;
 	padding:1%;
 }
-#jeonga-ugift-sbody-list-address{
+#jeonga_ugift_sbody_list_address{
 	border-left:1px solid #D8D8D8;
 	background-color: white;
 	border:1px solid #D8D8D8;
@@ -126,10 +127,8 @@ body a:link, a:visited, a:hover, a:active{
   	font-size: 12px;
 	width:120px;
 	margin-top:4px;
-
-
 }
-#jeonga-ugift-sbody-list-cancel{
+#jeonga_ugift_sbody_list_cancel{
 	border-left:1px solid #D8D8D8;
 	background-color: white;
 	border:1px solid #D8D8D8;
@@ -142,6 +141,7 @@ body a:link, a:visited, a:hover, a:active{
 	margin-top:6px;
 
 }
+
 </style>
 </head>
 <body>
@@ -154,40 +154,42 @@ body a:link, a:visited, a:hover, a:active{
 		<%@ include file="../../include/uside.jsp"%>
 		<!-- 내용 여기다 넣으시오 -->
 		<div class="ugift">
-			<div class="jeonga-ugift-stitle">
-				<h2 id="jeonga-ugift-stitle-text">보낸 선물함</h2>
+			<div class="jeonga_ugift_stitle">
+				<h2 id="jeonga_ugift_stitle_text">보낸 선물함</h2>
 			</div>
-			<div class="jeonga-ugift-sendList">
-				<div class="jeonga-ugift-shead">
-					<div class="jeonga-ugift-shead-left">
-						<div class="jeonga-ugift-shead-date">2020-07-21</div>
-						<div class="jeonga-ugift-shead-divide">|</div>
-						<div class="jeonga-ugift-shead-address" style="color:#DF3A01">배송주소 입력대기</div>
+			<c:forEach var="sendList" items='${sendGiftList}'>
+			<div class="jeonga_ugift_sendList">
+				<div class="jeonga_ugift_shead">
+					<div class="jeonga_ugift_shead_left">
+						<div class="jeonga_ugift_shead_date">${sendList.order_date}</div>
+						<div class="jeonga_ugift_shead_divide">|</div>
+						<div class="jeonga_ugift_shead_address" style="color:#DF3A01">${sendList.order_address_input}</div>
 					</div>
-					<div class="jeonga-ugift-shead-right">
-						<a href="uSGiftCheck.jsp" class="jeonga-ugift-slink"> 홍길동님에게 보낸 선물 > </a>
+					<div class="jeonga_ugift_shead_right">
+						<a href="/bomulsum/user/sendGift/${sendList.order_code_seq}.do" class="jeonga_ugift_slink"> ${sendList.gift_recipient_name}님에게 보낸 선물 > </a>
 					</div>
 				</div>
-				<div class="jeonga-ugift-sbody">
-					<div class="jeong-ugift-sbody-image">
-						<img src="<c:url value='/resources/img/test.png'/>" style="width:70px; height:70px;">
+				<div class="jeonga_ugift_sbody">
+					<div class="jeong_ugift_sbody_image">
+						<img src="<c:url value='/upload/${sendList.art_photo}'/>" style="width:70px; height:70px;">
 					</div>
-					<div class="jeonga-ugift-sbody-order">
-						<div class="jeonga-ugift-sbody-title">(카페)주문제작 감성 일러스트 엽서</div>
-						<div class="jeong-ugift-sbody-option">1500원 / 1개</div>
+					<div class="jeonga_ugift_sbody_order">
+						<div class="jeonga_ugift_sbody_title">${sendList.b_art_name}</div>
+						<div class="jeonga_ugift_sbody_option">${sendList.order_pay_price} / ${sendList.b_art_option_count}개</div>
 					</div>
-					<div class="jeonga-ugift-sbody-sellerpart">
-						<div class="jeonga-ugift-sbody-seller">
-						령쓰<br>
-						<button id="jeonga-ugift-sbody-button">메시지로 문의</button>
+					<div class="jeonga_ugift_sbody_sellerpart">
+						<div class="jeonga_ugift_sbody_seller">
+						${sendList.writer_brand_name}<br>
+						<a href="/bomulsum/user/message.do?writer=${sendList.b_writer_code_seq}" id="jeonga_ugift_sbody_button">메시지로 문의</a>
 						</div>
 					</div>
-					<div class="jeonga-ugift-sbody-list">
-						<button type="button" onclick="location.href='uSGiftCheck.jsp'" id="jeonga-ugift-sbody-list-address">배송주소 직접 입력</button><br>
-						<button type="button" onclick="#"id="jeonga-ugift-sbody-list-cancel">주문 취소</button>
+					<div class="jeonga_ugift_sbody_list">
+						<button type="button" disabled id="jeonga_ugift_sbody_list_address">배송주소 직접 입력</button><br>
+						<button type="button" onclick="#" id="jeonga_ugift_sbody_list_cancel">주문 취소</button>
 					</div>
 				</div>
 			</div>
+			</c:forEach>
 		</div>
 	</div>
 	<!-- 푸터  -->

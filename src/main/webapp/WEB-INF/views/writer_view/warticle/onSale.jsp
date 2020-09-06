@@ -52,6 +52,8 @@ h4{
 	border: 1px solid #e7e7e7;
 	height: 35px;
 	color:#666666;
+	font-size: 16px;
+	padding:5px;
 }
 
 .bottomLine {
@@ -501,9 +503,9 @@ var pagingFunc = function(){
 				'<td>'+ result[index].bookMarkCount+'</td>' + '<td>'+ result[index].commentCount+'</td>' +
 				'<td>'+ result[index].artViewCount+'</td>' + '<td>'+ result[index].artSaleCount+'</td>' +
 				'<td>'+ result[index].reviewCount+'</td>' + 
-				'<td>'+'<form action="${pageContext.request.contextPath}/writer/updateWork.wdo" method="post" enctype="multipart/form-data">'
-				+'<input type="hidden" name="modifyArtCode" value="'+result[index].artCodeSeq + '">'
-				+'<button type="submit" id="update">수정'+'</button>'+'</td></tr>'
+				'<td>'+'<a href="${pageContext.request.contextPath}/writer/updateWork/'+result[index].artCodeSeq+'.wdo" id="jeongaUpdate">'
+				+'수정'+'</a>'+'</td></tr>'
+
 
 		}
 		testTable.innerHTML = html;

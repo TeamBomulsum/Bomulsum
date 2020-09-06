@@ -25,16 +25,16 @@ body a:link, a:visited, a:hover, a:active {
 	margin-left: 2%;
 }
 /*작가 프로필*/
-.jeonga-artist-list{
+.jeonga_artist_list{
 	padding:0px;
 	list-style: none;
 }
-.jeonga-artist-list-item{
+.jeonga_artist_list_item{
 	border-bottom:1px solid #D8D8D8;
 }
 
 
-.jeonga-wprofile-image{
+.jeonga_wprofile_image{
 	width:80px;
 	height:80px;
 	border-radius:70%;
@@ -42,39 +42,39 @@ body a:link, a:visited, a:hover, a:active {
 	position:relative;
 }
 
-.jeonga-wprofileImage{
+.jeonga_wprofileImage{
 	width:100%;
 	height:100%;
 	object-fit:cover;
 }
 
-.jeonga-wprofile{
+.jeonga_wprofile{
 	display:flex;
 }
-.jeonga-wprofile-split{
+.jeonga_wprofile_split{
 	padding:2%;
 }
 
-.jeonga-wprofile-content{
+.jeonga_wprofile_content{
 	width:200px;
 }
-.jeonga-wprofile-text{
+.jeonga_wprofile_text{
 	padding:2%;
 	font-size:14px;
 }
-.jeonga-wprofile-title{
+.jeonga_wprofile_title{
 	text-decoration: none;
 	color:black;
 }
-.jeonga-wprofile-button{
+.jeonga_wprofile_button{
 	text-decoration: none;
 	color:black;
 }
-.jeonga-wprofile-buttons-top{
+.jeonga_wprofile_buttons_top{
 	display:flex;
 }
 
-.jeonga-wprofile-button-add{
+.jeonga_wprofile_button_add{
 	cursor:pointer;
 	background-color:#DF3A01;
 	border:1px solid #DF3A01;
@@ -88,7 +88,7 @@ body a:link, a:visited, a:hover, a:active {
 	margin:3px;
 }
 
-#jeonga-wprofile-writer-home{
+#jeonga_wprofile_writer_home{
 	background-color: white;
 	border:1px solid #D8D8D8;
 	padding:7px;
@@ -100,7 +100,7 @@ body a:link, a:visited, a:hover, a:active {
 	margin:3px;
 }
 
-#jeonga-wprofile-message{
+#jeonga_wprofile_message{
 	background-color: white;
 	border:1px solid #D8D8D8;
 	padding:7px;
@@ -116,14 +116,14 @@ body a:link, a:visited, a:hover, a:active {
 }
 
 /*이미지 슬라이더 CSS*/
-.jeonga-imageSlides-img{
+.jeonga_imageSlides_img{
 	width:168.25px;
 	height:168.25px;
 	margin:0;
 	padding:0;
 }
 
-.joenga-wprofile-imageslider {
+.joenga_wprofile_imageslider {
 	margin-top:2%;
 	margin-bottom:2%;
  	position: relative;
@@ -132,7 +132,7 @@ body a:link, a:visited, a:hover, a:active {
  	overflow:hidden;
  	
 }
-.jeonga-imageSlides-buttons{
+.jeonga_imageSlides_buttons{
 	width:505px;
  	height:168.25px;
 	/*visibility:hidden;*/
@@ -143,6 +143,7 @@ body a:link, a:visited, a:hover, a:active {
   	
 }
 /* Hide the images by default*/ 
+/*
 .jeonga-imageSlides1 {
 	display:flex;
 	justify-content: space-between;
@@ -173,8 +174,8 @@ body a:link, a:visited, a:hover, a:active {
 	padding:0;
  
 }
-/* 
-#jeonga-imageSlides1 {
+*/
+#jeonga_imageSlides1 {
 	display:flex;
 	justify-content: space-between;
 	position:relative;
@@ -183,11 +184,11 @@ body a:link, a:visited, a:hover, a:active {
 	height:168.25px;
 
  
-} */
+} 
 
 
 /* Next & previous buttons */
-.jeonga-imageSlides-prev {
+.jeonga_imageSlides_prev {
   right:10;
   cursor: pointer;
   width: auto;
@@ -200,7 +201,7 @@ body a:link, a:visited, a:hover, a:active {
   opacity: 0;
   
 }
-.jeonga-imageSlides-next{
+.jeonga_imageSlides_next{
 	right:0;
  	cursor: pointer;
  	width: auto;
@@ -213,26 +214,27 @@ body a:link, a:visited, a:hover, a:active {
 	opacity: 0;
 }
 /* On hover, add a black background color with a little bit see-through */
-.jeonga-imageSlides-prev:hover, .jeonga-imageSlides-next:hover{
+.jeonga_imageSlides_prev:hover, .jeonga_imageSlides_next:hover{
   background-color: rgba(0, 0, 0, 0.8);
   color:white;
  opacity: 100;
 }
 
+
 </style>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link href="<c:url value='/resources/css/jqery.bxslider.min.css'/>" rel="stylesheet" type="text/css"/>
-<script src="<c:url value='/resources/js/jquery.bxslider.min.js'/>"></script>
+<script src="<c:url value='/resources/js/jquery.bxslider.min.js'/>"></script> --%>
 
 
 
 <script>
 //좋아하는 작가 취소
  $(document).ready(function(){
-	$(".jeonga-wprofile-button-add").click(function(){ 
-		var $data = $(this).parent().next().children('#jeonga-wprofile-code').text();
+	$(".jeonga_wprofile_button_add").click(function(){ 
+		var $data = $(this).parent().next().children('#jeonga_wprofile_code').text();
 		 console.log($data);
 		 var param = $data;
 		 console.log(param);
@@ -251,7 +253,8 @@ body a:link, a:visited, a:hover, a:active {
 			})
 
 	});
-	  $('.bxslider').bxSlider();  // ul에 있는 class명을 기준으로 선언을 합니다. 즉, 이미지구성요소들을 감싸고있는 객체에 선언해 줍니다. 
+	slide();
+	 // $('.bxslider').bxSlider();  // ul에 있는 class명을 기준으로 선언을 합니다. 즉, 이미지구성요소들을 감싸고있는 객체에 선언해 줍니다. 
 
  });
 	
@@ -340,40 +343,40 @@ body a:link, a:visited, a:hover, a:active {
 		<%@ include file="../../include/uside.jsp"%>
 		<!-- 내용 여기다 넣으시오 -->
 		<div class="uLikeWriterWrap">
-			<div class="jeonga-uLikeWriter-title">
-			<h2 id="jeonga-uLikeWriter-text">좋아하는(♥) 작가</h2>
+			<div class="jeonga_uLikeWriter_title">
+			<h2 id="jeonga_uLikeWriter_text">좋아하는(♥) 작가</h2>
 			</div>
 	
 			<!-- 좋아하는 작가 목록 -->
-			<ul class="jeonga-artist-list">
+			<ul class="jeonga_artist_list">
 			<c:forEach var="artList" items='${artListInfo}'>
-				<li class="jeonga-artist-list-item">
+				<li class="jeonga_artist_list_item">
 					<!-- 작가 프로필  -->
-					<div class="jeonga-wprofile  ">
+					<div class="jeonga_wprofile">
 						<!-- 작가 프로필 사진 -->
-						<div class="jeonga-wprofile-split">
-							<div class="jeonga-wprofile-image">
-							<a href="${artList.writer_url}" target="#" class="jeonga-wrpofile-image-link"> 
-								<img style="width:80px; height:80px" id="jeonga-wprofileImage" src="<c:url value='/upload/${artList.writer_profile_img}'/>"/>
+						<div class="jeonga_wprofile_split">
+							<div class="jeonga_wprofile_image">
+							<a href="${artList.writer_url}" target="#" class="jeonga_wrpofile_image_link"> 
+								<img style="width:80px; height:80px" id="jeonga_wprofileImage" src="<c:url value='/upload/${artList.writer_profile_img}'/>"/>
 							 </a></div>
 						</div>
-						<div class="jeonga-wprofile-split">
+						<div class="jeonga_wprofile_split">
 						<!-- 작가 프로필 내용 -->
-							<div class="jeonga-wprofile-content">
-							<a href="${artList.writer_url}" class="jeonga-wprofile-title" target="">${artList.writer_brand_name}</a>
-							<p class="jeonga-wprofile-text">${artList.writer_intro}</p>
-							<div class="jeonga-wprofile-buttons">
-								<div class="jeonga-wprofile-buttons-top">
-									<div class="jeonga-wprofile-button-add">♥︎하는 작가</div>
+							<div class="jeonga_wprofile_content">
+							<a href="${artList.writer_url}" class="jeonga_wprofile_title" target="">${artList.writer_brand_name}</a>
+							<p class="jeonga_wprofile_text">${artList.writer_intro}</p>
+							<div class="jeonga_wprofile_buttons">
+								<div class="jeonga_wprofile_buttons_top">
+									<div class="jeonga_wprofile_button_add">♥︎하는 작가</div>
 
 								<!-- 	</div> -->
-									<div id="jeonga-wprofile-writer-home">
-									<a class="jeonga-wprofile-button" href="${artList.writer_url}">작가홈</a>
+									<div id="jeonga_wprofile_writer_home">
+									<a class="jeonga_wprofile_button" href="${artList.writer_url}">작가홈</a>
 									</div>
 								</div>
-								<div id="jeonga-wprofile-message">
-									<a href="/bomulsum/user/message.do?writer=${artList.writer_code_seq}" class="jeonga-wprofile-button">메시지 보내기</a>
-									<div id="jeonga-wprofile-code" style="display:none">${artList.writer_code_seq}</div>
+								<div id="jeonga_wprofile_message">
+									<a href="/bomulsum/user/message.do?writer=${artList.writer_code_seq}" class="jeonga_wprofile_button">메시지 보내기</a>
+									<div id="jeonga_wprofile_code" style="display:none">${artList.writer_code_seq}</div>
 									<!-- 메시지 대상 보내기 -->
 								</div>
 							</div>
@@ -381,28 +384,30 @@ body a:link, a:visited, a:hover, a:active {
 						</div>
 
 					<!-- 이미지 슬라이더 -->
-					<!-- <div class="joenga-wprofile-imageslider"> -->
-					 <!-- 	<div class="jeonga-imageSlides-buttons">
-  						<a class="jeonga-imageSlides-prev" onclick="plusSlides(-1)">❮</a>
- 						<a class="jeonga-imageSlides-next" onclick="plusSlides(1)">❯</a>
-						</div> -->
+					 <div class="joenga_wprofile_imageslider"> 
+					  	<div class="jeonga_imageSlides_buttons">
+  						<a class="jeonga_imageSlides_prev" onclick="plusSlides(-1)">❮</a>
+ 						<a class="jeonga_imageSlides_next" onclick="plusSlides(1)">❯</a>
+						</div> 
 						<!-- 슬라이드 기본 세트 -->
-  						<%-- <div id="jeonga-imageSlides1">
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>">
-  						</div> --%>
-  						<ul class="bxslider">
+  						<div id="jeonga_imageSlides1">
+							<img class="jeonga_imageSlides_img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/resources/img/Logo_gray.png'/>">
+  						</div>
+  			<%-- 			<div class="slide">
+  						<ul class="panel">
 						<li>
-   							<img src="<c:url value='/resources/img/test.png'/>">
+   							<img src="<c:url value='/resources/img/test.png'/>" style="width:100px;height:100px">
   						</li>		
   						<!-- 슬라이드 한 세트 -->	
   						<li>
-							<img src="<c:url value='/resources/img/MainLogo.png'/>">
+							<img src="<c:url value='/resources/img/MainLogo.png'/>" style="width:100px;height:100px">
   						</li>
   						<!-- 슬라이드 한 세트 -->	
   						<li>
-							<img src="<c:url value='/resources/img/text.png'/>">
+							<img src="<c:url value='/resources/img/text.png'/>" style="width:100px;height:100px">
   						</li>
 						</ul>
+						</div> --%>
 						<%-- <!-- 슬라이드 한 세트 -->
 					 	<div class="jeonga-imageSlides">
    							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>">
@@ -417,6 +422,7 @@ body a:link, a:visited, a:hover, a:active {
   						</div> --%>
   					<!-- </div>  -->
 					
+				</div>
 				</div>
 				</li>
 				</c:forEach>
