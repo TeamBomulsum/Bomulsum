@@ -3,6 +3,7 @@ package com.web.bomulsum.user.whome.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,31 +12,46 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.user.article.service.UserArticleService;
 import com.web.bomulsum.user.whome.repository.UserWHomeVO;
 import com.web.bomulsum.user.whome.service.UserWHomeService;
 
 
 @Controller
-@RequestMapping(value="/user")
+@RequestMapping(value="/writerhome")
 public class UserWHomeController {
 	
 	@Autowired
 	private UserWHomeService service;
+	@Autowired
+	private UserArticleService wish_service; //즐겨찾는 작품
 	
-	@RequestMapping(value="/uwriterhome")
-	public ModelAndView uMemberGrade(HttpServletRequest request) {
+	
+	//작가홈
+	@RequestMapping(value="/{urlid}")
+	public ModelAndView uMemberGrade(@PathVariable("urlid") String urlid, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/uWriterHome");
 		
+		//url로 작가seq 알아냄
+		System.out.println("들어갈 작가홈 URL:"+urlid);
+		//String url_id = urlid;
+		String writerCode = service.getWriterFromUrl(urlid);
+		System.out.println("작가홈URL:"+urlid+", 작가seq:"+writerCode);
 		
 		HttpSession session = request.getSession();
 		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		System.out.println("멤버코드:"+memberCode);
 		
-		
-		List<UserWHomeVO> artlist = service.getListWriterSalesArt();
+		List<UserWHomeVO> artlist = service.getListWriterSalesArt(writerCode);
 		System.out.println("-->artlist:"+ artlist);
+		
 		
 		//작가 기본정보
 		String writerBrandName = artlist.get(0).getWriter_brand_name();
@@ -53,14 +69,15 @@ public class UserWHomeController {
 		}
 		System.out.println(artImg);
 		
+		
 		//작가 판매중인 작품 수
-		int salesArtCount = service.getSalesArtCount();
+		int salesArtCount = service.getSalesArtCount(writerCode);
 		
 		//작가 구매후기 수
-		int reviewTotal = service.getReviewTotal();
+		int reviewTotal = service.getReviewTotal(writerCode);
 		
 		//좋아하는 사람 수
-		int addLikes = service.getAddLikes();
+		int addLikes = service.getAddLikes(writerCode);
 		
 		mav.addObject("writerBrandName", writerBrandName);
 		mav.addObject("writerIntro", writerIntro);
@@ -72,6 +89,49 @@ public class UserWHomeController {
 		mav.addObject("salesArtCount", salesArtCount);
 		mav.addObject("reviewTotal", reviewTotal);
 		mav.addObject("addLikes", addLikes);
+		
+		
+		//좋아하는 작품 
+	/*
+		if(!memberCode.equals("null") || memberCode != null) {
+		  mav.addObject("wishArt",wish_service.getLikeArticles(memberCode));
+		   }
+    	*/
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("member", memberCode);
+		map.put("writerCode", writerCode);
+			
+		if(memberCode != null) {
+			//mav.addObject("wishArt",wish_service.getLikeArticles(memberCode));
+			mav.addObject("wishArt",service.getLikeArt(map));
+		}else {
+			mav.addObject("wishArt","null");
+		}
+		System.out.println(mav);
 		return mav;
+	
 	} 
+	
+	
+	
+//	좋아하는 작품 추가기능
+	@ResponseBody
+	@RequestMapping(value="/wishart", method=RequestMethod.POST)
+	public void wishart(
+			@RequestParam(value="member") String member,
+			@RequestParam(value="option") String option,
+			@RequestParam(value="optionCode") String optionCode,
+			@RequestParam(value="bool") Boolean bool ) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("member", member);
+		map.put("option", option);
+		map.put("optionCode", optionCode);
+		if(bool) {
+			// wishlist테이블에 인서트
+			wish_service.likeArticle(map);
+		}else {
+			// 해당 정보들 테이블에서 삭제
+			wish_service.nonLikeArticle(map);
+		}
+	}
 }
