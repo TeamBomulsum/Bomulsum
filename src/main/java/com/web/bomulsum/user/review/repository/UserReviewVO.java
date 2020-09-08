@@ -49,6 +49,8 @@ public class UserReviewVO {
 	
 	private String artPhoto;
 	private String artDescription;
+	private String writerName;
+	private Date orderDate;
 	
 	public String getReviewCodeSeq() {
 		return reviewCodeSeq;
@@ -268,6 +270,19 @@ public class UserReviewVO {
 		this.artDescription = artDescription;
 	}
 	
+	public String getWriterName() {
+		return writerName;
+	}
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+	public Date getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserReviewVO [reviewCodeSeq=" + reviewCodeSeq + ", orderCodeSeq=" + orderCodeSeq + ", memberCodeSeq="
@@ -283,7 +298,9 @@ public class UserReviewVO {
 				+ ", bArtOptionCategory=" + bArtOptionCategory + ", bArtOptionName=" + bArtOptionName
 				+ ", bArtOptionPrice=" + bArtOptionPrice + ", bArtOptionCount=" + bArtOptionCount
 				+ ", bArtReviewStatus=" + bArtReviewStatus + ", bArtReview=" + bArtReview + ", artPhoto=" + artPhoto
-				+ ", artDescription=" + artDescription + "]";
+				+ ", artDescription=" + artDescription + ", writerName=" + writerName + ", orderDate=" + orderDate
+				+ "]";
 	}
+
 	
 }
