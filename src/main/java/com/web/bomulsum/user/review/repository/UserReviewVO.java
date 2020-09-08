@@ -12,7 +12,7 @@ public class UserReviewVO {
 	private String artCodeSeq;
 	private String artName;
 	
-	//
+	//구매후기 쓸 때 - 구매후기 테이블
 	private Date reviewDate;
 	private String reviewComment;
 	private String reviewStar;
@@ -20,6 +20,8 @@ public class UserReviewVO {
 	private String reviewCommentRe;
 	private Date reviewCommentReDate;
 	private String reviewCommentReStatus;
+	
+	//일단 보류
 	private String writerSeq;
 	private String memberProfile;
 	private String artOptionSeq;
@@ -31,6 +33,23 @@ public class UserReviewVO {
 	private String artDiscount;
 	private String artAmount;
 	private String cartStatus;
+	
+	
+	//구매후기 쓸 수 있는 구매 목록 불러올 때 - 구매 상품 테이블
+	private String buyArtCodeSeq;
+	private String bArtCodeSeq;
+	private String bArtName;
+	private String bWriterCodeSeq;
+	private String bArtOptionCategory;
+	private String bArtOptionName;
+	private int bArtOptionPrice;
+	private int bArtOptionCount;
+	private String bArtReviewStatus;
+	private String bArtReview;
+	
+	private String artPhoto;
+	private String artDescription;
+	
 	public String getReviewCodeSeq() {
 		return reviewCodeSeq;
 	}
@@ -175,6 +194,80 @@ public class UserReviewVO {
 	public void setCartStatus(String cartStatus) {
 		this.cartStatus = cartStatus;
 	}
+	public String getBuyArtCodeSeq() {
+		return buyArtCodeSeq;
+	}
+	public void setBuyArtCodeSeq(String buyArtCodeSeq) {
+		this.buyArtCodeSeq = buyArtCodeSeq;
+	}
+	public String getbArtCodeSeq() {
+		return bArtCodeSeq;
+	}
+	public void setbArtCodeSeq(String bArtCodeSeq) {
+		this.bArtCodeSeq = bArtCodeSeq;
+	}
+	public String getbArtName() {
+		return bArtName;
+	}
+	public void setbArtName(String bArtName) {
+		this.bArtName = bArtName;
+	}
+	public String getbWriterCodeSeq() {
+		return bWriterCodeSeq;
+	}
+	public void setbWriterCodeSeq(String bWriterCodeSeq) {
+		this.bWriterCodeSeq = bWriterCodeSeq;
+	}
+	public String getbArtOptionCategory() {
+		return bArtOptionCategory;
+	}
+	public void setbArtOptionCategory(String bArtOptionCategory) {
+		this.bArtOptionCategory = bArtOptionCategory;
+	}
+	public String getbArtOptionName() {
+		return bArtOptionName;
+	}
+	public void setbArtOptionName(String bArtOptionName) {
+		this.bArtOptionName = bArtOptionName;
+	}
+	public int getbArtOptionPrice() {
+		return bArtOptionPrice;
+	}
+	public void setbArtOptionPrice(int bArtOptionPrice) {
+		this.bArtOptionPrice = bArtOptionPrice;
+	}
+	public int getbArtOptionCount() {
+		return bArtOptionCount;
+	}
+	public void setbArtOptionCount(int bArtOptionCount) {
+		this.bArtOptionCount = bArtOptionCount;
+	}
+	public String getbArtReviewStatus() {
+		return bArtReviewStatus;
+	}
+	public void setbArtReviewStatus(String bArtReviewStatus) {
+		this.bArtReviewStatus = bArtReviewStatus;
+	}
+	public String getbArtReview() {
+		return bArtReview;
+	}
+	public void setbArtReview(String bArtReview) {
+		this.bArtReview = bArtReview;
+	}
+	
+	public String getArtPhoto() {
+		return artPhoto;
+	}
+	public void setArtPhoto(String artPhoto) {
+		this.artPhoto = artPhoto;
+	}
+	public String getArtDescription() {
+		return artDescription;
+	}
+	public void setArtDescription(String artDescription) {
+		this.artDescription = artDescription;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserReviewVO [reviewCodeSeq=" + reviewCodeSeq + ", orderCodeSeq=" + orderCodeSeq + ", memberCodeSeq="
@@ -185,8 +278,12 @@ public class UserReviewVO {
 				+ ", memberProfile=" + memberProfile + ", artOptionSeq=" + artOptionSeq + ", artOptionCategory="
 				+ artOptionCategory + ", artOptionName=" + artOptionName + ", artOptionPrice=" + artOptionPrice
 				+ ", artOptionCount=" + artOptionCount + ", artPrice=" + artPrice + ", artDiscount=" + artDiscount
-				+ ", artAmount=" + artAmount + ", cartStatus=" + cartStatus + "]";
+				+ ", artAmount=" + artAmount + ", cartStatus=" + cartStatus + ", buyArtCodeSeq=" + buyArtCodeSeq
+				+ ", bArtCodeSeq=" + bArtCodeSeq + ", bArtName=" + bArtName + ", bWriterCodeSeq=" + bWriterCodeSeq
+				+ ", bArtOptionCategory=" + bArtOptionCategory + ", bArtOptionName=" + bArtOptionName
+				+ ", bArtOptionPrice=" + bArtOptionPrice + ", bArtOptionCount=" + bArtOptionCount
+				+ ", bArtReviewStatus=" + bArtReviewStatus + ", bArtReview=" + bArtReview + ", artPhoto=" + artPhoto
+				+ ", artDescription=" + artDescription + "]";
 	}
-	
 	
 }
