@@ -16,6 +16,19 @@ public class UserWHomeDAO {
 		return sqlSessionTemplate.selectList("userWhomeDAO.getWriterSalesArt", writerCode);
 	}
 	
+	public String getBrandName(String writerCode) {
+		return sqlSessionTemplate.selectOne("userWhomeDAO.getBrandName", writerCode);
+	}
+	
+	public String getArtistItro(String writerCode) {
+		return sqlSessionTemplate.selectOne("userWhomeDAO.getArtistItro", writerCode);
+	}	
+	
+	public String getArtistProfileImg(String writerCode) {
+		return sqlSessionTemplate.selectOne("userWhomeDAO.getArtistProfileImg", writerCode);
+	}
+	
+	
 	public int getSalesArtCount(String writerCode) {
 		return sqlSessionTemplate.selectOne("userWhomeDAO.getSalesArtCount", writerCode);
 	}
@@ -36,5 +49,10 @@ public class UserWHomeDAO {
 	//좋아하는작품 : 현재 로그인한 유저가 좋아하는 작품
 	public List<String> getLikeArt(HashMap<String, String> map){
 		return sqlSessionTemplate.selectList("userWhomeDAO.getLikeArt", map);
+	}
+	
+	//좋아하는작가 : 현재 로그인한 유저가 좋아하는 작가
+	public int likeArtistCheck(HashMap<String, String> map){
+		return sqlSessionTemplate.selectOne("userWhomeDAO.likeArtistCheck", map);
 	}
 }

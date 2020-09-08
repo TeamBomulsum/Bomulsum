@@ -53,11 +53,16 @@ public class UserWHomeController {
 		System.out.println("-->artlist:"+ artlist);
 		
 		
-		//작가 기본정보
-		String writerBrandName = artlist.get(0).getWriter_brand_name();
-		String writerIntro = artlist.get(0).getWriter_intro();
-		String writerProfileImg = artlist.get(0).getWriter_profile_img();
+		/*
+		 * //작가 기본정보 String writerBrandName = artlist.get(0).getWriter_brand_name();
+		 * String writerIntro = artlist.get(0).getWriter_intro(); String
+		 * writerProfileImg = artlist.get(0).getWriter_profile_img();
+		 */
 
+		//작가 기본정보
+		String writerBrandName = service.getBrandName(writerCode);
+		String writerIntro = service.getArtistItro(writerCode);
+		String writerProfileImg = service.getArtistProfileImg(writerCode);
 		
 		//작가 판매중인 작품 첫번째 이미지만 받아오기
 		List<String> artImg = new ArrayList<>(); 
@@ -89,26 +94,39 @@ public class UserWHomeController {
 		mav.addObject("salesArtCount", salesArtCount);
 		mav.addObject("reviewTotal", reviewTotal);
 		mav.addObject("addLikes", addLikes);
+		mav.addObject("writerCode", writerCode);
 		
 		
 		//좋아하는 작품 
-	/*
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("member", memberCode);
+		map.put("writerCode", writerCode);
+		/*
 		if(!memberCode.equals("null") || memberCode != null) {
 		  mav.addObject("wishArt",wish_service.getLikeArticles(memberCode));
 		   }
     	*/
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("member", memberCode);
-		map.put("writerCode", writerCode);
-			
 		if(memberCode != null) {
 			//mav.addObject("wishArt",wish_service.getLikeArticles(memberCode));
 			mav.addObject("wishArt",service.getLikeArt(map));
 		}else {
 			mav.addObject("wishArt","null");
 		}
+		
+		
+		//좋아하는 작가 여부
+		if(memberCode != null) {
+			//mav.addObject("wishArt",wish_service.getLikeArticles(memberCode));
+			mav.addObject("likeArtist",service.likeArtistCheck(map));
+		}else {
+			mav.addObject("likeArtist","null");
+		}
+		
 		System.out.println(mav);
 		return mav;
+		
+
+		
 	
 	} 
 	
@@ -118,6 +136,27 @@ public class UserWHomeController {
 	@ResponseBody
 	@RequestMapping(value="/wishart", method=RequestMethod.POST)
 	public void wishart(
+			@RequestParam(value="member") String member,
+			@RequestParam(value="option") String option,
+			@RequestParam(value="optionCode") String optionCode,
+			@RequestParam(value="bool") Boolean bool ) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("member", member);
+		map.put("option", option);
+		map.put("optionCode", optionCode);
+		if(bool) {
+			// wishlist테이블에 인서트
+			wish_service.likeArticle(map);
+		}else {
+			// 해당 정보들 테이블에서 삭제
+			wish_service.nonLikeArticle(map);
+		}
+	}
+
+//	좋아하는 작가 추가기능
+	@ResponseBody
+	@RequestMapping(value="/wishartist", method=RequestMethod.POST)
+	public void wishartist(
 			@RequestParam(value="member") String member,
 			@RequestParam(value="option") String option,
 			@RequestParam(value="optionCode") String optionCode,

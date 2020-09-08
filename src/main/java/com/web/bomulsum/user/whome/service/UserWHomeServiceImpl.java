@@ -56,5 +56,29 @@ public class UserWHomeServiceImpl implements UserWHomeService{
 		return dao.getLikeArt(map);
 	}
 
+
+	@Override
+	public String getBrandName(String writerCode) {
+		return dao.getBrandName(writerCode);
+	}
+
+
+	@Override
+	public String getArtistItro(String writerCode) {
+		return dao.getArtistItro(writerCode);
+	}
+
+
+	@Override
+	public String getArtistProfileImg(String writerCode) {
+		return dao.getArtistProfileImg(writerCode);
+	}
+
+
+	@Override
+	public int likeArtistCheck(HashMap<String, String> map) {
+		return dao.likeArtistCheck(map);
+	}
+
 	
 }
