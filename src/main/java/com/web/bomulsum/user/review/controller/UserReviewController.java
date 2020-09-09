@@ -28,6 +28,8 @@ public class UserReviewController {
 		return mav;
 	}
 	
+	
+	
 	@RequestMapping("/reviewedList")
 	public ModelAndView myReviewList(HttpServletRequest request) {
 		

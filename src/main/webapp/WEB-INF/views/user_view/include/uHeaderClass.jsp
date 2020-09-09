@@ -833,7 +833,7 @@ body {
 		
 		<!-- 우측 아이콘 영역 -->
 		<div class="dainmyinfo">
-					<div style="height: 50px; width: 40px; margin-right: 20px;">
+					<div id="toMyInfo" style="height: 50px; width: 40px; margin-right: 20px;">
 						<button class="dainiconbtn" style="padding:0px;"><i class="fa fa-user fa-2x" aria-hidden="true" style="padding: 7px 3px 3px;"></i>
 						<p style="margin: 0px; font-size: 10px; width: 40px">MY정보</p></button>
 					</div>

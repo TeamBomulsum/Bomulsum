@@ -299,7 +299,7 @@ body a:link, a:visited, a:hover, a:active {
 		<!-- 구매후기 쓸 수 있는 작품 리스트 영역 / 구매한 내역이 없을 때 -->
 		<!-- 구매리스트 많아지면 스크롤로 넘어가도록 오버플로우 오토 줬는데, 페이징 처리로 해야될지도.. -->
 		<!-- 
-		<div id="uWriteReviewList">
+		<div class="minwoo_uWriteReviewList">
 			<div id="noReviewContent">
 				<img src="<c:url value='/resources/img/KMWnoReview.png'/>" style="width:240px;; height:240px;">
 				<p style="font-weight:bold;color:#BDBDBD;">
@@ -317,37 +317,12 @@ body a:link, a:visited, a:hover, a:active {
 		 
 		<!-- 구매후기 쓸 수 있는 작품 리스트 영역 / 구매한 내역이 있을 때 -->
 		
-		<div id="minwoo_uWriteReviewList" style="margin-top:10px;">
-			<div class="minwoo_uWriteReview_ListContent">
-			
-				<div class="minwoo_uWriteReview_ListContent_body">
-					<div class="minwoo_uWriteReview_ListContent_body_head">
-						<div class="minwoo_uWriteReview_ListContent_body_head_photo">
-							<img src="<c:url value='/resources/img/KMWcake.jpg'/>" style="width:100%; height:100%;">
-						</div>
-						<div style="margin-left:10px; margin-top:3px;">
-							<div style="font-weight:bold;">
-								<a href="#" style="text-decoration:none;">작품제목</a>
-							</div>
-							<div style="margin-top:3px;">
-								<a href="#" style="text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;">작가이름</a>
-							</div>
-						</div>
-					</div>
-					<ul class="minwoo_contentOptionUl">
-						<li>옵션명1 : 내용</li>
-						<li>옵션명2 : 내용</li>
-						<li>옵션명3 : 내용</li>
-						<li>옵션명4 : 내용</li>
-					</ul>
-				</div>
-				<button id="btn" class="minwoo_uWriteReview_ListContent_button">구매후기 작성하기</button>
-			</div>
-			
+		<div id="minwoo_uWriteReviewList" class="minwoo_uWriteReviewList" style="margin-top:10px;">
 		</div>
 		<!-- 구매후기 쓸 수 있는 작품 리스트 영역 끝 / 구매한 내역이 있을 때 -->
 		
-		
+		<div id="pagination">
+		</div>
 		
 		
 		
@@ -359,7 +334,7 @@ body a:link, a:visited, a:hover, a:active {
 						<!--모달 헤더 시작-->
 						<div style="display: flex; width: 100%; height: 50px; justify-content: space-between; align-items: center;">
 							<h2 style="color: #585858;">구매후기 작성</h2>
-							<i class="minwoo_close fa fa-times fa-3x"></i>
+							<i class="minwoo_close fa fa-times fa-3x" onClick="modalClose()"></i>
 						</div>
 						<hr style="border: 0; height: 4px; background: #585858;">
 						<!--모달 헤더 끝-->
@@ -469,59 +444,17 @@ body a:link, a:visited, a:hover, a:active {
 
 		<!--스크립트 -->
 		<script>
-		/* 모달 구동 스크립트 영역*/
-		var minwoo_modal = document.getElementById("minwoo_myModal");
-		var minwoo_btn = document.getElementById("btn");
-		var minwoo_span = document.getElementsByClassName("minwoo_close")[0];
-		// 버튼 클릭시 모달 띄우기
-		minwoo_btn.onclick = function() {
-		  minwoo_modal.style.display = "block";
-		}
-		// 모달 안에 닫기 버튼 이벤트
-		minwoo_span.onclick = function() {
-		  minwoo_modal.style.display = "none";
-		}
-		// 다른 영역 눌렀을 때도 모달 안닫아지게, 다른 영역 눌렀을 때 닫아지게 하려면 none 으로 바꿔주면 됨
-		window.onclick = function(event) {
-		  if (event.target == minwoo_modal) {
-		    minwoo_modal.style.display = "block";
-		  }
-		}
-		/* 모달 구동 스크립트 영역*/
+		var memberCode = '<%= (String)session.getAttribute("member") %>';
 		
-		
-		
-		/* 별점 주기 스크립트 영역 - 나중에 값 넘겨주는거 추가해야 함*/
-		$('.minwoo_starRev span').click(function(){
-			  $(this).parent().children('span').removeClass('on');
-			  $(this).addClass('on').prevAll('span').addClass('on');
-			  return false;
-			});
-		/* 별점 주기 스크립트 영역*/
-		
-		$('.minwoo_starRev span').click(function(){
-			var targetNum = $(this).index() + 1;
-			console.log(targetNum);
-		});
-		
-		$('#reviewComment').keyup(function(e) {
-			var comment = $(this).val();
-			$(this).height(((comment.split('\n').length + 1) * 1.5) + 'em');
-			$('#counter').html(comment.length + '/1000');
-		});
-		$('#reviewComment').keyup();
-		
-		$('#reviewCommentRe').val('');
-		
+	
 		/*작업 마무리 못함 추가 작업 필요..*/
 		/*이미지 업로드(and 제거) 썸네일 생성 이벤트*/
-		
 		function removeImg(){
 		   var id = document.getElementById('imgs');
 		   id.removeChild(id);
 		}
 		
-		$("div[name='minwoo_review_photo']").click(function(){
+		/* $("div[name='minwoo_review_photo']").click(function(){
 			function setThumbnail(event) { 
 			   for (var image of event.target.files) { 
 			      var reader = new FileReader(); 
@@ -539,7 +472,7 @@ body a:link, a:visited, a:hover, a:active {
 			      reader.readAsDataURL(image); 
 			   }
 			}
-		});
+		}); */
 		
 		// 데이터 넣기
 		var result = new Array();
@@ -559,6 +492,196 @@ body a:link, a:visited, a:hover, a:active {
 			
 			result.push(json);
 		</c:forEach>
+		
+		var page = 1;
+		
+		var pagingFunc = function(){
+			
+			var pageCount = 5;
+			var totalPage = Math.ceil(result.length / pageCount);
+			var pagination = document.getElementById('pagination');
+			
+			var htmldiv = '';
+			var artImg = '';
+			
+			//테이블 그리는 함수
+			var renderTable = function(page){
+				var startNum = (pageCount * (page - 1)); 
+				var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
+
+				for(var index = startNum; index < endNum; index++){
+					artImg = result[index].artPhoto.split(',')[0];
+					
+					htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
+						+ '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
+						+ '<input type=\"hidden\" value=\"' + result[index].bArtName +'\" />'
+						+ '<input type=\"hidden\" value=\"' + result[index].bWriterCodeSeq +'\" />'
+						+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
+						+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
+						+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
+						+ '<img src=\"<c:url value=' + artImg + '/>\" style=\"width:100%; height:100%;\">'
+						+ '</div>'
+						+ '<div style=\"margin-left:10px; margin-top:3px;\">'
+						+ '<div style=\"font-weight:bold;\">'
+						+ '<a href=\"#\" style=\"text-decoration:none;\">' + result[index].bArtName + '</a>'
+						+ '</div>'
+						+ '<div style=\"margin-top:3px;\">'
+						+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
+						+ result[index].writerName + '</a>'
+						+ '</div>'
+						+ '</div>'
+						+ '</div>'
+						+ '<ul class=\"minwoo_contentOptionUl\">'
+						+ '<li>' + result[index].bArtOptionCategory + ' : ' + result[index].bArtOptionName + '</li>'
+						+ '<li> 작품 설명 : ' + result[index].artDescription + '</li>'
+						+ '<li> 구매 일자 : ' + result[index].orderDate + '</li>'
+						+ '<li> 구매 수량 : ' + result[index].bArtOptionCount + '</li>'
+						+ '</ul>'
+						+ '</div>'
+						+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">구매후기 작성하기</button>'
+						+ '</div>';
+				}
+				htmldiv = htmldiv.replace(/%20/gi, ' ');
+				$('.minwoo_uWriteReviewList').html(htmldiv);
+				$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
+			}
+			renderTable(page);
+		};
+		
+		/* 모달 구동 스크립트 영역*/
+		function modalOpen() {
+			$('#minwoo_myModal').css('display', 'block');
+		};
+		function modalClose() {
+			$('#minwoo_myModal').css('display', 'none');
+		};
+		
+		//모달
+		//글 제목 눌럿을 때 모달 띄워주기 위해 값 넣기
+		var modalArtCode;
+		var modalBuyArtCode;
+		var modalMemberCode;
+		var modalArtPhoto;
+		var modalOptionCategory;
+		var modalOptionName;
+		var modalOptionCount;
+		
+		
+		var modal = function(){
+			/* 별점 주기 스크립트 영역 - 나중에 값 넘겨주는거 추가해야 함*/
+			$('.minwoo_starRev span').click(function(){
+				  $(this).parent().children('span').removeClass('on');
+				  $(this).addClass('on').prevAll('span').addClass('on');
+				  return false;
+				});
+			/* 별점 주기 스크립트 영역*/
+			
+			$('.minwoo_starRev span').click(function(){
+				var targetNum = $(this).index() + 1;
+				console.log(targetNum);
+			});
+			//글자수 제한
+			$('#reviewComment').keyup(function(e) {
+				var comment = $(this).val();
+				$(this).height(((comment.split('\n').length + 1) * 1.5) + 'em');
+				$('#counter').html(comment.length + '/1000');
+			});
+			$('#reviewComment').keyup();
+			
+			
+			
+			
+			//수정인지 아닌지에 따라 등록된 댓글 모달에 값 입력해주기
+			modalReviewDate = $.trim($(this).closest('tr').children('td').eq(0).text());
+			modalArtName = $.trim($(this).closest('tr').children('td').eq(1).children('div').text());
+			modalMemberName = $.trim($(this).closest('tr').children('td').eq(2).children('div').text());
+			
+			$('#counter').html(modalreviewCommentRe.length + '/1000')
+			
+			
+			console.log('모달 맴버 이름 :' + modalMemberName);
+			console.log('모달 맴버 사진 :' + modalMemberProfile);
+			console.log('모달 리뷰 내용 :' + modalReviewComment);
+			console.log('모달 날짜 :' + modalReviewDate);
+			console.log('모달 사진 :' + modalReviewPhoto);
+			console.log('모달 별점 :' + modalStarPoint);
+			console.log('리뷰시퀀스 : ' + modalreviewSeq);
+			console.log('리뷰맴버시퀀스 : ' + modalMemberCodeSeq);
+			console.log('리뷰작품코드시퀀스 : '+ modalArtCodeSeq);
+			console.log('모달리뷰코멘트스테투스 : ' + modalreviewCommentReStatus);
+			
+			//모달에 띄워주는변수들
+			$('#reviewComment').text(modalReviewComment);
+			$('#reviewCommentRe').val(''); // 수정으로 들어갔을때 값이 남아있지 않게 초기화 시켜주고, 다시 불러오기
+			$('#memberName1').text(modalMemberName);
+			$('#reviewDate1').text(modalReviewDate);
+			$('#artName').text(modalArtName);
+			
+			//모달에서 폼 으로 데이터 넘길 때 물고가야 할 것들
+			$('#reviewCommentReStatus').val(modalreviewCommentReStatus);
+			$('#memberCodeSeq').val(modalMemberCodeSeq);
+			$('#reviewCodeSeq').val(modalreviewSeq);
+			$('#writerSeq').val(writerSeq);
+			
+	
+			
+			switch(modalStarPoint){
+				case "1" :
+					$('#modalStarId1').parent().children('span').removeClass('on');
+					$('#modalStarId1').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "2" :
+					$('#modalStarId2').parent().children('span').removeClass('on');
+					$('#modalStarId2').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "3" :
+					$('#modalStarId3').parent().children('span').removeClass('on');
+					$('#modalStarId3').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "4" :
+					$('#modalStarId4').parent().children('span').removeClass('on');
+					$('#modalStarId4').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "5" :
+					$('#modalStarId5').parent().children('span').removeClass('on');
+					$('#modalStarId5').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "6" :
+					$('#modalStarId6').parent().children('span').removeClass('on');
+					$('#modalStarId6').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "7" :
+					$('#modalStarId7').parent().children('span').removeClass('on');
+					$('#modalStarId7').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "8" :
+					$('#modalStarId8').parent().children('span').removeClass('on');
+					$('#modalStarId8').addClass('on').prevAll('span').addClass('on');
+					break;
+				case "9" :
+					$('#modalStarId9').parent().children('span').removeClass('on');
+					$('#modalStarId9').addClass('on').prevAll('span').addClass('on');
+					break;
+				default :
+					$('#modalStarId10').parent().children('span').removeClass('on');
+					$('#modalStarId10').addClass('on').prevAll('span').addClass('on');
+			}
+
+			
+			if(modalreviewCommentReStatus == "Y"){
+				$('#reviewCommentRe').val(modalreviewCommentRe);
+				$('#reviewCommentSubmit').val('수정');
+				console.log("수정하러 왔습니다.")
+			} else{
+				$('#reviewCommentSubmit').val('등록');			
+			}
+	
+		};
+		//모달 부분 종료
+		$(document).ready(function(){
+			pagingFunc();
+		});
+		
 		
 		</script>
 		<!-- 스크립트 -->

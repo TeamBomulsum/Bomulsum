@@ -29,21 +29,24 @@
 
 	<!-- 구매후기 쓸 수 있는 구매 상품 목록 불러오기 -->
 	<select id="reviewList" parameterType="String" resultMap="reviewListMap">
-		SELECT
-			a.buy_art_code_seq, a.member_code_seq, a.B_ART_CODE_SEQ,
-			a.B_ART_NAME, a.B_WRITER_CODE_SEQ, a.B_ART_OPTION_CATEGORY,
-			a.B_ART_OPTION_NAME, a.B_ART_OPTION_PRICE, a.B_ART_OPTION_COUNT,
-			a.B_ART_REVIEW_STATUS, a.B_ART_REVIEW, b.art_photo, b.art_description,
-			c.writer_name, d.order_date
-		FROM buy_art_tb a
-		LEFT OUTER JOIN
-			art_tb b ON a.b_art_code_seq = b.art_code_seq
-		LEFT OUTER JOIN
-			writer_tb c ON b.writer_code_seq = c.writer_code_seq
-		LEFT OUTER JOIN
-			order_tb d ON  a.order_code_seq = d.order_code_seq
-		WHERE a.b_art_review_status = 'N' AND a.member_code_seq = #{member}
-		ORDER BY d.order_date DESC
+		SELECT ROWNUM AS RNUM, X.*
+			FROM (
+				SELECT
+					a.buy_art_code_seq, a.member_code_seq, a.B_ART_CODE_SEQ,
+					a.B_ART_NAME, a.B_WRITER_CODE_SEQ, a.B_ART_OPTION_CATEGORY,
+					a.B_ART_OPTION_NAME, a.B_ART_OPTION_PRICE, a.B_ART_OPTION_COUNT,
+					a.B_ART_REVIEW_STATUS, a.B_ART_REVIEW, b.art_photo, b.art_description,
+					c.writer_name, d.order_date
+				FROM buy_art_tb a
+				LEFT OUTER JOIN
+					art_tb b ON a.b_art_code_seq = b.art_code_seq
+				LEFT OUTER JOIN
+					writer_tb c ON b.writer_code_seq = c.writer_code_seq
+				LEFT OUTER JOIN
+					order_tb d ON  a.order_code_seq = d.order_code_seq
+				WHERE a.b_art_review_status = 'N' AND a.member_code_seq = #{member}
+				ORDER BY d.order_date DESC
+				) X
 	</select>
 
 	<!-- 구매목록 불러오기 -->
