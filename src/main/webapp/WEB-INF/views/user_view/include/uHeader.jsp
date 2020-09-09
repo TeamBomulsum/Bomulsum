@@ -892,7 +892,7 @@ body {
 		</div>
 		<div class="dainheader-middle-menu">
 			<a class="dainheader-middle-menu-a" href="#" style="margin-right: 30px; color: #1f76bb;" >작품</a>
-			<a class="dainheader-middle-menu-a" href="#" style="margin-right: 30px;">금손 클래스</a>
+			<a class="dainheader-middle-menu-a" href="<c:url value='/midas/class.do'/>" style="margin-right: 30px;">금손 클래스</a>
 		</div>
 		<!-- 검색창 영역 -->
 		<div class="dainheader-middle-search">
