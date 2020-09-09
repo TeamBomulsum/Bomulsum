@@ -45,6 +45,7 @@
 		<mapper resource="mappings/user/user-productInfo-mapping.xml" />
 		<mapper resource="mappings/user/user-gift-mapping.xml" />
 		<mapper resource="mappings/user/user-popular-writer-mapping.xml" />
+		<mapper resource="mappings/user/user-review-mapping.xml"/>
 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
