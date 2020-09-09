@@ -21,6 +21,7 @@
 
 /* Slideshow container */
 .slideshow-container {
+	width:100%;
 	position: relative;
     margin-top: 2px;
 }

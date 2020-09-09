@@ -10,7 +10,7 @@
 </head>
 <style>
 .dndud_main_category{
-	width:70%;
+	width: 1073px;
 	margin-left: auto;
 	margin-right: auto;
 }

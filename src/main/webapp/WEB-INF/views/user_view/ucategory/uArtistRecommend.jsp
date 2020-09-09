@@ -9,7 +9,7 @@
 </head>
 <style>
 .dain_main_category{
-	width:70%;
+	width: 1073px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -48,11 +48,13 @@
 }
 
 .dain_main_category_content_box{
-	width:19%;
+	width:18.8%;
 	margin-right:1%; 
 	margin-bottom:2%; 
 	height:380px;
 	cursor:pointer;
+	background-color: #f8f9fb;
+    border: 1px solid #d9d9d9;
 }
 
 .dain_main_category_content_box:hover{

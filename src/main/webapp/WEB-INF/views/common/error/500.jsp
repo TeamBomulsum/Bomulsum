@@ -25,9 +25,9 @@
 
 		<!-- 404 Error Text -->
 		<div class="text-center">
-			<div class="error mx-auto" data-text="404">404</div>
-			<p class="lead text-gray-800 mb-5">Page Not Found</p>
-			<p class="text-gray-500 mb-0" style="font-size: 50px; font-weight:bold">원희형 작품 상세보기 빨리 완성해요</p>
+			<div class="error mx-auto" data-text="500">500</div>
+			<p class="lead text-gray-800 mb-5">ERROR</p>
+			<p class="text-gray-500 mb-0" style="font-size: 50px; font-weight:bold">콘솔창 확인</p>
 		</div>
 
 	</div>
