@@ -17,20 +17,20 @@ public class UserProfileServiceImpl implements UserProfileService{
 	UserProfileDAO dao;
 	
 	//-----------회원등급
-	public int getSumpay() { //회원 구매금액 합계
-		return dao.getSumpay();
+	public int getSumpay(String memberCode) { //회원 구매금액 합계
+		return dao.getSumpay(memberCode);
 	}
 
 	@Override
-	public int getSumpayPeriod() { //3개월내 미구매 있는지 알아오기
-		return dao.getSumpayPeriod();
+	public int getSumpayPeriod(String memberCode) { //3개월내 미구매 있는지 알아오기
+		return dao.getSumpayPeriod(memberCode);
 	}
 
 
 	//-----------회원정보관리
 	@Override
-	public UserProfileVO getUserinfo() { //회원 정보 가져오기
-		return dao.getUserinfo();
+	public UserProfileVO getUserinfo(String memberCode) { //회원 정보 가져오기
+		return dao.getUserinfo(memberCode);
 	}
 
 	@Override

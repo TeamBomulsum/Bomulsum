@@ -173,8 +173,8 @@ footer span{
 										<input class="btn2" type="submit" value="등록" id="dainUrlBtn" onclick="checkUrlBtn()">
 									</form>
 								</div>
-								<p>※ 작가 URL은 최소 5자 이상 20자 이하의 영문 소문자, 숫자, 언더바(_)로만
-									입력해주세요.</p>
+								<p style="font-size: 13px;">※ 작가 URL은 최소 5자 이상 20자 이하의 영문 소문자, 숫자, 언더바(_)로만
+									입력해주세요. <br>※ 미등록시 이메일 상 아이디로 등록됩니다.</p>
 							</td>
 						</tr>
 

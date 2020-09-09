@@ -188,7 +188,12 @@
 			</div>
         	<div id="test"></div>
         	<div class="membership" style="margin-top:7%; margin-bottom:3%;">
+        		<c:if test="${sessionScope.user.memberGrade ne null}">
         		<i class="fas fa-gem" style="color:gold"><a class="jeonga-collapse-item" href="#">&nbsp;${sessionScope.user.memberGrade} ></a></i>
+        		</c:if>
+         		<c:if test="${sessionScope.user.memberGrade eq null}">
+        		<i class="fas fa-gem" style="color:gold"><a class="jeonga-collapse-item" href="#">&nbsp;브론즈 ></a></i>
+        		</c:if>       		
         	</div>
         	<div class="userName">
         		<b>${sessionScope.userName}</b>

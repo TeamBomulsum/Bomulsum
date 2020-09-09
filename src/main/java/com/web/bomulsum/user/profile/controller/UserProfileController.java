@@ -1,3 +1,4 @@
+
 package com.web.bomulsum.user.profile.controller;
 
 import java.io.File;
@@ -15,15 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.bomulsum.user.login.repository.LoginVO;
-import com.web.bomulsum.user.login.repository.MemberSessionVO;
-import com.web.bomulsum.user.login.repository.MemberVO;
-import com.web.bomulsum.user.login.repository.NowLoginVO;
-import com.web.bomulsum.user.login.service.MemberService;
 import com.web.bomulsum.user.login.service.MemberServiceImpl;
 import com.web.bomulsum.user.profile.repository.UserProfileAddressVO;
 import com.web.bomulsum.user.profile.repository.UserProfileVO;
 import com.web.bomulsum.user.profile.service.UserProfileService;
+import com.web.bomulsum.user.profile.service.UserProfileServiceImpl;
 
 @Controller
 @RequestMapping(value="/user")
@@ -31,7 +28,7 @@ public class UserProfileController {
 
 	
 	@Autowired
-	UserProfileService service;
+	UserProfileServiceImpl service;
 	
 	@Autowired
 	MemberServiceImpl memberservice;
@@ -45,13 +42,18 @@ public class UserProfileController {
 	public ModelAndView uMemberGrade(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/umyInfo/uinformation/uMemberGrade");
 		
+		HttpSession session = request.getSession();
+		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		System.out.println("멤버코드:"+memberCode);
+		
 		//회원 구매금액산정
-		int paysum = service.getSumpay();
+		int paysum = service.getSumpay(memberCode);
+		System.out.println("회원구매금액:"+paysum);
 		mav.addObject("paysum", paysum);
 		
 		//3개월이내 금액산정
-		int paysumperiod = service.getSumpayPeriod();
-		System.out.println(paysumperiod);
+		int paysumperiod = service.getSumpayPeriod(memberCode);
+		System.out.println("3개월이내 금액산정:"+paysumperiod);
 		mav.addObject("paysumperiod", paysumperiod);
 		
 		System.out.println(mav);
@@ -62,7 +64,13 @@ public class UserProfileController {
 	@RequestMapping(value="/infomanage")
 	public ModelAndView uInfoManage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/umyInfo/uinformation/uInfoManage");
-		UserProfileVO result = service.getUserinfo();
+		
+		HttpSession session = request.getSession();
+		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		System.out.println("멤버코드:"+memberCode);
+		
+		
+		UserProfileVO result = service.getUserinfo(memberCode);
 		System.out.println(result);
 		mav.addObject("userinfo", result);
 		System.out.println(mav);
@@ -74,6 +82,13 @@ public class UserProfileController {
 	@RequestMapping(value="/updateuserinfo" , method = RequestMethod.POST)
 	public ModelAndView uUpdateInfo(UserProfileVO vo, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		System.out.println("멤버코드:"+memberCode);
+		
+		vo.setMember_code_seq(memberCode);
+		
 		System.out.println("변경후:"+vo.toString());
 		service.updateUserinfo(vo);
 		mav.setViewName("redirect:/user/infomanage.do");
@@ -86,6 +101,12 @@ public class UserProfileController {
 	public ModelAndView uUpdatePhone(UserProfileVO vo, HttpServletRequest request, 
 			@RequestParam(value="member_phone", required=false) String member_phone) {
 		ModelAndView mav = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		System.out.println("멤버코드:"+memberCode);
+		
+		
 		System.out.println("받아온 전화번호: "+ member_phone);
 		service.updateUserphone(vo);
 		mav.setViewName("redirect:/user/infomanage.do");
@@ -96,17 +117,23 @@ public class UserProfileController {
 	//회원 탈퇴
 	@RequestMapping(value="/deleteuser" , method = RequestMethod.GET)
 	public ModelAndView uDeleteUser(UserProfileVO vo, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		System.out.println("멤버코드:"+memberCode);
+		
+		System.out.println("Delete 전:" + vo.toString());
+		service.deleteUser(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/home.do");
+		
 		/*//로그아웃  세션처리..
 		 * HttpSession session = request.getSession(); 
 		 * NowLoginVO loginVo = new NowLoginVO(); 
 		 * loginVo.setMemberCode((String)session.getAttribute("member"));
 		 * loginVo.setyORn("N"); session.invalidate();
 		 */
-		System.out.println("Delete 전:" + vo.toString());
-		service.deleteUser(vo);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/home.do");
 		
 		return mav;
 	} 
@@ -114,9 +141,13 @@ public class UserProfileController {
 	
 	//회원 배송지관리------------------------------------------
 	@RequestMapping(value="/registeraddress" , method = RequestMethod.GET)
-	public ModelAndView registerAddress() {
+	public ModelAndView registerAddress(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/umyInfo/uinformation/uAddressManage");
+		
+		HttpSession session = request.getSession();
+		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		System.out.println("멤버코드:"+memberCode);
 		
 		//회원 주소지 조회
 		List<UserProfileAddressVO> selectAddress = service.selectUserAddress();
@@ -142,6 +173,11 @@ public class UserProfileController {
 	  @RequestMapping(value="/insertAddress") 
 	  public ModelAndView insertAddress(UserProfileAddressVO vo, HttpServletRequest request) {
 	  ModelAndView mav = new ModelAndView(); 
+	  
+	  HttpSession session = request.getSession();
+	  String memberCode= (String) session.getAttribute("member");  //멤버코드
+	  System.out.println("멤버코드:"+memberCode);
+		
 	  System.out.println("회원 배송지 확인:"+ vo);
 	  service.insertUserAddress(vo);
 	  mav.setViewName("/umyInfo/uinformation/uAddressManage"); 
@@ -153,6 +189,11 @@ public class UserProfileController {
 	  @RequestMapping(value="/updateAddress" , method = RequestMethod.GET)
 		public ModelAndView updateAddress(UserProfileAddressVO vo, HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		System.out.println("멤버코드:"+memberCode);
+		
 		System.out.println("수정전 정보: "+ vo);
 		service.updateUserAddress(vo);
 		System.out.println("수정후 정보: "+ vo);
@@ -166,9 +207,7 @@ public class UserProfileController {
 				@RequestParam(value="fileProfile", required=false) MultipartFile mf)throws IOException  {
 		ModelAndView mav = new ModelAndView();
 		/* mav.setViewName("/umyInfo/uMyHome"); */
-		System.out.println("hihi");
 		System.out.println(mf);
-		
 		
 		String originalfileName = mf.getOriginalFilename();
 		String saveFile = System.currentTimeMillis() + originalfileName;
