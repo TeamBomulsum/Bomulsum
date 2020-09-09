@@ -459,7 +459,8 @@ function getList(page){
 }
 function artCode(e){
 		var art_code = e.id;
-			location.href = "/bomulsum/user/uProductInfo/"+art_code+".do";
+		var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+		window.open(url, "_blank");
 }
 
 

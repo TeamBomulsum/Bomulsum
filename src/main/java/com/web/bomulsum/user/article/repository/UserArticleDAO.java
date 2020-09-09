@@ -61,4 +61,13 @@ public class UserArticleDAO {
 		return sqlSessionTemplate.selectList("articleDao.realTimeKeyword");
 	}
 	
+	// 인기작품, 추천작품, 작가님추천
+	public int getOrderByArticleCount(UserOrderByArticlePagingVO vo) {
+		return sqlSessionTemplate.selectOne("articleDao.getOrderByArticleCount", vo);
+	}
+	
+	public List<UserArticleCategoryVO> getListForOrderBy(UserOrderByArticlePagingVO vo) {
+		return sqlSessionTemplate.selectList("articleDao.getListForOrderBy", vo);
+	}
+	
 }

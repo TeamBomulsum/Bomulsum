@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.productInfo.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.web.bomulsum.user.productInfo.repository.WriterVO;
@@ -12,4 +13,7 @@ public interface ProductInfoService {
 	public List<WriterArtInfoDetailVO> getListProductartInfoList(String artCodeSeq);
 	public List<WriterArtOptionVO> getListProductInfoOption(String artCodeSeq);
 	public WriterVO getWriterInfo(String writerCodeSeq);
+	
+	public void selectRecentyleView(HashMap<String, String> map);
+	public void updateViewCount(String artCodeSeq);
 }

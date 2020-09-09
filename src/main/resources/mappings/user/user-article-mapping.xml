@@ -477,6 +477,65 @@
 		WHERE ROWNUM <![CDATA[<]]>= 10
 	</select>
 	
+	
+	
+	<!-- 인기작품, 추천작품, 작가님추천 -->
+	<select id="getOrderByArticleCount" 
+		parameterType="com.web.bomulsum.user.article.repository.UserOrderByArticlePagingVO" resultType="int">
+	SELECT
+		COUNT(*)
+	FROM
+		art_tb
+	WHERE
+		art_sale_state='Y'
+	
+	</select>
+	
+	
+	<select id="getListForOrderBy" parameterType="com.web.bomulsum.user.article.repository.UserOrderByArticlePagingVO"
+		resultMap="articleVO">
+		<include refid="header"/>
+		SELECT
+			a.art_code_seq,
+			a.writer_code_seq,
+			w.writer_name,
+			w.writer_brand_name,
+			w.writer_send_price,
+			a.art_photo,
+			a.art_category,
+			a.art_name,
+			a.art_price,
+			a.art_discount,
+			a.art_viewcount,
+			a.art_keyword,
+			a.art_register_date
+		FROM
+			art_tb a
+		INNER JOIN
+			writer_tb w
+		ON
+			w.writer_code_seq = a.writer_code_seq
+		WHERE
+			(
+				a.art_sale_state='Y'
+				<if test="orderBy == 'artistRecommend'">
+					AND
+					a.art_recommend_state='Y'
+				</if>
+			)
+			ORDER BY
+			<if test="orderBy == 'bestWork'">
+				a.art_viewcount DESC
+			</if>
+			<if test="orderBy == 'recommendWork'">
+				a.art_register_date DESC
+			</if>
+			<if test="orderBy == 'artistRecommend'">
+				a.art_recommend_time DESC
+			</if>
+		<include refid="footer"/>
+	</select>
+	
 </mapper>
 
 

@@ -114,7 +114,58 @@
 		WHERE
 			writer_code_seq=#{writerCodeSeq}
 	</select>
+	
+	<select id="selectRecentlyView" parameterType="hashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			wishlist_tb
+		WHERE
+			member_code_seq=#{memberCode}
+			AND
+			wishlist_option='최근본작품'
+			AND
+			wishlist_option_code=#{artCode}
+	</select>
+	
+	<update id="updateRecentlyView" parameterType="hashMap">
+		UPDATE
+			wishlist_tb
+		SET
+			wishlist_time=sysdate
+		WHERE
+			member_code_seq=#{memberCode}
+			AND
+			wishlist_option='최근본작품'
+			AND
+			wishlist_option_code=#{artCode}
+	</update>
+	
+	<insert id="insertRecentlyView" parameterType="hashMap">
+		INSERT INTO wishlist_tb
+		(
+			wishlist_seq,
+			member_code_seq,
+			wishlist_option,
+			wishlist_option_code
+		)
+		VALUES
+		(
+			'wishlist_seq' || TO_CHAR(wishlist_sq.nextval),
+			#{memberCode},
+			'최근본작품',
+			#{artCode}
+		)
+	</insert>
 
+	<update id="updateViewCount" parameterType="String">
+		UPDATE 
+			art_tb
+		SET
+			art_viewcount = art_viewcount + 1
+		WHERE
+			art_code_seq = #{artCodeSeq}
+	</update>
 	
 
 </mapper>

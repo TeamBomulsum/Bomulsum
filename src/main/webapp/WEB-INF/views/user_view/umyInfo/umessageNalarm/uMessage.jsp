@@ -118,7 +118,8 @@
 }
 .wonMessagebutton2{
 	display: flex;
-	border:none;
+	border:0;
+	outline:0;
 	cursor:pointer;
 	justify-content: center;
 }
@@ -369,7 +370,7 @@
 						<input type="hidden" id="headInfoCode">
 					</div>
 					<div style="display: flex; flex-direction: row; width:60%; justify-content: flex-end;margin-right: 3%;">
-						<button class="wonMessagebutton2" style="font-size: 12px;align-items: center;margin: 1%;padding: 3%;border: 1px solid #d9d9d9;color: red;background: white;">
+						<button id="writer_wish" class="wonMessagebutton2" style="font-size: 12px;align-items: center;margin: 1%;padding: 3%;border: 1px solid #d9d9d9;color: red;background: white;">
 							<i class="fas fa-heart" style="font-size:12px"></i>작가로 추가
 						</button>
 						<button id="exitButton" class="wonMessagebutton2" style="font-size:12px; align-items: center;margin: 1%;padding: 3%;border: 1px solid #d9d9d9;background: white;">나가기</button>
@@ -660,7 +661,11 @@ $(function(){
 			$('.messageUserList').addClass('enable');
 			$(this).removeClass('enable');
 			$(this).addClass('able');
+			
 			var sendercode = '<%= (String)session.getAttribute("member") %>';
+			
+			
+			
 			$("#wonMessageList").empty();
 			$.ajax({
 				url:"/bomulsum/writer/message/getChatList.wdo",
@@ -728,6 +733,29 @@ $(function(){
 					console.log(err);
 				}
 			});
+			
+			$.ajax({
+				url:'/bomulsum/user/message/memberWishInfo.do',
+				data:{
+					'memberCode':sendercode,
+					'writerCode':receiveCode
+				},
+				success:function(data){
+					if(data == 'Y'){
+						$('#writer_wish').css('background', 'red');
+						$('#writer_wish').css('color', 'white');
+						$('#writer_wish').html('<i class="fas fa-heart" style="font-size:12px"></i>하는 작가');
+					}else{
+						$('#writer_wish').css('background', 'white');
+						$('#writer_wish').css('color', 'red');
+						$('#writer_wish').html('<i class="fas fa-heart" style="font-size:12px"></i>작가로 추가');
+					}
+				},
+				fail: function(e){
+					
+				}
+			});
+			
 			preClickedList = $(this);
 		});
 	}
@@ -850,7 +878,35 @@ $(function(){
 	});
 	
 	
-	
+	$("#writer_wish").on('click', function(){
+		var memberCode = '<%=(String)session.getAttribute("member") %>';
+		var writerCode = $("#headInfoCode").val();
+		$.ajax({
+			url:"/bomulsum/user/message/wishlist.do",
+			data:{
+				"memberCode":memberCode,
+				"writerCode":writerCode
+			},
+			success : function(data){
+				if(data == 'insert'){
+					alert('좋아하는 작가에 추가 되었습니다.');
+					
+					$('#writer_wish').css('background', 'red');
+					$('#writer_wish').css('color', 'white');
+					$('#writer_wish').html('<i class="fas fa-heart" style="font-size:12px"></i>하는 작가');
+				}else{
+					alert("좋아하는 작가에 해제되었습니다.");
+
+					$('#writer_wish').css('background', 'white');
+					$('#writer_wish').css('color', 'red');
+					$('#writer_wish').html('<i class="fas fa-heart" style="font-size:12px"></i>작가로 추가');
+				}
+			},
+			fail : function(err){
+				console.log(err);
+			}
+		});
+	});
 	
 	
 	

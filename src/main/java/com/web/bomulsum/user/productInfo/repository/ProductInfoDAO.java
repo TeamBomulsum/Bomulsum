@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.productInfo.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -28,5 +29,22 @@ public class ProductInfoDAO {
 	}
 	public WriterVO getWriterInfo(String writerCodeSeq) {
 		return template.selectOne("ProductInfoDAO.getWriterInfo",writerCodeSeq);
+	}
+	
+	
+	public int selectRecentyleView(HashMap<String, String> map) {
+		return template.selectOne("ProductInfoDAO.selectRecentlyView", map);
+	}
+	
+	public void updateRecentlyView(HashMap<String, String> map) {
+		template.update("ProductInfoDAO.updateRecentlyView", map);
+	}
+	
+	public void insertRecentlyView(HashMap<String, String> map) {
+		template.insert("ProductInfoDAO.insertRecentlyView", map);
+	}
+	
+	public void updateViewCount(String artCodeSeq) {
+		template.update("ProductInfoDAO.updateViewCount", artCodeSeq);
 	}
 }

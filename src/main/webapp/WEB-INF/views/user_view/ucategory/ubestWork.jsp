@@ -56,6 +56,7 @@
 }
 
 .article{
+	cursor:pointer;
 	margin-top: 16px;
 	margin-left: 8px;
 	margin-right: 8px;
@@ -69,7 +70,6 @@
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
-	background-image: url("<c:url value='/resources/img/recommendedWork_img.PNG'/> ");
 	width:196px;
 	height:196px;
 	background-size: 196px;
@@ -80,6 +80,7 @@
 .article_img i{
     font-size: 20px;
     margin: 5%;
+    height: 20px;
     color: gray;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: white;
@@ -141,34 +142,7 @@
 		
 		<div class="articles">
 			<c:forEach var="i" begin="1" end="30">
-				<div class="article">
-					<div class="article_img">
-						<c:choose>
-							<c:when test="${i == 1}">
-								<img src="<c:url value='/resources/img/uFirst.png'/> ">
-							</c:when>
-							<c:when test="${i == 2}">
-								<img src="<c:url value='/resources/img/uSecond.png'/> ">
-							</c:when>
-							<c:otherwise>
-								<img src="<c:url value='/resources/img/uThird.png'/> ">
-							</c:otherwise>
-						</c:choose>
-						<i class="fa fa-star"></i>
-					</div>
-					<div class="article_detail">
-						<a>CONVEY.G</a>
-						<span>[3일할인][인기]차량용 우드불 디퓨저</span>
-					</div>
-					<div class="article_grade">
-						<i class="fa fa-star" style="color:gold"></i>
-						<i class="fa fa-star" style="color:gold"></i>
-						<i class="fa fa-star" style="color:gold"></i>
-						<i class="fa fa-star" style="color:gold"></i>
-						<i class="fa fa-star" style="color:gold"></i>
-						<span>(<a>3</a>)</span>
-					</div>
-				</div>
+				
 			</c:forEach>
 		</div>
 	
@@ -176,4 +150,195 @@
 	<%@ include file="../include/uFooter.jsp" %>
 </div>
 </body>
+<script>
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+var likeArticleFunc;
+
+var page = 1;
+
+$(function(){
+	getList(page);
+	page++;
+});
+
+$(window).scroll(function() {
+    if ( Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()) {
+    	getList(page);
+    	page++;
+    }
+});
+
+function comma(x) { return !x ? '0' : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
+
+function artCode(e){
+	var art_code = e.id;
+	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank");
+}
+
+function getList(page){
+	var category = $('.title').text();
+	/* <div class="article">
+		<div class="article_img">
+			<c:choose>
+				<c:when test="${i == 1}">
+					<img src="<c:url value='/resources/img/uFirst.png'/> ">
+				</c:when>
+				<c:when test="${i == 2}">
+					<img src="<c:url value='/resources/img/uSecond.png'/> ">
+				</c:when>
+				<c:otherwise>
+					<img src="<c:url value='/resources/img/uThird.png'/> ">
+				</c:otherwise>
+			</c:choose>
+			<i class="fa fa-star fs"></i>
+		</div>
+		<div class="article_detail">
+			<a>CONVEY.G</a>
+			<span>[3일할인][인기]차량용 우드불 디퓨저</span>
+		</div>
+		<div class="article_grade">
+			<i class="fa fa-star" style="color:gold"></i>
+			<i class="fa fa-star" style="color:gold"></i>
+			<i class="fa fa-star" style="color:gold"></i>
+			<i class="fa fa-star" style="color:gold"></i>
+			<i class="fa fa-star" style="color:gold"></i>
+			<span>(<a>3</a>)</span>
+		</div>
+	</div> */
+	
+	$.ajax({
+		type:'POST',
+		dataType : 'json',
+		data:{
+			'page':page,
+			'member': memberCode,
+			'methodName':'bestWork'
+		},
+		url : '/bomulsum/category/InfoForHeadCategory.do',
+		success :function(returnData){
+			
+			console.log(returnData);
+			var data = returnData.data;
+			var htmldiv = '';
+			var writerName = '';
+			var artImg = '';
+			
+			if(page == 1){
+				$('.articles').html('');
+			}
+			
+			if(returnData.startNum <= returnData.totalCnt){
+				if(data.length > 0){
+					// for
+					for(var i=0; i<data.length; i++){
+						if(data[i].writerBrandName == null){
+							writerName = data[i].writerName;
+						}else{
+							writerName = data[i].writerBrandName;
+						}
+						artImg = data[i].artPhoto.split(',')[0];
+						
+						htmldiv += '<div class="article" onclick="artCode(this);" id="'+data[i].artCode+'"><div class="article_img" style="background-image : URL(\'/bomulsum/upload/'+ artImg +'\' );" >';
+						if(page == 1 && i == 0){
+							htmldiv += '<img src="/bomulsum/resources/img/uFirst.png "> ';
+						}else if(page == 1 && i == 1){
+							htmldiv += '<img src="/bomulsum/resources/img/uSecond.png "> ';							
+						}else{
+							htmldiv += '<img src="/bomulsum/resources/img/uThird.png "> ';														
+						}
+						
+						var imsi = 0;
+						for(var j=0; j<returnData.wishList.length; j++){
+							if(data[i].artCode == returnData.wishList[j]){
+								htmldiv += '<i class="fa fa-star fs" style="color:#d64640"></i>';
+								imsi = 1;
+								break;
+							}
+						}
+						if(imsi == 0){
+							htmldiv += '<i class="fa fa-star fs"></i>'; 
+						}
+						
+						htmldiv += '<input type="hidden" value="'+data[i].artCode+'"/></div><div class="article_detail">'
+							+ '<a>' + writerName + '</a>' + '<span>' + data[i].artName + '</span></div>'
+							+ '<div class="article_grade"><i class="fa fa-star" style="color:gold"></i><i class="fa fa-star" style="color:gold"></i>'
+							+ '<i class="fa fa-star" style="color:gold"></i><i class="fa fa-star" style="color:gold"></i><i class="fa fa-star" style="color:gold"></i>'
+							+ '<span>(<a>3</a>)</span></div></div>';
+					}
+					
+				}else{
+					//데이터 없을때.
+				}
+			}
+			
+			htmldiv = htmldiv.replace(/%20/gi, ' ');
+			
+			if(page == 1){
+				$('.articles').html(htmldiv);
+			}else{
+				$('.articles').append(htmldiv);
+			}
+			
+			$(".fs").click(likeArticleFunc);
+			
+		},
+		error:function(e){
+			if(e.status == 300){
+				alert('데이터를 가져오는데 실패했습니다.');
+			};
+		}
+	});
+	
+	
+	
+	likeArticleFunc = function(e){
+		e.stopPropagation();
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
+		
+		var artCode = $(this).next().val();
+		var option = '좋아하는작품';
+		console.log(artCode);
+		
+		
+		var clickIcon = $(this);
+		console.log(clickIcon);
+		var tORf;
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+			tORf = true;
+		}else{
+			clickIcon.css("color", "gray");
+			tORf = false;
+		}
+		
+		$.ajax({
+			url:'/bomulsum/category/wish.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':artCode,
+				'bool': tORf
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+		if(tORf){
+			alert('좋아하는 작품에 추가되었습니다.');
+		}else{
+			alert('해제되었습니다.');
+		}
+	};
+}
+</script>
 </html>

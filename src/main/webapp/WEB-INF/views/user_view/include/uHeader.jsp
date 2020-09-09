@@ -717,6 +717,9 @@ body {
     color: #666666;
     text-decoration: none;
     font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #rank-list a:hover {
@@ -891,8 +894,8 @@ body {
 			<a href="<c:url value='/home.do'/>" ><img alt="logo" src="<c:url value='/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
 		</div>
 		<div class="dainheader-middle-menu">
-			<a class="dainheader-middle-menu-a" href="#" style="margin-right: 30px; color: #1f76bb;" >작품</a>
-			<a class="dainheader-middle-menu-a" href="#" style="margin-right: 30px;">금손 클래스</a>
+			<a class="dainheader-middle-menu-a" href="<c:url value='/home.do'/>" style="margin-right: 30px; color: #1f76bb;" >작품</a>
+			<a class="dainheader-middle-menu-a" href="<c:url value='/midas/class.do'/>" style="margin-right: 30px;">금손 클래스</a>
 		</div>
 		<!-- 검색창 영역 -->
 		<div class="dainheader-middle-search">
@@ -912,7 +915,7 @@ body {
 				</div>
 				<ol class="dainol">
 				  
-				</ol> 
+				</ol>
 			</div>
 			<dl id="rank-list">
 	            <dt>실시간 급상승 검색어</dt>

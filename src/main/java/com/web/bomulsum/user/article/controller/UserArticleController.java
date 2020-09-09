@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.bomulsum.user.article.repository.UserArticleCategoryVO;
 import com.web.bomulsum.user.article.repository.UserArticlePagingVO;
+import com.web.bomulsum.user.article.repository.UserOrderByArticlePagingVO;
 import com.web.bomulsum.user.article.service.UserArticleService;
 
 @Controller
@@ -22,26 +23,113 @@ public class UserArticleController {
 	@Autowired
 	private UserArticleService service;
 	
+	// 추천 작품
 	@RequestMapping(value="/recommended")
 	public String recommended() {
 		return "/ucategory/urecommendedWork";
 	}
 	
-	@RequestMapping(value="/realTime")
-	public String realTime() {
-		return "/ucategory/uRealtimeReview";
-	}
-	
+	// 작가님 추천
 	@RequestMapping(value="/artistRecommend")
 	public String artistRecommend() {
 		return "/ucategory/uArtistRecommend";
 	}
 	
+	// 인기 작품
 	@RequestMapping(value="/bestwork")
 	public String bestWork() {
 		return "/ucategory/ubestWork";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/InfoForHeadCategory", method=RequestMethod.POST)
+	public HashMap<String, Object> bestworkInfo(
+			@RequestParam(value="page") int page,
+			@RequestParam(value="methodName") String method,
+			@RequestParam(value="member") String member
+			) {
+		
+		UserOrderByArticlePagingVO vo = new UserOrderByArticlePagingVO();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		switch(method) {
+			// 인기 작품.
+			case "bestWork" :
+				vo.setOrderBy(method); 
+				int totalCnt = service.getOrderByArticleCount(vo);
+				int pageCnt = page;
+				if(pageCnt == 1) {
+					vo.setStartNum(1);
+					vo.setEndNum(20);
+				}else {
+					vo.setStartNum(pageCnt + (19*(pageCnt-1)));
+					vo.setEndNum(pageCnt*20);
+				}
+				map.put("totalCnt", totalCnt);
+				map.put("startNum", vo.getStartNum());
+				
+				List<UserArticleCategoryVO> data = service.getListForOrderBy(vo);
+				map.put("data", data);
+				
+				if(!member.equals("null") || member != null) {
+					map.put("wishList",service.getLikeArticles(member));
+				}
+				
+				break;
+			
+			case "recommendWork" :
+				vo.setOrderBy(method); 
+				
+				totalCnt = service.getOrderByArticleCount(vo);
+				pageCnt = page;
+				if(pageCnt == 1) {
+					vo.setStartNum(1);
+					vo.setEndNum(20);
+				}else {
+					vo.setStartNum(pageCnt + (19*(pageCnt-1)));
+					vo.setEndNum(pageCnt*20);
+				}
+				map.put("totalCnt", totalCnt);
+				map.put("startNum", vo.getStartNum());
+				
+				data = service.getListForOrderBy(vo);
+				map.put("data", data);
+				
+				if(!member.equals("null") || member != null) {
+					map.put("wishList",service.getLikeArticles(member));
+				}
+				
+				break;
+			
+			case "artistRecommend" :
+				vo.setOrderBy(method); 
+				
+				totalCnt = service.getOrderByArticleCount(vo);
+				pageCnt = page;
+				if(pageCnt == 1) {
+					vo.setStartNum(1);
+					vo.setEndNum(20);
+				}else {
+					vo.setStartNum(pageCnt + (19*(pageCnt-1)));
+					vo.setEndNum(pageCnt*20);
+				}
+				map.put("totalCnt", totalCnt);
+				map.put("startNum", vo.getStartNum());
+				
+				data = service.getListForOrderBy(vo);
+				map.put("data", data);
+				
+				if(!member.equals("null") || member != null) {
+					map.put("wishList",service.getLikeArticles(member));
+				}
+				
+				break;
+		}
+		
+		return map;
+	}
+	
+	// 카테고리
 	@RequestMapping(value="/detail")
 	public String categoryHome(String category) {
 		return "/ucategory/ucategory";

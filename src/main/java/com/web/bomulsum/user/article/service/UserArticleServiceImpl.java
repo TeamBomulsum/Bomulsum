@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.web.bomulsum.user.article.repository.UserArticleCategoryVO;
 import com.web.bomulsum.user.article.repository.UserArticleDAO;
 import com.web.bomulsum.user.article.repository.UserArticlePagingVO;
+import com.web.bomulsum.user.article.repository.UserOrderByArticlePagingVO;
 import com.web.bomulsum.user.article.repository.UserSearchPagingVO;
 
 @Service
@@ -70,6 +71,16 @@ public class UserArticleServiceImpl implements UserArticleService{
 	@Override
 	public List<String> realTimeKeyword() {
 		return dao.realTimeKeyword();
+	}
+
+	@Override
+	public int getOrderByArticleCount(UserOrderByArticlePagingVO vo) {
+		return dao.getOrderByArticleCount(vo);
+	}
+
+	@Override
+	public List<UserArticleCategoryVO> getListForOrderBy(UserOrderByArticlePagingVO vo) {
+		return dao.getListForOrderBy(vo);
 	}
 	
 }

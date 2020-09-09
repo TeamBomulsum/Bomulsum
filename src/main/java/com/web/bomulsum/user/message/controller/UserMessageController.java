@@ -90,6 +90,36 @@ public class UserMessageController {
 		}
 		service.deleteChatRoom(list);
 	}
+	
+	@ResponseBody
+	@GetMapping("/message/wishlist")
+	public String wish(@RequestParam String memberCode, @RequestParam String writerCode) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("memberCode", memberCode);
+		map.put("writerCode", writerCode);
+		map.put("option", "좋아하는작가");
+		
+		if(service.selectWish(map)) {
+			return "insert";
+		}else {
+			return "delete";
+		}
+		
+	}
+	
+	@ResponseBody
+	@GetMapping("/message/memberWishInfo")
+	public String wishInfo(@RequestParam String memberCode, @RequestParam String writerCode) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("memberCode", memberCode);
+		map.put("writerCode", writerCode);
+		map.put("option", "좋아하는작가");
+		
+		return service.getWish(map);
+	}
 
 	
 }

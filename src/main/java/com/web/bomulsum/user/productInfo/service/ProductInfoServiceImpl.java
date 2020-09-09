@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.productInfo.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,20 @@ public class ProductInfoServiceImpl implements ProductInfoService{
 		return dao.getWriterInfo(writerCodeSeq);
 	}
 
+
+	@Override
+	public void selectRecentyleView(HashMap<String, String> map) {
+		
+		if(dao.selectRecentyleView(map) == 0) {
+			dao.insertRecentlyView(map);
+		}else {
+			dao.updateRecentlyView(map);
+		}
+	}
+
+	
+	@Override
+	public void updateViewCount(String artCodeSeq) {
+		dao.updateViewCount(artCodeSeq);
+	}
 }

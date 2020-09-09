@@ -58,4 +58,16 @@ public class NodeDbDAO {
 		return sqlSessionTemplate.selectOne("NodeDbDAO.getNonReadMsgContent", map);
 	}
 	
+	public int selectWish(HashMap<String, String> map) {
+		return sqlSessionTemplate.selectOne("NodeDbDAO.selectWish", map);
+	}
+	
+	public void insertWish(HashMap<String, String> map) {
+		sqlSessionTemplate.insert("NodeDbDAO.insertWish", map);
+	}
+	public void deleteWish(HashMap<String, String> map) {
+		sqlSessionTemplate.delete("NodeDbDAO.deleteWish", map);
+	}
+	
+	
 }

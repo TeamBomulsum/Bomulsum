@@ -64,5 +64,25 @@ public class NodeDbServiceImpl implements NodeDbService{
 		dao.deleteChatRoom(list);
 	}
 
+	@Override
+	public Boolean selectWish(HashMap<String, String> map) {
+		if(dao.selectWish(map) == 0) {
+			dao.insertWish(map);
+			return true;
+		}else {
+			dao.deleteWish(map);
+			return false;
+		}
+	}
+
+	@Override
+	public String getWish(HashMap<String, String> map) {
+		if(dao.selectWish(map) == 0) {
+			return "N";
+		}else {
+			return "Y";
+		}
+	}
+
 
 }

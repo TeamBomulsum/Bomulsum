@@ -20,6 +20,7 @@ public class UserArticleCategoryVO {
 	private int startNum;
 	
 	
+	
 	public Date getArtRegisterDate() {
 		return artRegisterDate;
 	}
@@ -119,6 +120,8 @@ public class UserArticleCategoryVO {
 				+ ", artDiscount=" + artDiscount + ", artViewcount=" + artViewcount + ", artKeyword=" + artKeyword
 				+ ", artRegisterDate=" + artRegisterDate + ", totCnt=" + totCnt + ", startNum=" + startNum + "]";
 	}
+	
+	
 
 	
 	

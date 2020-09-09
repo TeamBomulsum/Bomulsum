@@ -65,6 +65,11 @@ body {
 	color: #666666;
 	border: none;
 }
+.dain-header-topA:link, .dain-header-topA:visited, .dain-header-topA:hover, .dain-header-topA:active {
+	text-decoration: none;
+	color: #666666;
+	border: none;
+}
 
 .dainheader-top {
 	display: flex;
@@ -74,6 +79,14 @@ body {
 	height: 23%;
 	border-bottom: 1px solid #d9d9d9;
 	font-size: 11px;
+}
+
+.dain-header-topA {
+	margin-left: 12px;
+	margin-right: 12px;
+	height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .dainheader-top-a {
@@ -159,13 +172,6 @@ body {
 	margin-bottom: 3px;
 	margin-right: 3px;
 	float: right;
-}
-
-.dainpopsearch {
-	width: 220px;
-	height: 21px;
-	margin-left: 30px;
-	font-size: 14px;
 }
 
 .dainiconbtn {
@@ -675,6 +681,91 @@ body {
     font-size: 1px;
 }
 
+/*인기검색어*/
+.dainpopsearch {
+	position: relative;
+	width: 220px;
+	height: 21px;
+	margin-left: 30px;
+	font-size: 14px;
+}
+/*인기검색어 드롭다운*/
+.dainDropDownSearch{
+	width: 160px;
+	height: 260px;
+	border:1px solid black;
+	display: none;
+ 	position: absolute;
+ 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  	z-index: 999;
+  	background-color: white;
+  	padding: 10px 20px 10px 20px;
+  	color: #282828;
+}
+
+.dainpopsearch:hover .dainDropDownSearch {
+  display: block;
+}
+
+.dainol{
+	padding: 0px 15px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.dainol li p {
+    font-weight: normal;
+    margin: 6px 0px;
+}
+
+.dainol li:hover{
+	cursor: pointer;
+	color: #1f76bb;
+	text-decoration: underline;
+}
+
+#rank-list a {
+    color: #666666;
+    text-decoration: none;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#rank-list a:hover {
+    text-decoration: underline;
+}
+
+#rank-list {
+    overflow: hidden;
+    width: 160px;
+    height: 20px;
+    margin: 0;
+}
+
+#rank-list dt {
+    display: none;
+}
+
+#rank-list dd {
+    position: relative;
+    margin: 0;
+}
+
+#rank-list ol {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#rank-list li {
+    height: 20px;
+    line-height: 20px;
+}
 
 </style>
 </head>
@@ -810,30 +901,49 @@ body {
 		
 		
 		<div style="height: 100%; width: 105px; margin-right: 10px">
-			<a href="#"><img alt="logo" src="<c:url value='/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
+			<a href="<c:url value='/home.do'/>"><img alt="logo" src="<c:url value='/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
 		</div>
 		<div class="dainheader-middle-menu">
-			<a class="dainheader-middle-menuA" href="#" style="margin-right: 30px;" >작품</a>
-			<a class="dainheader-middle-menuA"  href="#" style="margin-right: 30px; color: #1f76bb;">금손 클래스</a>
+			<a class="dainheader-middle-menuA" href="<c:url value='/home.do'/>" style="margin-right: 30px;" >작품</a>
+			<a class="dainheader-middle-menuA"  href="<c:url value='/midas/class.do'/>" style="margin-right: 30px; color: #1f76bb;">금손 클래스</a>
 		</div>
 		<!-- 검색창 영역 -->
 		<div class="dainheader-middle-search">
 			<div class="middle-search-form">
-				<form action="#">
+				<form action="/bomulsum/search/result.do">
 					<input autocomplete="off" type="text" id="headerSearch" name="headerSearch" placeholder="작품, 작가 검색" >
 					<button class="dainsearchbtn"><i class="fa fa-search fa-lg" aria-hidden="true" ></i></button>
 				</form>
 			</div>
 		</div>
 		<!-- 인기검색어 영역 -->
+		
 		<div class="dainpopsearch">
-		 	<span style="color: red">1. </span> <span style="color:#666666 ">폰케이스</span>
+			<div class="dainDropDownSearch"> <!-- 인기검색어 드롭다운영역 -->
+				<div style="padding-bottom:10px; border-bottom: 1px solid black;">
+					<span style="font-size: 11px; font-weight: bold;">실시간 인기검색어</span>
+				</div>
+				<ol class="dainol">
+				  
+				</ol> 
+			</div>
+			<dl id="rank-list">
+	            <dt>실시간 급상승 검색어</dt>
+	            <dd>
+	                <ol class="dndudol">
+	                    
+	                </ol>
+	            </dd>
+	        </dl>
+			<!-- <div id="favoriteKeyword">
+		 		<span style="color: red">1. </span> <span style="color:#666666 ">폰케이스</span>
+		 	</div> -->
 		</div>
 		
 		
 		<!-- 우측 아이콘 영역 -->
 		<div class="dainmyinfo">
-					<div style="height: 50px; width: 40px; margin-right: 20px;">
+					<div id="toMyInfo" style="height: 50px; width: 40px; margin-right: 20px;">
 						<button class="dainiconbtn" style="padding:0px;"><i class="fa fa-user fa-2x" aria-hidden="true" style="padding: 7px 3px 3px;"></i>
 						<p style="margin: 0px; font-size: 10px; width: 40px">MY정보</p></button>
 					</div>
@@ -864,6 +974,54 @@ body {
 </header>
 <!-- Header 끝 -->
 </body>
+<script>
+var keywordClick = function(event){
+	location.href='/bomulsum/search/result.do?headerSearch='+event;
+};
+
+var getRealTime = function(){
+	$.ajax({
+		type:'POST',
+		url:"/bomulsum/search/realTime.do",
+		success: function(data){
+/* 				dndud = > <li><a><span style="color:red">1.</span> 폰케이스</a></li>
+            dain = > <li><p>폰케이스<p></li> */
+			console.log(data);
+            var dndud='';
+            var dain='';
+            for(var i=0; i<data.length; i++){
+            	dndud += '<li><a><span style="color:red">'+(i+1)+'.</span> '+data[i]+'</a></li>';
+            	dain += '<li><p class="dndud_class">'+data[i]+'</p></li>';
+            }
+			$('.dndudol').html(dndud);
+			$('.dainol').html(dain);
+			
+			var count = $('#rank-list li').length;
+		    var height = $('#rank-list li').height();
+		    
+		    $('.dndud_class').on('click', function(){
+		    	keywordClick($(this).text());
+		    });
+		
+		    function step(index){
+		        $('#rank-list ol').delay(2000).animate({
+		            top: -height * index,
+		        }, 500, function() {
+		            step((index + 1) % count);
+		        });
+		    }
+		    step(1);
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
+	
+};
+$(document).ready(function(){
+    getRealTime();
+});
+</script>
 <script>
 $(function(){
 	var code = '<%= (String)session.getAttribute("member") %>';

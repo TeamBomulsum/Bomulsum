@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.productInfo.controller;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.bomulsum.user.productInfo.repository.WriterVO;
 import com.web.bomulsum.user.productInfo.service.ProductInfoService;
@@ -24,12 +26,24 @@ public class ProductInfoController {
 	ProductInfoService service;
 	
 	@GetMapping("uProductInfo/{artCodeSeq}")
-	public String ProductInfo(@PathVariable String artCodeSeq,Model model,WriterArtVO vo) {
+	public String ProductInfo(@PathVariable String artCodeSeq,Model model,WriterArtVO vo, @RequestParam String memberCode) {
 		System.out.println("들어옴");
+		System.out.println("회원 코드 : " + memberCode);
+		
+		// 최근 본 리스트
+		if(memberCode != null && !memberCode.equals("null")) {	
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("memberCode", memberCode);
+			map.put("artCode", artCodeSeq);
+			service.selectRecentyleView(map);
+		}
+		service.updateViewCount(artCodeSeq);
+		
+		
 		WriterArtVO artList = service.getListProductInfo(artCodeSeq);
 		
 		String writerCodeSeq = artList.getWriterCodeSeq();
-		System.out.println(writerCodeSeq);
+//		System.out.println(writerCodeSeq);
 		WriterVO writer = service.getWriterInfo(writerCodeSeq);
 		List<WriterArtInfoDetailVO> artInfo = service.getListProductartInfoList(artCodeSeq);
 		List<WriterArtOptionVO> artOption = service.getListProductInfoOption(artCodeSeq);
@@ -48,10 +62,10 @@ public class ProductInfoController {
 		model.addAttribute("keywordSplit", keywordSplit);
 		
 		
-		System.out.println(writer);
-		System.out.println(artInfo);
-		System.out.println(artOption);
-		System.out.println(artList);
+//		System.out.println(writer);
+//		System.out.println(artInfo);
+//		System.out.println(artOption);
+//		System.out.println(artList);
 		
 		
 		model.addAttribute("writer",writer);
