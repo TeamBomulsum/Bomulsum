@@ -445,7 +445,7 @@ window.addEventListener('scroll', () => {
 				<!-- 댓글 end -->
 			</div>
 			<!-- 상품정보 선택 -->
-			<div style="margin: 3%; width:50%; z-index: 1;">
+			<div style="margin: 3%; width:50%;">
 				<div style="border:1px #ABABAB solid; position: fixed; width:32.7%;" id="positionFixed">
 					<div style="margin:1%; padding: 1%; display: flex; justify-content: space-between;">
 						<span style="display: flex; flex-direction: row; width:50%; margin: 1%; padding: 1%;">
@@ -492,7 +492,7 @@ window.addEventListener('scroll', () => {
 								<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 80%; text-decoration: line-through;"><fmt:formatNumber value="${artList.artPrice}" pattern="#,###"/> 원</p>
 							</div>
 							<div style="width: 30%; display:flex; justify-content: flex-end;">
-								<div style="display: flex; flex-direction: column; margin: 1%; padding: 1%;">
+								<div style="display: flex; flex-direction: column; margin: 1%;">
 									<i class="fa fa-star-o fa-1x" aria-hidden="true" onclick="bookmarkCount();" id="won_bookMark_star"></i>
 									<span style="align-self: center;"><fmt:formatNumber value="${artList.bookMarkCount }" pattern="#,###"/></span>
 								</div>
@@ -502,27 +502,27 @@ window.addEventListener('scroll', () => {
 							</div>
 						</div>
 						<div style="display:flex; justify-content: flex-end; margin-right: 3%;">
-							<span style="color: #666666; font-weight: bold; font-size:14px; margin-right: 1%;">${artList.artSaleCount }</span>&nbsp;
+							<span style="color: #666666; font-weight: bold; font-size:14px;margin-bottom:0%; margin-right: 1%;">${artList.artSaleCount }</span>&nbsp;
 							<span style="color: #666666; font-size:14px;">구매</span><!-- 할인율 가격 판매제목  -->
 						</div>					
 						<div style="display:flex; flex-direction: row; padding: 1%; margin: 1%;">
 							<div style="display:flex; flex-direction: column; width:30%;">
-								<span style="margin: 3%; padding: 3%; color: #666666;">적립금</span>
-								<span style="margin: 3%; padding: 3%; color: #666666;">구매후기</span>
-								<span style="margin: 3%; padding: 3%; color: #666666;">배송비</span>
-								<span style="margin: 3%; padding: 3%; color: #666666;">수량</span>
+								<span style="margin: 2%; padding: 2%; color: #666666;">적립금</span>
+								<span style="margin: 2%; padding: 2%; color: #666666;">구매후기</span>
+								<span style="margin: 2%; padding: 2%; color: #666666;">배송비</span>
+								<span style="margin: 2%; padding: 2%; color: #666666;">수량</span>
 							</div>
 							<div style="display:flex; flex-direction: column; margin-left: 5%;width:30%;">
-								<span style="margin: 3%; padding: 3%;"><fmt:formatNumber value="${(artList.artPrice- artList.artDiscount)*0.01}" pattern="#,###"/> P</span>
-								<span style="margin: 3%; padding: 3%;">
+								<span style="margin: 2%; padding: 2%;"><fmt:formatNumber value="${(artList.artPrice- artList.artDiscount)*0.01}" pattern="#,###"/> P</span>
+								<span style="margin: 2%; padding: 2%;">
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<i class="fa fa-star" aria-hidden="true"></i>
 								</span>
-								<span style="margin: 3%; padding: 3%;"><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/>원</span>
-								<span style="margin: 3%; padding: 3%;">${artList.artAmount }</span>
+								<span style="margin: 2%; padding: 2%;"><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/>원</span>
+								<span style="margin: 2%; padding: 2%;">${artList.artAmount }</span>
 							</div>
 						</div>
 						
@@ -555,7 +555,7 @@ window.addEventListener('scroll', () => {
 						</div>
 						<div style="display: flex; flex-direction: row; padding: 1%; margin: 1%;">
 							<button style="width:40%; background-color:white; 
-							height:80px; margin: 1%; border: 1px #333333 solid;">
+							height:50px; margin: 1%; border: 1px #333333 solid;">
 								<span style="color: #333333; font-size: 16px;">장바구니</span>
 							</button>
 							<button style="width:40%; margin: 1%;border: none; background: #f95677; font-style: 16px; color: white;">구매</button>
