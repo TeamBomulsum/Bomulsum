@@ -330,7 +330,7 @@ body a:link, a:visited, a:hover, a:active, :active{
 		<button class="dainBtn" id="withdrawBtn" type="button">회원탈퇴</button>
 	</div>
 	<div style="display: flex; justify-content: center;">
-		<button type="submit" class="dainBtn dainBtn2">회원 정보 수정하기</button>
+		<button type="submit" class="dainBtn dainBtn2" onclick="alert('변경되었습니다.')">회원 정보 수정하기</button>
 	</div>
 	</form>
 	

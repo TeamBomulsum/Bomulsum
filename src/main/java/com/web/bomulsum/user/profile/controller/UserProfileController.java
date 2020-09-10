@@ -106,9 +106,11 @@ public class UserProfileController {
 		String memberCode= (String) session.getAttribute("member");  //멤버코드
 		System.out.println("멤버코드:"+memberCode);
 		
+		vo.setMember_code_seq(memberCode);
 		
 		System.out.println("받아온 전화번호: "+ member_phone);
 		service.updateUserphone(vo);
+		System.out.println("전화번호 변경후:"+vo.toString());
 		mav.setViewName("redirect:/user/infomanage.do");
 		
 		return mav;
@@ -121,6 +123,8 @@ public class UserProfileController {
 		HttpSession session = request.getSession();
 		String memberCode= (String) session.getAttribute("member");  //멤버코드
 		System.out.println("멤버코드:"+memberCode);
+		
+		vo.setMember_code_seq(memberCode);
 		
 		System.out.println("Delete 전:" + vo.toString());
 		service.deleteUser(vo);
