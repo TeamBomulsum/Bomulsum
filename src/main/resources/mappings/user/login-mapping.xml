@@ -16,6 +16,10 @@
 	</resultMap>
 
 	<insert id="insertMember" parameterType="memberVO">
+		<selectKey resultType="int" keyProperty="memberCode" order="BEFORE">
+			SELECT member_code_sq.nextval FROM DUAL
+		</selectKey>
+		
 		INSERT INTO member_tb 
 		(
 			member_code_seq,
@@ -29,7 +33,7 @@
 		)
 		VALUES
 		(
-			'member_code_sq' || TO_CHAR(member_code_sq.nextval),
+			'member_code_seq' || TO_CHAR(#{memberCode}),
 			#{memberEmail},
 			#{memberPassword},
 			#{memberName}, 
@@ -37,6 +41,75 @@
 			#{memberRecCode}, 
 			#{memberSmsAgree}, 
 			#{memberEmailAgree}
+		)
+	</insert>
+	
+	<insert id="insertCoupon" parameterType="hashMap">
+		INSERT INTO coupon_tb
+		(
+			coupon_code_seq,
+			member_code_seq,
+			coupon_name,
+			coupon_content,
+			coupon_price,
+			coupon_date
+		)
+		VALUES
+		(
+			'coupon_code_seq' || TO_CHAR(coupon_sq.nextval),
+			#{code},
+			'회원가입 감사 쿠폰',
+			'신규가입 고객 대상',
+			2000,
+			#{date}
+		)
+	</insert>
+	<insert id="insertCoupon2" parameterType="hashMap">
+		INSERT INTO coupon_tb
+		(
+			coupon_code_seq,
+			member_code_seq,
+			coupon_name,
+			coupon_content,
+			coupon_price,
+			coupon_date
+		)
+		VALUES
+		(
+			'coupon_code_seq' || TO_CHAR(coupon_sq.nextval),
+			#{code},
+			'회원가입 감사 쿠폰',
+			'신규가입 고객 대상',
+			3000,
+			#{date}
+		)
+	</insert>
+	<select id="getRecCode" parameterType="String" resultType="String">
+		SELECT 
+			member_code_seq
+		FROM
+			member_tb
+		WHERE
+			member_email=#{email}
+	</select>
+	<insert id="insertCoupon3" parameterType="hashMap">
+		INSERT INTO coupon_tb
+		(
+			coupon_code_seq,
+			member_code_seq,
+			coupon_name,
+			coupon_content,
+			coupon_price,
+			coupon_date
+		)
+		VALUES
+		(
+			'coupon_code_seq' || TO_CHAR(coupon_sq.nextval),
+			#{recCode},
+			'추천인',
+			'신규가입 추천 대상',
+			5000,
+			#{date}
 		)
 	</insert>
 	

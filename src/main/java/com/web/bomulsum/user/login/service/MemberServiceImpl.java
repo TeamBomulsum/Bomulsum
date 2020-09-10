@@ -1,5 +1,11 @@
 package com.web.bomulsum.user.login.service;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +29,33 @@ public class MemberServiceImpl implements MemberService {
 //		암호화 과정
 		vo.setMemberPassword(encoder.encode(vo.getMemberPassword()));
 		dao.insertMember(vo);
+		// 쿠폰 넣기.
+		// 회원가입 감사 쿠폰
+		// 신규가입 고객 대상
+			
+		System.out.println(vo.getMemberCode());
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String code = "member_code_seq" + vo.getMemberCode();
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new java.util.Date());
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		cal.add(Calendar.DATE, 30);
+		System.out.println(cal.getTime());
+		Date date = Date.valueOf(df.format(cal.getTime()));
+		
+		map.put("code", code);
+		map.put("date", date);
+		
+		System.out.println(code);
+		dao.insertCoupon(map);
+		dao.insertCoupon2(map);
+		
+		if(vo.getMemberRecCode() != null && vo.getMemberRecCode() != "" && vo.getMemberRecCode() != "null") {
+			map.put("recCode", dao.getRecCode(vo.getMemberRecCode()));
+			dao.insertCoupon3(map);
+		}
+		
 	}
 
 	@Override

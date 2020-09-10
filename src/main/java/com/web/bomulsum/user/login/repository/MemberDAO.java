@@ -1,5 +1,7 @@
 package com.web.bomulsum.user.login.repository;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +15,23 @@ public class MemberDAO {
 	
 	public void insertMember(MemberVO vo) {
 		sqlSessionTemplate.insert("MemberDAO.insertMember", vo);
+	}
+	
+	public String choiceMemberCode(MemberVO vo) {
+		return sqlSessionTemplate.selectOne("MemberDAO.choiceMemberCode", vo);
+	}
+	
+	public void insertCoupon(HashMap<String, Object> map) {
+		sqlSessionTemplate.insert("MemberDAO.insertCoupon", map);
+	}
+	public void insertCoupon2(HashMap<String, Object> map) {
+		sqlSessionTemplate.insert("MemberDAO.insertCoupon2", map);
+	}
+	public String getRecCode(String email) {
+		return sqlSessionTemplate.selectOne("MemberDAO.getRecCode", email);
+	}
+	public void insertCoupon3(HashMap<String, Object> map) {
+		sqlSessionTemplate.insert("MemberDAO.insertCoupon3", map);
 	}
 	
 	public int checkEmail(String memberEmail) {

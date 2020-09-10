@@ -1,6 +1,7 @@
 package com.web.bomulsum.user.login.repository;
 
 public class MemberVO {
+	private int memberCode;
 	private String memberEmail;
 	private String memberPassword;
 	private String memberName;
@@ -10,6 +11,14 @@ public class MemberVO {
 	private char memberEmailAgree;
 	
 	
+	
+	
+	public int getMemberCode() {
+		return memberCode;
+	}
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
+	}
 	public String getMemberName() {
 		return memberName;
 	}
@@ -54,10 +63,11 @@ public class MemberVO {
 	}
 	@Override
 	public String toString() {
-		return "MemberVO [memberEmail=" + memberEmail + ", memberPassword=" + memberPassword + ", memberName="
-				+ memberName + ", memberPhone=" + memberPhone + ", memberRecCode=" + memberRecCode + ", memberSmsAgree="
-				+ memberSmsAgree + ", memberEmailAgree=" + memberEmailAgree + "]";
+		return "MemberVO [memberCode=" + memberCode + ", memberEmail=" + memberEmail + ", memberPassword="
+				+ memberPassword + ", memberName=" + memberName + ", memberPhone=" + memberPhone + ", memberRecCode="
+				+ memberRecCode + ", memberSmsAgree=" + memberSmsAgree + ", memberEmailAgree=" + memberEmailAgree + "]";
 	}
+	
 
 	
 	

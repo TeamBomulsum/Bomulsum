@@ -88,13 +88,14 @@ public class UserLoginController {
 	@ResponseBody
 	@RequestMapping(value="/insertUserData", method=RequestMethod.POST)
 	public void insertVo(MemberVO vo) {
+		// 회원가입 성공 후 로직
 		service.insertMember(vo);
+		
 		System.out.println(vo.toString());
 	}
 	
 	@RequestMapping(value="/successNewAccount")
 	public String successNewAccount() {
-		System.out.println("controller 진입!");
 		return "/ulogin/usuccessNewAccountEmail";
 	}
 	
