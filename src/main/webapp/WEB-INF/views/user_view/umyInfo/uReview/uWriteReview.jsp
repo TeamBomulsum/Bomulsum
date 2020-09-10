@@ -557,7 +557,7 @@ body a:link, a:visited, a:hover, a:active {
 		};
 		
 		//모달
-		//글 제목 눌럿을 때 모달 띄워주기 위해 값 넣기
+		//모달 띄워줄때 해당 값 넣기
 		var modalArtCode;
 		var modalBuyArtCode;
 		var modalMemberCode;
@@ -566,6 +566,8 @@ body a:link, a:visited, a:hover, a:active {
 		var modalOptionName;
 		var modalOptionCount;
 		
+		//구매후기 인써트할 때 값
+		var reviewStar;
 		
 		var modal = function(){
 			/* 별점 주기 스크립트 영역 - 나중에 값 넘겨주는거 추가해야 함*/
