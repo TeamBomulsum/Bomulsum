@@ -60,6 +60,43 @@ $(document).ready(function () {
 	});
 	
 });
+
+$(function(){
+	var sms_agree = '${userinfo.member_sms_agree}';
+	var email_agree = '${userinfo.member_email_agree}';
+	console.log("SMS:"+sms_agree);
+	console.log("email:"+email_agree);
+	
+	//console.log($("#sms").prop("checked"));
+	
+/* 	 if($("#sms").prop("checked")){
+		 $("#sms").val('Y');
+		 //console.log("Y");
+	 }else{
+		 $("#sms").val('N');
+		// console.log("N");
+	 }
+	 
+	 if($("#email").prop("checked")){
+		// $("#email").val('Y');
+	 }else{
+		// $("#email").val('N');
+	 } */
+	 
+ 	if(sms_agree == 'Y'){
+		$("input:checkbox[id='sms']").attr("checked", true);
+	}else{
+		$("input:checkbox[id='sms']").attr("checked", false);
+	}
+	if(email_agree == 'Y'){
+		$("input:checkbox[id='email']").attr("checked", true);
+	}else{
+		$("input:checkbox[id='email']").attr("checked", false);
+	}	 
+	
+	
+});
+
 </script>
 <style>
 .content {
@@ -265,7 +302,11 @@ body a:link, a:visited, a:hover, a:active, :active{
 		<td class="dainth">알림설정</td>
 		<td class="daintd">
 		<p style="margin:0 0 5px 0;">파격할인/이벤트/쿠폰 알림 등의 정보를 받아보시겠습니까?</p>
-		  <c:if test="${userinfo.member_sms_agree eq 'Y'}">
+		<input type="checkbox" id="sms" name="member_sms_agree" value="Y">
+		<label for="sms">SMS</label>
+		<input type="checkbox" id="email" name="member_email_agree" value="Y" >
+		<label for="email">이메일</label>
+<%-- 		  <c:if test="${userinfo.member_sms_agree eq 'Y'}">
 			 <input type="checkbox" id="sms" name="member_sms_agree" value="Y" checked="checked">
 		 	 <label for="sms">SMS</label>
 		 </c:if>
@@ -280,7 +321,7 @@ body a:link, a:visited, a:hover, a:active, :active{
 		  <c:if test="${userinfo.member_email_agree eq 'N'}">
 			 <input type="checkbox" id="email" name="member_email_agree" value="N">
 		 	 <label for="email">이메일</label>
-		 </c:if>
+		 </c:if> --%>
 		</td>
 	</tr>
 	</table>
@@ -289,7 +330,7 @@ body a:link, a:visited, a:hover, a:active, :active{
 		<button class="dainBtn" id="withdrawBtn" type="button">회원탈퇴</button>
 	</div>
 	<div style="display: flex; justify-content: center;">
-		<button type="submit" class="dainBtn dainBtn2">회원 정보 수정하기</button>
+		<button type="submit" class="dainBtn dainBtn2" onclick="alert('변경되었습니다.')">회원 정보 수정하기</button>
 	</div>
 	</form>
 	

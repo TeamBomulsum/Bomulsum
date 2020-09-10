@@ -188,7 +188,12 @@
 			</div>
         	<div id="test"></div>
         	<div class="membership" style="margin-top:7%; margin-bottom:3%;">
+        		<c:if test="${sessionScope.user.memberGrade ne null}">
         		<i class="fas fa-gem" style="color:gold"><a class="jeonga-collapse-item" href="#">&nbsp;${sessionScope.user.memberGrade} ></a></i>
+        		</c:if>
+         		<c:if test="${sessionScope.user.memberGrade eq null}">
+        		<i class="fas fa-gem" style="color:gold"><a class="jeonga-collapse-item" href="#">&nbsp;브론즈 ></a></i>
+        		</c:if>       		
         	</div>
         	<div class="userName">
         		<b>${sessionScope.userName}</b>
@@ -221,7 +226,7 @@
 			<!-- 나의 구매후기 -->
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">나의 구매 후기</b> 
-				<a class="jeonga-collapse-item" href="#">구매후기 쓰기</a> 
+				<a class="jeonga-collapse-item" href="<c:url value='/user/myInfo/review.do'/>">구매후기 쓰기</a>
 				<a class="jeonga-collapse-item" href="#">내가 쓴 구매후기</a>
 			</li>
 			<!-- 관심리스트 -->

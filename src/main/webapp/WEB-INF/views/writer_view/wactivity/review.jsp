@@ -421,7 +421,7 @@
     <c:forEach var="i" items='${reviewList}'>
        var json = new Object();//객체로 배열에 담기
        json.reviewCodeSeq = '${i.reviewCodeSeq}';
-       json.orderCodeSeq = '${i.orderCodeSeq}';
+       json.buyArtCodeSeq = '${i.buyArtCodeSeq}';
        json.memberCodeSeq = '${i.memberCodeSeq}';
        json.artCodeSeq = '${i.artCodeSeq}';
        json.reviewDate = '${i.reviewDate}';

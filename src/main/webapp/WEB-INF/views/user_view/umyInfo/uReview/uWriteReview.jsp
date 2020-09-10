@@ -239,6 +239,13 @@ body a:link, a:visited, a:hover, a:active {
 </head>
 <body>
 <div>
+	<c:if test="${empty member}">
+		<script>
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='<c:url value="/user/login.do"/>';
+		</script>
+	</c:if>
+
 	<!-- 헤더 -->
 	<%@ include file="../../include/uHeader.jsp"  %>
 	
@@ -282,7 +289,7 @@ body a:link, a:visited, a:hover, a:active {
 				<a href="#" class="minwoo_reviewA">구매후기 쓰기</a>
 			</div>
 			<div id="minwoo_reviewBorderSub" style="width:50%; height:100%;">
-				<a href="#" class="minwoo_reviewA" style="color:#BDBDBD;">내가 쓴 구매후기</a>
+				<a href="<c:url value='/user/myInfo/reviewedList.do'/>" class="minwoo_reviewA" style="color:#BDBDBD;">내가 쓴 구매후기</a>
 			</div>
 		</nav>
 		<!-- 구매 후기 탭 메뉴 종료 -->
@@ -534,6 +541,24 @@ body a:link, a:visited, a:hover, a:active {
 			}
 		});
 		
+		// 데이터 넣기
+		var result = new Array();
+		
+		<c:forEach var="i" items='${reviewList}'>
+			var json = new Object();//객체로 배열에 담기
+			json.buyArtCodeSeq = '${i.buyArtCodeSeq}';
+			json.bArtName = '${i.bArtName}';
+			json.bWriterCodeSeq = '${i.bWriterCodeSeq}';
+			json.bArtOptionCategory = `${i.bArtOptionCategory}`;
+			json.bArtOptionName = '${i.bArtOptionName}';
+			json.bArtOptionCount = `${i.bArtOptionCount}`;
+			json.artPhoto = `${i.artPhoto}`;
+			json.artDescription = `${i.artDescription}`;
+			json.writerName = `${i.writerName}`;
+			json.orderDate = `${i.orderDate}`;
+			
+			result.push(json);
+		</c:forEach>
 		
 		</script>
 		<!-- 스크립트 -->

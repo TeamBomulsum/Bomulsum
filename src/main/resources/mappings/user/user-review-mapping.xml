@@ -5,24 +5,45 @@
 <mapper namespace="userReviewDAO">
 
 	<resultMap type="com.web.bomulsum.user.review.repository.UserReviewVO" id="reviewListMap">
-		<id column="REVIEW_CODE_SEQ" property="reviewCodeSeq"/>
-		<result column="ORDER_CODE_SEQ" property="orderCodeSeq"/>
-		<result column="MEMBER_CODE_SEQ" property="memberCodeSeq"/>
-		<result column="ART_CODE_SEQ" property="artCodeSeq"/>
-		<result column="REVIEW_DATE" property="reviewDate"/>
-		<result column="REVIEW_COMMENT" property="reviewComment"/>
-		<result column="REVIEW_STAR" property="reviewStar"/>
-		<result column="REVIEW_PHOTO" property="reviewPhoto"/>
-		<result column="REVIEW_COMMENT_RE" property="reviewCommentRe"/>
-		<result column="REVIEW_COMMENT_RE_STATUS" property="reviewCommentReStatus"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_profile" property="memberProfile"/>
 		
-		<result column="ART_NAME" property="artName"/>
-		<result column="MEMBER_NAME" property="memberName"/>
-		<result column="MEMBER_PROFILE" property="memberProfile"/>
+		<result column="buy_art_code_seq" property="buyArtCodeSeq"/>
+		<result column="B_ART_CODE_SEQ" property="bArtCodeSeq"/>
+		<result column="B_ART_NAME" property="bArtName"/>
+		<result column="B_WRITER_CODE_SEQ" property="bWriterCodeSeq"/>
+		<result column="B_ART_OPTION_CATEGORY" property="bArtOptionCategory"/>
+		<result column="B_ART_OPTION_NAME" property="bArtOptionName"/>
+		<result column="B_ART_OPTION_PRICE" property="bArtOptionPrice"/>
+		<result column="B_ART_OPTION_COUNT" property="bArtOptionCount"/>
+		<result column="B_ART_REVIEW_STATUS" property="bArtReviewStatus"/>
+		<result column="B_ART_REVIEW" property="bArtReview"/>
+		
+		<result column="art_photo" property="artPhoto"/>
+		<result column="art_description" property="artDescription"/>
+		
+		<result column="writer_name" property="writerName"/>
+		
+		<result column="order_date" property="orderDate"/>
 	</resultMap>
 
-	<!-- 내가 쓴 구매 후기 목록 불러오기 -->
-	<select id="" parameterType="String" resultMap="reviewListMap">
+	<!-- 구매후기 쓸 수 있는 구매 상품 목록 불러오기 -->
+	<select id="reviewList" parameterType="String" resultMap="reviewListMap">
+		SELECT
+			a.buy_art_code_seq, a.member_code_seq, a.B_ART_CODE_SEQ,
+			a.B_ART_NAME, a.B_WRITER_CODE_SEQ, a.B_ART_OPTION_CATEGORY,
+			a.B_ART_OPTION_NAME, a.B_ART_OPTION_PRICE, a.B_ART_OPTION_COUNT,
+			a.B_ART_REVIEW_STATUS, a.B_ART_REVIEW, b.art_photo, b.art_description,
+			c.writer_name, d.order_date
+		FROM buy_art_tb a
+		LEFT OUTER JOIN
+			art_tb b ON a.b_art_code_seq = b.art_code_seq
+		LEFT OUTER JOIN
+			writer_tb c ON b.writer_code_seq = c.writer_code_seq
+		LEFT OUTER JOIN
+			order_tb d ON  a.order_code_seq = d.order_code_seq
+		WHERE a.b_art_review_status = 'N' AND a.member_code_seq = #{member}
+		ORDER BY d.order_date DESC
 	</select>
 
 	<!-- 구매목록 불러오기 -->

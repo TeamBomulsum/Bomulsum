@@ -14,8 +14,7 @@ public class UserReviewDAO {
 	
 	//리뷰 목록 불러오기
 	public List<UserReviewVO> myReview(String seq){
-		return sqlSessionTemplate.selectList("", seq);
-		
+		return sqlSessionTemplate.selectList("userReviewDAO.reviewList", seq);
 	}
 	
 }

@@ -266,6 +266,7 @@ body a:link, a:visited, a:hover, a:active {
 	background-color: white;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 //공유하기기능 - 클립보드에 복사
 function CopyUrlToClipboard()
@@ -277,17 +278,144 @@ function CopyUrlToClipboard()
 	obShareUrl.blur(); // 선택된 것을 다시 선택안된것으로 바꿈
 	alert("작가님 URL이 복사되었습니다.\n원하는 곳에 붙여넣기(Ctrl+V) 해주세요."); 
 }
+
+
+//좋아하는 작품 추가
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+var likeArticleFunc;
+var categoryOptionFunc;
+var ajaxFilterFunc;
+var option = '좋아하는작품';
+var writerCode = '${writerCode}';
+var likeArtist = ${likeArtist};
+
+
+$(function(){
+
+	console.log(likeArtist);
+	
+  	//이미 관심작품 해둔거 반영
+	var wishData = ${wishArt};
+	if(wishData != null){
+		for(var i=0; i<wishData.length; i++){
+			wishData[i].style.color="#d64640";
+		} 
+	} 
+	
+	//이미 좋아하는 작가 해둔거 반영
+	if(likeArtist > 0){ //좋아하는 작가일때
+		$('#addArtistBtn').css("background-color", "#DF3A01"); //배경 red
+		$('#addArtistBtn').css("color", "white"); //폰트컬러 white
+		$('#addArtistBtn').html('♥ 하는 작가');
+	} else{ //좋아하는 작가가 아닐때
+		$('#addArtistBtn').css("background-color", "white"); 
+		$('#addArtistBtn').css("color", "black"); 
+		$('#addArtistBtn').html('♥ 작가 추가');
+	}
+
+//관심작품(별 아이콘) 눌렀을때 함수 
+likeArticleFunc = function(clicked_id){
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		} 
+		
+		console.log(clicked_id); //클릭한거 id값(작품코드) 받아옴
+		
+		//관심작품 추가
+		if($('#'+clicked_id).css('color') == "rgb(128, 128, 128)"){
+			$('#'+clicked_id).css("color", "#d64640"); //red
+			tORf = true;
+		//관심작품 해제
+		}else{
+			$('#'+clicked_id).css("color", "gray");
+			tORf = false;
+		}
+		
+		$.ajax({
+			url:'/bomulsum/writerhome/wishart.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':clicked_id,
+				'bool': tORf
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+
+		if(tORf){
+			alert('좋아하는 작품에 추가되었습니다.');
+		}else{
+			alert('해제되었습니다.');
+		}
+
+	}; 
+
+	
+//좋아하는 작가 추가
+likeArtistFunc = function(clicked_id){
+	if(memberCode == null || memberCode == 'null'){
+		alert('로그인이 필요한 서비스입니다.');
+		location.href='/bomulsum/user/login.do';
+		return;
+		} 
+	
+	console.log($('#addArtistBtn').css('background-color'));
+	//관심작가 추가
+	if($('#addArtistBtn').css('background-color') == 'rgb(255, 255, 255)'){
+		console.log('화이트');
+		$('#addArtistBtn').css("background-color", "#DF3A01"); //배경 red
+		$('#addArtistBtn').css("color", "white"); //폰트컬러 white
+		$('#addArtistBtn').html('♥ 하는 작가');
+		addLike = true;
+	//관심작가 해제
+	}else{
+		$('#addArtistBtn').css("background-color", "white");
+		$('#addArtistBtn').css("color", "black"); 
+		$('#addArtistBtn').html('♥ 작가 추가');
+		addLike = false;
+	}
+	
+ 	$.ajax({
+		url:'/bomulsum/writerhome/wishartist.do',
+		data:{
+			'member':memberCode,
+			'option':'좋아하는작가',
+			'optionCode':writerCode,
+			'bool': addLike
+		},
+		type:'POST',
+		success:function(data){
+			
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});  
+	
+	if(addLike){
+		alert('좋아하는 작가로 추가되었습니다.');
+	}else{
+		alert('해제되었습니다.');
+	}
+	
+	};
+});
 </script>
 </head>
 <body>
 <div>
 	<%@ include file="include/uHeader.jsp"  %>
 	
-	
 	<!-- 작가 홈 메인 영역 시작 -->
 	<div class="minwoo_writer_main">
-		
-		
 
 		<!-- 작가 사이드 영역 시작 -->
 		<div class="minwwo_writer_side">			
@@ -319,16 +447,14 @@ function CopyUrlToClipboard()
 			
 			<!-- 버튼들 영역 시작-->
 			<div class="minwoo_writer_profile_buttons">
-				<button>♥ 작가 추가</button>
-				<!-- <button style="background-color: #1f76bb; color: white;">♥ 하는 작가</button> -->
-				<button>메시지</button>
+				<button id="addArtistBtn" onclick = "likeArtistFunc()">♥ 작가 추가</button>
+				<button onclick="location.href='/bomulsum/user/message.do?writer=${writerCode}'">메시지</button>
 				<!-- <button>후원하기</button> -->
-				<input type="text" id = "ShareUrl" style="display: none;">
 				<button onclick="javascript:CopyUrlToClipboard()">공유하기</button>
+				<input type="text" id = "ShareUrl" style="color: white; max-height: 0px; border:none; cursor: default;">
 			</div>
 			<!-- 버튼들 영역 종료 -->
 
-			
 			<!-- 작가 활동 정보 영역 시작 -->
 			<div  class="minwoo_writer_profile_activity">
 				<p>활동정보</p>
@@ -336,15 +462,12 @@ function CopyUrlToClipboard()
 					<tr><td>좋아하는 사람</td><td>${addLikes}명</td></tr>
 					<tr><td>판매중인 작품</td><td>${salesArtCount}개</td></tr>
 					<tr><td>구매후기</td><td>${reviewTotal}개</td></tr>
-					<!-- <tr><td>후원해주신 분들</td><td>8111명</td></tr> -->
 				</table>
 			</div>
 			<!-- 작가 활동 정보 영역 종료 -->
 
 		</div>
 		<!-- 작가 사이드 영역 종료 -->
-		
-		
 		
 		<!-- 작품 판매 영역 시작 -->
 		<div class="minwwo_writer_saleplace">
@@ -369,17 +492,17 @@ function CopyUrlToClipboard()
 			<c:forEach var="i" items="${artlist}" varStatus="status">
 				<div class="article">
 					<div class="article_img" style="background-image: url('<c:url value='/upload/${artImg[status.index]}'/>')">
-						<i class="fa fa-star"></i>
-					
+						<i class="fa fa-star fs" id="${i.art_code_seq}" onclick = "likeArticleFunc(this.id)" style="cursor: pointer;"></i>
 					  <%-- <img class="dain_artimg" src="<c:url value='/upload/${artImg[status.index]}'/>" > --%>
-					
 					</div>
 					<div class="article_detail">
 						<a>${i.art_category}</a>
 						<span>${i.art_name}</span>
 						<span style="color:red;">
-							[<fmt:formatNumber value="${i.art_discount div i.art_price}" type="percent"/>] ${i.art_discount}원
-							<span style="font-size:11px; color:#848484;"><del>${i.art_price}</del></span>
+							[<fmt:formatNumber value="${1- (i.art_discount div i.art_price)}" type="percent"/>]
+							<fmt:formatNumber value="${i.art_discount}" pattern="#,###" />원
+							<span style="font-size:11px; color:#848484;"><del>
+							<fmt:formatNumber value="${i.art_price}" pattern="#,###" />원</del></span>
 						</span>
 					</div>
 					<div class="article_grade">
@@ -400,19 +523,8 @@ function CopyUrlToClipboard()
 		         
 			</div>
 			<!-- 작품들 영역 종료 -->
-	
-		
 		</div>
 		<!-- 작품 판매 영역 종료 -->
-		
-		
-							<%-- <div class="daintest">
-							<c:forEach var="i" items="${artlist}" varStatus="status">
-					    			<c:out value="${i}" />
-								다음꺼
-							</c:forEach>
-							</div> --%>
-							
 	</div>
 	<!-- 작가 홈 메인 영역 종료 -->
 	
