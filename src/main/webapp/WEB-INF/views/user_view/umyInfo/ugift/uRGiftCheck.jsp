@@ -188,6 +188,8 @@ $(document).ready(function(){
 		$('#sample6_detailAddress').css("border", "none");
 		$('#jeonga_relived_num').css("display", "none");
 		$('#jeonga_other').css("display", "none");
+		$('#jeonga_caution').css("display", "none");
+		
 		
 	}
 	
@@ -362,7 +364,7 @@ function doOtherDisplay(){
 				</table>
 			</div>
 			<!-- 유의사항 -->
-			<div class="jeonga_ugift_gift_caution">
+			<div class="jeonga_ugift_gift_caution" id="jeonga_caution">
 				<div class="jeonga_ugift_gift_caution_first">
 					<div class="jeonga_ugift_gift_caution_title">
 					유의사항

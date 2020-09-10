@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userShopbagDAO">
+
+	<select id="selectCartCon" resultType="UserShopbagVO">
+		SELECT 
+			c.cart_seq, c.art_code_seq, c.member_code_seq, c.art_option_seq, c.art_count,
+			w.writer_brand_name, w.writer_send_price, w.writer_sendfree_case, a.art_photo, a.art_name, a.art_price 
+		FROM 
+			cart_tb c, writer_tb w, art_tb a
+		WHERE 
+			c.art_code_seq=a.art_code_seq
+		AND
+			a.writer_code_seq=w.writer_code_seq
+		AND
+			c.member_code_seq='member_code_seq58'
+	</select>
+	
+	<select id="selectOption" parameterType="java.util.ArrayList" resultType="UserShopbagOptionVO">
+		SELECT 
+			art_option_seq, art_option_category, art_option_name, art_option_price
+		FROM 
+			art_option_tb
+		WHERE 
+			art_option_seq in
+	     <foreach collection="list" item="item" open="(" close=")" separator=",">
+	     	#{item}
+	     </foreach>
+	</select>
+	
+	<select id="selectmodalCon" resultType="UserShopbagVO">
+		SELECT 
+			c.cart_seq, c.art_code_seq, c.art_option_seq, a.art_name, 
+			a.art_photo, a.art_discount, a.art_price
+		FROM 
+			art_tb a, cart_tb c
+		WHERE 
+			c.art_code_seq = a.art_code_seq 
+		AND 
+			c.cart_seq=#{cart}
+	</select>
+
+</mapper>

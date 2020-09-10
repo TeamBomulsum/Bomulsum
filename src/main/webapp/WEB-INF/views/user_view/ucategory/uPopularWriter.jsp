@@ -530,18 +530,19 @@ var memberCode = '<%= (String)session.getAttribute("member") %>';
 
 LikeWriterFunction = function(){
 		
-		/* if(memberCode == null || memberCode == 'null'){
+		/*if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='/bomulsum/user/login.do';
-		} */
+		}
 		
-		//else{
+		else{*/
 		var $data = $(this).next().text();
+		console.log($data);
 		var writerCode = $data;
 		var option = '좋아하는작가';
 		
 		var addButton = $(this);
-		var tf;
+		//var tf;
 		var text = $(this).text();
 
 		if(text == '♥︎작가로 추가'){
@@ -549,13 +550,13 @@ LikeWriterFunction = function(){
 			$(this).css("color","white");
 			$(this).css("border","1px solid #DF3A01");
 			$(this).css("background-color","#DF3A01");
-			tf = true;
+			var tf = true;
 		}else{
 			$(this).text('♥︎작가로 추가');
 			$(this).css("color","#DF3A01");
 			$(this).css("border","1px solid #D9D9D9");
 			$(this).css("background-color","white");
-			tf = false;
+			var tf = false;
 		}
 
 		$.ajax({
@@ -568,17 +569,17 @@ LikeWriterFunction = function(){
 			},
 			type:'POST',
 			success:function(data){
-				
 			},
 			error:function(e){
 				console.log(e);
 			}
 		}); 
-		if(tf){
+	 	if(tf==true){
 			alert('좋아하는 작가에 추가되었습니다.');
-		}else{
+		}
+	 	if(tf==false){
 			alert('좋아하는 작가를 취소합니다.');
-		} 
+		}  
 		//}
 };
 
@@ -703,14 +704,14 @@ function showSlides_five(n) {
 									<img src="<c:url value='/resources/img/1.png'/>" style="width:150px; height:150px">
 							</div>
 							<div class="jeonga_profile_image">
-							<a href="${rank1.writer_url}" target="#" class="jeonga_profile_image_link">
+							<a href="/bomulsum/writerhome/${rank1.writer_url}.do" target="#" class="jeonga_profile_image_link">
 								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank1.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga_profile_content">
-							<a href="${rank1.writer_url}" class="jeonga_profile_title" target="">${rank1.writer_brand_name}</a>
+							<a href="/bomulsum/writerhome/${rank1.writer_url}.do" class="jeonga_profile_title" target="">${rank1.writer_brand_name}</a>
 							<p class="jeonga_profile_text">${rank1.writer_intro}</p>
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
@@ -726,7 +727,7 @@ function showSlides_five(n) {
 									</c:if>
 								<div style="display:none">${rank1.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">
-									<a class="jeonga_profile_button" href="${rank1.writer_url}">작가홈</a>
+									<a class="jeonga_profile_button" href="/bomulsum/writerhome/${rank1.writer_url}.do">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga_profile_message">
@@ -774,14 +775,14 @@ function showSlides_five(n) {
 									<img src="<c:url value='/resources/img/2.png'/>" style="width:150px; height:150px">
 							</div>
 							<div class="jeonga_profile_image">
-							<a href="${rank2.writer_url}" target="#" class="jeonga_profile_image_link">
+							<a href="/bomulsum/writerhome/${rank2.writer_url}.do" target="#" class="jeonga_profile_image_link">
 								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank2.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga_profile_content">
-							<a href="${rank2.writer_url}" class="jeonga_profile_title" target="">${rank2.writer_brand_name}</a>
+							<a href="/bomulsum/writerhome/${rank2.writer_url}.do" class="jeonga_profile_title" target="">${rank2.writer_brand_name}</a>
 							<p class="jeonga_profile_text">${rank2.writer_intro}</p>
 							
 							<div class="jeonga_profile_buttons">
@@ -796,13 +797,13 @@ function showSlides_five(n) {
 										♥︎작가로 추가
 										</div>
 									</c:if>
-								
+									<div style="display:none">${rank2.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">
-									<a class="jeonga_profile_button" href="${rank2.writer_url}">작가홈</a>
+									<a class="jeonga_profile_button" href="/bomulsum/writerhome/${rank2.writer_url}.do">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga_profile_message">
-									<a href="#" class="jeonga_profile_button">메시지 보내기</a>
+									<a href="/bomulsum/user/message.do?writer=${rank2.writer_code_seq}" class="jeonga_profile_button">메시지 보내기</a>
 								</div>
 							</div>
 							</div>
@@ -843,14 +844,14 @@ function showSlides_five(n) {
 									<img src="<c:url value='/resources/img/3.png'/>" style="width:147px; height:147px;">
 							</div>
 							<div class="jeonga_profile_image1">
-							<a href="${rank3.writer_url}" target="#" class="jeonga_profile_image_link">
+							<a href="/bomulsum/writerhome/${rank3.writer_url}.do" target="#" class="jeonga_profile_image_link">
 								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank3.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga_profile_content">
-							<a href="${rank3.writer_url}" class="jeonga_profile_title" target="">${rank3.writer_brand_name}</a>
+							<a href="/bomulsum/writerhome/${rank3.writer_url}.do" class="jeonga_profile_title" target="">${rank3.writer_brand_name}</a>
 							<p class="jeonga_profile_text">${rank3.writer_intro}</p>
 							
 							<div class="jeonga_profile_buttons">
@@ -865,12 +866,13 @@ function showSlides_five(n) {
 										♥︎작가로 추가
 										</div>
 									</c:if>
+										<div style="display:none">${rank3.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">
-									<a class="jeonga_profile_button" href="${rank3.writer_url}">작가홈</a>
+									<a class="jeonga_profile_button" href="/bomulsum/writerhome/${rank3.writer_url}.do">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga_profile_message">
-									<a href="#" class="jeonga_profile_button">메시지 보내기</a>
+									<a href="/bomulsum/user/message.do?writer=${rank3.writer_code_seq}" class="jeonga_profile_button">메시지 보내기</a>
 								</div>
 							</div>
 							</div>
@@ -911,14 +913,14 @@ function showSlides_five(n) {
 									<img src="<c:url value='/resources/img/3.png'/>" style="width:147px; height:147px;">
 							</div>
 							<div class="jeonga_profile_image1">
-							<a href="${rank4.writer_url}" target="#" class="jeonga_profile_image_link">
+							<a href="/bomulsum/writerhome/${rank4.writer_url}.do" target="#" class="jeonga_profile_image_link">
 								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank4.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga_profile_content">
-							<a href="${rank4.writer_url}" class="jeonga_profile_title" target="">${rank4.writer_brand_name}</a>
+							<a href="/bomulsum/writerhome/${rank4.writer_url}.do" class="jeonga_profile_title" target="">${rank4.writer_brand_name}</a>
 							<p class="jeonga_profile_text">${rank4.writer_intro}</p>
 							
 							<div class="jeonga_profile_buttons">
@@ -933,12 +935,13 @@ function showSlides_five(n) {
 										♥︎작가로 추가
 										</div>
 									</c:if>
+										<div style="display:none">${rank4.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">
-									<a class="jeonga_profile_button" href="${rank4.writer_url}">작가홈</a>
+									<a class="jeonga_profile_button" href="/bomulsum/writerhome/${rank4.writer_url}.do">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga_profile_message">
-									<a href="#" class="jeonga_profile_button">메시지 보내기</a>
+									<a href="/bomulsum/user/message.do?writer=${rank4.writer_code_seq}" class="jeonga_profile_button">메시지 보내기</a>
 								</div>
 							</div>
 							</div>
@@ -979,14 +982,14 @@ function showSlides_five(n) {
 									<img src="<c:url value='/resources/img/3.png'/>" style="width:147px; height:147px;">
 							</div>
 							<div class="jeonga_profile_image1">
-							<a href="${rank5.writer_url}" target="#" class="jeonga_profile_image_link">
+							<a href="/bomulsum/writerhome/${rank5.writer_url}.do" target="#" class="jeonga_profile_image_link">
 								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank5.writer_profile_img}'/>" style="width:100px; height:100px">
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga_profile_content">
-							<a href="${rank5.writer_url}" class="jeonga_profile_title" target="">${rank5.writer_brand_name}</a>
+							<a href="/bomulsum/writerhome/${rank5.writer_url}.do" class="jeonga_profile_title" target="">${rank5.writer_brand_name}</a>
 							<p class="jeonga_profile_text">${rank5.writer_intro}</p>
 							
 							<div class="jeonga_profile_buttons">
@@ -1001,12 +1004,13 @@ function showSlides_five(n) {
 										♥︎작가로 추가
 										</div>
 									</c:if>
+									<div style="display:none">${rank5.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">
-									<a class="jeonga_profile_button" href="${rank5.writer_url}">작가홈</a>
+									<a class="jeonga_profile_button" href="/bomulsum/writerhome/${rank5.writer_url}.do">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga_profile_message">
-									<a href="#" class="jeonga_profile_button">메시지 보내기</a>
+									<a href="/bomulsum/user/message.do?writer=${rank5.writer_code_seq}" class="jeonga_profile_button">메시지 보내기</a>
 								</div>
 							</div>
 							</div>
