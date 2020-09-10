@@ -25,7 +25,6 @@ public class UserWishlistController {
 	@Autowired
 	UserLikeWriterService service;
 
-	
 	@RequestMapping(value="/likeWriter")
 	public ModelAndView likeWriter(UserLikeWriterVO vo, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/umyInfo/uwishList/uLikeWriter");

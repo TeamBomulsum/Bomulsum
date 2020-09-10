@@ -36,6 +36,15 @@ public class UserPopularWriterController {
 		//작가 상세 정보
 		List<UserPopularWriterVO> list = service.getWriterInfo();
 		System.out.println(list);
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getWriter_brand_name() == null) {
+				String name = list.get(i).getWriter_name();
+				list.get(i).setWriter_brand_name(name);
+			}
+			if(list.get(i).getWriter_intro() == null) {
+				list.get(i).setWriter_intro("소개글 없음");
+			}
+		}
 		
 		//작가 코드 정보
 		String first = list.get(0).getWriter_code_seq();
@@ -56,7 +65,7 @@ public class UserPopularWriterController {
 		List<String> likeWriter = service.getLikeWriter(map);
 		System.out.println(likeWriter);
 		
-		
+		//null처리
 		for(int i=0; i<likeWriter.size(); i++) {
 			if(likeWriter.get(i).equals(first)) {
 				list.get(0).setLikeWriter("true");
@@ -194,7 +203,8 @@ public class UserPopularWriterController {
 			@RequestParam(value="optionCode") String optionCode,
 			@RequestParam(value="bool") Boolean bool ) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("member", member);
+		String memberCode = "member_code_seq58";
+		map.put("member", memberCode);
 		map.put("option", option);
 		map.put("optionCode", optionCode);
 		if(bool) {

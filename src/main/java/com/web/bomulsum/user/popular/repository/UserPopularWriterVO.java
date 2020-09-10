@@ -7,6 +7,7 @@ public class UserPopularWriterVO {
 	private String writer_brand_name;
 	private String writer_intro;
 	private String writer_url;
+	private String writer_name;
 	private String wishlist_option_code;
 	private String likeWriter;
 	private String artPhoto1;
@@ -23,16 +24,15 @@ public class UserPopularWriterVO {
 	private String artPhoto12;
 
 
-
 	@Override
 	public String toString() {
 		return "UserPopularWriterVO [writer_code_seq=" + writer_code_seq + ", writer_profile_img=" + writer_profile_img
 				+ ", writer_brand_name=" + writer_brand_name + ", writer_intro=" + writer_intro + ", writer_url="
-				+ writer_url + ", wishlist_option_code=" + wishlist_option_code + ", likeWriter=" + likeWriter
-				+ ", artPhoto1=" + artPhoto1 + ", artPhoto2=" + artPhoto2 + ", artPhoto3=" + artPhoto3 + ", artPhoto4="
-				+ artPhoto4 + ", artPhoto5=" + artPhoto5 + ", artPhoto6=" + artPhoto6 + ", artPhoto7=" + artPhoto7
-				+ ", artPhoto8=" + artPhoto8 + ", artPhoto9=" + artPhoto9 + ", artPhoto10=" + artPhoto10
-				+ ", artPhoto11=" + artPhoto11 + ", artPhoto12=" + artPhoto12 + "]";
+				+ writer_url + ", writer_name=" + writer_name + ", wishlist_option_code=" + wishlist_option_code
+				+ ", likeWriter=" + likeWriter + ", artPhoto1=" + artPhoto1 + ", artPhoto2=" + artPhoto2
+				+ ", artPhoto3=" + artPhoto3 + ", artPhoto4=" + artPhoto4 + ", artPhoto5=" + artPhoto5 + ", artPhoto6="
+				+ artPhoto6 + ", artPhoto7=" + artPhoto7 + ", artPhoto8=" + artPhoto8 + ", artPhoto9=" + artPhoto9
+				+ ", artPhoto10=" + artPhoto10 + ", artPhoto11=" + artPhoto11 + ", artPhoto12=" + artPhoto12 + "]";
 	}
 
 	public String getWriter_code_seq() {
@@ -185,6 +185,14 @@ public class UserPopularWriterVO {
 
 	public void setWishlist_option_code(String wishlist_option_code) {
 		this.wishlist_option_code = wishlist_option_code;
+	}
+
+	public String getWriter_name() {
+		return writer_name;
+	}
+
+	public void setWriter_name(String writer_name) {
+		this.writer_name = writer_name;
 	}
 
 

@@ -265,6 +265,11 @@ input[type="number"]::-webkit-inner-spin-button {
     color: #333;
     font-weight: bold;
 }
+.text_text{
+    font-size: 15px;
+    color: #333;
+    font-weight: bold;
+}
 
 .btn_group{
 	font-size:0;
@@ -604,7 +609,7 @@ button:focus{
 	color: #dd5850;
 }
 
-.article_text span:nth-child(2) a {
+#art_price {
 	font-size: 11px;
 	color: #999;
 	text-decoration: line-through;
@@ -800,9 +805,8 @@ button:focus{
 		
 		<!-- 장바구니 상품들 담기는 곳 -->
 		<div class="shopcart">
-		
 			<!--  첫번쨰 상품 -->
-			<c:forEach var="i" begin="0" end="2">
+			<c:forEach items='${shopbagInfo}' var="info">
 				<table class="articles">
 					<thead>
 						<tr>
@@ -810,8 +814,8 @@ button:focus{
 								<label class="shopcart_title">
 									<input class="chkbox" type="checkbox">
 									<div class="txt_group">
-										<span>숲속사진관 작가님</span>
-										<a>50,000원 이상  배송비 무료</a>
+										<span>${info.writer_brand_name} 작가님</span>
+										<a>${info.writer_sendfree_case}원 이상  배송비 무료</a>
 									</div>
 								</label>
 							</th>
@@ -821,12 +825,13 @@ button:focus{
 						<tr class="content_area_first">
 							<td class="area_img">
 								<input class="chkbox" type="checkbox">
-								<div class="imgbg"></div>
+								<div class="imgbg">
+									<img style="width:70px; height:70px" src="<c:url value='/upload/${info.art_photo}'/>"/>
+								</div>
 							</td>
 							<td class="area_txt">
 								<div class="txt_group">
-									<span>마스크걸이</span>
-									<a>주문시 제작</a>
+									<span>${info.art_name}</span>
 								</div>
 							</td>
 						</tr>
@@ -835,20 +840,43 @@ button:focus{
 								<ul class="list_option">
 									<li>
 										<div class="split">
-											<span class="option_txt">이미지선택 : 1.할아버지</span> 
+											<c:choose>
+												<c:when test="${info.art_option_category3 eq null}">
+													<span class="option_txt">
+													${info.art_option_category1}&nbsp;:&nbsp;${info.art_option_name1}&nbsp;:&nbsp;${info.art_option_price1}원 / 
+													${info.art_option_category2}&nbsp;:&nbsp;${info.art_option_name2}&nbsp;:&nbsp;${info.art_option_price2}원 
+													</span>
+    											</c:when>
+												<c:when test="${info.art_option_category2 eq null}">
+													<span class="option_txt">
+													${info.art_option_category1}&nbsp;:&nbsp;${info.art_option_name1}&nbsp;:&nbsp;${info.art_option_price1}원
+													</span>
+    											</c:when>
+    											<c:when test="${info.art_option_category1 eq null}">
+													<span class="option_txt">
+													</span>
+    											</c:when>
+												<c:otherwise>
+        											<span class="option_txt">
+													${info.art_option_category1}&nbsp;:&nbsp;${info.art_option_name1}&nbsp;:&nbsp;${info.art_option_price1}원 / 
+													${info.art_option_category2}&nbsp;:&nbsp;${info.art_option_name2}&nbsp;:&nbsp;${info.art_option_price2}원 /
+													${info.art_option_category3}&nbsp;:&nbsp;${info.art_option_name3}&nbsp;:&nbsp;${info.art_option_price3}원 
+													</span>
+    											</c:otherwise>
+											</c:choose>
 											<div class="input_number">
 												<label>수량</label>
 												<button class="downButton" type="button">-</button>
 												<div class="input_area">
-													<input class="prd-count" type="number" value="1" min="1" max="999" readonly>
+													<input class="prd-count" type="number" value="${info.art_count}" min="1" max="999" readonly >
 												</div>
 												<button class="upButton" type="button">+</button>
 											</div>
 										</div>
 										<div class="split2">
-											<strong>
-												<a class="cost_text">3,000원</a>
-											</strong>
+												<div class="cost_text">${info.total_price}</div>
+												<div class="jeonga_cost" style="display:none">${info.total_price}</div>
+												<div class="text_text">원</div>
 											<span class="btn_group">
 												<button class="option_update" type="button">
 													<i class="fas fa-cog"></i>
@@ -857,54 +885,30 @@ button:focus{
 													<i class="fas fa-times"></i>
 												</button>
 											</span>
+											<div style="display:none">${info.cart_seq}</div>
 										</div>
 									</li>
-									<li>
-										<!-- 옵션 영역 -->
-										<div class="split">
-											<span class="option_txt">이미지선택 : 8.냥이</span>
-											<div class="input_number">
-												<label>수량</label>
-												<button class="downButton" type="button">-</button>
-												<div class="input_area">
-													<input class="prd-count" type="number" value="1" min="1" max="999" readonly>
-												</div>
-												<button class="upButton" type="button">+</button>
-											</div>
-										</div>
-										
-										<!-- 가격 뒤 영역 -->
-										<div class="split2">
-											<strong>
-												<a class="cost_text">3,000원</a>
-											</strong>
-											<span class="btn_group">
-												<button class="option_update" type="button">
-													<i class="fas fa-cog"></i>
-												</button>
-												<button type="button">
-													<i class="fas fa-times"></i>
-												</button>
-											</span>
-										</div>
-									</li>
+									
 								</ul>
 								<div class="order_request_box">
 									<div class="order_request_textarea">
 										<textarea id="orderReq" class="orderTextarea" maxlength="500" placeholder="주문 요청사항을 입력해주세요"></textarea>
 										<a class="ui_field_chars">500</a>
 									</div>
-									<button type="button" class="ui_filed_button">저장</button>
+									<button id="saveButton" type="button" class="ui_filed_button">저장</button>
 								</div>
 							</td>
 						</tr>
 						<tr class="delivery_cost">
+							<td>작품가격</td>
+							<td>${info.total_price}원</td>
+						</tr>
+						<tr class="delivery_cost">
 							<td>배송비</td>
-							<td>2,500원</td>
+							<td>${info.writer_send_price}원</td>
 						</tr>
 					</tbody>
 				</table>
-			
 			</c:forEach>
 			
 			<div class="checkAll">
@@ -959,10 +963,10 @@ button:focus{
         
         <div class="about_article">
         	<div class="about_article_detail">
-        		<div class="article_img"></div>
+        		<div class="article_img"><img id="modal_image"></div>
         		<div class="article_text">
-        			<span>마스크걸이</span>
-        			<span>[40%] 3,000 원 <a>5,000원</a></span>
+        			<span id="modal_art_name"></span>
+        			<span id="art_discount_price">[40%] 3,000 원 <a id="art_price">5,000원</a></span>
         		</div>
         	</div>
         </div>
@@ -970,7 +974,7 @@ button:focus{
         <div class="now_select_option">
         	<a>현재 선택한 옵션</a>
         	<div>
-        		<span>이미지선택: 2.할머니</span>
+        		<span id="selected_option">이미지선택: 2.할머니</span>
         	</div>
         </div>
         
@@ -1034,8 +1038,10 @@ $(function(){
 	$(document).ready(function(){
 		$("#canCheckCount").html($(".articles").length);
 		$("#nowChecked").html('0');
+		//var temp = ${modalInfo.art_name};
+
 	});
-	
+
 	// textarea 입력 시. 영역 변경
 	$('.orderTextarea').keyup(function(e){
 		var $textArea = $(this);
@@ -1063,35 +1069,45 @@ $(function(){
 		var $button = $(this);
 		var $numDiv = $button.next();
 		var $num = $numDiv.children().first();
+		var $artPrice = $button.parent().parent().next().children().first().next().text();
+		var $priceDiv = $button.parent().parent().next().children().first();
+		console.log($priceDiv);
+		
+		var jartPrice = $artPrice;
+		var num;
+		console.log(jartPrice);
+	
 		if($num.val() > 1){
-			$num.val($num.val()-1);
+			num = Number($num.val())-1;
+			changePrice = num * Number(jartPrice);
+			$num.val(num);
+			$priceDiv.text(changePrice);
+			//console.log((Number($num.val()))* Number(jartPrice));
 		}
 	});
-	/*
-		<div class="option_count">
-   			<div class="input_number">
-				<button class="downButton" type="button">-</button>
-				<div class="input_area">
-					<input class="prd-count" type="number" value="1" min="1" max="999" readonly>
-				</div>
-				<button class="upButton" type="button">+</button>
-			</div>
-   		</div>
-   		<div class="option_price">
-   			<span>3,000원</span>
-   			<span><i class="fas fa-times"></i></span>
-   		</div>
-	*/
 	
-	// 수량 버튼중 + 클릭시
+ 	// 수량 버튼중 + 클릭시
 	$(document).on('click',".upButton",function(e){
 		var $button = $(this);
 		var $numDiv = $button.prev();
 		var $num = $numDiv.children().first();
+		var $artPrice = $button.parent().parent().next().children().first().next().text();
+		var $priceDiv = $button.parent().parent().next().children().first();
+		console.log($priceDiv);
+	
+		var jartPrice = $artPrice;
+		var num;
+		console.log(jartPrice);
+		
 		if($num.val()<999){
-			$num.val(Number($num.val()) + 1);
+			num = Number($num.val()) + 1;
+			changePrice = num * Number(jartPrice);
+			$num.val(num);
+			$priceDiv.text(changePrice);
+			//console.log((Number($num.val()))* Number(jartPrice));
 		}
-	});
+		
+	}); 
 	
 	
 	// 체크 박스 클릭 이벤트
@@ -1105,9 +1121,52 @@ $(function(){
 		}
 	});
 	
-	// 모달 관련 이벤트
+	// 모달 띄우기 - 정아
 	$(".option_update").click(function(e){
-		$(".detail-modal").css("display", "flex");
+		var $button = $(this);
+		var $cartseq = $button.parent().next().text();
+		//console.log($cartseq);
+		var cartCode = $cartseq;
+		
+		$.ajax({
+			url:'/bomulsum/user/shopbagModal.do',
+			data:{
+				'cart':cartCode,
+			},
+			type:'POST',
+			success:function(data){
+				$(".detail-modal").css("display", "flex");
+				$('#modal_art_name').text(data[0].art_name);
+				//$('#modal_image').text(/upload/data[0].art_photo);
+				//$("#modal_image").attr("src", '/upload/data[0].art_photo');
+				//$('#art_discount_price').text(data[0].art_discount+"원");
+				$('#art_price').text(data[0].art_price+"원");
+				if(data[0].art_option_name3 == null){
+				$('#selected_option').text(data[0].art_option_category1 + " : "+data[0].art_option_name1 +" : " 
+						+ data[0].art_option_price1 +"원  / "+data[0].art_option_category2 + " : "+data[0].art_option_name2 +" : " 
+						+ data[0].art_option_price2 +"원 " );
+				}
+				if(data[0].art_option_name2 == null){
+					$('#selected_option').text(data[0].art_option_category1 + " : "+data[0].art_option_name1 +" : " 
+							+ data[0].art_option_price1 +"원 ");
+				}
+				if(data[0].art_option_name1 == null){
+					$('#selected_option').text("선택한 옵션 없음");
+				}
+				if(data[0].art_option_price1 != 0 && data[0].art_option_price2 != 0 && data[0].art_option_price3 != 0){
+					$('#selected_option').text(data[0].art_option_category1 + " : "+data[0].art_option_name1 +" : " 
+							+ data[0].art_option_price1 +"원  / "+data[0].art_option_category2 + " : "+data[0].art_option_name2 +" : " 
+							+ data[0].art_option_price2 +"원 / "+data[0].art_option_category3 + " : "+data[0].art_option_name3 +" : " 
+							+ data[0].art_option_price3 +"원 "  );
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+
+
+		
 	});
 	
 	$(".report-modal__close").click(function(){

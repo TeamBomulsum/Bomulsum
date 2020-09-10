@@ -16,6 +16,9 @@
 		<typeAlias type="com.web.bomulsum.user.gift.repository.UserReceiveGiftVO" alias="UserReceiveGiftVO"/>
 		<typeAlias type="com.web.bomulsum.user.gift.repository.UserReceiveGiftDetailVO" alias="UserReceiveGiftDetailVO"/>
 		<typeAlias type="com.web.bomulsum.user.popular.repository.UserPopularWriterVO" alias="UserPopularWriterVO"/>
+		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagVO" alias="UserShopbagVO"/>
+		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagOptionVO" alias="UserShopbagOptionVO"/>
+		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagModalVO" alias="UserShopbagModalVO"/>
 		
 		
 		<!-- manager -->
@@ -46,6 +49,7 @@
 		<mapper resource="mappings/user/user-gift-mapping.xml" />
 		<mapper resource="mappings/user/user-popular-writer-mapping.xml" />
 		<mapper resource="mappings/user/user-review-mapping.xml"/>
+		<mapper resource="mappings/user/user-shopbag-mapping.xml" />
 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
