@@ -445,10 +445,10 @@ window.addEventListener('scroll', () => {
 				<!-- 댓글 end -->
 			</div>
 			<!-- 상품정보 선택 -->
-			<div style="margin: 3%; width:50%;">
+			<div style="margin-left:1%; width:50%;">
 				<div style="border:1px #ABABAB solid; position: fixed; width:32.7%;" id="positionFixed">
 					<div style="margin:1%; padding: 1%; display: flex; justify-content: space-between;">
-						<span style="display: flex; flex-direction: row; width:50%; margin: 1%; padding: 1%;">
+						<span style="display: flex; flex-direction: row; width:50%;">
 							<img style="width: 10%; height:80%;" src="<c:url value='/upload/${writer.writeProfileImg }'/>">
 							<span style="font-size: 80%; justify-content:center;">${writer.writerBrandName }</span>
 						</span>
@@ -458,8 +458,8 @@ window.addEventListener('scroll', () => {
 						</a>
 					</div>
 					</div>
-					<div id="wonActionDisplay" style=" width: 80%; border: 1px solid; border-radius: 2px; background-color: #fff; font-size: 100%; vertical-align: baseline; display: none; flex-direction: column;">
-								<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 100%; vertical-align: baseline; box-sizing: border-box; border">
+					<div id="wonActionDisplay" style=" width: 80%; border: 1px solid; border-radius: 2px; background-color: #fff; font-size: 80%; vertical-align: baseline; display: none; flex-direction: column;">
+								<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 80%; vertical-align: baseline; box-sizing: border-box; border">
 									<span style="font-size: 12px;color: #fff;">전체옵션 선택</span>
 									<button id="wonAuctionClose" onclick="wonAuctionClose()" style="float: right; background-color: #333; border:none; color: #fff;">X</button>
 								</div>
@@ -484,10 +484,10 @@ window.addEventListener('scroll', () => {
 								</div>
 							</div>
 					<div style="margin-left: 2.5%;"><!-- 할인율 가격 판매제목  -->
-						<strong style="font-size: 150%; padding: 1%; margin: 1%;">${artList.artName }</strong><br>
-						<div style="padding:1%; margin:1%; display: flex; flex-direction: row; justify-content:space-between;">
+						<strong style="font-size: 150%;">${artList.artName }</strong><br>
+						<div style="margin:1%; display: flex; flex-direction: row; justify-content:space-between;">
 							<div style="width:70%; display: flex; flex-direction: row;">
-								<p style="color: red; padding-top:2%; margin-top: 2%; font-size: 100%;">할인<br>${ artList.artDiscount}&nbsp;원</p>
+								<p style="color: red; padding-top:2%; margin-top: 2%; font-size: 100%;">${ artList.artDiscount}&nbsp;원</p>
 								<p style="padding: 1%; margin: 1%; font-size: 150%;"> <fmt:formatNumber value="${artList.artPrice - artList.artDiscount}" pattern="#,###"/>원</p>
 								<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 80%; text-decoration: line-through;"><fmt:formatNumber value="${artList.artPrice}" pattern="#,###"/> 원</p>
 							</div>
@@ -497,12 +497,11 @@ window.addEventListener('scroll', () => {
 									<span style="align-self: center;"><fmt:formatNumber value="${artList.bookMarkCount }" pattern="#,###"/></span>
 								</div>
 									<i class="fa fa-share-alt-square fa-3x" aria-hidden="true" onclick="copy_trackback();">
-										
 									</i>
 							</div>
 						</div>
-						<div style="display:flex; justify-content: flex-end; margin-right: 3%;">
-							<span style="color: #666666; font-weight: bold; font-size:14px;margin-bottom:0%; margin-right: 1%;">${artList.artSaleCount }</span>&nbsp;
+						<div style="display:flex; justify-content: flex-end; margin-right: 1%;">
+							<span style="color: #666666; font-weight: bold; font-size:14px;">${artList.artSaleCount }명</span>&nbsp;
 							<span style="color: #666666; font-size:14px;">구매</span><!-- 할인율 가격 판매제목  -->
 						</div>					
 						<div style="display:flex; flex-direction: row; padding: 1%; margin: 1%;">
@@ -538,7 +537,7 @@ window.addEventListener('scroll', () => {
 									
 									</span>
 								</div>
-								<div style="display: flex; justify-content: space-between; margin: 1%;padding: 1%;">
+								<div style="display: flex; justify-content: space-between;">
 									<div style="display: flex; flex-direction: row;">
 									
 									</div>
