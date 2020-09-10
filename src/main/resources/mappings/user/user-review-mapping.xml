@@ -49,6 +49,30 @@
 				) X
 	</select>
 
+	<!-- 구매후기 등록 -->
+	<insert id="reviewReg" parameterType="String">
+		INSERT INTO review_tb
+		(
+			review_code_seq,
+			buy_art_code_seq,
+			member_code_seq,
+			art_code_seq,
+			review_comment,
+            review_star,
+            review-photo
+		)
+		VALUES
+		(
+			'review_code_seq' || TO_CHAR(review_code_sq.nextval),
+			#{buyArtCodeSeq},
+			#{member},
+			#{artCodeSeq},
+			#{reviewComment},
+            #{starReview},
+            #{reviewPhoto}
+		)
+	</insert>
+
 	<!-- 구매목록 불러오기 -->
  	<!-- <select id="" parameterType="String" resultMap="">
  		SELECT * FROM buy_art_tb
