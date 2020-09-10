@@ -158,7 +158,6 @@ input:focus {outline:none;}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-<<<<<<< HEAD
    
    //배송주소 입력 여부 확인
    <c:forEach var="i" items="${receiveGiftDetailList}">
@@ -193,44 +192,6 @@ $(document).ready(function(){
       
       
    }
-   
-=======
-	
-	//배송주소 입력 여부 확인
-	<c:forEach var="i" items="${receiveGiftDetailList}">
-	var data = '${i.order_address_input}';
-	var recipientName = '${i.gift_recipient_name}';
-	var recipientPhone = '${i.gift_recipient_phone}';
-	var zipcode = '${i.order_zipcode}';
-	var addressFirst = '${i.order_address_first}';
-	var addressSecond= '${i.order_address_second}';
-	</c:forEach>
-	
-	//배송주소 입력 했을 경우
-	if(data =='Y'){
-		//값 설정
-		$('#jeonga_address_name').val(recipientName);
-		$('#jeonga_address_phone').val(recipientPhone);
-		$('#sample6_postcode').val(zipcode);
-		$('#sample6_address').val(addressFirst);
-		$('#sample6_detailAddress').val(addressSecond);
-		
-		//수정 불가
-		$('#jeonga_ugift_gift_check').css("display", "none");
-		$('#jeonga_address_name').css("border", "none");
-		$('#jeonga_address_phone').css("border", "none");
-		$('#adrButton').css("display", "none");
-		$('#sample6_postcode').css("border", "none");
-		$('#sample6_address').css("border", "none");
-		$('#sample6_detailAddress').css("border", "none");
-		$('#jeonga_relived_num').css("display", "none");
-		$('#jeonga_other').css("display", "none");
-		$('#jeonga_caution').css("display", "none");
-		
-		
-	}
-	
->>>>>>> e1f24c755d047ae9aa87b2c2deecd1b259eac74d
 });
 
 /*우편번호 찾기*/
