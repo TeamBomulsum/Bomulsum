@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.user.login.repository.NowLoginVO;
 import com.web.bomulsum.user.login.service.MemberServiceImpl;
 import com.web.bomulsum.user.profile.repository.UserProfileAddressVO;
 import com.web.bomulsum.user.profile.repository.UserProfileVO;
@@ -132,12 +133,11 @@ public class UserProfileController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/home.do");
 		
-		/*//로그아웃  세션처리..
-		 * HttpSession session = request.getSession(); 
-		 * NowLoginVO loginVo = new NowLoginVO(); 
-		 * loginVo.setMemberCode((String)session.getAttribute("member"));
-		 * loginVo.setyORn("N"); session.invalidate();
-		 */
+		//로그아웃  세션처리..
+		  NowLoginVO loginVo = new NowLoginVO(); 
+		  loginVo.setMemberCode((String)session.getAttribute("member"));
+		  loginVo.setyORn("N"); session.invalidate();
+		 
 		
 		return mav;
 	} 
@@ -145,7 +145,7 @@ public class UserProfileController {
 	
 	//회원 배송지관리------------------------------------------
 	@RequestMapping(value="/registeraddress" , method = RequestMethod.GET)
-	public ModelAndView registerAddress(HttpServletRequest request) {
+	public ModelAndView registerAddress(UserProfileAddressVO vo, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/umyInfo/uinformation/uAddressManage");
 		
@@ -154,7 +154,8 @@ public class UserProfileController {
 		System.out.println("멤버코드:"+memberCode);
 		
 		//회원 주소지 조회
-		List<UserProfileAddressVO> selectAddress = service.selectUserAddress();
+		vo.setMember_code_seq(memberCode);
+		List<UserProfileAddressVO> selectAddress = service.selectUserAddress(vo);
 		System.out.println(selectAddress);
 		
 		UserProfileAddressVO[] userAddress;
@@ -181,7 +182,8 @@ public class UserProfileController {
 	  HttpSession session = request.getSession();
 	  String memberCode= (String) session.getAttribute("member");  //멤버코드
 	  System.out.println("멤버코드:"+memberCode);
-		
+	
+	  vo.setMember_code_seq(memberCode);
 	  System.out.println("회원 배송지 확인:"+ vo);
 	  service.insertUserAddress(vo);
 	  mav.setViewName("/umyInfo/uinformation/uAddressManage"); 
@@ -198,7 +200,9 @@ public class UserProfileController {
 		String memberCode= (String) session.getAttribute("member");  //멤버코드
 		System.out.println("멤버코드:"+memberCode);
 		
+		vo.setMember_code_seq(memberCode);
 		System.out.println("수정전 정보: "+ vo);
+		
 		service.updateUserAddress(vo);
 		System.out.println("수정후 정보: "+ vo);
 		mav.setViewName("redirect:/user/registeraddress.do");

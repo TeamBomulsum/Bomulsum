@@ -67,8 +67,8 @@ public class UserProfileServiceImpl implements UserProfileService{
 	}
 
 	@Override
-	public List<UserProfileAddressVO> selectUserAddress() { //회원 주소지 가져오기
-		List<UserProfileAddressVO> result = dao.selectUserAddress();
+	public List<UserProfileAddressVO> selectUserAddress(UserProfileAddressVO vo) { //회원 주소지 가져오기
+		List<UserProfileAddressVO> result = dao.selectUserAddress(vo);
 		
 		//결과없을때 처리
 		UserProfileAddressVO [] userAddress; 

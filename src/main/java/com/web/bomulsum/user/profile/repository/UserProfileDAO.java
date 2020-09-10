@@ -52,9 +52,9 @@ public class UserProfileDAO {
 		}
 		
 		//회원 배송지 조회
-		public List<UserProfileAddressVO> selectUserAddress(){
+		public List<UserProfileAddressVO> selectUserAddress(UserProfileAddressVO vo){
 			List<UserProfileAddressVO> result = 
-					sqlSessionTemplate.selectList("userProfileDAO.selectUserAddress");
+					sqlSessionTemplate.selectList("userProfileDAO.selectUserAddress", vo);
 			return result;
 		}
 		

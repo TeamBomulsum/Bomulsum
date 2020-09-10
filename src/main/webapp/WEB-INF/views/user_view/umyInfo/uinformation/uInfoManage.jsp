@@ -416,11 +416,22 @@ function start_timer(){
 
 
 	$(function(){
+		//유효성검사
+		var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/; //전화번호
 		
+	
 		//유효성 - 널값체크 
 		 // id 'testBtn'이라는 버튼을 클릭 시 체크박스 검사.
 		 $("#phoneBtn").click(function(){
 		     
+			var member_address_phone = $("#uPhone").val();
+			 
+			 //전화번호 형식체크
+			if(!regExp.test(member_address_phone)){ 
+				alert('전화번호를 올바르게 입력해주세요!');
+				return; 
+			}
+				
 		     // id 'testInput'의 value의 null 체크
 		     if($("#uPhone").val()== ''){
 		         //alert("전화번호를 입력해주세요.");
