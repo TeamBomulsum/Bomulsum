@@ -21,7 +21,11 @@ public class UserArticleServiceImpl implements UserArticleService{
 
 	@Override
 	public List<UserArticleCategoryVO> getListForCategory(UserArticlePagingVO vo) {
-		return dao.getListForCategory(vo);
+		List<UserArticleCategoryVO> lvo = dao.getListForCategory(vo);
+		for(UserArticleCategoryVO v : lvo) {
+			v.setArticleReview(dao.getArticleReviewCount(v.getArtCode()));
+		}
+		return lvo;
 	}
 
 	@Override
@@ -51,7 +55,13 @@ public class UserArticleServiceImpl implements UserArticleService{
 
 	@Override
 	public List<UserArticleCategoryVO> getArticleListForSearch(UserSearchPagingVO vo) {
-		return dao.getArticleListForSearch(vo);
+		// 후기 가져오기
+		List<UserArticleCategoryVO> lvo = dao.getArticleListForSearch(vo);
+		for(UserArticleCategoryVO v : lvo) {
+			v.setArticleReview(dao.getArticleReviewCount(v.getArtCode()));
+		}
+		
+		return lvo;
 	}
 
 	@Override
@@ -81,7 +91,12 @@ public class UserArticleServiceImpl implements UserArticleService{
 
 	@Override
 	public List<UserArticleCategoryVO> getListForOrderBy(UserOrderByArticlePagingVO vo) {
-		return dao.getListForOrderBy(vo);
+		List<UserArticleCategoryVO> lvo = dao.getListForOrderBy(vo);
+		for(UserArticleCategoryVO v : lvo) {
+			v.setArticleReview(dao.getArticleReviewCount(v.getArtCode()));
+		}
+		
+		return lvo;
 	}
 
 	@Override

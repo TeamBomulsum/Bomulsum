@@ -41,6 +41,10 @@ public class UserArticleDAO {
 		return sqlSessionTemplate.selectList("articleDao.articleForSearch", vo);
 	}
 	
+	public List<Integer> getArticleReviewCount(String artCode){
+		return sqlSessionTemplate.selectList("articleDao.getArticleReview", artCode);
+	}
+	
 	public int getSearchClassCount(String word) {
 		return sqlSessionTemplate.selectOne("articleDao.getSearchClassCount", word);
 	}

@@ -77,6 +77,7 @@ public class UserArticleController {
 				
 				break;
 			
+			// 추천작품
 			case "recommendWork" :
 				vo.setOrderBy(method); 
 				
@@ -101,6 +102,7 @@ public class UserArticleController {
 				
 				break;
 			
+			// 작가님 추천
 			case "artistRecommend" :
 				vo.setOrderBy(method); 
 				

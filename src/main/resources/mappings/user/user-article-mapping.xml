@@ -280,6 +280,15 @@
 	
 	<!-- 검색 처리 (작품) -->
 	
+	<select id="getArticleReview" parameterType="String" resultType="int">
+		SELECT
+			review_star
+		FROM
+			review_tb
+		WHERE
+			art_code_seq=#{artCode}
+	</select>
+	
 	<select id="articleForSearch" parameterType="com.web.bomulsum.user.article.repository.UserSearchPagingVO" 
 		resultMap="articleVO">
 		<include refid="header"/>

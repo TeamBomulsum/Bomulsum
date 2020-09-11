@@ -116,14 +116,38 @@
 	padding:8px 10px;
 	justify-content: flex-start;
 	align-items: center;
+	height:18px;
 }
 
-.article_grade span{
-	color:#999;
-	margin-left:10px;
+.article_grade span:nth-last-child(1){
+	display: flex;
+    align-items: center;
+    padding-left: 10px;
+    color: #999;
 }
 
+.minwoo_starRev{
+	display:flex;
+}
 
+.minwoo_starR1{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat -28px 0;
+    background-size: auto 100%;
+    width: 8px;
+    height: 16px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR2{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat right 0;
+    background-size: auto 100%;
+    width: 8px;
+    height: 16px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR1.on{background-position:0 0;}
+.minwoo_starR2.on{background-position:-8px 0;}
 
 </style>
 <body>
@@ -241,10 +265,32 @@ function getList(page){
 						}
 						
 						htmldiv += '<input type="hidden" value="'+data[i].artCode+'"/></div><div class="article_detail">'
-							+ '<a>' + writerName + '</a>' + '<span>' + data[i].artName + '</span></div>'
-							+ '<div class="article_grade"><i class="fa fa-star" style="color:gold"></i><i class="fa fa-star" style="color:gold"></i>'
-							+ '<i class="fa fa-star" style="color:gold"></i><i class="fa fa-star" style="color:gold"></i><i class="fa fa-star" style="color:gold"></i>'
-							+ '<span>(<a>3</a>)</span></div></div>';
+							+ '<a>' + writerName + '</a>' + '<span>' + data[i].artName + '</span></div><div class="article_grade">';
+						
+						if(data[i].articleReview.length==0){
+							htmldiv += '</span></div></div>';
+						}else{
+							var reviewCnt = data[i].articleReview.length;
+							var review=0;
+							for(var j=0; j<reviewCnt; j++){
+								review += data[i].articleReview[j];
+							}
+							review = Math.round(review / reviewCnt);
+							
+							/* htmldiv += '<i class="fa fa-star" style="color:gold"></i><i class="fa fa-star" style="color:gold"></i>'
+								+ '<i class="fa fa-star" style="color:gold"></i><i class="fa fa-star" style="color:gold"></i><i class="fa fa-star" style="color:gold"></i>'
+								+ '<span>(<a>3</a>)</span>'; */
+							htmldiv += '<div class=\"minwoo_starRev\" data-rate=\"'+ review +'\">'
+								+ '<span class=\"minwoo_starR1\">별1_왼쪽</span> <span class=\"minwoo_starR2\">별1_오른쪽</span>'
+								+ '<span class=\"minwoo_starR1\">별2_왼쪽</span> <span class=\"minwoo_starR2\">별2_오른쪽</span>'
+								+ '<span class=\"minwoo_starR1\">별3_왼쪽</span> <span class=\"minwoo_starR2\">별3_오른쪽</span>'
+								+ '<span class=\"minwoo_starR1\">별4_왼쪽</span> <span class=\"minwoo_starR2\">별4_오른쪽</span>'
+								+ '<span class=\"minwoo_starR1\">별5_왼쪽</span> <span class=\"minwoo_starR2\">별5_오른쪽</span>'
+								+ '<span>(<a>'+ reviewCnt +'</a>)</span></div>'
+							
+						}
+														
+						htmldiv += '</div></div>';
 					}
 					
 				}else{
@@ -261,6 +307,14 @@ function getList(page){
 			}
 			
 			$(".fs").click(likeArticleFunc);
+			
+			var starRevPoint = $('.minwoo_starRev');
+			starRevPoint.each(function(){
+				var targetScore = $(this).attr('data-rate');
+				console.log(targetScore);
+				$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
+				$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
+			});
 			
 		},
 		error:function(e){
