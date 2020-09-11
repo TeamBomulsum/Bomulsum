@@ -204,7 +204,6 @@ body {
 }
 
 .dainheader-bottom-inner {
-	width: 55%;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -910,7 +909,7 @@ body {
 		<!-- 검색창 영역 -->
 		<div class="dainheader-middle-search">
 			<div class="middle-search-form">
-				<form action="/bomulsum/search/result.do">
+				<form id="search_form" action="/bomulsum/search/result.do">
 					<input autocomplete="off" type="text" id="headerSearch" name="headerSearch" placeholder="작품, 작가 검색" >
 					<button class="dainsearchbtn"><i class="fa fa-search fa-lg" aria-hidden="true" ></i></button>
 				</form>
@@ -959,22 +958,36 @@ body {
 </div>
 <!-- Header 하단 메뉴영역 -->
 <div class="dainheader-bottom">
-	<div class="dainheader-bottom-inner">
-		<div class="dainrounded" style="margin-right: 5px;">온라인</div>
-		<div><a class="dainheader-bi-a" href="#">홈</a></div>
-		<div style="color: #d9d9d9">|</div>
-		<div class="dainrounded" style="margin-right: 5px;">오프라인</div>
-		<div><a class="dainheader-bi-a" href="<c:url value='/midas/class.do'/>">홈</a></div>
-		<div><a class="dainheader-bi-a" href="<c:url value='/midas/detail.do?category=공예'/>">카테고리</a></div>
-		<div><a class="dainheader-bi-a" href="<c:url value='/midas/popular.do'/>">인기 클래스</a></div>
-		<div><a class="dainheader-bi-a" href="<c:url value='/midas/location.do?location=서울'/>">지역별</a></div>
-		<div><a class="dainheader-bi-a" href="<c:url value='/midas/new.do'/>">신규</a></div>
+	<div style="width:70%; display:flex; justify-content: space-between;">
+		<div></div>
+		<div class="dainheader-bottom-inner">
+			<div class="dainrounded" style="margin-right: 5px;">온라인</div>
+			<div><a class="dainheader-bi-a" href="#">홈</a></div>
+			<div style="color: #d9d9d9">|</div>
+			<div class="dainrounded" style="margin-right: 5px;">오프라인</div>
+			<div><a class="dainheader-bi-a" href="<c:url value='/midas/class.do'/>">홈</a></div>
+			<div><a class="dainheader-bi-a" href="<c:url value='/midas/detail.do?category=공예'/>">카테고리</a></div>
+			<div><a class="dainheader-bi-a" href="<c:url value='/midas/popular.do'/>">인기 클래스</a></div>
+			<div><a class="dainheader-bi-a" href="<c:url value='/midas/location.do?location=서울'/>">지역별</a></div>
+			<div><a class="dainheader-bi-a" href="<c:url value='/midas/new.do'/>">신규</a></div>
+		</div>
+		<div></div>
+		<div></div>
+		<div></div>
 	</div>
 </div>
 </header>
 <!-- Header 끝 -->
 </body>
 <script>
+$(function(){
+	$('#search_form').submit(function(){
+		if($("#headerSearch").val().length == 0){
+			return false;
+		}
+	});
+});
+
 var keywordClick = function(event){
 	location.href='/bomulsum/search/result.do?headerSearch='+event;
 };

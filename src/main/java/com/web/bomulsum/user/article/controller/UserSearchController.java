@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.bomulsum.user.article.repository.UserArticleCategoryVO;
+import com.web.bomulsum.user.article.repository.UserMidasClassVO;
 import com.web.bomulsum.user.article.repository.UserSearchPagingVO;
 import com.web.bomulsum.user.article.service.UserArticleService;
 
@@ -41,6 +42,7 @@ public class UserSearchController {
 		return "/usearch/uSearch";
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping(value="/info", method = RequestMethod.POST)
 	public HashMap<String, Object> searchFilter(
@@ -49,7 +51,7 @@ public class UserSearchController {
 			@RequestParam(value="page") int page, 
 			@RequestParam(value="filtArr[]", required = false) List<String> filtArr,
 			@RequestParam(value="category[]", required = false) List<String> category,
-			@RequestParam(value="orderBy") String orderBy,
+			@RequestParam(value="orderBy", required = false) String orderBy,
 			@RequestParam(value="member") String member){
 		
 		
@@ -103,10 +105,43 @@ public class UserSearchController {
 		}else {
 			// 금손 검색 결과
 			HashMap<String, Object> map = new HashMap<String, Object>();
+			UserSearchPagingVO vo = new UserSearchPagingVO();
+			vo.setWord(word);
+			int totalCnt = service.getSearchClassCount(vo.getWord());
+			int pageCnt = page;
+			if(pageCnt == 1) {
+				vo.setStartNum(1);
+				vo.setEndNum(16);
+			}else {
+				vo.setStartNum(pageCnt + (15*(pageCnt-1)));
+				vo.setEndNum(pageCnt*16);
+			}
+			
+			map.put("totalCnt", totalCnt);
+			map.put("startNum", vo.getStartNum());
+			
+			List<UserMidasClassVO> data = service.getSearchClass(vo);
+			map.put("data", data);
+			
+			if(!member.equals("null") || member != null) {
+				map.put("wishList", service.getLikeMidas(member));
+			}
+			
 			return map;
 		}
 		
 	}
+	
+	@RequestMapping(value="/result/class", method=RequestMethod.GET)
+	public String getSearchClass(@RequestParam String headerSearch) {
+		
+		return "/usearch/uSearchClass";
+	}
+	
+	
+	
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="/realTime", method = RequestMethod.POST)

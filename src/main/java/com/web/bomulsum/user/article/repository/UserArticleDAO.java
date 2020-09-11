@@ -41,6 +41,22 @@ public class UserArticleDAO {
 		return sqlSessionTemplate.selectList("articleDao.articleForSearch", vo);
 	}
 	
+	public int getSearchClassCount(String word) {
+		return sqlSessionTemplate.selectOne("articleDao.getSearchClassCount", word);
+	}
+	
+	public List<UserMidasClassVO> getSearchClass(UserSearchPagingVO vo){
+		return sqlSessionTemplate.selectList("articleDao.getSearchClass", vo);
+	}
+	
+	public List<String> getLikeMidas(String member){
+		return sqlSessionTemplate.selectList("articleDao.getLikeMidas", member);
+	}
+	
+	public List<Integer> getClassReviewCount(String midasCode) {
+		return sqlSessionTemplate.selectList("articleDao.getClassReviewCount", midasCode);
+	}
+	
 	public int selectWord(String word) {
 		if(sqlSessionTemplate.selectOne("articleDao.wordSelect", word) == null) {
 			return 0;

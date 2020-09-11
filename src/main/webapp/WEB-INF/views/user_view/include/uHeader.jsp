@@ -899,7 +899,7 @@ body {
 		<!-- 검색창 영역 -->
 		<div class="dainheader-middle-search">
 			<div class="middle-search-form">
-				<form action="/bomulsum/search/result.do">
+				<form id="search_form" action="/bomulsum/search/result.do">
 					<input autocomplete="off" type="text" id="headerSearch" name="headerSearch" placeholder="작품, 작가 검색" >
 					<button class="dainsearchbtn"><i class="fa fa-search fa-lg" aria-hidden="true" ></i></button>
 				</form>
@@ -1000,6 +1000,13 @@ body {
 
 </body>
 <script>
+$(function(){
+	$('#search_form').submit(function(){
+		if($("#headerSearch").val().length == 0){
+			return false;
+		}
+	});
+});
 var keywordClick = function(event){
 	location.href='/bomulsum/search/result.do?headerSearch='+event;
 };

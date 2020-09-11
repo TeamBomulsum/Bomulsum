@@ -63,7 +63,6 @@
     .dndud_coupon_img{
     	width: 400px;
     	height: 200px;
-    	cursor: pointer;
     }
     
     button{
@@ -145,12 +144,8 @@ $(function(){
 		location.href = "/bomulsum/home.do"; // 아이콘 클릭시 홈으로 경로
 	});
 	
-	$(".dndud_coupon_img").click(function(){
-		location.href = "#"; // 쿠폰함 페이지로.
-	});
-	
 	$("#dndud_go_to_article").click(function(){
-		location.href = "#"; // 작품들 있는 페이지로.
+		location.href = '/bomulsum/category/recommended.do'; // 작품들 있는 페이지로.
 	});
 });
 </script>

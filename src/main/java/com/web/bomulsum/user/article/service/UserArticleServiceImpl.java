@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.web.bomulsum.user.article.repository.UserArticleCategoryVO;
 import com.web.bomulsum.user.article.repository.UserArticleDAO;
 import com.web.bomulsum.user.article.repository.UserArticlePagingVO;
+import com.web.bomulsum.user.article.repository.UserMidasClassVO;
 import com.web.bomulsum.user.article.repository.UserOrderByArticlePagingVO;
 import com.web.bomulsum.user.article.repository.UserSearchPagingVO;
 
@@ -82,5 +83,26 @@ public class UserArticleServiceImpl implements UserArticleService{
 	public List<UserArticleCategoryVO> getListForOrderBy(UserOrderByArticlePagingVO vo) {
 		return dao.getListForOrderBy(vo);
 	}
+
+	@Override
+	public int getSearchClassCount(String word) {
+		return dao.getSearchClassCount(word);
+	}
+
+	@Override
+	public List<UserMidasClassVO> getSearchClass(UserSearchPagingVO vo) {
+		List<UserMidasClassVO> lvo = dao.getSearchClass(vo);
+		for(UserMidasClassVO v : lvo) {
+			v.setMidasReview(dao.getClassReviewCount(v.getMidasCodeSeq()));
+		}
+		return lvo;
+	}
+
+	@Override
+	public List<String> getLikeMidas(String member) {
+		return dao.getLikeMidas(member);
+	}
+
+	
 	
 }

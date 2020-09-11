@@ -532,8 +532,6 @@ function getList(page){
 				
 				$(".fs").click(likeArticleFunc);
 				
-			}else{
-				// 금손 클래스 검색 결과 출력
 			}
 			
 		},
@@ -677,17 +675,7 @@ $(function(){
 		$('.div_active_none').click(changeClass);
 		$(this).attr('class', 'div_active');
 		
-		if($(this).attr('id') == 'midas'){
-			artORclass = 'midas';
-			page = 1;
-			option='즐겨찾는 클래스';
-			getList(page);			
-		}else{
-			artORclass = 'art';
-			page = 1;
-			option='좋아하는작품';
-			getList(page);
-		}
+		location.href="/bomulsum/search/result/class.do?headerSearch="+word;
 	});
 	
 });
