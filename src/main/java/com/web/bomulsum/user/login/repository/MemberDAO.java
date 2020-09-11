@@ -70,4 +70,12 @@ public class MemberDAO {
 		return sqlSessionTemplate.selectOne("MemberDAO.getUser", code);
 	}
 	
+	public HashMap<String, String> forgotpw(String phone){
+		return sqlSessionTemplate.selectOne("MemberDAO.forgotpw", phone);
+	}
+	
+	public void alterTable(MemberChangePwVO vo) {
+		sqlSessionTemplate.update("MemberDAO.alterTable", vo);
+	}
+	
 }

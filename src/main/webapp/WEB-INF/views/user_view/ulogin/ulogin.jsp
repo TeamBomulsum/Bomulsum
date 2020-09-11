@@ -104,7 +104,7 @@
 	            			<a href="javascript:onClick()" style="text-decoration:none; color:gray; font-size:13px;">
 	            				<input type="checkbox" id="rememberEmail" name="rememberEmail" /> 이메일 저장하기
 	            			</a>
-	            			<a href="findAboutAccount" style="text-decoration:none; color:gray; font-size:13px;">
+	            			<a href="findAboutAccount.do" style="text-decoration:none; color:gray; font-size:13px;">
 	            				아이디 / 비밀번호를 잊어버리셨나요?
 	            			</a>
 	            		</div>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.user.login.repository.LoginVO;
+import com.web.bomulsum.user.login.repository.MemberChangePwVO;
 import com.web.bomulsum.user.login.repository.MemberVO;
 import com.web.bomulsum.user.login.repository.NowLoginVO;
 import com.web.bomulsum.user.login.service.MemberServiceImpl;
@@ -164,5 +165,34 @@ public class UserLoginController {
 //		System.out.println("kakao code: " + code);
 //		return "";
 //	}
+	
+	
+	@RequestMapping(value="/findAboutAccount")
+	public String forgotIdPw() {
+		return "/ulogin/uforgotIdPw";
+	}
+	
+	@RequestMapping(value="/phoneCheck", method = RequestMethod.POST)
+	public ModelAndView updatePw(@RequestParam String phone, ModelAndView mav) {
+		System.out.println("HP: " + phone);
+		HashMap<String, String> map = service.forgotpw(phone);
+		
+		mav.setViewName("/ulogin/uUpdatePw");
+		if(map != null) {
+			mav.addObject("data", map);		
+		}else {
+			mav.addObject("phone", phone);
+		}
+		
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/updatePW", method = RequestMethod.POST)
+	public void alterTable(MemberChangePwVO vo) {
+
+		service.alterTable(vo);
+	}
+	
 
 }

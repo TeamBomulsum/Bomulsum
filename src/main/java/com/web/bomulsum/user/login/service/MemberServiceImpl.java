@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.user.login.repository.LoginVO;
+import com.web.bomulsum.user.login.repository.MemberChangePwVO;
 import com.web.bomulsum.user.login.repository.MemberDAO;
 import com.web.bomulsum.user.login.repository.MemberSessionVO;
 import com.web.bomulsum.user.login.repository.MemberVO;
@@ -91,6 +92,19 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberSessionVO getUser(String code) {
 		return dao.getUser(code);
+	}
+
+	@Override
+	public HashMap<String, String> forgotpw(String phone) {
+		return dao.forgotpw(phone);
+	}
+
+	@Override
+	public void alterTable(MemberChangePwVO vo) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		vo.setChPw(encoder.encode(vo.getChPw()));
+		dao.alterTable(vo);
 	}
 
 }
