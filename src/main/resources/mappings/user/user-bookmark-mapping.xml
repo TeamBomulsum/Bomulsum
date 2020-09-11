@@ -20,9 +20,6 @@
 		<result property="artViewcount" column="art_viewcount" />
 		<result property="artKeyword" column="art_keyword" />
 		<result property="artRegisterDate" column="art_register_date"/>
-		
-		
-		<result property="memberCode" column="member_code_seq"/>
 	</resultMap>
 
 	<sql id="header">
