@@ -35,6 +35,7 @@ body a:link, a:visited, a:hover, a:active {
 	box-shadow: 1px 1px gray;
 }
 .minwoo_starRev{
+	margin-top: 10px;
 	display: flex;
     align-items: center;
 }
@@ -93,25 +94,41 @@ body a:link, a:visited, a:hover, a:active {
 								<!-- 내용물 -->
 								<%-- <div class="content_img" style="background-image : url('/bomulsum/upload/${data.artImg}')"></div> --%>
 								<img style="width: 100%; max-height:330px;min-height: 196px;" src="<c:url value='/upload/${data.artImg }'/>"> 
-								<div>
-									<span style="color: #ABABAB; font-size: 80%;">${data.writerName }</span><br>
+								<div style="display:flex; flex-direction: column">
+									<span style="color: #ABABAB; font-size: 80%;">${data.writerName }</span>
 									<span style="display: block; text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">${data.artName }</span>
-									<span style="color: red;"><fmt:formatNumber value="${data.artPercent }" pattern="#,###" />%</span>
-									&nbsp;
-									<span><fmt:formatNumber value="${data.artDiscount }" pattern="#,###" />원</span><br>
-									<span style="text-decoration: line-through; color: #ABABAB; font-size: 70%;"><fmt:formatNumber value="${data.artPrice }" pattern="#,###" />원</span><br>
-									<div class="minwoo_starRev" data-rate="${data.reviewValue }">
-										<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
-										<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
-										<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
-										<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
-										<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
-										<span style="margin-left: 10px;font-size: 12px; color: #666;">(<span>${data.reviewCnt }</span>)</span>
-									</div>
-									<span style="display: block;text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">
-										<span style="background-color: #EAEAEA; border: 1px solid #EAEAEA; border-radius: 5px; font-size: 60%; color: #ABABAB;">후기</span>
-										&nbsp;<span style="color: #ABABAB; font-size: 60%;">${data.recentlyReviewContent }</span>
-									</span>
+									<c:choose>
+										<c:when test="${data.artPercent == 0 }">
+											<span><fmt:formatNumber value="${data.artDiscount }" pattern="#,###" />원</span>
+										</c:when>
+										<c:otherwise>
+											<div>
+												<span style="color: red;"><fmt:formatNumber value="${data.artPercent }" pattern="#,###" />%</span>
+												&nbsp;
+												<span><fmt:formatNumber value="${data.artDiscount }" pattern="#,###" />원</span>
+											</div>
+											<span style="text-decoration: line-through; color: #ABABAB; font-size: 70%;"><fmt:formatNumber value="${data.artPrice }" pattern="#,###" />원</span>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${data.reviewCnt == 0 }">
+										</c:when>
+										<c:otherwise>
+										<div class="minwoo_starRev" data-rate="${data.reviewValue }">
+											<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
+											<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
+											<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
+											<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
+											<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
+											<span style="margin-left: 10px;font-size: 12px; color: #666;">(<span>${data.reviewCnt }</span>)</span>
+										</div>
+										<span style="display: block;text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">
+											<span style="background-color: #EAEAEA; border: 1px solid #EAEAEA; border-radius: 5px; font-size: 60%; color: #ABABAB;">후기</span>
+											&nbsp;<span style="color: #ABABAB; font-size: 60%;">${data.recentlyReviewContent }</span>
+										</span>
+										</c:otherwise>
+									</c:choose>
+									
 								</div>
 							</div>
 						</c:forEach>
