@@ -42,11 +42,13 @@ body a:link, a:visited, a:hover, a:active {
 }
 
 .dndud_main_category_content_box{
-	width:24%; /* 4개씩 보여주기 (5개씩은 19%)*/
+	width:23%; /* 4개씩 보여주기 (5개씩은 19%)*/
+	margin-left:1%; 
 	margin-right:1%; 
 	margin-bottom:2%; 
-	height:450px;
+	height:380px;
 	cursor:pointer;
+	font-size:13px;
 }
 
 .dndud_main_category_content_box:hover{
@@ -61,10 +63,11 @@ body a:link, a:visited, a:hover, a:active {
 	background-size: 100% auto;
 	display:flex;
 	flex-direction: column;
+	margin-bottom: 5%;
 }
 
 .content_img i{
-	font-size:30px;
+	font-size:24px;
 	align-self:flex-end;
 	margin:2%;
 	color: gray;
@@ -76,12 +79,12 @@ body a:link, a:visited, a:hover, a:active {
 	display:flex;
 	flex-direction: column;
 	width:98%;
-	padding:1%;
+	padding:3%;
 }
 
 .content_detail_writer{
 	color:#999999;
-	font-size:14px;
+	font-size:12px;
 	margin-bottom:1.5%;
 	overflow: hidden;
     display: -webkit-box;
@@ -92,12 +95,12 @@ body a:link, a:visited, a:hover, a:active {
 
 .content_detail_title{
 	color:#333333;
-	font-size:15px;
+	font-size:14px;
 	margin-bottom:1.5%;
 }
 
 .content_detail_price_decount{
-	font-size:24px;
+	font-size:16px;
 	color:#333333;
 	margin-bottom:1%;
 	font-weight:bold;
@@ -117,7 +120,7 @@ body a:link, a:visited, a:hover, a:active {
 
 .content_detail_other{
 	margin-bottom:4%;
-	font-size:14px;
+	font-size:12px;
 	font-weight:bold;
 }
 
@@ -174,6 +177,24 @@ body a:link, a:visited, a:hover, a:active {
     width: 100%;
 }
 
+.dainClikedTab {
+	width: 33%;
+	padding: 2%;
+	border: 1px solid #D9D9D9;
+	color: #333333;
+	font-weight: bold;
+	text-align: center;
+}
+
+.dainUnClikedTab {
+	width: 33%;
+	padding: 2%;
+	border: 1px solid #D9D9D9;
+	text-align: center;
+	color: #ACACAC;
+	background-color: #F5F5F5;
+}
+
 
 </style>
 
@@ -181,10 +202,10 @@ body a:link, a:visited, a:hover, a:active {
 <script>
 var memberCode = '<%= (String)session.getAttribute("member") %>';
 var likeArticleFunc;
-var categoryOptionFunc;
-var ajaxFilterFunc;
-var filtArr = [];
-var orderBy = 'orderByLike';
+/* var categoryOptionFunc;
+var ajaxFilterFunc; */
+/* var filtArr = []; */
+/* var orderBy = 'orderByLike'; */
 
 //스크롤 페이징
 var page = 1;
@@ -202,24 +223,26 @@ $(window).scroll(function() {
 });
 
 
+
 //세자리 콤마
 function comma(x) { return !x ? '0' : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 
 
+//작품 뿌려주는거 & 페이징
 function getList(page){
-	var category = '전자기기';
+	/* var category = '전자기기'; */
 	
 	$.ajax({
 		type:'POST',
 		dataType : 'json',
 		data:{
-			'category':category,
+			/* 'category':category, */
 			'page':page,
-			'filtArr':filtArr,
-			'orderBy':orderBy,
+			/* 'filtArr':filtArr, */
+			/* 'orderBy':orderBy, */
 			'member':memberCode
 		},
-		url : '/bomulsum/category/info.do',
+		url : '/bomulsum//user/wishlist/bookmarkinfo.do',
 		success :function(returnData){
 			console.log(returnData.totalCnt);
 			var htmldiv = '';
@@ -315,10 +338,12 @@ function getList(page){
 }
 
 function artCode(e){
-		var art_code = e.id;
-			location.href = "/bomulsum/user/uProductInfo/"+art_code+".do";
+	var art_code = e.id;
+	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank");
 }
 
+//좋아하는 작품 기능
 $(function(){
 likeArticleFunc = function(){
 	
@@ -390,16 +415,16 @@ likeArticleFunc = function(){
 		<div>
 			<h2 style="margin: 1%;">즐겨찾는(★) 작품</h2>
 		</div>
+	<%-- 	'<c:url value='/user/board/noticeDetail.do?seq=admin_notice_seq174'/>' --%>
 		<div style="display: flex; flex-direction: row; margin: 1%;">
-			<div style="width: 33%; padding:2%; border: 1px solid #D8D8D8;text-align: center;">
-				<a id="wonBookButton" href="uBookMarkWork.jsp"><span style="text-align: center;">작품</span></a>
-			</div>
-			<div style="width: 33%; padding:2%; border: 1px solid #D8D8D8;text-align: center; background-color: #D8D8D8; border-color: #B0B0B0;">
-				<a id="wonBookButton" href="uBookMarkOnline.jsp"><span style="text-align: center; color: #B0B0B0;">온라인</span></a>
-			</div>
-			<div style="width: 33%; padding:2%; border: 1px solid #D8D8D8; text-align: center; background-color: #D8D8D8; border-color: #B0B0B0;">
-				<a id="wonBookButton" href="uBookMarkOffline.jsp"><span style="text-align: center; color: #B0B0B0;">오프라인</span></a>
-			</div>
+			<a id="wonBookButton" class="dainClikedTab" href="<c:url value='/user/wishlist/bookmarkWork.do'/>" 
+			style="border: 1px solid #d9d9d9;">작품</a>
+			
+			<a id="wonBookButton" class="dainUnClikedTab" href="<c:url value='/user/wishlist/bookmarkOnline.do'/>" 
+			style="border-top: 1px solid #d9d9d9;border-bottom: 1px solid #d9d9d9;">온라인</a>
+			
+			<a id="wonBookButton" class="dainUnClikedTab" href="<c:url value='/user/wishlist/bookmarkOffline.do'/>" 
+			style="border: 1px solid #d9d9d9;">오프라인</a>
 		</div>
 		
 		<!-- 작품들 들어갈 부분 -->
