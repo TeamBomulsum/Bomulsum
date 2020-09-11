@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디어스 | 즐겨찾는오프라인</title>
+<title>보물섬 | 즐겨찾는 오프라인 클래스</title>
 <style>
 .content {
 	width: 70%;
@@ -50,6 +50,160 @@ body a:link, a:visited, a:hover, a:active {
 	background-color: #F5F5F5;
 }
 
+/*------------------ 다인추가 ------------------------*/
+.dain_main_category_contents{
+	display:flex;
+	width:100%;
+	flex-wrap: wrap;
+}
+
+.dain_main_category_content_box{
+	width:23%; /* 4개씩 보여주기 (5개씩은 19%)*/
+	margin-left:1%; 
+	margin-right:1%; 
+	margin-bottom:2%; 
+	height:350px;
+	cursor:pointer;
+	font-size:13px;
+}
+
+.dain_main_category_content_box:hover{
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: .5s;
+}
+
+.content_img{
+	width: 96%;
+	height: 56%;  /* 기존50% */
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	display:flex;
+	flex-direction: row; /* column */
+	justify-content: space-between; /* 추가 */
+	margin-bottom: 5%;
+	padding:4px;
+}
+
+.content_img i{
+	font-size:24px;
+	/* align-self:flex-end; */
+	margin:2%;
+	color: gray;
+	-webkit-text-stroke-width: 2px;
+	-webkit-text-stroke-color: white;
+}
+
+.content_img .dainaddress{
+	font-size:12px;
+/* 	align-self:flex-start; */
+	height: 17px;
+	margin:2%;
+	color: white;
+	padding:6px 8px;
+	background: rgba(51,51,51,0.6);
+	border-radius: 4px;
+}
+
+.content_detail{
+	display:flex;
+	flex-direction: column;
+	width:98%;
+	padding:3%;
+}
+
+.content_detail_writer{
+	color:#1f76bb;
+	font-size:12px;
+	margin-bottom:1.5%;
+	overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+}
+
+.content_detail_title{
+	color:#333333;
+	font-size:14px;
+	margin-bottom:1.5%;
+}
+
+.content_detail_price_decount{
+	font-size:16px;
+	color:#333333;
+	margin-bottom:1%;
+}
+
+.content_detail_price_decount .discount_price{
+	color:#d64640;
+}
+
+.content_detail_price_orgin{
+	margin-bottom:2%;
+	color:#999999;
+	font-size:14px;
+	font-weight:bold;
+	text-decoration: line-through;
+}
+
+.content_detail_other{
+	margin-bottom:4%;
+	font-size:12px;
+	font-weight:bold;
+}
+
+.content_detail_other span:nth-child(1){
+	padding:1%;
+	background-color: #e9f5ff;
+	color: #0a91ff;
+	margin:1%;
+}
+
+.content_detail_other span:nth-child(2){
+	padding:1%;
+	margin:1%;
+	background-color: #e2fae6;
+	color: #39af4d;
+}
+
+.content_detail_star span{
+	color:#999999;
+}
+
+.category_option_checkbox{
+	cursor:pointer;
+}
+
+.category_option_selected{
+	display:none;
+	background-color:#f5f5f5;
+}
+
+.category_option_selected div{
+	display: flex;
+	background: white;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1.5%;
+	width: 12.5%;
+	border: 1px solid #d9d9d9;
+	border-radius: 15px;
+	font-size:10px
+}
+
+.selected_option_span{
+	padding: 5px 10px;
+}
+
+.atag{
+	cursor:pointer;
+}
+
+.category_option_list{
+	display: flex;
+    flex-direction: row;
+    width: 100%;
+}
 </style>
 </head>
 <body>
@@ -79,7 +233,14 @@ body a:link, a:visited, a:hover, a:active {
 			style="border: 1px solid #d9d9d9;">오프라인</a>
 		</div>
 		<div style="maring-top:1%;">
-				<div style="display: flex; flex-wrap: wrap;">
+		
+		<!-- 작품 들어갈부분 -->
+		<div class="dain_main_category_contents">
+		
+		
+		</div>
+		
+<%-- 				<div style="display: flex; flex-wrap: wrap;">
 					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
 						<a style="margin:1%;">
@@ -146,7 +307,7 @@ body a:link, a:visited, a:hover, a:active {
 						</a>
 					</div>
 						
-			</div>
+			</div> --%>
 		</div>
 	</div>
 	
@@ -157,5 +318,196 @@ body a:link, a:visited, a:hover, a:active {
 	<!-- 푸터  -->
 	<%@ include file="../../include/uFooter.jsp" %>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+var likeArticleFunc;
+
+//스크롤 페이징
+var page = 1;
+
+$(function(){
+	getList(page);
+	page++;
+});
+
+$(window).scroll(function() {
+    if ( Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()) {
+    	getList(page);
+    	page++;
+    }
+});
+
+
+
+//세자리 콤마
+function comma(x) { return !x ? '0' : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
+
+
+//작품 뿌려주는거 & 페이징
+function getList(page){
+	/* var category = '전자기기'; */
+	
+	$.ajax({
+		type:'POST',
+		dataType : 'json',
+		data:{
+			'page':page,
+			'member':memberCode
+		},
+		url : '/bomulsum/user/wishlist/bookmarkOffinfo.do',
+		success :function(returnData){
+			console.log(returnData.totalCnt);
+			var htmldiv = '';
+			var midasAddress = '';
+			var midasPhoto = '';
+			var pricePer = 0;
+			var data = returnData.data;
+			
+			console.log(returnData);
+			
+			if(page == 1){
+				$('.dain_main_category_contents').html('');
+			}
+			if(returnData.startNum <= returnData.totalCnt){
+				if(data.length > 0){
+					// for
+					for(var i=0; i<data.length; i++){
+						console.log(data[i]);
+						
+						
+						//상품 대표이미지
+						midasPhoto = data[i].midasImg.split(',')[0]; 
+						var address1 = data[i].midasAddress1.split(' ')[0]; //ex) 서울
+						var address2 = data[i].midasAddress1.split(' ')[1]; //ex) 종로구
+						
+						midasAddress = address1 + ' ' + address2;
+						
+						htmldiv += '<div class="dain_main_category_content_box" onclick="artCode(this);" id="'+data[i].midasCodeSeq +'">'
+							+ '<input class="artCode" type="hidden" value="'+ data[i].midasCodeSeq  +'"/>'
+							+ '<div class="content_img" style="background-image: URL(\'/bomulsum/upload/'
+							+ midasPhoto +'\' )">'
+							+ '<div class="dainaddress">' + midasAddress +'</div>'
+							
+						var imsi = 0;
+						for(var j=0; j<returnData.wishList.length; j++){
+							if(data[i].midasCodeSeq == returnData.wishList[j]){
+								htmldiv += '<i class="fa fa-star fs" style="color:#d64640"></i>';
+								imsi = 1;
+								break;
+							}
+						}
+						if(imsi == 0){
+							htmldiv += '<i class="fa fa-star fs"></i>'; 
+						}
+							
+						htmldiv += '</div><div class="content_detail">'
+							+ '<span class="content_detail_writer">'+ data[i].midasCategory +'</span>'
+							+ '<span class="content_detail_title">'+ data[i].midasName +'</span>'
+							+ '<span class="content_detail_price_decount">';
+						
+						
+						htmldiv += '<span class="content_detail_other">';
+						
+						htmldiv += '</span><span class="content_detail_star">'
+							+ '<i class="fa fa-star" style="color:gold"></i>'
+							+ '<i class="fa fa-star" style="color:gold"></i>'
+							+ '<i class="fa fa-star" style="color:gold"></i>'
+							+ '<i class="fa fa-star" style="color:gold"></i>'
+							+ '<i class="fa fa-star" style="color:gold"></i>'
+							+ '<span>(<a>num</a>)</span></span></div></div>';
+					}// end for
+				}else{
+					//데이터 없을때.
+				}
+			}
+			
+			htmldiv = htmldiv.replace(/%20/gi, ' ');
+			if(page == 1){
+				$('.dain_main_category_contents').html(htmldiv);				
+			}else{
+				$('.dain_main_category_contents').append(htmldiv);
+			}
+			
+			$(".fs").click(likeArticleFunc);
+			
+			
+		},
+		error:function(e){
+			if(e.status == 300){
+				alert('데이터를 가져오는데 실패했습니다.');
+			};
+		}
+	});
+}
+
+//작품 상세페이지로 연결
+function artCode(e){
+	var art_code = e.id;
+	console.log('상세페이지로 url이동');
+/* 	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank"); */
+}
+
+//좋아하는 작품 기능
+$(function(){
+likeArticleFunc = function(e){
+	
+	e.stopPropagation();
+	
+	if(memberCode == null || memberCode == 'null'){
+		alert('로그인이 필요한 서비스입니다.');
+		location.href='/bomulsum/user/login.do';
+		return;
+	}
+	
+	var midasCode = $(this).parent().prev().val();
+	console.log("마이다스코드:"+midasCode);
+	var option = '즐겨찾는클래스';
+	
+	
+	var clickIcon = $(this);
+	console.log(clickIcon);
+	var tORf;
+	
+	if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+		clickIcon.css("color", "#d64640");
+		tORf = true;
+	}else{
+		clickIcon.css("color", "gray");
+		tORf = false;
+	}
+	
+	$.ajax({
+		url:'/bomulsum/midas/wish.do',
+		data:{
+			'member':memberCode,
+			'option':option,
+			'optionCode':midasCode,
+			'bool': tORf
+		},
+		type:'POST',
+		success:function(data){
+			
+		},
+		error:function(e){
+			console.log(e);
+		}
+	}); 
+	
+	if(tORf){
+		alert('즐겨찾는 클래스에 추가되었습니다.');
+	}else{
+		alert('해제되었습니다.');
+	}
+};
+
+});
+
+
+</script>
+
 </body>
 </html>
