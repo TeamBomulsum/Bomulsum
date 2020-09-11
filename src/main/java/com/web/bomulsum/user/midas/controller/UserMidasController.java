@@ -142,10 +142,10 @@ public class UserMidasController {
 		int pageCnt = page;
 		if(pageCnt == 1) {
 			vo.setStartNum(1);
-			vo.setEndNum(21);
+			vo.setEndNum(12);
 		} else {
-			vo.setStartNum(pageCnt+ (20*(pageCnt-1)));
-			vo.setEndNum(pageCnt*21);
+			vo.setStartNum(pageCnt+ (11*(pageCnt-1)));
+			vo.setEndNum(pageCnt*12);
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<UserMidasVO> data = service.midasCategoryList(vo);
@@ -177,10 +177,10 @@ public class UserMidasController {
 		int pageCnt = page;
 		if(pageCnt == 1) {
 			vo.setStartNum(1);
-			vo.setEndNum(21);
+			vo.setEndNum(12);
 		} else {
-			vo.setStartNum(pageCnt+ (20*(pageCnt-1)));
-			vo.setEndNum(pageCnt*21);
+			vo.setStartNum(pageCnt+ (11*(pageCnt-1)));
+			vo.setEndNum(pageCnt*12);
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<UserMidasVO> data = service.midasLocationList(vo);
@@ -209,10 +209,10 @@ public class UserMidasController {
 		int pageCnt = page;
 		if(pageCnt == 1) {
 			vo.setStartNum(1);
-			vo.setEndNum(21);
+			vo.setEndNum(12);
 		} else {
-			vo.setStartNum(pageCnt+ (20*(pageCnt-1)));
-			vo.setEndNum(pageCnt*21);
+			vo.setStartNum(pageCnt+ (11*(pageCnt-1)));
+			vo.setEndNum(pageCnt*12);
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<UserMidasVO> data = service.midasNewList(vo);
@@ -239,10 +239,10 @@ public class UserMidasController {
 		int pageCnt = page;
 		if(pageCnt == 1) {
 			vo.setStartNum(1);
-			vo.setEndNum(21);
+			vo.setEndNum(15);
 		} else {
-			vo.setStartNum(pageCnt+ (20*(pageCnt-1)));
-			vo.setEndNum(pageCnt*21);
+			vo.setStartNum(pageCnt+ (14*(pageCnt-1)));
+			vo.setEndNum(pageCnt*15);
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<UserMidasVO> data = service.midasPopularList(vo);

@@ -291,7 +291,7 @@ body a:link, a:visited, a:hover, a:active {
 			success :function(returnData){
 				var htmldiv = '';
 				var midasAddress = '';
-				var midasImg = '';
+				var midasPhoto = '';
 				var pricePer = 0;
 				var data = returnData.data;
 
@@ -307,7 +307,7 @@ body a:link, a:visited, a:hover, a:active {
 						for(var i=0; i<data.length; i++){
 							console.log(data[i]);
 							
-							midasImg = data[i].midasImg.split(',')[0]; // 사진 들어간 거 첫번째 사진만 가져오기
+							midasPhoto = data[i].midasImg.split(',')[0]; // 사진 들어간 거 첫번째 사진만 가져오기
 							var address1 = data[i].midasAddress1.split(' ')[0];
 							var address2 = data[i].midasAddress1.split(' ')[1];
 							
@@ -334,7 +334,7 @@ body a:link, a:visited, a:hover, a:active {
 								
 								htmldiv += '</div>'
 								+ '<div class=\"minwoo_uMhome_content_card_img_link\">'
-								+ '<img src=\"<c:url value=' + midasImg + '/>\" style=\"width:250px; height:250px\">'
+								+ '<img src=\"/bomulsum/upload/' + midasPhoto + '\" style=\"width:250px; height:250px\">'
 								+ '</div>' 
 								+ '</div>' //이미지 영역 종료
 								+ '<div class=\"minwoo_uMhome_content_detail\">'

@@ -52,6 +52,16 @@ public class UserReviewVO {
 	private String writerName;
 	private Date orderDate;
 	
+	private String alarmContent;
+	
+	
+	
+	public String getAlarmContent() {
+		return alarmContent;
+	}
+	public void setAlarmContent(String alarmContent) {
+		this.alarmContent = alarmContent;
+	}
 	public String getReviewCodeSeq() {
 		return reviewCodeSeq;
 	}
@@ -299,8 +309,10 @@ public class UserReviewVO {
 				+ ", bArtOptionPrice=" + bArtOptionPrice + ", bArtOptionCount=" + bArtOptionCount
 				+ ", bArtReviewStatus=" + bArtReviewStatus + ", bArtReview=" + bArtReview + ", artPhoto=" + artPhoto
 				+ ", artDescription=" + artDescription + ", writerName=" + writerName + ", orderDate=" + orderDate
-				+ "]";
+				+ ", alarmContent=" + alarmContent + "]";
 	}
+	
+	
 
 	
 }

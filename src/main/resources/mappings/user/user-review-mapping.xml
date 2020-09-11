@@ -49,6 +49,60 @@
 				) X
 	</select>
 
+	<!-- 구매후기 등록 -->
+	<insert id="reviewReg" parameterType="com.web.bomulsum.user.review.repository.UserReviewVO">
+		INSERT INTO review_tb
+		(
+			review_code_seq,
+			buy_art_code_seq,
+			member_code_seq,
+			art_code_seq,
+			review_comment,
+            review_star,
+            review-photo
+		)
+		VALUES
+		(
+			'review_code_seq' || TO_CHAR(review_code_sq.nextval),
+			#{buyArtCodeSeq},
+			#{memberCodeSeq},
+			#{artCodeSeq},
+			#{reviewComment},
+            #{starReview},
+            #{reviewPhoto}
+		)
+	</insert>
+	
+	<!-- 구매작품 테이블 후기 상태 수정 -->
+	<update id="updateBuyArtTb" parameterType="com.web.bomulsum.user.review.repository.UserReviewVO">
+		UPDATE
+			buy_art_tb
+		SET
+			b_art_review_status = 'Y'
+		WHERE
+			buy_art_code_seq = #{buyArtCodeSeq}
+	</update>
+
+	<!-- 작가 한테 알람 쏴주기 -->
+	<insert id="insertAlarmTb" parameterType="com.web.bomulsum.user.review.repository.UserReviewVO">
+		INSERT INTO alarm_tb
+		(
+			alarm_seq,
+			sender_code,
+			recipient_code,
+			alarm_title,
+			alarm_content
+		)
+		VALUES
+		(
+			'alarm_seq' || TO_CHAR(alarm_sq.nextval),
+			#{writerCodeSeq},
+			#{memberCodeSeq},
+			'구매후기',
+			#{alarmContent}
+		)
+	</insert>
+
 	<!-- 구매목록 불러오기 -->
  	<!-- <select id="" parameterType="String" resultMap="">
  		SELECT * FROM buy_art_tb

@@ -212,12 +212,12 @@ body a:link, a:visited, a:hover, a:active {
    margin-right:2%;
 }
 .imageContainer {
-   width: 800px;
+   width: 580px;
    margin: 10px;
 }
 
 .imageContainer img {
-   max-width: 100px;
+   max-width: 65px;
 }
 
 .reviewComment{
@@ -234,6 +234,19 @@ body a:link, a:visited, a:hover, a:active {
     display: none; /* Chrome, Safari, Opera*/
 }
 
+.btn2{
+    font-size: 12px;
+    background-color: white;
+    border: 1px solid #e7e7e7;
+    height: 35px;
+    width: 45px;
+    outline: none;
+    color: #666666;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+}
 
 </style>
 </head>
@@ -341,16 +354,18 @@ body a:link, a:visited, a:hover, a:active {
 						<!-- 불러올 구매한 작품 영역 시작-->
 						<div style="display: flex; height: 70px; margin-top: 2%;">
 							<div style="width: 70px; height: 70px;">
-								<img style="width:70px; height:70px;" src='<c:url value='/resources/img/KMWcake.jpg'/>'>
+								<img id="modalArtImg" style="width:70px; height:70px;" src="">
 							</div>
 							<div style="flex-direction: column; width: 90%; margin-left: 2%;">
-								<div style="height: 40%; font-size: 18px; font-weight: bold;">
-								작품 제목 입력
-								</div>
+								<div style="height: 40%; font-size: 18px; font-weight: bold;" id="artName"></div>
 								<!--옵션 내용 영역 시작 - 동일한 작품의 옵션이 서로 다른 물품들을 구매한 경우 포문 돌면서 값 가져오기 -->
 								<div style="display: flex; flex-direction: column; height: 60%; overflow: auto; font-size: 15px;">
 									<!--여기서부터 옵션 이 다른 물품 하나씩의 값-->
 										<div style="margin-top: 1px; display: flex; flex-direction: row;">
+											<div style="width: 85%;" id="modalOptionCategory"></div>
+											<div style="width: 15%;" id="modalOptionCount"></div>
+										</div>
+										<!-- <div style="margin-top: 1px; display: flex; flex-direction: row;">
 											<div style="width: 90%;">
 												선택한 옵션
 											</div>
@@ -361,13 +376,7 @@ body a:link, a:visited, a:hover, a:active {
 												선택한 옵션
 											</div>
 											<div style="width: 10%;">00 개수</div>
-										</div>
-										<div style="margin-top: 1px; display: flex; flex-direction: row;">
-											<div style="width: 90%;">
-												선택한 옵션
-											</div>
-											<div style="width: 10%;">00 개수</div>
-										</div>
+										</div> -->
 									<!--여기까지 돌리기-->
 								</div>
 								<!-- 옵션 내용 영역 끝-->
@@ -376,17 +385,21 @@ body a:link, a:visited, a:hover, a:active {
 						<!-- 불러올 구매한 작품 영역 끝 -->
 
 						<!--입력 부분 시작-->
-						<form id="minwoo_modal_form" action="" method="post">
+						<form id="minwoo_modal_form" action="<c:url value=''/> " method="post" enctype="multipart/form-data" name="formSubmit">
+							<input type="hidden" id="writerCodeSeq" name="writerCodeSeq" />
+							<input type="hidden" id="artCodeSeq" name="artCodeSeq" />
+							<input type="hidden" id="buyArtCodeSeq" name="buyArtCodeSeq" />
 							<div style="border: 1px solid #D8D8D8; margin-top: 2%;">
 								<!-- 별점 시작-->
 								<div style="height: 120px; background-color: #F2F2F2; display: flex; flex-direction: column;">
 									<div style="height: 70%; display:flex; justify-content:center; align-items:center;">
 										<div class="minwoo_starRev">
-											<span class="minwoo_starR1 on">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
-											<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
-											<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
-											<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
-											<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
+											<span class="minwoo_starR1 on">1</span> <span class="minwoo_starR2">2</span>
+											<span class="minwoo_starR1">3</span> <span class="minwoo_starR2">4</span>
+											<span class="minwoo_starR1">5</span> <span class="minwoo_starR2">6</span>
+											<span class="minwoo_starR1">7</span> <span class="minwoo_starR2">8</span>
+											<span class="minwoo_starR1">9</span> <span class="minwoo_starR2">10</span>
+											<input type="hidden" id="starReview" name="starReview"/>
 										</div>
 									</div>
 									<div style="height: 30%; text-align: center; display: flex; justify-content: center; font-size: 13px;">
@@ -404,22 +417,20 @@ body a:link, a:visited, a:hover, a:active {
 								<!-- 사진 등록 시작 -->
 								<div style="height: 130px; padding: 10px; border-top: 1px solid #D8D8D8;">
 									<div id="minwoo_review_photo_line" style="height:70px; border:1px solid; display:flex; flex-direction:row; align-items:center;">
-										<div name="minwoo_review_photo" class="fa fa-picture-o fa-5x" aria-hidden="true" style="margin-left:22px;">
-											<input type="file" id="image" onchange="setThumbnail(event);" style="display:none;" accept="image/*" multiple />
-										<!-- onclick="" onchange="setThumbnail(event);"  -->
-										</div>
+										<div id="minwoo_review_photo" onClick="fnUpload();" class="fa fa-picture-o fa-4x" aria-hidden="true"
+											style="margin-left:22px;"></div>
+										<input type="file" id="image" name="reviewPhoto" onchange="setThumbnail(event);" style="display:none;" accept="image/*" multiple />
                         				<div class="imageContainer"></div>
 									</div>
-									<p>
-										사진은 6개까지 등록가능합니다.<br>등록된 사진은 드래그하면 순서 변경이 되고, 클릭을 하면 삭제할
-										수 있습니다.
+									<p style="font-size:14px;">
+										사진은 5개까지 등록가능하며, 여러장을 올리실 경우 한 번에 선택하여 주세요.<br>사진을 잘못 선택하신 경우 '다시선택'을 누르신 후 '취소'를 누르시면 삭제할 수 있습니다.
 									</p>
 								</div>
 								<!-- 사진 등록 끝 -->
 							</div>
 							<!-- 입력버튼 -->
 							<div style="margin-top: 20px; display: flex; justify-content: center; height: 30px;">
-								<input type="submit" value="등록" style="margin: auto; color: #1f76bb; font-size: 20px; font-weight: bold;">
+								<input type="button" value="등록" style="margin: auto; color: #1f76bb; font-size: 20px; font-weight: bold;" onclick="saveReview(event);">
 							</div>
 						</form>
 						<!--입력 부분 끝-->
@@ -445,34 +456,65 @@ body a:link, a:visited, a:hover, a:active {
 		<!--스크립트 -->
 		<script>
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
-		
 	
 		/*작업 마무리 못함 추가 작업 필요..*/
 		/*이미지 업로드(and 제거) 썸네일 생성 이벤트*/
-		function removeImg(){
-		   var id = document.getElementById('imgs');
-		   id.removeChild(id);
-		}
+		function fnUpload(){
+			$('#image').click();
+		};
 		
-		/* $("div[name='minwoo_review_photo']").click(function(){
-			function setThumbnail(event) { 
-			   for (var image of event.target.files) { 
-			      var reader = new FileReader(); 
-			      reader.onload = function(event) { 
-			         var img = document.createElement("img"); 
-			         img.setAttribute("src", event.target.result); 
-			         var divEle = document.createElement("a");
-			         divEle.setAttribute("href","#");
-			         divEle.setAttribute("onclick","removeImg();")
-			         divEle.setAttribute("id","imgs")
-			         divEle.appendChild(img);
-			         document.querySelector("div.imageContainer").appendChild(divEle);
-			      }; 
-			      console.log(image); 
-			      reader.readAsDataURL(image); 
-			   }
+		var upCheck = false;
+		function setThumbnail(event) {  
+			$(".imageContainer").empty();
+			upCheck = false;
+			for (var image of event.target.files) {
+				var reader = new FileReader(); 
+				reader.onload = function(event) { 
+				
+					var img = document.createElement("img");
+					img.setAttribute("src", event.target.result);
+					
+					// 파일 유효성 검사
+					const fileEx = image.name.slice(image.name.lastIndexOf(".")+1).toLowerCase();
+					if(fileEx != "jpg" && fileEx != "png" && fileEx != "gif" && fileEx != "bmp" && fileEx != "jpeg") {
+					alert('파일은 이미지파일(jpg, jpeg, png, gif, bmp)만 가능합니다.');
+					return false;
+					}
+					      
+					var divEle = document.createElement("a");
+					divEle.appendChild(img);
+					divEle.setAttribute("class","reviewPhotoA");
+					$('.reviewPhotoA').css("margin-left","22px");
+					document.querySelector("div.imageContainer").appendChild(divEle);
+				};
+				console.log(image); 
+				reader.readAsDataURL(image);
+				upCheck = true;
 			}
-		}); */
+			console.log(upCheck);
+			if(upCheck){
+				/* $('#minwoo_review_photo').css("font-size", "12px");
+				$('#minwoo_review_photo').css("text-align", "center");
+				$('#minwoo_review_photo').css("width", "45px"); */
+				$('#minwoo_review_photo').html("다시<br>선택");
+				$('#minwoo_review_photo').removeClass("fa fa-picture-o fa-4x");
+				$('#minwoo_review_photo').addClass("btn2");
+				btn2
+			} else {
+				/* $('#minwoo_review_photo').css("font-size", "");
+				$('#minwoo_review_photo').css("text-align", "");
+				$('#minwoo_review_photo').css("width", ""); */
+				$('#minwoo_review_photo').text("");
+				$('#minwoo_review_photo').removeClass("btn2");
+				$('#minwoo_review_photo').addClass("fa fa-picture-o fa-4x");
+			}
+			/* var divReset = document.createElement("button");
+			divReset.setAttribute("class","resetPhoto");
+			divReset.setAttribute("onClick","fnUpload()");
+			document.querySelector("div.imageContainer").appendChild(divReset);
+			$('.resetPhoto').css("margin-left","22px");
+			$('.resetPhoto').text("다시 등록"); */
+		};
 		
 		// 데이터 넣기
 		var result = new Array();
@@ -480,6 +522,7 @@ body a:link, a:visited, a:hover, a:active {
 		<c:forEach var="i" items='${reviewList}'>
 			var json = new Object();//객체로 배열에 담기
 			json.buyArtCodeSeq = '${i.buyArtCodeSeq}';
+			json.bArtCodeSeq = '${i.bArtCodeSeq}';
 			json.bArtName = '${i.bArtName}';
 			json.bWriterCodeSeq = '${i.bWriterCodeSeq}';
 			json.bArtOptionCategory = `${i.bArtOptionCategory}`;
@@ -514,12 +557,15 @@ body a:link, a:visited, a:hover, a:active {
 					
 					htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
 						+ '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
+						+ '<input type=\"hidden\" value=\"' + result[index].bArtCodeSeq +'\" />'
 						+ '<input type=\"hidden\" value=\"' + result[index].bArtName +'\" />'
 						+ '<input type=\"hidden\" value=\"' + result[index].bWriterCodeSeq +'\" />'
+						+ '<input type=\"hidden\" value=\"' + artImg +'\" />'
+						+ '<input type=\"hidden\" value=\"' + result[index].bArtOptionCount +'\" />'
 						+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
 						+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
 						+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
-						+ '<img src=\"<c:url value=' + artImg + '/>\" style=\"width:100%; height:100%;\">'
+                        + '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:60px; height:60px\">'
 						+ '</div>'
 						+ '<div style=\"margin-left:10px; margin-top:3px;\">'
 						+ '<div style=\"font-weight:bold;\">'
@@ -560,28 +606,33 @@ body a:link, a:visited, a:hover, a:active {
 		//모달 띄워줄때 해당 값 넣기
 		var modalArtCode;
 		var modalBuyArtCode;
-		var modalMemberCode;
 		var modalArtPhoto;
+		var modalWriterCode;
 		var modalOptionCategory;
 		var modalOptionName;
 		var modalOptionCount;
+		var modalArtName;
 		
 		//구매후기 인써트할 때 값
 		var reviewStar;
 		
 		var modal = function(){
-			/* 별점 주기 스크립트 영역 - 나중에 값 넘겨주는거 추가해야 함*/
+			/* 별점 주기 스크립트 영역 */
 			$('.minwoo_starRev span').click(function(){
 				  $(this).parent().children('span').removeClass('on');
 				  $(this).addClass('on').prevAll('span').addClass('on');
+				  reviewStar = $(this).val();
+				  console.log(reviewStar);
 				  return false;
 				});
-			/* 별점 주기 스크립트 영역*/
-			
+			// 별점 값 저장
 			$('.minwoo_starRev span').click(function(){
 				var targetNum = $(this).index() + 1;
 				console.log(targetNum);
 			});
+			$('#starReview').val(reviewStar);
+			/* 별점 주기 스크립트 영역*/
+			
 			//글자수 제한
 			$('#reviewComment').keyup(function(e) {
 				var comment = $(this).val();
@@ -590,93 +641,46 @@ body a:link, a:visited, a:hover, a:active {
 			});
 			$('#reviewComment').keyup();
 			
+			//사진 업로드 영역 초기화
+			/* $('#minwoo_review_photo').css("display", "block");
+			$('#minwoo_review_photo').css("font-size", "");
+			$('#minwoo_review_photo').css("text-align", "");
+			$('#minwoo_review_photo').css("width", ""); */
+			$('#minwoo_review_photo').text("");
+			$('#minwoo_review_photo').removeClass("btn2");
+			$('#minwoo_review_photo').addClass("fa fa-picture-o fa-4x");
+			$(".imageContainer").empty();
 			
 			
-			
-			//수정인지 아닌지에 따라 등록된 댓글 모달에 값 입력해주기
-			modalReviewDate = $.trim($(this).closest('tr').children('td').eq(0).text());
-			modalArtName = $.trim($(this).closest('tr').children('td').eq(1).children('div').text());
-			modalMemberName = $.trim($(this).closest('tr').children('td').eq(2).children('div').text());
-			
-			$('#counter').html(modalreviewCommentRe.length + '/1000')
-			
-			
-			console.log('모달 맴버 이름 :' + modalMemberName);
-			console.log('모달 맴버 사진 :' + modalMemberProfile);
-			console.log('모달 리뷰 내용 :' + modalReviewComment);
-			console.log('모달 날짜 :' + modalReviewDate);
-			console.log('모달 사진 :' + modalReviewPhoto);
-			console.log('모달 별점 :' + modalStarPoint);
-			console.log('리뷰시퀀스 : ' + modalreviewSeq);
-			console.log('리뷰맴버시퀀스 : ' + modalMemberCodeSeq);
-			console.log('리뷰작품코드시퀀스 : '+ modalArtCodeSeq);
-			console.log('모달리뷰코멘트스테투스 : ' + modalreviewCommentReStatus);
-			
+			//모달에 값 입력해주기
+			modalBuyArtCode = $.trim($(this).closest('div').children('input').eq(0).val());
+			modalArtCode = $.trim($(this).closest('div').children('input').eq(1).val());
+			modalArtName = $.trim($(this).closest('div').children('input').eq(2).val());
+			modalWriterCode = $.trim($(this).closest('div').children('input').eq(3).val());
+			modalArtPhoto = $.trim($(this).closest('div').children('input').eq(4).val());
+			modalOptionCategory = $.trim($(this).closest('div').children('div').children('ul').children('li').eq(0).text());
+			modalOptionCount = $.trim($(this).closest('div').children('input').eq(5).val());
+			console.log("모달에 뜨워준 구매작품 코드 : " + modalBuyArtCode);
+			console.log("모달에 뜨워준 작품 코드 : " + modalArtCode);
+			console.log("모달에 띄워준 작품 이름 : " + modalArtName);
+			console.log("모달에 띄워준 작가 이름 : " + modalWriterCode);
+			console.log("모달에 띄워준 작품 경로 : " + modalArtPhoto);
+			console.log("모달에 띄워준 옵션 카테고리 : " + modalOptionCategory);
+			console.log("모달에 띄워준 옵션 이름 : " + modalOptionName);
+			console.log("모달에 띄워준 옵션 수량 : " + modalOptionCount);
+
+
 			//모달에 띄워주는변수들
-			$('#reviewComment').text(modalReviewComment);
-			$('#reviewCommentRe').val(''); // 수정으로 들어갔을때 값이 남아있지 않게 초기화 시켜주고, 다시 불러오기
-			$('#memberName1').text(modalMemberName);
-			$('#reviewDate1').text(modalReviewDate);
 			$('#artName').text(modalArtName);
+			$('#reviewComment').val(''); // 수정으로 들어갔을때 값이 남아있지 않게 초기화 시켜주고, 다시 불러오기
+			$("#modalArtImg").attr("src", "/bomulsum/upload/" + modalArtPhoto);
+			$('#modalOptionCategory').text(modalOptionCategory);
+			$('#modalOptionCount').text("수량 : " + modalOptionCount + "개");
 			
 			//모달에서 폼 으로 데이터 넘길 때 물고가야 할 것들
-			$('#reviewCommentReStatus').val(modalreviewCommentReStatus);
-			$('#memberCodeSeq').val(modalMemberCodeSeq);
-			$('#reviewCodeSeq').val(modalreviewSeq);
-			$('#writerSeq').val(writerSeq);
-			
-	
-			
-			switch(modalStarPoint){
-				case "1" :
-					$('#modalStarId1').parent().children('span').removeClass('on');
-					$('#modalStarId1').addClass('on').prevAll('span').addClass('on');
-					break;
-				case "2" :
-					$('#modalStarId2').parent().children('span').removeClass('on');
-					$('#modalStarId2').addClass('on').prevAll('span').addClass('on');
-					break;
-				case "3" :
-					$('#modalStarId3').parent().children('span').removeClass('on');
-					$('#modalStarId3').addClass('on').prevAll('span').addClass('on');
-					break;
-				case "4" :
-					$('#modalStarId4').parent().children('span').removeClass('on');
-					$('#modalStarId4').addClass('on').prevAll('span').addClass('on');
-					break;
-				case "5" :
-					$('#modalStarId5').parent().children('span').removeClass('on');
-					$('#modalStarId5').addClass('on').prevAll('span').addClass('on');
-					break;
-				case "6" :
-					$('#modalStarId6').parent().children('span').removeClass('on');
-					$('#modalStarId6').addClass('on').prevAll('span').addClass('on');
-					break;
-				case "7" :
-					$('#modalStarId7').parent().children('span').removeClass('on');
-					$('#modalStarId7').addClass('on').prevAll('span').addClass('on');
-					break;
-				case "8" :
-					$('#modalStarId8').parent().children('span').removeClass('on');
-					$('#modalStarId8').addClass('on').prevAll('span').addClass('on');
-					break;
-				case "9" :
-					$('#modalStarId9').parent().children('span').removeClass('on');
-					$('#modalStarId9').addClass('on').prevAll('span').addClass('on');
-					break;
-				default :
-					$('#modalStarId10').parent().children('span').removeClass('on');
-					$('#modalStarId10').addClass('on').prevAll('span').addClass('on');
-			}
-
-			
-			if(modalreviewCommentReStatus == "Y"){
-				$('#reviewCommentRe').val(modalreviewCommentRe);
-				$('#reviewCommentSubmit').val('수정');
-				console.log("수정하러 왔습니다.")
-			} else{
-				$('#reviewCommentSubmit').val('등록');			
-			}
+			$('#buyArtCodeSeq').val(modalBuyArtCode);
+			$('#artCodeSeq').val(modalArtCode);
+			$('#writerCodeSeq').val(modalWriterCode);
 	
 		};
 		//모달 부분 종료
@@ -684,6 +688,19 @@ body a:link, a:visited, a:hover, a:active {
 			pagingFunc();
 		});
 		
+		function saveReview(event){
+			event.preventDefault();
+			
+			let reviewComment = document.getElementById('reviewComment');
+			
+			if(reviewComment.value == ''){
+				alert('후기 내용을 입력해 주세요.');
+				reviewComment.focus();
+				return false;
+			}
+			
+			formSubmit.submit();	
+		}
 		
 		</script>
 		<!-- 스크립트 -->

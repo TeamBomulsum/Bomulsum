@@ -17,4 +17,8 @@ public class UserReviewDAO {
 		return sqlSessionTemplate.selectList("userReviewDAO.reviewList", seq);
 	}
 	
+	//구매 후기 등록
+	public void insertReview(UserReviewVO vo) {
+		sqlSessionTemplate.insert("userReviewDAO.reviewReg", vo);
+	}
 }

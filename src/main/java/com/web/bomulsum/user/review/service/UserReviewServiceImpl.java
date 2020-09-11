@@ -19,4 +19,14 @@ public class UserReviewServiceImpl implements UserReviewService {
 		return dao.myReview(seq);
 	}
 
+	@Override
+	public void insertReview(UserReviewVO vo) {
+		dao.insertReview(vo);
+	}
+
+	@Override
+	public void insertAlarm(UserReviewVO vo) {
+//		dao.insertAlarm(vo);
+	}
+
 }
