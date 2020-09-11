@@ -479,18 +479,19 @@ body {
 	flex-direction:column;
 }
 .dndud_alarmDrop_main::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 .dndud_alarmDrop_main::-webkit-scrollbar-thumb {
-  background-color: #2f3542;
-  border-radius: 10px;
-  background-clip: padding-box;
-  border: 2px solid transparent;
+  background-color: gray;
+  border-radius: 3px;
 }
 .dndud_alarmDrop_main::-webkit-scrollbar-track {
-  background-color: grey;
-  border-radius: 10px;
-  box-shadow: inset 0px 0px 5px white;
+  background-color: transparent;
+}
+
+.dndud_alarmDrop_main::-webkit-scrollbar-button{
+	width:0;
+	height:0;
 }
 
 .dndud_alarm_content{
@@ -612,19 +613,20 @@ body {
 	display:flex;
 	flex-direction:column;
 }
+
 .dndud_messageDrop_main::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 .dndud_messageDrop_main::-webkit-scrollbar-thumb {
-  background-color: #2f3542;
-  border-radius: 10px;
-  background-clip: padding-box;
-  border: 2px solid transparent;
+  background-color: gray;
+  border-radius: 3px;
 }
 .dndud_messageDrop_main::-webkit-scrollbar-track {
-  background-color: grey;
-  border-radius: 10px;
-  box-shadow: inset 0px 0px 5px white;
+  background-color: transparent;
+}
+.dndud_messageDrop_main::-webkit-scrollbar-button{
+	width:0;
+	height:0;
 }
 
 .dndud_message_content{

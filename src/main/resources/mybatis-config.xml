@@ -50,6 +50,7 @@
 		<mapper resource="mappings/user/user-popular-writer-mapping.xml" />
 		<mapper resource="mappings/user/user-review-mapping.xml"/>
 		<mapper resource="mappings/user/user-shopbag-mapping.xml" />
+		<mapper resource="mappings/user/user-recently-mapping.xml" />
 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
