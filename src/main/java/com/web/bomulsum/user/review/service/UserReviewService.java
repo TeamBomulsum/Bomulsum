@@ -9,4 +9,7 @@ public interface UserReviewService {
 	
 	List<UserReviewVO> myReview(String seq);
 	
+	void insertReview(UserReviewVO vo);
+	
+	void insertAlarm(UserReviewVO vo);
 }

@@ -234,6 +234,19 @@ body a:link, a:visited, a:hover, a:active {
     display: none; /* Chrome, Safari, Opera*/
 }
 
+.btn2{
+    font-size: 12px;
+    background-color: white;
+    border: 1px solid #e7e7e7;
+    height: 35px;
+    width: 45px;
+    outline: none;
+    color: #666666;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+}
 
 </style>
 </head>
@@ -372,7 +385,7 @@ body a:link, a:visited, a:hover, a:active {
 						<!-- 불러올 구매한 작품 영역 끝 -->
 
 						<!--입력 부분 시작-->
-						<form id="minwoo_modal_form" action="" method="post">
+						<form id="minwoo_modal_form" action="<c:url value=''/> " method="post" enctype="multipart/form-data" name="formSubmit">
 							<input type="hidden" id="writerCodeSeq" name="writerCodeSeq" />
 							<input type="hidden" id="artCodeSeq" name="artCodeSeq" />
 							<input type="hidden" id="buyArtCodeSeq" name="buyArtCodeSeq" />
@@ -404,20 +417,20 @@ body a:link, a:visited, a:hover, a:active {
 								<!-- 사진 등록 시작 -->
 								<div style="height: 130px; padding: 10px; border-top: 1px solid #D8D8D8;">
 									<div id="minwoo_review_photo_line" style="height:70px; border:1px solid; display:flex; flex-direction:row; align-items:center;">
-										<div id="minwoo_review_photo" onClick="fnUpload();" class="fa fa-picture-o fa-5x" aria-hidden="true" style="margin-left:22px;"></div>
-										<input type="file" id="image" onchange="setThumbnail(event);" style="display:none;" accept="image/*" multiple />
+										<div id="minwoo_review_photo" onClick="fnUpload();" class="fa fa-picture-o fa-4x" aria-hidden="true"
+											style="margin-left:22px;"></div>
+										<input type="file" id="image" name="reviewPhoto" onchange="setThumbnail(event);" style="display:none;" accept="image/*" multiple />
                         				<div class="imageContainer"></div>
 									</div>
-									<p>
-										사진은 5개까지 등록가능합니다.<br>등록된 사진은 드래그하면 순서 변경이 되고, 클릭을 하면 삭제할
-										수 있습니다.
+									<p style="font-size:14px;">
+										사진은 5개까지 등록가능하며, 여러장을 올리실 경우 한 번에 선택하여 주세요.<br>사진을 잘못 선택하신 경우 '다시선택'을 누르신 후 '취소'를 누르시면 삭제할 수 있습니다.
 									</p>
 								</div>
 								<!-- 사진 등록 끝 -->
 							</div>
 							<!-- 입력버튼 -->
 							<div style="margin-top: 20px; display: flex; justify-content: center; height: 30px;">
-								<input type="submit" value="등록" style="margin: auto; color: #1f76bb; font-size: 20px; font-weight: bold;">
+								<input type="button" value="등록" style="margin: auto; color: #1f76bb; font-size: 20px; font-weight: bold;" onclick="saveReview(event);">
 							</div>
 						</form>
 						<!--입력 부분 끝-->
@@ -450,20 +463,16 @@ body a:link, a:visited, a:hover, a:active {
 			$('#image').click();
 		};
 		
-		function removeImg(){
-			$(this).remove();
-		};
-		
+		var upCheck = false;
 		function setThumbnail(event) {  
-			$('#minwoo_review_photo').css("display", "none");
 			$(".imageContainer").empty();
+			upCheck = false;
 			for (var image of event.target.files) {
 				var reader = new FileReader(); 
 				reader.onload = function(event) { 
 				
 					var img = document.createElement("img");
 					img.setAttribute("src", event.target.result);
-					img.setAttribute("onClick", "removeImg();");
 					
 					// 파일 유효성 검사
 					const fileEx = image.name.slice(image.name.lastIndexOf(".")+1).toLowerCase();
@@ -472,14 +481,39 @@ body a:link, a:visited, a:hover, a:active {
 					return false;
 					}
 					      
-					      
 					var divEle = document.createElement("a");
 					divEle.appendChild(img);
+					divEle.setAttribute("class","reviewPhotoA");
+					$('.reviewPhotoA').css("margin-left","22px");
 					document.querySelector("div.imageContainer").appendChild(divEle);
-				}; 
+				};
 				console.log(image); 
 				reader.readAsDataURL(image);
-			}  
+				upCheck = true;
+			}
+			console.log(upCheck);
+			if(upCheck){
+				/* $('#minwoo_review_photo').css("font-size", "12px");
+				$('#minwoo_review_photo').css("text-align", "center");
+				$('#minwoo_review_photo').css("width", "45px"); */
+				$('#minwoo_review_photo').html("다시<br>선택");
+				$('#minwoo_review_photo').removeClass("fa fa-picture-o fa-4x");
+				$('#minwoo_review_photo').addClass("btn2");
+				btn2
+			} else {
+				/* $('#minwoo_review_photo').css("font-size", "");
+				$('#minwoo_review_photo').css("text-align", "");
+				$('#minwoo_review_photo').css("width", ""); */
+				$('#minwoo_review_photo').text("");
+				$('#minwoo_review_photo').removeClass("btn2");
+				$('#minwoo_review_photo').addClass("fa fa-picture-o fa-4x");
+			}
+			/* var divReset = document.createElement("button");
+			divReset.setAttribute("class","resetPhoto");
+			divReset.setAttribute("onClick","fnUpload()");
+			document.querySelector("div.imageContainer").appendChild(divReset);
+			$('.resetPhoto').css("margin-left","22px");
+			$('.resetPhoto').text("다시 등록"); */
 		};
 		
 		// 데이터 넣기
@@ -607,8 +641,14 @@ body a:link, a:visited, a:hover, a:active {
 			});
 			$('#reviewComment').keyup();
 			
-			//사진 업로드 초기화
-			$('#minwoo_review_photo').css("display", "block");
+			//사진 업로드 영역 초기화
+			/* $('#minwoo_review_photo').css("display", "block");
+			$('#minwoo_review_photo').css("font-size", "");
+			$('#minwoo_review_photo').css("text-align", "");
+			$('#minwoo_review_photo').css("width", ""); */
+			$('#minwoo_review_photo').text("");
+			$('#minwoo_review_photo').removeClass("btn2");
+			$('#minwoo_review_photo').addClass("fa fa-picture-o fa-4x");
 			$(".imageContainer").empty();
 			
 			
@@ -648,6 +688,19 @@ body a:link, a:visited, a:hover, a:active {
 			pagingFunc();
 		});
 		
+		function saveReview(event){
+			event.preventDefault();
+			
+			let reviewComment = document.getElementById('reviewComment');
+			
+			if(reviewComment.value == ''){
+				alert('후기 내용을 입력해 주세요.');
+				reviewComment.focus();
+				return false;
+			}
+			
+			formSubmit.submit();	
+		}
 		
 		</script>
 		<!-- 스크립트 -->
