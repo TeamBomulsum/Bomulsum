@@ -97,15 +97,15 @@
 		
 		VALUES 
 		('member_address_seq' || TO_CHAR(member_address_sq.nextval),
-		'시퀀스번호넣기', #{member_address_zipcode}, #{member_address_first}, 
+		#{member_code_seq}, #{member_address_zipcode}, #{member_address_first}, 
 		#{member_address_second}, #{member_address_name}, #{member_address_phone})
 
 	</insert> 
 	
 	<!-- 회원 배송지 select -->
-	<select id="selectUserAddress" resultType="UserProfileAddressVO">
+	<select id="selectUserAddress" resultType="UserProfileAddressVO" parameterType="UserProfileAddressVO">
 		SELECT * FROM member_address_tb
-	    WHERE member_code_seq in ('시퀀스번호넣기')
+	    WHERE member_code_seq = #{member_code_seq}
 	    ORDER BY member_address_seq ASC
 	</select>
 	

@@ -18,7 +18,7 @@ public interface UserProfileService {
 	
 	//-----------회원배송지관리
 	void insertUserAddress(UserProfileAddressVO vo); //회원 주소지 입력
-	List<UserProfileAddressVO> selectUserAddress(); //회원 주소지 가져오기
+	List<UserProfileAddressVO> selectUserAddress(UserProfileAddressVO vo); //회원 주소지 가져오기
 	void updateUserAddress(UserProfileAddressVO vo); //회원 주소지 수정
 	
 	//-----------회원 사이드메뉴 프로필정보관리

@@ -19,6 +19,8 @@
 		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagVO" alias="UserShopbagVO"/>
 		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagOptionVO" alias="UserShopbagOptionVO"/>
 		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagModalVO" alias="UserShopbagModalVO"/>
+		<typeAlias type="com.web.bomulsum.user.bookmark.repository.UserBookmarkVO" alias="UserBookmarkVO"/>
+		
 		
 		
 		<!-- manager -->
@@ -51,6 +53,7 @@
 		<mapper resource="mappings/user/user-review-mapping.xml"/>
 		<mapper resource="mappings/user/user-shopbag-mapping.xml" />
 		<mapper resource="mappings/user/user-recently-mapping.xml" />
+ 		<mapper resource="mappings/user/user-bookmark-mapping.xml" /> 
 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
