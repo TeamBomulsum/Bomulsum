@@ -21,4 +21,14 @@ public class UserReviewDAO {
 	public void insertReview(UserReviewVO vo) {
 		sqlSessionTemplate.insert("userReviewDAO.reviewReg", vo);
 	}
+	
+	//알람 등록
+	public void insertAlarmTb(UserReviewVO vo) {
+		sqlSessionTemplate.insert("userReviewDAO.insertAlarmTb", vo);
+	}
+	//구매내역테이블 업데이트
+	public void updateBuyArtTb(UserReviewVO vo) {
+		sqlSessionTemplate.insert("userReviewDAO.updateBuyArtTb", vo);
+	}
+
 }

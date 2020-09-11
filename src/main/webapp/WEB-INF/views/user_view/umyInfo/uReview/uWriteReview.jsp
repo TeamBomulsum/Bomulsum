@@ -251,13 +251,19 @@ body a:link, a:visited, a:hover, a:active {
 </style>
 </head>
 <body>
-<div>
 	<c:if test="${empty member}">
 		<script>
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='<c:url value="/user/login.do"/>';
 		</script>
 	</c:if>
+	<c:if test="${param.checkReg eq 1}">
+		<script type="text/javascript">
+			alert("글이 등록 되었습니다.");
+			location.href="/bomulsum/writer/workRegister.wdo";
+		</script>
+	</c:if>
+<div>
 
 	<!-- 헤더 -->
 	<%@ include file="../../include/uHeader.jsp"  %>
@@ -385,10 +391,11 @@ body a:link, a:visited, a:hover, a:active {
 						<!-- 불러올 구매한 작품 영역 끝 -->
 
 						<!--입력 부분 시작-->
-						<form id="minwoo_modal_form" action="<c:url value=''/> " method="post" enctype="multipart/form-data" name="formSubmit">
+						<form id="minwoo_modal_form" action="<c:url value='/user/myInfo/reviewRegster.do'/> " method="post" enctype="multipart/form-data" name="formSubmit">
 							<input type="hidden" id="writerCodeSeq" name="writerCodeSeq" />
 							<input type="hidden" id="artCodeSeq" name="artCodeSeq" />
 							<input type="hidden" id="buyArtCodeSeq" name="buyArtCodeSeq" />
+							<input type="hidden" id="alarmContent" name="alarmContent" />
 							<div style="border: 1px solid #D8D8D8; margin-top: 2%;">
 								<!-- 별점 시작-->
 								<div style="height: 120px; background-color: #F2F2F2; display: flex; flex-direction: column;">
@@ -399,7 +406,7 @@ body a:link, a:visited, a:hover, a:active {
 											<span class="minwoo_starR1">5</span> <span class="minwoo_starR2">6</span>
 											<span class="minwoo_starR1">7</span> <span class="minwoo_starR2">8</span>
 											<span class="minwoo_starR1">9</span> <span class="minwoo_starR2">10</span>
-											<input type="hidden" id="starReview" name="starReview"/>
+											<input type="hidden" id="reviewStar" name="reviewStar"/>
 										</div>
 									</div>
 									<div style="height: 30%; text-align: center; display: flex; justify-content: center; font-size: 13px;">
@@ -456,6 +463,7 @@ body a:link, a:visited, a:hover, a:active {
 		<!--스크립트 -->
 		<script>
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
+		var userName = '${userName}';
 	
 		/*작업 마무리 못함 추가 작업 필요..*/
 		/*이미지 업로드(and 제거) 썸네일 생성 이벤트*/
@@ -499,7 +507,6 @@ body a:link, a:visited, a:hover, a:active {
 				$('#minwoo_review_photo').html("다시<br>선택");
 				$('#minwoo_review_photo').removeClass("fa fa-picture-o fa-4x");
 				$('#minwoo_review_photo').addClass("btn2");
-				btn2
 			} else {
 				/* $('#minwoo_review_photo').css("font-size", "");
 				$('#minwoo_review_photo').css("text-align", "");
@@ -613,24 +620,21 @@ body a:link, a:visited, a:hover, a:active {
 		var modalOptionCount;
 		var modalArtName;
 		
-		//구매후기 인써트할 때 값
-		var reviewStar;
-		
 		var modal = function(){
 			/* 별점 주기 스크립트 영역 */
 			$('.minwoo_starRev span').click(function(){
-				  $(this).parent().children('span').removeClass('on');
-				  $(this).addClass('on').prevAll('span').addClass('on');
-				  reviewStar = $(this).val();
-				  console.log(reviewStar);
-				  return false;
-				});
+		  		$(this).parent().children('span').removeClass('on');
+		  		$(this).addClass('on').prevAll('span').addClass('on');
+			  	return false;
+			});
+		
+			//구매후기 인써트할 때 값
 			// 별점 값 저장
 			$('.minwoo_starRev span').click(function(){
 				var targetNum = $(this).index() + 1;
-				console.log(targetNum);
+				console.log("이게 타겟넘?" + targetNum);
+				$('#reviewStar').val(targetNum);
 			});
-			$('#starReview').val(reviewStar);
 			/* 별점 주기 스크립트 영역*/
 			
 			//글자수 제한
@@ -681,6 +685,7 @@ body a:link, a:visited, a:hover, a:active {
 			$('#buyArtCodeSeq').val(modalBuyArtCode);
 			$('#artCodeSeq').val(modalArtCode);
 			$('#writerCodeSeq').val(modalWriterCode);
+			$('#alarmContent').val("[ " + modalArtName + " ] 작품에  ${userName} 님께서 새로운 구매후기를 등록 하셨습니다.");
 	
 		};
 		//모달 부분 종료

@@ -22,7 +22,7 @@ public class UserReviewVO {
 	private String reviewCommentReStatus;
 	
 	//일단 보류
-	private String writerSeq;
+	private String writerCodeSeq;
 	private String memberProfile;
 	private String artOptionSeq;
 	private String artOptionCategory;
@@ -53,264 +53,339 @@ public class UserReviewVO {
 	private Date orderDate;
 	
 	private String alarmContent;
-	
-	
-	
-	public String getAlarmContent() {
-		return alarmContent;
-	}
-	public void setAlarmContent(String alarmContent) {
-		this.alarmContent = alarmContent;
-	}
+
 	public String getReviewCodeSeq() {
 		return reviewCodeSeq;
 	}
+
 	public void setReviewCodeSeq(String reviewCodeSeq) {
 		this.reviewCodeSeq = reviewCodeSeq;
 	}
+
 	public String getOrderCodeSeq() {
 		return orderCodeSeq;
 	}
+
 	public void setOrderCodeSeq(String orderCodeSeq) {
 		this.orderCodeSeq = orderCodeSeq;
 	}
+
 	public String getMemberCodeSeq() {
 		return memberCodeSeq;
 	}
+
 	public void setMemberCodeSeq(String memberCodeSeq) {
 		this.memberCodeSeq = memberCodeSeq;
 	}
+
 	public String getMemberName() {
 		return memberName;
 	}
+
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
+
 	public String getArtCodeSeq() {
 		return artCodeSeq;
 	}
+
 	public void setArtCodeSeq(String artCodeSeq) {
 		this.artCodeSeq = artCodeSeq;
 	}
+
 	public String getArtName() {
 		return artName;
 	}
+
 	public void setArtName(String artName) {
 		this.artName = artName;
 	}
+
 	public Date getReviewDate() {
 		return reviewDate;
 	}
+
 	public void setReviewDate(Date reviewDate) {
 		this.reviewDate = reviewDate;
 	}
+
 	public String getReviewComment() {
 		return reviewComment;
 	}
+
 	public void setReviewComment(String reviewComment) {
 		this.reviewComment = reviewComment;
 	}
+
 	public String getReviewStar() {
 		return reviewStar;
 	}
+
 	public void setReviewStar(String reviewStar) {
 		this.reviewStar = reviewStar;
 	}
+
 	public String getReviewPhoto() {
 		return reviewPhoto;
 	}
+
 	public void setReviewPhoto(String reviewPhoto) {
 		this.reviewPhoto = reviewPhoto;
 	}
+
 	public String getReviewCommentRe() {
 		return reviewCommentRe;
 	}
+
 	public void setReviewCommentRe(String reviewCommentRe) {
 		this.reviewCommentRe = reviewCommentRe;
 	}
+
 	public Date getReviewCommentReDate() {
 		return reviewCommentReDate;
 	}
+
 	public void setReviewCommentReDate(Date reviewCommentReDate) {
 		this.reviewCommentReDate = reviewCommentReDate;
 	}
+
 	public String getReviewCommentReStatus() {
 		return reviewCommentReStatus;
 	}
+
 	public void setReviewCommentReStatus(String reviewCommentReStatus) {
 		this.reviewCommentReStatus = reviewCommentReStatus;
 	}
-	public String getWriterSeq() {
-		return writerSeq;
+
+	public String getWriterCodeSeq() {
+		return writerCodeSeq;
 	}
-	public void setWriterSeq(String writerSeq) {
-		this.writerSeq = writerSeq;
+
+	public void setWriterCodeSeq(String writerCodeSeq) {
+		this.writerCodeSeq = writerCodeSeq;
 	}
+
 	public String getMemberProfile() {
 		return memberProfile;
 	}
+
 	public void setMemberProfile(String memberProfile) {
 		this.memberProfile = memberProfile;
 	}
+
 	public String getArtOptionSeq() {
 		return artOptionSeq;
 	}
+
 	public void setArtOptionSeq(String artOptionSeq) {
 		this.artOptionSeq = artOptionSeq;
 	}
+
 	public String getArtOptionCategory() {
 		return artOptionCategory;
 	}
+
 	public void setArtOptionCategory(String artOptionCategory) {
 		this.artOptionCategory = artOptionCategory;
 	}
+
 	public String getArtOptionName() {
 		return artOptionName;
 	}
+
 	public void setArtOptionName(String artOptionName) {
 		this.artOptionName = artOptionName;
 	}
+
 	public String getArtOptionPrice() {
 		return artOptionPrice;
 	}
+
 	public void setArtOptionPrice(String artOptionPrice) {
 		this.artOptionPrice = artOptionPrice;
 	}
+
 	public String getArtOptionCount() {
 		return artOptionCount;
 	}
+
 	public void setArtOptionCount(String artOptionCount) {
 		this.artOptionCount = artOptionCount;
 	}
+
 	public String getArtPrice() {
 		return artPrice;
 	}
+
 	public void setArtPrice(String artPrice) {
 		this.artPrice = artPrice;
 	}
+
 	public String getArtDiscount() {
 		return artDiscount;
 	}
+
 	public void setArtDiscount(String artDiscount) {
 		this.artDiscount = artDiscount;
 	}
+
 	public String getArtAmount() {
 		return artAmount;
 	}
+
 	public void setArtAmount(String artAmount) {
 		this.artAmount = artAmount;
 	}
+
 	public String getCartStatus() {
 		return cartStatus;
 	}
+
 	public void setCartStatus(String cartStatus) {
 		this.cartStatus = cartStatus;
 	}
+
 	public String getBuyArtCodeSeq() {
 		return buyArtCodeSeq;
 	}
+
 	public void setBuyArtCodeSeq(String buyArtCodeSeq) {
 		this.buyArtCodeSeq = buyArtCodeSeq;
 	}
+
 	public String getbArtCodeSeq() {
 		return bArtCodeSeq;
 	}
+
 	public void setbArtCodeSeq(String bArtCodeSeq) {
 		this.bArtCodeSeq = bArtCodeSeq;
 	}
+
 	public String getbArtName() {
 		return bArtName;
 	}
+
 	public void setbArtName(String bArtName) {
 		this.bArtName = bArtName;
 	}
+
 	public String getbWriterCodeSeq() {
 		return bWriterCodeSeq;
 	}
+
 	public void setbWriterCodeSeq(String bWriterCodeSeq) {
 		this.bWriterCodeSeq = bWriterCodeSeq;
 	}
+
 	public String getbArtOptionCategory() {
 		return bArtOptionCategory;
 	}
+
 	public void setbArtOptionCategory(String bArtOptionCategory) {
 		this.bArtOptionCategory = bArtOptionCategory;
 	}
+
 	public String getbArtOptionName() {
 		return bArtOptionName;
 	}
+
 	public void setbArtOptionName(String bArtOptionName) {
 		this.bArtOptionName = bArtOptionName;
 	}
+
 	public int getbArtOptionPrice() {
 		return bArtOptionPrice;
 	}
+
 	public void setbArtOptionPrice(int bArtOptionPrice) {
 		this.bArtOptionPrice = bArtOptionPrice;
 	}
+
 	public int getbArtOptionCount() {
 		return bArtOptionCount;
 	}
+
 	public void setbArtOptionCount(int bArtOptionCount) {
 		this.bArtOptionCount = bArtOptionCount;
 	}
+
 	public String getbArtReviewStatus() {
 		return bArtReviewStatus;
 	}
+
 	public void setbArtReviewStatus(String bArtReviewStatus) {
 		this.bArtReviewStatus = bArtReviewStatus;
 	}
+
 	public String getbArtReview() {
 		return bArtReview;
 	}
+
 	public void setbArtReview(String bArtReview) {
 		this.bArtReview = bArtReview;
 	}
-	
+
 	public String getArtPhoto() {
 		return artPhoto;
 	}
+
 	public void setArtPhoto(String artPhoto) {
 		this.artPhoto = artPhoto;
 	}
+
 	public String getArtDescription() {
 		return artDescription;
 	}
+
 	public void setArtDescription(String artDescription) {
 		this.artDescription = artDescription;
 	}
-	
+
 	public String getWriterName() {
 		return writerName;
 	}
+
 	public void setWriterName(String writerName) {
 		this.writerName = writerName;
 	}
+
 	public Date getOrderDate() {
 		return orderDate;
 	}
+
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
-	
+
+	public String getAlarmContent() {
+		return alarmContent;
+	}
+
+	public void setAlarmContent(String alarmContent) {
+		this.alarmContent = alarmContent;
+	}
+
 	@Override
 	public String toString() {
 		return "UserReviewVO [reviewCodeSeq=" + reviewCodeSeq + ", orderCodeSeq=" + orderCodeSeq + ", memberCodeSeq="
 				+ memberCodeSeq + ", memberName=" + memberName + ", artCodeSeq=" + artCodeSeq + ", artName=" + artName
 				+ ", reviewDate=" + reviewDate + ", reviewComment=" + reviewComment + ", reviewStar=" + reviewStar
 				+ ", reviewPhoto=" + reviewPhoto + ", reviewCommentRe=" + reviewCommentRe + ", reviewCommentReDate="
-				+ reviewCommentReDate + ", reviewCommentReStatus=" + reviewCommentReStatus + ", writerSeq=" + writerSeq
-				+ ", memberProfile=" + memberProfile + ", artOptionSeq=" + artOptionSeq + ", artOptionCategory="
-				+ artOptionCategory + ", artOptionName=" + artOptionName + ", artOptionPrice=" + artOptionPrice
-				+ ", artOptionCount=" + artOptionCount + ", artPrice=" + artPrice + ", artDiscount=" + artDiscount
-				+ ", artAmount=" + artAmount + ", cartStatus=" + cartStatus + ", buyArtCodeSeq=" + buyArtCodeSeq
-				+ ", bArtCodeSeq=" + bArtCodeSeq + ", bArtName=" + bArtName + ", bWriterCodeSeq=" + bWriterCodeSeq
-				+ ", bArtOptionCategory=" + bArtOptionCategory + ", bArtOptionName=" + bArtOptionName
+				+ reviewCommentReDate + ", reviewCommentReStatus=" + reviewCommentReStatus + ", writerCodeSeq="
+				+ writerCodeSeq + ", memberProfile=" + memberProfile + ", artOptionSeq=" + artOptionSeq
+				+ ", artOptionCategory=" + artOptionCategory + ", artOptionName=" + artOptionName + ", artOptionPrice="
+				+ artOptionPrice + ", artOptionCount=" + artOptionCount + ", artPrice=" + artPrice + ", artDiscount="
+				+ artDiscount + ", artAmount=" + artAmount + ", cartStatus=" + cartStatus + ", buyArtCodeSeq="
+				+ buyArtCodeSeq + ", bArtCodeSeq=" + bArtCodeSeq + ", bArtName=" + bArtName + ", bWriterCodeSeq="
+				+ bWriterCodeSeq + ", bArtOptionCategory=" + bArtOptionCategory + ", bArtOptionName=" + bArtOptionName
 				+ ", bArtOptionPrice=" + bArtOptionPrice + ", bArtOptionCount=" + bArtOptionCount
 				+ ", bArtReviewStatus=" + bArtReviewStatus + ", bArtReview=" + bArtReview + ", artPhoto=" + artPhoto
 				+ ", artDescription=" + artDescription + ", writerName=" + writerName + ", orderDate=" + orderDate
 				+ ", alarmContent=" + alarmContent + "]";
 	}
+	
+	
 	
 	
 

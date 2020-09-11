@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +32,7 @@ public class UserReviewController {
 	public ModelAndView myReview(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String seq = (String)session.getAttribute("member");
+		System.out.println(seq);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reviewList", service.myReview(seq));
@@ -39,14 +41,15 @@ public class UserReviewController {
 	}
 	
 	//작품 등록 액션
-	@RequestMapping(value="/reviewRegster")
+	@RequestMapping(value="/reviewRegster", method= {RequestMethod.POST})
 	public ModelAndView insertArtwork(@RequestParam(value="reviewPhoto", required=false) List<MultipartFile> mf,
 			 HttpServletRequest request, UserReviewVO vo){
 		
 		//유저코드 받아오기
-		HttpSession session =  request.getSession();      
+		HttpSession session =  request.getSession();
         String seq = (String)session.getAttribute("member");
         vo.setMemberCodeSeq(seq);
+        System.out.println("강민 맴버코드 찍기 : " + vo.getMemberCodeSeq());
         
         //사진 경로 설정
   		String result="";
@@ -62,17 +65,12 @@ public class UserReviewController {
   			result += saveFile+",";
   		}	
   		vo.setReviewPhoto(result);
-  		
-  		
-  		
-		//리뷰 등록
-		service.insertReview(vo);
-  		//구매작품리스트에서 구매후기상태 N으로 바꿔줘야함
+  		System.out.println(vo.toString());
+		//리뷰 등록 & 구매작품 테이블에서 구매후기상태를 Y로 변경 & 작가한테 해당 작품에 구매후기 등록되었음을 알림 으로 등록
+  		service.insertReview(vo);
+		service.insertAlarmTb(vo);
+		service.updateBuyArtTb(vo);
 		
-		//작가한테 알림 가게 해줘야 함
-		/*
-		 * String alarmContentA = vo.setAlarmContent();
-		 */
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("checkReg", 1); // 뷰로 보낼 데이터 값
