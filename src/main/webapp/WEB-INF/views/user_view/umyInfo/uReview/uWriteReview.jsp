@@ -46,7 +46,6 @@ body a:link, a:visited, a:hover, a:active {
 #minwoo_uWriteReviewList{
 	height:80%;
 	width:100%;
-	overflow:auto;
 	display:flex;
 	flex-direction:column;
 }
@@ -260,7 +259,7 @@ body a:link, a:visited, a:hover, a:active {
 	<c:if test="${param.checkReg eq 1}">
 		<script type="text/javascript">
 			alert("글이 등록 되었습니다.");
-			location.href="/bomulsum/writer/workRegister.wdo";
+			location.href="/bomulsum/user/myInfo/review.do";
 		</script>
 	</c:if>
 <div>
@@ -426,7 +425,7 @@ body a:link, a:visited, a:hover, a:active {
 									<div id="minwoo_review_photo_line" style="height:70px; border:1px solid; display:flex; flex-direction:row; align-items:center;">
 										<div id="minwoo_review_photo" onClick="fnUpload();" class="fa fa-picture-o fa-4x" aria-hidden="true"
 											style="margin-left:22px;"></div>
-										<input type="file" id="image" name="reviewPhoto" onchange="setThumbnail(event);" style="display:none;" accept="image/*" multiple />
+										<input type="file" id="image" name="reviewPicture" onchange="setThumbnail(event);" style="display:none;" accept="image/*" multiple />
                         				<div class="imageContainer"></div>
 									</div>
 									<p style="font-size:14px;">
@@ -470,7 +469,6 @@ body a:link, a:visited, a:hover, a:active {
 		function fnUpload(){
 			$('#image').click();
 		};
-		
 		var upCheck = false;
 		function setThumbnail(event) {  
 			$(".imageContainer").empty();
@@ -696,7 +694,11 @@ body a:link, a:visited, a:hover, a:active {
 		function saveReview(event){
 			event.preventDefault();
 			
-			let reviewComment = document.getElementById('reviewComment');
+			/* let reviewComment = document.getElementById('reviewComment');
+			console.log('폼 데이터 입력 값 = ' + 'buyArtCodeSeq : ' + $('#buyArtCodeSeq').val() + ' / '
+						+ 'artCodeSeq : ' + $('#artCodeSeq').val()+ ' / ' + 'writerCodeSeq : ' +$('#writerCodeSeq').val() + ' / '
+						+ 'alarmContent : ' + $('#alarmContent').val() + ' / ' + 'reviewPhoto : ' + $('#image').val() + ' / '
+						+ 'reviewComment : ' + $('#reviewComment').val()); */
 			
 			if(reviewComment.value == ''){
 				alert('후기 내용을 입력해 주세요.');

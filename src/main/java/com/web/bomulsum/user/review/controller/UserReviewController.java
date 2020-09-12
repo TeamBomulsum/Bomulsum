@@ -42,7 +42,7 @@ public class UserReviewController {
 	
 	//작품 등록 액션
 	@RequestMapping(value="/reviewRegster", method= {RequestMethod.POST})
-	public ModelAndView insertArtwork(@RequestParam(value="reviewPhoto", required=false) List<MultipartFile> mf,
+	public ModelAndView insertArtwork(@RequestParam(value="reviewPicture", required=false) List<MultipartFile> mf,
 			 HttpServletRequest request, UserReviewVO vo){
 		
 		//유저코드 받아오기

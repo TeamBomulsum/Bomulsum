@@ -59,16 +59,16 @@
 			art_code_seq,
 			review_comment,
             review_star,
-            review-photo
+            review_photo
 		)
 		VALUES
 		(
-			'review_code_seq' || TO_CHAR(review_code_sq.nextval),
+			'review_code_seq' || TO_CHAR(review_sq.nextval),
 			#{buyArtCodeSeq},
 			#{memberCodeSeq},
 			#{artCodeSeq},
 			#{reviewComment},
-            #{starReview},
+            #{reviewStar},
             #{reviewPhoto}
 		)
 	</insert>
