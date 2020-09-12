@@ -12,8 +12,8 @@ public class UserShopbagDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	// 장바구니 정보
-	public List<UserShopbagVO> getShopbagInfo() {
-		List<UserShopbagVO> shopbagInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectCartCon");
+	public List<UserShopbagVO> getShopbagInfo(String memberCode) {
+		List<UserShopbagVO> shopbagInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectCartCon", memberCode);
 		System.out.println(shopbagInfo);
 		return shopbagInfo;
 

@@ -530,33 +530,34 @@ var memberCode = '<%= (String)session.getAttribute("member") %>';
 
 LikeWriterFunction = function(){
 		
-		/*if(memberCode == null || memberCode == 'null'){
+		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='/bomulsum/user/login.do';
 		}
 		
-		else{*/
+		else{
 		var $data = $(this).next().text();
 		console.log($data);
 		var writerCode = $data;
 		var option = '좋아하는작가';
 		
 		var addButton = $(this);
-		//var tf;
+		var tf;
 		var text = $(this).text();
+		console.log(text);
 
 		if(text == '♥︎작가로 추가'){
 			$(this).text('♥︎하는 작가');
 			$(this).css("color","white");
 			$(this).css("border","1px solid #DF3A01");
 			$(this).css("background-color","#DF3A01");
-			var tf = true;
+			tf = true;
 		}else{
 			$(this).text('♥︎작가로 추가');
 			$(this).css("color","#DF3A01");
 			$(this).css("border","1px solid #D9D9D9");
 			$(this).css("background-color","white");
-			var tf = false;
+			tf = false;
 		}
 
 		$.ajax({
@@ -573,14 +574,15 @@ LikeWriterFunction = function(){
 			error:function(e){
 				console.log(e);
 			}
-		}); 
+		});
 	 	if(tf==true){
 			alert('좋아하는 작가에 추가되었습니다.');
 		}
 	 	if(tf==false){
 			alert('좋아하는 작가를 취소합니다.');
 		}  
-		//}
+	
+		}
 };
 
 
@@ -716,14 +718,10 @@ function showSlides_five(n) {
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
 									<c:if test="${rank1.likeWriter eq 'true'}">
-										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
-										♥︎하는 작가
-										</div>
+										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는 작가</div>
 									</c:if>
 									<c:if test="${rank1.likeWriter eq null}">
-										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
-										♥︎작가로 추가
-										</div>
+										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">♥︎작가로 추가	</div>
 									</c:if>
 								<div style="display:none">${rank1.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">
@@ -788,14 +786,10 @@ function showSlides_five(n) {
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
 									<c:if test="${rank2.likeWriter eq 'true'}">
-									<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
-										♥︎하는 작가
-										</div>
+									<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는 작가</div>
 									</c:if>
 									<c:if test="${rank2.likeWriter eq null}">
-									<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
-										♥︎작가로 추가
-										</div>
+									<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">♥︎작가로 추가</div>
 									</c:if>
 									<div style="display:none">${rank2.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">
@@ -857,14 +851,10 @@ function showSlides_five(n) {
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
 									<c:if test="${rank3.likeWriter eq 'true'}">
-										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
-										♥︎하는 작가
-										</div>
+										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는 작가</div>
 									</c:if>
 									<c:if test="${rank3.likeWriter eq null}">
-										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
-										♥︎작가로 추가
-										</div>
+										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">♥︎작가로 추가</div>
 									</c:if>
 										<div style="display:none">${rank3.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">
@@ -926,14 +916,10 @@ function showSlides_five(n) {
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
 									<c:if test="${rank4.likeWriter eq 'true'}">
-										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
-										♥︎하는 작가
-										</div>
+										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는 작가</div>
 									</c:if>
 									<c:if test="${rank4.likeWriter eq null}">
-										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
-										♥︎작가로 추가
-										</div>
+										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">♥︎작가로 추가</div>
 									</c:if>
 										<div style="display:none">${rank4.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">
@@ -995,14 +981,10 @@ function showSlides_five(n) {
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
 									<c:if test="${rank5.likeWriter eq 'true'}">
-										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">
-										♥︎하는 작가
-										</div>
+										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는 작가</div>
 									</c:if>
 									<c:if test="${rank5.likeWriter eq null}">
-										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">
-										♥︎작가로 추가
-										</div>
+										<div class="jeonga_profile_button_add" style="border:1px solid #D8D8D8;color:#DF3A01;">♥︎작가로 추가</div>
 									</c:if>
 									<div style="display:none">${rank5.writer_code_seq}</div>
 									<div id="jeonga_profile_writer_home">

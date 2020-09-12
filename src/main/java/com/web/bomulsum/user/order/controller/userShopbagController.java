@@ -1,12 +1,9 @@
 package com.web.bomulsum.user.order.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +25,17 @@ public class userShopbagController {
 	UserShopbagService service;
 
 	@RequestMapping(value="/shopbag")
-	public ModelAndView goShopbag() {
+	public ModelAndView goShopbag(HttpServletRequest request) {
 		ModelAndView mav= new ModelAndView("ushopbag/ushopbag");
+		/*
+		//회원 코드 가져오기
+		 HttpSession session = request.getSession(); 
+		 String memberCode = (String)session.getAttribute("member"); 
+		 System.out.println(memberCode);
+		 */
+		String memberCode = "member_code_seq58";
 		
-		List<UserShopbagVO> shopbagInfo = service.getShopbagInfo();
+		List<UserShopbagVO> shopbagInfo = service.getShopbagInfo(memberCode);
 		
 		for(int i=0; i<shopbagInfo.size(); i++) {
 			UserShopbagVO tempVO = shopbagInfo.get(i);
@@ -154,10 +158,11 @@ public class userShopbagController {
 	 @ResponseBody
 	  @RequestMapping(value="/shopbagUpdateOption", method=RequestMethod.POST)
 	  public void goshopbagUpdateOption( @RequestParam(value="optionCode[]") String[] optionCode,
-			  @RequestParam(value="cart") String cartCode) { 
+			  @RequestParam(value="cart") String cartCode, @RequestParam(value="count") String count) { 
 		 
 		 HashMap<String, String> map = new HashMap<String, String>();
 		 map.put("cart", cartCode);
+		 map.put("count", count);
 		 if(optionCode.length == 1) {
 			 map.put("option", optionCode[0]);
 		 }
@@ -170,5 +175,10 @@ public class userShopbagController {
 		service.updateOption(map);
 	 }
 	 
+	 @RequestMapping(value="/order")
+		public ModelAndView goOrder() {
+			ModelAndView mav= new ModelAndView("ushopbag/uPayment");
+			return mav;
+	 }
 	
 }

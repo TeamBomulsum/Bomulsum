@@ -60,7 +60,7 @@
 			#{member},
 			#{option},
 			#{optionCode},
-			'20/08/31'
+			sysdate
 		)
 	</insert>
 	<!-- 좋아하는 작가 취소 -->

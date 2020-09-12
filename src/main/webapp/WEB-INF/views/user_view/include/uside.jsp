@@ -233,7 +233,7 @@
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">관심리스트</b> 
 				<a class="jeonga-collapse-item" href="#">즐겨찾기(★)</a> 
-				<a class="jeonga-collapse-item" href="#">좋아하는(♥)작가</a>
+				<a class="jeonga-collapse-item" href="<c:url value='/user/wishlist/likeWriter.do'/> ">좋아하는(♥)작가</a>
 				<a class="jeonga-collapse-item" href="#">최근 본 작품</a> 
 			</li>
 			<!-- 할인혜택 -->

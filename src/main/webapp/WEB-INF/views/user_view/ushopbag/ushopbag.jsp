@@ -196,6 +196,7 @@
     min-height: 18px;
     display: flex;
     align-items: center;
+  	margin-right:10px; 
 }
 
 .split{
@@ -1091,6 +1092,7 @@ button:focus{
 $(function(){
 	
 	var codearr= [];
+	var selectedPrice = [];
 	$(document).ready(function(){
 		$("#canCheckCount").html($(".articles").length);
 		$("#nowChecked").html( $("input[name=selectCheck]:checked").length/2);
@@ -1158,7 +1160,6 @@ $(function(){
 		var jartPrice = $artPrice;
 		var num;
 		var changePrice;
-		console.log($cartSeq);
 	
 		if($num.val() > 1){
 			num = Number($num.val())-1;
@@ -1433,10 +1434,7 @@ $(function(){
 					},
 					type:'POST',
 					success:function(data){
-						for(var i=0; i<data.length; i++){
-							console.log(data[i].art_option_category);
-							console.log(data[i]);
-						}
+				
 						if(data.length == 3){
 							$("#option_first").css("display", "block");
 							$('#name1').val(data[0].art_option_seq);
@@ -1510,12 +1508,14 @@ $(function(){
 	$(".report-modal__close").click(function(){
 		$(".detail-modal").css("display","none");
 		codearr.length = 0;
+		selectedPrice.length = 0;
 	});
 	
 	//옵션 취소
 	$("#cancleUpdate").click(function(){
 		$(".detail-modal").css("display","none");
 		codearr.length = 0;
+		selectedPrice.length = 0;
 	})
 
 	//옵션 설정하기
@@ -1524,12 +1524,16 @@ $(function(){
 		var $code = $(".option_list:first option:selected").val();
 		updateCode($code);
 		var $first = $(".option_list:first option:selected").text();
+		var firstPrice = $first.split('+').reverse()[0];
+		var $artPrice = $("#art_discount_price").text();
+		var art = $artPrice.split('원')[0];
+		var sum = Number(art) + Number(firstPrice);
 		
-		var $option = $("<div class='option'><div class='option_name'><span id='optionChoiceCon'></span></div><div class='option_count'><div class='input_number'><button class='downButton' type='button'>-</button><div class='input_area'><input class='prd-count' type='number' value='1' min='1' max='999' readonly></div><button class='upButton' type='button'>+</button></div></div><div class='option_price'><span id='optionChoicePrice'></span><span><i id='delChoice' class='fas fa-times'></i></span></div></div>");
-		//$option.children().first().children().first().html(this.val);
+		var $option = $("<div class='option'><div class='option_name'><span id='optionChoiceCon'></span></div><div class='option_count'><div class='input_number'><button id='downBtn' type='button'>-</button><div class='input_area'><input id='updateCount' class='prd-count' type='number' value='1' min='1' max='999' readonly></div><button id='upBtn' type='button'>+</button></div></div><div class='option_price'><span id='optionChoicePrice'></span><span><i id='delChoice' class='fas fa-times'></i></span></div></div>");
 		$(".choose_option").append($option);
 		$("#optionChoiceCon").text($first);
-		$("#optionChoicePrice").text(firstPrice[index]);
+		$("#optionChoicePrice").text(sum);
+		selectedPrice.push(sum);
 	});
 	$(".option_list:eq(1)").on('change', function(e){
 		$(".option_list:eq(1)").attr('disabled', 'true');
@@ -1538,7 +1542,14 @@ $(function(){
 		
 		var $first = $(".option_list:first option:selected").text();
 		var $second = $(".option_list:eq(1) option:selected").text();
+		var firstPrice = $first.split('+').reverse()[0];
+		var secondPrice = $second.split('+').reverse()[0];
+		var $artPrice = $("#art_discount_price").text();
+		var art = $artPrice.split('원')[0];
+		var sum = Number(art) + Number(firstPrice)+ Number(secondPrice);
 		$("#optionChoiceCon").text($first+" / "+$second);
+		$("#optionChoicePrice").text(sum);
+		selectedPrice.push(sum);
 		
 	});
 	$(".option_list:last").on('change', function(e){
@@ -1549,28 +1560,40 @@ $(function(){
 		var $first = $(".option_list:first option:selected").text();
 		var $second = $(".option_list:eq(1) option:selected").text();
 		var $third = $(".option_list:last option:selected").text();
+		var firstPrice = $first.split('+').reverse()[0];
+		var secondPrice = $second.split('+').reverse()[0];
+		var thirdPrice = $third.split('+').reverse()[0];
+		var $artPrice = $("#art_discount_price").text();
+		var art = $artPrice.split('원')[0];
+		var sum = Number(art) + Number(firstPrice)+ Number(secondPrice)+Number(thirdPrice);
 		$("#optionChoiceCon").text($first+" / "+$second+" / "+$third);
+		$("#optionChoicePrice").text(sum);
+		selectedPrice.push(sum);
+		
 	});
 	
 	function updateCode(data){   
 		codearr.push(data);
-		console.log(codearr)
 	}
 	
 	//옵션 수정
 	$("#confirmUpdate").click(function(){
 		var $cartSeq = $('#cartCode').val();
 		var cartCode = $cartSeq;
-		 $.ajax({
+		var $num = $("#updateCount").val();
+		var count = $num;
+ 		 $.ajax({
  	  		 url:"/bomulsum/user/shopbagUpdateOption.do",
    	 		data:{
 				 'cart':cartCode,
-	             "optionCode" : codearr,
+	             'optionCode' : codearr,
+	             'count' : count,
 	       },
 	       type:'POST',
    	 		success : function(){
    	 			$(".detail-modal").css("display","none");
       			 codearr.length = 0;
+      			 selectedPrice.length=0;
       			 location.reload(true);
     		},
    			 error : function(err){
@@ -1578,17 +1601,36 @@ $(function(){
   		  }
  		}).done(function(data){
  			console.log(data);
-		 });
+		 }); 
 	})
+	
 
-	// 옵션 선택 시 추가
-/* 	$(".option_list:last").on('change', function(e){
-		//alert(this.value);
-		$(".option_list").find('option:first').attr('selected', 'selected');
-		var $option = $("<div class='option'><div class='option_name'><span>1.할아버지</span></div><div class='option_count'><div class='input_number'><button class='downButton' type='button'>-</button><div class='input_area'><input class='prd-count' type='number' value='1' min='1' max='999' readonly></div><button class='upButton' type='button'>+</button></div></div><div class='option_price'><span>3,000원</span><span><i class='fas fa-times'></i></span></div></div>");
-		$option.children().first().children().first().html(this.value);
-		$(".choose_option").append($option);
-	}); */
+	//옵션 수량 + 누를 때
+	$(document).on('click',"#upBtn",function(e){
+		var $numDiv = $(this).prev().children();
+		var $price = selectedPrice[selectedPrice.length-1];
+		var selectPrice = $price;
+		
+		if($numDiv.val() <999){
+		 	num = Number($numDiv.val()) + 1;
+			changePrice = num * Number(selectPrice);
+			$numDiv.val(num);
+			$("#optionChoicePrice").text(changePrice);
+		}
+	});
+	//옵션 수량 - 누를 때
+	$(document).on('click',"#downBtn",function(e){
+		var $numDiv = $(this).next().children();
+		var $price = selectedPrice[selectedPrice.length-1];
+		var selectPrice = $price;
+		
+		if($numDiv.val() >1){
+		 	num = Number($numDiv.val()) - 1;
+			changePrice = num * Number(selectPrice);
+			$numDiv.val(num);
+			$("#optionChoicePrice").text(changePrice);
+		}
+	});
 	
 });
 </script>

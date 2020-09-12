@@ -3,6 +3,9 @@ package com.web.bomulsum.user.popular.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,15 +26,18 @@ public class UserPopularWriterController {
 
 	//인기작가
 	@RequestMapping(value="/popular/writer")
-	public ModelAndView popularWriter() {
+	public ModelAndView popularWriter( HttpServletRequest request) {
 		ModelAndView mav= new ModelAndView("/ucategory/uPopularWriter");
-		/*
+		
 		//회원 코드 가져오기
-		HttpSession session =  request.getSession();
-		String memberCode = (String) session.getAttribute("member");
-		System.out.println(memberCode);
-		*/
-		String memberCode = "member_code_seq58";
+		
+		 HttpSession session = request.getSession(); 
+		 String memberCode = (String)
+		 session.getAttribute("member"); 
+		 System.out.println(memberCode);
+		 
+		
+		//String memberCode = "member_code_seq58";
 		
 		//작가 상세 정보
 		List<UserPopularWriterVO> list = service.getWriterInfo();
@@ -52,7 +58,7 @@ public class UserPopularWriterController {
 		String third = list.get(2).getWriter_code_seq();
 		String fourth = list.get(3).getWriter_code_seq();
 		String fivth = list.get(4).getWriter_code_seq();
-		
+		if(memberCode != null) {
 		//좋아하는 작가인지 확인
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberCode", memberCode);
@@ -83,8 +89,7 @@ public class UserPopularWriterController {
 				list.get(4).setLikeWriter("true");
 			}
 		}
-		
-		
+		}
 		List<String> firstArt = service.getRankPhoto(first);
 		List<String> secondArt = service.getRankPhoto(second);
 		List<String> thirdArt = service.getRankPhoto(third);

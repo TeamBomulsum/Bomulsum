@@ -4,7 +4,7 @@
 
 <mapper namespace="userShopbagDAO">
 
-	<select id="selectCartCon" resultType="UserShopbagVO">
+	<select id="selectCartCon" parameterType="String" resultType="UserShopbagVO">
 		SELECT 
 			c.cart_seq, c.art_code_seq, c.member_code_seq, c.art_option_seq, c.art_count, c.order_request,
 			w.writer_brand_name, w.writer_send_price, w.writer_sendfree_case, 
@@ -16,7 +16,7 @@
 		AND
 			a.writer_code_seq=w.writer_code_seq
 		AND
-			c.member_code_seq='member_code_seq58'
+			c.member_code_seq=#{memberCode}
 		ORDER BY 
 			cart_seq
 	</select>
@@ -97,7 +97,8 @@
 		UPDATE
 			cart_tb
 		SET 
-			art_option_seq=#{option}
+			art_option_seq=#{option},
+			art_count=#{count}
 		WHERE 
 			cart_seq=#{cart}
 	</update>

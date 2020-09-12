@@ -20,8 +20,8 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 	UserShopbagDAO dao;
 
 	@Override
-	public List<UserShopbagVO> getShopbagInfo() {
-		return dao.getShopbagInfo();
+	public List<UserShopbagVO> getShopbagInfo(String memberCode) {
+		return dao.getShopbagInfo(memberCode);
 	}
 
 	@Override
