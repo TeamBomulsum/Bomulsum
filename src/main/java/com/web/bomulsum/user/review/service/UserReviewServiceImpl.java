@@ -14,9 +14,15 @@ public class UserReviewServiceImpl implements UserReviewService {
 	@Autowired
 	private UserReviewDAO dao;
 	
+	//내가 쓸 수 있는 구매후기 목록
 	@Override
 	public List<UserReviewVO> myReview(String seq) {
 		return dao.myReview(seq);
+	}
+	//내가 쓴 구매후기 목록
+	@Override
+	public List<UserReviewVO> myReviewed(String seq) {
+		return dao.myReviewed(seq);
 	}
 
 	//구매 후기 글 등록
@@ -36,5 +42,6 @@ public class UserReviewServiceImpl implements UserReviewService {
 	public void updateBuyArtTb(UserReviewVO vo) {
 		dao.updateBuyArtTb(vo);
 	}
+
 
 }

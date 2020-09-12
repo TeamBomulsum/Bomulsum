@@ -25,6 +25,16 @@
 		<result column="writer_name" property="writerName"/>
 		
 		<result column="order_date" property="orderDate"/>
+		
+		<result column="review_code_seq" property="reviewCodeSeq" />
+		<result column="review_date" property="reviewDate" />
+		<result column="review_star" property="reviewStar" />
+		<result column="review_comment" property="reviewComment" />
+		<result column="art_name" property="artName" />
+		<result column="writer_code_seq" property="writerCodeSeq" />
+		<result column="member_name" property="memberName" />
+		<result column="member_profile" property="memberProfile" />
+		
 	</resultMap>
 
 	<!-- 구매후기 쓸 수 있는 구매 상품 목록 불러오기 -->
@@ -46,6 +56,30 @@
 					order_tb d ON  a.order_code_seq = d.order_code_seq
 				WHERE a.b_art_review_status = 'N' AND a.member_code_seq = #{member}
 				ORDER BY d.order_date DESC
+				) X
+	</select>
+	
+	<!-- 작성한 구매후기 목록 불러오기 -->
+	<!-- 작품 테이블에서 작품 이름, 작품 사진, 맴버 테이블에서 맴버 사진, 맴버 이름, 구매후기 테이블에서 별점, 날짜, 내용 불러와야됨 -->
+	<select id="reviewedList" parameterType="String" resultMap="reviewListMap">
+		SELECT ROWNUM AS RNUM, X.*
+			FROM (
+				SELECT
+					a.review_code_seq, a.review_date, a.review_star, a.review_comment,
+					b.art_photo, b.art_name, b.writer_code_seq,
+					c.member_name, c.member_profile,
+					d.b_art_review_status, d.b_art_review
+				FROM
+					review_tb a
+				LEFT OUTER JOIN
+					art_tb b ON a.art_code_seq = b.art_code_seq
+				LEFT OUTER JOIN
+					member_tb c ON a.member_code_seq = c.member_code_seq
+				LEFT OUTER JOIN
+					buy_art_tb d ON a.buy_art_code_seq = d.buy_art_code_seq
+				WHERE
+					a.member_code_seq = #{member}
+				ORDER BY a.review_date DESC
 				) X
 	</select>
 
@@ -72,6 +106,16 @@
             #{reviewPhoto}
 		)
 	</insert>
+	<!-- 구매후기 수정 -->
+	<update id="updateReview" parameterType="com.web.bomulsum.user.review.repository.UserReviewVO">
+		UPDATE
+			review_tb
+		SET
+			review_comment = #{reviewComment},
+			review_star = #{reviewStar},
+			review_photo = #{reviewPhoto}
+	</update>
+	
 	
 	<!-- 구매작품 테이블 후기 상태 수정 -->
 	<update id="updateBuyArtTb" parameterType="com.web.bomulsum.user.review.repository.UserReviewVO">
@@ -79,6 +123,14 @@
 			buy_art_tb
 		SET
 			b_art_review_status = 'Y'
+		WHERE
+			buy_art_code_seq = #{buyArtCodeSeq}
+	</update>
+	<update id="updateBuyArtTb2" parameterType="com.web.bomulsum.user.review.repository.UserReviewVO">
+		UPDATE
+			buy_art_tb
+		SET
+			b_art_review = 'Y'
 		WHERE
 			buy_art_code_seq = #{buyArtCodeSeq}
 	</update>

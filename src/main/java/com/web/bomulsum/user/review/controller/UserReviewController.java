@@ -82,8 +82,12 @@ public class UserReviewController {
 	
 	@RequestMapping("/reviewedList")
 	public ModelAndView myReviewList(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String seq = (String)session.getAttribute("member");
+		System.out.println(seq);
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("reviewedList", service.myReviewed(seq));
 		mav.setViewName("/umyInfo/uReview/uWriteReviewMe");
 		return mav;
 	}

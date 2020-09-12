@@ -227,7 +227,7 @@
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">나의 구매 후기</b> 
 				<a class="jeonga-collapse-item" href="<c:url value='/user/myInfo/review.do'/>">구매후기 쓰기</a>
-				<a class="jeonga-collapse-item" href="#">내가 쓴 구매후기</a>
+				<a class="jeonga-collapse-item" href="<c:url value='/user/myInfo/reviewedList.do'/>">내가 쓴 구매후기</a>
 			</li>
 			<!-- 관심리스트 -->
 			<li class="jeonga-navItem">

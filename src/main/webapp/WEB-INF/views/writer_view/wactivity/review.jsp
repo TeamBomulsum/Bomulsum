@@ -80,6 +80,7 @@
 	border-radius: 50%;
 	max-height: 40px;
 	max-width: 40px;
+	background-repeat: no-repeat;
 }
 .review_photo{
 	width:40px;
@@ -87,7 +88,6 @@
 	object-fit:cover;
 	max-height: 40px;
 	max-width: 40px;
-	background-color: yellow;
 	margin-left: 5px;
 }
 .review_photo_td{
@@ -96,7 +96,7 @@
 
 .openUpdateModal {
 	cursor: pointer;
-	height: 50px;
+	max-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -114,11 +114,27 @@
     width: 325px;
     margin-left: auto;
     margin-right: auto;
+	margin-top: 15px;
     font-size: 13px;
     height: 100px;
-    border: 1px solid;
     overflow: auto;
 }
+
+.reviewComment::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+.reviewComment::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+.reviewComment::-webkit-scrollbar-track {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+ }
 
 .reviewCommentRe{
 	width: 100%; resize: none; font-size: 12px;
@@ -310,7 +326,7 @@
 							<div class="modal-body" style="height: 260px">
 								<div style="margin-left: 15%; margin-right: 15%;">
 									<div style="width: 100%; height: 50px; display: flex; flex-direction: row;">
-										<div class="photo" style="background-color:yellow;"></div>
+										<div class="photo" id="modalMemberProfile"></div>
 										<div style="margin-left:2%; display:flex; flex-direction: column; width:65%;">
 											<div style="font-size: 13px; margin-bottom: 1%;" id="memberName1"></div>
 											<div style="font-size: 13px;" id="reviewDate1"></div>
@@ -319,11 +335,12 @@
 									</div>
 									<div style="width: 100%; height: 50px; display: flex; flex-direction: row; border: 1px solid;">
 										<div style="align-self: center; margin-top: 2%; margin-bottom: 2%; width: 15%;">
-											<img style="overflow: hidden; align-items: center; justify-content: center; width: 40px; height: 40px"
-												src="<c:url value='/resources/img/KMWcake.jpg'/>" />
+											<img id="minwoo_modal_artImage"
+												style="overflow: hidden; align-items: center; justify-content: center;
+												margin-left:10px; width: 40px; height: 40px" />
 										</div>
 										<div style="dispaly: flex; flex-direction: column;">
-											<div style="font-size: 15px;" id="artName"></div>
+											<div style="font-size: 15px; margin-left:10px;" id="artName"></div>
 											<!-- <div style="font-size: 10px; margin-top: 3%;" id="">옵션 없음 0</div> -->
 										</div>
 									</div>
@@ -338,7 +355,7 @@
 								</div>
 							</div>
 							<div class="modal-footer"
-								style="display: flex; flex-direction: column;">
+								style="display: flex; flex-direction: column; margin-top: 20px;">
 								<!-- 글자수 채워지는거 기능 추가 해야 함 -->
 								<form action="<c:url value='updateReviewComment.wdo'/>" method="post" style="width:100%">
 									<div style="width: 100%; text-align: -webkit-center;">
@@ -433,6 +450,7 @@
        json.artName = '${i.artName}';
        json.memberName = '${i.memberName}';
        json.memberProfile = '${i.memberProfile}';
+       json.artPhoto = '${i.artPhoto}';
        reviewResult.push(json);
     </c:forEach>
 	//전체 데이터에서, 카테고리 설정 했을 때&검색했을때 데이터에 따라 페이징이 바뀌어야 하므로 이 배열을 가공한 다른 배열들이 필요하다.
@@ -492,18 +510,18 @@
 			//여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
 			for(var index = startNum; index < endNum; index++){
 				/*후기 사진 주소 자르기*/
-				var photoOrg = result[index].reviewPhoto;
-				var photo = photoOrg.split('-');
-				var photo1 = photo[0];
-				var photo2= photo[1];
-				var photo3= photo[2];
-				var photo4= photo[3];
-				var photo5= photo[4];
+				var photo1 = result[index].reviewPhoto.split(',')[0];
+				var photo2 = result[index].reviewPhoto.split(',')[1];
+				var photo3 = result[index].reviewPhoto.split(',')[2];
+				var photo4 = result[index].reviewPhoto.split(',')[3];
+				var photo5 = result[index].reviewPhoto.split(',')[4];
+				
+				var artImage = result[index].artPhoto.split(',')[0];
 				
 		  		html += '<tr><td>' + result[index].reviewDate
 					+ '</td><td>' + result[index].artName
-					+ '</td><td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\"></div>&nbsp;&nbsp;'
-					+ result[index].memberName
+					+ '</td><td><div class=\"senderArea\"><div class=\"photo\" style=\"background-image : URL(\'/bomulsum/upload/'
+					+ result[index].memberProfile + '\');\"></div>&nbsp;&nbsp;' + result[index].memberName
 					+ '</div></td>'
 					+ '<td><div class=\"minwoo_starRev\" data-rate=\"' + result[index].reviewStar + '\">'
 					+ '<span class=\"minwoo_starR1\">별1_왼쪽</span> <span class=\"minwoo_starR2\">별1_오른쪽</span>'
@@ -511,8 +529,14 @@
 					+ '<span class=\"minwoo_starR1\">별3_왼쪽</span> <span class=\"minwoo_starR2\">별3_오른쪽</span>'
 					+ '<span class=\"minwoo_starR1\">별4_왼쪽</span> <span class=\"minwoo_starR2\">별4_오른쪽</span>'
 					+ '<span class=\"minwoo_starR1\">별5_왼쪽</span> <span class=\"minwoo_starR2\">별5_오른쪽</span>'
-					+ '</div></td><td><div class="review_photo_td"><div class=\"review_photo\">' + result[index].reviewPhoto
-					+ '</div><div class=\"review_photo\"></div><div class=\"review_photo\"></div><div class=\"review_photo\"></div><div class=\"review_photo\"></div>'
+					+ '</div></td><td><div class="review_photo_td">'
+					+ '<div class=\"review_photo\" style=\"background-image:url(\'/bomulsum/upload/' + photo1 + '\')\">'
+					//+ '<img src="/bomulsum/upload/' + photo1 + '">'
+					+ '</div>'
+					+ '<div class=\"review_photo\" style=\"background-image:url(\'/bomulsum/upload/' + photo2 + '\')\"></div>'
+					+ '<div class=\"review_photo\" style=\"background-image:url(\'/bomulsum/upload/' + photo3 + '\')\"></div>'
+					+ '<div class=\"review_photo\" style=\"background-image:url(\'/bomulsum/upload/' + photo4 + '\')\"></div>'
+					+ '<div class=\"review_photo\" style=\"background-image:url(\'/bomulsum/upload/' + photo5 + '\')\"></div>'
 					+ '</div></td><td><div data-toggle=\"modal\" data-target=\"#staticBackdrop2\" class=\"openUpdateModal\">' + result[index].reviewComment
 					+ '</div></td><td style=\"display:none;\">' + result[index].reviewCodeSeq
 					+ '</td><td style=\"display:none;\">' + result[index].memberCodeSeq
@@ -520,6 +544,8 @@
 					+ '</td><td style=\"display:none;\">' + result[index].reviewCommentRe
 					+ '</td><td style=\"display:none;\">' + result[index].reviewCommentReStatus
 					+ '</td><td style=\"display:none;\">' + result[index].reviewStar
+					+ '</td><td style=\"display:none;\">' + result[index].memberProfile
+					+ '</td><td style=\"display:none;\">' + artImage
 					+ '</td></tr>';
 			}
 			testTable.innerHTML = html;
@@ -594,6 +620,8 @@
 		var modalArtCodeSeq;
 		var modalreviewCommentRe;
 		var modalreviewCommentReStatus;
+		var modalArtImage;
+		var modalArtName;
 		
 		var modal = function(){
 			//글자수 제한
@@ -606,9 +634,8 @@
 			
 			//수정인지 아닌지에 따라 등록된 댓글 모달에 값 입력해주기
 			modalReviewDate = $.trim($(this).closest('tr').children('td').eq(0).text());
-			modalArtName = $.trim($(this).closest('tr').children('td').eq(1).children('div').text());
+			modalArtName = $.trim($(this).closest('tr').children('td').eq(1).text());
 			modalMemberName = $.trim($(this).closest('tr').children('td').eq(2).children('div').text());
-			modalMemberProfile = $.trim($(this).closest('tr').children('td').eq(2).children('div').text());//사진 가져온느거 어떻게 가져오지?
 			modalReviewPhoto = $.trim($(this).closest('tr').children('td').eq(4).text()); //사진으로 바꿔줘야됨.
 			modalReviewComment = $.trim($(this).closest('tr').children('td').eq(5).text());
 			modalreviewSeq = $.trim($(this).closest('tr').children('td').eq(6).text());
@@ -617,7 +644,10 @@
 			modalreviewCommentRe = $.trim($(this).closest('tr').children('td').eq(9).text());
 			modalreviewCommentReStatus = $.trim($(this).closest('tr').children('td').eq(10).text());
 			modalStarPoint = $.trim($(this).closest('tr').children('td').eq(11).text());
-			$('#counter').html(modalreviewCommentRe.length + '/1000')
+			modalMemberProfile = $.trim($(this).closest('tr').children('td').eq(12).text());//사진 가져온느거 어떻게 가져오지?
+			modalArtImage = $.trim($(this).closest('tr').children('td').eq(13).text());
+					
+			$('#counter').html(modalreviewCommentRe.length + '/1000');
 			
 			
 			console.log('모달 맴버 이름 :' + modalMemberName);
@@ -630,6 +660,7 @@
 			console.log('리뷰맴버시퀀스 : ' + modalMemberCodeSeq);
 			console.log('리뷰작품코드시퀀스 : '+ modalArtCodeSeq);
 			console.log('모달리뷰코멘트스테투스 : ' + modalreviewCommentReStatus);
+			console.log('모달아트이름 : ' + modalArtName);
 			
 			//모달에 띄워주는변수들
 			$('#reviewComment').text(modalReviewComment);
@@ -637,13 +668,14 @@
 			$('#memberName1').text(modalMemberName);
 			$('#reviewDate1').text(modalReviewDate);
 			$('#artName').text(modalArtName);
+			$('#modalMemberProfile').css({"background-image" : "url(/bomulsum/upload/"+ modalMemberProfile +")"});
+			$('#minwoo_modal_artImage').attr("src","/bomulsum/upload/" + modalArtImage);
 			
 			//모달에서 폼 으로 데이터 넘길 때 물고가야 할 것들
 			$('#reviewCommentReStatus').val(modalreviewCommentReStatus);
 			$('#memberCodeSeq').val(modalMemberCodeSeq);
 			$('#reviewCodeSeq').val(modalreviewSeq);
 			$('#writerSeq').val(writerSeq);
-			
 	
 			
 			switch(modalStarPoint){

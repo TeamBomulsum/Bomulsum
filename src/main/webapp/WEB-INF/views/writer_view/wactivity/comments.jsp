@@ -317,8 +317,7 @@
 					}
 			  		html += '<tr><td>' + reStatus1 + '</td>'
 			  			+ '<td>' + result[index].comment_date + '</td>'
-			  			+ '<td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\"'
-			  			+ result[index].member_profile
+			  			+ '<td><div class=\"senderArea\"><div class=\"photo\" style=\"background-image : URL(/bomulsum/upload/' + result[index].member_profile + ')\"'
 			  			+ '\" alt=\"사진\"></div>&nbsp;&nbsp;' + result[index].member_name + '</div></td>'
 			  			+ '<td>' + reArtName  + '</td>'
 			  			+ '<td>' + result[index].comment_content + '</td>'

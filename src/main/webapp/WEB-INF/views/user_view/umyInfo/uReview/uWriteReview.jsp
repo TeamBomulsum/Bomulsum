@@ -302,16 +302,15 @@ body a:link, a:visited, a:hover, a:active {
 		
 		
 		<!-- 구매 후기 탭 메뉴 -->
-		<nav style="height:5%; width:100%; display:flex; flex-direction:row;">
+		<nav style="height:50px; width:100%; display:flex; flex-direction:row;">
 			<div id="minwoo_reviewBorder" style="width:50%; height:100%;">
-				<a href="#" class="minwoo_reviewA">구매후기 쓰기</a>
+				<a href="<c:url value='/user/myInfo/review.do'/>" class="minwoo_reviewA">구매후기 쓰기</a>
 			</div>
 			<div id="minwoo_reviewBorderSub" style="width:50%; height:100%;">
 				<a href="<c:url value='/user/myInfo/reviewedList.do'/>" class="minwoo_reviewA" style="color:#BDBDBD;">내가 쓴 구매후기</a>
 			</div>
 		</nav>
 		<!-- 구매 후기 탭 메뉴 종료 -->
-		
 		
 		
 		<!-- 구매후기 쓸 수 있는 작품 리스트 영역 / 구매한 내역이 없을 때 -->
@@ -545,8 +544,8 @@ body a:link, a:visited, a:hover, a:active {
 		
 		var pagingFunc = function(){
 			
-			var pageCount = 5;
-			var totalPage = Math.ceil(result.length / pageCount);
+			//var pageCount = 5;
+			//var totalPage = Math.ceil(result.length / pageCount);
 			var pagination = document.getElementById('pagination');
 			
 			var htmldiv = '';
@@ -554,46 +553,56 @@ body a:link, a:visited, a:hover, a:active {
 			
 			//테이블 그리는 함수
 			var renderTable = function(page){
-				var startNum = (pageCount * (page - 1)); 
-				var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
-
-				for(var index = startNum; index < endNum; index++){
-					artImg = result[index].artPhoto.split(',')[0];
-					
-					htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
-						+ '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
-						+ '<input type=\"hidden\" value=\"' + result[index].bArtCodeSeq +'\" />'
-						+ '<input type=\"hidden\" value=\"' + result[index].bArtName +'\" />'
-						+ '<input type=\"hidden\" value=\"' + result[index].bWriterCodeSeq +'\" />'
-						+ '<input type=\"hidden\" value=\"' + artImg +'\" />'
-						+ '<input type=\"hidden\" value=\"' + result[index].bArtOptionCount +'\" />'
-						+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
-						+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
-						+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
-                        + '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:60px; height:60px\">'
-						+ '</div>'
-						+ '<div style=\"margin-left:10px; margin-top:3px;\">'
-						+ '<div style=\"font-weight:bold;\">'
-						+ '<a href=\"#\" style=\"text-decoration:none;\">' + result[index].bArtName + '</a>'
-						+ '</div>'
-						+ '<div style=\"margin-top:3px;\">'
-						+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
-						+ result[index].writerName + '</a>'
-						+ '</div>'
-						+ '</div>'
-						+ '</div>'
-						+ '<ul class=\"minwoo_contentOptionUl\">'
-						+ '<li>' + result[index].bArtOptionCategory + ' : ' + result[index].bArtOptionName + '</li>'
-						+ '<li> 작품 설명 : ' + result[index].artDescription + '</li>'
-						+ '<li> 구매 일자 : ' + result[index].orderDate + '</li>'
-						+ '<li> 구매 수량 : ' + result[index].bArtOptionCount + '</li>'
-						+ '</ul>'
-						+ '</div>'
-						+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">구매후기 작성하기</button>'
-						+ '</div>';
+				//var startNum = (pageCount * (page - 1)); 
+				//var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
+				
+				if(Array.isArray(result) && result.length) {
+					for(var index = 0; index < result.length; index++){
+						artImg = result[index].artPhoto.split(',')[0];
+						
+						htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
+							+ '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bArtCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bArtName +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bWriterCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + artImg +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bArtOptionCount +'\" />'
+							+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
+							+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
+							+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
+	                        + '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:60px; height:60px\">'
+							+ '</div>'
+							+ '<div style=\"margin-left:10px; margin-top:3px;\">'
+							+ '<div style=\"font-weight:bold;\">'
+							+ '<a href=\"#\" style=\"text-decoration:none;\">' + result[index].bArtName + '</a>'
+							+ '</div>'
+							+ '<div style=\"margin-top:3px;\">'
+							+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
+							+ result[index].writerName + '</a>'
+							+ '</div>'
+							+ '</div>'
+							+ '</div>'
+							+ '<ul class=\"minwoo_contentOptionUl\">'
+							+ '<li>' + result[index].bArtOptionCategory + ' : ' + result[index].bArtOptionName + '</li>'
+							+ '<li> 작품 설명 : ' + result[index].artDescription + '</li>'
+							+ '<li> 구매 일자 : ' + result[index].orderDate + '</li>'
+							+ '<li> 구매 수량 : ' + result[index].bArtOptionCount + '</li>'
+							+ '</ul>'
+							+ '</div>'
+							+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">구매후기 작성하기</button>'
+							+ '</div>';
+					}
+				} else {
+					htmldiv += '<div id=\"noReviewContent\">'
+					+ `<img src="<c:url value='/resources/img/KMWnoReview.png'/>"`
+					+ 'style="width:240px;; height:240px;">'
+					+ '<p style=\"font-weight:bold;color:#BDBDBD;\">'
+					+ '작성할 수 있는 구매후기가 없습니다.'
+					+ '</p>'
+					+ '</div>';
 				}
 				htmldiv = htmldiv.replace(/%20/gi, ' ');
-				$('.minwoo_uWriteReviewList').html(htmldiv);
+				$('#minwoo_uWriteReviewList').html(htmldiv);
 				$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
 			}
 			renderTable(page);
@@ -708,7 +717,6 @@ body a:link, a:visited, a:hover, a:active {
 			
 			formSubmit.submit();	
 		}
-		
 		</script>
 		<!-- 스크립트 -->
 </body>
