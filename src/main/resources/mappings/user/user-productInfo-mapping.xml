@@ -64,6 +64,24 @@
 		<result property="writerPolicyAbout" column="writer_policy_about"/>
 	</resultMap>
 	
+	<resultMap type="com.web.bomulsum.user.productInfo.repository.CommentVO" id="comment">
+		<result column="comment_seq" property="commentSeq"/>
+		<result column="member_code_seq" property="memberCodeSeq"/>
+		<result column="art_code_seq" property="artCodeSeq"/>
+		<result column="comment_content" property="commentContent"/>
+		<result column="comment_status" property="commentStatus"/>
+		<result column="comment_date" property="commentDate"/>
+		<result column="comment_recomment" property="commentRecommente"/>
+		<result column="comment_recomment_date" property="commentRecommentDate"/>
+		<result column="writer_code_seq" property="writerCodeSeq"/>
+			
+			
+			<association property="memberCodeSeq" column="member_code_seq" javaType="com.web.bomulsum.user.productInfo.repository.JoinVO">
+				<result column="member_profile" property="memberProfile"/>
+				<result column="member_name" property="memberName"/>
+			</association>
+	</resultMap>
+	
 	<select id="getListProductInfo" resultMap="artList">
 		SELECT
 			* 
@@ -166,6 +184,62 @@
 		WHERE
 			art_code_seq = #{artCodeSeq}
 	</update>
-	
+	<select id="selectOherProduct" resultMap="artList" >
+		SELECT
+			*
+		FROM
+			art_tb
+		WHERE
+			writer_code_seq=#{writerCodeSeq}
+	</select>
+	<insert id="commentInsert" parameterType="hashMap">
+		INSERT INTO comment_tb
+			(
+			comment_seq,
+			member_code_seq,
+			art_code_seq,
+			comment_content,
+			comment_status,
+			comment_date,
+			writer_code_seq
+			)
+		VALUES(
+			'comment_seq' || TO_CHAR(comment_sq.nextval),
+			#{memberCodeSeq},
+			#{artCodeSeq},
+			#{commentContent},
+			'Y',
+			sysdate,
+			#{writerCodeSeq}
+		)
+	</insert>
+	<select id="commentSelect" resultMap="comment">
+	SELECT
 
+    	member_code_seq,
+    	comment_seq,
+    	art_code_seq,
+    	comment_content,
+    	comment_status,
+    	comment_date,
+    	comment_recomment,
+    	comment_recomment_date,
+    	writer_code_seq,
+    	member_profile,
+    	member_name
+	FROM 
+		comment_tb 
+	JOIN 
+		member_tb 
+	USING
+		(
+			member_code_seq
+		) 
+	WHERE 
+		art_code_seq=#{artCodeSeq} 
+	ORDER BY 
+		comment_date 
+	DESC
+	</select>
+	
 </mapper>

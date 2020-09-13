@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web.bomulsum.user.productInfo.repository.CommentVO;
 import com.web.bomulsum.user.productInfo.repository.ProductInfoDAO;
 import com.web.bomulsum.user.productInfo.repository.WriterVO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
@@ -53,5 +54,20 @@ public class ProductInfoServiceImpl implements ProductInfoService{
 	@Override
 	public void updateViewCount(String artCodeSeq) {
 		dao.updateViewCount(artCodeSeq);
+	}
+
+	@Override
+	public List<WriterArtVO> selectOherProduct(String writerCodeSeq) {
+		return dao.selectOherProduct(writerCodeSeq);
+	}
+
+	@Override
+	public int commentInsert(HashMap<String, String> map) {
+		return dao.commentInsert(map);
+	}
+
+	@Override
+	public List<CommentVO> commentSelect(String artCodeSeq) {
+		return dao.commentSelect(artCodeSeq);
 	}
 }

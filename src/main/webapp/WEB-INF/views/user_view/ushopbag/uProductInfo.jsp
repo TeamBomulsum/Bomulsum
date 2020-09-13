@@ -6,9 +6,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="<c:url value='/resources/vendor/clipboard/clipboard.min.js'/>"></script>
 <script type="text/javascript">
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+var artCodeSeq = '<%= (String)session.getAttribute("artCodeSeq") %>';
+var writerCodeSeq = '<%= (String)session.getAttribute("writerCodeSeq") %>';
+console.log(memberCode);
+
+function artCode(e){
+	var art_code = e.id;
+	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank");
+}
+
 function AddComma(num){
 	var regexp = /\B(?=(\d{3})+(?!\d))/g;
 	return num.toString().replace(regexp, ',');
@@ -188,9 +199,35 @@ window.addEventListener('scroll', () => {
 		document.execCommand("copy"); // 클립보드에 복사합니다.
 		alert("URL이 클립보드에 복사되었습니다.\n원하는 곳에 붙여넣기 해주세요"); 
 	}
-
-	
-
+	function commentUpdate(){
+		var comment = document.getElementById('comment');
+		console.log(artCodeSeq);
+		if(memberCode == 'null'){
+			alert('로그인 후 사용이 가능합니다.');
+			return false;
+		}else if(comment.value == ""){
+			alert('글을 입력해주세요.');
+			return false;
+		}else{
+			$.ajax({
+				type:'get',
+				dataType:'json',
+				data:{
+					"comment":comment.value,
+					"memberCode":memberCode,
+					"artCodeSeq":artCodeSeq,
+					"writerCodeSeq":writerCodeSeq
+				
+				},
+				url:'/bomulsum/user/commentUpdate.do',
+				success: function(jData){
+					console.log(jData.commentList);
+				}
+			});
+		}
+		comment.value = "";
+		alert('등록되었습니다.');
+	}
 
 
 </script>
@@ -425,23 +462,37 @@ window.addEventListener('scroll', () => {
 				</div>
 				
 				<div style="display: flex; justify-content: space-between; margin-top: 10%;; padding: ;">
-					<strong>댓글</strong><a style="color: #AFEEEE; font-size: 80%;" id="wonUProductReview">댓글 더보기</a>
+					<strong>댓글</strong><a style="color: #AFEEEE; font-size: 80%;" id="wonUProductReview"></a>
 				</div>
 				<hr style="border:1px solid black;">
 				<!-- 댓글 -->
 				<div style="margin: 1%; display: flex; justify-content: center; overflow-y: scroll;">
 					<div style="display: flex; flex-direction: column;">
-						<span style="margin-left: 30%;"><i class="fa fa-comment fa-5x"></i></span>
-						<br>
-						<span style="color: #ACACAC;">행운의 첫 댓글을 남겨보세요.</span>
+						<c:if test="${commentList.size() <= 0}">					
+							<span style="margin-left: 30%;"><i class="fa fa-comment fa-5x"></i></span>
+							<br>
+							<span style="color: #ACACAC;">행운의 첫 댓글을 남겨보세요.</span>
+						</c:if>
+						<c:if test="${commentList.size() > 0}">
+							<c:forEach var="b" items="${commentList}">
+								<div style="display: flex; flex-direction: row; width: 100%;">
+									<img style="width: 10%;" src="<c:url value='/uplaod/img/test.png'/>">
+									<span  style="margin: 3%; width: 60%;">${b.commentContent}</span>
+								</div>
+							</c:forEach>
+						</c:if>
+							
 					</div>
 				</div>
 				<hr>
 				<div style="display: flex; flex-direction: row; width: 100%;">
 					<img style="width: 10%;" src="<c:url value='/resources/img/test.png'/>">
-					<input type="text" style="margin: 3%; width: 60%;" placeholder="댓글을 남겨주세요~">
-					<input type="button" value="등록" style="margin: 3%;">
+					<input type="text" id="comment" style="margin: 3%; width: 60%;" placeholder="댓글을 남겨주세요~">
+					<input type="button" value="등록" style="margin: 3%;" onclick="commentUpdate();">
 				</div>
+				<script type="text/javascript">
+				
+				</script>
 				<!-- 댓글 end -->
 			</div>
 			<!-- 상품정보 선택 -->
@@ -574,32 +625,20 @@ window.addEventListener('scroll', () => {
 				</div>
 				<hr>
 				<div style="display: flex; flex-direction: row;">
-					<a style="width: 25%; display: flex; flex-direction: column; padding: 3%;">
-						<img style="width: 99%; background-color: white;" src="<c:url value='/resources/img/test.png'/>">
-						<span style="background-color: white;">이름</span>
-						<span style="background-color: white;">아동 멀티 세수수건 턱받이</span>
+				<c:forEach var="b" items="${otherArt}" end="3">
+					<a style="width: 25%; display: flex; flex-direction: column; padding: 3%;" id="${b.artCodeSeq }" onclick="artCode(this);">
+					<c:forTokens delims="," var="i" items="${b.artPhoto}" end="0">
+						<img id="otherPhto" style="width: 99%; height:150px; background-color: white;" src="<c:url value='/upload/${i}'/>">
+					</c:forTokens>
+						<span style="background-color: white;">${b.artName }</span>
 					</a>
-					<a style="width: 25%; display: flex; flex-direction: column; padding: 3%;">
-						<img style="width: 99%; background-color: white;" src="<c:url value='/resources/img/test.png'/>">
-						<span style="background-color: white;">이름</span>
-						<span style="background-color: white;">아동 멀티 세수수건 턱받이</span>
-					</a>
-					<a style="width: 25%; display: flex; flex-direction: column; padding: 3%;">
-						<img style="width: 99%; background-color: white;" src="<c:url value='/resources/img/test.png'/>">
-						<span style="background-color: white;">이름</span>
-						<span style="background-color: white;">아동 멀티 세수수건 턱받이</span>
-					</a>
-					<a style="width: 25%; display: flex; flex-direction: column; padding: 3%;">
-						<img style="width: 99%; background-color: white;" src="<c:url value='/resources/img/test.png'/>">
-						<span style="background-color: white;">이름</span>
-						<span style="background-color: white;">아동 멀티 세수수건 턱받이</span>
-					</a>
+				</c:forEach>
 				</div>
 			</div>
 			<div style="display: flex;  width: 50%; justify-content: center;">
 				<div style="width: 100%; display: flex; flex-direction:column; padding: 1%; align-self: center;">
-					<img style="align-self: center; width: 15%; height:15%; margin-top: 5%;" src="<c:url value='/resources/img/test.png'/>">
-					<span style="text-align: center;">프로필 이름</span>
+					<img style="align-self: center; width: 15%; height:15%; margin-top: 5%;" src="<c:url value='/upload/${writer.writeProfileImg }'/>">
+					<span style="text-align: center;">${writer.writerBrandName }</span>
 					<span style="align-self:center;">
 						<i class="fa fa-star" aria-hidden="true"></i>
 						<i class="fa fa-star" aria-hidden="true"></i>
@@ -626,9 +665,10 @@ window.addEventListener('scroll', () => {
 	<%@ include file="../include/uFooter.jsp" %>
 </div>
 </body>
+<script type="text/javascript">
+	
+</script>
 </html>
-
-
 
 
 

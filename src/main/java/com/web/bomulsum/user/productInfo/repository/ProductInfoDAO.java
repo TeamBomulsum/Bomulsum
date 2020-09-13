@@ -47,4 +47,13 @@ public class ProductInfoDAO {
 	public void updateViewCount(String artCodeSeq) {
 		template.update("ProductInfoDAO.updateViewCount", artCodeSeq);
 	}
+	public List<WriterArtVO> selectOherProduct(String artCodeSeq) {
+		return template.selectList("ProductInfoDAO.selectOherProduct",artCodeSeq);
+	}
+	public int commentInsert(HashMap<String, String> map) {
+		return template.insert("ProductInfoDAO.commentInsert",map);
+	}
+	public List<CommentVO> commentSelect(String artCodeSeq){
+		return template.selectList("ProductInfoDAO.commentSelect",artCodeSeq);
+	}
 }
