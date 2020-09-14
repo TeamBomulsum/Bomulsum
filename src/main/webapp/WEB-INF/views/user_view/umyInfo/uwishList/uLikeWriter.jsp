@@ -224,11 +224,6 @@ body a:link, a:visited, a:hover, a:active {
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<link href="<c:url value='/resources/css/jqery.bxslider.min.css'/>" rel="stylesheet" type="text/css"/>
-<script src="<c:url value='/resources/js/jquery.bxslider.min.js'/>"></script> --%>
-
-
 
 <script>
 //좋아하는 작가 취소
@@ -254,7 +249,6 @@ body a:link, a:visited, a:hover, a:active {
 
 	});
 	slide();
-	 // $('.bxslider').bxSlider();  // ul에 있는 class명을 기준으로 선언을 합니다. 즉, 이미지구성요소들을 감싸고있는 객체에 선언해 줍니다. 
 
  });
 	

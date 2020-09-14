@@ -25,9 +25,8 @@ public class UserShopbagVO {
 	private int art_price;
 	private int art_discount;
 	private int total_price;
+
 	
-
-
 	@Override
 	public String toString() {
 		return "UserShopbagVO [cart_seq=" + cart_seq + ", art_code_seq=" + art_code_seq + ", member_code_seq="
@@ -163,14 +162,6 @@ public class UserShopbagVO {
 		this.art_option_price3 = art_option_price3;
 	}
 
-	public int getTotal_price() {
-		return total_price;
-	}
-
-	public void setTotal_price(int total_price) {
-		this.total_price = total_price;
-	}
-
 	public String getWriter_brand_name() {
 		return writer_brand_name;
 	}
@@ -225,6 +216,14 @@ public class UserShopbagVO {
 
 	public void setArt_discount(int art_discount) {
 		this.art_discount = art_discount;
+	}
+
+	public int getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
 	}
 
 

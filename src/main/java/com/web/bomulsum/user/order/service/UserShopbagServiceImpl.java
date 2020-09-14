@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.user.order.repository.UserShopbagDAO;
+import com.web.bomulsum.user.order.repository.UserShopbagModalVO;
 import com.web.bomulsum.user.order.repository.UserShopbagOptionVO;
 import com.web.bomulsum.user.order.repository.UserShopbagVO;
 
@@ -19,8 +20,8 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 	UserShopbagDAO dao;
 
 	@Override
-	public List<UserShopbagVO> getShopbagInfo() {
-		return dao.getShopbagInfo();
+	public List<UserShopbagVO> getShopbagInfo(String memberCode) {
+		return dao.getShopbagInfo(memberCode);
 	}
 
 	@Override
@@ -33,8 +34,43 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 	}
 
 	@Override
-	public List<UserShopbagVO> goShopbagModal(HashMap<String, String> map) {
+	public List<UserShopbagModalVO> goShopbagModal(HashMap<String, String> map) {
 		return dao.goShopbagModal(map);
+	}
+
+	@Override
+	public void goOrderRequest(HashMap<String, String> map) {
+		dao.goOrderRequest(map);
+	}
+
+	@Override
+	public void goArtCount(HashMap<String, String> map) {
+		dao.goArtCount(map);
+	}
+
+	@Override
+	public void deleteArt(HashMap<String, String> map) {
+		dao.deleteArt(map);
+	}
+
+	@Override
+	public void deleteChoice(String[] cartCheck) {
+		List<String> list = new ArrayList<String>();
+		for(int i=0; i<cartCheck.length; i++) {
+			list.add(cartCheck[i]);
+		}
+		dao.deleteChoice(list);
+	}
+
+	@Override
+	public List<UserShopbagOptionVO> goShopbagOptionModal(HashMap<String, String> map) {
+		return dao.goShopbagOptionModal(map);
+	}
+
+	@Override
+	public void updateOption(HashMap<String, String> map) {
+		dao.updateOption(map);
+		
 	}
 
 }
