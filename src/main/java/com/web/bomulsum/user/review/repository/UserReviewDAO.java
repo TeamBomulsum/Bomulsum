@@ -13,12 +13,19 @@ public class UserReviewDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	//후기 등록할 수 있는 목록 불러오기
-	public List<UserReviewVO> myReview(String seq){
-		return sqlSessionTemplate.selectList("userReviewDAO.reviewList", seq);
+	public List<UserReviewVO> myReview(UserReviewPagingVO vo){
+		return sqlSessionTemplate.selectList("userReviewDAO.reviewList", vo);
 	}
 	//작성한 후기 목록 불러오기
-	public List<UserReviewVO> myReviewed(String seq){
-		return sqlSessionTemplate.selectList("userReviewDAO.reviewedList", seq);
+	public List<UserReviewVO> myReviewed(UserReviewPagingVO vo){
+		return sqlSessionTemplate.selectList("userReviewDAO.reviewedList", vo);
+	}
+	//페이징 처리를 위한 카운팅
+	public int getReviewCount(String memberSeq) {
+		return sqlSessionTemplate.selectOne("userReviewDAO.getReviewCount", memberSeq);
+	}
+	public int getReviewedCount(String memberSeq) {
+		return sqlSessionTemplate.selectOne("userReviewDAO.getReviewedCount", memberSeq);
 	}
 	
 	

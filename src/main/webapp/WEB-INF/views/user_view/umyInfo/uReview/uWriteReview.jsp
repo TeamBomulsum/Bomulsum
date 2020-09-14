@@ -462,66 +462,9 @@ body a:link, a:visited, a:hover, a:active {
 		<script>
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
 		var userName = '${userName}';
-	
-		/*작업 마무리 못함 추가 작업 필요..*/
-		/*이미지 업로드(and 제거) 썸네일 생성 이벤트*/
-		function fnUpload(){
-			$('#image').click();
-		};
-		var upCheck = false;
-		function setThumbnail(event) {  
-			$(".imageContainer").empty();
-			upCheck = false;
-			for (var image of event.target.files) {
-				var reader = new FileReader(); 
-				reader.onload = function(event) { 
-				
-					var img = document.createElement("img");
-					img.setAttribute("src", event.target.result);
-					
-					// 파일 유효성 검사
-					const fileEx = image.name.slice(image.name.lastIndexOf(".")+1).toLowerCase();
-					if(fileEx != "jpg" && fileEx != "png" && fileEx != "gif" && fileEx != "bmp" && fileEx != "jpeg") {
-					alert('파일은 이미지파일(jpg, jpeg, png, gif, bmp)만 가능합니다.');
-					return false;
-					}
-					      
-					var divEle = document.createElement("a");
-					divEle.appendChild(img);
-					divEle.setAttribute("class","reviewPhotoA");
-					$('.reviewPhotoA').css("margin-left","22px");
-					document.querySelector("div.imageContainer").appendChild(divEle);
-				};
-				console.log(image); 
-				reader.readAsDataURL(image);
-				upCheck = true;
-			}
-			console.log(upCheck);
-			if(upCheck){
-				/* $('#minwoo_review_photo').css("font-size", "12px");
-				$('#minwoo_review_photo').css("text-align", "center");
-				$('#minwoo_review_photo').css("width", "45px"); */
-				$('#minwoo_review_photo').html("다시<br>선택");
-				$('#minwoo_review_photo').removeClass("fa fa-picture-o fa-4x");
-				$('#minwoo_review_photo').addClass("btn2");
-			} else {
-				/* $('#minwoo_review_photo').css("font-size", "");
-				$('#minwoo_review_photo').css("text-align", "");
-				$('#minwoo_review_photo').css("width", ""); */
-				$('#minwoo_review_photo').text("");
-				$('#minwoo_review_photo').removeClass("btn2");
-				$('#minwoo_review_photo').addClass("fa fa-picture-o fa-4x");
-			}
-			/* var divReset = document.createElement("button");
-			divReset.setAttribute("class","resetPhoto");
-			divReset.setAttribute("onClick","fnUpload()");
-			document.querySelector("div.imageContainer").appendChild(divReset);
-			$('.resetPhoto').css("margin-left","22px");
-			$('.resetPhoto').text("다시 등록"); */
-		};
 		
 		// 데이터 넣기
-		var result = new Array();
+	/* 	var result = new Array();
 		
 		<c:forEach var="i" items='${reviewList}'>
 			var json = new Object();//객체로 배열에 담기
@@ -538,10 +481,115 @@ body a:link, a:visited, a:hover, a:active {
 			json.orderDate = `${i.orderDate}`;
 			
 			result.push(json);
-		</c:forEach>
+		</c:forEach> */
 		
-		var page = 1;
+		var page = 1;  //페이징과 같은 방식이라고 생각하면 된다. 
+		var reviewedCheck = 1; //구매 작품 리스트인지, 구매후기 리스트인지 구분용
+		/* $(document).ready(function(){
+			//pagingFunc();
+			 getList(page);
+		     page++;
+		}); */
 		
+		$(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
+		     getList(page);
+		     page++;
+		});
+		 
+		$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+		     if(Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()){
+		          getList(page);
+		           page++;   
+		     } 
+		});
+		
+		function getList(page){
+			$.ajax({
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					'reviewedCheck' : reviewedCheck,
+					'page':page,
+					'member':memberCode
+				},
+				url : '/bomulsum/user/myInfo/reviewInfo.do',
+				success : function(returnData){
+					var htmldiv = '';
+					var artImg = '';
+					var data = returnData.data;
+					
+					console.log(returnData);
+					
+					if(page == 1){
+						$('#minwoo_uWriteReviewList').html('');
+					}
+					if(returnData.startNum <= returnData.totalCnt){
+						if(data.length > 0){
+							for(var i = 0; i < data.length; i++){
+								artImg = data[i].artPhoto.split(',')[0];
+								
+								htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
+									+ '<input type=\"hidden\" value=\"' + data[i].buyArtCodeSeq +'\" />'
+									+ '<input type=\"hidden\" value=\"' + data[i].bArtCodeSeq +'\" />'
+									+ '<input type=\"hidden\" value=\"' + data[i].bArtName +'\" />'
+									+ '<input type=\"hidden\" value=\"' + data[i].bWriterCodeSeq +'\" />'
+									+ '<input type=\"hidden\" value=\"' + artImg +'\" />'
+									+ '<input type=\"hidden\" value=\"' + data[i].bArtOptionCount +'\" />'
+									+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
+									+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
+									+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
+			                        + '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:60px; height:60px\">'
+									+ '</div>'
+									+ '<div style=\"margin-left:10px; margin-top:3px;\">'
+									+ '<div style=\"font-weight:bold;\">'
+									+ '<a href=\"#\" style=\"text-decoration:none;\">' + data[i].bArtName + '</a>'
+									+ '</div>'
+									+ '<div style=\"margin-top:3px;\">'
+									+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
+									+ data[i].writerName + '</a>'
+									+ '</div>'
+									+ '</div>'
+									+ '</div>'
+									+ '<ul class=\"minwoo_contentOptionUl\">'
+									+ '<li>' + data[i].bArtOptionCategory + ' : ' + data[i].bArtOptionName + '</li>'
+									+ '<li> 작품 설명 : ' + data[i].artDescription + '</li>'
+									+ '<li> 구매 일자 : ' + data[i].orderDate + '</li>'
+									+ '<li> 구매 수량 : ' + data[i].bArtOptionCount + '</li>'
+									+ '</ul>'
+									+ '</div>'
+									+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">구매후기 작성하기</button>'
+									+ '</div>';
+							} // end for
+						} else { // 데이터가 없을 때
+							htmldiv += '<div id=\"noReviewContent\">'
+								+ `<img src="<c:url value='/resources/img/KMWnoReview.png'/>"`
+								+ 'style="width:240px;; height:240px;">'
+								+ '<p style=\"font-weight:bold;color:#BDBDBD;\">'
+								+ '작성할 수 있는 구매후기가 없습니다.'
+								+ '</p>'
+								+ '</div>';
+						}//end if
+					}
+					
+					htmldiv = htmldiv.replace(/%20/gi, ' ');
+					if(page == 1){
+						$('#minwoo_uWriteReviewList').html(htmldiv);
+					} else{
+						$('#minwoo_uWriteReviewList').append(htmldiv);
+					}
+					
+					$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
+				
+				}, //end for success
+				error:function(e){
+					if(e.status == 300){
+						alert('데이터를 가져오는데 실패했습니다.');
+					};
+				}
+			});
+		};
+		
+		/* 
 		var pagingFunc = function(){
 			
 			//var pageCount = 5;
@@ -606,7 +654,10 @@ body a:link, a:visited, a:hover, a:active {
 				$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
 			}
 			renderTable(page);
-		};
+		}; */
+		
+		
+		
 		
 		/* 모달 구동 스크립트 영역*/
 		function modalOpen() {
@@ -695,11 +746,68 @@ body a:link, a:visited, a:hover, a:active {
 			$('#alarmContent').val("[ " + modalArtName + " ] 작품에  ${userName} 님께서 새로운 구매후기를 등록 하셨습니다.");
 	
 		};
-		//모달 부분 종료
-		$(document).ready(function(){
-			pagingFunc();
-		});
 		
+		/*이미지 업로드(and 제거) 썸네일 생성 이벤트*/
+		function fnUpload(){
+			$('#image').click();
+		};
+		
+		var upCheck = false;
+		
+		function setThumbnail(event) {  
+			$(".imageContainer").empty();
+			upCheck = false;
+			for (var image of event.target.files) {
+				var reader = new FileReader(); 
+				reader.onload = function(event) { 
+				
+					var img = document.createElement("img");
+					img.setAttribute("src", event.target.result);
+					
+					// 파일 유효성 검사
+					const fileEx = image.name.slice(image.name.lastIndexOf(".")+1).toLowerCase();
+					if(fileEx != "jpg" && fileEx != "png" && fileEx != "gif" && fileEx != "bmp" && fileEx != "jpeg") {
+					alert('파일은 이미지파일(jpg, jpeg, png, gif, bmp)만 가능합니다.');
+					return false;
+					}
+					      
+					var divEle = document.createElement("a");
+					divEle.appendChild(img);
+					divEle.setAttribute("class","reviewPhotoA");
+					$('.reviewPhotoA').css("margin-left","22px");
+					document.querySelector("div.imageContainer").appendChild(divEle);
+				};
+				console.log(image); 
+				reader.readAsDataURL(image);
+				upCheck = true;
+			}
+			console.log(upCheck);
+			if(upCheck){
+				/* $('#minwoo_review_photo').css("font-size", "12px");
+				$('#minwoo_review_photo').css("text-align", "center");
+				$('#minwoo_review_photo').css("width", "45px"); */
+				$('#minwoo_review_photo').html("다시<br>선택");
+				$('#minwoo_review_photo').removeClass("fa fa-picture-o fa-4x");
+				$('#minwoo_review_photo').addClass("btn2");
+			} else {
+				/* $('#minwoo_review_photo').css("font-size", "");
+				$('#minwoo_review_photo').css("text-align", "");
+				$('#minwoo_review_photo').css("width", ""); */
+				$('#minwoo_review_photo').text("");
+				$('#minwoo_review_photo').removeClass("btn2");
+				$('#minwoo_review_photo').addClass("fa fa-picture-o fa-4x");
+			}
+			/* var divReset = document.createElement("button");
+			divReset.setAttribute("class","resetPhoto");
+			divReset.setAttribute("onClick","fnUpload()");
+			document.querySelector("div.imageContainer").appendChild(divReset);
+			$('.resetPhoto').css("margin-left","22px");
+			$('.resetPhoto').text("다시 등록"); */
+		};
+		
+		//모달 부분 종료
+		
+		//등록버튼 이벤트
 		function saveReview(event){
 			event.preventDefault();
 			

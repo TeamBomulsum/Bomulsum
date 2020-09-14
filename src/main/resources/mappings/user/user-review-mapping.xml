@@ -37,33 +37,68 @@
 		
 	</resultMap>
 
-	<!-- 구매후기 쓸 수 있는 구매 상품 목록 불러오기 -->
-	<select id="reviewList" parameterType="String" resultMap="reviewListMap">
-		SELECT ROWNUM AS RNUM, X.*
+	<sql id="header">
+		SELECT Y.*
+		FROM (
+			SELECT ROWNUM AS RNUM, X.*
 			FROM (
-				SELECT
-					a.buy_art_code_seq, a.member_code_seq, a.B_ART_CODE_SEQ,
-					a.B_ART_NAME, a.B_WRITER_CODE_SEQ, a.B_ART_OPTION_CATEGORY,
-					a.B_ART_OPTION_NAME, a.B_ART_OPTION_PRICE, a.B_ART_OPTION_COUNT,
-					a.B_ART_REVIEW_STATUS, a.B_ART_REVIEW, b.art_photo, b.art_description,
-					c.writer_name, d.order_date
-				FROM buy_art_tb a
-				LEFT OUTER JOIN
-					art_tb b ON a.b_art_code_seq = b.art_code_seq
-				LEFT OUTER JOIN
-					writer_tb c ON b.writer_code_seq = c.writer_code_seq
-				LEFT OUTER JOIN
-					order_tb d ON  a.order_code_seq = d.order_code_seq
-				WHERE a.b_art_review_status = 'N' AND a.member_code_seq = #{member}
-				ORDER BY d.order_date DESC
-				) X
+	</sql>
+	<sql id="footer">
+		) X ) Y
+		WHERE Y.RNUM BETWEEN #{startNum} AND #{endNum}
+		<!-- <if test="orderColumn != null and orderValue != null"> -->
+		<!-- </if> -->
+	</sql>
+
+
+	<!-- 페이징을 위한 구매후기 쓸 수 있는 구매 상품 목록 개수 구하기 -->
+	<select id="getReviewCount" parameterType="String" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			buy_art_tb
+		WHERE
+			(
+			b_art_review = 'N' AND member_code_seq = #{memberSeq}
+			)
 	</select>
 	
+	<!-- 구매후기 쓸 수 있는 구매 상품 목록 불러오기 -->
+	<select id="reviewList" resultMap="reviewListMap">
+		<include refid="header" />
+			SELECT
+				a.buy_art_code_seq, a.member_code_seq, a.B_ART_CODE_SEQ,
+				a.B_ART_NAME, a.B_WRITER_CODE_SEQ, a.B_ART_OPTION_CATEGORY,
+				a.B_ART_OPTION_NAME, a.B_ART_OPTION_PRICE, a.B_ART_OPTION_COUNT,
+				a.B_ART_REVIEW_STATUS, a.B_ART_REVIEW, b.art_photo, b.art_description,
+				c.writer_name, d.order_date
+			FROM buy_art_tb a
+			LEFT OUTER JOIN
+				art_tb b ON a.b_art_code_seq = b.art_code_seq
+			LEFT OUTER JOIN
+				writer_tb c ON b.writer_code_seq = c.writer_code_seq
+			LEFT OUTER JOIN
+				order_tb d ON  a.order_code_seq = d.order_code_seq
+			WHERE a.b_art_review = 'N' AND a.member_code_seq = #{memberSeq}
+			ORDER BY d.order_date DESC
+		<include refid="footer" />
+	</select>
+	
+	<!-- 페이징을 위한 작성된 구매 후기 목록 개수 구하기 -->
+	<select id="getReviewedCount" parameterType="String" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			review_tb
+		WHERE
+			(
+			member_code_seq = #{memberSeq}
+			)
+	</select>
 	<!-- 작성한 구매후기 목록 불러오기 -->
 	<!-- 작품 테이블에서 작품 이름, 작품 사진, 맴버 테이블에서 맴버 사진, 맴버 이름, 구매후기 테이블에서 별점, 날짜, 내용 불러와야됨 -->
-	<select id="reviewedList" parameterType="String" resultMap="reviewListMap">
-		SELECT ROWNUM AS RNUM, X.*
-			FROM (
+	<select id="reviewedList" resultMap="reviewListMap">
+		<include refid="header" />
 				SELECT
 					a.review_code_seq, a.review_date, a.review_star, a.review_comment,
 					b.art_photo, b.art_name, b.writer_code_seq,
@@ -78,9 +113,9 @@
 				LEFT OUTER JOIN
 					buy_art_tb d ON a.buy_art_code_seq = d.buy_art_code_seq
 				WHERE
-					a.member_code_seq = #{member}
+					a.member_code_seq = #{memberSeq}
 				ORDER BY a.review_date DESC
-				) X
+		<include refid="footer" />
 	</select>
 
 	<!-- 구매후기 등록 -->

@@ -43,7 +43,6 @@ body a:link, a:visited, a:hover, a:active {
 	font-weight:bold;
 }
 #minwoo_uWriteReviewMeList{
-	height:80%;
 	width:100%;
 	display:flex;
 	flex-wrap:wrap;
@@ -278,7 +277,7 @@ body a:link, a:visited, a:hover, a:active {
 		<script>
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
 		
-		// 데이터 넣기
+		/* // 데이터 넣기
 		var result = new Array();
 		
 		<c:forEach var="i" items='${reviewedList}'>
@@ -296,11 +295,114 @@ body a:link, a:visited, a:hover, a:active {
 			json.bArtReview = '${i.bArtReview}';
 
 			result.push(json);
-		</c:forEach>
+		</c:forEach> */
 		
 		var page = 1;
+		var reviewedCheck = 2; //구매 작품 리스트인지, 구매후기 리스트인지 구분용
 		
-		var pagingFunc = function(){
+		$(document).ready(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
+			getList(page);
+		    page++;
+		});
+		
+		$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+		     if(Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()){
+		          getList(page);
+		           page++;   
+		     } 
+		});
+		
+		function getList(page){
+			$.ajax({
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					'reviewedCheck' : reviewedCheck,
+					'page':page,
+					'member':memberCode
+				},
+				url : '/bomulsum/user/myInfo/reviewInfo.do',
+				success : function(returnData){
+					var htmldiv = '';
+					var artImg = '';
+					var memberImg = '';
+					var data = returnData.data;
+					
+					console.log(returnData);
+					
+					if(page == 1){
+						$('#minwoo_uWriteReviewList').html('');
+					}
+					if(returnData.startNum <= returnData.totalCnt){
+						if(data.length > 0){
+							for(var i = 0; i < data.length; i++){
+								artImg = data[i].artPhoto.split(',')[0];
+								
+								htmldiv += '<div class="minwoo_uWriteReviewMe_ListContent">'
+								+ '<div class="minwoo_uWriteReviewMe_ListContent_body">'
+								+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head">'
+								+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head_photo">'
+								+ '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:100%; height:100%\">'
+								+ '</div>'
+								+ '<div style=" margin-left:10px; margin-top:3px; width:65%; font-weight:bold;">'
+								+ '<a href="#" style="text-decoration:none;">' + data[i].artName + '</a>'
+								+ '</div>'
+								+ '<div class=\"minwoo_starRev\" data-rate=\"' + data[i].reviewStar + '\">'
+								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+								+ '</div>'
+								+ '</div>'
+								+ '<hr>'
+								+ '<div style="height:50px; display:flex; flex-direction:row; align-items:center;">'
+								+ '<div style="height:30px; width:30px; border:1px solid black; border-radius:100%;">'
+								+ '<img src="/bomulsum/upload/' + data[i].memberProfile + '" style="width:100%;height:100%;">'
+								+ '</div>'
+								+ '<div style="height:50px; width:80%; margin-left:10px; font-size:15px; font-weight:bold; display:flex; flex-direction:column;justify-content:center;">'
+								+ '<div>' + data[i].memberName + '</div>'
+								+ '<div style="color:#BDBDBD;">' + data[i].reviewDate + '</div>'
+								+ '</div>'	
+								+ '</div>'
+								+ '<div class="minwoo_reviewComment_div">' + data[i].reviewComment + '</div>'
+								+ '</div>'
+								+ '</div>';
+							} // end for
+						} else { // 데이터가 없을 때
+							htmldiv += '<div id="noReviewContent">'
+								+ `<img src="<c:url value='/resources/img/KMWnoReviewMe.png'/>"`
+								+ 'style="width:240px;; height:240px;">'
+								+ '<p style="font-weight:bold;color:#BDBDBD; text-align:center;">'
+								+ '구매후기를 남겨주시면 작가님이<br>함박 웃음을 지으며 기뻐하신답니다!'
+								+ '</p>'
+								+ '</div>';
+						}//end if
+					}
+					
+					htmldiv = htmldiv.replace(/%20/gi, ' ');
+					if(page == 1){
+						$('#minwoo_uWriteReviewMeList').html(htmldiv);
+					} else{
+						$('#minwoo_uWriteReviewMeList').append(htmldiv);
+					}
+					var starRevPoint = $('.minwoo_starRev');
+						starRevPoint.each(function(){
+							var targetScore = $(this).attr('data-rate');
+							console.log(targetScore);
+							$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
+							$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
+						});
+				}, //end for success
+				error:function(e){
+					if(e.status == 300){
+						alert('데이터를 가져오는데 실패했습니다.');
+					};
+				}
+			});
+		};
+		
+		/* var pagingFunc = function(){
 			
 			//var pageCount = 5;
 			//var totalPage = Math.ceil(result.length / pageCount);
@@ -320,13 +422,13 @@ body a:link, a:visited, a:hover, a:active {
 						artImg = result[index].artPhoto.split(',')[0];
 						
 						htmldiv += '<div class="minwoo_uWriteReviewMe_ListContent">'
-							/* + '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
 							+ '<input type=\"hidden\" value=\"' + result[index].bArtCodeSeq +'\" />'
 							+ '<input type=\"hidden\" value=\"' + result[index].bArtName +'\" />'
 							+ '<input type=\"hidden\" value=\"' + result[index].bWriterCodeSeq +'\" />'
 							+ '<input type=\"hidden\" value=\"' + artImg +'\" />'
 							+ '<input type=\"hidden\" value=\"' + result[index].bArtOptionCount +'\" />'
-							+ '<input type=\"hidden\" value=\"' + result[index].reviewStar +'\" />' */
+							+ '<input type=\"hidden\" value=\"' + result[index].reviewStar +'\" />'
 							+ '<div class="minwoo_uWriteReviewMe_ListContent_body">'
 							+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head">'
 							+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head_photo">'
@@ -371,9 +473,9 @@ body a:link, a:visited, a:hover, a:active {
 				//$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
 			}
 			renderTable(page);
-		};
+		}; */
 		
-		$(document).ready(function(){
+	/* 	$(document).ready(function(){
 			pagingFunc();
 			
 			//목록에서 별점 뿌려주기
@@ -384,7 +486,7 @@ body a:link, a:visited, a:hover, a:active {
 				$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
 				$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
 			});
-		});
+		}); */
 		</script>
 		<!-- 스크립트 -->
 

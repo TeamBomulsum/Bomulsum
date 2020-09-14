@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.user.review.repository.UserReviewDAO;
+import com.web.bomulsum.user.review.repository.UserReviewPagingVO;
 import com.web.bomulsum.user.review.repository.UserReviewVO;
 
 @Service
@@ -16,13 +17,13 @@ public class UserReviewServiceImpl implements UserReviewService {
 	
 	//내가 쓸 수 있는 구매후기 목록
 	@Override
-	public List<UserReviewVO> myReview(String seq) {
-		return dao.myReview(seq);
+	public List<UserReviewVO> myReview(UserReviewPagingVO vo) {
+		return dao.myReview(vo);
 	}
 	//내가 쓴 구매후기 목록
 	@Override
-	public List<UserReviewVO> myReviewed(String seq) {
-		return dao.myReviewed(seq);
+	public List<UserReviewVO> myReviewed(UserReviewPagingVO vo) {
+		return dao.myReviewed(vo);
 	}
 
 	//구매 후기 글 등록
@@ -41,6 +42,14 @@ public class UserReviewServiceImpl implements UserReviewService {
 	@Override
 	public void updateBuyArtTb(UserReviewVO vo) {
 		dao.updateBuyArtTb(vo);
+	}
+	@Override
+	public int getReviewCount(UserReviewPagingVO vo) {
+		return dao.getReviewCount(vo.getMemberSeq());
+	}
+	@Override
+	public int getReviewedCount(UserReviewPagingVO vo) {
+		return dao.getReviewedCount(vo.getMemberSeq());
 	}
 
 

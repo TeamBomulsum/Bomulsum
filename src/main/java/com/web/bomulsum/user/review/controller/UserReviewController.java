@@ -2,6 +2,7 @@ package com.web.bomulsum.user.review.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.bomulsum.user.review.repository.UserReviewPagingVO;
 import com.web.bomulsum.user.review.repository.UserReviewVO;
 import com.web.bomulsum.user.review.service.UserReviewServiceImpl;
 
@@ -29,18 +32,89 @@ public class UserReviewController {
 	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
 	
 	@RequestMapping("/review")
-	public ModelAndView myReview(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String seq = (String)session.getAttribute("member");
-		System.out.println(seq);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("reviewList", service.myReview(seq));
-		mav.setViewName("/umyInfo/uReview/uWriteReview");
-		return mav;
+	public String myReview(HttpServletRequest request) {
+		/*
+		 * HttpSession session = request.getSession(); String seq =
+		 * (String)session.getAttribute("member"); System.out.println(seq);
+		 * 
+		 * ModelAndView mav = new ModelAndView(); mav.addObject("reviewList",
+		 * service.myReview(seq)); mav.setViewName("/umyInfo/uReview/uWriteReview");
+		 * return mav;
+		 */
+		return "/umyInfo/uReview/uWriteReview";
 	}
 	
-	//작품 등록 액션
+	@RequestMapping("/reviewedList")
+	public String myReviewList(HttpServletRequest request) {
+		/*
+		 * HttpSession session = request.getSession(); String seq =
+		 * (String)session.getAttribute("member"); System.out.println(seq);
+		 * 
+		 * ModelAndView mav = new ModelAndView(); mav.addObject("reviewedList",
+		 * service.myReviewed(seq)); mav.setViewName("/umyInfo/uReview/uWriteReviewMe");
+		 */
+		return "/umyInfo/uReview/uWriteReviewMe";
+	}
+	
+	//페이징 처리
+	@ResponseBody
+	@RequestMapping(value="/reviewInfo", method=RequestMethod.POST)
+	public HashMap<String, Object> reviewInfo(
+			@RequestParam(value="reviewedCheck") int reviewedCheck,
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member){
+		System.out.println("멤버 : " + member);
+		String seq = member;
+		System.out.println("seq : " + seq);
+		UserReviewPagingVO vo = new UserReviewPagingVO();
+		vo.setMemberSeq(seq);
+		
+		int totalCnt;
+		
+		if(reviewedCheck == 1) {
+			totalCnt = service.getReviewCount(vo);			
+		} else {
+			totalCnt = service.getReviewedCount(vo);
+		}
+		System.out.println("totalCnt : " + totalCnt);
+		
+		int pageCnt = page;
+		if(pageCnt == 1) {
+			vo.setStartNum(1);
+			if(reviewedCheck == 1) {
+				vo.setEndNum(5);
+			} else {
+				vo.setEndNum(6);
+			}
+		} else {
+			if(reviewedCheck == 1) {
+				vo.setStartNum(pageCnt + (4 * (pageCnt-1)));
+				vo.setEndNum(pageCnt * 5);
+			} else {
+				vo.setStartNum(pageCnt + (5 * (pageCnt-1)));
+				vo.setEndNum(pageCnt * 6);
+			}
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<UserReviewVO> data;
+		
+		if(reviewedCheck == 1) {
+			data = service.myReview(vo);			
+		} else {
+			data = service.myReviewed(vo);
+		}
+		
+		System.out.println("data 개수 : " + data.toArray().length);
+		
+		map.put("totalCnt", totalCnt);
+		map.put("startNum", vo.getStartNum());
+		map.put("data", data);
+		
+		return map;
+	}
+	
+	//구매후기 등록
 	@RequestMapping(value="/reviewRegster", method= {RequestMethod.POST})
 	public ModelAndView insertArtwork(@RequestParam(value="reviewPicture", required=false) List<MultipartFile> mf,
 			 HttpServletRequest request, UserReviewVO vo){
@@ -78,17 +152,5 @@ public class UserReviewController {
 		
 		return mav;
 	}
-		
 	
-	@RequestMapping("/reviewedList")
-	public ModelAndView myReviewList(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String seq = (String)session.getAttribute("member");
-		System.out.println(seq);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("reviewedList", service.myReviewed(seq));
-		mav.setViewName("/umyInfo/uReview/uWriteReviewMe");
-		return mav;
-	}
 }
