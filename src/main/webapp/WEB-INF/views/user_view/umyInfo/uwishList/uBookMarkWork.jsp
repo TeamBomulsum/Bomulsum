@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디어스 | 즐겨찾는작품</title>
+<title>보물섬 | 즐겨찾는작품</title>
 <style>
 .content {
 	width: 70%;
@@ -35,13 +35,13 @@ body a:link, a:visited, a:hover, a:active {
 
 
 /*------------------ 다인추가 ------------------------*/
-.dndud_main_category_contents{
+.dain_main_category_contents{
 	display:flex;
 	width:100%;
 	flex-wrap: wrap;
 }
 
-.dndud_main_category_content_box{
+.dain_main_category_content_box{
 	width:23%; /* 4개씩 보여주기 (5개씩은 19%)*/
 	margin-left:1%; 
 	margin-right:1%; 
@@ -51,7 +51,7 @@ body a:link, a:visited, a:hover, a:active {
 	font-size:13px;
 }
 
-.dndud_main_category_content_box:hover{
+.dain_main_category_content_box:hover{
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: .5s;
 }
@@ -252,7 +252,7 @@ function getList(page){
 			var data = returnData.data;
 			console.log(returnData);
 			if(page == 1){
-				$('.dndud_main_category_contents').html('');
+				$('.dain_main_category_contents').html('');
 			}
 			if(returnData.startNum <= returnData.totalCnt){
 				if(data.length > 0){
@@ -270,7 +270,7 @@ function getList(page){
 						//가격 할인율
 						pricePer = (data[i].artPrice - data[i].artDiscount) / data[i].artPrice * 100;
 						
-						htmldiv += '<div class="dndud_main_category_content_box" onclick="artCode(this);" id="'+data[i].artCode+'">'
+						htmldiv += '<div class="dain_main_category_content_box" onclick="artCode(this);" id="'+data[i].artCode+'">'
 							+ '<input class="artCode" type="hidden" value="'+ data[i].artCode +'"/>'
 							+ '<div class="content_img" style="background-image: URL(\'/bomulsum/upload/'
 							+ artImg +'\' )">';
@@ -320,9 +320,9 @@ function getList(page){
 			
 			htmldiv = htmldiv.replace(/%20/gi, ' ');
 			if(page == 1){
-				$('.dndud_main_category_contents').html(htmldiv);				
+				$('.dain_main_category_contents').html(htmldiv);				
 			}else{
-				$('.dndud_main_category_contents').append(htmldiv);
+				$('.dain_main_category_contents').append(htmldiv);
 			}
 			
 			$(".fs").click(likeArticleFunc);
@@ -430,7 +430,7 @@ likeArticleFunc = function(e){
 		</div>
 		
 		<!-- 작품들 들어갈 부분 -->
-		<div class="dndud_main_category_contents">
+		<div class="dain_main_category_contents">
 		
 		</div>
 <%-- 		<div style="maring-top:1%;">

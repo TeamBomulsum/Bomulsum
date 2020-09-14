@@ -19,6 +19,9 @@ import com.web.bomulsum.user.article.repository.UserArticlePagingVO;
 import com.web.bomulsum.user.article.service.UserArticleService;
 import com.web.bomulsum.user.bookmark.repository.UserBookmarkVO;
 import com.web.bomulsum.user.bookmark.service.UserBookmarkWorkService;
+import com.web.bomulsum.user.midas.repository.UserMidasPagingVO;
+import com.web.bomulsum.user.midas.repository.UserMidasVO;
+import com.web.bomulsum.user.midas.service.UserMidasServiceImpl;
 
 @Controller
 @RequestMapping(value = "/user/wishlist")
@@ -30,7 +33,11 @@ public class UserBookmarkWorkController {
 	@Autowired
 	private UserArticleService article_service;
 	
+	@Autowired
+	private UserMidasServiceImpl midas_service;
 	
+	
+	//북마크 작품 ----------------------------------------------------
 	@RequestMapping(value = "/bookmarkWork")
 	public ModelAndView bookmarkWork(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/umyInfo/uwishList/uBookMarkWork");
@@ -80,6 +87,38 @@ public class UserBookmarkWorkController {
 	public ModelAndView bookmarkOffline(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/umyInfo/uwishList/uBookMarkOffline");
 		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/bookmarkOffinfo", method=RequestMethod.POST)
+	public HashMap<String, Object> bookmarkOfflineInfo(
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member) {
+		//UserMidasPagingVO vo = new UserMidasPagingVO();
+		UserBookmarkVO vo = new UserBookmarkVO();
+		vo.setMemberCode(member);
+		System.out.println("vo확인:"+vo);
+		int totalCnt = service.bookmarkOfflineCount(vo);
+		
+		int pageCnt = page;
+		if(pageCnt == 1) {
+			vo.setStartNum(1);
+			vo.setEndNum(12);
+		} else {
+			vo.setStartNum(pageCnt+ (11*(pageCnt-1)));
+			vo.setEndNum(pageCnt*12);
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<UserMidasVO> data = service.bookmarkOffline(vo);
+		map.put("totalCnt", totalCnt);
+		map.put("startNum", vo.getStartNum());
+		map.put("data", data);
+		
+		if(!member.equals("null") || member != null) {
+			map.put("wishList",midas_service.getLikeClass(member));
+		}
+		
+		return map;
 	}
 	
 	

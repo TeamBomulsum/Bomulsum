@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디어스 | 즐겨찾는온라인</title>
+<title>보물섬 | 즐겨찾는 온라인 클래스</title>
 <style>
 .content {
 	width: 70%;
@@ -148,15 +148,15 @@ body a:link, a:visited, a:hover, a:active {
 					</div>
 				</div>
 				
-		</div>
+		</div>--%>
 		<div style="display: flex; flex-direction: row; justify-content:center; margin: 2%;">
-						<a id="wonBookContent">
+						<!-- <a id="wonBookContent">
 							<span style="text-align: center;">&lt;이전 |</span>
-						</a>
-						<a id="wonBookContent">
+						</a> -->
+						<a style="font-size: 12px; color:#b4b4b4; margin-top: 50px; font-weight: bold; cursor: pointer;">
 							<span style="text-align: center;">| 다음&gt;</span>
 						</a>
-		</div> --%>
+		</div> 
 	</div>
 	
 	
