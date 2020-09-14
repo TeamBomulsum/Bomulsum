@@ -71,7 +71,7 @@
 		<result column="comment_content" property="commentContent"/>
 		<result column="comment_status" property="commentStatus"/>
 		<result column="comment_date" property="commentDate"/>
-		<result column="comment_recomment" property="commentRecommente"/>
+		<result column="comment_recomment" property="commentRecomment"/>
 		<result column="comment_recomment_date" property="commentRecommentDate"/>
 		<result column="writer_code_seq" property="writerCodeSeq"/>
 			
