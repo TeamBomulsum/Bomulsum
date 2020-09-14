@@ -3,6 +3,7 @@ package com.web.bomulsum.user.productInfo.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.web.bomulsum.user.productInfo.repository.CommentVO;
 import com.web.bomulsum.user.productInfo.repository.WriterVO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
 import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
@@ -16,4 +17,7 @@ public interface ProductInfoService {
 	
 	public void selectRecentyleView(HashMap<String, String> map);
 	public void updateViewCount(String artCodeSeq);
+	public List<WriterArtVO> selectOherProduct(String writerCodeSeq); 
+	public int commentInsert(HashMap<String, String> map);
+	public List<CommentVO> commentSelect(String artCodeSeq);
 }
