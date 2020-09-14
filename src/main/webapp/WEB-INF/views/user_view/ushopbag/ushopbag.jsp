@@ -855,7 +855,7 @@ button:focus{
 						<tr class="content_area_first">
 							<td class="area_img">
 								<div class="checkList">
-								<input class="chkbox" type="checkbox" name="selectCheck">
+								<input class="chkbox" type="checkbox" name="selectCheck" id="selected">
 								</div>
 								<div class="imgbg">
 									<img style="width:64px; height:64px;" src="<c:url value='/upload/${info.art_photo}'/>"/>
@@ -1346,11 +1346,10 @@ $(function(){
 		
 	});
 	
-	
 	//선택삭제
 	$(".deleteChoice").click(function(e){
 		var arr = [];
-		var $items = $(".checkList").find("input:checkbox:checked");
+		var $items = $(".checkList").find("input[id=selected]:checked");
 		
 		$items.each(function () {
         	var $this = $(this);
@@ -1374,17 +1373,102 @@ $(function(){
    	 		success : function(){
      	 		 alert('삭제되었습니다.');
       			 location.reload(true);
+      			 arr.length = 0;
     		},
    			 error : function(err){
        		console.log(err);
   		  }
- 		}).done(function(data){
- 			console.log(data);
-		 });
-	}    
+ 		});
+	}
 	
+	//선택 작품 주문
+	$(".order_Choice").click(function(e){
+		var arr = [];
+		var $items = $(".checkList").find("input[id=selected]:checked");
+		$items.each(function () {
+        	var $this = $(this);
+        	var $cartSeq = $(this).closest("table").find('.cart_seq').text();
+        	arr.push($cartSeq);
+    	});
+		console.log(arr);
+		 var data = {
+			      "cartCode" : arr,
+			}
+		console.log(data);
+		orderArt(data); 
+	});
 	
-	// 모달 띄우기 - 정아
+	//선택주문 값 넘기기
+  	function orderArt(data){   
+		 $.ajax({
+ 	  		 url:"/bomulsum/user/payment.do",
+   	 		data:data,
+   	 		success : function(){
+    		},
+   			error : function(err){
+       			console.log(err);
+  		  }
+ 		});
+	}  
+	
+	//전체 작품 주문
+	$(".order_All").click(function(e){
+		$("#selectAll").prop("checked",true);
+		$("input[name=selectCheck]").prop("checked",true);
+		$("#nowChecked").html( $("input[name=selectCheck]").length/2);
+		
+		if($("input[name=selectCheck]").is(":checked") == true) {
+	       	var $items = $(".checkList").find("input:checkbox:checked");
+	      	var $artTotal = $("#total_art_price");
+	       	var $delTotal = $("#total_delivery_price");
+	       	var $cartTotal = $("#total_cart_price");
+	       	var cur_total = 0;
+	       	var del_total = 0;
+	        
+	       	$items.each(function () {
+	           	var $this = $(this);
+	           	var $artPrice = $(this).closest("table").find('.cost_text').text();
+	           	var $deliveryPrice = $(this).closest("table").find('.delivery_cost').children().next().children().first().text();
+	           	var item_value = $artPrice;
+	           	var del_value = $deliveryPrice;
+	            	
+	           	cur_total += Number(item_value);
+	           	del_total += Number(del_value);
+	       	});
+	        
+	       	$artTotal.html((cur_total / 2)+"원"); 
+	       	$delTotal.html((del_total / 2)+"원"); 
+	       	$cartTotal.html(((cur_total+del_total)/2) +"원");   
+	      }
+		   
+		var arr = [];
+		var $items = $(".checkList").find("input[id=selected]:checked");
+		$items.each(function () {
+        	var $this = $(this);
+        	var $cartSeq = $(this).closest("table").find('.cart_seq').text();
+        	arr.push($cartSeq);
+    	});
+		console.log(arr);
+		 var data = {
+			      "cartCode" : arr,
+			}
+		orderAllArt(data); 
+	});
+	
+	//전체작품주문 값 넘기기
+  	function orderAllArt(data){   
+		 $.ajax({
+ 	  		 url:"/bomulsum/user/payment.do",
+   	 		data:data,
+   	 		success : function(){
+    		},
+   			error : function(err){
+       			console.log(err);
+  		  }
+ 		});
+	}  
+	
+	// 모달 띄우기 
 	$(".option_update").click(function(e){
 		var $button = $(this);
 		var $cartseq = $button.parent().next().text();
@@ -1509,6 +1593,7 @@ $(function(){
 		$(".detail-modal").css("display","none");
 		codearr.length = 0;
 		selectedPrice.length = 0;
+		location.reload(true);
 	});
 	
 	//옵션 취소
@@ -1516,6 +1601,7 @@ $(function(){
 		$(".detail-modal").css("display","none");
 		codearr.length = 0;
 		selectedPrice.length = 0;
+		location.reload(true);
 	})
 
 	//옵션 설정하기
