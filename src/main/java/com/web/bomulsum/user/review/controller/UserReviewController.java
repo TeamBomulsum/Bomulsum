@@ -22,7 +22,7 @@ import com.web.bomulsum.user.review.repository.UserReviewVO;
 import com.web.bomulsum.user.review.service.UserReviewServiceImpl;
 
 @Controller
-@RequestMapping(value="/user/myInfo")
+@RequestMapping(value="/user")
 public class UserReviewController {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class UserReviewController {
 //	private static final String SAVE_PATH_AWS = "/upload";	//aws 경로
 	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
 	
-	@RequestMapping("/review")
+	@RequestMapping("/myInfo/review")
 	public String myReview(HttpServletRequest request) {
 		/*
 		 * HttpSession session = request.getSession(); String seq =
@@ -44,7 +44,7 @@ public class UserReviewController {
 		return "/umyInfo/uReview/uWriteReview";
 	}
 	
-	@RequestMapping("/reviewedList")
+	@RequestMapping("/myInfo/reviewedList")
 	public String myReviewList(HttpServletRequest request) {
 		/*
 		 * HttpSession session = request.getSession(); String seq =
@@ -58,7 +58,7 @@ public class UserReviewController {
 	
 	//페이징 처리
 	@ResponseBody
-	@RequestMapping(value="/reviewInfo", method=RequestMethod.POST)
+	@RequestMapping(value="/myInfo/reviewInfo", method=RequestMethod.POST)
 	public HashMap<String, Object> reviewInfo(
 			@RequestParam(value="reviewedCheck") int reviewedCheck,
 			@RequestParam(value="page") int page,
@@ -66,6 +66,7 @@ public class UserReviewController {
 		System.out.println("멤버 : " + member);
 		String seq = member;
 		System.out.println("seq : " + seq);
+		
 		UserReviewPagingVO vo = new UserReviewPagingVO();
 		vo.setMemberSeq(seq);
 		
@@ -115,7 +116,7 @@ public class UserReviewController {
 	}
 	
 	//구매후기 등록
-	@RequestMapping(value="/reviewRegster", method= {RequestMethod.POST})
+	@RequestMapping(value="/myInfo/reviewRegster", method= {RequestMethod.POST})
 	public ModelAndView insertArtwork(@RequestParam(value="reviewPicture", required=false) List<MultipartFile> mf,
 			 HttpServletRequest request, UserReviewVO vo){
 		
@@ -125,32 +126,45 @@ public class UserReviewController {
         vo.setMemberCodeSeq(seq);
         System.out.println("강민 맴버코드 찍기 : " + vo.getMemberCodeSeq());
         
-        //사진 경로 설정
-  		String result="";
-  		
-  		for (MultipartFile file : mf) {
-  			String originalfileName = file.getOriginalFilename();
-  			String saveFile = System.currentTimeMillis() + originalfileName;
-  			try {
-  				file.transferTo(new File(SAVE_PATH, saveFile)); 
-  			}catch(IllegalStateException e) { e.printStackTrace();}
-  			catch(IOException e) { e.printStackTrace();	}
-  			
-  			result += saveFile+",";
-  		}	
-  		vo.setReviewPhoto(result);
-  		System.out.println(vo.toString());
-		//리뷰 등록 & 구매작품 테이블에서 구매후기상태를 Y로 변경 & 작가한테 해당 작품에 구매후기 등록되었음을 알림 으로 등록
-  		service.insertReview(vo);
-		service.insertAlarmTb(vo);
-		service.updateBuyArtTb(vo);
-		
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("checkReg", 1); // 뷰로 보낼 데이터 값
+        ModelAndView mav = new ModelAndView();
+        
+        System.out.println(vo.getbArtReviewStatus());
+        
+        //처음 등록하는 거
+        if(vo.getbArtReviewStatus().equals("N")) {
+        	//사진 경로 설정
+      		String result="";
+      		
+      		for (MultipartFile file : mf) {
+      			String originalfileName = file.getOriginalFilename();
+      			String saveFile = System.currentTimeMillis() + originalfileName;
+      			try {
+      				file.transferTo(new File(SAVE_PATH, saveFile)); 
+      			}catch(IllegalStateException e) { e.printStackTrace();}
+      			catch(IOException e) { e.printStackTrace();	}
+      			
+      			result += saveFile+",";
+      		}	
+      		vo.setReviewPhoto(result);
+      		System.out.println(vo.toString());
+    		//리뷰 등록 & 구매작품 테이블에서 구매후기상태를 Y로 변경 & 작가한테 해당 작품에 구매후기 등록되었음을 알림 으로 등록
+      		service.insertReview(vo);
+    		service.updateBuyArtTb(vo);
+    		mav.addObject("checkReg", 1); // 뷰로 보낼 데이터 값
+        } else {
+        	service.updateReview(vo);
+        	service.updateBuyArtTb2(vo);
+        	mav.addObject("checkReg", 2); // 뷰로 보낼 데이터 값
+        }
+        service.insertAlarmTb(vo);
+
 		mav.setViewName("redirect:/user/myInfo/review.do");
 		
 		return mav;
 	}
 	
+	@RequestMapping("/realtimeReview")
+	public String realtimeReview(HttpServletRequest request) {
+		return "/ucategory/uRealtimeReview";
+	}
 }

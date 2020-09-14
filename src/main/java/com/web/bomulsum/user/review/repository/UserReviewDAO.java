@@ -46,7 +46,7 @@ public class UserReviewDAO {
 	}
 	//구매내역테이블 업데이트
 	public void updateBuyArtTb(UserReviewVO vo) {
-		sqlSessionTemplate.insert("userReviewDAO.updateBuyArtTb", vo);
+		sqlSessionTemplate.update("userReviewDAO.updateBuyArtTb", vo);
 	}
 	public void updateBuyArtTb2(UserReviewVO vo) {
 		sqlSessionTemplate.update("userReviewDAO.updateBuyArtTb2", vo);

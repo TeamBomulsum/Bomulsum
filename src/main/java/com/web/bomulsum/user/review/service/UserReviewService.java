@@ -12,8 +12,11 @@ public interface UserReviewService {
 	List<UserReviewVO> myReviewed(UserReviewPagingVO vo);
 	
 	void insertReview(UserReviewVO vo);
+	void updateReview(UserReviewVO vo);
+
 	void insertAlarmTb(UserReviewVO vo);
 	void updateBuyArtTb(UserReviewVO vo);
+	void updateBuyArtTb2(UserReviewVO vo);
 	
 	int getReviewCount(UserReviewPagingVO vo);
 	int getReviewedCount(UserReviewPagingVO vo);

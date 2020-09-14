@@ -34,6 +34,7 @@
 		<result column="writer_code_seq" property="writerCodeSeq" />
 		<result column="member_name" property="memberName" />
 		<result column="member_profile" property="memberProfile" />
+		<result column="review_photo" property="reviewPhoto" />
 		
 	</resultMap>
 
@@ -71,14 +72,16 @@
 				a.B_ART_NAME, a.B_WRITER_CODE_SEQ, a.B_ART_OPTION_CATEGORY,
 				a.B_ART_OPTION_NAME, a.B_ART_OPTION_PRICE, a.B_ART_OPTION_COUNT,
 				a.B_ART_REVIEW_STATUS, a.B_ART_REVIEW, b.art_photo, b.art_description,
-				c.writer_name, d.order_date
+				c.writer_name, d.order_date, e.review_code_seq, e.review_comment, e.review_star, e.review_photo
 			FROM buy_art_tb a
 			LEFT OUTER JOIN
 				art_tb b ON a.b_art_code_seq = b.art_code_seq
 			LEFT OUTER JOIN
 				writer_tb c ON b.writer_code_seq = c.writer_code_seq
 			LEFT OUTER JOIN
-				order_tb d ON  a.order_code_seq = d.order_code_seq
+				order_tb d ON a.order_code_seq = d.order_code_seq
+			LEFT OUTER JOIN
+				review_tb e ON a.buy_art_code_seq = e.buy_art_code_seq
 			WHERE a.b_art_review = 'N' AND a.member_code_seq = #{memberSeq}
 			ORDER BY d.order_date DESC
 		<include refid="footer" />
@@ -147,8 +150,9 @@
 			review_tb
 		SET
 			review_comment = #{reviewComment},
-			review_star = #{reviewStar},
-			review_photo = #{reviewPhoto}
+			review_star = #{reviewStar}
+		WHERE
+			review_code_seq = #{reviewCodeSeq}
 	</update>
 	
 	
@@ -190,6 +194,9 @@
 		)
 	</insert>
 
+	<!-- 실시간 구매 후기 -->
+	<select id="realtimeReview" resultMap="reviewListMap">
+	</select>
 	<!-- 구매목록 불러오기 -->
  	<!-- <select id="" parameterType="String" resultMap="">
  		SELECT * FROM buy_art_tb

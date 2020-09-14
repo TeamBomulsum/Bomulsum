@@ -31,6 +31,11 @@ public class UserReviewServiceImpl implements UserReviewService {
 	public void insertReview(UserReviewVO vo) {
 		dao.insertReview(vo);
 	}
+	//구매 후기 글 수정
+	@Override
+	public void updateReview(UserReviewVO vo) {
+		dao.updateReview(vo);
+	}
 
 	//알람 등록
 	@Override
@@ -43,6 +48,13 @@ public class UserReviewServiceImpl implements UserReviewService {
 	public void updateBuyArtTb(UserReviewVO vo) {
 		dao.updateBuyArtTb(vo);
 	}
+	//구매작품 테이블 구매후기 수정 최종
+	@Override
+	public void updateBuyArtTb2(UserReviewVO vo) {
+		dao.updateBuyArtTb2(vo);
+	}
+	
+	
 	@Override
 	public int getReviewCount(UserReviewPagingVO vo) {
 		return dao.getReviewCount(vo.getMemberSeq());
@@ -51,6 +63,5 @@ public class UserReviewServiceImpl implements UserReviewService {
 	public int getReviewedCount(UserReviewPagingVO vo) {
 		return dao.getReviewedCount(vo.getMemberSeq());
 	}
-
 
 }

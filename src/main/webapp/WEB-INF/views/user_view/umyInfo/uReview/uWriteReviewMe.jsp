@@ -273,6 +273,7 @@ body a:link, a:visited, a:hover, a:active {
 	<%@ include file="../../include/uFooter.jsp" %>
 </div>
 
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 		<!--스크립트 -->
 		<script>
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
@@ -362,7 +363,7 @@ body a:link, a:visited, a:hover, a:active {
 								+ '</div>'
 								+ '<div style="height:50px; width:80%; margin-left:10px; font-size:15px; font-weight:bold; display:flex; flex-direction:column;justify-content:center;">'
 								+ '<div>' + data[i].memberName + '</div>'
-								+ '<div style="color:#BDBDBD;">' + data[i].reviewDate + '</div>'
+								+ '<div style="color:#BDBDBD;">' + moment(data[i].reviewDate).format("YYYY-MM-DD") + '</div>'
 								+ '</div>'	
 								+ '</div>'
 								+ '<div class="minwoo_reviewComment_div">' + data[i].reviewComment + '</div>'
@@ -387,12 +388,12 @@ body a:link, a:visited, a:hover, a:active {
 						$('#minwoo_uWriteReviewMeList').append(htmldiv);
 					}
 					var starRevPoint = $('.minwoo_starRev');
-						starRevPoint.each(function(){
+					starRevPoint.each(function(){
 							var targetScore = $(this).attr('data-rate');
 							console.log(targetScore);
 							$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
 							$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
-						});
+					});
 				}, //end for success
 				error:function(e){
 					if(e.status == 300){
@@ -401,92 +402,6 @@ body a:link, a:visited, a:hover, a:active {
 				}
 			});
 		};
-		
-		/* var pagingFunc = function(){
-			
-			//var pageCount = 5;
-			//var totalPage = Math.ceil(result.length / pageCount);
-			//var pagination = document.getElementById('pagination');
-			
-			var htmldiv = '';
-			var artImg = '';
-			var memberImg = '';
-			
-			//테이블 그리는 함수
-			var renderTable = function(page){
-				//var startNum = (pageCount * (page - 1)); 
-				//var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
-				
-				if(Array.isArray(result) && result.length) {
-					for(var index = 0; index < result.length; index++){
-						artImg = result[index].artPhoto.split(',')[0];
-						
-						htmldiv += '<div class="minwoo_uWriteReviewMe_ListContent">'
-							+ '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
-							+ '<input type=\"hidden\" value=\"' + result[index].bArtCodeSeq +'\" />'
-							+ '<input type=\"hidden\" value=\"' + result[index].bArtName +'\" />'
-							+ '<input type=\"hidden\" value=\"' + result[index].bWriterCodeSeq +'\" />'
-							+ '<input type=\"hidden\" value=\"' + artImg +'\" />'
-							+ '<input type=\"hidden\" value=\"' + result[index].bArtOptionCount +'\" />'
-							+ '<input type=\"hidden\" value=\"' + result[index].reviewStar +'\" />'
-							+ '<div class="minwoo_uWriteReviewMe_ListContent_body">'
-							+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head">'
-							+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head_photo">'
-							+ '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:100%; height:100%\">'
-							+ '</div>'
-							+ '<div style=" margin-left:10px; margin-top:3px; width:65%; font-weight:bold;">'
-							+ '<a href="#" style="text-decoration:none;">' + result[index].artName + '</a>'
-							+ '</div>'
-							+ '<div class=\"minwoo_starRev\" data-rate=\"' + result[index].reviewStar + '\">'
-							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-							+ '</div>'
-							+ '</div>'
-							+ '<hr>'
-							+ '<div style="height:50px; display:flex; flex-direction:row; align-items:center;">'
-							+ '<div style="height:30px; width:30px; border:1px solid black; border-radius:100%;">'
-							+ '<img src="/bomulsum/upload/' + result[index].memberProfile + '" style="width:100%;height:100%;">'
-							+ '</div>'
-							+ '<div style="height:50px; width:80%; margin-left:10px; font-size:15px; font-weight:bold; display:flex; flex-direction:column;justify-content:center;">'
-							+ '<div>' + result[index].memberName + '</div>'
-							+ '<div style="color:#BDBDBD;">' + result[index].reviewDate + '</div>'
-							+ '</div>'	
-							+ '</div>'
-							+ '<div class="minwoo_reviewComment_div">' + result[index].reviewComment + '</div>'
-							+ '</div>'
-							+ '</div>';
-					}
-				} else {
-					htmldiv += '<div id="noReviewContent">'
-					+ `<img src="<c:url value='/resources/img/KMWnoReviewMe.png'/>"`
-					+ 'style="width:240px;; height:240px;">'
-					+ '<p style="font-weight:bold;color:#BDBDBD; text-align:center;">'
-					+ '구매후기를 남겨주시면 작가님이<br>함박 웃음을 지으며 기뻐하신답니다!'
-					+ '</p>'
-					+ '</div>';
-				}
-				htmldiv = htmldiv.replace(/%20/gi, ' ');
-				$('#minwoo_uWriteReviewMeList').html(htmldiv);
-				//$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
-			}
-			renderTable(page);
-		}; */
-		
-	/* 	$(document).ready(function(){
-			pagingFunc();
-			
-			//목록에서 별점 뿌려주기
-			var starRevPoint = $('.minwoo_starRev');
-			starRevPoint.each(function(){
-				var targetScore = $(this).attr('data-rate');
-				console.log(targetScore);
-				$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
-				$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
-			});
-		}); */
 		</script>
 		<!-- 스크립트 -->
 
