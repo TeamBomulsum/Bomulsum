@@ -8,8 +8,10 @@ public interface UserReviewService {
 
 	
 	List<UserReviewVO> myReview(String seq);
+	List<UserReviewVO> myReviewed(String seq);
 	
 	void insertReview(UserReviewVO vo);
+	void insertAlarmTb(UserReviewVO vo);
+	void updateBuyArtTb(UserReviewVO vo);
 	
-	void insertAlarm(UserReviewVO vo);
 }

@@ -46,7 +46,6 @@ body a:link, a:visited, a:hover, a:active {
 #minwoo_uWriteReviewList{
 	height:80%;
 	width:100%;
-	overflow:auto;
 	display:flex;
 	flex-direction:column;
 }
@@ -251,13 +250,19 @@ body a:link, a:visited, a:hover, a:active {
 </style>
 </head>
 <body>
-<div>
 	<c:if test="${empty member}">
 		<script>
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='<c:url value="/user/login.do"/>';
 		</script>
 	</c:if>
+	<c:if test="${param.checkReg eq 1}">
+		<script type="text/javascript">
+			alert("글이 등록 되었습니다.");
+			location.href="/bomulsum/user/myInfo/review.do";
+		</script>
+	</c:if>
+<div>
 
 	<!-- 헤더 -->
 	<%@ include file="../../include/uHeader.jsp"  %>
@@ -297,16 +302,15 @@ body a:link, a:visited, a:hover, a:active {
 		
 		
 		<!-- 구매 후기 탭 메뉴 -->
-		<nav style="height:5%; width:100%; display:flex; flex-direction:row;">
+		<nav style="height:50px; width:100%; display:flex; flex-direction:row;">
 			<div id="minwoo_reviewBorder" style="width:50%; height:100%;">
-				<a href="#" class="minwoo_reviewA">구매후기 쓰기</a>
+				<a href="<c:url value='/user/myInfo/review.do'/>" class="minwoo_reviewA">구매후기 쓰기</a>
 			</div>
 			<div id="minwoo_reviewBorderSub" style="width:50%; height:100%;">
 				<a href="<c:url value='/user/myInfo/reviewedList.do'/>" class="minwoo_reviewA" style="color:#BDBDBD;">내가 쓴 구매후기</a>
 			</div>
 		</nav>
 		<!-- 구매 후기 탭 메뉴 종료 -->
-		
 		
 		
 		<!-- 구매후기 쓸 수 있는 작품 리스트 영역 / 구매한 내역이 없을 때 -->
@@ -385,10 +389,11 @@ body a:link, a:visited, a:hover, a:active {
 						<!-- 불러올 구매한 작품 영역 끝 -->
 
 						<!--입력 부분 시작-->
-						<form id="minwoo_modal_form" action="<c:url value=''/> " method="post" enctype="multipart/form-data" name="formSubmit">
+						<form id="minwoo_modal_form" action="<c:url value='/user/myInfo/reviewRegster.do'/> " method="post" enctype="multipart/form-data" name="formSubmit">
 							<input type="hidden" id="writerCodeSeq" name="writerCodeSeq" />
 							<input type="hidden" id="artCodeSeq" name="artCodeSeq" />
 							<input type="hidden" id="buyArtCodeSeq" name="buyArtCodeSeq" />
+							<input type="hidden" id="alarmContent" name="alarmContent" />
 							<div style="border: 1px solid #D8D8D8; margin-top: 2%;">
 								<!-- 별점 시작-->
 								<div style="height: 120px; background-color: #F2F2F2; display: flex; flex-direction: column;">
@@ -399,7 +404,7 @@ body a:link, a:visited, a:hover, a:active {
 											<span class="minwoo_starR1">5</span> <span class="minwoo_starR2">6</span>
 											<span class="minwoo_starR1">7</span> <span class="minwoo_starR2">8</span>
 											<span class="minwoo_starR1">9</span> <span class="minwoo_starR2">10</span>
-											<input type="hidden" id="starReview" name="starReview"/>
+											<input type="hidden" id="reviewStar" name="reviewStar"/>
 										</div>
 									</div>
 									<div style="height: 30%; text-align: center; display: flex; justify-content: center; font-size: 13px;">
@@ -419,7 +424,7 @@ body a:link, a:visited, a:hover, a:active {
 									<div id="minwoo_review_photo_line" style="height:70px; border:1px solid; display:flex; flex-direction:row; align-items:center;">
 										<div id="minwoo_review_photo" onClick="fnUpload();" class="fa fa-picture-o fa-4x" aria-hidden="true"
 											style="margin-left:22px;"></div>
-										<input type="file" id="image" name="reviewPhoto" onchange="setThumbnail(event);" style="display:none;" accept="image/*" multiple />
+										<input type="file" id="image" name="reviewPicture" onchange="setThumbnail(event);" style="display:none;" accept="image/*" multiple />
                         				<div class="imageContainer"></div>
 									</div>
 									<p style="font-size:14px;">
@@ -456,13 +461,13 @@ body a:link, a:visited, a:hover, a:active {
 		<!--스크립트 -->
 		<script>
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
+		var userName = '${userName}';
 	
 		/*작업 마무리 못함 추가 작업 필요..*/
 		/*이미지 업로드(and 제거) 썸네일 생성 이벤트*/
 		function fnUpload(){
 			$('#image').click();
 		};
-		
 		var upCheck = false;
 		function setThumbnail(event) {  
 			$(".imageContainer").empty();
@@ -499,7 +504,6 @@ body a:link, a:visited, a:hover, a:active {
 				$('#minwoo_review_photo').html("다시<br>선택");
 				$('#minwoo_review_photo').removeClass("fa fa-picture-o fa-4x");
 				$('#minwoo_review_photo').addClass("btn2");
-				btn2
 			} else {
 				/* $('#minwoo_review_photo').css("font-size", "");
 				$('#minwoo_review_photo').css("text-align", "");
@@ -540,8 +544,8 @@ body a:link, a:visited, a:hover, a:active {
 		
 		var pagingFunc = function(){
 			
-			var pageCount = 5;
-			var totalPage = Math.ceil(result.length / pageCount);
+			//var pageCount = 5;
+			//var totalPage = Math.ceil(result.length / pageCount);
 			var pagination = document.getElementById('pagination');
 			
 			var htmldiv = '';
@@ -549,46 +553,56 @@ body a:link, a:visited, a:hover, a:active {
 			
 			//테이블 그리는 함수
 			var renderTable = function(page){
-				var startNum = (pageCount * (page - 1)); 
-				var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
-
-				for(var index = startNum; index < endNum; index++){
-					artImg = result[index].artPhoto.split(',')[0];
-					
-					htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
-						+ '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
-						+ '<input type=\"hidden\" value=\"' + result[index].bArtCodeSeq +'\" />'
-						+ '<input type=\"hidden\" value=\"' + result[index].bArtName +'\" />'
-						+ '<input type=\"hidden\" value=\"' + result[index].bWriterCodeSeq +'\" />'
-						+ '<input type=\"hidden\" value=\"' + artImg +'\" />'
-						+ '<input type=\"hidden\" value=\"' + result[index].bArtOptionCount +'\" />'
-						+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
-						+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
-						+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
-                        + '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:60px; height:60px\">'
-						+ '</div>'
-						+ '<div style=\"margin-left:10px; margin-top:3px;\">'
-						+ '<div style=\"font-weight:bold;\">'
-						+ '<a href=\"#\" style=\"text-decoration:none;\">' + result[index].bArtName + '</a>'
-						+ '</div>'
-						+ '<div style=\"margin-top:3px;\">'
-						+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
-						+ result[index].writerName + '</a>'
-						+ '</div>'
-						+ '</div>'
-						+ '</div>'
-						+ '<ul class=\"minwoo_contentOptionUl\">'
-						+ '<li>' + result[index].bArtOptionCategory + ' : ' + result[index].bArtOptionName + '</li>'
-						+ '<li> 작품 설명 : ' + result[index].artDescription + '</li>'
-						+ '<li> 구매 일자 : ' + result[index].orderDate + '</li>'
-						+ '<li> 구매 수량 : ' + result[index].bArtOptionCount + '</li>'
-						+ '</ul>'
-						+ '</div>'
-						+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">구매후기 작성하기</button>'
-						+ '</div>';
+				//var startNum = (pageCount * (page - 1)); 
+				//var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
+				
+				if(Array.isArray(result) && result.length) {
+					for(var index = 0; index < result.length; index++){
+						artImg = result[index].artPhoto.split(',')[0];
+						
+						htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
+							+ '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bArtCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bArtName +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bWriterCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + artImg +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bArtOptionCount +'\" />'
+							+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
+							+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
+							+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
+	                        + '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:60px; height:60px\">'
+							+ '</div>'
+							+ '<div style=\"margin-left:10px; margin-top:3px;\">'
+							+ '<div style=\"font-weight:bold;\">'
+							+ '<a href=\"#\" style=\"text-decoration:none;\">' + result[index].bArtName + '</a>'
+							+ '</div>'
+							+ '<div style=\"margin-top:3px;\">'
+							+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
+							+ result[index].writerName + '</a>'
+							+ '</div>'
+							+ '</div>'
+							+ '</div>'
+							+ '<ul class=\"minwoo_contentOptionUl\">'
+							+ '<li>' + result[index].bArtOptionCategory + ' : ' + result[index].bArtOptionName + '</li>'
+							+ '<li> 작품 설명 : ' + result[index].artDescription + '</li>'
+							+ '<li> 구매 일자 : ' + result[index].orderDate + '</li>'
+							+ '<li> 구매 수량 : ' + result[index].bArtOptionCount + '</li>'
+							+ '</ul>'
+							+ '</div>'
+							+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">구매후기 작성하기</button>'
+							+ '</div>';
+					}
+				} else {
+					htmldiv += '<div id=\"noReviewContent\">'
+					+ `<img src="<c:url value='/resources/img/KMWnoReview.png'/>"`
+					+ 'style="width:240px;; height:240px;">'
+					+ '<p style=\"font-weight:bold;color:#BDBDBD;\">'
+					+ '작성할 수 있는 구매후기가 없습니다.'
+					+ '</p>'
+					+ '</div>';
 				}
 				htmldiv = htmldiv.replace(/%20/gi, ' ');
-				$('.minwoo_uWriteReviewList').html(htmldiv);
+				$('#minwoo_uWriteReviewList').html(htmldiv);
 				$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
 			}
 			renderTable(page);
@@ -613,24 +627,21 @@ body a:link, a:visited, a:hover, a:active {
 		var modalOptionCount;
 		var modalArtName;
 		
-		//구매후기 인써트할 때 값
-		var reviewStar;
-		
 		var modal = function(){
 			/* 별점 주기 스크립트 영역 */
 			$('.minwoo_starRev span').click(function(){
-				  $(this).parent().children('span').removeClass('on');
-				  $(this).addClass('on').prevAll('span').addClass('on');
-				  reviewStar = $(this).val();
-				  console.log(reviewStar);
-				  return false;
-				});
+		  		$(this).parent().children('span').removeClass('on');
+		  		$(this).addClass('on').prevAll('span').addClass('on');
+			  	return false;
+			});
+		
+			//구매후기 인써트할 때 값
 			// 별점 값 저장
 			$('.minwoo_starRev span').click(function(){
 				var targetNum = $(this).index() + 1;
-				console.log(targetNum);
+				console.log("이게 타겟넘?" + targetNum);
+				$('#reviewStar').val(targetNum);
 			});
-			$('#starReview').val(reviewStar);
 			/* 별점 주기 스크립트 영역*/
 			
 			//글자수 제한
@@ -681,6 +692,7 @@ body a:link, a:visited, a:hover, a:active {
 			$('#buyArtCodeSeq').val(modalBuyArtCode);
 			$('#artCodeSeq').val(modalArtCode);
 			$('#writerCodeSeq').val(modalWriterCode);
+			$('#alarmContent').val("[ " + modalArtName + " ] 작품에  ${userName} 님께서 새로운 구매후기를 등록 하셨습니다.");
 	
 		};
 		//모달 부분 종료
@@ -691,7 +703,11 @@ body a:link, a:visited, a:hover, a:active {
 		function saveReview(event){
 			event.preventDefault();
 			
-			let reviewComment = document.getElementById('reviewComment');
+			/* let reviewComment = document.getElementById('reviewComment');
+			console.log('폼 데이터 입력 값 = ' + 'buyArtCodeSeq : ' + $('#buyArtCodeSeq').val() + ' / '
+						+ 'artCodeSeq : ' + $('#artCodeSeq').val()+ ' / ' + 'writerCodeSeq : ' +$('#writerCodeSeq').val() + ' / '
+						+ 'alarmContent : ' + $('#alarmContent').val() + ' / ' + 'reviewPhoto : ' + $('#image').val() + ' / '
+						+ 'reviewComment : ' + $('#reviewComment').val()); */
 			
 			if(reviewComment.value == ''){
 				alert('후기 내용을 입력해 주세요.');
@@ -701,7 +717,6 @@ body a:link, a:visited, a:hover, a:active {
 			
 			formSubmit.submit();	
 		}
-		
 		</script>
 		<!-- 스크립트 -->
 </body>

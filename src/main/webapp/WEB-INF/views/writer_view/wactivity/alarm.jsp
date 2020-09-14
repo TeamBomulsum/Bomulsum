@@ -249,7 +249,7 @@
 			
 			//여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
 			for(var index = startNum; index < endNum; index++){//아랫줄 background-image로 교체하기
-		  		html += '<tr><td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\"' + result[index].member_profile
+		  		html += '<tr><td><div class=\"senderArea\"><div class=\"photo\" style=\"background-image : URL(/bomulsum/upload/' + result[index].member_profile + ')\"'
 		  			+ 'alt=\"\"></div>&nbsp;&nbsp;' + result[index].memberName + '</div></td>'
 		  			+ '<td>' + result[index].alarmDate + '</td>'
 		  			+ '<td>' + result[index].alarmTitle + '</td>'

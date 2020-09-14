@@ -45,7 +45,6 @@ body a:link, a:visited, a:hover, a:active {
 #minwoo_uWriteReviewMeList{
 	height:80%;
 	width:100%;
-	overflow:auto;
 	display:flex;
 	flex-wrap:wrap;
 }
@@ -84,9 +83,73 @@ body a:link, a:visited, a:hover, a:active {
 	height:60px;
 }
 
+/*별점 표현하기*/
+.minwoo_starRev{
+/* 	width:100%;
+	height:30px;
+	margin-left: 5px;
+    margin-right: 5px;
+    margin-top:7px;
+    margin-bottom: 7px; */
+    display: inline-flex;
+}
+
+.minwoo_starR1{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat -38px 0;
+    background-size: auto 100%;
+    width: 11px;
+    height: 22px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR2{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat right 0;
+    background-size: auto 100%;
+    width: 11px;
+    height: 22px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR1.on{background-position:0 0;}
+.minwoo_starR2.on{background-position:-11px 0;}
+
+.minwoo_reviewComment_div{
+	margin-top:5px;
+	overflow: auto;
+	height: 50px;
+	font-size: 14.5px;
+}
+.minwoo_reviewComment_div::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+.minwoo_reviewComment_div::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+.minwoo_reviewComment_div::-webkit-scrollbar-track {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+ }
+
 </style>
 </head>
 <body>
+	<c:if test="${empty member}">
+		<script>
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='<c:url value="/user/login.do"/>';
+		</script>
+	</c:if>
+	<c:if test="${param.checkReg eq 1}">
+		<script type="text/javascript">
+			alert("글이 수정 되었습니다.");
+			location.href="/bomulsum/user/myInfo/reviewedList.do";
+		</script>
+	</c:if>
 <div>
 	<!-- 헤더 -->
 	<%@ include file="../../include/uHeader.jsp"  %>
@@ -126,12 +189,12 @@ body a:link, a:visited, a:hover, a:active {
 		
 		
 		<!-- 구매 후기 탭 메뉴 -->
-		<nav style="height:5%; width:100%; display:flex; flex-direction:row;">
+		<nav style="height:50px; width:100%; display:flex; flex-direction:row;">
 			<div id="minwoo_reviewBorderSub" style="width:50%; height:100%;">
-				<a href="#" class="minwoo_reviewA" style="color:#BDBDBD;">구매후기 쓰기</a>
+				<a href="<c:url value='/user/myInfo/review.do'/>" class="minwoo_reviewA">구매후기 쓰기</a>
 			</div>
 			<div id="minwoo_reviewBorder" style="width:50%; height:100%;">
-				<a href="#" class="minwoo_reviewA">내가 쓴 구매후기</a>
+				<a href="<c:url value='/user/myInfo/reviewedList.do'/>" class="minwoo_reviewA" style="color:#BDBDBD;">내가 쓴 구매후기</a>
 			</div>
 		</nav>
 		<!-- 구매 후기 탭 메뉴 종료 -->
@@ -160,9 +223,9 @@ body a:link, a:visited, a:hover, a:active {
 		<!-- DB에서 값 불러오기 -->
 		<!-- 구매후기 리스트 영역 시작 -->
 		
-			<div id="minwoo_uWriteReviewMeList">
+			<div id="minwoo_uWriteReviewMeList" class="minwoo_uWriteReviewMeList">
 			
-				<c:forEach var="i" begin="1" end="10">
+				<%-- <c:forEach var="i" begin="1" end="10">
 				<div class="minwoo_uWriteReviewMe_ListContent">
 					<div class="minwoo_uWriteReviewMe_ListContent_body">
 						<div class="minwoo_uWriteReviewMe_ListContent_body_head">
@@ -194,7 +257,7 @@ body a:link, a:visited, a:hover, a:active {
 						<!-- 남긴 댓글 부분 -->
 					</div>
 				</div>
-				</c:forEach>
+				</c:forEach> --%>
 				
 			</div>
 			
@@ -213,7 +276,115 @@ body a:link, a:visited, a:hover, a:active {
 
 		<!--스크립트 -->
 		<script>
+		var memberCode = '<%= (String)session.getAttribute("member") %>';
+		
+		// 데이터 넣기
+		var result = new Array();
+		
+		<c:forEach var="i" items='${reviewedList}'>
+			var json = new Object();//객체로 배열에 담기
+			json.reviewCodeSeq = '${i.reviewCodeSeq}';
+			json.reviewDate = '${i.reviewDate}';
+			json.reviewStar = '${i.reviewStar}';
+			json.reviewComment = `${i.reviewComment}`;
+			json.artPhoto = `${i.artPhoto}`;
+			json.artName = '${i.artName}';
+			json.writerCodeSeq = '${i.writerCodeSeq}';
+			json.memberName = '${i.memberName}';
+			json.memberProfile = `${i.memberProfile}`;
+			json.bArtReviewStatus = '${i.bArtReviewStatus}';
+			json.bArtReview = '${i.bArtReview}';
 
+			result.push(json);
+		</c:forEach>
+		
+		var page = 1;
+		
+		var pagingFunc = function(){
+			
+			//var pageCount = 5;
+			//var totalPage = Math.ceil(result.length / pageCount);
+			//var pagination = document.getElementById('pagination');
+			
+			var htmldiv = '';
+			var artImg = '';
+			var memberImg = '';
+			
+			//테이블 그리는 함수
+			var renderTable = function(page){
+				//var startNum = (pageCount * (page - 1)); 
+				//var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
+				
+				if(Array.isArray(result) && result.length) {
+					for(var index = 0; index < result.length; index++){
+						artImg = result[index].artPhoto.split(',')[0];
+						
+						htmldiv += '<div class="minwoo_uWriteReviewMe_ListContent">'
+							/* + '<input type=\"hidden\" value=\"' + result[index].buyArtCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bArtCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bArtName +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bWriterCodeSeq +'\" />'
+							+ '<input type=\"hidden\" value=\"' + artImg +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].bArtOptionCount +'\" />'
+							+ '<input type=\"hidden\" value=\"' + result[index].reviewStar +'\" />' */
+							+ '<div class="minwoo_uWriteReviewMe_ListContent_body">'
+							+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head">'
+							+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head_photo">'
+							+ '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:100%; height:100%\">'
+							+ '</div>'
+							+ '<div style=" margin-left:10px; margin-top:3px; width:65%; font-weight:bold;">'
+							+ '<a href="#" style="text-decoration:none;">' + result[index].artName + '</a>'
+							+ '</div>'
+							+ '<div class=\"minwoo_starRev\" data-rate=\"' + result[index].reviewStar + '\">'
+							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+							+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+							+ '</div>'
+							+ '</div>'
+							+ '<hr>'
+							+ '<div style="height:50px; display:flex; flex-direction:row; align-items:center;">'
+							+ '<div style="height:30px; width:30px; border:1px solid black; border-radius:100%;">'
+							+ '<img src="/bomulsum/upload/' + result[index].memberProfile + '" style="width:100%;height:100%;">'
+							+ '</div>'
+							+ '<div style="height:50px; width:80%; margin-left:10px; font-size:15px; font-weight:bold; display:flex; flex-direction:column;justify-content:center;">'
+							+ '<div>' + result[index].memberName + '</div>'
+							+ '<div style="color:#BDBDBD;">' + result[index].reviewDate + '</div>'
+							+ '</div>'	
+							+ '</div>'
+							+ '<div class="minwoo_reviewComment_div">' + result[index].reviewComment + '</div>'
+							+ '</div>'
+							+ '</div>';
+					}
+				} else {
+					htmldiv += '<div id="noReviewContent">'
+					+ `<img src="<c:url value='/resources/img/KMWnoReviewMe.png'/>"`
+					+ 'style="width:240px;; height:240px;">'
+					+ '<p style="font-weight:bold;color:#BDBDBD; text-align:center;">'
+					+ '구매후기를 남겨주시면 작가님이<br>함박 웃음을 지으며 기뻐하신답니다!'
+					+ '</p>'
+					+ '</div>';
+				}
+				htmldiv = htmldiv.replace(/%20/gi, ' ');
+				$('#minwoo_uWriteReviewMeList').html(htmldiv);
+				//$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
+			}
+			renderTable(page);
+		};
+		
+		$(document).ready(function(){
+			pagingFunc();
+			
+			//목록에서 별점 뿌려주기
+			var starRevPoint = $('.minwoo_starRev');
+			starRevPoint.each(function(){
+				var targetScore = $(this).attr('data-rate');
+				console.log(targetScore);
+				$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
+				$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
+			});
+		});
 		</script>
 		<!-- 스크립트 -->
 
