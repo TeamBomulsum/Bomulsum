@@ -167,4 +167,61 @@ public class UserReviewController {
 	public String realtimeReview(HttpServletRequest request) {
 		return "/ucategory/uRealtimeReview";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/realtimReviewInfo", method=RequestMethod.POST)
+	public HashMap<String, Object> realtimeReviewInfo(
+			@RequestParam(value="reviewedCheck") int reviewedCheck,
+			@RequestParam(value="page") int page,
+			@RequestParam(value="member") String member){
+		System.out.println("멤버 : " + member);
+		String seq = member;
+		System.out.println("seq : " + seq);
+		
+		UserReviewPagingVO vo = new UserReviewPagingVO();
+		
+		int totalCnt;
+		
+		if(reviewedCheck == 1) {
+			totalCnt = service.getReviewCount(vo);			
+		} else {
+			totalCnt = service.getReviewedCount(vo);
+		}
+		System.out.println("totalCnt : " + totalCnt);
+		
+		int pageCnt = page;
+		if(pageCnt == 1) {
+			vo.setStartNum(1);
+			if(reviewedCheck == 1) {
+				vo.setEndNum(5);
+			} else {
+				vo.setEndNum(6);
+			}
+		} else {
+			if(reviewedCheck == 1) {
+				vo.setStartNum(pageCnt + (4 * (pageCnt-1)));
+				vo.setEndNum(pageCnt * 5);
+			} else {
+				vo.setStartNum(pageCnt + (5 * (pageCnt-1)));
+				vo.setEndNum(pageCnt * 6);
+			}
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<UserReviewVO> data;
+		
+		if(reviewedCheck == 1) {
+			data = service.myReview(vo);			
+		} else {
+			data = service.myReviewed(vo);
+		}
+		
+		System.out.println("data 개수 : " + data.toArray().length);
+		
+		map.put("totalCnt", totalCnt);
+		map.put("startNum", vo.getStartNum());
+		map.put("data", data);
+		
+		return map;
+	}
 }

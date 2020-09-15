@@ -54,6 +54,9 @@ public class UserReviewVO {
 	
 	private String alarmContent;
 
+	private String gRnum;
+	private String dateNum;
+	
 	public String getReviewCodeSeq() {
 		return reviewCodeSeq;
 	}
@@ -366,6 +369,22 @@ public class UserReviewVO {
 		this.alarmContent = alarmContent;
 	}
 
+	public String getgRnum() {
+		return gRnum;
+	}
+
+	public void setgRnum(String gRnum) {
+		this.gRnum = gRnum;
+	}
+
+	public String getDateNum() {
+		return dateNum;
+	}
+
+	public void setDateNum(String dateNum) {
+		this.dateNum = dateNum;
+	}
+
 	@Override
 	public String toString() {
 		return "UserReviewVO [reviewCodeSeq=" + reviewCodeSeq + ", orderCodeSeq=" + orderCodeSeq + ", memberCodeSeq="
@@ -382,12 +401,7 @@ public class UserReviewVO {
 				+ ", bArtOptionPrice=" + bArtOptionPrice + ", bArtOptionCount=" + bArtOptionCount
 				+ ", bArtReviewStatus=" + bArtReviewStatus + ", bArtReview=" + bArtReview + ", artPhoto=" + artPhoto
 				+ ", artDescription=" + artDescription + ", writerName=" + writerName + ", orderDate=" + orderDate
-				+ ", alarmContent=" + alarmContent + "]";
+				+ ", alarmContent=" + alarmContent + ", gRnum=" + gRnum + ", dateNum=" + dateNum + "]";
 	}
-	
-	
-	
-	
-
 	
 }

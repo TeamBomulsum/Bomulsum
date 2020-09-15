@@ -20,4 +20,5 @@ public interface UserReviewService {
 	
 	int getReviewCount(UserReviewPagingVO vo);
 	int getReviewedCount(UserReviewPagingVO vo);
+	int getRealTimeReviewCount(UserReviewPagingVO vo);
 }

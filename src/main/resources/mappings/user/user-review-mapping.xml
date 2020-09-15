@@ -36,6 +36,9 @@
 		<result column="member_profile" property="memberProfile" />
 		<result column="review_photo" property="reviewPhoto" />
 		
+		<result column="grnum" property="gRnum"/>
+		<result column="datenum" property="dateNum"/>
+		
 	</resultMap>
 
 	<sql id="header">
@@ -196,7 +199,58 @@
 
 	<!-- 실시간 구매 후기 -->
 	<select id="realtimeReview" resultMap="reviewListMap">
+	<include refid="header" />
+		SELECT
+		    g.art_code_seq, g.art_photo, g.art_name, g.writer_name,
+		    LISTAGG(g.review_star, '|-%-|') WITHIN GROUP (order by g.datenum) AS review_star,
+		    LISTAGG(g.review_comment, '|-%-|') WITHIN GROUP (order by g.datenum) AS review_comment,
+		    LISTAGG(g.member_name, '|-%-|') WITHIN GROUP (order by g.datenum) AS member_name,
+		    LISTAGG(g.datenum, '|-%-|') WITHIN GROUP (order by g.datenum) AS datenum,
+		    LISTAGG(g.grnum, '|-%-|') WITHIN GROUP (order by g.datenum) AS grnum
+		FROM
+		    (
+		        SELECT
+		           f.* 
+		        FROM
+		        (
+		            SELECT
+		                a.art_code_seq, a.art_photo, a.art_name, b.writer_name,
+		                c.review_star, c.review_comment, c.review_date,
+		                d.member_name, RANK() OVER(order by c.review_date DESC) AS datenum,
+		                ROW_NUMBER() OVER(PARTITION BY a.art_code_seq ORDER BY a.art_code_seq, c.review_date DESC) AS grnum
+		            FROM
+		                art_tb a
+		            LEFT OUTER JOIN
+		                writer_tb b ON a.writer_code_seq = b.writer_code_seq
+		            LEFT OUTER JOIN
+		                review_tb c ON a.art_code_seq = c.art_code_seq
+		            LEFT OUTER JOIN
+		                member_tb d ON c.member_code_seq = d.member_code_seq
+		            LEFT OUTER JOIN
+		                buy_art_tb e ON c.buy_art_code_seq = e.buy_art_code_seq
+		            WHERE e.b_art_review_status = 'Y'
+		        ) f
+		        WHERE f.grnum between 1 and 3
+		    ) g
+		GROUP BY g.art_code_seq, g.art_photo, g.art_name, g.writer_name
+		ORDER BY datenum
+	<include refid="footer" />
 	</select>
+	
+	<!-- 페이징을 위한 작품별 구매 후기 목록 개수 구하기 -->
+	<select id="getRealTimeReviewCount" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+		    (
+		    SELECT
+		        art_code_seq
+		    FROM
+		        review_tb
+		    GROUP BY art_code_seq
+		    )
+	</select>
+	
 	<!-- 구매목록 불러오기 -->
  	<!-- <select id="" parameterType="String" resultMap="">
  		SELECT * FROM buy_art_tb

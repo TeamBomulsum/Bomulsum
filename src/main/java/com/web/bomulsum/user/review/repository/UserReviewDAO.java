@@ -20,12 +20,17 @@ public class UserReviewDAO {
 	public List<UserReviewVO> myReviewed(UserReviewPagingVO vo){
 		return sqlSessionTemplate.selectList("userReviewDAO.reviewedList", vo);
 	}
+	
+	
 	//페이징 처리를 위한 카운팅
 	public int getReviewCount(String memberSeq) {
 		return sqlSessionTemplate.selectOne("userReviewDAO.getReviewCount", memberSeq);
 	}
 	public int getReviewedCount(String memberSeq) {
 		return sqlSessionTemplate.selectOne("userReviewDAO.getReviewedCount", memberSeq);
+	}
+	public int getRealTimeReviewCount() {
+		return sqlSessionTemplate.selectOne("userReviewDAO.getRealTimeReviewCount");
 	}
 	
 	

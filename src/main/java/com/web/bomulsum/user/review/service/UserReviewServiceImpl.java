@@ -63,5 +63,9 @@ public class UserReviewServiceImpl implements UserReviewService {
 	public int getReviewedCount(UserReviewPagingVO vo) {
 		return dao.getReviewedCount(vo.getMemberSeq());
 	}
+	@Override
+	public int getRealTimeReviewCount(UserReviewPagingVO vo) {
+		return dao.getRealTimeReviewCount();
+	}
 
 }
