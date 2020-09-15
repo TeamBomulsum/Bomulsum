@@ -8,8 +8,21 @@
 <title>보물섬 | 주문 결제하기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+$(document).ready(function(){
+	
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
 
-$(document).ready(function () {
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
+
+});
+
+$(function(){
 	$('.dain_payment_customer_info').click(function(){
 		if ( $(".dain_payment_customer_info_detail").css("display") == "none" ){
 			 $('.dain_payment_customer_info_detail').show();
@@ -31,6 +44,29 @@ $(document).ready(function () {
 		}
 	
 	  });
+	
+	/* 모달 */
+	$('#dain_coupon_use').click(function(){
+		$('.detail-modal').css("display", "block");
+	});
+	
+	//x버튼
+	$(".report-modal__close").click(function(){
+		$(".detail-modal").css("display","none");
+	});
+	
+	//쿠폰선택 취소
+	$("#cancleUpdate").click(function(){
+		$(".detail-modal").css("display","none");
+	})
+	
+
+
+})
+
+
+$(document).ready(function () {
+
 });
 
 </script>
@@ -50,7 +86,8 @@ $(document).ready(function () {
 
 .dainUpTitle {
 	margin-bottom: 24px;
-	width: 100%; display : flex;
+	width: 100%;
+	display: flex;
 	justify-content: space-between;
 	display: flex;
 }
@@ -133,11 +170,9 @@ body a:link, a:visited, a:hover, a:active {
 .dain_payment_customer {
 	background-color: white;
 	width: 56%;
-	
-	
 }
 
-.dain_flex_title{
+.dain_flex_title {
 	background-color: white;
 	border: 1px solid #d9d9d9;
 	font-size: 16px;
@@ -147,7 +182,7 @@ body a:link, a:visited, a:hover, a:active {
 	justify-content: space-between;
 }
 
-.dain_payment_customer_info_detail{
+.dain_payment_customer_info_detail {
 	background-color: white;
 	border-bottom: 1px solid #d9d9d9;
 	border-left: 1px solid #d9d9d9;
@@ -155,10 +190,12 @@ body a:link, a:visited, a:hover, a:active {
 	padding: 0px 12px;
 	font-size: 12px;
 }
-.dain_customer_name{
+
+.dain_customer_name {
 	color: #22a7af;
 }
-.dainChButton{
+
+.dainChButton {
 	margin-left: 5px;
 	background-color: white;
 	border: 1px solid #1f76bb;
@@ -169,40 +206,40 @@ body a:link, a:visited, a:hover, a:active {
 	color: #1f76bb;
 }
 
-.dain_customer_table{
+.dain_customer_table {
 	padding-top: 12px;
 }
-.dainth{
+
+.dainth {
 	width: 24%;
 	padding-bottom: 20px;
 	color: #666666;
 	font-size: 12px;
 }
-.daintd{
+
+.daintd {
 	padding-bottom: 20px;
 	font-size: 12px;
 }
 
-
-.dainTitle{
+.dainTitle {
 	font-size: 16px;
 	font-weight: bold;
 	padding: 20px 0px;
 }
 
-.dain_payment_address{
+.dain_payment_address {
 	padding: 0px 12px;
 	background-color: white;
 	border: 1px solid #d9d9d9;
 	margin-top: 18px;
 }
 
-
-.dain_tab_button{
+.dain_tab_button {
 	display: flex;
 }
 
-.dain_tab_btn{
+.dain_tab_btn {
 	background-color: white;
 	border: 1px solid #d9d9d9;
 	border-radius: 2px;
@@ -211,27 +248,26 @@ body a:link, a:visited, a:hover, a:active {
 	color: #ACACAC;
 }
 
-.dainem{
+.dainem {
 	color: #dd5850;
 	font-size: 18px;
 	display: inline-block;
 	margin-right: 10px;
 }
 
-.dainInput{
+.dainInput {
 	background: #fff;
-    font-size: 12px;
-    line-height: 13px;
-    height: 26px;
-    min-width: 96%;
-    border: 1px solid #d9d9d9;
-    border-radius: 3px;
-    padding: 2px 8px;
-    outline: none;
-    
+	font-size: 12px;
+	line-height: 13px;
+	height: 26px;
+	min-width: 96%;
+	border: 1px solid #d9d9d9;
+	border-radius: 3px;
+	padding: 2px 8px;
+	outline: none;
 }
 
-.dainBtn{
+.dainBtn {
 	background-color: white;
 	border: 1px solid #d9d9d9;
 	border-radius: 3px;
@@ -240,7 +276,7 @@ body a:link, a:visited, a:hover, a:active {
 	font-size: 12px;
 }
 
-.dain_order_detail_p{
+.dain_order_detail_p {
 	background-color: #dcf8f6;
 	color: black;
 	padding: 12px 18px;
@@ -249,13 +285,12 @@ body a:link, a:visited, a:hover, a:active {
 	margin: 0px;
 }
 
-.dain_order_detail{
+.dain_order_detail {
 	background-color: #fff;
 	border: 1px solid #d9d9d9;
-
 }
 
-.dain-img-bg{
+.dain-img-bg {
 	width: 64px;
 	height: 64px;
 	background-image: url("../../resources/img/test.png");
@@ -264,67 +299,65 @@ body a:link, a:visited, a:hover, a:active {
 
 .dain_payment_info {
 	background-color: white;
-	border:2px solid black;
+	border: 2px solid black;
 	border-radius: 2px;
 	width: 40%;
-	height: 700px;
-	
+	height: 650px;
 }
 
-.dain-area-txt{
+.dain-area-txt {
 	padding: 8px 12px;
 	font-size: 14px;
 }
 
-.dain-amount-price-area{
+.dain-amount-price-area {
 	display: flex;
 	font-size: 12px;
 }
 
-.dain-order-goods-table{
+.dain-order-goods-table {
 	background-color: #fff;
 	border: 1px solid #d9d9d9;
 }
 
-.dain-order-artist{
+.dain-order-artist {
 	font-size: 14px;
 	font-weight: bold;
 	background-color: #dcf8f6;
 	padding: 12px 18px;
 	text-align: left;
 }
-.dain-txt-group{
+
+.dain-txt-group {
 	font-size: 14px;
 	font-weight: bold;
 }
 
-.dain_goods_name{
+.dain_goods_name {
 	color: #22a7af;
 }
 
-.dain-amount-td{
+.dain-amount-td {
 	padding: 8px 18px;
 }
 
-.dain-delvery-title{
+.dain-delvery-title {
 	font-size: 13px;
 	padding: 18px 0px;
-
 }
 
-.dain-delvery-price{
+.dain-delvery-price {
 	font-size: 13px;
 	padding: 18px 18px 18px 0px;
 	font-weight: bold;
 	text-align: right;
-	
 }
 
-.dain-price{
+.dain-price {
 	font-size: 12px;
 }
 
-.dain_table_header{
+.dain_table_header {
 	font-size: 16px;
 	padding: 15px 0px 14px;
 	margin: 0 22.5px;
@@ -332,98 +365,351 @@ body a:link, a:visited, a:hover, a:active {
 	border-bottom: 1px solid black;
 }
 
-.dain_final_cost{
+.dain_final_cost {
 	padding: 0px 20px;
 }
-.dain_final_cost table{
+
+.dain_final_cost table {
 	padding-top: 20px;
-	padding-bottom: 20px; 
+	padding-bottom: 20px;
 	text-align: justify;
 	width: 100%;
 	border-bottom: 1px solid #d9d9d9;
 }
-.dain_final_cost th{
+
+.dain_final_cost th {
 	font-size: 13px;
 	font-weight: normal;
 	padding: 4px 0px;
-	color:#666666;
+	color: #666666;
 	width: 70%;
 }
-.dain_final_cost td{
+
+.dain_final_cost td {
 	text-align: right;
 	font-size: 13px;
 	font-weight: bold;
 	width: 30%;
 }
 
-.dain_final_total{
+.dain_final_total {
 	padding: 0px 20px;
 }
-.dain_final_total table{
+
+.dain_final_total table {
 	padding-top: 20px;
-	padding-bottom: 20px; 
 	text-align: justify;
 	width: 100%;
 }
 
-.dain_final_total th{
+.dain_final_total th {
 	font-size: 16px;
 	width: 50%;
 }
 
-.dain_final_total td{
+.dain_final_total td {
 	font-size: 28px;
 	width: 50%;
 	font-weight: bold;
 	color: #dd5850;
 	text-align: right;
 }
-.dain_support{
+
+.dain_support {
 	padding: 10px 10px;
 	margin: 10px 20px;
 	border-radius: 3px;
 	background-color: #cce5ff;
 }
 
-.dain_privacyPolicy{
+.dain_privacyPolicy {
 	padding: 10px 10px;
 	margin: 10px 20px;
 }
 
-.dain_privacyPolicy_txt{
+.dain_privacyPolicy_txt {
 	font-size: 12px;
 	color: #666666;
 	background-color: #F8F8F8;
 }
 
-.dain_final_payment{
+.dain_final_payment {
 	padding: 0px 20px;
 }
-.dain_pay_btn{
+
+.dain_pay_btn {
 	width: 100%;
 	background-color: #1f76bb;
 	color: #fff;
 	border: none;
 	border-radius: 5px;
 	padding: 10px 18px 10px 18px;
-	
+	margin-top: 10px;
 }
-.dain_pay_btn:hover{
+
+.dain_pay_btn:hover {
 	background-color: #1a639d;
 }
-.dain_pay_btn span{
+
+.dain_pay_btn span {
 	font-size: 18px;
 }
-.dain_pay_btn p{
+
+.dain_pay_btn p {
 	margin: 0px;
 }
 
-.dibtn, .hoverPointer{
+.dibtn, .hoverPointer {
 	cursor: pointer;
 }
 
-.dibtn:focus{
+.dibtn:focus {
 	outline: none;
+}
+
+.dain_payment_discount_info {
+	margin-top: 18px;
+	border: 1px solid #d9d9d9;
+	padding: 0px 12px;
+}
+
+.dain_point_input {
+	display: block;
+	width: 77%;
+	margin-right: 2px;
+	height: 28px;
+	line-height: 1.5;
+	text-indent: 10px;
+	color: #dd5850;
+	font-weight: bold;
+	border: 1px solid #acacac;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	outline: none;
+}
+
+.dain_point_subtitle {
+	color: #666;
+	font-size: 13px;
+	font-weight: bold;
+	padding-bottom: 8px;
+}
+
+.dain_point_subcontent {
+	color: #666;
+	font-size: 12px;
+}
+
+.dain_point_subcontent_point {
+	color: #dd5850;
+	font-size: 12px;
+}
+
+.dain_point_btn {
+	font-size: 12px;
+	padding: 0 16px;
+	line-height: 30px;
+	background-color: white;
+	border: 1px solid #acacac;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	outline: none;
+}
+
+.dain_point_btn:hover {
+	background-color: rgb(239, 239, 239);
+}
+
+/* number 인풋 화살표없애기 */
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* 모달 */
+.detail-modal {
+	width: 100%;
+	height: 100%;
+	position: fixed; top : 0px; left : 0px;
+	z-index: 1000;
+	display: none;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.6);
+	margin-left: auto;
+	margin-right: auto;
+	top: 0px;
+	left: 0px;
+}
+
+.report-modal__area {
+	width: 360px;
+	height: 500px;
+	padding: 30px 10px;
+	background: rgb(255, 255, 255);
+	/* 모달창 가운데로 */
+	position: fixed; left : 50%; top : 50%; -webkit-transform : translate(
+	-50%, -50%); -ms-transform : translate( -50%, -50%); -moz-transform :
+	translate( -50%, -50%); -o-transform : translate( -50%, -50%);
+	transform: translate(-50%, -50%);
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+}
+
+.reoprt-modal__head {
+	display: flex;
+	-webkit-box-pack: justify;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.report-modal__title {
+	display: flex;
+	-webkit-box-pack: justify;
+	justify-content: flex-end;
+}
+
+.report-modal__subject {
+	font-size: 18px;
+	padding-right: 100px;
+}
+
+.report-modal__close {
+	background-color: transparent;
+	border: 0;
+	color: red;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.about_article {
+	margin-top: 15px;
+	border-top: 2px solid #555;
+	padding-top: 15px;
+	display: flex;
+	flex-direction: column;
+}
+
+.about_article_detail {
+	flex-direction: row;
+}
+
+.article_text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-size: 20px;
+	font-weight: bold;
+	color: #333;
+}
+
+.dain_coupon_section {
+	display: flex;
+	align-items: center;
+	margin-left: 5px;
+	width: 300px;
+	justify-content: space-between;
+}
+
+.dain_coupon_title {
+	font-size: 14px;
+	width: 200px;
+}
+
+.dain_coupon_exp {
+	font-size: 12px;
+	width: 200px;
+	color: #999;
+}
+
+.dain_coupon_price {
+	font-size: 16px;
+	color: #1a639d;
+}
+
+.buttons {
+	margin-top: 18px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.buttons span {
+	padding: 10px 16px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.buttons span:nth-child(1) {
+	margin-right: 5px;
+	border: 1px solid #d9d9d9;
+	border-radius: 2px;
+	background-color: #fff;
+}
+
+.buttons span:nth-child(1):hover {
+	outline: none;
+	background-color: #f5f5f5;
+	border-color: #d9d9d9;
+}
+
+.buttons span:nth-child(2) {
+	border: 1px solid #1f76dd;
+	background-color: #1f76dd;
+	border-radius: 2px;
+	color: white;
+}
+
+.buttons span:nth-child(2):hover {
+	outline: none;
+	background-color: #1f76bb;
+}
+
+/* 배송지 탭메뉴 */
+ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	
+}
+
+ul.tabs li{
+   	display: inline-block; 
+	background: white;
+	color: #acacac;
+	cursor: pointer;
+	margin: 0 0 0 0;
+	float: left;
+	width: 32%;
+    padding: 5px 0px;
+    text-align: center;
+	border: 1px solid #d9d9d9;
+}
+
+ul.tabs li.current{
+	background: #1f76bb;
+	color: white;
+	border: 1px solid #1f76bb;
+}
+
+.tab-content{
+ 	display: none;
+	background: white;
+	padding: 12px;
+}
+
+.tab-content.current{
+	display: inherit;
 }
 </style>
 </head>
@@ -489,31 +775,30 @@ body a:link, a:visited, a:hover, a:active {
 		</div>
 		
 		<!-- 주소(배송지) -->
+		
+	
 		<div class="dain_payment_address">
 			<div class="dainTitle">주소 (배송지)</div>
-			<div class="dain_tab_button">
-			<div class="dain_tab_button_section1" style="width:33.3%;">
+	<!--		<div class="dain_tab_button">
+	 		<div class="dain_tab_button_section1" style="width:33.3%;">
 				<button class="dain_tab_btn dibtn" type="button" > 1</button>
-				<!-- 		data-address="{
-                                                "address_uuid": "eeaf1501-9c42-4328-bc02-70c8b1d9e5ee",
-                                                "delivery_name": "최다인",
-                                                "delivery_phone": "010-9170-9406",
-                                                "delivery_remote": "",
-                                                "delivery_zipcode": "12248",
-                                                "delivery_address1": "경기 남양주시 다산중앙로81번길 25 (다산동, 다산 이편한세상자이)",
-                                                "delivery_address2": "3504동 1203호"
-                                            }" -->
-		
 			</div>
 			<div class="dain_tab_button_section2" style="width:33.3%;">
 				<button class="dain_tab_btn dibtn" type="button"> 2</button>
 			</div>
 			<div class="dain_tab_button_section3" style="width:33.3%;">
 				<button class="dain_tab_btn dibtn" type="button"> 3</button>
-			</div>
-			</div>
+			</div> -->
+			<ul class="tabs">
+				<li class="tab-link current" data-tab="tab-1" >1</li>
+				<li class="tab-link " data-tab="tab-2">2</li>
+				<li class="tab-link " data-tab="tab-3">3</li>
+			</ul>
+			<!-- </div> -->
+			<br><br>
 			
-			<!-- 배송지 테이블 -->
+			<!-- 배송지 테이블--1 -->
+			<div id="tab-1" class="tab-content current">
 			<div class="dain_address_info_root">
 			<table class="dainTable" id="dt1">
 				<tr class="daintr">
@@ -549,8 +834,87 @@ body a:link, a:visited, a:hover, a:active {
 				</tr>
 			</table>
 			</div>
+			</div>
 			
+			<!-- 배송지 테이블--2 -->
+			<div id="tab-2" class="tab-content">
+			<div class="dain_address_info_root">
+			<table class="dainTable" id="dt1">
+				<tr class="daintr">
+					<td class="dainth td1" style="vertical-align: middle;"><em class="dainem">*</em>받는분</td>
+					<td class="daintd td2" style="padding-top: 15px;">
+						<input class="dainInput di1" name="addrName1" id="addrName1" type="text" placeholder="받는분 이름을 입력해주세요." 
+						autocomplete="off" required="required" data-address="delivery_name" />
+					</td>
+				</tr>
+				<tr class="daintr">
+					<td class="dainth" ><em class="dainem">*</em>전화번호</td>
+					<td class="daintd" >
+						<input class="dainInput di1" name="addrTel1" id="addrTel1" type="text" value="none" autocomplete="off" 
+						required="required" />
+					</td>
+				</tr>
+				<tr class="daintr">
+					<td class="dainth" style="vertical-align: top;"><em class="dainem">*</em>주소</td>
+					<td class="daintd" style="padding-bottom: 15px;">
+						<!-- 주소 name에 숫자두개는 앞에숫자가 n번배송지, 뒤에숫자(1-2-3이 우편번호-주소1-주소2 -->
+						<input class="dainInput dai1" name="addrAddr11" id="addrAddr11" type="text" 
+						placeholder="우편번호" autocomplete="off" readonly="readonly"
+						required="required" style="min-width: 30%; max-width: 30%; margin-bottom: 10px;"/>
+						<!-- 수정버튼 눌렀을때 아래 버튼이 생김 -->
+						<button id="adrBtn" class="dainBtn dibtn" >주소 찾기</button><br>
+						<input class="dainInput dai1" name="addrAddr12" id="addrAddr12" type="text" 
+						placeholder="기본주소" autocomplete="off" readonly="readonly"
+						required="required" style="margin-bottom: 10px;"/><br>
+						<input class="dainInput di1" name="addrAddr13" id="addrAddr13" type="text" 
+						placeholder="나머지 주소" autocomplete="off" 
+						required="required" style="margin-bottom: 10px;"/><br>
+					</td>
+				</tr>
+			</table>
+			</div>
+			</div>			
+			
+			<!-- 배송지 테이블--3 -->
+			<div id="tab-3" class="tab-content">
+			<div class="dain_address_info_root">
+			<table class="dainTable" id="dt1">
+				<tr class="daintr">
+					<td class="dainth td1" style="vertical-align: middle;"><em class="dainem">*</em>받는분</td>
+					<td class="daintd td2" style="padding-top: 15px;">
+						<input class="dainInput di1" name="addrName1" id="addrName1" type="text" placeholder="받는분 이름을 입력해주세요." 
+						autocomplete="off" required="required" data-address="delivery_name" />
+					</td>
+				</tr>
+				<tr class="daintr">
+					<td class="dainth" ><em class="dainem">*</em>전화번호</td>
+					<td class="daintd" >
+						<input class="dainInput di1" name="addrTel1" id="addrTel1" type="text" value="none" autocomplete="off" 
+						required="required" />
+					</td>
+				</tr>
+				<tr class="daintr">
+					<td class="dainth" style="vertical-align: top;"><em class="dainem">*</em>주소</td>
+					<td class="daintd" style="padding-bottom: 15px;">
+						<!-- 주소 name에 숫자두개는 앞에숫자가 n번배송지, 뒤에숫자(1-2-3이 우편번호-주소1-주소2 -->
+						<input class="dainInput dai1" name="addrAddr11" id="addrAddr11" type="text" 
+						placeholder="우편번호" autocomplete="off" readonly="readonly"
+						required="required" style="min-width: 30%; max-width: 30%; margin-bottom: 10px;"/>
+						<!-- 수정버튼 눌렀을때 아래 버튼이 생김 -->
+						<button id="adrBtn" class="dainBtn dibtn" >주소 찾기</button><br>
+						<input class="dainInput dai1" name="addrAddr12" id="addrAddr12" type="text" 
+						placeholder="기본주소" autocomplete="off" readonly="readonly"
+						required="required" style="margin-bottom: 10px;"/><br>
+						<input class="dainInput di1" name="addrAddr13" id="addrAddr13" type="text" 
+						placeholder="나머지 주소" autocomplete="off" 
+						required="required" style="margin-bottom: 10px;"/><br>
+					</td>
+				</tr>
+			</table>
+			</div>
+			</div>				
 		</div>
+		
 		
 		<!-- 주문작품정보 타이틀 -->
 		<div class="dain_ordergoods_title dain_flex_title hoverPointer" style="margin-top: 18px;">
@@ -600,6 +964,25 @@ body a:link, a:visited, a:hover, a:active {
 		</tbody>
 		</table>	
 		
+		<!-- 할인 혜택 -->
+		<div class="dain_payment_discount_info" >
+		<div class="dainTitle">보물섬 할인 혜택</div>
+		
+		<div class="dain_point_subtitle">적립금</div>
+		<div class="dain_point_input_flex" style="display: flex;">
+			<input type="number" name="usePoint" class="dain_point_input" min="0" max="7" step="10" value="0">
+			<button class="dain_point_btn">전부사용</button>
+		</div>
+		<span class="dain_point_subcontent">보유중인 적립금</span> <span class="dain_point_subcontent_point">7P</span>
+		
+		<div class="dain_point_subtitle" style="margin-top: 20px;">할인쿠폰</div>
+		<div class="dain_point_input_flex" style="display: flex; padding-bottom: 20px;">
+			<input type="number" name="usePoint" class="dain_point_input" min="0" max="7" step="10" value="0">
+			<button class="dain_point_btn" id="dain_coupon_use">쿠폰사용</button>
+		</div>
+	
+		</div>
+		<!-- 할인끝 -->
 		
 		
 		<!-- 끝 왼쪽영역(dain_payment_customer)-->
@@ -640,10 +1023,10 @@ body a:link, a:visited, a:hover, a:active {
 		</table>
 		</div>
 		
-		<div class="dain_support">
+<!-- 		<div class="dain_support">
 			<label class="dain_support_label">
 			<input id="support" type="checkbox" name="is_support" autocomplete="off" class="bp"> 작가님을 후원합니다.</label>
-		</div>
+		</div> -->
 		
 		<div class="dain_privacyPolicy">
 			<label><input type="checkbox" name="privacy_info" autocomplete="off" required="required" class="bp">
@@ -677,6 +1060,85 @@ body a:link, a:visited, a:hover, a:active {
 	<!-- 푸터  -->
 	<%@ include file="../include/uFooter.jsp" %>
 </div>
+
+<!-- 모달 -->
+<div class="detail-modal">
+    <div class="report-modal__area">
+        <div class="report-modal__head">
+            <div class="report-modal__title">
+                <div class="report-modal__subject">쿠폰선택</div>
+                <button class="report-modal__close">
+                    <i style="font-size: 20px; color:red;"class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="about_article">
+        	<div class="about_article_detail" >
+        		<div class="dain_coupon_list" style="height: 380px; overflow-y:scroll; scroll:auto; overflow-x:hidden;">
+				  <input type="radio" id="noUse" name="coupon" value="noUse" checked="checked">
+				  <label for="noUse" style="font-size: 14px;">사용안함</label><br>
+				  <hr style="border: 0; height: 1px; width:330px; background: #ccc; margin: 20px 0px;">
+				  
+				  <!-- 사용자쿠폰 -->
+				  <div style="display: flex; " >
+				  <input type="radio" id="coupon1" name="coupon" value="coupon1">
+				  <label for="coupon1"> 
+				  <div class="dain_coupon_section" >
+					  <div >
+					  <div class="dain_coupon_title">#쿠폰이름 할인쿠폰 10%</div>
+					  <div class="dain_coupon_exp">사용기한 : 2020년 09월 30일까지</div>
+					  </div>
+					  <div class="dain_coupon_price">-3,000원</div>
+				  </div>
+				  </label>
+				  </div>
+				  
+				  <br>
+
+				  <div style="display: flex; " >
+				  <input type="radio" id="coupon2" name="coupon" value="coupon2">
+				  <label for="coupon2"> 
+				  <div class="dain_coupon_section" >
+					  <div >
+					  <div class="dain_coupon_title">#쿠폰이름 할인쿠폰 20%</div>
+					  <div class="dain_coupon_exp">사용기한 : 2020년 09월 30일까지</div>
+					  </div>
+					  <div class="dain_coupon_price">-5,000원</div>
+				  </div>
+				  </label>
+				  </div>
+				  
+  					<br>
+
+				  <div style="display: flex; " >
+				  <input type="radio" id="coupon3" name="coupon" value="coupon3">
+				  <label for="coupon3"> 
+				  <div class="dain_coupon_section" >
+					  <div >
+					  <div class="dain_coupon_title">#쿠폰이름 할인쿠폰 20%</div>
+					  <div class="dain_coupon_exp">사용기한 : 2020년 09월 30일까지</div>
+					  </div>
+					  <div class="dain_coupon_price">-5,000원</div>
+				  </div>
+				  </label>
+				  </div>
+				   <!-- 사용자쿠폰 끝-->
+				  
+				  </div> <!-- coupon_list -->
+				  		
+				<div class="buttons">
+		        	<span id="cancleUpdate">취소</span>
+		        	<span id="confirmUpdate">선택하기</span>
+		        </div>	
+		        
+        	</div>
+        </div>
+        
+       
+        	
+       </div>
+        
+</div>
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </html>

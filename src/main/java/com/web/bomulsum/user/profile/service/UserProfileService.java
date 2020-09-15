@@ -22,5 +22,5 @@ public interface UserProfileService {
 	void updateUserAddress(UserProfileAddressVO vo); //회원 주소지 수정
 	
 	//-----------회원 사이드메뉴 프로필정보관리
-	void updateUserProfileImg(String pimg);
+	void updateUserProfileImg(UserProfileVO vo);
 }

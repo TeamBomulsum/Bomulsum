@@ -65,8 +65,8 @@ public class UserProfileDAO {
 		
 		//회원 사이드 프로필------------------------------
 		
-		public void updateUserProfileImg(String pimg){
-			sqlSessionTemplate.update("userProfileDAO.updateUserProfile",pimg);
+		public void updateUserProfileImg(UserProfileVO vo){
+			sqlSessionTemplate.update("userProfileDAO.updateUserProfile",vo);
 		}
 		
 }
