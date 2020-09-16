@@ -31,6 +31,12 @@ public class UserGiftController {
 	@Autowired
 	UserGiftService service;
 	
+	@RequestMapping(value="/gift")
+	public ModelAndView gift() {
+		ModelAndView mav = new ModelAndView("/umyInfo/ugift/uSGiftList");
+		return mav;
+	}
+	
 	//보낸 선물함
 	@RequestMapping(value="/sendGift")
 	public ModelAndView sendGift(UserSendGiftVO vo, HttpServletRequest request) {

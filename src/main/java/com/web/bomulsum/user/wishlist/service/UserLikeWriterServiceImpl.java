@@ -16,8 +16,8 @@ public class UserLikeWriterServiceImpl implements UserLikeWriterService{
 	 UserLikeWriterDAO dao;
 
 	@Override
-	public List<UserLikeWriterVO> getWriterInfo(String memberCode, UserLikeWriterVO vo) {
-		return dao.getWriterInfo(memberCode, vo);
+	public List<UserLikeWriterVO> getWriterInfo(String memberCode) {
+		return dao.getWriterInfo(memberCode);
 	}
 
 	@Override
@@ -25,9 +25,20 @@ public class UserLikeWriterServiceImpl implements UserLikeWriterService{
 		dao.deleteLikeWriter(map);
 	}
 
+
 	@Override
-	public List<Map<String, Object>> artPhotoList(String memberCode) {
-		return dao.artPhotoList(memberCode);
+	public List<Map<String, Object>> getArtCount(String memberCode) {
+		return dao.getArtCount(memberCode);
+	}
+
+//	@Override
+//	public List<UserLikeWriterPhotoVO> getArtPhotoList(String memberCode) {
+//		return dao.getArtPhotoList(memberCode);
+//	}
+
+	@Override
+	public List<String> getArtPhoto(String memberCode) {
+		return dao.getArtPhoto(memberCode);
 	}
 
 

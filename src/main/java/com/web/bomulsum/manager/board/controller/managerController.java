@@ -25,12 +25,7 @@ public class managerController {
 	
 	@GetMapping("/mboard/write")
 	public String mboard_write() {
-		return "/mboard_write";
-	}
-	
-	@GetMapping("/writer/list")
-	public String mWriterList() {
-		return "mWriterList";
+		return "/mBoard/mboard_write";
 	}
 	
 	
@@ -45,7 +40,7 @@ public class managerController {
 		for(MBoardListVO vo : service.mboardList()){
 			System.out.println(vo.toString());
 		}
-		mav.setViewName("/mboard_list");
+		mav.setViewName("/mBoard/mboard_list");
 		return mav;
 	}
 	
@@ -72,7 +67,7 @@ public class managerController {
 		MBoardVO mBoardVO = service.mboardSelect(vo);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/mboard_rewrite");
+		mav.setViewName("/mBoard/mboard_rewrite");
 		mav.addObject("mBoardVO", mBoardVO);
 		System.out.println("글수정을 위한 데이터 가져와보기"+ mBoardVO.toString());
 		return mav;
