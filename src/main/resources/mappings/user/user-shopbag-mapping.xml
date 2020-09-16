@@ -84,7 +84,7 @@
 	
 	 <!-- 작품 삭제 -->
     <delete id="deleteChoice" parameterType="java.util.ArrayList">
-	     DELETE 
+	     DELETE
 	    	cart_tb
        	WHERE
         	cart_seq

@@ -24,6 +24,10 @@
 		
 		
 		<!-- manager -->
+		<typeAlias type="com.web.bomulsum.manager.list.repository.ManagerListWriterVO" alias="ManagerListWriterVO"/>
+		<typeAlias type="com.web.bomulsum.manager.list.repository.ManagerListUserVO" alias="ManagerListUserVO"/>
+		<typeAlias type="com.web.bomulsum.manager.manage.repository.ManagerManageClassVO" alias="ManagerManageClassVO"/>
+		<typeAlias type="com.web.bomulsum.manager.manage.repository.ManagerManageArtVO" alias="ManagerManageArtVO"/>
 		
 		<!-- writer -->
 		<typeAlias type="com.web.bomulsum.writer.board.repository.writerBoardVO" alias="writerBoardVO"/>	
@@ -57,6 +61,8 @@
 		<mapper resource="mappings/user/user-payment-mapping.xml" /> 		
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />
+		<mapper resource="mappings/manager/manager-list-mapping.xml" />
+		<mapper resource="mappings/manager/manager-manage-mapping.xml" />
 		
 		<!-- writer -->
 		<mapper resource="mappings/writer/writer-board-mapping.xml" />	

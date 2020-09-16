@@ -6,14 +6,36 @@
 
   <!-- 좋아하는 작가 코드 -->
 	<select id="selectArtList" parameterType ="String" resultType="String">
-		SELECT wishlist_option_code 
-		FROM wishlist_tb 
-		WHERE member_code_seq=#{memberCode}
-		AND wishlist_option='좋아하는작가'
-		ORDER BY wishlist_option_code ASC
+		SELECT 
+			wishlist_option_code 
+		FROM 
+			wishlist_tb 
+		WHERE 
+			member_code_seq=#{memberCode}
+		AND 
+			wishlist_option='좋아하는작가'
+		ORDER BY 
+			wishlist_option_code ASC
 	</select>
+	
 	<!-- 좋아하는 작가 정보 -->
-	<select id="selectArtDetail" parameterType="hashmap" resultType="UserLikeWriterVO">
+<!--   	<select id="selectArtDetail" parameterType="hashmap" resultType="UserLikeWriterVO">
+		SELECT 
+			w.writer_code_seq, w.writer_profile_img, w.writer_brand_name, w.writer_intro, 
+			w.writer_url, a.art_code_seq, a.art_photo 
+		FROM 
+			writer_tb w, art_tb a
+		WHERE
+			 w.writer_code_seq = a.writer_code_seq
+		AND 
+			w.writer_code_seq in
+		<foreach collection="artList" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+		ORDER BY writer_code_seq ASC	
+	</select> -->
+	<!-- 좋아하는 작가 정보 -->
+ 	<select id="selectArtDetail" parameterType="hashmap" resultType="UserLikeWriterVO">
 		SELECT writer_code_seq, writer_profile_img, writer_brand_name, writer_intro, writer_url 
 		FROM writer_tb 
 		WHERE writer_code_seq in
@@ -24,8 +46,18 @@
 	</select>
 
 	<!-- 좋아하는 작가별 사진 -->
-	<select id="selectArtPhoto" parameterType="hashmap" resultType="hashmap">
-		SELECT writer_code_seq, art_photo
+ <!-- 	<select id="selectArtPhoto" parameterType="hashmap" resultType="UserLikeWriterPhotoVO">
+		SELECT writer_code_seq, art_code_seq, art_photo
+		FROM art_tb
+		WHERE writer_code_seq in
+		<foreach collection="artList" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+		ORDER BY writer_code_seq ASC
+	</select>-->
+	<!-- 좋아하는 작가별 사진 -->
+  	<select id="selectArtPhoto" parameterType="hashmap" resultType="String">
+		SELECT art_photo
 		FROM art_tb
 		WHERE writer_code_seq in
 		<foreach collection="artList" item="item" open="(" close=")" separator=",">
@@ -35,7 +67,7 @@
 	</select>
 	
 	<!-- 작가별 작품 카운트 -->
-	<select id="countArtPhoto" parameterType="hashmap" resultType="hashmap">
+  	<select id="countArtPhoto" parameterType="hashmap" resultType="hashmap">
 		SELECT writer_code_seq, count(art_photo) count
 		FROM art_tb 
 		WHERE writer_code_seq in

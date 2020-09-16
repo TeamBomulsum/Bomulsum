@@ -7,6 +7,8 @@ public class UserLikeWriterVO {
 	private String writer_brand_name;
 	private String writer_intro;
 	private String writer_url;
+	private String art_code_seq;
+	private String art_photo;
 	private String art_photo1;
 	private String art_photo2;
 	private String art_photo3;
@@ -17,16 +19,14 @@ public class UserLikeWriterVO {
 	private String art_photo8;
 	private String art_photo9;
 
-
-
 	@Override
 	public String toString() {
 		return "UserLikeWriterVO [writer_code_seq=" + writer_code_seq + ", writer_profile_img=" + writer_profile_img
 				+ ", writer_brand_name=" + writer_brand_name + ", writer_intro=" + writer_intro + ", writer_url="
-				+ writer_url + ", art_photo1=" + art_photo1 + ", art_photo2=" + art_photo2 + ", art_photo3="
-				+ art_photo3 + ", art_photo4=" + art_photo4 + ", art_photo5=" + art_photo5 + ", art_photo6="
-				+ art_photo6 + ", art_photo7=" + art_photo7 + ", art_photo8=" + art_photo8 + ", art_photo9="
-				+ art_photo9 + "]";
+				+ writer_url + ", art_code_seq=" + art_code_seq + ", art_photo=" + art_photo + ", art_photo1="
+				+ art_photo1 + ", art_photo2=" + art_photo2 + ", art_photo3=" + art_photo3 + ", art_photo4="
+				+ art_photo4 + ", art_photo5=" + art_photo5 + ", art_photo6=" + art_photo6 + ", art_photo7="
+				+ art_photo7 + ", art_photo8=" + art_photo8 + ", art_photo9=" + art_photo9 + "]";
 	}
 
 	public String getWriter_code_seq() {
@@ -67,6 +67,22 @@ public class UserLikeWriterVO {
 
 	public void setWriter_url(String writer_url) {
 		this.writer_url = writer_url;
+	}
+
+	public String getArt_code_seq() {
+		return art_code_seq;
+	}
+
+	public void setArt_code_seq(String art_code_seq) {
+		this.art_code_seq = art_code_seq;
+	}
+
+	public String getArt_photo() {
+		return art_photo;
+	}
+
+	public void setArt_photo(String art_photo) {
+		this.art_photo = art_photo;
 	}
 
 	public String getArt_photo1() {

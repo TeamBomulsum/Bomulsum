@@ -6,7 +6,7 @@
 <head>
 <link href="<c:url value='/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"	type="text/css">
 <meta charset="UTF-8">
-<title>보물섬 | 장바구니</title>
+<title>보물섬 | 바로구매</title>
 </head>
 <style>
 .dndud_content{
@@ -799,11 +799,11 @@ button:focus{
 	
 		<!-- 장바구니, 123 제목 영역 -->
 		<div class="dndud_content_title">
-			<h2 class="dndud_txt_f1">장바구니</h2>
+			<h2 class="dndud_txt_f1">바로구매</h2>
 			<ol class="dndud_page_loc">
 				<li class="active">
 					<em class="icon_num">1</em>
-					<span>장바구니</span>
+					<span>바로구매</span>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li>

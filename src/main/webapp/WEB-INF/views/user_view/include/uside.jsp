@@ -30,7 +30,7 @@
 	text-decoration: none;
 }
 
-.jeonga-navItem a:hover:not (.active ) {
+.jeonga-navItem a:hover{
 	color: #1f76bb;
 }
 
@@ -40,7 +40,7 @@
 	text-decoration: none;
 }
 
-.jeonga-navItem1 a:hover:not (.active ) {
+.jeonga-navItem1 a:hover{
 	color: #1f76bb;
 }
 
