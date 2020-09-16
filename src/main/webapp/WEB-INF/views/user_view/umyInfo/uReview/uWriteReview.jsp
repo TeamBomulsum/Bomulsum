@@ -798,6 +798,8 @@ body a:link, a:visited, a:hover, a:active {
 				rtn = confirm("구매 후기를 수정하시겠습니까? \n (차후 수정이 불가능 합니다.)");
 			}
 			
+			$('#reviewStar').val() = $('.minwoo_starRev').attr('data-rate');
+			
 			if(rtn){
 				formSubmit.submit();	
 			} else {

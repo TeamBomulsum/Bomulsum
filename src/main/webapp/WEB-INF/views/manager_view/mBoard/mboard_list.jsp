@@ -539,6 +539,7 @@
 			break;
 			default :
 				categoryCheck = false;
+			    searchCheck = false;
 				pagingFunc();// 전체
 		}
 	});

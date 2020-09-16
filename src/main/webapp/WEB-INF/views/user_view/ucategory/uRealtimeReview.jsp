@@ -133,6 +133,17 @@ body a:link, a:visited, a:hover, a:active {
 .minwoo_starR1.on{background-position:0 0;}
 .minwoo_starR2.on{background-position:-9px 0;}
 
+.minwoo_txt_post {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap:break-word; 
+    line-height: 1.2em;
+    height: 3.6em; /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+  }
+
 </style>
 
 </head>
@@ -252,6 +263,12 @@ body a:link, a:visited, a:hover, a:active {
 		     } 
 		});
 		
+		function artCode(e){
+			var art_code = e.id;
+			var url = "/bomulsum/user/uProductInfo/" + art_code + ".do?memberCode="+memberCode;
+			window.open(url, "_blank");
+		};
+		
 		function getList(page){
 			$.ajax({
 				type : 'POST',
@@ -303,12 +320,12 @@ body a:link, a:visited, a:hover, a:active {
 								
 								htmldiv += '<div class="minwoo_realtime_review_one">'
 								+ '<div class="minwoo_realtime_review_photo">'
-								+ '<a href="#"><img src="/bomulsum/upload' + artImg + '"></a>'
+								+ '<a href="" id="' + data[i].artCodeSeq + '" onclick="artCode(this);"><img src="/bomulsum/upload' + artImg + '"></a>'
 								+ '</div>'
 								+ '<div class="minwoo_realtime_review_artinfo">'
 								+ '<span>' + data[i].writerName + '</span>'
 								+ '<br>'
-								+ '<a href="#">' + data[i].artName + '</a>'
+								+ '<a href="" id="' + data[i].artCodeSeq + '" onclick="artCode(this);">' + data[i].artName + '</a>'
 								+ '</div>'
 								+ '<div class="minwoo_realtime_review_comments">' // 별점 / 작성자 / 후기 들어올 영역 시작
 								
@@ -327,7 +344,7 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<span>' + mamberName1 + '</span>'
 								+ '</div>'
 								+ '<div class="minwoo_realtime_review_comments_text">'
-								+ '<p>' + reviewComment1 + '</p>'
+								+ '<p class="minwoo_txt_post">' + reviewComment1 + '</p>'
 								+ '</div>'
 								+ '</div>' // 후기 한개 영역 종료
 								
@@ -346,7 +363,7 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<span>' + mamberName2 + '</span>'
 								+ '</div>'
 								+ '<div class="minwoo_realtime_review_comments_text">'
-								+ '<p>' + reviewComment2 + '</p>'
+								+ '<p class="minwoo_txt_post">' + reviewComment2 + '</p>'
 								+ '</div>'
 								+ '</div>' // 후기 한개 영역 종료
 								
@@ -365,13 +382,13 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<span>' + mamberName3 + '</span>'
 								+ '</div>'
 								+ '<div class="minwoo_realtime_review_comments_text">'
-								+ '<p>' + reviewComment3 + '</p>'
+								+ '<p class="minwoo_txt_post">' + reviewComment3 + '</p>'
 								+ '</div>'
 								+ '</div>' // 후기 한개 영역 종료
 								
 								+ '</div>'// 별점 / 작성자 / 후기 들어올 영역 종료
 								+ '<div class="minwoo_realtime_review_morebtn">'
-								+ '<a href="#" style="text-decoration: none; font-size:14px; color:#2ECCFA;">작품의 구매 후기 전체 보기 &gt;</a>'
+								+ '<a href="" id="' + data[i].artCodeSeq + '" onclick="artCode(this);" style="text-decoration: none; font-size:14px; color:#2ECCFA;">작품의 구매 후기 전체 보기 &gt;</a>'
 								+ '</div>'
 								
 								+ '</div>'; // 작품 한개 영역 종료

@@ -25,6 +25,11 @@ public class UserReviewDAO {
 		return sqlSessionTemplate.selectList("userReviewDAO.realtimeReview", vo);
 	}
 	
+	//홈 화면 구매후기 목록 불러오기
+	public List<UserReviewVO> homeRealTimeReviewList(){
+		return sqlSessionTemplate.selectList("userReviewDAO.homeRealTimeReviewList");
+	}
+	
 	
 	//페이징 처리를 위한 카운팅
 	public int getReviewCount(String memberSeq) {

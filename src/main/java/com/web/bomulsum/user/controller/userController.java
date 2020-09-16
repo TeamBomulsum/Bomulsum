@@ -14,12 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.bomulsum.user.article.repository.UserArticleCategoryVO;
 import com.web.bomulsum.user.article.repository.UserOrderByArticlePagingVO;
 import com.web.bomulsum.user.article.service.UserArticleService;
+import com.web.bomulsum.user.review.repository.UserReviewVO;
+import com.web.bomulsum.user.review.service.UserReviewServiceImpl;
 
 @Controller
 public class userController {
 	
 	@Autowired
 	private UserArticleService service;
+	@Autowired
+	private UserReviewServiceImpl serviceR;
 	
 	@RequestMapping(value="/home")
 	public ModelAndView goHome(HttpSession session, ModelAndView mav) {
@@ -160,6 +164,34 @@ public class userController {
 			mav.addObject("wishList",service.getLikeArticles(member));
 		}
 		
+		//mav.setViewName("uhome");
+		
+		
+		// 실시간 후기
+		List<UserReviewVO> dataListR = new ArrayList<UserReviewVO>();
+		UserReviewVO homeRVo = new UserReviewVO();
+		List<UserReviewVO> dataR = serviceR.homeRealTimeReviewList();
+		for(UserReviewVO rv : dataR) {
+			homeRVo = new UserReviewVO();
+			// 작품코드
+			homeRVo.setArtCodeSeq(rv.getArtCodeSeq());
+			// 작품 사진
+			String[] arrimg = rv.getArtPhoto().split(",");
+			homeRVo.setArtPhoto(arrimg[0]);
+			// 작품명
+			homeRVo.setArtName(rv.getArtName());
+			// 후기(별점)
+			homeRVo.setReviewStar(rv.getReviewStar());
+			// 후기(내용)
+			homeRVo.setReviewComment(rv.getReviewComment());
+			// 후기작성자
+			homeRVo.setMemberName(rv.getMemberName());
+			
+			dataListR.add(homeRVo);
+		}
+		
+		mav.addObject("realTimeReview", dataListR);
+
 		mav.setViewName("uhome");
 		
 		return mav;

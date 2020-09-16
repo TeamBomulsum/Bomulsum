@@ -30,6 +30,10 @@ public class UserReviewServiceImpl implements UserReviewService {
 	public List<UserReviewVO> realtimeReview(UserReviewPagingVO vo) {
 		return dao.realtimeReview(vo);
 	}
+	@Override
+	public List<UserReviewVO> homeRealTimeReviewList() {
+		return dao.homeRealTimeReviewList();
+	}
 
 	
 	//구매 후기 글 등록
