@@ -190,8 +190,8 @@
 		VALUES
 		(
 			'alarm_seq' || TO_CHAR(alarm_sq.nextval),
-			#{writerCodeSeq},
 			#{memberCodeSeq},
+			#{writerCodeSeq},
 			'구매후기',
 			#{alarmContent}
 		)
