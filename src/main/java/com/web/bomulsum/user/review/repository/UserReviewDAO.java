@@ -20,6 +20,10 @@ public class UserReviewDAO {
 	public List<UserReviewVO> myReviewed(UserReviewPagingVO vo){
 		return sqlSessionTemplate.selectList("userReviewDAO.reviewedList", vo);
 	}
+	//작품별 최신 후기 목록 불러오기
+	public List<UserReviewVO> realtimeReview(UserReviewPagingVO vo){
+		return sqlSessionTemplate.selectList("userReviewDAO.realtimeReview", vo);
+	}
 	
 	
 	//페이징 처리를 위한 카운팅

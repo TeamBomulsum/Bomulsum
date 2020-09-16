@@ -25,7 +25,13 @@ public class UserReviewServiceImpl implements UserReviewService {
 	public List<UserReviewVO> myReviewed(UserReviewPagingVO vo) {
 		return dao.myReviewed(vo);
 	}
+	//작품별 실시간 구매후기 목록
+	@Override
+	public List<UserReviewVO> realtimeReview(UserReviewPagingVO vo) {
+		return dao.realtimeReview(vo);
+	}
 
+	
 	//구매 후기 글 등록
 	@Override
 	public void insertReview(UserReviewVO vo) {

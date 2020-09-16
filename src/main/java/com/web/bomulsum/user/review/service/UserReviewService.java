@@ -10,6 +10,7 @@ public interface UserReviewService {
 	
 	List<UserReviewVO> myReview(UserReviewPagingVO vo);
 	List<UserReviewVO> myReviewed(UserReviewPagingVO vo);
+	List<UserReviewVO> realtimeReview(UserReviewPagingVO vo);
 	
 	void insertReview(UserReviewVO vo);
 	void updateReview(UserReviewVO vo);
