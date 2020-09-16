@@ -214,6 +214,14 @@ public class UserProfileController {
 		public ModelAndView updateUserProfile(HttpServletRequest request, UserProfileVO vo,
 				@RequestParam(value="fileProfile", required=false) MultipartFile mf)throws IOException  {
 		ModelAndView mav = new ModelAndView();
+		
+		//세션에 반영
+		HttpSession session = request.getSession();
+		String memberCode= (String) session.getAttribute("member");  //멤버코드
+		
+		
+		vo.setMember_code_seq(memberCode);
+		
 		/* mav.setViewName("/umyInfo/uMyHome"); */
 		System.out.println(mf);
 		
@@ -221,15 +229,16 @@ public class UserProfileController {
 		String saveFile = System.currentTimeMillis() + originalfileName;
 		System.out.println(saveFile);
 		
+		vo.setMember_profile(saveFile);
+		
 		//DB에 바뀐 프로필사진 넣기
-		service.updateUserProfileImg(saveFile); 
+
+		service.updateUserProfileImg(vo); 
 		
-		
-		//세션에 반영
-		HttpSession session = request.getSession();
-		String memberCode= (String) session.getAttribute("member");  //멤버코드
 		System.out.println("바뀐 멤버VO:"+memberservice.getUser(memberCode));
 		session.setAttribute("user", memberservice.getUser(memberCode)); //세션에 넣기
+		
+
 		
 		try {
 			mf.transferTo(new File(SAVE_PATH, saveFile));

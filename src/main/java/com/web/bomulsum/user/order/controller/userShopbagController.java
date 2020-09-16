@@ -175,10 +175,4 @@ public class userShopbagController {
 		service.updateOption(map);
 	 }
 	 
-	 @RequestMapping(value="/order")
-		public ModelAndView goOrder() {
-			ModelAndView mav= new ModelAndView("ushopbag/uPayment");
-			return mav;
-	 }
-	
 }

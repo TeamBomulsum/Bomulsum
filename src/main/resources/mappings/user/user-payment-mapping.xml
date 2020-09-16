@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="paymentDAO">
+
+	<select id="selectCartChoice" parameterType="String" resultType="UserShopbagVO">
+		SELECT 
+			c.cart_seq, c.art_code_seq, c.member_code_seq, c.art_option_seq, c.art_count, c.order_request,
+			w.writer_brand_name, w.writer_send_price, w.writer_sendfree_case, 
+			a.art_photo, a.art_name, a.art_price, a.art_discount 
+		FROM 
+			cart_tb c, writer_tb w, art_tb a
+		WHERE 
+			c.art_code_seq=a.art_code_seq
+		AND
+			a.writer_code_seq=w.writer_code_seq
+		AND
+			c.member_code_seq='member_code_seq58'
+        AND
+        	c.cart_seq in ('cart_seq11', 'cart_seq12')
+<!--         	<foreach collection="list" item="item" open="(" close=")" separator=",">
+	     	#{item}
+	     </foreach> -->
+      
+		ORDER BY 
+			c.cart_seq
+	</select>
+</mapper>
