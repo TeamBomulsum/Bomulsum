@@ -88,8 +88,10 @@ public class CommentVO {
 		return "CommentVO [commentSeq=" + commentSeq + ", memberCodeSeq=" + memberCodeSeq + ", artCodeSeq=" + artCodeSeq
 				+ ", commentContent=" + commentContent + ", commentStatus=" + commentStatus + ", commentDate="
 				+ commentDate + ", commentRecomment=" + commentRecomment + ", commentRecommentDate="
-				+ commentRecommentDate + ", writerCodeSeq=" + writerCodeSeq + "]";
+				+ commentRecommentDate + ", writerCodeSeq=" + writerCodeSeq + ", memberProfile=" + memberProfile
+				+ ", memberName=" + memberName + "]";
 	}
+	
 	
 	
 	

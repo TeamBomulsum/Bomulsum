@@ -12,7 +12,6 @@
 var memberCode = '<%= (String)session.getAttribute("member") %>';
 var artCodeSeq = '<%= (String)session.getAttribute("artCodeSeq") %>';
 var writerCodeSeq = '<%= (String)session.getAttribute("writerCodeSeq") %>';
-console.log(memberCode);
 
 function artCode(e){
 	var art_code = e.id;
@@ -25,7 +24,17 @@ function AddComma(num){
 	return num.toString().replace(regexp, ',');
 }
 
-window.addEventListener('scroll', () => {
+var list;
+function RemoveComma(num){
+	list = num.split(',');
+	var result='';
+	for(var i=0; i<list.length; i++){
+		result += String(list[i]);
+	}
+	return Number(result);
+}
+
+window.addEventListener('scroll', (e) => {
 	input = document.getElementById('ShareUrl');
 	wonSlides = document.getElementById('hoddenTop');
 	hoddenBottom = document.getElementById('hoddenBottom');
@@ -55,7 +64,6 @@ window.addEventListener('scroll', () => {
 	function wonDisWorkInfoDo(){//작품 정보제공 고시
 		var wonDisWorkInfo = document.getElementById('wonDisWorkInfo');
 		var wonInfoWorkButton = document.getElementsByClassName('wonInfoWorkButton');
-		console.log("wonInfoWorkButton : " + wonInfoWorkButton);
 		if(wonDisWorkInfo.style.display == 'none'){
 			wonDisWorkInfo.style.display = 'block';
 			document.getElementById('wonInfoWorkButton').className= 'fa fa-arrow-up';
@@ -67,7 +75,6 @@ window.addEventListener('scroll', () => {
 	function wonDisSellInfoDo(){//판매 작가 정보
 		var wonDisWorkInfo = document.getElementById('wonDisSellInfo');
 		var wonInfoWorkButton = document.getElementsByClassName('wonInfoSellInfoButton');
-		console.log("wonInfoSellInfoButton : " + wonInfoWorkButton);
 		if(wonDisWorkInfo.style.display == 'none'){
 			wonDisWorkInfo.style.display = 'block';
 			document.getElementById('wonInfoSellInfoButton').className= 'fa fa-arrow-up';
@@ -79,7 +86,6 @@ window.addEventListener('scroll', () => {
 	function wonDisChangReturnDo(){//배송 교환 환불
 		var wonDisWorkInfo = document.getElementById('wonDisChangReturn');
 		var wonInfoWorkButton = document.getElementsByClassName('wonChangReturnButton');
-		console.log("wonChangReturnButton : " + wonInfoWorkButton);
 		if(wonDisWorkInfo.style.display == 'none'){
 			wonDisWorkInfo.style.display = 'block';
 			document.getElementById('wonChangReturnButton').className= 'fa fa-arrow-up';
@@ -89,7 +95,7 @@ window.addEventListener('scroll', () => {
 		}
 	}
 
-	function wonAuctionClose(){//전체옵션 선택
+	/* function wonAuctionClose(){//전체옵션 선택
 		var closeButton = document.getElementById('wonAuctionClose');
 		var display = document.getElementById('wonActionDisplay');
 		var tempPriceChange = document.getElementById('tempPrice');
@@ -107,7 +113,7 @@ window.addEventListener('scroll', () => {
 			display.style.removeProperty('position');
 			display.style.display = 'none';
 		
-	}
+	} */
 	function wonAuctionOpen(){
 		var openButton = document.getElementById('wonActionButton');
 		var display = document.getElementById('wonActionDisplay');
@@ -115,18 +121,22 @@ window.addEventListener('scroll', () => {
 		display.style.setProperty('position', 'absolute');
 		display.style.setProperty('display','block');
 	}
+		
+	
 	function wonDetailAuction(e) {
 		var display1 = document.getElementById('wonActionDisplay');
-		var option = e.querySelector('div');
+		var option = e.querySelector('.dndud_detail_option');
 		var select = e.querySelector('button');
 		if(option.style.display == 'none'){		
-			option.style.setProperty('display','block');
-			
+			option.style.setProperty('display','flex');
+			e.querySelector('.fa-arrow-down').className = 'fa fa-arrow-up';
 		}else{
 			option.style.setProperty('display','none');
+			e.querySelector('.fa-arrow-up').className = 'fa fa-arrow-down';
 		}
 		
 	}
+	/* 
 	function wonAuctionDetailClose() {
 		var tempPriceChange = document.getElementById('tempPrice');
 		var tempPrice = parseInt(document.getElementById('tempPrice').innerHTML);
@@ -142,27 +152,26 @@ window.addEventListener('scroll', () => {
 		optionSelectDetail.style.display = 'none'
 		
 		
-	}
+	} */
 
 	function imgChage(e){
 		var img = e.querySelector('img');
 		var mainPhoto = document.getElementById('mainPhoto');
-		console.log(img.src);
 		mainPhoto.src = img.src;
 		
 	}
-	function optionSelect(e){
+	var test;
+	/* function optionSelect(e){
 		content = e.innerHTML;
 		var price = parseInt(e.value);
-		
 		var display1 = document.getElementById('wonActionDetailDisplay');
 		var tempPrice = parseInt(document.getElementById('tempPrice').innerHTML);
 		var tempPricee = document.getElementById('tempPrice');
 		var i = display1.innerHTML += content +" /";
 		var temptotal = tempPrice += price;
 		tempPricee.innerHTML = temptotal;
-
-	}
+		
+	} */
 	function completeSelect(){
 		var checkDisp = document.getElementById('wonActionDetailDisplay');
 		var disp = document.getElementById('optionSelectDetail');
@@ -176,7 +185,6 @@ window.addEventListener('scroll', () => {
 		if(checkDisp.innerHTML == ''){
 			alert('옵션을 선택해주세요.');
 		}else{
-			console.log(checkDisp.innerHTML)
 			lastPrice.innerHTML = AddComma(changePrice);
 			display.style.display = 'none';
 			disp.style.display = 'block';			
@@ -184,26 +192,62 @@ window.addEventListener('scroll', () => {
 
 	}
 	function bookmarkCount(){
-		var bookMark = document.getElementById('won_bookMark_star');
-		if(bookMark.className == 'fa fa-star-o fa-1x'){
-			bookMark.className = "fas fa-star";
+		if(memberCode == null || memberCode == '' || memberCode == 'null'){
+			alert('로그인 후 사용이 가능합니다.');
+			location.href='/bomulsum/user/login.do';
+			return false;
 		}else{
-			bookMark.className = 'fa fa-star-o fa-1x';
+			var bookMark = document.getElementById('won_bookMark_star');
+			var tORf;
+			if(bookMark.className == 'fa fa-star-o fa-1x'){
+				bookMark.className = "fas fa-star";
+				// 좋아하는 상품으로 추가
+				tORf = true;
+			}else{
+				bookMark.className = 'fa fa-star-o fa-1x';
+				// 해제
+				tORf = false;
+			}
+			var option = '좋아하는작품';
+			
+			$.ajax({
+				url:'/bomulsum/category/wish.do',
+				data:{
+					'member':memberCode,
+					'option':option,
+					'optionCode':artCodeSeq,
+					'bool': tORf
+				},
+				type:'POST',
+				success:function(data){
+					
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+			
+			if(tORf){
+				alert('좋아하는 작품에 추가되었습니다.');
+				location.reload();
+			}else{
+				alert('즐겨찾기가 해제되었습니다.');
+				location.reload();
+			}
 		}
 	}
 	function copy_trackback(){
 		var obShareUrl = document.getElementById("ShareUrl");
 		obShareUrl.value = window.document.location.href;  // 현재 URL 을 세팅해 줍니다.
-		console.log(obShareUrl.value)
 		obShareUrl.select();  // 해당 값이 선택되도록 select() 합니다
 		document.execCommand("copy"); // 클립보드에 복사합니다.
 		alert("URL이 클립보드에 복사되었습니다.\n원하는 곳에 붙여넣기 해주세요"); 
 	}
 	function commentUpdate(){
 		var comment = document.getElementById('comment');
-		console.log(artCodeSeq);
 		if(memberCode == 'null'){
 			alert('로그인 후 사용이 가능합니다.');
+			location.href='/bomulsum/user/login.do';
 			return false;
 		}else if(comment.value == ""){
 			alert('글을 입력해주세요.');
@@ -221,14 +265,13 @@ window.addEventListener('scroll', () => {
 				},
 				url:'/bomulsum/user/commentUpdate.do',
 				success: function(jData){
-					console.log(jData.commentList);
+					location.reload();
 				}
 			});
 		}
 		comment.value = "";
 		alert('등록되었습니다.');
 	}
-
 
 </script>
 <style>
@@ -264,6 +307,10 @@ window.addEventListener('scroll', () => {
 #wonUproductPagingButtonNext:hover{
 	cursor: pointer;
 }
+.dndud_detail_option_one:hover{
+	cursor: pointer;
+	background-color:#d9d9d9 !important;
+}
 #wonUProductReview{
 	cursor: pointer;
 }
@@ -274,7 +321,10 @@ window.addEventListener('scroll', () => {
 	cursor: pointer;
 }
 #wonDetailAuction{
-	cursor: pointer;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    flex-direction: column;
 }
 .prev,
 .next {
@@ -299,6 +349,144 @@ window.addEventListener('scroll', () => {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+#dndud_commentDiv::-webkit-scrollbar {
+  width: 6px;
+}
+#dndud_commentDiv::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 3px;
+}
+#dndud_commentDiv::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#dndud_commentDiv::-webkit-scrollbar-button{
+	width:0;
+	height:0;
+}
+
+#dndud_wonhui_review_div::-webkit-scrollbar {
+  width: 6px;
+}
+#dndud_wonhui_review_div::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 3px;
+}
+#dndud_wonhui_review_div::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#dndud_wonhui_review_div::-webkit-scrollbar-button{
+	width:0;
+	height:0;
+}
+#optionSelectDetail::-webkit-scrollbar {
+  width: 6px;
+}
+#optionSelectDetail::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 3px;
+}
+#optionSelectDetail::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#optionSelectDetail::-webkit-scrollbar-button{
+	width:0;
+	height:0;
+}
+
+#wonDisChangReturn table td span{
+	color:#333;
+}
+.minwoo_starRev{
+	
+	display: flex;
+    align-items: center;
+}
+
+.minwoo_starR1{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat -28px 0;
+    background-size: auto 100%;
+    width: 8px;
+    height: 16px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR2{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat right 0;
+    background-size: auto 100%;
+    width: 8px;
+    height: 16px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR1.on{background-position:0 0;}
+.minwoo_starR2.on{background-position:-8px 0;}
+
+#won_bookMark_star{
+	cursor:pointer;
+}
+.input_number{
+	margin-left: 5px;
+	font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.input_number label{
+	margin-right: 8px;
+}
+
+.input_number>*{
+	display: block;
+    float: left;
+    background: #fff;
+    color: #333;
+    height: 24px;
+    font-size: inherit;
+}
+
+.input_number button{
+	border: 1px solid #ccc;
+	cursor:pointer;
+}
+
+.input_number button:focus{
+	outline:none;
+}
+
+.input_area{
+    width: 36px;
+    border: 1px solid #ccc;
+    border-left: 0 none;
+    border-right: 0 none;
+    height: 100%;
+    overflow: hidden;
+    height:22px;
+}
+
+.prd-count{
+	height: 22px;
+	text-align: center;
+	width: 100%;
+    line-height: 24px;
+    overflow: hidden;
+    outline: none;
+    border: 0 none;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button { 
+	-webkit-appearance: none; 
+	-moz-appearance: none; 
+	appearance: none; 
+}
+
+#wish_writer_append:focus{
+	outline:none;
+}
 </style>
 
 <meta charset="UTF-8">
@@ -311,7 +499,11 @@ window.addEventListener('scroll', () => {
 			<div style="width:50%;">
 		<!-- 전체틀 --><div id="hoddenTop"></div>
 				<!-- 사진영역 -->
+				<form id="dndud_go_direct_pay" action="/bomulsum/user/buy.do" method="post"></form>
+				<form id="dndud_go_gift" action="/bomulsum/user/gift.do" method="post"></form>
+				<form id="dndud_go_shop_bag" action="/bomulsum/user/product/shopbag.do" method="post"></form>
 				
+				<input type="hidden" value="${artList.artDiscount}" id="dndud_article_origin_price"/>
 				<div style="margin-top: 2%; display: flex; justify-content:center;" class="wonSlides">
 					<img id="mainPhoto" style="width:80%; height:500px;" src="<c:url value='/upload/${firstPhoto}'/>">
 				</div>
@@ -332,7 +524,7 @@ window.addEventListener('scroll', () => {
 				<div style="margin: 1%; display: flex; justify-content: center; flex-direction: row;">
 					<a id="wonAHover" style="margin: 18px 0px 17px; width:15%; font-size: 100%; margin-left: 1%;">작품정보</a>
 					<a id="wonAHover" style="margin: 18px 0px 17px; width:35%; font-size: 100%; margin-left: 1%;">배송/교환/환불</a>
-					<a id="wonAHover" style="margin: 18px 0px 17px; width:35%; font-size: 100%; margin-left: 1%;">구매후기(갯수)</a>
+					<a id="wonAHover" style="margin: 18px 0px 17px; width:35%; font-size: 100%; margin-left: 1%;">구매후기(${reviewCount})</a>
 					<a id="wonAHover" style="margin: 18px 0px 17px; width:10%; font-size: 100%; margin-left: 1%;">댓글</a>
 				</div>
 				<hr>
@@ -400,17 +592,17 @@ window.addEventListener('scroll', () => {
 				<hr>
 					<div style="display: flex; justify-content: space-between; flex-direction: row; padding:18px 16px;">
 						<span>배송 교환 환불</span>
-					<span id="wonChangReturnButton" onclick="wonDisChangReturnDo()" class="fa fa-arrow-down"></span>
+					<span id="wonChangReturnButton" onclick="wonDisChangReturnDo()" class="fa fa-arrow-up"></span>
 					</div>
-				<div id="wonDisChangReturn" style="width:100%; display: none;">
-					<table style="width:100%;">
+				<div id="wonDisChangReturn" style="width:100%; display: block;">
+					<table style="width:100%; font-size: 13px;">
 						<tr>
 							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">배송비</th>
 							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">
-								<span>기본료 : </span><span><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/> 원</span>  <br>
-								<span>배송비 무료 조건 :</span> <span>${writer.writerSendfreeCase }</span><br>
+								<span>기본료 : </span><span style="color: #22a7af;"><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/> 원</span>  <br>
+								<span>배송비 무료 조건 :</span> <span style="color: #22a7af;">${writer.writerSendfreeCase }</span><br>
 								<span>제주, 도서산간일 경우 기본료만 무료가 됩니다.</span><br>
-								<span>제주 / 도서산간 추가비용 : </span><span><fmt:formatNumber value="${writer.writerSendPrice }"/>원</span></td>
+								<span>제주 / 도서산간 추가비용 : </span><span style="color: #22a7af;"><fmt:formatNumber value="${writer.writerSendPrice }"/>원</span></td>
 						</tr>
 						<tr>
 							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>제작 / 배송</span></th>
@@ -420,9 +612,24 @@ window.addEventListener('scroll', () => {
 							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">교환 / 환불</th>
 							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">
 							<c:if test="${writer.writerRefund eq 'y'}">
-								<span>교환 및 환불이 가능합니다.</span>
+								<span>
+									<a style="color: #22a7af;font-weight: bold;">가능</a><br>
+									[교환/반품기준]<br><br>
+									-교환/반품은 제품 수령 후 7일 이내 개봉하지 않은 새 제품에 한하여 가능합니다.<br>
+									-제품에 하자가 있을 경우 메시지 보내주세요. 대표가 책임지고 적극 교환해드립니다.<br>
+									(단, 단순변심, 주문착오, 장기부재, 주소 및 연락처오류, 수취인부재, 배송기사님과의 트러블로 인한 반품/교환비용은 구매자 부담입니다.)<br>
+									-천연비누의 특성상 천연분말 뭉침, 색이 고르지 않을 수 있습니다.
+									제품 사용이나 품질에는 전혀 지장이 없으므로 안심하고 사용해주세요.
+									-전체 교환/반품이 아닌 일부 상품의 교환/반품인 경우에는 편도 금액을 부담하시면 됩니다.<br>
+									-제품 하자로 인한 교환 및 반품의 경우 두류헌에서 배송비를 부담합니다.<br>
+									-대량주문건은 메시지로 문의주시기 바랍니다.<br>
+									-제주도 및 도서산간지역은 별도의 추가비용이 발생할 수 있습니다.<br>
+									-교환및 반품시에는 메시지 접수 후 발송 부탁드립니다.<br>
+									(메시지 접수 하지 않고 반송하실 경우 처리가 지연될 수 있습니다.)<br>
+								</span>
 							</c:if>
 							<c:if test="${writer.writerRefund eq 'n'}">
+								<a style="color: #ff0000;font-weight: bold;">불가능</a><br>
 								<span>주문 전 판매 작가님과 연락하여 확인해주세요.신선식품이기에 단순변심에의한 교환및 환불은불가합니다</span>
 							</c:if>
 							</td>
@@ -432,26 +639,48 @@ window.addEventListener('scroll', () => {
 				</c:forEach><!-- 작품정보 제공공시 -->
 				<hr>
 				<div style="padding: 2%; display: flex; justify-content: space-between; ">
-					<span>구매후기(구매후기 수)</span>
+					<span>구매후기(<a id="dndud_wonhui_review_count">${reviewCount}</a>)</span>
 					<button id="wonButtonReview" style="background: white;">구매후기작성하기</button>
 				</div>
-				<hr style="border: 1px solid black">
+				
 				<!-- 구매후기 -->
-				<div style="width:100%; display: flex;justify-content: space-between;">
-					<div style="border-radius:50%; width:80%;display: flex; flex-direction: row;"><!-- 프로필 -->
-						<img style="width:10%;" src="<c:url value='/resources/img/test.png'/>">
-						<div>
-							<span style="font-size: 80%;">프로필이름</span><br>
-							<span style="color:#999999; font-size: 80%;">등록날짜</span>
+				<div id="dndud_wonhui_review_div" style="border-top: 2px solid black; padding: 0 0 3% 0; overflow-y: scroll; max-height:20%">
+				
+					<c:forEach items="${reviewList}" var="review">
+					
+						<div style="width:100%; display: flex; flex-direction:column; padding:10px 0; border-bottom:1px solid #d9d9d9;">
+							<div style="display:flex; justify-content: space-between;">
+								<div style="border-radius:50%; width:80%;display: flex; flex-direction: row;"><!-- 프로필 -->
+									<img style="width:10%; border-radius: 50%;" src="<c:url value='/upload/${review.memberImg }'/>">
+									<div>
+										<span style="font-size: 80%;">${review.memberName}</span><br>
+										<span style="color:#999999; font-size: 80%;">
+											<fmt:parseDate value="${review.reviewDate }" pattern="yyyy-MM-dd HH:mm" var="date"/>
+											<fmt:formatDate pattern="yyyy년 MM월 dd일" type="both" value="${date }"/>
+										</span>
+									</div>
+								</div>
+								<div>
+									<div class="minwoo_starRev" style="margin-top: 10px;" data-rate="${review.reviewStar }">
+										<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
+										<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
+										<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
+										<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
+										<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
+									</div>
+								</div>
+							</div>
+							<div>
+								${review.reviewContent }
+							</div>
 						</div>
-					</div>
-					<div>별점!</div>
-				</div>
-				<div>
-					구매후기 작성란!
+						
+					</c:forEach>
+					
+					
 				</div>
 				<!-- 구매후기 end -->
-				<hr>
+				<!-- 
 				<div style="display: flex; flex-direction: row; justify-content:center; margin: 2%;">
 						<a id="wonUproductPagingButtonPrev">
 							<span style="text-align: center;">&lt;이전 |</span>
@@ -459,25 +688,30 @@ window.addEventListener('scroll', () => {
 						<a id="wonUproductPagingButtonNext">
 							<span style="text-align: center;">| 다음&gt;</span>
 						</a>
-				</div>
+				</div> -->
 				
 				<div style="display: flex; justify-content: space-between; margin-top: 10%;; padding: ;">
 					<strong>댓글</strong><a style="color: #AFEEEE; font-size: 80%;" id="wonUProductReview"></a>
 				</div>
 				<hr style="border:1px solid black;">
 				<!-- 댓글 -->
-				<div style="margin: 1%; display: flex; justify-content: center; overflow-y: scroll;">
-					<div style="display: flex; flex-direction: column;">
+				<div id="dndud_commentDiv" style="margin: 1%; display: flex; justify-content: center; overflow-y: scroll; max-height:20%">
+					<div style="width:100%; display: flex; flex-direction: column; align-items: center">
 						<c:if test="${commentList.size() <= 0}">					
-							<span style="margin-left: 30%;"><i class="fa fa-comment fa-5x"></i></span>
+							<span><i class="fa fa-comment fa-5x"></i></span>
 							<br>
 							<span style="color: #ACACAC;">행운의 첫 댓글을 남겨보세요.</span>
 						</c:if>
 						<c:if test="${commentList.size() > 0}">
 							<c:forEach var="b" items="${commentList}">
-								<div style="display: flex; flex-direction: row; width: 100%;">
-									<img style="width: 10%;" src="<c:url value='/uplaod/img/test.png'/>">
-									<span  style="margin: 3%; width: 60%;">${b.commentContent}</span>
+								<div style="display: flex; flex-direction: row; width: 100%;justify-content: space-around; margin-bottom: 15px;">
+									<div style="width:10%;">
+										<img style="width: 100%; border-radius: 50%;" src="<c:url value='/upload/${b.memberProfile }'/>">
+									</div>
+									<div style="display:flex; margin:0 3%; width:84%; flex-direction: column">
+										<span style="width:10%; font-size:11px; color: #999;">${b.memberName }</span>
+										<span style="">${b.commentContent}</span>
+									</div>
 								</div>
 							</c:forEach>
 						</c:if>
@@ -486,7 +720,12 @@ window.addEventListener('scroll', () => {
 				</div>
 				<hr>
 				<div style="display: flex; flex-direction: row; width: 100%;">
-					<img style="width: 10%;" src="<c:url value='/resources/img/test.png'/>">
+					<c:if test="${not empty memberImg }">
+						<img style="width: 10%; border-radius: 50%;" src="<c:url value='/upload/${memberImg}'/>">						
+					</c:if>
+					<c:if test="${empty memberImg }">
+						<img style="width: 10%; border-radius: 50%;" src="<c:url value='/resources/img/test.png'/>">
+					</c:if>
 					<input type="text" id="comment" style="margin: 3%; width: 60%;" placeholder="댓글을 남겨주세요~">
 					<input type="button" value="등록" style="margin: 3%;" onclick="commentUpdate();">
 				</div>
@@ -505,46 +744,66 @@ window.addEventListener('scroll', () => {
 						</span>
 					<div>
 						<a style="text-decoration: none; display: flex; justify-content: flex-end;"href="#">
-							<span style="border:1px #ABABAB solid; font-size: 80%; color: #666666;display: flex;">작가문의</span><!-- 메세지 페이지로 이동 -->
+							<span class="message_to_writer" style="border:1px #ABABAB solid; font-size: 80%; color: #666666;display: flex;">작가문의</span><!-- 메세지 페이지로 이동 -->
 						</a>
 					</div>
 					</div>
-					<div id="wonActionDisplay" style=" width: 80%; border: 1px solid; border-radius: 2px; background-color: #fff; font-size: 80%; vertical-align: baseline; display: none; flex-direction: column;">
-								<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 80%; vertical-align: baseline; box-sizing: border-box; border">
-									<span style="font-size: 12px;color: #fff;">전체옵션 선택</span>
-									<button id="wonAuctionClose" onclick="wonAuctionClose()" style="float: right; background-color: #333; border:none; color: #fff;">X</button>
-								</div>
-								<!-- 선택사항 -->
-								<c:forEach var="b" items="${artOption }">
-										<div  style="display: flex; flex-direction: column;"><!-- 선택사항 1 -->
-											<div id="wonDetailAuction" onclick="wonDetailAuction(this);">
-												<span style="padding: 1%; margin: 1%;">${b.artOptionCategory }</span>
-												<i style=" padding: 1%; margin: 1%; float: right;"class="fa fa-arrow-down"></i>
-											<div id="wonDetailAuctionSelect"  style="display: none; flex-direction: column; border: none; width: 100%;">
-												<button value="${b.artOptionPrice }" onclick="optionSelect(this);" style="background-color: white; border: none; width: 100%;">
-												<span style="padding: 1%; margin: 1%;">${b.artOptionName }</span>
-												<span style="padding: 1%; margin: 1%;">+${b.artOptionPrice }</span></button>
-											</div>
-											</div>
-											
+					<div id="wonActionDisplay" style="left: 3%; width: 95%; border: 1px solid; border-radius: 2px; background-color: #fff; font-size: 80%; vertical-align: baseline; display: none; flex-direction: column;">
+						<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 80%; vertical-align: baseline; box-sizing: border-box; border">
+							<span style="font-size: 12px;color: #fff;">전체옵션 선택</span>
+							<button id="wonAuctionClose" onclick="wonAuctionClose()" style="float: right; background-color: #333; border:none; color: #fff;">X</button>
+						</div>
+						<!-- 선택사항 -->
+						<c:forEach var="b" items="${artOption }" varStatus="head">
+							<div style="display: flex; flex-direction: column;"><!-- 선택사항 1 -->
+								<div id="wonDetailAuction" onclick="wonDetailAuction(this);">
+									<div style="display:flex; justify-content: space-between;">
+										<span style="padding: 1%; margin: 1%; font-weight:bold; width:50%;"><c:out value="${head.count }"/>. ${b.artOptionCategory }</span>
+										<div style="display: flex;flex-direction: row;align-items: center; justify-content: flex-end; width:50%;">
+											<span class="dndud_preview_option" style="margin-rigth:15px"></span>
+											<i style=" padding: 1%; margin: 1%; float: right;"class="fa fa-arrow-down"></i>
 										</div>
-								</c:forEach>
-								<!-- 선택사항  end -->
-								<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 100%; vertical-align: baseline; box-sizing: border-box;">
-									<span onclick="completeSelect();" style="font-size: 12px;color: #fff; cursor: pointer;">선택완료</span>
+									</div>
+									<div id="wonDetailAuctionSelect" class="dndud_detail_option" style="display: none; flex-direction: column; border: none; width: 100%;">
+										<c:forEach var="c" items="${b.artOptionDetailPrice }" varStatus="i">
+											<button class="dndud_detail_option_one" value="${c}" style="background-color: white; border: none; width: 100%; display:flex;align-items: center;">
+												<span class="dndud_option_name" style="padding: 1%; margin: 1%;">${b.artOptionDetailName[i.index]}</span>
+												<input class="dndud_option_code" type="hidden" value="${b.artOptionDetailCode[i.index] }" />
+												<input class="dndud_option_category" type="hidden" value="${b.artOptionCategory}" />
+												<c:if test="${c ne 0 }">
+													<span style="padding: 1%; margin: 1%;">(+<span class="dndud_option_price">${c}</span>원)</span>
+													<input class="dndud_option_price_input" type="hidden" value="${c }" />
+												</c:if>
+												<c:if test="${c eq 0 }">
+													<input class="dndud_option_price_input" type="hidden" value="${c }" />
+												</c:if>
+											</button>
+										</c:forEach>
+									</div>
 								</div>
 							</div>
+						</c:forEach>
+						<!-- 선택사항  end -->
+						<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 100%; vertical-align: baseline; box-sizing: border-box;">
+							<span id="complete_select_option" style="font-size: 12px;color: #fff; cursor: pointer;">선택완료</span>
+						</div>
+					</div>
 					<div style="margin-left: 2.5%;"><!-- 할인율 가격 판매제목  -->
 						<strong style="font-size: 150%;">${artList.artName }</strong><br>
 						<div style="margin:1%; display: flex; flex-direction: row; justify-content:space-between;">
 							<div style="width:70%; display: flex; flex-direction: row;">
-								<p style="color: red; padding-top:2%; margin-top: 2%; font-size: 100%;">${ artList.artDiscount}&nbsp;원</p>
-								<p style="padding: 1%; margin: 1%; font-size: 150%;"> <fmt:formatNumber value="${artList.artPrice - artList.artDiscount}" pattern="#,###"/>원</p>
+								<p style="color: red; padding-top:2%; margin-top: 2%; font-size: 100%;"><fmt:formatNumber value="${(artList.artPrice - artList.artDiscount) / artList.artPrice}" type="percent"/></p>
+								<p style="padding: 1%; margin: 1%; font-size: 150%;"><fmt:formatNumber value="${artList.artDiscount}" pattern="#,###"/>원</p>
 								<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 80%; text-decoration: line-through;"><fmt:formatNumber value="${artList.artPrice}" pattern="#,###"/> 원</p>
 							</div>
 							<div style="width: 30%; display:flex; justify-content: flex-end;">
 								<div style="display: flex; flex-direction: column; margin: 1%;">
-									<i class="fa fa-star-o fa-1x" aria-hidden="true" onclick="bookmarkCount();" id="won_bookMark_star"></i>
+									<c:if test="${checkWishArticle ne 0 }">
+										<i class="fas fa-star" aria-hidden="true" onclick="bookmarkCount();" id="won_bookMark_star"></i>
+									</c:if>
+									<c:if test="${checkWishArticle eq 0 }">
+										<i class="fa fa-star-o fa-1x" aria-hidden="true" onclick="bookmarkCount();" id="won_bookMark_star"></i>
+									</c:if>
 									<span style="align-self: center;"><fmt:formatNumber value="${artList.bookMarkCount }" pattern="#,###"/></span>
 								</div>
 									<i class="fa fa-share-alt-square fa-3x" aria-hidden="true" onclick="copy_trackback();">
@@ -563,13 +822,16 @@ window.addEventListener('scroll', () => {
 								<span style="margin: 2%; padding: 2%; color: #666666;">수량</span>
 							</div>
 							<div style="display:flex; flex-direction: column; margin-left: 5%;width:30%;">
-								<span style="margin: 2%; padding: 2%;"><fmt:formatNumber value="${(artList.artPrice- artList.artDiscount)*0.01}" pattern="#,###"/> P</span>
+								<span style="margin: 2%; padding: 2%;"><a id="dndud_point"><fmt:formatNumber value="${(artList.artPrice- artList.artDiscount)*0.01}" pattern="#,###"/></a> P</span>
 								<span style="margin: 2%; padding: 2%;">
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
+									<div class="minwoo_starRev" data-rate="${reviewTotalStar }">
+										<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
+										<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
+										<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
+										<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
+										<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
+										<span style="margin-left: 10px;font-size: 12px; color: #666;">(<span>${reviewCount }</span>)</span>
+									</div>
 								</span>
 								<span style="margin: 2%; padding: 2%;"><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/>원</span>
 								<span style="margin: 2%; padding: 2%;">${artList.artAmount }</span>
@@ -577,39 +839,56 @@ window.addEventListener('scroll', () => {
 						</div>
 						
 						<div style="padding: 1%; margin: 1%;">
-							<button id="wonActionButton" style="width:80%; display: flex; justify-content: space-between; margin: 1%;"
-							onclick="wonAuctionOpen()">
-								<span>옵션</span>
-								<span id="wonActionArrow" style="margin: 1%;"class="fa fa-arrow-down"></span>
-							</button>
-							<div id="optionSelectDetail" style="display: none; flex-direction:column; width:80%;margin: 1%; background-color: #F5F5F5;" >
-								<div style="margin: 1%;padding: 1%; " ><!-- 옵션 선택사항 -->
-									<span style="font-size: 80%; color: #666666; padding: 1%;" id="wonActionDetailDisplay">
-									
-									</span>
+							<c:if test="${not empty artOption }">
+								<button id="wonActionButton" style="width:100%; display: flex; justify-content: space-between;"
+								onclick="wonAuctionOpen()">
+									<span>옵션</span>
+									<span id="wonActionArrow" style="margin: 1%;"class="fa fa-arrow-down"></span>
+								</button>
+							
+								<div id="optionSelectDetail" style="display: block; flex-direction:column; width:100%; background-color: #F5F5F5;height: 100px;overflow-y: auto;" >
+								
 								</div>
-								<div style="display: flex; justify-content: space-between;">
-									<div style="display: flex; flex-direction: row;">
+							</c:if>
+							<c:if test="${empty artOption }">
+								<div id="optionSelectDetail" style="display: block; flex-direction:column; width:100%; background-color: #F5F5F5; align-items: center" >
+								
 									
+									<div class="before_pay_option">
+										<div style="display: flex; justify-content: space-between;margin: 1%;padding: 4% 1%;">
+											<div style="display: flex; flex-direction: row;">
+												<div class="input_number">
+													<button class="downButton" type="button">-</button>
+													<div class="input_area">
+														<input class="prd-count" type="number" value="1" min="1" max="999" readonly >
+													</div>
+													<button class="upButton" type="button">+</button>
+												</div>
+											</div>
+											<div style="width: 30%;display: flex;justify-content: flex-end;align-items: center;">
+												<span class="tempPrice" style="font-size: 12px; color: #666666;">
+													<fmt:formatNumber value="${artList.artDiscount}" pattern="#,###"/>
+												</span>
+												<input type="hidden" class="orgPrice" value="${artList.artDiscount}"/>
+												<span>원</span>
+											</div>
+										</div>
 									</div>
-									<div>
-										<span id="tempPrice" style="font-size: 12px; color: #666666;">0</span><span>원</span>
-										<button id="wonAuctionDetailClose" onclick="wonAuctionDetailClose()">X</button>
-									</div>
+									
 								</div>
-							</div>
+							</c:if>
 						</div>
-						<div style="display: flex;  padding: 1%; margin: 1%;">
+						<div style="display: flex;  padding: 1%; margin: 1%; justify-content: space-between;">
 							<span style="width:68%;">총작품금액</span>
-							<span id="totalPrice" style="font-size: 20px; color: #333333;"><fmt:formatNumber value="${artList.artPrice - artList.artDiscount}"/></span><span>원</span>
+							<span><span id="totalPrice" style="font-size: 20px; color: #333333;">0</span>원</span>
 						</div>
 						<div style="display: flex; flex-direction: row; padding: 1%; margin: 1%;">
-							<button style="width:40%; background-color:white; 
+							<button id="go_shop_bag" style="width:40%; background-color:white; 
 							height:50px; margin: 1%; border: 1px #333333 solid;">
 								<span style="color: #333333; font-size: 16px;">장바구니</span>
 							</button>
-							<button style="width:40%; margin: 1%;border: none; background: #f95677; font-style: 16px; color: white;">구매</button>
-							<button style="width:20%; margin: 1%">선물하기</button>
+							<button id="go_direct_pay" style="width:40%; margin: 1%;border: none; background: #f95677; font-style: 16px; color: white;">구매</button>
+							<button id="go_present" style="width:20%; margin: 1%">선물하기</button>
 						</div>
 					</div>
 				</div>
@@ -636,25 +915,51 @@ window.addEventListener('scroll', () => {
 				</div>
 			</div>
 			<div style="display: flex;  width: 50%; justify-content: center;">
-				<div style="width: 100%; display: flex; flex-direction:column; padding: 1%; align-self: center;">
-					<img style="align-self: center; width: 15%; height:15%; margin-top: 5%;" src="<c:url value='/upload/${writer.writeProfileImg }'/>">
-					<span style="text-align: center;">${writer.writerBrandName }</span>
-					<span style="align-self:center;">
-						<i class="fa fa-star" aria-hidden="true"></i>
-						<i class="fa fa-star" aria-hidden="true"></i>
-						<i class="fa fa-star" aria-hidden="true"></i>
-						<i class="fa fa-star" aria-hidden="true"></i>
-						<i class="fa fa-star" aria-hidden="true"></i>
-					</span>
+				<div style="width: 100%; display: flex; flex-direction:column; padding: 1%; align-self: center;align-items: center;">
+					<c:if test="${not empty writer.writeProfileImg }">
+						<img style="align-self: center; width: 15%; height:15%; margin-top: 5%;" src="<c:url value='/upload/${writer.writeProfileImg }'/>">
+					</c:if>
+					<c:if test="${empty writer.writeProfileImg }">
+						<img style="align-self: center; width:15%; height:15%; margin-top: 5%;" src="<c:url value='/resources/img/test.png' /> ">
+					</c:if>
+					<c:if test="${not empty writer.writerBrandName }">
+						<span style="text-align: center;font-size: 13px;color: #666;">${writer.writerBrandName }</span>
+					</c:if>
+					<c:if test="${empty writer.writerBrandName }">
+						<span style="text-align: center;font-size: 13px;color: #666;">${writer.writerName }</span>						
+					</c:if>
+					<div class="minwoo_starRev" data-rate="${writerAllArticlesStar }">
+						<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
+						<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
+						<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
+						<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
+						<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
+					</div>
+					<c:if test="${not empty writer.writerIntro }">
+						<p>${writer.writerIntro }</p>
+					</c:if>
+					<c:if test="${empty writer.writerIntro }">
+						<p>안녕하세요</p>
+					</c:if>
 					
-					<button style="background-color: white; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
-							작가로추가
-					</button>
-					<button style="background-color: white; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
-							작가홈
+					<c:if test="${checkWishWriter eq 0 }">
+						<button id="wish_writer_append" style="cursor:pointer;background-color: white;color:red; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
+							<i class="fas fa-heart" style="font-size:12px"></i>작가로 추가
+						</button>
+					</c:if>
+					<c:if test="${checkWishWriter eq 1 }">
+						<button id="wish_writer_append" style="cursor:pointer;background-color: red;color:white; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
+							<i class="fas fa-heart" style="font-size:12px"></i>하는 작가
+						</button>
+					</c:if>
+					
+					<button id="go_writer_home" style="cursor:pointer;background-color: white; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
+						<input id="writer_home_url" type="hidden" value="${writer.writerUrl }"/>
+						
+						작가홈
 					</button>
 					
-					<button style="background-color: white; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
+					<button class="message_to_writer" style="cursor:pointer;background-color: white; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
 							메세지보내기
 					</button>
 				</div>
@@ -666,7 +971,391 @@ window.addEventListener('scroll', () => {
 </div>
 </body>
 <script type="text/javascript">
+var test = '${artOption}';
+
+
+
+var optionDIV = function(){
+	if($('.before_pay_option').length == 0){
+		$('#optionSelectDetail').css('display', 'none');
+	}else{
+		$('#optionSelectDetail').css('display', 'block');
+	}
+}
+
+
+
+var totalPrice = function(){
+	if(test == '[]'){
+		$('#totalPrice').text($('.tempPrice').text());
+		return false;
+	}
+	var temp = 0;
+	$('.tempPrice').each(function(i, e){
+		temp += RemoveComma($(e).text());
+	});
+
+	$('#totalPrice').text(AddComma(temp));
+}
+
+var upButton = function(){
+	var num = $(this).prev('.input_area').children().val();
+	num++;
+	$(this).prev().children().val(num);
+	var orgPrice = $(this).parent().parent().next().children('.orgPrice').val();
+	var total = Number(num) * Number(orgPrice);
+	$(this).parent().parent().next().children('.tempPrice').html(AddComma(total));
+	totalPrice();
+};
+
+var downButton = function(){
+	var num = $(this).next('.input_area').children().val();
+	if(num == 1){
+		return false;
+	}
+	num--;
+	$(this).next().children().val(num);
+	var orgPrice = $(this).parent().parent().next().children('.orgPrice').val();
+	var total = Number(num) * Number(orgPrice);
+	$(this).parent().parent().next().children('.tempPrice').html(AddComma(total));
+	totalPrice();
+};
+
+var optionDetailClose = function(){
+	$(this).closest('.before_pay_option').remove();
+	optionDIV();
+	totalPrice();
+};
+
+$(document).ready(function(){
+	optionDIV();
+	$("#dndud_commentDiv").scrollTop($("#dndud_commentDiv")[0].scrollHeight);
+	$("#dndud_wonhui_review_div").scrollTop($("#dndud_wonhui_review_div")[0].scrollHeight);
+	var starRevPoint = $('.minwoo_starRev');
+	starRevPoint.each(function(){
+		var targetScore = $(this).attr('data-rate');
+		$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
+		$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
+	});
 	
+	
+	$('.dndud_detail_option_one').on('click', function(){ // 세부 옵션 클릭 시
+		var optionCategory = $(this).children('.dndud_option_category').val();
+		var optionName = $(this).children('.dndud_option_name').text();
+		var optionCode = $(this).children('.dndud_option_code').val();
+		var optionPrice = $(this).find('.dndud_option_price_input').val();
+		
+		var test = '';
+		if(optionPrice != 0){
+			test = optionName + '(+' + AddComma(optionPrice) + '원)';
+		}else{
+			test = optionName;
+		}
+
+		var html = '<input class="option_category_form" type="hidden" value="'+ optionCategory +'" />'
+			+ '<input class="option_name_form" type="hidden" value="'+ optionName +'" />'
+			+ '<input class="option_price_form" type="hidden" value="'+ optionPrice +'" />'
+			+ '<input class="option_code_form" type="hidden" value="'+ optionCode + '" />' + test;
+		
+		$(this).parent().prev().children('div').children('.dndud_preview_option').html(html);
+		
+	});
+	
+	$('#wonAuctionClose').on('click', function(){ // 옵션 창 종료 버튼
+		$('#wonActionDisplay').css('display', 'none');
+		optionDIV();
+	});
+	
+	
+	
+	$("#complete_select_option").on('click', function(){ // 옵션 선택완료 버튼
+		var tORf = true;
+		const articlePrice = $('#dndud_article_origin_price').val();
+		console.log("test : " + articlePrice);
+		const optionTag = $('.dndud_preview_option');
+		var htmlText='';
+		var lastHtml='';
+		var html = '';
+		var lastPrice = 0;
+		optionTag.each(function(i, ele){
+			var e = $(ele);
+			var category = e.children('.option_category_form').val();
+			var name = e.children('.option_name_form').val();
+			var price = e.children('.option_price_form').val();
+			var code = e.children('.option_code_form').val();
+			
+			var tag = '';
+			if(price == 0){				
+				if(i == (optionTag.length - 1)){
+					tag = category + ' : ' + name;
+				}else{				
+					tag = category + ' : ' + name + ' / ';
+				}				
+			}else{
+				if(i == (optionTag.length - 1)){
+					tag = category + ' : ' + name + ' (+' + AddComma(price) + '원)';
+				}else{				
+					tag = category + ' : ' + name + ' (+' + AddComma(price) + '원) / ';
+				}				
+			}
+			
+			
+			html = '<input class="option_code_test" type="hidden" value="'+ code +'" />';
+			
+			lastHtml += html;
+			htmlText += tag;
+			lastPrice += Number(price);
+		});
+		lastPrice += Number(articlePrice);
+		
+		$(".before_pay_option").each(function(i, e){
+			var formC = $(e).children('.compare_string').val();
+			if(formC == htmlText){
+				$(e).find('.upButton').click();
+				tORf = false;
+				return false;
+			}else{
+				tORf = true;
+			}
+		});
+		
+		
+		$('#wonActionDisplay').css('display', 'none');
+		if(!tORf) return false;
+
+		var InnerHTML = '<div class="before_pay_option">'+ lastHtml +'<input type="hidden" class="compare_string" value="'+ htmlText +'" /><div style="margin: 1%; padding:1%;">'
+			+ '<span style="font-size:80%; color:#666666; padding:1%;" id="wonActionDetailDisplay">'
+			+ htmlText + '</span></div><div style="display:flex; justify-content:space-between; margin:1%; padding:1%;"><div style="display:flex; flex-direction:row;">'
+			+ '<div class="input_number"><button class="downButton" type="button">-</button><div class="input_area"><input class="prd-count" type="number" value="1" min="1" max="999" readonly >'
+			+ '</div><button class="upButton" type="button">+</button></div></div><div style="width: 30%;display: flex;justify-content: flex-end;align-items: center;">'
+			+ '<span class="tempPrice" style="font-size: 12px; color: #666666;">' + AddComma(lastPrice) + '</span><input type="hidden" class="orgPrice" value="' + lastPrice + '"/><span>원</span>'
+			+ '<button class="optionDetailClose" style="background-color: white; border:1px solid #d9d9d9; margin:1%; cursor:pointer" id="wonAuctionDetailClose" onclick="wonAuctionDetailClose()">X</button>'
+			+ '</div></div></div>';
+		
+		
+		$("#optionSelectDetail").append(InnerHTML);
+		$('.optionDetailClose').click(optionDetailClose);
+		/* $('.upButton').click(upButton);
+		$('.downButton').click(downButton); */
+		totalPrice();
+		optionDIV();
+	});
+	
+	$('#optionSelectDetail').click(function(e) {
+		const target = e.target;
+		if(target.closest('.upButton')) {
+			upButton.call(target);
+		} else if(target.closest('.downButton')) {
+			downButton.call(target);
+		}
+	});
+	
+	totalPrice();
+	
+	$('#go_shop_bag').on('click', function(){ // 장바구니
+		/*
+		dndud_go_shop_bag
+		*/
+		if(memberCode == null || memberCode == '' || memberCode == 'null'){
+			alert('로그인 후 사용이 가능합니다.');
+			location.href='/bomulsum/user/login.do';
+			return false;
+		}else{
+			
+			if($('.before_pay_option').length == 0){
+				alert('옵션을 선택해주세요.');
+				return false;
+			}
+			
+			var sendData = [];
+			var optionCode = '';
+			var count = 0;
+			$('.before_pay_option').each(function(i, er){
+				var e = $(er);
+				var optionTemp = '';
+				
+				e.children('.option_code_test').each(function(ir, err){
+					optionTemp += $(err).val() + ',';
+				});
+				
+				optionCode = optionTemp;
+				
+				count = e.find('.prd-count').val();
+				
+				var $inputArtCode = $('<input type="text" name="testList['+i+'].artCode" value="'+artCodeSeq+'">');
+				var $inputMemberCode = $('<input type="text" name="testList['+i+'].memberCode" value="'+memberCode+'">');
+				var $inputOptionCode = $('<input type="text" name="testList['+i+'].optionCode" value="'+optionCode+'">');
+				var $inputArtCount = $('<input type="text" name="testList['+i+'].artCount" value="'+count+'">');
+				
+				$('#dndud_go_shop_bag').append($inputArtCode);
+				$('#dndud_go_shop_bag').append($inputMemberCode);
+				$('#dndud_go_shop_bag').append($inputOptionCode);
+				$('#dndud_go_shop_bag').append($inputArtCount);
+				
+			});
+			
+			$('#dndud_go_shop_bag').submit();
+			
+		}
+	});
+	
+	$('#go_direct_pay').on('click', function(){ // 바로 구매
+		if(memberCode == null || memberCode == '' || memberCode == 'null'){
+			alert('로그인 후 사용이 가능합니다.');
+			location.href='/bomulsum/user/login.do';
+			return false;
+		}else{
+			
+			if($('.before_pay_option').length == 0){
+				alert('옵션을 선택해주세요.');
+				return false;
+			}
+			
+			var sendData = [];
+			var optionCode = '';
+			var count = 0;
+			$('.before_pay_option').each(function(i, er){
+				var e = $(er);
+				var optionTemp = '';
+				
+				e.children('.option_code_test').each(function(ir, err){
+					optionTemp += $(err).val() + ',';
+				});
+				
+				optionCode = optionTemp;
+				
+				count = e.find('.prd-count').val();
+				
+				var $inputArtCode = $('<input type="text" name="testList['+i+'].artCode" value="'+artCodeSeq+'">');
+				var $inputMemberCode = $('<input type="text" name="testList['+i+'].memberCode" value="'+memberCode+'">');
+				var $inputOptionCode = $('<input type="text" name="testList['+i+'].optionCode" value="'+optionCode+'">');
+				var $inputArtCount = $('<input type="text" name="testList['+i+'].artCount" value="'+count+'">');
+				
+				$('#dndud_go_direct_pay').append($inputArtCode);
+				$('#dndud_go_direct_pay').append($inputMemberCode);
+				$('#dndud_go_direct_pay').append($inputOptionCode);
+				$('#dndud_go_direct_pay').append($inputArtCount);
+				
+			});
+			
+			$('#dndud_go_direct_pay').submit();
+			
+		}
+	});
+	
+	$('#go_present').on('click', function(){ // 선물하기
+		/* 
+		dndud_go_gift
+		*/
+		if(memberCode == null || memberCode == '' || memberCode == 'null'){
+			alert('로그인 후 사용이 가능합니다.');
+			location.href='/bomulsum/user/login.do';
+			return false;
+		}else{
+			
+			if($('.before_pay_option').length == 0){
+				alert('옵션을 선택해주세요.');
+				return false;
+			}
+			
+			var sendData = [];
+			var optionCode = '';
+			var count = 0;
+			$('.before_pay_option').each(function(i, er){
+				var e = $(er);
+				var optionTemp = '';
+				
+				e.children('.option_code_test').each(function(ir, err){
+					optionTemp += $(err).val() + ',';
+				});
+				
+				optionCode = optionTemp;
+				
+				count = e.find('.prd-count').val();
+				
+				var $inputArtCode = $('<input type="text" name="testList['+i+'].artCode" value="'+artCodeSeq+'">');
+				var $inputMemberCode = $('<input type="text" name="testList['+i+'].memberCode" value="'+memberCode+'">');
+				var $inputOptionCode = $('<input type="text" name="testList['+i+'].optionCode" value="'+optionCode+'">');
+				var $inputArtCount = $('<input type="text" name="testList['+i+'].artCount" value="'+count+'">');
+				
+				$('#dndud_go_gift').append($inputArtCode);
+				$('#dndud_go_gift').append($inputMemberCode);
+				$('#dndud_go_gift').append($inputOptionCode);
+				$('#dndud_go_gift').append($inputArtCount);
+				
+			});
+			
+			$('#dndud_go_gift').submit();
+			
+		}
+		
+	});
+		
+	
+	$('.message_to_writer').on('click', function(){
+		if(memberCode == null || memberCode == '' || memberCode == 'null'){
+			alert('로그인 후 사용이 가능합니다.');
+			location.href='/bomulsum/user/login.do';
+			return false;
+		}else{
+			console.log('writer code : ' + writerCodeSeq);
+			location.href="/bomulsum/user/message.do?writer="+writerCodeSeq;
+		}
+	});
+	
+	$('#wish_writer_append').on('click', function(){
+		
+		if(memberCode == null || memberCode == '' || memberCode == 'null'){
+			alert('로그인 후 사용이 가능합니다.');
+			location.href='/bomulsum/user/login.do';
+			return false;
+		}else{
+			var tORf;
+			var option = '좋아하는작가';
+			
+			if($('#wish_writer_append').css('color') == 'rgb(255, 0, 0)'){
+				tORf = true;
+			}else{
+				tORf = false;
+			}
+			
+			$.ajax({
+				url:'/bomulsum/category/wish.do',
+				data:{
+					'member':memberCode,
+					'option':option,
+					'optionCode':writerCodeSeq,
+					'bool': tORf
+				},
+				type:'POST',
+				success:function(data){
+					
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+			
+			if(tORf){
+				alert('좋아하는 작가에 추가되었습니다.');
+				location.reload();
+			}else{
+				alert('즐겨찾기가 해제되었습니다.');
+				location.reload();
+			}
+		}
+	});
+	
+	// /bomulsum/writerhome/작가url.do
+	$('#go_writer_home').on('click', function(){
+		var url = $('#writer_home_url').val();
+		
+		location.href='/bomulsum/writerhome/'+url+'.do';
+	});
+	
+});
+
+
 </script>
 </html>
 

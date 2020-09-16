@@ -446,6 +446,13 @@ $(window).scroll(function() {
     }
 });
 
+function artCode(e){
+	var art_code = e.id;
+	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank");
+}
+
+
 function comma(x) { return !x ? '0' : x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 
 
@@ -488,7 +495,7 @@ function getList(page){
 							
 							pricePer = (data[i].artPrice - data[i].artDiscount) / data[i].artPrice * 100;
 							
-							htmldiv += '<div class="dndud_main_category_content_box">'
+							htmldiv += '<div class="dndud_main_category_content_box" id="'+ data[i].artCode +'" onclick="artCode(this);">'
 								+ '<input class="artCode" type="hidden" value="'+ data[i].artCode +'"/>'
 								+ '<div class="content_img" style="background-image: URL(\'/bomulsum/upload/'
 								+ artImg +'\' )">';
@@ -672,8 +679,8 @@ $(function(){
 	}
 	
 	
-	likeArticleFunc = function(){
-		
+	likeArticleFunc = function(e){
+		e.stopPropagation();
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='/bomulsum/user/login.do';

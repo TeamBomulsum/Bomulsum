@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.web.bomulsum.user.productInfo.repository.CommentVO;
+import com.web.bomulsum.user.productInfo.repository.ReviewVO;
+import com.web.bomulsum.user.productInfo.repository.TestVo;
 import com.web.bomulsum.user.productInfo.repository.WriterVO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
 import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
@@ -20,4 +22,12 @@ public interface ProductInfoService {
 	public List<WriterArtVO> selectOherProduct(String writerCodeSeq); 
 	public int commentInsert(HashMap<String, String> map);
 	public List<CommentVO> commentSelect(String artCodeSeq);
+	
+	public String getMemberImg(String memberCode);
+	public List<ReviewVO> getReviews(String artCodeSeq);
+	public List<Integer> getWriterAllArticleStar(String writerCode);
+	public int getWishForWriter(String artCode);
+	public int checkWishForWriter(HashMap<String, String> map);
+	public int checkWishForArticle(HashMap<String, String> map );
+	public void insertShopBag(TestVo vo);
 }

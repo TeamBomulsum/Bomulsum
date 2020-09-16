@@ -962,7 +962,7 @@ body {
 		<div></div>
 		<div class="dainheader-bottom-inner">
 			<div class="dainrounded" style="margin-right: 5px;">온라인</div>
-			<div><a class="dainheader-bi-a" href="#">홈</a></div>
+			<div><a class="dainheader-bi-a" href="<c:url value='/midas/info/detail.do'/>">홈</a></div>
 			<div style="color: #d9d9d9">|</div>
 			<div class="dainrounded" style="margin-right: 5px;">오프라인</div>
 			<div><a class="dainheader-bi-a" href="<c:url value='/midas/class.do'/>">홈</a></div>

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.web.bomulsum.user.productInfo.repository.CommentVO;
 import com.web.bomulsum.user.productInfo.repository.ProductInfoDAO;
+import com.web.bomulsum.user.productInfo.repository.ReviewVO;
+import com.web.bomulsum.user.productInfo.repository.TestVo;
 import com.web.bomulsum.user.productInfo.repository.WriterVO;
 import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
 import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
@@ -69,5 +71,40 @@ public class ProductInfoServiceImpl implements ProductInfoService{
 	@Override
 	public List<CommentVO> commentSelect(String artCodeSeq) {
 		return dao.commentSelect(artCodeSeq);
+	}
+
+	@Override
+	public String getMemberImg(String memberCode) {
+		return dao.getMemberImg(memberCode);
+	}
+
+	@Override
+	public List<ReviewVO> getReviews(String artCodeSeq) {
+		return dao.getReviews(artCodeSeq);
+	}
+
+	@Override
+	public List<Integer> getWriterAllArticleStar(String writerCode) {
+		return dao.getWriterAllArticleStar(writerCode);
+	}
+
+	@Override
+	public int getWishForWriter(String artCode) {
+		return dao.getWishForWriter(artCode);
+	}
+
+	@Override
+	public int checkWishForWriter(HashMap<String, String> map) {
+		return dao.checkWishForWriter(map);
+	}
+
+	@Override
+	public int checkWishForArticle(HashMap<String, String> map) {
+		return dao.checkWishForArticle(map);
+	}
+
+	@Override
+	public void insertShopBag(TestVo vo) {
+		dao.insertShopBag(vo);
 	}
 }

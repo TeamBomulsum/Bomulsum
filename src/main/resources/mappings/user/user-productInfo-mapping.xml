@@ -74,12 +74,16 @@
 		<result column="comment_recomment" property="commentRecomment"/>
 		<result column="comment_recomment_date" property="commentRecommentDate"/>
 		<result column="writer_code_seq" property="writerCodeSeq"/>
-			
-			
-			<association property="memberCodeSeq" column="member_code_seq" javaType="com.web.bomulsum.user.productInfo.repository.JoinVO">
-				<result column="member_profile" property="memberProfile"/>
-				<result column="member_name" property="memberName"/>
-			</association>
+		<result column="member_profile" property="memberProfile"/>
+		<result column="member_name" property="memberName"/>
+	</resultMap>
+	
+	<resultMap type="com.web.bomulsum.user.productInfo.repository.ReviewVO" id="review">
+		<result column="member_profile" property="memberImg" />
+		<result column="member_name" property="memberName" />
+		<result column="review_star" property="reviewStar" />
+		<result column="review_date" property="reviewDate" />
+		<result column="review_comment" property="reviewContent" />
 	</resultMap>
 	
 	<select id="getListProductInfo" resultMap="artList">
@@ -97,6 +101,8 @@
 			art_option_tb
 		WHERE 
 			art_code_seq=#{artCodeSeq}
+		ORDER BY 
+			art_option_seq
 	</select>
 	<select id="getListProductartInfoList" resultMap="artInfoList">
 		SELECT 
@@ -213,7 +219,7 @@
 			#{writerCodeSeq}
 		)
 	</insert>
-	<select id="commentSelect" resultMap="comment">
+	<select id="commentSelect" parameterType="String" resultMap="comment">
 	SELECT
 
     	member_code_seq,
@@ -239,7 +245,104 @@
 		art_code_seq=#{artCodeSeq} 
 	ORDER BY 
 		comment_date 
-	DESC
+	ASC
 	</select>
+	
+	<select id="getMemberImg" parameterType="String" resultType="String">
+		SELECT
+			member_profile
+		FROM
+			member_tb
+		WHERE
+			member_code_seq=#{memberCode}
+	</select>
+	
+	<select id="getReviews" parameterType="String" resultMap="review">
+		SELECT
+			m.member_name,
+			m.member_profile,
+		    r.review_date,
+		    r.review_comment,
+		    r.review_star
+		FROM
+			review_tb r
+		INNER JOIN
+			member_tb m
+		ON
+			r.member_code_seq=m.member_code_seq
+		WHERE
+			r.art_code_seq=#{artCodeSeq}
+		ORDER BY
+			r.review_date
+	</select>
+	
+	<select id="getWriterAllArticleStar" parameterType="String" resultType="int">
+		SELECT
+			r.review_star
+		FROM
+			review_tb r
+		INNER JOIN
+			art_tb a
+		ON
+			a.art_code_seq = r.art_code_seq
+		WHERE
+			a.writer_code_seq=#{writerCode}
+	</select>
+	
+	<select id="getWishForWriter" parameterType="String" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			wishlist_tb
+		WHERE
+			wishlist_option='좋아하는작품'
+			AND
+			wishlist_option_code=#{artCode}
+	</select>
+	
+	<select id="checkWishForWriter" parameterType="hashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			wishlist_tb
+		WHERE
+			wishlist_option='좋아하는작가'
+			AND
+			member_code_seq=#{memberCode}
+			AND
+			wishlist_option_code=#{writerCode}
+	</select>
+	
+	<select id="checkWishForArticle" parameterType="hashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			wishlist_tb
+		WHERE
+			wishlist_option='좋아하는작품'
+			AND
+			member_code_seq=#{memberCode}
+			AND
+			wishlist_option_code=#{artCode}
+	</select>
+	
+	<insert id="insertShopBag" parameterType="com.web.bomulsum.user.productInfo.repository.TestVo">
+		INSERT INTO cart_tb
+		(
+			cart_seq,
+			art_code_seq,
+			member_code_seq,
+			art_option_seq,
+			art_count
+		)
+		VALUES
+		(
+			'cart_seq' || TO_CHAR(cart_sq.nextval),
+			#{artCode},
+			#{memberCode},
+			#{optionCode},
+			#{artCount}
+		)
+	</insert>
 	
 </mapper>

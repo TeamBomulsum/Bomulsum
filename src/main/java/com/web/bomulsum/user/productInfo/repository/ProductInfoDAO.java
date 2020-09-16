@@ -56,4 +56,34 @@ public class ProductInfoDAO {
 	public List<CommentVO> commentSelect(String artCodeSeq){
 		return template.selectList("ProductInfoDAO.commentSelect",artCodeSeq);
 	}
+	
+	public String getMemberImg(String memberCode) {
+		return template.selectOne("ProductInfoDAO.getMemberImg", memberCode);
+	}
+	
+	public List<ReviewVO> getReviews(String artCodeSeq){
+		return template.selectList("ProductInfoDAO.getReviews", artCodeSeq);
+	}
+	
+	
+	public List<Integer> getWriterAllArticleStar(String writerCode){
+		return template.selectList("ProductInfoDAO.getWriterAllArticleStar", writerCode);
+	}
+	
+	public int getWishForWriter(String artCode) {
+		return template.selectOne("ProductInfoDAO.getWishForWriter", artCode);
+	}
+	
+	public int checkWishForWriter(HashMap<String, String> map) {
+		return template.selectOne("ProductInfoDAO.checkWishForWriter", map);
+	}
+	
+	public int checkWishForArticle(HashMap<String, String> map ) {
+		return template.selectOne("ProductInfoDAO.checkWishForArticle", map);
+	}
+	
+	public void insertShopBag(TestVo vo) {
+		template.insert("ProductInfoDAO.insertShopBag", vo);
+	}
+	
 }

@@ -443,7 +443,14 @@
 	
 	<%@ include file="../../include/uFooter.jsp" %>
 </div>
-
+<script>
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+</script>
 <script>
 var socket = io("http://localhost:82");
 var dd = document.getElementById('wonMessageContent');
@@ -782,6 +789,10 @@ $(function(){
 	
 	$(".div_writer").on('click', function(){
 		var writerCode = $(this).children('input').val();
+		
+		if(writerCode == null && getParameter('writer') != null){
+			writerCode = getParameter('writer');
+		}
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
 		
 		$.ajax({
@@ -871,7 +882,7 @@ $(function(){
 		}
 		console.log(data);
 		
-		var result = confirm('현재까지 대화내용이 전부 삭제됩니다.');
+		var result = confirm('정말 나가시겠습니까?\n(대화 내용은 유지됩니다.)');
 		if(result){
 			exitChat(data);
 		}
@@ -912,23 +923,51 @@ $(function(){
 	
 });
 </script>
-<script>
-function getParameter(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-</script>
+
 <script>
 var chatroomCode = getParameter('writer');
-$(document).ready(function(){
-	$('.messageUserList').each(function(){
-		if($(this).find('.writerCode').val() == chatroomCode){
-			$(this).trigger('click');
+if(chatroomCode != null){
+	$(document).ready(function(){
+		var memberCode = '<%= (String)session.getAttribute("member") %>';
+		var lengthCheck = false;
+		if($('.messsageUserList').length == 0){
+			lengthCheck = true;
+		}
+		
+		$('.messageUserList').each(function(){
+			if($(this).find('.writerCode').val() == chatroomCode){
+				$(this).trigger('click');
+				lengthCheck = false;
+				return false;
+			}else{
+				lengthCheck = true;
+			}
+		});
+		
+		if(lengthCheck){
+			console.log('멤버 코드 : ' + memberCode);
+			console.log('작가 코드 : '+chatroomCode);
+			$.ajax({
+				url:"/bomulsum/user/message/insertChat.do",
+				data:{
+					memberCode : memberCode,
+					writerCode : chatroomCode
+				},
+				success : function(data){
+					if(data == 'success'){
+						console.log('저장 성공');					
+					}else{
+						alert('존재하는 채팅방 입니다.');
+					}
+					location.reload();
+				},
+				fail : function(err){
+					console.log(err);
+				}
+			});
 		}
 	});
-});
+}
 </script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.web.bomulsum.writer.art.repository;
 
+import java.util.List;
+
 public class WriterArtOptionVO {
 	
 	private String artOptionSeq;
@@ -7,11 +9,16 @@ public class WriterArtOptionVO {
 	private String artOptionCategory;
 	private String artOptionName;
 	private String artOptionPrice;
+	private List<String> artOptionDetailCode;
+	private List<String> artOptionDetailName;
+	private List<String> artOptionDetailPrice;
 	
-	@Override
-	public String toString() {
-		return "WriterArtOptionVO [artOptionSeq=" + artOptionSeq + ", artCodeSeq=" + artCodeSeq + ", artOptionCategory="
-				+ artOptionCategory + ", artOptionName=" + artOptionName + ", artOptionPrice=" + artOptionPrice + "]";
+	
+	public List<String> getArtOptionDetailCode() {
+		return artOptionDetailCode;
+	}
+	public void setArtOptionDetailCode(List<String> artOptionDetailCode) {
+		this.artOptionDetailCode = artOptionDetailCode;
 	}
 	public String getArtOptionSeq() {
 		return artOptionSeq;
@@ -43,9 +50,29 @@ public class WriterArtOptionVO {
 	public void setArtOptionPrice(String artOptionPrice) {
 		this.artOptionPrice = artOptionPrice;
 	}
+	public List<String> getArtOptionDetailName() {
+		return artOptionDetailName;
+	}
+	public void setArtOptionDetailName(List<String> artOptionDetailName) {
+		this.artOptionDetailName = artOptionDetailName;
+	}
+	public List<String> getArtOptionDetailPrice() {
+		return artOptionDetailPrice;
+	}
+	public void setArtOptionDetailPrice(List<String> artOptionDetailPrice) {
+		this.artOptionDetailPrice = artOptionDetailPrice;
+	}
+	@Override
+	public String toString() {
+		return "WriterArtOptionVO [artOptionSeq=" + artOptionSeq + ", artCodeSeq=" + artCodeSeq + ", artOptionCategory="
+				+ artOptionCategory + ", artOptionName=" + artOptionName + ", artOptionPrice=" + artOptionPrice
+				+ ", artOptionDetailCode=" + artOptionDetailCode + ", artOptionDetailName=" + artOptionDetailName
+				+ ", artOptionDetailPrice=" + artOptionDetailPrice + "]";
+	}
 	
-
-
+	
+	
+	
 
 	
 	

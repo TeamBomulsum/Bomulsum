@@ -581,8 +581,8 @@ $(function(){
 	}
 	
 	
-	likeArticleFunc = function(){
-		
+	likeArticleFunc = function(e){
+		e.stopPropagation();
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='/bomulsum/user/login.do';
