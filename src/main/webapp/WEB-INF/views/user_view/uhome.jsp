@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -176,6 +178,7 @@
 .categories{
 	display:flex;
 	flex-wrap: wrap;
+	cursor:pointer;
 }
 
 .category{
@@ -197,7 +200,6 @@
 }
 
 .category_img{
-	background-image: url("<c:url value='/resources/img/category_testimg.png'/>");
 	width:160.8px;
 	height:160.8px;
 	border-radius: 4px;
@@ -442,6 +444,10 @@
 
 .fs{
 	cursor:pointer;
+}
+
+.all_of_category{
+	margin-bottom:40px;
 }
 </style>
 
@@ -746,25 +752,33 @@
 				
 				
 				<!-- 전체 카테고리 -->
-				<div class="best_writer part_of_category">
+				<div class="all_of_category part_of_category">
 					<span class="title">
 						<i class="fas fa-th-large"></i><a>전체 카테고리</a>
 					</span>
 					<div class="categories">
+						<c:set var="img" value="${fn:split(categoryImg, ',') }" />
+						<c:forEach items="${category }" var="c" varStatus="v">
 						
-						<c:forEach var="i" begin="1" end="12">
-							<div class="category">
-								<div class="category_img"></div>
-								<span>음료(커피, 차 등)</span>
+							<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=${c}';">
+							
+								<c:if test="${img[v.index] eq \"null\"}">
+									<div class="category_img"
+										style="background-image: url('/bomulsum/resources/img/noimage.png')"></div>
+								</c:if>
+								<c:if test="${img[v.index] ne \"null\"}">
+									<div class="category_img" 
+										style="background-image: url('/bomulsum/upload/${img[v.index] } ');"></div>
+								</c:if>
+								
+								<span>${c }</span>
+								
 							</div>
+							
 						</c:forEach>
-						
 						
 					</div>
 					
-					<div class="go_button">
-						<span>인기작가 더보기</span>
-					</div>
 				</div>
 				
 				

@@ -758,24 +758,24 @@ input[type="number"]::-webkit-inner-spin-button {
 							<div style="display: flex; flex-direction: column;"><!-- 선택사항 1 -->
 								<div id="wonDetailAuction" onclick="wonDetailAuction(this);">
 									<div style="display:flex; justify-content: space-between;">
-										<span style="padding: 1%; margin: 1%; font-weight:bold; width:50%;"><c:out value="${head.count }"/>. ${b.artOptionCategory }</span>
+										<span style="padding: 1%; margin: 1%; font-weight:bold; width:50%;"><c:out value="${head.count }"/>. ${b.key }</span>
 										<div style="display: flex;flex-direction: row;align-items: center; justify-content: flex-end; width:50%;">
 											<span class="dndud_preview_option" style="margin-rigth:15px"></span>
 											<i style=" padding: 1%; margin: 1%; float: right;"class="fa fa-arrow-down"></i>
 										</div>
 									</div>
 									<div id="wonDetailAuctionSelect" class="dndud_detail_option" style="display: none; flex-direction: column; border: none; width: 100%;">
-										<c:forEach var="c" items="${b.artOptionDetailPrice }" varStatus="i">
-											<button class="dndud_detail_option_one" value="${c}" style="background-color: white; border: none; width: 100%; display:flex;align-items: center;">
-												<span class="dndud_option_name" style="padding: 1%; margin: 1%;">${b.artOptionDetailName[i.index]}</span>
-												<input class="dndud_option_code" type="hidden" value="${b.artOptionDetailCode[i.index] }" />
-												<input class="dndud_option_category" type="hidden" value="${b.artOptionCategory}" />
-												<c:if test="${c ne 0 }">
-													<span style="padding: 1%; margin: 1%;">(+<span class="dndud_option_price">${c}</span>원)</span>
-													<input class="dndud_option_price_input" type="hidden" value="${c }" />
+										<c:forEach var="c" items="${b.value }" varStatus="i">
+											<button class="dndud_detail_option_one" value="${c.artOptionPrice}" style="background-color: white; border: none; width: 100%; display:flex;align-items: center;">
+												<span class="dndud_option_name" style="padding: 1%; margin: 1%;">${c.artOptionName}</span>
+												<input class="dndud_option_code" type="hidden" value="${c.artOptionSeq}" />
+												<input class="dndud_option_category" type="hidden" value="${b.key}" />
+												<c:if test="${c.artOptionPrice ne 0 }">
+													<span style="padding: 1%; margin: 1%;">(+<span class="dndud_option_price">${c.artOptionPrice}</span>원)</span>
+													<input class="dndud_option_price_input" type="hidden" value="${c.artOptionPrice }" />
 												</c:if>
-												<c:if test="${c eq 0 }">
-													<input class="dndud_option_price_input" type="hidden" value="${c }" />
+												<c:if test="${c.artOptionPrice eq 0 }">
+													<input class="dndud_option_price_input" type="hidden" value="${c.artOptionPrice }" />
 												</c:if>
 											</button>
 										</c:forEach>

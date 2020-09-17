@@ -90,4 +90,8 @@ public class UserArticleDAO {
 		return sqlSessionTemplate.selectList("articleDao.getListForOrderBy", vo);
 	}
 	
+	public String getCategoryImg(String categories) {
+		return sqlSessionTemplate.selectOne("articleDao.getCategoryImg", categories);
+	}
+	
 }

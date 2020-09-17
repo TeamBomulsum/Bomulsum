@@ -118,6 +118,11 @@ public class UserArticleServiceImpl implements UserArticleService{
 		return dao.getLikeMidas(member);
 	}
 
+	@Override
+	public String getCategoryImg(String categories) {
+		return dao.getCategoryImg(categories);
+	}
+
 	
 	
 }

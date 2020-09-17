@@ -60,51 +60,25 @@ public class ProductInfoController {
 		List<WriterArtInfoDetailVO> artInfo = service.getListProductartInfoList(artCodeSeq);
 		
 		List<WriterArtOptionVO> artOption = service.getListProductInfoOption(artCodeSeq);
-		List<WriterArtOptionVO> artOptionFinal = new ArrayList<WriterArtOptionVO>();
 		
-		for(WriterArtOptionVO test : artOption) {
-			System.out.println("가공 전 : " + test.toString());			
-		}
 		
-		for(int i=0; i<artOption.size(); i++) {
-			WriterArtOptionVO dish = new WriterArtOptionVO();
-			List<String> dish2 = new ArrayList<String>();
-			List<String> dish3 = new ArrayList<String>();
-			List<String> dish4 = new ArrayList<String>();
-			dish.setArtOptionCategory(artOption.get(i).getArtOptionCategory());
-			dish2.add(artOption.get(i).getArtOptionName());
-			dish3.add(artOption.get(i).getArtOptionPrice());
-			dish4.add(artOption.get(i).getArtOptionSeq());
-			int tt = 0;
-			for(int j=i+1; j<artOption.size(); j++) {
-				if(artOption.get(i).getArtOptionCategory().equals(artOption.get(j).getArtOptionCategory())) {
-					dish2.add(artOption.get(j).getArtOptionName());
-					dish3.add(artOption.get(j).getArtOptionPrice());
-					dish4.add(artOption.get(j).getArtOptionSeq());
-					tt++;
-				}else {
-					i += tt;
-					break;
-				}
+		HashMap<String, List<WriterArtOptionVO>> optionMap = new HashMap<String, List<WriterArtOptionVO>>();
+
+		for (int i = 0; i < artOption.size(); i++) {
+			List<WriterArtOptionVO> optionList = null;
+			if (optionMap.containsKey(artOption.get(i).getArtOptionCategory())) {
+				optionList = optionMap.get(artOption.get(i).getArtOptionCategory());
+			} else {
+				optionList = new ArrayList<WriterArtOptionVO>();
+				optionMap.put(artOption.get(i).getArtOptionCategory(), optionList);
 			}
-			dish.setArtOptionDetailName(dish2);
-			dish.setArtOptionDetailPrice(dish3);
-			dish.setArtOptionDetailCode(dish4);
-			artOptionFinal.add(dish);
+			optionList.add(artOption.get(i));
+			System.out.println("optionList(" + i + ") : " + optionList);
 		}
 
-		while(true) {
-			if(artOptionFinal.size() > 3) {
-				artOptionFinal.remove(artOptionFinal.size()-1);
-			}else {
-				break;
-			}
-		}
-		
-		for(WriterArtOptionVO test : artOptionFinal) {
-			System.out.println("가공 후 : " + test.toString());
-		}
-		
+		System.out.println("optionMap : " + optionMap);
+		 
+
 		
 		String keyword = artList.getArtKeyword();
 		String[] keywordSplit;
@@ -182,7 +156,7 @@ public class ProductInfoController {
 		model.addAttribute("writer",writer);
 		model.addAttribute("artList",artList);
 		model.addAttribute("artInfo",artInfo);
-		model.addAttribute("artOption",artOptionFinal);
+		model.addAttribute("artOption",optionMap);
 		model.addAttribute("memberImg", memberIMG);
 		
 		return "/ushopbag/uProductInfo";

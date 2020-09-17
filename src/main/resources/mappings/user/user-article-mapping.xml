@@ -123,7 +123,7 @@
 			)
 			ORDER BY
 			<if test="orderBy == 'orderByLike'">
-				art_register_date
+				art_viewcount DESC
 			</if>
 			<if test="orderBy == 'orderByRecently'">
 				art_register_date DESC
@@ -383,7 +383,7 @@
 			)
 			ORDER BY
 			<if test="orderBy == 'orderByLike'">
-				art_register_date
+				art_viewcount DESC
 			</if>
 			<if test="orderBy == 'orderByRecently'">
 				art_register_date DESC
@@ -641,6 +641,23 @@
 				a.art_recommend_time DESC
 			</if>
 		<include refid="footer"/>
+	</select>
+	
+	<select id="getCategoryImg" parameterType="String" resultType="String">
+	SELECT
+		art_photo
+	FROM
+		(
+            SELECT 
+                a.* 
+            FROM 
+                art_tb a 
+            WHERE 
+                art_category=#{categories}
+            ORDER BY art_viewcount DESC
+        )
+	WHERE
+		ROWNUM = 1
 	</select>
 	
 </mapper>

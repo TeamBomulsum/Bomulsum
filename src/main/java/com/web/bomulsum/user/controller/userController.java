@@ -160,6 +160,26 @@ public class userController {
 			mav.addObject("wishList",service.getLikeArticles(member));
 		}
 		
+		String categories = "식음료|문구팬시|전자기기|패션잡화|반려동물 용품|인테리어 소품|신발|의류|육아,아동|인형,장난감|공예|기타";
+		String img = "";
+		String[] category = categories.split("\\|");
+		for(int i=0; i<category.length; i++) {
+			String photo = service.getCategoryImg(category[i]);
+			String[] photos=null;
+			if(photo == null || photo.equals("null")) {
+				img += "null,";
+			}else {
+				photos = photo.split(",");
+				img += photos[0]+",";
+			}
+		}
+		
+		System.out.println("카테고리" + category);
+		System.out.println("사진" + img);
+		
+		mav.addObject("category", category);
+		mav.addObject("categoryImg", img);
+		
 		mav.setViewName("uhome");
 		
 		return mav;

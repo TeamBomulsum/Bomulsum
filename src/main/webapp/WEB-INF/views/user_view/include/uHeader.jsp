@@ -9,6 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/fea5b9b7d0.js" crossorigin="anonymous"></script>
 <script>
+var memberCode = '<%= (String)session.getAttribute("member") %>';
 $(window).bind('beforeunload', function() {
 	if ((event.clientY < 0) ||(event.altKey) ||(event.ctrlKey)||((event.clientY < 129) && (event.clientY>107))) { 
 		$.ajax({
@@ -35,6 +36,11 @@ $(function() {
 	});
 	
 	$("#toMyInfo").click(function(){
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
 		location.href="<c:url value='/user/myInfo/home.do'/>";
 	});
 	

@@ -32,4 +32,7 @@ public interface UserArticleService {
 	// 인기작품, 추천작품, 작가님 추천
 	int getOrderByArticleCount(UserOrderByArticlePagingVO vo);
 	List<UserArticleCategoryVO> getListForOrderBy(UserOrderByArticlePagingVO vo);
+	
+	
+	String getCategoryImg(String categories);
 }
