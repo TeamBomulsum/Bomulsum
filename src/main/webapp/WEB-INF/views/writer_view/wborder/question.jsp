@@ -66,7 +66,7 @@
                
                
                $('#staticBackdropTitle').text(jsData.admin_notice_title);
-               $('#staticBackdropContent').text(jsData.admin_notice_content);
+               $('#staticBackdropContent').html(jsData.admin_notice_content);
                $('#staticBackdropRegDate').text(date);
             }
          });
@@ -96,11 +96,12 @@
             </div>
             <div class="card-body">
               <div class="table-responsive" style="scroll:no; overflow:hidden;">
-                <table class="table table-bordered" id="dataTable" >
+                <table class="table table-bordered" id="dataTable" style="border-bottom: 1px solid #e3e6f0; border-left: 1px solid #e3e6f0;">
                   <thead>
                     <tr style="text-align:center">
                       <th style="width:80%">제목</th>
                       <th style="width:20%;">등록날짜</th>
+                      <th style="display:none;"></th>
                     </tr>
                   </thead>
                
@@ -138,10 +139,9 @@
  
                <!-- body -->
                   
-               <div id="staticBackdropContent" style="height: 400px; margin:20px 30px 12px 30px; ">
-                 <div style="height: 350px; border: 1px solid #d9d9d9; overflow: scroll; overflow-x: hidden; padding: 1%;">
-              
-                 </div>
+               <div id="staticBackdropContent" style="height: 400px; margin:20px 30px 12px 30px; overflow: auto;">
+                <!--  <div style="height: 350px; border: 1px solid #d9d9d9; overflow: scroll; overflow-x: hidden; padding: 1%;">
+                 </div> -->
                </div>
 
 
@@ -189,12 +189,12 @@
 	<!-- Custom scripts for all pages-->
 	<script src="<c:url value='/resources/js/sb-admin-2.min.js'/> "></script>
 
-	<!-- Page level plugins -->
-	<script src="<c:url value='/resources/vendor/chart.js/Chart.min.js'/> "></script>
-
-	<!-- Page level custom scripts -->
-	<script src="<c:url value='/resources/js/demo/chart-area-demo.js'/> "></script>
-	<script src="<c:url value='/resources/js/demo/chart-pie-demo.js'/> "></script>
+	  <!-- Page level plugins -->
+	  <script src="<c:url value='/resources/vendor/datatables/jquery.dataTables.min.js' /> "></script>
+	  <script src="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.js' /> "></script>
+	
+	  <!-- Page level custom scripts -->
+	  <script src="<c:url value='/resources/js/demo/datatables-demo.js'/> "></script>
 
 </body>
 

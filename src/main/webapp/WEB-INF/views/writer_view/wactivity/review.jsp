@@ -503,7 +503,8 @@
 		//테이블 그리는 함수
 		var renderTable = function(page){
 			var html = '';
-
+			var memberProfilePhoto = '';
+			
 			var startNum = (pageCount * (page - 1)); 
 			var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
 			
@@ -518,10 +519,16 @@
 				
 				var artImage = result[index].artPhoto.split(',')[0];
 				
+				if(result[index].memberProfile == ""){
+					memberProfilePhoto = 'test.png';
+				} else {
+					memberProfilePhoto = result[index].memberProfile;
+				}
+				
 		  		html += '<tr><td>' + result[index].reviewDate
 					+ '</td><td>' + result[index].artName
-					+ '</td><td><div class=\"senderArea\"><div class=\"photo\" style=\"background-image : URL(\'/bomulsum/upload/'
-					+ result[index].memberProfile + '\');\"></div>&nbsp;&nbsp;' + result[index].memberName
+					+ '</td><td><div class=\"senderArea\"><img class=\"photo\" src="/bomulsum/upload/' + memberProfilePhoto + '\">'
+					+ '&nbsp;&nbsp;' + result[index].memberName
 					+ '</div></td>'
 					+ '<td><div class=\"minwoo_starRev\" data-rate=\"' + result[index].reviewStar + '\">'
 					+ '<span class=\"minwoo_starR1\">별1_왼쪽</span> <span class=\"minwoo_starR2\">별1_오른쪽</span>'

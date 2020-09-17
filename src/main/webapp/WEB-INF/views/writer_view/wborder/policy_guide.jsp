@@ -70,7 +70,7 @@
 	               
 	               
 	               $('#staticBackdropTitle').text(jsData.admin_notice_title);
-	               $('#staticBackdropContent').text(jsData.admin_notice_content);
+	               $('#staticBackdropContent').html(jsData.admin_notice_content);
 	               $('#staticBackdropRegDate').text(date);
 	            }
 	         });
@@ -107,6 +107,7 @@
                    	<tr style="text-align:center">
                       <th style="width:80%">제목</th>
                       <th style="width:20%;">등록날짜</th>
+                      <th style="display:none;"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -155,10 +156,9 @@
  
                <!-- body -->
                   
-               <div id="staticBackdropContent" style="height: 400px; margin:20px 30px 12px 30px; ">
-                 <div style="height: 350px; border: 1px solid #d9d9d9; overflow: scroll; overflow-x: hidden; padding: 1%;">
-              
-                 </div>
+               <div id="staticBackdropContent" style="height: 400px; margin:20px 30px 12px 30px; overflow: auto;">
+                <!--  <div style="height: 350px; border: 1px solid #d9d9d9; overflow: scroll; overflow-x: hidden; padding: 1%;">
+                 </div> -->
                </div>
 
 

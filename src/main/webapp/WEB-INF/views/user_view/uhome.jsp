@@ -235,7 +235,6 @@
 }
 
 .review_img{
-	background-image:url("<c:url value='/resources/img/uhome_review.PNG'/>"); 
 	width:209px;
 	height:209px;
 	background-size: 209px;
@@ -364,6 +363,13 @@
 .review_detail .review_text{
 	width:300px;
 	height:120px;
+	color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
 }
 
 .review_detail .review_text span{
@@ -557,35 +563,32 @@
 				<!-- 실시간 후기 -->
 				<div class="live_review part_of_category">
 					<span class="title">
-						<i class="fas fa-user-edit"></i><a>실시간 후기</a>
+						<i class="fas fa-user-edit"></i><a onclick="location.href='/bomulsum/user/realtimeReview.do';">실시간 후기</a>
 					</span>
 					<div class="reviews">
 					
-						<c:forEach var="i" begin="1" end="6">
+						<c:forEach items="${realTimeReview }" var="realTimeReview">
 							<div class="review">
-								<div class="review_img"></div>
+								<div class="review_img" onclick="artCode(this)" id="${realTimeReview.artCodeSeq }" style="cursor: pointer; background-image: URL('/bomulsum/upload/${realTimeReview.artPhoto}')"></div>
 								<div class="review_detail">
-									<span>브로치 동물 친구들~</span>
+									<span onclick="artCode(this)" id="${realTimeReview.artCodeSeq }" style="cursor: pointer;">${realTimeReview.artName}</span>
 									<div class="review_text">
-										<span>우악 금요일 주문해서 토요일 받았어용
-										배송도 빠르고 브로치도 너무 귀여워요 ㅠㅠㅠ
-										서비스로 주신브로치랑 과자도 정말 감사해용
-										많이 파시구 앞으로도 예쁜작품 많이 만들어주세요.</span>
+										<span style="color: #666;">${realTimeReview.reviewComment}</span>
 									</div>
-									<div class="grade">
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<span> | <a>이우선</a></span>
+									<div class="minwoo_starRev" data-rate="${realTimeReview.reviewStar }">
+										<span class="minwoo_starR1" style="height: 16px;">별1_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별1_오른쪽</span>
+										<span class="minwoo_starR1" style="height: 16px;">별2_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별2_오른쪽</span>
+										<span class="minwoo_starR1" style="height: 16px;">별3_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별3_오른쪽</span>
+										<span class="minwoo_starR1" style="height: 16px;">별4_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별4_오른쪽</span>
+										<span class="minwoo_starR1" style="height: 16px;">별5_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별5_오른쪽</span>
+										<span style="font-size: 12px; color: #999;">&nbsp;|&nbsp;<a>&nbsp;${realTimeReview.memberName}&nbsp;</a></span>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
 					</div>
 					
-					<div class="go_button">
+					<div class="go_button" onclick="location.href='/bomulsum/user/realtimeReview.do';">
 						<span>실시간 후기 더보기</span>
 					</div>
 				</div>
