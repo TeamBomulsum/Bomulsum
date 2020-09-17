@@ -9,15 +9,14 @@
 		<result column="member_profile" property="memberProfile"/>
 		
 		<result column="buy_art_code_seq" property="buyArtCodeSeq"/>
-		<result column="B_ART_CODE_SEQ" property="bArtCodeSeq"/>
-		<result column="B_ART_NAME" property="bArtName"/>
-		<result column="B_WRITER_CODE_SEQ" property="bWriterCodeSeq"/>
-		<result column="B_ART_OPTION_CATEGORY" property="bArtOptionCategory"/>
-		<result column="B_ART_OPTION_NAME" property="bArtOptionName"/>
-		<result column="B_ART_OPTION_PRICE" property="bArtOptionPrice"/>
-		<result column="B_ART_OPTION_COUNT" property="bArtOptionCount"/>
-		<result column="B_ART_REVIEW_STATUS" property="bArtReviewStatus"/>
-		<result column="B_ART_REVIEW" property="bArtReview"/>
+		<result column="ART_CODE_SEQ" property="bArtCodeSeq"/>
+		<result column="BUY_ART_NAME" property="bArtName"/>
+		<result column="BUY_ART_OPTION_CATEGORY" property="bArtOptionCategory"/>
+		<result column="BUY_ART_OPTION_NAME" property="bArtOptionName"/>
+		<result column="BUY_ART_PRICE" property="bArtOptionPrice"/>
+		<result column="BUY_ART_OPTION_COUNT" property="bArtOptionCount"/>
+		<result column="BUY_ART_REVIEW_STATUS" property="bArtReviewStatus"/>
+		<result column="BUY_ART_REVIEW_UPDATE" property="bArtReview"/>
 		
 		<result column="art_photo" property="artPhoto"/>
 		<result column="art_description" property="artDescription"/>
@@ -40,6 +39,8 @@
 		<result column="datenum" property="dateNum"/>
 		
 		<result column="art_code_seq" property="artCodeSeq"/>
+		<result column="writer_brand_name" property="writerBrandName" />
+		
 		
 	</resultMap>
 
@@ -65,7 +66,7 @@
 			buy_art_tb
 		WHERE
 			(
-			b_art_review = 'N' AND member_code_seq = #{memberSeq}
+			buy_art_review_update = 'N' AND member_code_seq = #{memberSeq}
 			)
 	</select>
 	
@@ -74,21 +75,21 @@
 	<select id="reviewList" resultMap="reviewListMap">
 		<include refid="header" />
 			SELECT
-				a.buy_art_code_seq, a.member_code_seq, a.B_ART_CODE_SEQ,
-				a.B_ART_NAME, a.B_WRITER_CODE_SEQ, a.B_ART_OPTION_CATEGORY,
-				a.B_ART_OPTION_NAME, a.B_ART_OPTION_PRICE, a.B_ART_OPTION_COUNT,
-				a.B_ART_REVIEW_STATUS, a.B_ART_REVIEW, b.art_photo, b.art_description,
-				c.writer_name, d.order_date, e.review_code_seq, e.review_comment, e.review_star, e.review_photo
+				a.buy_art_code_seq, a.member_code_seq, a.art_code_seq,
+				a.buy_art_name, a.writer_code_seq, a.buy_art_option_name,
+				a.BUY_ART_PRICE, a.BUY_ART_OPTION_COUNT,
+				a.BUY_ART_REVIEW_STATUS, a.BUY_ART_REVIEW_UPDATE, b.art_photo, b.art_description,
+				c.writer_name, c.writer_brand_name, d.order_date, e.review_code_seq, e.review_comment, e.review_star, e.review_photo
 			FROM buy_art_tb a
 			LEFT OUTER JOIN
-				art_tb b ON a.b_art_code_seq = b.art_code_seq
+				art_tb b ON a.art_code_seq = b.art_code_seq
 			LEFT OUTER JOIN
 				writer_tb c ON b.writer_code_seq = c.writer_code_seq
 			LEFT OUTER JOIN
 				order_tb d ON a.order_code_seq = d.order_code_seq
 			LEFT OUTER JOIN
 				review_tb e ON a.buy_art_code_seq = e.buy_art_code_seq
-			WHERE a.b_art_review = 'N' AND a.member_code_seq = #{memberSeq}
+			WHERE a.buy_art_review_update = 'N' AND a.member_code_seq = #{memberSeq}
 			ORDER BY d.order_date DESC
 		<include refid="footer" />
 	</select>
@@ -184,7 +185,7 @@
 		UPDATE
 			buy_art_tb
 		SET
-			b_art_review_status = 'Y'
+			buy_art_review_status = 'Y'
 		WHERE
 			buy_art_code_seq = #{buyArtCodeSeq}
 	</update>
@@ -192,7 +193,7 @@
 		UPDATE
 			buy_art_tb
 		SET
-			b_art_review = 'Y'
+			buy_art_review_update = 'Y'
 		WHERE
 			buy_art_code_seq = #{buyArtCodeSeq}
 	</update>
@@ -234,7 +235,7 @@
 		        FROM
 		        (
 		            SELECT
-		                a.art_code_seq, a.art_photo, a.art_name, b.writer_name,
+		                a.art_code_seq, a.art_photo, a.art_name, b.writer_name, b.writer_brand_name,
 		                c.review_star, c.review_comment, c.review_date,
 		                d.member_name, RANK() OVER(order by c.review_date DESC) AS datenum,
 		                ROW_NUMBER() OVER(PARTITION BY a.art_code_seq ORDER BY a.art_code_seq, c.review_date DESC) AS grnum
@@ -248,7 +249,7 @@
 		                member_tb d ON c.member_code_seq = d.member_code_seq
 		            LEFT OUTER JOIN
 		                buy_art_tb e ON c.buy_art_code_seq = e.buy_art_code_seq
-		            WHERE e.b_art_review_status = 'Y'
+		            WHERE e.buy_art_review_status = 'Y'
 		        ) f
 		        WHERE f.grnum between 1 and 3
 		    ) g

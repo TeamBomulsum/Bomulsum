@@ -208,7 +208,7 @@
 			<!-- 주문 영역 -->
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">주문배송</b> 
-				<a class="jeonga-collapse-item" href="#">주문 내역</a> 
+				<a class="jeonga-collapse-item" href="<c:url value='/user/myInfo/orderList.do'/> ">주문 내역</a> 
 				<a class="jeonga-collapse-item" href="#">환불 내역</a> 
 			</li>
 			<!-- 선물함 -->
