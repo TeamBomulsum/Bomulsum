@@ -1,5 +1,6 @@
 package com.web.bomulsum.writer.art.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -196,6 +197,14 @@ public class WriterArtDAO{
 	}
 	public void getTempUpdateReN(String writerCodeSeq) {
 		sqlSessionTemplate.update("com.web.bomulsum.writer.art.repository.WriterArtDAO.getTempUpdateReN",writerCodeSeq);
+	}
+	
+	public List<Integer> getGemSum(String writerCode){
+		return sqlSessionTemplate.selectList("com.web.bomulsum.writer.art.repository.WriterArtDAO.getGemSum", writerCode);
+	}
+	
+	public void insertGem(HashMap<String, Object> map) {
+		sqlSessionTemplate.insert("com.web.bomulsum.writer.art.repository.WriterArtDAO.insertGem", map);
 	}
 	
 }

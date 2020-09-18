@@ -92,7 +92,6 @@
 		});
 		$('#pay').click(function(){
 			const size = $('#conatainerNext').attr('class');
-			console.log(size);
 			if(size <= 0){
 				alert('추천상품을 선택해 주세요');
 				return false;
@@ -100,8 +99,17 @@
 				$.ajax({
 					url : "/bomulsum/writer/recommendUp.wdo",
 					method : "POST",
-					success : function(){
-						location.href = "/bomulsum/writer/recommendWriter.wdo";
+					data:{
+						count:size
+					},
+					success : function(e){
+						if(e == 'success'){
+							alert('추천 작품에 등록 되었습니다.');
+							location.href = "/bomulsum/writer/recommendWriter.wdo";							
+						}else{
+							alert('잔여 포인트가 부족합니다.');
+							location.href = "/bomulsum/writer/gempoint.wdo";
+						}
 					},
 					error: function(){
 						alert('오류입니다.');
@@ -167,17 +175,16 @@
 					<br>
         <div style="display: flex; flex-direction: row; margin-top: auto; align-items: flex-end;">
             <div style="display: flex; flex-direction:column; border: 1px solid rgba(24, 7, 7, 0.13); width: 45%; height: 500px; margin: 2%;">
-                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div style="display: flex;border-bottom: 1px solid rgba(24, 7, 7, 0.13);flex-direction: row;justify-content: space-between;margin-bottom: 5%;padding-bottom: 1%;">
                     <div style="margin-left: 1%;">
-                        <p style="margin-top: 30%; width: 120%;">작품선택</p>
+                        <p style="margin-top: 30%; width: 120%;margin-left: 30%;">작품선택</p>
                     </div>
-                    <div style="margin-top: 2.4%; margin-right: 1%;">
+                    <div style="margin-top: 2.4%; margin-right: 4%">
                         <input type="text" name="keyword" value="${param.keyword}" id="keywordInput" placeholder="검색어" style="color: #007bff; background-color: #fff;  border: 1px solid #dee2e6;">
 	                    	<input type="button" value="검색" id="searchBtn" style="color: #007bff; background-color: #fff;  border: 1px solid #dee2e6;">                                       
                     </div>
                 </div>
                 <div>
-                    <hr>
 					
                     <div id="containerPrev">
                     <c:if test="${artList.size() <= 0 }">
@@ -210,10 +217,9 @@
             
             
             <div style="border: 1px solid rgba(24, 7, 7, 0.13); width: 40%; height: 500px; margin-right: auto; margin: auto">
-							<div style="margin-left: 1%; height: 80%; overflow: auto;">
+							<div style="height: 80%; overflow: auto;">
 								<p style="margin: 4%;">추천작품선택</p>
-								<hr>
-								<div id="conatainerNext" class="${tempList.size()}">
+								<div id="conatainerNext" style="border-top: 1px solid rgba(24, 7, 7, 0.13);padding-top: 6%;" class="${tempList.size()}">
 								 <c:if test="${tempList.size() <= 0 }">
 			                    <div style="width:100%; text-align: center; margin-top: 10%;">
 				                      	추천작품이 존재하지 않습니다.    
@@ -232,12 +238,12 @@
 									</c:if>
 								</div>
 							</div>
-							<div>
+							<div style="margin-top:8%;">
 								<hr>
-								<div style="display: flex; flex-direction: row;">
-									<h1 style="width: 60%; padding: 1%;">결제할 금액 : &nbsp;</h1>
-									<h1 id="recommandPay"></h1>&nbsp;&nbsp;&nbsp;
-									<h2 style="width: 40%; padding: 1%;">원</h2>
+								<div style="display: flex; flex-direction: row;padding-left: 3%;">
+									<h6 style="width: 60%; padding: 1%;">결제할 금액 : &nbsp;</h6>
+									<h5 id="recommandPay" style="padding: 1%;"></h5>&nbsp;&nbsp;&nbsp;
+									<h6 style="width: 40%;align-items: center;padding: 1%;display: flex;">원</h6>
 								</div>
 							</div>
 						</div>

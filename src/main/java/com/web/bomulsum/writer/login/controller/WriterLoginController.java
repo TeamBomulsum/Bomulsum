@@ -1,7 +1,6 @@
 package com.web.bomulsum.writer.login.controller;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -51,7 +50,6 @@ public class WriterLoginController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		WriterRegisterVO checkVo = service.selectOne(vo.getWriterEmail());
 		
-				
 		Map<String, Object> gemSum = gemPointService.getGemPointSum(checkVo.getWriterSeq());
 		
 		
@@ -67,25 +65,25 @@ public class WriterLoginController {
 				
 		if(checkVo != null) {
 			if(encoder.matches(vo.getWriterPassword(), checkVo.getWriterPassword())) {
+				session.setAttribute("writerCode", checkVo.getWriterSeq());
+				result = "loginSuccess";
+				session.setAttribute("writer_login", checkVo);
 				
-			result = "loginSuccess";
-			session.setAttribute("writer_login", checkVo);
-			
-			long limitTime = 60*60*24*90;
-			
-			//자동 로그인 체크시 처리해야할 내용
-			if(vo.isAutoLogin()) {
-				Cookie loginCookie = new Cookie("loginCookie",session.getId());
-				loginCookie.setPath("/bomulsum");
-				loginCookie.setMaxAge((int)limitTime);
-				System.out.println("loginCookie " + loginCookie);
-				response.addCookie(loginCookie);
-				System.out.println("loginCookie " + loginCookie);
-					long exporedDate = System.currentTimeMillis() + (limitTime * 1000);
+				long limitTime = 60*60*24*90;
 				
-					Date limitDate = new Date(exporedDate);
-					System.out.println("limitDate " + limitDate);
-					service.keepLogin(session.getId(), limitDate, vo.getWriterEmail());
+				//자동 로그인 체크시 처리해야할 내용
+				if(vo.isAutoLogin()) {
+					Cookie loginCookie = new Cookie("loginCookie",session.getId());
+					loginCookie.setPath("/bomulsum");
+					loginCookie.setMaxAge((int)limitTime);
+					System.out.println("loginCookie " + loginCookie);
+					response.addCookie(loginCookie);
+					System.out.println("loginCookie " + loginCookie);
+						long exporedDate = System.currentTimeMillis() + (limitTime * 1000);
+					
+						Date limitDate = new Date(exporedDate);
+						System.out.println("limitDate " + limitDate);
+						service.keepLogin(session.getId(), limitDate, vo.getWriterEmail());
 				}
 			
 			}else {

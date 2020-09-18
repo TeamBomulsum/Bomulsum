@@ -633,4 +633,32 @@ WHERE
 		art_recommend_state = 'Y'
 </update>
 
+<select id="getGemSum" parameterType="String" resultType="int">
+	SELECT
+		gem_price
+	FROM
+		gem_tb
+	WHERE
+		writer_code_seq=#{writerCode}
+</select>
+
+<insert id="insertGem" parameterType="hashMap">
+	INSERT INTO gem_tb
+	(
+		gem_seq,
+		writer_code_seq,
+		gem_usage,
+		gem_price,
+		gem_log
+	)
+	VALUES
+	(
+		'gem_seq' || TO_CHAR(gem_sq.nextval),
+		#{writerCode},
+		'Y',
+		#{price},
+		#{gemStr}
+	)
+</insert>
+
 </mapper>

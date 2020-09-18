@@ -1,5 +1,6 @@
 package com.web.bomulsum.writer.art.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,4 +82,9 @@ public interface WriterArtService {
 	int checkArtList(String writerCodeSeq);
 	public void recommendUp(String writerCodeSeq);
 	public void getTempUpdateReN(String writerCodeSeq);
+	
+	
+	// 우영 수정
+	public List<Integer> getGemSum(String writerCode);
+	public void insertGem(HashMap<String, Object> map);
 }
