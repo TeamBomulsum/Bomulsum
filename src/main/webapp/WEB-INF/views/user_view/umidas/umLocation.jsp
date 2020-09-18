@@ -206,6 +206,9 @@ body a:link, a:visited, a:hover, a:active {
 	-webkit-text-stroke-width: 2px;
 	-webkit-text-stroke-color: white;
 }
+.minwoo_uMhome_content_card_img{
+	cursor: pointer;
+}
 .minwoo_uMhome_content_card_img_link{
 	position:relative;
 	z-index: -1;
@@ -385,7 +388,7 @@ body a:link, a:visited, a:hover, a:active {
 							midasAddress = address1 + ' ' + address2;
 							
 							htmldiv += '<div class=\"minwoo_uMhome_content_card\">'
-								+ '<div class=\"minwoo_uMhome_content_card_img\">'
+								+ '<div class=\"minwoo_uMhome_content_card_img\" onClick=\"movePage();\">'
 								+ '<input class=\"midasCodeSeq\" type=\"hidden\" value=\"'+ data[i].midasCodeSeq +'\"/>'
 								+ '<div class=\"minwoo_uMhome_content_card_locagion\">' + midasAddress + '</div>'
 								+ '<div class=\"minwoo_uMhome_content_card_star\">';
@@ -447,7 +450,13 @@ body a:link, a:visited, a:hover, a:active {
 		});
 	};
 	
-	likeClassFunc = function(){
+	function movePage(){
+		location.href='/bomulsum/midas/noPage.do';
+	};
+	
+	likeClassFunc = function(e){
+		e.stopPropagation();
+		
 		
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
