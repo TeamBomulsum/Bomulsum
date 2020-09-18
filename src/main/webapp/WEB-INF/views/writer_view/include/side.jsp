@@ -1,3 +1,4 @@
+<%@page import="com.web.bomulsum.writer.login.repository.WriterRegisterVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,12 +16,16 @@
 <!-- Custom styles for this template-->
 <link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 </head>
+<script>
+var writerCode = "<%= (String)session.getAttribute("writerCode") %>";
+console.log('writer: ' + writerCode);
+</script>
 <body>
 		<!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- 왼쪽 메뉴바 -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value='/writer/home.wdo'/>"">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value='/writer/home.wdo'/>">
         <div>
           <!-- 보물섬 아이콘 -->
           <i><img src="<c:url value='/resources/img/MainLogo_white.png'/>" width="70" height="70" ></i>

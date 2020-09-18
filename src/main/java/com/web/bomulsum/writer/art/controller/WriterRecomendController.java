@@ -1,5 +1,6 @@
 package com.web.bomulsum.writer.art.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -99,14 +100,35 @@ public class WriterRecomendController {
 	}
 	
 	@PostMapping("recommendUp")
-	public @ResponseBody String recommendUp(HttpServletRequest request) {
-		System.out.println("recommendUp In");
+	public @ResponseBody String recommendUp(@RequestParam(value="count") String count, HttpServletRequest request) {
+		System.out.println("count : " + count);
+		int price = Integer.parseInt(count) * 3000;
+		
+		
 		HttpSession session =  request.getSession();
         WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");        
         String writerCodeSeq = code.getWriterSeq();
-        service.recommendUp(writerCodeSeq);
-        service.getTempUpdateReN(writerCodeSeq);
-		return "wrecommend/recommendWriter";
+        
+        List<Integer> sum = service.getGemSum(writerCodeSeq);
+        int total=0;
+        for(int i : sum) {
+        	total += i;
+        }
+        if(price > total) {
+        	return "fail";
+        }else {
+        	int dbPrice = Integer.parseInt(count) * (-3000);
+        	String gemStr = "추천작품 등록으로 젬포인트 차감 ( "+ count +" 개)";
+        	HashMap<String, Object> map = new HashMap<String, Object>();
+        	map.put("writerCode", writerCodeSeq);
+        	map.put("price", dbPrice);
+        	map.put("gemStr", gemStr);
+        	service.insertGem(map);
+        	service.recommendUp(writerCodeSeq);
+        	service.getTempUpdateReN(writerCodeSeq);
+        	return "success";
+        }
+        
 	}
 	
 	
