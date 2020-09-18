@@ -43,6 +43,7 @@ $(document).ready(function () {
 		$('.dai1').css("border" ,"none");
 		$('.di1').css("border" ,"none");
 		$(".di1").attr("readonly","readonly");
+		location.href = location.href;
 		
 	  });
 	
@@ -69,6 +70,7 @@ $(document).ready(function () {
 		$('.dai2').css("border" ,"none");
 		$('.di2').css("border" ,"none");
 		$(".di2").attr("readonly","readonly");
+		location.href = location.href;
 	  });
 	
 	// 주소지3
@@ -93,6 +95,7 @@ $(document).ready(function () {
 		$('.dai3').css("border" ,"none");
 		$('.di3').css("border" ,"none");
 		$(".di3").attr("readonly","readonly");
+		location.href = location.href;
 	  });
 	
 	

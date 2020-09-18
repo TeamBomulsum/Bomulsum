@@ -6,7 +6,7 @@
 
 	<select id="selectCartChoice" parameterType="String" resultType="UserShopbagVO">
 		SELECT 
-			c.cart_seq, c.art_code_seq, c.member_code_seq, c.art_option_seq, c.art_count, c.order_request,
+			c.cart_seq, c.art_code_seq, c.member_code_seq, c.art_option_seq, <!-- c.art_count, --> c.order_request,
 			w.writer_brand_name, w.writer_send_price, w.writer_sendfree_case, 
 			a.art_photo, a.art_name, a.art_price, a.art_discount 
 		FROM 
@@ -18,7 +18,7 @@
 		AND
 			c.member_code_seq='member_code_seq58'
         AND
-        	c.cart_seq in ('cart_seq11', 'cart_seq12')
+        	c.cart_seq in ('cart_seq11', 'cart_seq10')
 <!--         	<foreach collection="list" item="item" open="(" close=")" separator=",">
 	     	#{item}
 	     </foreach> -->
@@ -26,4 +26,14 @@
 		ORDER BY 
 			c.cart_seq
 	</select>
+	
+	<select id="selectCouponPayment" resultType="UserCouponPaymentVO" parameterType="String">
+		SELECT 
+		*
+		FROM
+		coupon_tb
+		WHERE
+		member_code_seq=#{userCode}
+	</select>
+	
 </mapper>

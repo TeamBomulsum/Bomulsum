@@ -20,4 +20,7 @@ public class UserPaymentDAO {
 
 	}
 
+	public List<UserCouponPaymentVO> selectCouponPayment(String memberCode){
+		return sqlSessionTemplate.selectList("paymentDAO.selectCouponPayment", memberCode);
+	}
 }

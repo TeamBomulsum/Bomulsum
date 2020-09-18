@@ -20,7 +20,7 @@
 		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagOptionVO" alias="UserShopbagOptionVO"/>
 		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagModalVO" alias="UserShopbagModalVO"/>
 		<typeAlias type="com.web.bomulsum.user.bookmark.repository.UserBookmarkVO" alias="UserBookmarkVO"/>
-		
+		<typeAlias type="com.web.bomulsum.user.payment.repository.UserCouponPaymentVO" alias="UserCouponPaymentVO"/>
 		
 		
 		<!-- manager -->

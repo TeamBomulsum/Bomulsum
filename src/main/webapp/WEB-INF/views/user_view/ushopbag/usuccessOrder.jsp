@@ -90,7 +90,7 @@
 }
 
 .dndud_about_customer{
-	width:65%;
+	width:60%;
 	margin-right:2%;
 	display:flex;
 	flex-direction: column;
@@ -100,6 +100,7 @@
 	font-size:36px;	
 	padding-bottom:30px;
 	border-bottom: 1px solid #d9d9d9;
+	width:96%;
 }
 
 .dndud_about_customer div:nth-child(1) a{
@@ -145,12 +146,15 @@
 	display:flex;
 	justify-content: center;
 	align-items: center;
+
 }
 
 .about_pay_detail{
 	display:flex;
 	flex-direction: column;
 	border-bottom: 1px solid #d9d9d9;
+	padding: 20px 0px;
+	
 }
 
 .about_pay_detail div{
@@ -234,7 +238,7 @@
 	
 		<!-- 장바구니, 123 제목 영역 -->
 		<div class="dndud_content_title">
-			<h2 class="dndud_txt_f1">장바구니</h2>
+			<h2 class="dndud_txt_f1">주문완료</h2>
 			<ol class="dndud_page_loc">
 				<li>
 					<em class="icon_num">1</em>
@@ -281,15 +285,11 @@
 						<span>3,000원</span>
 					</div>
 					<div>
-						<span>도서산간</span>
+						<span>제주 / 도서산간 추가비용</span>
 						<span>0원</span>
 					</div>
 					<div>
 						<span>쿠폰할인</span>
-						<span>0원</span>
-					</div>
-					<div>
-						<span>작가 후원하기</span>
 						<span>0원</span>
 					</div>
 				</div>
