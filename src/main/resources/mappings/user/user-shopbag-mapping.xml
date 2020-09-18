@@ -21,7 +21,16 @@
 			cart_seq
 	</select>
 	
-	<select id="selectOption" parameterType="java.util.ArrayList" resultType="UserShopbagOptionVO">
+	<select id="selectOption" parameterType="String" resultType="UserShopbagOptionVO">
+		SELECT 
+			art_option_seq, art_option_category, art_option_name, art_option_price
+		FROM 
+			art_option_tb
+		WHERE 
+			art_option_seq =#{artOption}
+	</select>
+		
+<!-- <select id="selectOption" parameterType="java.util.ArrayList" resultType="UserShopbagOptionVO">
 		SELECT 
 			art_option_seq, art_option_category, art_option_name, art_option_price
 		FROM 
@@ -31,7 +40,7 @@
 	     <foreach collection="list" item="item" open="(" close=")" separator=",">
 	     	#{item}
 	     </foreach>
-	</select>
+	</select>-->
 	
 	<select id="selectmodalCon" resultType="UserShopbagModalVO">
 		SELECT 

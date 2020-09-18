@@ -9,7 +9,8 @@ import com.web.bomulsum.user.order.repository.UserShopbagVO;
 
 public interface UserShopbagService {
 	public List<UserShopbagVO> getShopbagInfo(String memberCode);
-	public List<UserShopbagOptionVO> getOptionInfo(String[] artOption);
+	public UserShopbagOptionVO getOptionInfo(String artOption);
+	//public List<UserShopbagOptionVO> getOptionInfo(String[] artOption);
 	public List<UserShopbagModalVO> goShopbagModal(HashMap<String, String> map);
 	public void goOrderRequest(HashMap<String, String> map);
 	public void goArtCount(HashMap<String, String> map);

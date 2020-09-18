@@ -1,9 +1,12 @@
 package com.web.bomulsum.user.order.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,37 +37,96 @@ public class userShopbagController {
 		 System.out.println(memberCode);
 		 */
 		String memberCode = "member_code_seq58";
-		
 		List<UserShopbagVO> shopbagInfo = service.getShopbagInfo(memberCode);
 		
 		for(int i=0; i<shopbagInfo.size(); i++) {
+
+			List<List<UserShopbagOptionVO>> list = new ArrayList<List<UserShopbagOptionVO>>();
 			UserShopbagVO tempVO = shopbagInfo.get(i);
-			String[] artOption= shopbagInfo.get(i).getArt_option_seq().split(",");
-			List<UserShopbagOptionVO> optionList = service.getOptionInfo(artOption);
-			switch(optionList.size()) {
-			case 3:
-				tempVO.setArt_option_category3(optionList.get(2).getArt_option_category());
-				tempVO.setArt_option_name3(optionList.get(2).getArt_option_name());
-				tempVO.setArt_option_price3(optionList.get(2).getArt_option_price());
-			case 2:
-				tempVO.setArt_option_category2(optionList.get(1).getArt_option_category());
-				tempVO.setArt_option_name2(optionList.get(1).getArt_option_name());
-				tempVO.setArt_option_price2(optionList.get(1).getArt_option_price());
-			case 1:
-				tempVO.setArt_option_category1(optionList.get(0).getArt_option_category());
-				tempVO.setArt_option_name1(optionList.get(0).getArt_option_name());
-				tempVO.setArt_option_price1(optionList.get(0).getArt_option_price());
-				break;
-			default :
+			String[] artOption= shopbagInfo.get(i).getArt_option_seq().split("#");
+
+			//System.out.println("몇개의 옵션이 들어있는지"+artOption.length);
+			int optionCount = 0;
+			
+			for(int j=0; j<artOption.length; j++) {
+				List<UserShopbagOptionVO> optionList = new ArrayList<UserShopbagOptionVO>();
+				String[] artOptionDetail = artOption[j].split(",");
+				System.out.println(Arrays.toString(artOptionDetail));
+			//	System.out.println("하나에 옵션이 몇개 있는지"+artOptionDetail.length);
+				optionCount = artOptionDetail.length;
+				for(int k=0; k<artOptionDetail.length; k++) {
+					UserShopbagOptionVO vo = service.getOptionInfo(artOptionDetail[k]);
+					optionList.add(vo);
+				}
+				list.add(optionList);
 			}
-			tempVO.setTotal_price((tempVO.getArt_discount() + tempVO.getArt_option_price1()+tempVO.getArt_option_price2()
-						+tempVO.getArt_option_price3())*tempVO.getArt_count());
+		
+			System.out.println(list);
+			tempVO.setOptionArray(list);
 			
 			String[] photoArray = tempVO.getArt_photo().split(",");
 			tempVO.setArt_photo(photoArray[0]);
+			
+			String[] countArray = tempVO.getArt_count().split(",");
+			//System.out.println("카운트가 몇개인지"+countArray.length);
+			tempVO.setArtCount(countArray);
+			
+			//옵션 한 세트 선택한 경우 - 이거 사용
+			
+ 			int sum = 0;
+			int totalSum = 0;
+			int[] totalPrice = new int[countArray.length];
+			if(tempVO.getOptionArray().size() == 1) {
+				if(tempVO.getOptionArray().get(0).size() >0) {
+					for(int k=0; k<tempVO.getOptionArray().get(0).size(); k++) {
+						sum += tempVO.getOptionArray().get(0).get(k).getArt_option_price();
+					}
+				}
+				totalSum = (tempVO.getArt_discount()+sum)*Integer.parseInt((tempVO.getArtCount()[0]));
+				totalPrice[0] = totalSum;
+				tempVO.setTotal_price(totalPrice);
+			}
+			
+			//옵션 한 세트 이상일 경우
+			if(tempVO.getOptionArray().size()>1) {
+				if(tempVO.getOptionArray().get(0).size()>0) {
+					for(int x=0; x<tempVO.getOptionArray().size(); x++) {
+						for(int y=0; y<tempVO.getOptionArray().get(x).size(); y++) {
+							sum += tempVO.getOptionArray().get(x).get(y).getArt_option_price();
+						}
+						totalSum = (tempVO.getArt_discount()+sum) * Integer.parseInt(tempVO.getArtCount()[x]);
+						totalPrice[x] = totalSum;
+						sum=0;
+						totalSum=0;
+					}
+					tempVO.setTotal_price(totalPrice);
+				}
+			}
+		/*	
+			int optionSum = 0;
+			int totalSum = 0;
+			int count = 0;
+			int[] totalPrice = new int[countArray.length];
+			int range = optionCount*countArray.length;
+			System.out.println("몇개인지 카운트"+ optionCount);
+			
+			for(int x=0; x<countArray.length; x++) {
+				for(int y=0; y<range; y++) {
+					count++;
+					optionSum += tempVO.getOptionList().get(y).getArt_option_price();
+
+				}
+				totalSum = (optionSum+tempVO.getArt_discount())*Integer.parseInt(countArray[x]);
+				totalPrice[x] = totalSum;
+				optionSum = 0;
+				totalSum = 0;
+			}
+			tempVO.setTotal_price(totalPrice);*/
+			
 			shopbagInfo.remove(i);
-			shopbagInfo.add(i, tempVO);	
+			shopbagInfo.add(i, tempVO);
 		}
+		
 		System.out.println(shopbagInfo);
 		
 		mav.addObject("shopbagInfo", shopbagInfo);
@@ -85,7 +147,7 @@ public class userShopbagController {
 		modalInfo.get(0).setArt_photo(photo[0]);
 		String[] artOption= modalInfo.get(0).getArt_option_seq().split(",");
 		
-		List<UserShopbagOptionVO> optionList = service.getOptionInfo(artOption);
+/*		List<UserShopbagOptionVO> optionList = service.getOptionInfo(artOption);
 		switch(optionList.size()) {
 		case 3:
 			modalInfo.get(0).setArt_option_category3(optionList.get(2).getArt_option_category());
@@ -102,7 +164,7 @@ public class userShopbagController {
 			break;
 		default :
 		}
-		System.out.println("modalInfo"+ modalInfo);
+		System.out.println("modalInfo"+ modalInfo);*/
 		return modalInfo;
 	}
 	

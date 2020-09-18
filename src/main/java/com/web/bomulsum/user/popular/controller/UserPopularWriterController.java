@@ -98,91 +98,91 @@ public class UserPopularWriterController {
 		
 		for(int i=0; i<12; i++) {
 			String[] photoArr1 = firstArt.get(i).split(",");
-			String[] photoArr2 = secondArt.get(i).split(",");
+			//String[] photoArr2 = secondArt.get(i).split(",");
 			//String[] photoArr3 = thirdArt.get(i).split(",");
 			//String[] photoArr4 = fourthArt.get(i).split(",");
 			//String[] photoArr5 = fifthArt.get(i).split(",");
 			switch(i) {
 			case 0:
 				list.get(0).setArtPhoto1(photoArr1[0]);
-				list.get(1).setArtPhoto1(photoArr2[0]);
+				//list.get(1).setArtPhoto1(photoArr2[0]);
 				//list.get(2).setArtPhoto1(photoArr3[0]);
 				//list.get(3).setArtPhoto1(photoArr4[0]);
 				//list.get(4).setArtPhoto1(photoArr5[0]);
 				break;
 			case 1:
 				list.get(0).setArtPhoto2(photoArr1[0]);
-				list.get(1).setArtPhoto2(photoArr2[0]);
+				//list.get(1).setArtPhoto2(photoArr2[0]);
 				//list.get(2).setArtPhoto2(photoArr3[0]);
 				//list.get(3).setArtPhoto2(photoArr4[0]);
 				//list.get(4).setArtPhoto2(photoArr5[0]);
 				break;
 			case 2:
 				list.get(0).setArtPhoto3(photoArr1[0]);
-				list.get(1).setArtPhoto3(photoArr2[0]);
+				//list.get(1).setArtPhoto3(photoArr2[0]);
 				//list.get(2).setArtPhoto3(photoArr3[0]);
 				//list.get(3).setArtPhoto3(photoArr4[0]);
 				//list.get(4).setArtPhoto3(photoArr5[0]);
 				break;
 			case 3:
 				list.get(0).setArtPhoto4(photoArr1[0]);
-				list.get(1).setArtPhoto4(photoArr2[0]);
+				//list.get(1).setArtPhoto4(photoArr2[0]);
 				//list.get(2).setArtPhoto4(photoArr3[0]);
 				//list.get(3).setArtPhoto4(photoArr4[0]);
 				//list.get(4).setArtPhoto4(photoArr5[0]);
 				break;
 			case 4:
 				list.get(0).setArtPhoto5(photoArr1[0]);
-				list.get(1).setArtPhoto5(photoArr2[0]);
+				//list.get(1).setArtPhoto5(photoArr2[0]);
 				//list.get(2).setArtPhoto5(photoArr3[0]);
 				//list.get(3).setArtPhoto5(photoArr4[0]);
 				//list.get(4).setArtPhoto5(photoArr5[0]);
 				break;
 			case 5:
 				list.get(0).setArtPhoto6(photoArr1[0]);
-				list.get(1).setArtPhoto6(photoArr2[0]);
+				//list.get(1).setArtPhoto6(photoArr2[0]);
 				//list.get(2).setArtPhoto6(photoArr3[0]);
 				//list.get(3).setArtPhoto6(photoArr4[0]);
 				//list.get(4).setArtPhoto6(photoArr5[0]);
 				break;
 			case 6:
 				list.get(0).setArtPhoto7(photoArr1[0]);
-				list.get(1).setArtPhoto7(photoArr2[0]);
+				//list.get(1).setArtPhoto7(photoArr2[0]);
 				//list.get(2).setArtPhoto7(photoArr3[0]);
 				//list.get(3).setArtPhoto7(photoArr4[0]);
 				//list.get(4).setArtPhoto7(photoArr5[0]);
 				break;
 			case 7:
 				list.get(0).setArtPhoto8(photoArr1[0]);
-				list.get(1).setArtPhoto8(photoArr2[0]);
+				//list.get(1).setArtPhoto8(photoArr2[0]);
 				//list.get(2).setArtPhoto8(photoArr3[0]);
 				//list.get(3).setArtPhoto8(photoArr4[0]);
 				//list.get(4).setArtPhoto8(photoArr5[0]);
 				break;
 			case 8:
 				list.get(0).setArtPhoto9(photoArr1[0]);
-				list.get(1).setArtPhoto9(photoArr2[0]);
+				//list.get(1).setArtPhoto9(photoArr2[0]);
 				//list.get(2).setArtPhoto9(photoArr3[0]);
 				//list.get(3).setArtPhoto9(photoArr4[0]);
 				//list.get(4).setArtPhoto9(photoArr5[0]);
 				break;
 			case 9:
 				list.get(0).setArtPhoto10(photoArr1[0]);
-				list.get(1).setArtPhoto10(photoArr2[0]);
+				//list.get(1).setArtPhoto10(photoArr2[0]);
 				//list.get(2).setArtPhoto10(photoArr3[0]);
 				//list.get(3).setArtPhoto10(photoArr4[0]);
 				//list.get(4).setArtPhoto10(photoArr5[0]);
 				break;
 			case 10:
 				list.get(0).setArtPhoto11(photoArr1[0]);
-				list.get(1).setArtPhoto11(photoArr2[0]);
+				//list.get(1).setArtPhoto11(photoArr2[0]);
 				//list.get(2).setArtPhoto11(photoArr3[0]);
 				//list.get(3).setArtPhoto11(photoArr4[0]);
 				//list.get(4).setArtPhoto11(photoArr5[0]);
 				break;
 			case 11:
 				list.get(0).setArtPhoto12(photoArr1[0]);
-				list.get(1).setArtPhoto12(photoArr2[0]);
+				//list.get(1).setArtPhoto12(photoArr2[0]);
 				//list.get(2).setArtPhoto12(photoArr3[0]);
 				//list.get(3).setArtPhoto12(photoArr4[0]);
 				//list.get(4).setArtPhoto12(photoArr5[0]);

@@ -1,21 +1,16 @@
 package com.web.bomulsum.user.order.repository;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class UserShopbagVO {
 	
 	private String cart_seq;
 	private String art_code_seq;
 	private String member_code_seq;
 	private String art_option_seq;
-	private String art_option_category1;
-	private String art_option_name1;
-	private int art_option_price1;
-	private String art_option_category2;
-	private String art_option_name2;
-	private int art_option_price2;
-	private String art_option_category3;
-	private String art_option_name3;
-	private int art_option_price3;
-	private int art_count;
+	private String art_count;
+	private String[] artCount;
 	private String order_request;
 	private String writer_brand_name;
 	private int writer_send_price;
@@ -24,22 +19,19 @@ public class UserShopbagVO {
 	private String art_name;
 	private int art_price;
 	private int art_discount;
-	private int total_price;
+	private int[] total_price;
+	private List<List<UserShopbagOptionVO>> optionArray;
 
-	
+
 	@Override
 	public String toString() {
 		return "UserShopbagVO [cart_seq=" + cart_seq + ", art_code_seq=" + art_code_seq + ", member_code_seq="
-				+ member_code_seq + ", art_option_seq=" + art_option_seq + ", art_option_category1="
-				+ art_option_category1 + ", art_option_name1=" + art_option_name1 + ", art_option_price1="
-				+ art_option_price1 + ", art_option_category2=" + art_option_category2 + ", art_option_name2="
-				+ art_option_name2 + ", art_option_price2=" + art_option_price2 + ", art_option_category3="
-				+ art_option_category3 + ", art_option_name3=" + art_option_name3 + ", art_option_price3="
-				+ art_option_price3 + ", art_count=" + art_count + ", order_request=" + order_request
-				+ ", writer_brand_name=" + writer_brand_name + ", writer_send_price=" + writer_send_price
-				+ ", writer_sendfree_case=" + writer_sendfree_case + ", art_photo=" + art_photo + ", art_name="
-				+ art_name + ", art_price=" + art_price + ", art_discount=" + art_discount + ", total_price="
-				+ total_price + "]";
+				+ member_code_seq + ", art_option_seq=" + art_option_seq + ", art_count=" + art_count + ", artCount="
+				+ Arrays.toString(artCount) + ", order_request=" + order_request + ", writer_brand_name="
+				+ writer_brand_name + ", writer_send_price=" + writer_send_price + ", writer_sendfree_case="
+				+ writer_sendfree_case + ", art_photo=" + art_photo + ", art_name=" + art_name + ", art_price="
+				+ art_price + ", art_discount=" + art_discount + ", total_price=" + Arrays.toString(total_price)
+				+ ", optionArray=" + optionArray + "]";
 	}
 
 	public String getCart_seq() {
@@ -74,11 +66,12 @@ public class UserShopbagVO {
 		this.art_option_seq = art_option_seq;
 	}
 
-	public int getArt_count() {
+
+	public String getArt_count() {
 		return art_count;
 	}
 
-	public void setArt_count(int art_count) {
+	public void setArt_count(String art_count) {
 		this.art_count = art_count;
 	}
 
@@ -90,77 +83,6 @@ public class UserShopbagVO {
 		this.order_request = order_request;
 	}
 
-	public String getArt_option_category1() {
-		return art_option_category1;
-	}
-
-	public void setArt_option_category1(String art_option_category1) {
-		this.art_option_category1 = art_option_category1;
-	}
-
-	public String getArt_option_name1() {
-		return art_option_name1;
-	}
-
-	public void setArt_option_name1(String art_option_name1) {
-		this.art_option_name1 = art_option_name1;
-	}
-
-	public int getArt_option_price1() {
-		return art_option_price1;
-	}
-
-	public void setArt_option_price1(int art_option_price1) {
-		this.art_option_price1 = art_option_price1;
-	}
-
-	public String getArt_option_category2() {
-		return art_option_category2;
-	}
-
-	public void setArt_option_category2(String art_option_category2) {
-		this.art_option_category2 = art_option_category2;
-	}
-
-	public String getArt_option_name2() {
-		return art_option_name2;
-	}
-
-	public void setArt_option_name2(String art_option_name2) {
-		this.art_option_name2 = art_option_name2;
-	}
-
-	public int getArt_option_price2() {
-		return art_option_price2;
-	}
-
-	public void setArt_option_price2(int art_option_price2) {
-		this.art_option_price2 = art_option_price2;
-	}
-
-	public String getArt_option_category3() {
-		return art_option_category3;
-	}
-
-	public void setArt_option_category3(String art_option_category3) {
-		this.art_option_category3 = art_option_category3;
-	}
-
-	public String getArt_option_name3() {
-		return art_option_name3;
-	}
-
-	public void setArt_option_name3(String art_option_name3) {
-		this.art_option_name3 = art_option_name3;
-	}
-
-	public int getArt_option_price3() {
-		return art_option_price3;
-	}
-
-	public void setArt_option_price3(int art_option_price3) {
-		this.art_option_price3 = art_option_price3;
-	}
 
 	public String getWriter_brand_name() {
 		return writer_brand_name;
@@ -218,13 +140,28 @@ public class UserShopbagVO {
 		this.art_discount = art_discount;
 	}
 
-	public int getTotal_price() {
+	public int[] getTotal_price() {
 		return total_price;
 	}
 
-	public void setTotal_price(int total_price) {
+	public void setTotal_price(int[] total_price) {
 		this.total_price = total_price;
 	}
 
+	public String[] getArtCount() {
+		return artCount;
+	}
+
+	public void setArtCount(String[] artCount) {
+		this.artCount = artCount;
+	}
+
+	public List<List<UserShopbagOptionVO>> getOptionArray() {
+		return optionArray;
+	}
+
+	public void setOptionArray(List<List<UserShopbagOptionVO>> list) {
+		this.optionArray = list;
+	}
 
 }

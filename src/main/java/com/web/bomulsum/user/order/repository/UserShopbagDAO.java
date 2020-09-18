@@ -14,21 +14,23 @@ public class UserShopbagDAO {
 	// 장바구니 정보
 	public List<UserShopbagVO> getShopbagInfo(String memberCode) {
 		List<UserShopbagVO> shopbagInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectCartCon", memberCode);
-		System.out.println(shopbagInfo);
 		return shopbagInfo;
 
 	}
-	//옵션 상세정보
-	public List<UserShopbagOptionVO> getOptionInfo(List<String> artOption) {
-		System.out.println(artOption);
-		List<UserShopbagOptionVO> optionInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectOption", artOption);
-		System.out.println(optionInfo);
+	
+	public UserShopbagOptionVO getOptionInfo(String artOption) {
+		UserShopbagOptionVO optionInfo = sqlSessionTemplate.selectOne("userShopbagDAO.selectOption", artOption);
 		return optionInfo;
 	}
+	//옵션 상세정보
+/*	public List<UserShopbagOptionVO> getOptionInfo(List<String> artOption) {
+		System.out.println(artOption);
+		List<UserShopbagOptionVO> optionInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectOption", artOption);
+		return optionInfo;
+	}*/
 	//기본 모달
 	public List<UserShopbagModalVO> goShopbagModal(HashMap<String, String> map){
 		List<UserShopbagModalVO> modalInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectmodalCon", map);
-		//System.out.println(modalInfo);
 		return modalInfo;
 	}
 	//옵션 모달
