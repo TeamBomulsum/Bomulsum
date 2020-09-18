@@ -214,6 +214,26 @@ public class userController {
 		
 		mav.setViewName("uhome");
 		
+		
+		// 실시간 후기
+		/*
+		 * List<UserReviewVO> dataListR = new ArrayList<UserReviewVO>(); UserReviewVO
+		 * homeRVo = new UserReviewVO(); List<UserReviewVO> dataR =
+		 * serviceR.homeRealTimeReviewList(); for(UserReviewVO rv : dataR) { homeRVo =
+		 * new UserReviewVO(); // 작품코드 homeRVo.setArtCodeSeq(rv.getArtCodeSeq()); // 작품
+		 * 사진 String[] arrimg = rv.getArtPhoto().split(",");
+		 * homeRVo.setArtPhoto(arrimg[0]); // 작품명 homeRVo.setArtName(rv.getArtName());
+		 * // 후기(별점) homeRVo.setReviewStar(rv.getReviewStar()); // 후기(내용)
+		 * homeRVo.setReviewComment(rv.getReviewComment()); // 후기작성자
+		 * homeRVo.setMemberName(rv.getMemberName());
+		 * 
+		 * dataListR.add(homeRVo); }
+		 * 
+		 * mav.addObject("realTimeReview", dataListR);
+		 
+
+		mav.setViewName("uhome");*/
+		
 		return mav;
 	} 
 

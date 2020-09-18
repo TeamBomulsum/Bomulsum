@@ -109,39 +109,39 @@ public class UserPaymentController {
 		 */
 		
 	
-		
-		List<UserShopbagVO> shopbagInfo = service.selectCartChoice(memberCode);
-		
-		for(int i=0; i<shopbagInfo.size(); i++) {
-			UserShopbagVO tempVO = shopbagInfo.get(i);
-			String[] artOption= shopbagInfo.get(i).getArt_option_seq().split(",");
-			List<UserShopbagOptionVO> optionList = cart_service.getOptionInfo(artOption);
-			switch(optionList.size()) {
-			case 3:
-				tempVO.setArt_option_category3(optionList.get(2).getArt_option_category());
-				tempVO.setArt_option_name3(optionList.get(2).getArt_option_name());
-				tempVO.setArt_option_price3(optionList.get(2).getArt_option_price());
-			case 2:
-				tempVO.setArt_option_category2(optionList.get(1).getArt_option_category());
-				tempVO.setArt_option_name2(optionList.get(1).getArt_option_name());
-				tempVO.setArt_option_price2(optionList.get(1).getArt_option_price());
-			case 1:
-				tempVO.setArt_option_category1(optionList.get(0).getArt_option_category());
-				tempVO.setArt_option_name1(optionList.get(0).getArt_option_name());
-				tempVO.setArt_option_price1(optionList.get(0).getArt_option_price());
-				break;
-			default :
-			}
-			tempVO.setTotal_price((tempVO.getArt_discount() + tempVO.getArt_option_price1()+tempVO.getArt_option_price2()
-						+tempVO.getArt_option_price3())*tempVO.getArt_count());
-			
-			String[] photoArray = tempVO.getArt_photo().split(",");
-			tempVO.setArt_photo(photoArray[0]);
-			shopbagInfo.remove(i);
-			shopbagInfo.add(i, tempVO);	
-		}
-		System.out.println("shopbagInfo:"+shopbagInfo);
-		mav.addObject("shopbagInfo", shopbagInfo);
+//		
+//		List<UserShopbagVO> shopbagInfo = service.selectCartChoice(memberCode);
+//		
+//		for(int i=0; i<shopbagInfo.size(); i++) {
+//			UserShopbagVO tempVO = shopbagInfo.get(i);
+//			String[] artOption= shopbagInfo.get(i).getArt_option_seq().split(",");
+//			List<UserShopbagOptionVO> optionList = cart_service.getOptionInfo(artOption);
+//			switch(optionList.size()) {
+//			case 3:
+//				tempVO.setArt_option_category3(optionList.get(2).getArt_option_category());
+//				tempVO.setArt_option_name3(optionList.get(2).getArt_option_name());
+//				tempVO.setArt_option_price3(optionList.get(2).getArt_option_price());
+//			case 2:
+//				tempVO.setArt_option_category2(optionList.get(1).getArt_option_category());
+//				tempVO.setArt_option_name2(optionList.get(1).getArt_option_name());
+//				tempVO.setArt_option_price2(optionList.get(1).getArt_option_price());
+//			case 1:
+//				tempVO.setArt_option_category1(optionList.get(0).getArt_option_category());
+//				tempVO.setArt_option_name1(optionList.get(0).getArt_option_name());
+//				tempVO.setArt_option_price1(optionList.get(0).getArt_option_price());
+//				break;
+//			default :
+//			}
+//			tempVO.setTotal_price((tempVO.getArt_discount() + tempVO.getArt_option_price1()+tempVO.getArt_option_price2()
+//						+tempVO.getArt_option_price3())*tempVO.getArt_count());
+//			
+//			String[] photoArray = tempVO.getArt_photo().split(",");
+//			tempVO.setArt_photo(photoArray[0]);
+//			shopbagInfo.remove(i);
+//			shopbagInfo.add(i, tempVO);	
+//		}
+//		System.out.println("shopbagInfo:"+shopbagInfo);
+//		mav.addObject("shopbagInfo", shopbagInfo);
 		
 		
 		System.out.println("mav내용:"+mav);		

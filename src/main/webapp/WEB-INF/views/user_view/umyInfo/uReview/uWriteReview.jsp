@@ -506,78 +506,101 @@ body a:link, a:visited, a:hover, a:active {
 					var artImg = '';
 					var data = returnData.data;
 					var buttonText = '';
+					var brandName = '';
 					
 					console.log(returnData);
+					console.log(page);
+					console.log(returnData.startNum);
+					console.log(returnData.totalCnt);
+					console.log(data.length);
 					
 					if(page == 1){
 						$('#minwoo_uWriteReviewList').html('');
 					}
-					if(returnData.startNum <= returnData.totalCnt){
-						if(data.length > 0){
-							for(var i = 0; i < data.length; i++){
-								artImg = data[i].artPhoto.split(',')[0];
-								
-								if(data[i].bArtReviewStatus == 'N'){
-									buttonText = '구매후기 작성하기';
-								} else {
-									buttonText = '구매후기 수정하기(후기 수정은 1회만 가능 합니다.)';
+					
+					if(returnData.totalCnt > 0){
+						if(returnData.startNum <= returnData.totalCnt){
+							if(data.length > 0){
+								for(var i = 0; i < data.length; i++){
+									artImg = data[i].artPhoto.split(',')[0];
+									
+									if(data[i].bArtReviewStatus == 'N'){
+										buttonText = '구매후기 작성하기';
+									} else {
+										buttonText = '구매후기 수정하기(후기 수정은 1회만 가능 합니다.)';
+									}
+									
+									if(data[i].writerBrandName == "" || data[i].writerBrandName == null
+											|| data[i].writerBrandName == undefined ||
+											(data[i].writerBrandName != null && typeof data[i].writerBrandName == "object" && !Object.keys(data[i].writerBrandName).length)){
+										brandName = data[i].writerName;
+									} else {
+										brandName = data[i].writerBrandName;
+									}
+									
+									console.log(brandName);
+									
+									htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
+										+ '<input type=\"hidden\" value=\"' + data[i].buyArtCodeSeq +'\" />' // 0
+										+ '<input type=\"hidden\" value=\"' + data[i].bArtCodeSeq +'\" />' // 1
+										+ '<input type=\"hidden\" value=\"' + data[i].bArtName +'\" />' // 2
+										+ '<input type=\"hidden\" value=\"' + data[i].writerCodeSeq +'\" />' // 3
+										+ '<input type=\"hidden\" value=\"' + artImg +'\" />' // 4
+										+ '<input type=\"hidden\" value=\"' + data[i].bArtOptionCount +'\" />' // 5
+										+ '<input type=\"hidden\" value=\"' + data[i].bArtReviewStatus +'\" />' // 6
+										+ '<input type=\"hidden\" value=\"' + data[i].reviewCodeSeq +'\" />' //7
+										+ '<input type=\"hidden\" value=\"' + data[i].reviewComment +'\" />' // 8
+										+ '<input type=\"hidden\" value=\"' + data[i].reviewStar +'\" />' // 9
+										+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
+										+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
+										+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
+				                        + '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:60px; height:60px\">'
+										+ '</div>'
+										+ '<div style=\"margin-left:10px; margin-top:3px;\">'
+										+ '<div style=\"font-weight:bold;\">'
+										+ '<a href=\"#\" style=\"text-decoration:none;\">' + data[i].bArtName + '</a>'
+										+ '</div>'
+										+ '<div style=\"margin-top:3px;\">'
+										+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
+										+ brandName + '</a>'
+										+ '</div>'
+										+ '</div>'
+										+ '</div>'
+										+ '<ul class=\"minwoo_contentOptionUl\">'
+										+ '<li>' + data[i].bArtOptionCategory + ' : ' + data[i].bArtOptionName + '</li>'
+										+ '<li> 작품 설명 : ' + data[i].artDescription + '</li>'
+										+ '<li> 구매 일자 : ' + moment(data[i].orderDate).format("YYYY-MM-DD") + '</li>'
+										+ '<li> 구매 수량 : ' + data[i].bArtOptionCount + '</li>'
+										+ '</ul>'
+										+ '</div>'
+										+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">' + buttonText + '</button>'
+										+ '</div>';
+									} // end for
 								}
-								
-								htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
-									+ '<input type=\"hidden\" value=\"' + data[i].buyArtCodeSeq +'\" />' // 0
-									+ '<input type=\"hidden\" value=\"' + data[i].bArtCodeSeq +'\" />' // 1
-									+ '<input type=\"hidden\" value=\"' + data[i].bArtName +'\" />' // 2
-									+ '<input type=\"hidden\" value=\"' + data[i].bWriterCodeSeq +'\" />' // 3
-									+ '<input type=\"hidden\" value=\"' + artImg +'\" />' // 4
-									+ '<input type=\"hidden\" value=\"' + data[i].bArtOptionCount +'\" />' // 5
-									+ '<input type=\"hidden\" value=\"' + data[i].bArtReviewStatus +'\" />' // 6
-									+ '<input type=\"hidden\" value=\"' + data[i].reviewCodeSeq +'\" />' //7
-									+ '<input type=\"hidden\" value=\"' + data[i].reviewComment +'\" />' // 8
-									+ '<input type=\"hidden\" value=\"' + data[i].reviewStar +'\" />' // 9
-									+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
-									+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
-									+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
-			                        + '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:60px; height:60px\">'
-									+ '</div>'
-									+ '<div style=\"margin-left:10px; margin-top:3px;\">'
-									+ '<div style=\"font-weight:bold;\">'
-									+ '<a href=\"#\" style=\"text-decoration:none;\">' + data[i].bArtName + '</a>'
-									+ '</div>'
-									+ '<div style=\"margin-top:3px;\">'
-									+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
-									+ data[i].writerName + '</a>'
-									+ '</div>'
-									+ '</div>'
-									+ '</div>'
-									+ '<ul class=\"minwoo_contentOptionUl\">'
-									+ '<li>' + data[i].bArtOptionCategory + ' : ' + data[i].bArtOptionName + '</li>'
-									+ '<li> 작품 설명 : ' + data[i].artDescription + '</li>'
-									+ '<li> 구매 일자 : ' + moment(data[i].orderDate).format("YYYY-MM-DD") + '</li>'
-									+ '<li> 구매 수량 : ' + data[i].bArtOptionCount + '</li>'
-									+ '</ul>'
-									+ '</div>'
-									+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">' + buttonText + '</button>'
-									+ '</div>';
-							} // end for
-						} else { // 데이터가 없을 때
-							htmldiv += '<div id=\"noReviewContent\">'
-								+ `<img src="<c:url value='/resources/img/KMWnoReview.png'/>"`
-								+ 'style="width:240px;; height:240px;">'
-								+ '<p style=\"font-weight:bold;color:#BDBDBD;\">'
-								+ '작성할 수 있는 구매후기가 없습니다.'
-								+ '</p>'
-								+ '</div>';
-						}//end if
-					}
-					
-					htmldiv = htmldiv.replace(/%20/gi, ' ');
-					if(page == 1){
+							}//end if
+							
+						htmldiv = htmldiv.replace(/%20/gi, ' ');
+							
+						if(page == 1){
+							$('#minwoo_uWriteReviewList').html(htmldiv);
+						} else{
+							$('#minwoo_uWriteReviewList').append(htmldiv);
+						}
+						
+						$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
+					} else { // 데이터가 없을 때
+						htmldiv += '<div id=\"noReviewContent\">'
+						+ `<img src="<c:url value='/resources/img/KMWnoReview.png'/>"`
+						+ 'style="width:240px;; height:240px;">'
+						+ '<p style=\"font-weight:bold;color:#BDBDBD;\">'
+						+ '작성할 수 있는 구매후기가 없습니다.'
+						+ '</p>'
+						+ '</div>';
+						
+						console.log('데이터 없을 때');
+						
 						$('#minwoo_uWriteReviewList').html(htmldiv);
-					} else{
-						$('#minwoo_uWriteReviewList').append(htmldiv);
 					}
-					
-					$(".minwoo_uWriteReview_ListContent_button").on('click',modal);
 				
 				}, //end for success
 				error:function(e){
@@ -797,8 +820,8 @@ body a:link, a:visited, a:hover, a:active {
 			} else {
 				rtn = confirm("구매 후기를 수정하시겠습니까? \n (차후 수정이 불가능 합니다.)");
 			}
-			
-			$('#reviewStar').val() = $('.minwoo_starRev').attr('data-rate');
+
+			$('#reviewStar').val($('.minwoo_starRev').attr('data-rate'));
 			
 			if(rtn){
 				formSubmit.submit();	

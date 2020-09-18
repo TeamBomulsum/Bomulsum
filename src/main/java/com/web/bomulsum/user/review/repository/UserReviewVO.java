@@ -22,6 +22,7 @@ public class UserReviewVO {
 	private String reviewCommentReStatus;
 	
 	//일단 보류
+	private String writerBrandName;
 	private String writerCodeSeq;
 	private String memberProfile;
 	private String artOptionSeq;
@@ -57,6 +58,15 @@ public class UserReviewVO {
 	private String gRnum;
 	private String dateNum;
 	
+	
+	public String getWriterBrandName() {
+		return writerBrandName;
+	}
+
+	public void setWriterBrandName(String writerBrandName) {
+		this.writerBrandName = writerBrandName;
+	}
+
 	public String getReviewCodeSeq() {
 		return reviewCodeSeq;
 	}
@@ -391,17 +401,20 @@ public class UserReviewVO {
 				+ memberCodeSeq + ", memberName=" + memberName + ", artCodeSeq=" + artCodeSeq + ", artName=" + artName
 				+ ", reviewDate=" + reviewDate + ", reviewComment=" + reviewComment + ", reviewStar=" + reviewStar
 				+ ", reviewPhoto=" + reviewPhoto + ", reviewCommentRe=" + reviewCommentRe + ", reviewCommentReDate="
-				+ reviewCommentReDate + ", reviewCommentReStatus=" + reviewCommentReStatus + ", writerCodeSeq="
-				+ writerCodeSeq + ", memberProfile=" + memberProfile + ", artOptionSeq=" + artOptionSeq
-				+ ", artOptionCategory=" + artOptionCategory + ", artOptionName=" + artOptionName + ", artOptionPrice="
-				+ artOptionPrice + ", artOptionCount=" + artOptionCount + ", artPrice=" + artPrice + ", artDiscount="
-				+ artDiscount + ", artAmount=" + artAmount + ", cartStatus=" + cartStatus + ", buyArtCodeSeq="
-				+ buyArtCodeSeq + ", bArtCodeSeq=" + bArtCodeSeq + ", bArtName=" + bArtName + ", bWriterCodeSeq="
-				+ bWriterCodeSeq + ", bArtOptionCategory=" + bArtOptionCategory + ", bArtOptionName=" + bArtOptionName
-				+ ", bArtOptionPrice=" + bArtOptionPrice + ", bArtOptionCount=" + bArtOptionCount
-				+ ", bArtReviewStatus=" + bArtReviewStatus + ", bArtReview=" + bArtReview + ", artPhoto=" + artPhoto
-				+ ", artDescription=" + artDescription + ", writerName=" + writerName + ", orderDate=" + orderDate
-				+ ", alarmContent=" + alarmContent + ", gRnum=" + gRnum + ", dateNum=" + dateNum + "]";
+				+ reviewCommentReDate + ", reviewCommentReStatus=" + reviewCommentReStatus + ", writerBrandName="
+				+ writerBrandName + ", writerCodeSeq=" + writerCodeSeq + ", memberProfile=" + memberProfile
+				+ ", artOptionSeq=" + artOptionSeq + ", artOptionCategory=" + artOptionCategory + ", artOptionName="
+				+ artOptionName + ", artOptionPrice=" + artOptionPrice + ", artOptionCount=" + artOptionCount
+				+ ", artPrice=" + artPrice + ", artDiscount=" + artDiscount + ", artAmount=" + artAmount
+				+ ", cartStatus=" + cartStatus + ", buyArtCodeSeq=" + buyArtCodeSeq + ", bArtCodeSeq=" + bArtCodeSeq
+				+ ", bArtName=" + bArtName + ", bWriterCodeSeq=" + bWriterCodeSeq + ", bArtOptionCategory="
+				+ bArtOptionCategory + ", bArtOptionName=" + bArtOptionName + ", bArtOptionPrice=" + bArtOptionPrice
+				+ ", bArtOptionCount=" + bArtOptionCount + ", bArtReviewStatus=" + bArtReviewStatus + ", bArtReview="
+				+ bArtReview + ", artPhoto=" + artPhoto + ", artDescription=" + artDescription + ", writerName="
+				+ writerName + ", orderDate=" + orderDate + ", alarmContent=" + alarmContent + ", gRnum=" + gRnum
+				+ ", dateNum=" + dateNum + "]";
 	}
+
+	
 	
 }

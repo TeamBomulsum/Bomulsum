@@ -334,66 +334,70 @@ body a:link, a:visited, a:hover, a:active {
 					if(page == 1){
 						$('#minwoo_uWriteReviewList').html('');
 					}
-					if(returnData.startNum <= returnData.totalCnt){
-						if(data.length > 0){
-							for(var i = 0; i < data.length; i++){
-								artImg = data[i].artPhoto.split(',')[0];
-								
-								htmldiv += '<div class="minwoo_uWriteReviewMe_ListContent">'
-								+ '<div class="minwoo_uWriteReviewMe_ListContent_body">'
-								+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head">'
-								+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head_photo">'
-								+ '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:100%; height:100%\">'
-								+ '</div>'
-								+ '<div style=" margin-left:10px; margin-top:3px; width:65%; font-weight:bold;">'
-								+ '<a href="#" style="text-decoration:none;">' + data[i].artName + '</a>'
-								+ '</div>'
-								+ '<div class=\"minwoo_starRev\" data-rate=\"' + data[i].reviewStar + '\">'
-								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-								+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
-								+ '</div>'
-								+ '</div>'
-								+ '<hr>'
-								+ '<div style="height:50px; display:flex; flex-direction:row; align-items:center;">'
-								+ '<div style="height:30px; width:30px; border:1px solid black; border-radius:100%;">'
-								+ '<img src="/bomulsum/upload/' + data[i].memberProfile + '" style="width:100%;height:100%;">'
-								+ '</div>'
-								+ '<div style="height:50px; width:80%; margin-left:10px; font-size:15px; font-weight:bold; display:flex; flex-direction:column;justify-content:center;">'
-								+ '<div>' + data[i].memberName + '</div>'
-								+ '<div style="color:#BDBDBD;">' + moment(data[i].reviewDate).format("YYYY-MM-DD") + '</div>'
-								+ '</div>'	
-								+ '</div>'
-								+ '<div class="minwoo_reviewComment_div">' + data[i].reviewComment + '</div>'
-								+ '</div>'
-								+ '</div>';
-							} // end for
-						} else { // 데이터가 없을 때
-							htmldiv += '<div id="noReviewContent">'
-								+ `<img src="<c:url value='/resources/img/KMWnoReviewMe.png'/>"`
-								+ 'style="width:240px;; height:240px;">'
-								+ '<p style="font-weight:bold;color:#BDBDBD; text-align:center;">'
-								+ '구매후기를 남겨주시면 작가님이<br>함박 웃음을 지으며 기뻐하신답니다!'
-								+ '</p>'
-								+ '</div>';
-						}//end if
-					}
-					
-					htmldiv = htmldiv.replace(/%20/gi, ' ');
-					if(page == 1){
+					if(returnData.totalCnt > 0){
+						if(returnData.startNum <= returnData.totalCnt){
+							if(data.length > 0){
+								for(var i = 0; i < data.length; i++){
+									artImg = data[i].artPhoto.split(',')[0];
+									
+									htmldiv += '<div class="minwoo_uWriteReviewMe_ListContent">'
+									+ '<div class="minwoo_uWriteReviewMe_ListContent_body">'
+									+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head">'
+									+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head_photo">'
+									+ '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:100%; height:100%\">'
+									+ '</div>'
+									+ '<div style=" margin-left:10px; margin-top:3px; width:65%; font-weight:bold;">'
+									+ '<a href="#" style="text-decoration:none;">' + data[i].artName + '</a>'
+									+ '</div>'
+									+ '<div class=\"minwoo_starRev\" data-rate=\"' + data[i].reviewStar + '\">'
+									+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+									+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+									+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+									+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+									+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
+									+ '</div>'
+									+ '</div>'
+									+ '<hr>'
+									+ '<div style="height:50px; display:flex; flex-direction:row; align-items:center;">'
+									+ '<div style="height:30px; width:30px; border:1px solid black; border-radius:100%;">'
+									+ '<img src="/bomulsum/upload/' + data[i].memberProfile + '" style="width:100%;height:100%;">'
+									+ '</div>'
+									+ '<div style="height:50px; width:80%; margin-left:10px; font-size:15px; font-weight:bold; display:flex; flex-direction:column;justify-content:center;">'
+									+ '<div>' + data[i].memberName + '</div>'
+									+ '<div style="color:#BDBDBD;">' + moment(data[i].reviewDate).format("YYYY-MM-DD") + '</div>'
+									+ '</div>'	
+									+ '</div>'
+									+ '<div class="minwoo_reviewComment_div">' + data[i].reviewComment + '</div>'
+									+ '</div>'
+									+ '</div>';
+								} // end for
+							} 
+						} // end for if
+						
+						htmldiv = htmldiv.replace(/%20/gi, ' ');
+						if(page == 1){
+							$('#minwoo_uWriteReviewMeList').html(htmldiv);
+						} else{
+							$('#minwoo_uWriteReviewMeList').append(htmldiv);
+						}
+						var starRevPoint = $('.minwoo_starRev');
+						starRevPoint.each(function(){
+								var targetScore = $(this).attr('data-rate');
+								console.log('타겟스코어' + targetScore);
+								$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
+								$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
+						});
+					} else { // 데이터가 없을 때
+						htmldiv += '<div id="noReviewContent">'
+							+ `<img src="<c:url value='/resources/img/KMWnoReviewMe.png'/>"`
+							+ 'style="width:240px;; height:240px;">'
+							+ '<p style="font-weight:bold;color:#BDBDBD; text-align:center;">'
+							+ '구매후기를 남겨주시면 작가님이<br>함박 웃음을 지으며 기뻐하신답니다!'
+							+ '</p>'
+							+ '</div>';
+							
 						$('#minwoo_uWriteReviewMeList').html(htmldiv);
-					} else{
-						$('#minwoo_uWriteReviewMeList').append(htmldiv);
-					}
-					var starRevPoint = $('.minwoo_starRev');
-					starRevPoint.each(function(){
-							var targetScore = $(this).attr('data-rate');
-							console.log(targetScore);
-							$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
-							$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
-					});
+					}//end
 				}, //end for success
 				error:function(e){
 					if(e.status == 300){

@@ -291,6 +291,7 @@ body a:link, a:visited, a:hover, a:active {
 					var reviewStar2 = '';
 					var reviewStar3 = '';
 					var data = returnData.data;
+					var brandName = '';
 					
 					console.log(returnData);
 					
@@ -312,6 +313,14 @@ body a:link, a:visited, a:hover, a:active {
 								reviewStar2 = data[i].reviewStar.split('|-%-|')[1];
 								reviewStar3 = data[i].reviewStar.split('|-%-|')[2];
 								
+								if(data[i].writerBrandName == "" || data[i].writerBrandName == null
+										|| data[i].writerBrandName == undefined ||
+										(data[i].writerBrandName != null && typeof data[i].writerBrandName == "object" && !Object.keys(data[i].writerBrandName).length)){
+									brandName = data[i].writerName;
+								} else {
+									brandName = data[i].writerBrandName;
+								}
+								
 								console.log(artImg + '//' + mamberName1 +
 											'//' + mamberName2 + '//' + mamberName3 +
 											'//' + reviewComment1 + '//' + reviewComment2 +
@@ -323,7 +332,7 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<a href="" id="' + data[i].artCodeSeq + '" onclick="artCode(this);"><img src="/bomulsum/upload' + artImg + '"></a>'
 								+ '</div>'
 								+ '<div class="minwoo_realtime_review_artinfo">'
-								+ '<span>' + data[i].writerName + '</span>'
+								+ '<span>' + brandName + '</span>'
 								+ '<br>'
 								+ '<a href="" id="' + data[i].artCodeSeq + '" onclick="artCode(this);">' + data[i].artName + '</a>'
 								+ '</div>'
