@@ -24,14 +24,14 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 		return dao.getShopbagInfo(memberCode);
 	}
 
-	@Override
+/*	@Override
 	public List<UserShopbagOptionVO> getOptionInfo(String[] artOption) {
 		List<String> list = new ArrayList<String>();
 		for (int i = 0; i < artOption.length; i++) {
 			list.add(artOption[i]);
 		}
 		return dao.getOptionInfo(list);
-	}
+	}*/
 
 	@Override
 	public List<UserShopbagModalVO> goShopbagModal(HashMap<String, String> map) {
@@ -71,6 +71,11 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 	public void updateOption(HashMap<String, String> map) {
 		dao.updateOption(map);
 		
+	}
+
+	@Override
+	public UserShopbagOptionVO getOptionInfo(String artOption) {
+		return dao.getOptionInfo(artOption);
 	}
 
 }

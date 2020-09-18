@@ -193,7 +193,7 @@ public class ProductInfoController {
 		for(TestVo v : listVo) {
 			artCode = v.getArtCode();
 			memberCode = v.getMemberCode();
-			optionCode += v.getOptionCode()+"^";
+			optionCode += v.getOptionCode()+"#";
 			count += v.getArtCount()+",";
 		}
 		
@@ -207,7 +207,7 @@ public class ProductInfoController {
 		
 		service.insertShopBag(serviceVo);
 		
-		return "redirect:/bomulsum/user/shopbag.do";
+		return "redirect:/user/shopbag.do";
 	}
 	
 	
