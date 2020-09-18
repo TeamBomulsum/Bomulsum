@@ -16,6 +16,7 @@ import com.web.bomulsum.user.coupon.service.UserCouponServiceImpl;
 import com.web.bomulsum.user.order.repository.UserShopbagOptionVO;
 import com.web.bomulsum.user.order.repository.UserShopbagVO;
 import com.web.bomulsum.user.order.service.UserShopbagService;
+import com.web.bomulsum.user.payment.repository.UserCouponPaymentVO;
 import com.web.bomulsum.user.payment.service.UserPaymentService;
 import com.web.bomulsum.user.profile.repository.UserProfileAddressVO;
 import com.web.bomulsum.user.profile.repository.UserProfileVO;
@@ -81,11 +82,12 @@ public class UserPaymentController {
 		
 		
 		//멤버 적립금
-		int memReserve=reserve_service.getUserSumReserves()-reserve_service.getUserPointUse();
+		//int memReserve=reserve_service.getUserSumReserves()-reserve_service.getUserPointUse();
+		int memReserve = 10000000;
 		mav.addObject("memReserve",memReserve);
 		
-		//멤버 쿠폰
-		List<UserCouponListVO> vo = coupon_service.getCouponList(memberCode);
+		//멤버 쿠폰 ---- 쿠폰 vo랑 mapping새로만들어서쓰기... 
+		List<UserCouponPaymentVO> vo = service.selectCouponPayment(memberCode);
 		System.out.println("쿠폰:"+vo);
 		mav.addObject("couponList", vo);
 		
@@ -145,5 +147,25 @@ public class UserPaymentController {
 		System.out.println("mav내용:"+mav);		
 		return mav;
 	} 
+	
+	@ResponseBody 
+	@RequestMapping(value="/successPayment")
+	public ModelAndView goShopbag() {
+		ModelAndView mav = new ModelAndView("ushopbag/usuccessOrder");
+		
+		//받아야할데이터----------
+		//주문자이름
+		//전화번호
+		//우편번호
+		//기본주소
+		//상세주소
+		//작품금액(작품당금액합산)
+		//배송비
+		//도서산간
+		//쿠폰할인
+		//최종결제금액
+		
+		return mav;
+	}
 	
 }

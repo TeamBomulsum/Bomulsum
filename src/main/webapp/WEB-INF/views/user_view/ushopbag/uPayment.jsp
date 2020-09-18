@@ -10,14 +10,102 @@
 <title>보물섬 | 주문 결제하기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-var myReserve = ${memReserve};
-var myDiscountSum = 0;
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
-//유효성검사
-var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/; //전화번호
-var checkChar = /^[가-힣a-zA-Z]+$/; //한글+영어만 가능
-//checkChar.test(str); // 체크하는  test 함수 : 리턴값 true / false
+
+<script>
+
+var myReserve = ${memReserve}; //적립금관련
+var myDiscountSum = 0;
+var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/; //유효성:전화번호
+var checkChar = /^[가-힣a-zA-Z]+$/; //유효성:한글+영어만 가능(ㅁㄴㅇ이런문자 안됨)
+var shipName = ''; //배송지관련
+var shipPhone = '';
+var shipZip = '';
+var shipFirst = '';
+var shipSecond = '';
+
+//아임포트 결제api------------------------
+var IMP = window.IMP; // 생략가능
+IMP.init('imp54276316'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+
+function goPayment(){
+	
+	//선택된 배송지 ----- 1
+	if($('#shipTab1').css('background-color') == 'rgb(31, 118, 187)'){
+		shipName = $('input[name=addrName1]').val();
+		shipPhone = $('input[name=addrTel1]').val();
+		shipZip = $('input[name=addrAddr11]').val();
+		shipFirst = $('input[name=addrAddr12]').val();
+		shipSecond = $('input[name=addrAddr13]').val();
+	}
+	
+	//선택된 배송지 ----- 2
+	if($('#shipTab2').css('background-color') == 'rgb(31, 118, 187)'){
+		shipName = $('input[name=addrName2]').val();
+		shipPhone = $('input[name=addrTel2]').val();
+		shipZip = $('input[name=addrAddr21]').val();
+		shipFirst = $('input[name=addrAddr22]').val();
+		shipSecond = $('input[name=addrAddr23]').val();
+	}
+	
+	//선택된 배송지 ----- 3
+	if($('#shipTab3').css('background-color') == 'rgb(31, 118, 187)'){
+		shipName = $('input[name=addrName3]').val();
+		shipPhone = $('input[name=addrTel3]').val();
+		shipZip = $('input[name=addrAddr31]').val();
+		shipFirst = $('input[name=addrAddr32]').val();
+		shipSecond = $('input[name=addrAddr33]').val();
+	}
+	
+	//배송지 유효성검사
+	if(!checkChar.test(shipName)){ 
+		alert('받는분 이름을 올바르게 입력해주세요!');
+		return; 
+	}
+	if(!regExp.test(shipPhone)){ 
+		alert('전화번호를 올바르게 입력해주세요!');
+		return; 
+	}
+	if(!shipZip){ 
+		alert('우편번호를 입력해주세요!');
+		return; 
+	}
+	if(!shipSecond){ 
+		alert('상세주소를 입력해주세요!');
+		return; 
+	}
+	
+	console.log(shipName+","+shipPhone+","+shipZip+","+shipFirst+","+shipSecond);
+	
+	
+	//결제창 실행
+/* 	IMP.request_pay({
+	    pg : 'inicis', // version 1.1.0부터 지원.
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : '주문명:결제테스트',
+	    amount : 100, //판매 가격
+	    buyer_email : 'iamport@siot.do',
+	    buyer_name : '구매자이름',
+	    buyer_tel : '010-1234-5678',
+	    buyer_addr : '서울특별시 강남구 삼성동',
+	    buyer_postcode : '123-456'
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        var msg = '결제가 완료되었습니다.';
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	    }
+	    alert(msg);
+	}); */
+}
+
 
 $(document).ready(function(){
 	
@@ -98,6 +186,21 @@ $(function(){
 	})
 	
 	
+	/* 개인정보고지 */
+	$('#dain_privacy').click(function(){
+		if ( $("#dainPrivacyDetail").css("display") == "none" ){
+			$("#dainPrivacyDetail").css("display","block");
+			$("#dain_privacy_arrow").attr('class','fa fa-angle-up');
+			$(".dain_payment_info").css('height','630px');
+			}
+		else{
+			$("#dainPrivacyDetail").css("display","none");
+			$("#dain_privacy_arrow").attr('class','fa fa-angle-down');
+			$(".dain_payment_info").css('height','450px');
+		}
+		
+		
+	})
 	
 	//적립금 처리---------------
 	
@@ -125,30 +228,16 @@ $(function(){
     	var CouponMoney2 = parseInt(CouponMoney);
 
     	
+    	//테스트
+    	var choiceCoupon = $('input[name=coupon]:checked').attr('id');
+    	var choiceCouponPrice = $('#'+choiceCoupon).val();
+    	console.log('선택쿠폰테스트:'+choiceCoupon+',가격:'+choiceCouponPrice);
     	
-    	var arr = new Array();
-    	
-    	<c:forEach items="${couponList}" var="item">
-    		arr.push({couponName:"${item.couponName}"
-    		, couponPrice:"${item.couponPrice}"
-    		, couponDate:"${item.couponDate}"});
-    	</c:forEach>
-    	
-    	if(checkedIndex){
-    	console.log("선택한가격:"+arr[checkedIndex].couponPrice);
-    	
-    	CouponMoney = arr[checkedIndex].couponPrice;
-    	
-    	console.log("사용쿠폰:"+checkedCoupon+", 인덱스:"+checkedIndex+", 가격:"+CouponMoney);
-    	
-    	
-    	
-    	console.log(checkedCoupon);
-    	}
+
     	if(checkedCoupon=='noUse'){
     		document.getElementById('dain_coupon_input').value = 0;
     	}else{
-    		document.getElementById('dain_coupon_input').value = CouponMoney;
+    		document.getElementById('dain_coupon_input').value = choiceCouponPrice;
     	} 
     	
     	
@@ -179,7 +268,15 @@ $(function(){
     $("#dainUserPoint").change(function(){
     	var finUsePoint = $("#dainUserPoint").val();
     	var finCoupon =  $("#dain_coupon_input").val();
+    	
+    	//값없을때 처리
+    	if(finUsePoint ==''){
+    		document.getElementById('dainUserPoint').value = 0;
+    		finUsePoint = $("#dainUserPoint").val();
+    	}
+
     	var sum = parseInt(finUsePoint) + parseInt(finCoupon);
+
     	
    		document.getElementById('dain_fin_discount').innerHTML = sum;
    		
@@ -531,7 +628,7 @@ body a:link, a:visited, a:hover, a:active {
 	border: 2px solid black;
 	border-radius: 2px;
 	width: 40%;
-	height: 650px;
+	height: 450px;
 }
 
 .dain-area-txt {
@@ -1039,9 +1136,9 @@ ul.tabs li.current{
 			<div class="dainTitle">주소 (배송지)</div>
 
 			<ul class="tabs">
-				<li class="tab-link current" data-tab="tab-1" >1</li>
-				<li class="tab-link " data-tab="tab-2">2</li>
-				<li class="tab-link " data-tab="tab-3">3</li>
+				<li class="tab-link current" data-tab="tab-1" id="shipTab1" >1</li>
+				<li class="tab-link " data-tab="tab-2" id="shipTab2" >2</li>
+				<li class="tab-link " data-tab="tab-3" id="shipTab3" >3</li>
 			</ul>
 			<!-- </div> -->
 			<br><br>
@@ -1053,14 +1150,14 @@ ul.tabs li.current{
 				<tr class="daintr">
 					<td class="dainth td1" style="vertical-align: middle;"><em class="dainem">*</em>받는분</td>
 					<td class="daintd td2" style="padding-top: 15px;">
-						<input class="dainInput di1" name="addrName1" id="addrName1" type="text" placeholder="받는분 이름을 입력해주세요." 
+						<input class="dainInput di1 selectedShipName" name="addrName1" id="addrName1" type="text" placeholder="받는분 이름을 입력해주세요." 
 						autocomplete="off" required="required" data-address="delivery_name" value="${address1.member_address_name}" />
 					</td>
 				</tr>
 				<tr class="daintr">
 					<td class="dainth" ><em class="dainem">*</em>전화번호</td>
 					<td class="daintd" >
-						<input class="dainInput di1" name="addrTel1" id="addrTel1" type="text" autocomplete="off" 
+						<input class="dainInput di1 selectedShipPhone" name="addrTel1" id="addrTel1" type="text" autocomplete="off" 
 						required="required" value="${address1.member_address_phone}" />
 					</td>
 				</tr>
@@ -1095,7 +1192,7 @@ ul.tabs li.current{
 				<tr class="daintr">
 					<td class="dainth td1" style="vertical-align: middle;"><em class="dainem">*</em>받는분</td>
 					<td class="daintd td2" style="padding-top: 15px;">
-						<input class="dainInput di1" name="addrName1" id="addrName1" type="text" placeholder="받는분 이름을 입력해주세요." 
+						<input class="dainInput di1 selectedShipName" name="addrName2" id="addrName2" type="text" placeholder="받는분 이름을 입력해주세요." 
 						autocomplete="off" required="required" data-address="delivery_name" 
 						value="${address2.member_address_name}"/>
 					</td>
@@ -1189,9 +1286,16 @@ ul.tabs li.current{
 			</c:if>
 		</div>
 		
+		
+		
+		
+		<!-- 배송비 합계 구할변수 선언 -->
+		<c:set var="shippingSum" value = "0" />
+		
+		
 		<!-- 주문작품정보 상세 -->
 		<c:forEach items='${shopbagInfo}' var="info">
-		
+			
 		<table class="dain-order-goods-table" style="display: none;">
 		<thead>
 			<tr>
@@ -1251,11 +1355,19 @@ ul.tabs li.current{
 			<tr>
 				<th class="dain-delvery-title">배송비</th>
 				<td class="dain-delvery-price">
+				
+				
 				<c:if test="${info.total_price ge info.writer_sendfree_case}">
 					<a>0</a><a>원</a>
+					<!-- 배송비 합계 연산 -->
+					<c:set var="shippingSum" value= "${shippingSum + 0}"/>
+
 				</c:if>	
 				<c:if test="${info.total_price lt info.writer_sendfree_case}">
+					<!-- 배송비 합계 연산 -->
 					<a>${info.writer_send_price}</a><a>원</a>
+					
+					<c:set var="shippingSum" value= "${shippingSum + info.writer_send_price}"/>
 				</c:if>	
 				</td> <!-- 여기 값 받아와야함 -->
 			</tr>
@@ -1264,6 +1376,7 @@ ul.tabs li.current{
 		
 		</c:forEach>
 		
+		<%-- <c:out value="${shippingSum}"/> --%>
 		
 		<!-- 할인 혜택 -->
 		<div class="dain_payment_discount_info" >
@@ -1303,7 +1416,7 @@ ul.tabs li.current{
 			</tr>
 			<tr>
 				<th>배송비</th>
-				<td>2800원</td>
+				<td>${shippingSum}원</td>
 			</tr>
 			<tr>
 				<th>할인 혜택</th>
@@ -1331,9 +1444,12 @@ ul.tabs li.current{
 		</div> -->
 		
 		<div class="dain_privacyPolicy">
-			<label style="font-size:14px;"><input type="checkbox" name="privacy_info" autocomplete="off" required="required" class="bp">
-	        <em class="dainem">*</em>개인정보 제3자 제공고지 <i class="fa fa-angle-down" aria-hidden="true"></i></label>
-	        <div class="dain_privacyPolicy_txt">
+			<label>
+			<input type="checkbox" name="privacy_info" autocomplete="off" required="required" class="bp">
+	        <span class="cursor" style="font-size:14px;"><em class="dainem">*</em>개인정보 제3자 제공고지 </label>
+	        <span id="dain_privacy" class="cursor" style="font-size:12px; color: #666; margin-left: 10px;">더보기
+	        <i id="dain_privacy_arrow" class="fa fa-angle-down" aria-hidden="true"></i></span></span>
+	        <div class="dain_privacyPolicy_txt" id="dainPrivacyDetail" style="display:none;">
 		        ‣ 제공받는 자 : 
 		        <c:forEach items='${shopbagInfo}' var="i">
 		        	${i.writer_brand_name} 
@@ -1348,7 +1464,7 @@ ul.tabs li.current{
 		</div>
 		
 		<div class="dain_final_payment">
-		<button id="pay_btn" class="dain_pay_btn dibtn">
+		<button id="pay_btn" class="dain_pay_btn dibtn" onclick="goPayment()">
           <span>20,800원</span>
           <span>카드 결제</span>
           <p class="point" data-label="point" style="display: block;">예상적립금 : <em>180</em>P</p>
@@ -1393,14 +1509,14 @@ ul.tabs li.current{
 				  
 				<c:forEach var="coupons" items="${couponList}" varStatus="status">
 				  <div style="display: flex; " >
-				  <input type="radio" id="coupon${status.index}" name="coupon" value="coupon${status.index}">
-				  <label for="coupon${status.index}"> 
+				  <input type="radio" id="${coupons.coupon_code_seq}" name="coupon" value="${coupons.coupon_price}">
+				  <label for="${coupons.coupon_code_seq}"> 
 				  <div class="dain_coupon_section" >
 					  <div >
-					  <div class="dain_coupon_title">${coupons.couponName}</div>
-					  <div class="dain_coupon_exp">사용기한 : ${coupons.couponDate}까지</div>
+					  <div class="dain_coupon_title">${coupons.coupon_name}</div>
+					  <div class="dain_coupon_exp">사용기한 : ${coupons.coupon_date}까지</div>
 					  </div>
-					  <div class="dain_coupon_price">-<span id="dain_discount_money${status.index}">${coupons.couponPrice}</span>원</div>
+					  <div class="dain_coupon_price">-<span id="dain_discount_money${coupons.coupon_code_seq}">${coupons.coupon_price}</span>원</div>
 				  </div>
 				  </label>
 				  </div>
