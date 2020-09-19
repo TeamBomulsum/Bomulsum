@@ -36,6 +36,9 @@
 
 <!--minwoo style-->
 <style>
+#content{
+	width:100%;
+}
 .minwoo_table_table_bordered_head tr th {
 	text-align: center;
 	vertical-align: middle;
@@ -157,21 +160,8 @@
 				<!-- /.container-fluid -->
 				<!--민우 내용 추가한 부분 종료-->
 
-
-				<!-- Footer -->
-				<footer class="sticky-footer bg-white">
-					<div class="container my-auto">
-						<div class="copyright text-center my-auto">
-							<span>보물섬 &copy; 2020</span>
-						</div>
-					</div>
-				</footer>
-				<!-- End of Footer -->
-
 			</div>
 			<!-- end main content -->
-
-		</div>
 		<!-- End of Content Wrapper -->
 
 	</div>
@@ -180,29 +170,91 @@
 	<%@ include file="../include/mfooter.jsp" %>
 
 	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
 	</a>
+
+	<!-- detail content modal -->
+	<div class="modal fade" id="staticBackdrop2" data-backdrop="static"
+		tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document"
+			style="max-width: 1000px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-category"></h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div
+					style="display: flex; border-bottom: 1px solid #d9d9d9; height: 50px; margin: 12px 30px 6px 30px; align-items: center;">
+					<div id="staticBackdropTitle"
+						style="font-weight: bold; font-size: 18px; color: #4273df; width:100%;">
+						제목 : <input type="text" id="modal-title" style="color: #858796; width:85%;"
+							readonly="readonly">
+					</div>
+				</div>
+
+				<!-- body -->
+				<div id="staticBackdropContent"
+					style="height: 400px; margin: 20px 30px 12px 30px;">
+					<div
+						style="height: 350px; border: 1px solid #d9d9d9; overflow: scroll; overflow-x: hidden; padding: 1%;">
+						<div id="modal-content"></div>
+					</div>
+				</div>
+				<div style="display: none;" id="modal-date"></div>
+				<div style="display: none;" id="modal-coupon"></div>
+				<div class="modal-footer"
+					style="display: flex; justify-content: center;">
+					<!-- 여기서 글 수정 버튼 누르면 rewrite.jsp로 해당 시퀀스 값 갖고 넘어갈거임-->
+					<form action="<c:url value='/manager/mboard/rewrite.mdo'/>" method="post">
+						<input type="hidden" id="adminNoticeSeq" name="adminNoticeSeq" />
+						<input type="submit" style="margin: 10px; font-size:13px;"
+							class="btn btn-primary" value="수정">
+						<button style="margin: 10px; font-size:13px;"
+							class="btn btn-primary" data-dismiss="modal" aria-label="Close">닫기</button>
+						<button type="button"
+							style="font-size:13px; margin: 10px; background-color: #dd3333; color: #ffffff;"
+							class="btn btn-primary" id="delete_btn">삭제</button>
+					</form>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<!-- detail content  modal end -->
+
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
-	<script	src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+	<script
+		src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 	<!-- Core plugin JavaScript-->
-	<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js' /> "></script>
+	<script
+		src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js' /> "></script>
 
 	<!-- Custom scripts for all pages-->
 	<script src="<c:url value='/resources/js/sb-admin-2.min.js' /> "></script>
 
 	<!-- Page level plugins -->
-	<script src="<c:url value='/resources/vendor/datatables/jquery.dataTables.min.js' /> "></script>
-	<script src="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.js' /> "></script>
+	<script
+		src="<c:url value='/resources/vendor/datatables/jquery.dataTables.min.js' /> "></script>
+	<script
+		src="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.js' /> "></script>
 
 	<!-- Page level custom scripts -->
 	<script src="<c:url value='/resources/js/demo/datatables-demo.js' /> "></script>
 
 	<!-- 썸머노트 -->
-	<script src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
-	<script src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
+	<script
+		src="<c:url value='/resources/js/summernote/lang/summernote-ko-KR.js'/>"></script>
+	<script
+		src="<c:url value='/resources/js/summernote/summernote-lite.js'/>"></script>
 
 
 	<script>

@@ -39,6 +39,9 @@
 
 
 <style>
+#content{
+	width:100%;
+}
 .minwoo_mboard_btn {
 	height: 40px;
 	width: 50px;
@@ -65,8 +68,6 @@
 
 
 		<!-- Content Wrapper -->
-		<div id="content-wrapper" class="d-flex flex-column">
-
 			<!-- Main Content -->
 			<div id="content">
 			<%@ include file="../include/mheader.jsp" %>
@@ -188,8 +189,6 @@
 
 			</div>
 			<!-- main content -->
-
-		</div>
 		<!-- End of Content Wrapper -->
 
 	</div>
