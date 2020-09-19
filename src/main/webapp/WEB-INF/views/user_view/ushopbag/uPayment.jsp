@@ -19,19 +19,28 @@ var myReserve = ${memReserve}; //적립금관련
 var myDiscountSum = 0;
 var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/; //유효성:전화번호
 var checkChar = /^[가-힣a-zA-Z]+$/; //유효성:한글+영어만 가능(ㅁㄴㅇ이런문자 안됨)
+
 var shipName = ''; //배송지관련
 var shipPhone = '';
 var shipZip = '';
 var shipFirst = '';
 var shipSecond = '';
 
-//아임포트 결제api------------------------
+var dain_fin_artprice = 0;
+var dain_fin_ship = 0;
+var dain_fin_discount = 0;
+var dain_fin_jeju = 0;
+
+
+
+//아임포트 결제api 관련
 var IMP = window.IMP; // 생략가능
 IMP.init('imp54276316'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 
-function goPayment(){
-	
-	//선택된 배송지 ----- 1
+
+
+function shipInfoSet(){
+ 	//선택된 배송지 ----- 1
 	if($('#shipTab1').css('background-color') == 'rgb(31, 118, 187)'){
 		shipName = $('input[name=addrName1]').val();
 		shipPhone = $('input[name=addrTel1]').val();
@@ -58,6 +67,15 @@ function goPayment(){
 		shipSecond = $('input[name=addrAddr33]').val();
 	}
 	
+}
+
+
+
+function goPayment(){
+	
+	shipInfoSet();
+
+	 
 	//배송지 유효성검사
 	if(!checkChar.test(shipName)){ 
 		alert('받는분 이름을 올바르게 입력해주세요!');
@@ -105,6 +123,152 @@ function goPayment(){
 	    alert(msg);
 	}); */
 }
+
+/* 세자리 마다 콤마찍기 */
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+
+/* 사용가능적립금 체크 */
+function reserveCheck(val){
+	var usePoint= $("#dainUserPoint").val();
+	if(usePoint > myReserve){ /* myReserve : 지금테스트중.. 3000부분에 넣기. */
+	document.getElementById('dainUserPoint').value = '';
+	}
+}
+
+
+//최종 합산 구하는 함수(할인금액빼고)
+function cal_fin_plus(){
+  
+   dain_fin_artprice = parseInt($('#dain_fin_artprice').text());
+	 dain_fin_ship = parseInt($('#dain_fin_ship').text());
+	 dain_fin_jeju = parseInt($('#dain_fin_jeju').text());
+	 
+	 var dain_sum = dain_fin_artprice + dain_fin_ship +dain_fin_jeju ;
+	 return dain_sum;
+}
+//최종결제할 금액(할인포함)
+function cal_fin_sum(){
+	var plus_sum = cal_fin_plus();
+	
+	dain_fin_discount = parseInt($('#dain_coupon_input').val()) + parseInt($('#dainUserPoint').val());
+	
+	var dain_fin_sum = plus_sum - dain_fin_discount ;
+	
+	console.log(dain_fin_artprice+','+ dain_fin_ship +','+ dain_fin_discount +','+dain_fin_jeju);
+	    
+	document.getElementById('dain_fin_sumprice').innerHTML = numberWithCommas(dain_fin_sum);
+	document.getElementById('dain_fin_sumprice2').innerHTML = numberWithCommas(dain_fin_sum);
+}
+
+
+
+//우편번호 찾기----------------------------------------------------------
+//배송지1
+function daumPostcode() {
+	new daum.Postcode(
+			{
+				oncomplete : function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var addr = ''; // 주소 변수
+
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('sample6_postcode').value = data.zonecode;
+					document.getElementById("sample6_address").value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById("sample6_detailAddress")
+							.focus();
+					
+					
+					//제주 도서산간 추가비용 계산
+					jejucheck = $('input[name=addrAddr12]').val();
+				    if(jejucheck.substring(0,2)=='제주'){
+				    	console.log("제주산간비용추가")
+				    } 
+				}
+			}).open();
+}
+//배송지2
+function daumPostcode2() {
+	new daum.Postcode(
+			{
+				oncomplete : function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var addr = ''; // 주소 변수
+
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('sample6_postcode2').value = data.zonecode;
+					document.getElementById("sample6_address2").value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById("sample6_detailAddress2")
+							.focus();
+					
+					//제주 도서산간 추가비용 계산
+					jejucheck = $('input[name=addrAddr12]').val();
+				    if(jejucheck.substring(0,2)=='제주'){
+				    	console.log("제주산간비용추가")
+				    } 
+				}
+			}).open();
+}
+
+//배송지3
+function daumPostcode3() {
+	new daum.Postcode(
+			{
+				oncomplete : function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var addr = ''; // 주소 변수
+
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('sample6_postcode3').value = data.zonecode;
+					document.getElementById("sample6_address3").value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById("sample6_detailAddress3")
+							.focus();
+					
+					//제주 도서산간 추가비용 계산
+					jejucheck = $('input[name=addrAddr12]').val();
+				    if(jejucheck.substring(0,2) == '제주'){
+				    	console.log("제주산간비용추가")
+				    } 
+				}
+			}).open();
+}
+
 
 
 $(document).ready(function(){
@@ -204,17 +368,38 @@ $(function(){
 	
 	//적립금 처리---------------
 	
-	console.log("적립금:"+myReserve);
+	console.log("보유중적립금:"+myReserve);
 	
 	if(myReserve == null || myReserve<0){
 		myReserve = 0;
 		$("#dainMyReserve").text(myReserve+'P');
 	}else{
-		$("#dainMyReserve").text(myReserve+'P');
+		$("#dainMyReserve").text(numberWithCommas(myReserve)+'P');
 	}
 	
     document.getElementById("dain_point_all_btn").onclick = function() { // on click
-        document.getElementById('dainUserPoint').value = myReserve;
+    	
+    document.getElementById('dainUserPoint').value = myReserve;
+    
+    	//결제정보 할인 합계에 반영
+    	finUsePoint = $("#dainUserPoint").val();
+    	finCoupon =  $("#dain_coupon_input").val();
+    	sum = parseInt(finUsePoint) + parseInt(finCoupon);
+    	
+    	//결제금액보다 적립금액이 큰지 확인
+    	availablePointCheck = cal_fin_plus();
+    	if( sum > availablePointCheck){
+    		alert("결제금액 이상의 적립금을 사용할 수 없습니다.");
+    		document.getElementById('dainUserPoint').value = 0;
+    		finUsePoint = $("#dainUserPoint").val();
+    		
+    		sum = parseInt(finUsePoint) + parseInt(finCoupon);
+    		document.getElementById('dain_fin_discount').innerHTML = numberWithCommas(sum);
+    	}
+    	
+  	document.getElementById('dain_fin_discount').innerHTML = numberWithCommas(sum);
+    	
+    	
     }
     
     
@@ -249,12 +434,30 @@ $(function(){
     	var finCoupon =  $("#dain_coupon_input").val();
     	var sum = parseInt(finUsePoint) + parseInt(finCoupon);
     	
-    	document.getElementById('dain_fin_discount').innerHTML = sum;
+    	document.getElementById('dain_fin_discount').innerHTML = numberWithCommas(sum);
     	
-  /*   	console.log("쿠폰확인"+finCoupon);
+    	
+    	
+    	//결제금액보다 쿠폰금액이 큰지 확인
+    	var availablePointCheck = cal_fin_plus();
+    	if( sum > availablePointCheck){
+    		alert("결제금액 이상의 적립금을 사용할 수 없습니다.");
+    		document.getElementById('dain_coupon_input').value = 0;
+    		finUsePoint = $("#dainUserPoint").val();
+    		
+    		sum = parseInt(finUsePoint) + parseInt(finCoupon);
+    		document.getElementById('dain_fin_discount').innerHTML = numberWithCommas(sum);
+    	}
+    	
+    	
+    	
+     	console.log("쿠폰확인"+finCoupon);
     	console.log("사용확인적립금:"+ finUsePoint);
-    	console.log("합계:"+ sum); */
+    	console.log("합계:"+ sum); 
     	
+    	
+    	//최종 결제금액 계산
+        cal_fin_sum();
     }
     
     
@@ -277,123 +480,55 @@ $(function(){
 
     	var sum = parseInt(finUsePoint) + parseInt(finCoupon);
 
-    	
-   		document.getElementById('dain_fin_discount').innerHTML = sum;
+    	//결제금액보다 적립금액이 큰지 확인
+    	var availablePointCheck = cal_fin_plus();
+    	if( sum > availablePointCheck){
+    		alert("결제금액 이상의 적립금을 사용할 수 없습니다.");
+    		document.getElementById('dainUserPoint').value = 0;
+    		finUsePoint = $("#dainUserPoint").val();
+    		
+    		sum = parseInt(finUsePoint) + parseInt(finCoupon);
+    		document.getElementById('dain_fin_discount').innerHTML = numberWithCommas(sum);
+    	}
+    		
+    		
+   		document.getElementById('dain_fin_discount').innerHTML = numberWithCommas(sum);
    		
-/*     	console.log("쿠폰확인"+finCoupon);
+    	console.log("쿠폰확인"+finCoupon);
     	console.log("사용확인적립금:"+ finUsePoint);
-    	console.log("합계:"+ sum); */
-
+    	console.log("합계:"+ sum); 
+    	
+    	
+    	//최종 결제금액 계산
+    	cal_fin_sum()
+    	
     });
     
     
+	
+ 	//도서산간 처리-------
+	shipInfoSet();
+  
+    $('#shipTab1,#shipTab2,#shipTab3').click(function(){
+    	shipInfoSet();
+        if(shipFirst.substring(0,2)=='제주'){
+        	console.log("제주산간비용추가")
+        }
+    });
+
+     //제주 도서산간 추가비용 계산
+    if(shipFirst.substring(0,2)=='제주'){
+    	console.log("제주산간비용추가")
+    } 
+     
+     
+     
+  //최종 결제금액 계산------
+    cal_fin_sum();
+	
 
 
 })
-
-
-
-
-
-/* 사용가능적립금 체크 */
-function reserveCheck(val){
-	var usePoint= $("#dainUserPoint").val();
-	if(usePoint > myReserve){ /* myReserve : 지금테스트중.. 3000부분에 넣기. */
-	document.getElementById('dainUserPoint').value = '';
-	}
-}
-
-/* 세자리 마다 콤마찍기 */
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-
-
-
-//우편번호 찾기----------------------------------------------------------
-//배송지1
-function daumPostcode() {
-	new daum.Postcode(
-			{
-				oncomplete : function(data) {
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					var addr = ''; // 주소 변수
-
-					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-						addr = data.roadAddress;
-					} else { // 사용자가 지번 주소를 선택했을 경우(J)
-						addr = data.jibunAddress;
-					}
-
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					document.getElementById('sample6_postcode').value = data.zonecode;
-					document.getElementById("sample6_address").value = addr;
-					// 커서를 상세주소 필드로 이동한다.
-					document.getElementById("sample6_detailAddress")
-							.focus();
-				}
-			}).open();
-}
-//배송지2
-function daumPostcode2() {
-	new daum.Postcode(
-			{
-				oncomplete : function(data) {
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					var addr = ''; // 주소 변수
-
-					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-						addr = data.roadAddress;
-					} else { // 사용자가 지번 주소를 선택했을 경우(J)
-						addr = data.jibunAddress;
-					}
-
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					document.getElementById('sample6_postcode2').value = data.zonecode;
-					document.getElementById("sample6_address2").value = addr;
-					// 커서를 상세주소 필드로 이동한다.
-					document.getElementById("sample6_detailAddress2")
-							.focus();
-				}
-			}).open();
-}
-
-//배송지3
-function daumPostcode3() {
-	new daum.Postcode(
-			{
-				oncomplete : function(data) {
-					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-					var addr = ''; // 주소 변수
-
-					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-						addr = data.roadAddress;
-					} else { // 사용자가 지번 주소를 선택했을 경우(J)
-						addr = data.jibunAddress;
-					}
-
-					// 우편번호와 주소 정보를 해당 필드에 넣는다.
-					document.getElementById('sample6_postcode3').value = data.zonecode;
-					document.getElementById("sample6_address3").value = addr;
-					// 커서를 상세주소 필드로 이동한다.
-					document.getElementById("sample6_detailAddress3")
-							.focus();
-				}
-			}).open();
-}
 
 </script>
 <style>
@@ -1170,7 +1305,7 @@ ul.tabs li.current{
 						value="${address1.member_address_zipcode}"
 						required="required" style="min-width: 30%; max-width: 30%; margin-bottom: 10px;"/>
 						<!-- 수정버튼 눌렀을때 아래 버튼이 생김 -->
-						<button id="adrBtn" class="dainBtn dibtn" onclick="daumPostcode()">주소 찾기</button><br>
+						<button id="adrBtn1" class="dainBtn dibtn" onclick="daumPostcode()">주소 찾기</button><br>
 						<input class="dainInput dai1" name="addrAddr12" id="sample6_address" type="text" 
 						placeholder="기본주소" autocomplete="off" readonly="readonly"
 						value="${address1.member_address_first}"
@@ -1213,7 +1348,7 @@ ul.tabs li.current{
 						value="${address2.member_address_zipcode}"
 						required="required" style="min-width: 30%; max-width: 30%; margin-bottom: 10px;"/>
 						<!-- 수정버튼 눌렀을때 아래 버튼이 생김 -->
-						<button id="adrBtn" class="dainBtn dibtn" onclick="daumPostcode2()">주소 찾기</button><br>
+						<button id="adrBtn2" class="dainBtn dibtn" onclick="daumPostcode2()">주소 찾기</button><br>
 						<input class="dainInput dai1" name="addrAddr22"  id="sample6_address2" type="text" 
 						placeholder="기본주소" autocomplete="off" readonly="readonly"
 						value="${address2.member_address_first}"
@@ -1256,7 +1391,7 @@ ul.tabs li.current{
 						value="${address3.member_address_zipcode}"
 						required="required" style="min-width: 30%; max-width: 30%; margin-bottom: 10px;"/>
 						<!-- 수정버튼 눌렀을때 아래 버튼이 생김 -->
-						<button id="adrBtn" class="dainBtn dibtn" onclick="daumPostcode3()">주소 찾기</button><br>
+						<button id="adrBtn3" class="dainBtn dibtn" onclick="daumPostcode3()">주소 찾기</button><br>
 						<input class="dainInput dai1" name="addrAddr32" id="sample6_address3" type="text" 
 						placeholder="기본주소" autocomplete="off" readonly="readonly"
 						value="${address3.member_address_first}"
@@ -1412,11 +1547,11 @@ ul.tabs li.current{
 		<table>
 			<tr>
 				<th>작품금액</th>
-				<td>18,000원</td>
+				<td><span id="dain_fin_artprice">18000</span>원</td>
 			</tr>
 			<tr>
 				<th>배송비</th>
-				<td>${shippingSum}원</td>
+				<td><span id="dain_fin_ship">${shippingSum}</span>원</td>
 			</tr>
 			<tr>
 				<th>할인 혜택</th>
@@ -1424,7 +1559,7 @@ ul.tabs li.current{
 			</tr>
 			<tr>
 				<th>제주 / 도서산간 추가비용</th>
-				<td>0원</td>
+				<td><span id="dain_fin_jeju">0</span>원</td>
 			</tr>
 		</table>
 		</div>
@@ -1433,7 +1568,7 @@ ul.tabs li.current{
 		<table>
 			<tr>
 				<th>최종 결제 금액</th>
-				<td>20,800원</td>
+				<td><span id="dain_fin_sumprice" class="dain_fin_sumprice">0</span>원</td>
 			</tr>
 		</table>
 		</div>
@@ -1465,7 +1600,7 @@ ul.tabs li.current{
 		
 		<div class="dain_final_payment">
 		<button id="pay_btn" class="dain_pay_btn dibtn" onclick="goPayment()">
-          <span>20,800원</span>
+          <span ><span id="dain_fin_sumprice2">0</span>원</span>
           <span>카드 결제</span>
           <p class="point" data-label="point" style="display: block;">예상적립금 : <em>180</em>P</p>
        </button>
