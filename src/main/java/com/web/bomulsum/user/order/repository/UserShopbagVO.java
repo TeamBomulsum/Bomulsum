@@ -2,6 +2,7 @@ package com.web.bomulsum.user.order.repository;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class UserShopbagVO {
 	
@@ -21,8 +22,8 @@ public class UserShopbagVO {
 	private int art_discount;
 	private int[] total_price;
 	private List<List<UserShopbagOptionVO>> optionArray;
-	private List<Object> totalOption;
-
+	private List<Map<String,Object>> totalOption;
+	
 	@Override
 	public String toString() {
 		return "UserShopbagVO [cart_seq=" + cart_seq + ", art_code_seq=" + art_code_seq + ", member_code_seq="
@@ -164,12 +165,13 @@ public class UserShopbagVO {
 		this.optionArray = list;
 	}
 
-	public List<Object> getTotalOption() {
+	public List<Map<String, Object>> getTotalOption() {
 		return totalOption;
 	}
 
-	public void setTotalOption(List<Object> totalOption) {
+	public void setTotalOption(List<Map<String, Object>> totalOption) {
 		this.totalOption = totalOption;
 	}
-	
+
+
 }

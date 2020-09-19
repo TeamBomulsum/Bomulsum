@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,6 +39,7 @@ public class userShopbagController {
 		 */
 		String memberCode = "member_code_seq58";
 		List<UserShopbagVO> shopbagInfo = service.getShopbagInfo(memberCode);
+
 		
 		for(int i=0; i<shopbagInfo.size(); i++) {
 
@@ -70,9 +72,61 @@ public class userShopbagController {
 			String[] countArray = tempVO.getArt_count().split(",");
 			//System.out.println("카운트가 몇개인지"+countArray.length);
 			tempVO.setArtCount(countArray);
+		
+			List<Map<String,Object>> totalOption = new ArrayList<Map<String,Object>>();
+			/* Map<String,Object> optionMap = new HashMap<String,Object>(); */
 			
+			/*
+			 * for(int z=0; z<countArray.length; z++) { optionMap.put("artCount",
+			 * countArray[z]); }
+			 */
+			//여기 지금 수정
+			int sum = 0;
+			int totalSum = 0;
+			//int[] totalPrice = new int[countArray.length];
+			if(tempVO.getOptionArray().size() == 1) {
+				Map<String,Object> optionMap = new HashMap<String,Object>();
+				if(tempVO.getOptionArray().get(0).size() >0) {
+					for(int k=0; k<tempVO.getOptionArray().get(0).size(); k++) {
+						sum += tempVO.getOptionArray().get(0).get(k).getArt_option_price();
+					}
+				}
+				totalSum = (tempVO.getArt_discount()+sum)*Integer.parseInt((tempVO.getArtCount()[0]));
+				//totalPrice[0] = totalSum;
+				//tempVO.setTotal_price(totalPrice);
+				optionMap.put("totalSum", totalSum);
+				optionMap.put("artCount", countArray[0]);
+				optionMap.put("optionArray", list);
+				totalOption.add(optionMap);
+				
+				System.out.println(optionMap);
+				tempVO.setTotalOption(totalOption);
+				
+			}
+			
+			//옵션 한 세트 이상일 경우
+			if(tempVO.getOptionArray().size()>1) {
+				for(int z=0; z<countArray.length; z++) {
+					Map<String,Object> optionMap = new HashMap<String,Object>();
+					optionMap.put("artCount",countArray[z]);
+					
+					/* for(int x=0; x<tempVO.getOptionArray().size(); x++) { */
+						for(int y=0; y<tempVO.getOptionArray().get(z).size(); y++) {
+							sum += tempVO.getOptionArray().get(z).get(y).getArt_option_price();
+						/* } */
+						totalSum = (tempVO.getArt_discount()+sum) * Integer.parseInt(tempVO.getArtCount()[z]);
+						//totalPrice[x] = totalSum;
+						optionMap.put("totalSum", totalSum);
+						
+						sum=0;
+						totalSum=0;
+					}
+					optionMap.put("optionArray", list);
+					totalOption.add(optionMap);
+				}
+			}
 			//옵션 한 세트 선택한 경우 - 이거 사용
- 			int sum = 0;
+ /*			int sum = 0;
 			int totalSum = 0;
 			int[] totalPrice = new int[countArray.length];
 			if(tempVO.getOptionArray().size() == 1) {
@@ -100,7 +154,7 @@ public class userShopbagController {
 					}
 					tempVO.setTotal_price(totalPrice);
 				}
-			}
+			}*/
 		/*	
 			int optionSum = 0;
 			int totalSum = 0;
@@ -122,12 +176,18 @@ public class userShopbagController {
 			}
 			tempVO.setTotal_price(totalPrice);*/
 			
-			Object object2 = tempVO.getArtCount();
+		/*	Object object2 = tempVO.getArtCount();
 			Object object3 = tempVO.getTotal_price();
 			List<Object> objectList = new ArrayList<Object>();
 			objectList.add(object2);
 			objectList.add(object3);
-			tempVO.setTotalOption(objectList);
+			tempVO.setTotalOption(objectList);*/
+			
+/*			optionMap.put("optionArray", list);
+			totalOption.add(optionMap);
+			System.out.println(optionMap);
+			tempVO.setTotalOption(totalOption);*/
+			tempVO.setTotalOption(totalOption);
 			shopbagInfo.remove(i);
 			shopbagInfo.add(i, tempVO);
 		}
