@@ -290,7 +290,15 @@ function getList(page){
 							+ '<a>' + writerName + '</a>' + '<span>' + data[i].artName + '</span></div><div class="article_grade">';
 							
 						if(data[i].articleReview.length==0){
-							htmldiv += '</span></div></div>';
+							var review=0;
+							var reviewCnt=0;
+							htmldiv += '<div class=\"minwoo_starRev\" data-rate=\"'+ review +'\">'
+								+ '<span class=\"minwoo_starR1\">별1_왼쪽</span> <span class=\"minwoo_starR2\">별1_오른쪽</span>'
+								+ '<span class=\"minwoo_starR1\">별2_왼쪽</span> <span class=\"minwoo_starR2\">별2_오른쪽</span>'
+								+ '<span class=\"minwoo_starR1\">별3_왼쪽</span> <span class=\"minwoo_starR2\">별3_오른쪽</span>'
+								+ '<span class=\"minwoo_starR1\">별4_왼쪽</span> <span class=\"minwoo_starR2\">별4_오른쪽</span>'
+								+ '<span class=\"minwoo_starR1\">별5_왼쪽</span> <span class=\"minwoo_starR2\">별5_오른쪽</span>'
+								+ '<span>(<a>'+ reviewCnt +'</a>)</span></div>';
 						}else{
 							var reviewCnt = data[i].articleReview.length;
 							var review=0;
@@ -308,7 +316,7 @@ function getList(page){
 								+ '<span class=\"minwoo_starR1\">별3_왼쪽</span> <span class=\"minwoo_starR2\">별3_오른쪽</span>'
 								+ '<span class=\"minwoo_starR1\">별4_왼쪽</span> <span class=\"minwoo_starR2\">별4_오른쪽</span>'
 								+ '<span class=\"minwoo_starR1\">별5_왼쪽</span> <span class=\"minwoo_starR2\">별5_오른쪽</span>'
-								+ '<span>(<a>'+ reviewCnt +'</a>)</span></div>'
+								+ '<span>(<a>'+ reviewCnt +'</a>)</span></div>';
 							
 						}
 														

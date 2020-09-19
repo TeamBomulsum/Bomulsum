@@ -537,7 +537,7 @@ FROM(
     			AND 
     				art_sale_state='Y' 
     			AND 
-    				art_recommend_time = '91/12/05'
+    				art_recommend_time = TO_DATE('91/12/05','YY/MM/DD')
     			AND art_recommend_temp = 'N'
     			<include refid="search" />
     				ORDER BY art_code_seq desc                       
@@ -588,7 +588,7 @@ WHERE
 	AND
 		art_sale_state='Y'
 	AND
-		art_recommend_time = '91/12/05'
+		art_recommend_time = TO_DATE('91/12/05','YY/MM/DD')
 	AND 
 		art_recommend_temp = 'Y'
 </select> 			
@@ -604,7 +604,7 @@ WHERE
 		AND 
 			art_recommend_temp = 'Y' 
 		AND
-			art_recommend_time = '91/12/05'
+			art_recommend_time = TO_DATE('91/12/05','YY/MM/DD')
 
 </select>
 <update id="recommendUp">

@@ -60,6 +60,7 @@
  		<mapper resource="mappings/user/user-bookmark-mapping.xml" /> 
 		<mapper resource="mappings/user/user-payment-mapping.xml" /> 	
 		<mapper resource="mappings/user/user-myinfo-mapping.xml"/>
+		<mapper resource="mappings/user/user-orderList-mapping.xml" />
 			
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />

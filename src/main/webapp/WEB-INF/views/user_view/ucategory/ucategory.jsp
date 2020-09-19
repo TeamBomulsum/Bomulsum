@@ -161,6 +161,7 @@
 	font-size:14px;
 	font-weight:bold;
 	text-decoration: line-through;
+    height: 18px;
 }
 
 .content_detail_other{
@@ -438,15 +439,26 @@ function getList(page){
 								+ '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>'
 								+ '<span class="content_detail_price_orgin">'+ comma(data[i].artPrice) +'원</span>';
 						}else{
-							htmldiv += '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>';
+							htmldiv += '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>'
+								+ '<span class="content_detail_price_orgin"></span>';
 						}
 						htmldiv += '<span class="content_detail_other">';
 						if(data[i].writerSendPrice == 0){
 							htmldiv += '<span>무료배송</span>';
+						}else{
+							htmldiv += '<span style="background-color:white"></span>';
 						}
 						
 						if(data[i].articleReview.length==0){
-							htmldiv += '</span></div></div>';
+							var review=0;
+							var reviewCnt = 0;
+							htmldiv += '</span><br><div class=\"minwoo_starRev\" data-rate=\"'+ review +'\">'
+							+ '<span class=\"minwoo_starR1\">별1_왼쪽</span> <span class=\"minwoo_starR2\">별1_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별2_왼쪽</span> <span class=\"minwoo_starR2\">별2_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별3_왼쪽</span> <span class=\"minwoo_starR2\">별3_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별4_왼쪽</span> <span class=\"minwoo_starR2\">별4_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별5_왼쪽</span> <span class=\"minwoo_starR2\">별5_오른쪽</span>'
+							+ '<span style="font-size:14px; color:gray; margin-left: 10px;">('+ reviewCnt +')</span></div></div></div>';
 						}else{
 							var reviewCnt = data[i].articleReview.length;
 							var review=0;
@@ -461,8 +473,8 @@ function getList(page){
 							+ '<span class=\"minwoo_starR1\">별3_왼쪽</span> <span class=\"minwoo_starR2\">별3_오른쪽</span>'
 							+ '<span class=\"minwoo_starR1\">별4_왼쪽</span> <span class=\"minwoo_starR2\">별4_오른쪽</span>'
 							+ '<span class=\"minwoo_starR1\">별5_왼쪽</span> <span class=\"minwoo_starR2\">별5_오른쪽</span>'
-							+ '<span style="font-size:14px; color:gray; margin-left: 10px;">('+ reviewCnt +')</span></div></div></div></div>';
-						}
+							+ '<span style="font-size:14px; color:gray; margin-left: 10px;">('+ reviewCnt +')</span></div></div></div>';
+						} 
 						
 						/* htmldiv += '</span><span class="content_detail_star">'
 							+ '<i class="fa fa-star" style="color:gold"></i>'

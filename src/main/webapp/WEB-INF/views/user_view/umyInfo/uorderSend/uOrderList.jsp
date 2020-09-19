@@ -153,10 +153,6 @@
 	text-decoration: none;
 }
 
-.dndud_semicontent_top .price:hover{
-	background-color:white;
-}
-
 .dndud_semicontent_main{
 	font-size: 15px;
 	width: 100%;
@@ -275,10 +271,12 @@ input[type="button"]:focus{
 	width:200px;
 	height:36px;
 	display:none;
+    align-items: center;
 	position: absolute;
 	z-index:1;
 	border: 1px solid gray;
 	background-color: white;
+	justify-content: center;
 }
 </style>
 </head>
@@ -319,13 +317,70 @@ input[type="button"]:focus{
 			 
 			<!-- 작품 있을경우 -->
 			<div class="dndud_allContents">
-			
+				
+				<c:forEach var="i" begin="1" end="4">
 				<div class="dndud_semicontent">
 					<div class="dndud_semicontent_top">
 						<a class="date">2020-07-21</a>
 						<a class="price" href="#">1,500원 ></a>
 					</div>
 					<div class="dndud_semicontent_main">
+						<div class="item">
+							<div class="img">
+								<img src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
+							</div>
+							<div class="writeAboutItem">
+								<div class="itemTitle">
+									<p>(카페) 주문제작 감성 일러스트 엽서</p>
+									<p class="orderStat">결제 완료</p>
+								</div>
+								<div class="aboutItem">
+									<p>배송비 : 우편(+ 500원) / 문구 및 디자인추가 : X도안 그대로</p>
+									<span>1개</span>
+								</div>
+							</div>
+						</div>
+						<div class="aboutW">
+							<a>#작가#</a>
+							<input type="button" value="메시지로 문의">
+						</div>
+						<div class="decision">
+							<input type="button" value="환불요청">
+						</div>
+					</div>
+				</div>
+				</c:forEach>
+				
+				<div class="dndud_semicontent">
+					<div class="dndud_semicontent_top">
+						<a class="date">2020-07-21</a>
+						<a class="price" href="#">1,500원 ></a>
+					</div>
+					<div class="dndud_semicontent_main">
+						<div class="item">
+							<div class="img">
+								<img src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
+							</div>
+							<div class="writeAboutItem">
+								<div class="itemTitle">
+									<p>(카페) 주문제작 감성 일러스트 엽서</p>
+									<p class="orderStat">결제 완료</p>
+								</div>
+								<div class="aboutItem">
+									<p>배송비 : 우편(+ 500원) / 문구 및 디자인추가 : X도안 그대로</p>
+									<span>1개</span>
+								</div>
+							</div>
+						</div>
+						<div class="aboutW">
+							<a>#작가#</a>
+							<input type="button" value="메시지로 문의">
+						</div>
+						<div class="decision">
+							<input type="button" value="환불요청">
+						</div>
+					</div>
+					<div class="dndud_semicontent_main" style="border-top: 1px solid #d9d9d9;">
 						<div class="item">
 							<div class="img">
 								<img src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
@@ -387,8 +442,10 @@ input[type="button"]:focus{
 					</div>
 				</div>
 				
+			</div> 
+			<div class="dndud_content_bottom">
+				
 			</div>
-			
 		</div>
 		
 	
@@ -408,7 +465,7 @@ input[type="button"]:focus{
 			x = $("#dndud_questionIcon").offset().left + 25;
 			y = $("#dndud_questionIcon").offset().top - 13;
 			 
-			$("#iconMemo").css("display","block");
+			$("#iconMemo").css("display","flex");
 			$("#iconMemo").css("left", x);
 			$("#iconMemo").css("top", y)
 		});
