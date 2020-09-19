@@ -74,11 +74,12 @@
 	<select id="reviewList" resultMap="reviewListMap">
 		<include refid="header" />
 			SELECT
-				a.buy_art_code_seq, a.member_code_seq, a.art_code_seq,
+				a.buy_art_code_seq, a.art_code_seq,
 				a.buy_art_name, a.writer_code_seq, a.buy_art_option_name,
 				a.BUY_ART_PRICE, a.BUY_ART_OPTION_COUNT,
 				a.BUY_ART_REVIEW_STATUS, a.BUY_ART_REVIEW_UPDATE, b.art_photo, b.art_description,
-				c.writer_name, c.writer_brand_name, d.order_date, e.review_code_seq, e.review_comment, e.review_star, e.review_photo
+				c.writer_name, c.writer_brand_name, d.member_code_seq, d.order_date,
+				e.review_code_seq, e.review_comment, e.review_star, e.review_photo
 			FROM buy_art_tb a
 			LEFT OUTER JOIN
 				art_tb b ON a.art_code_seq = b.art_code_seq
