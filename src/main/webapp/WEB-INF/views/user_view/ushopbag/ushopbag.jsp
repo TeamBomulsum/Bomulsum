@@ -875,12 +875,16 @@ button:focus{
 								<c:forEach var="optionArray" items="${info.optionArray}">
 									<li>
 										<div class="split">
+										
 											<span class="option_txt">
+											<%-- <c:forEach var="optionArray" items="${info.optionArray}"> --%>
 												<c:forEach var="j" items="${optionArray}">
 													${j.art_option_category}:&nbsp;${j.art_option_name}:&nbsp;${j.art_option_price}원 /  
 												</c:forEach>
+													<%-- </c:forEach> --%>
 												<%-- ${fn:length(info.optionList)} --%>
 											</span>
+										
 				<%-- 							
 				<span class="option_txt">
 												<c:forEach var="j" items="${info.optionArray}" varStatus="status">
@@ -927,14 +931,14 @@ button:focus{
 												<label>수량</label>
 												<button class="downButton" type="button">-</button>
 												<div class="input_area">
-													<input class="prd-count" type="number" value="${info.artCount[index]}" min="1" max="999" readonly > 
+													<input class="prd-count" type="number" value="${info.artCount[0]}" min="1" max="999" readonly > 
 												</div>
 												<button class="upButton" type="button">+</button>
 											</div>
 										</div>
 										<div class="split2">
-								 		<%-- 	<div class="cost_text">${info.total_price}</div>
-												<div class="jeonga_cost" style="display:none">${info.total_price}</div> --%>
+								 		 	<div class="cost_text">${info.total_price[0]}</div>
+												<div class="jeonga_cost" style="display:none">${info.total_price[0]}</div> 
 													<div class="cart_seq" style="display:none">${info.cart_seq}</div>
 												<div class="text_text">원</div>
 											<span class="btn_group">
@@ -969,20 +973,22 @@ button:focus{
 						</tr>
 						<tr class="art_cost">
 							<td>작품가격</td>
-			<%-- 				<td>${info.total_price}원</td> --%>
+							<td class="jeonga_total_art_price"></td>
+							<td>원</td>
+			 		<%-- 		<td>${info.total_price}원</td> --%>
 						</tr>
 						<tr class="delivery_cost">
 							<td>배송비</td>
-							<%-- <c:if test="${info.total_price ge info.writer_sendfree_case}">
+							<%-- <c:if test="${info.total_price ge info.writer_sendfree_case}"> --%>
 								<td>
-									<a>0</a><a>원</a>
+									<a>${info.writer_send_price}</a><a>원</a>
 								</td>
-							</c:if>	
+						<%-- 	</c:if>	
 							<c:if test="${info.total_price lt info.writer_sendfree_case}">
 								<td>
 									<a>${info.writer_send_price}</a><a>원</a>
 								</td>
-							</c:if>	 --%>
+							</c:if>	  --%>
 						</tr>
 					</tbody>
 				</table>
@@ -1124,9 +1130,8 @@ $(function(){
 	$(document).ready(function(){
 		$("#canCheckCount").html($(".articles").length);
 		$("#nowChecked").html( $("input[name=selectCheck]:checked").length/2);
+	
 
-/* 		var count = ${fn:length(shopbagInfo)};
-		console.log(count); */
 		
 	});
 

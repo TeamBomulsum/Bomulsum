@@ -7,14 +7,12 @@ public class UserShopbagOptionVO {
 	private String art_option_category;
 	private String art_option_name;
 	private int art_option_price;
-	private String artCount;
-	private int totalPrice;
+
 
 	@Override
 	public String toString() {
 		return "UserShopbagOptionVO [art_option_seq=" + art_option_seq + ", art_option_category=" + art_option_category
-				+ ", art_option_name=" + art_option_name + ", art_option_price=" + art_option_price + ", artCount="
-				+ artCount + ", totalPrice=" + totalPrice + "]";
+				+ ", art_option_name=" + art_option_name + ", art_option_price=" + art_option_price + "]";
 	}
 
 	public String getArt_option_seq() {
@@ -47,23 +45,6 @@ public class UserShopbagOptionVO {
 
 	public void setArt_option_price(int art_option_price) {
 		this.art_option_price = art_option_price;
-	}
-
-
-	public String getArtCount() {
-		return artCount;
-	}
-
-	public void setArtCount(String artCount) {
-		this.artCount = artCount;
-	}
-
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
 	}
 
 	
