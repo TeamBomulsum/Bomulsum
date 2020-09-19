@@ -27,7 +27,8 @@ public class WriterProfileController {
 //		private static final String SAVE_PATH = "C:\\upload"; //파일업로드
 //		private static final String SAVE_PATH = "C:\\myMain\\myBomulsum\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\bomulSum\\WEB-INF\\classes\\upload"; //파일업로드
 //		private static final String SAVE_PATH_AWS = "/upload";	//aws 서버 저장경로
-		private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //저장할 경로
+//		private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //저장할 경로
+		private static final String SAVE_PATH = "/upload";
 		
 		//-----------------------작가프로필-------------------------
 		@RequestMapping(value="/profile")

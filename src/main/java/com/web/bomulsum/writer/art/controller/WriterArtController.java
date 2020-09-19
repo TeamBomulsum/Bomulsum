@@ -33,8 +33,8 @@ public class WriterArtController {
 	@Autowired
 	WriterArtService service;
 	
-//	private static final String SAVE_PATH_AWS = "/upload";	//aws 경로
-	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
+	private static final String SAVE_PATH = "/upload";	//aws 경로
+//	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
 	
 	@GetMapping("/workRegister")
 	public String workRegister() {

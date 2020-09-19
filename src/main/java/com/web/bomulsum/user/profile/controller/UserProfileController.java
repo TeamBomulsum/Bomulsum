@@ -20,7 +20,6 @@ import com.web.bomulsum.user.login.repository.NowLoginVO;
 import com.web.bomulsum.user.login.service.MemberServiceImpl;
 import com.web.bomulsum.user.profile.repository.UserProfileAddressVO;
 import com.web.bomulsum.user.profile.repository.UserProfileVO;
-import com.web.bomulsum.user.profile.service.UserProfileService;
 import com.web.bomulsum.user.profile.service.UserProfileServiceImpl;
 
 @Controller
@@ -34,7 +33,8 @@ public class UserProfileController {
 	@Autowired
 	MemberServiceImpl memberservice;
 	
-	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
+	private static final String SAVE_PATH = "/upload";
+//	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
 	
 	
 	//회원등급페이지 ---------------------------------------------
