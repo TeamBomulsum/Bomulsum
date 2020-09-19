@@ -63,6 +63,8 @@
 			art_sale_count,
 			art_sale_state,
 			art_recommend_time,
+			art_recommend_temp,
+			art_recommend_state,
 			art_register_date
 		)
 		VALUES (
@@ -80,8 +82,10 @@
 			#{artPrice}*0.1,
 			default,
 			'Y',
+			TO_DATE(sysdate, 'YY/MM/DD'),
 			default,
-			default
+			default,
+			TO_DATE(sysdate, 'YY/MM/DD') 
 		)
 	</insert>
   <!-- 작품 코드 검색 -->

@@ -21,7 +21,7 @@ public class UserShopbagVO {
 	private int art_discount;
 	private int[] total_price;
 	private List<List<UserShopbagOptionVO>> optionArray;
-
+	private List<Object> totalOption;
 
 	@Override
 	public String toString() {
@@ -31,7 +31,7 @@ public class UserShopbagVO {
 				+ writer_brand_name + ", writer_send_price=" + writer_send_price + ", writer_sendfree_case="
 				+ writer_sendfree_case + ", art_photo=" + art_photo + ", art_name=" + art_name + ", art_price="
 				+ art_price + ", art_discount=" + art_discount + ", total_price=" + Arrays.toString(total_price)
-				+ ", optionArray=" + optionArray + "]";
+				+ ", optionArray=" + optionArray + ", totalOption=" + totalOption + "]";
 	}
 
 	public String getCart_seq() {
@@ -164,4 +164,12 @@ public class UserShopbagVO {
 		this.optionArray = list;
 	}
 
+	public List<Object> getTotalOption() {
+		return totalOption;
+	}
+
+	public void setTotalOption(List<Object> totalOption) {
+		this.totalOption = totalOption;
+	}
+	
 }

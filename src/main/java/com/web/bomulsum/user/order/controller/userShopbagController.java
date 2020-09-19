@@ -72,7 +72,6 @@ public class userShopbagController {
 			tempVO.setArtCount(countArray);
 			
 			//옵션 한 세트 선택한 경우 - 이거 사용
-			
  			int sum = 0;
 			int totalSum = 0;
 			int[] totalPrice = new int[countArray.length];
@@ -123,6 +122,12 @@ public class userShopbagController {
 			}
 			tempVO.setTotal_price(totalPrice);*/
 			
+			Object object2 = tempVO.getArtCount();
+			Object object3 = tempVO.getTotal_price();
+			List<Object> objectList = new ArrayList<Object>();
+			objectList.add(object2);
+			objectList.add(object3);
+			tempVO.setTotalOption(objectList);
 			shopbagInfo.remove(i);
 			shopbagInfo.add(i, tempVO);
 		}
