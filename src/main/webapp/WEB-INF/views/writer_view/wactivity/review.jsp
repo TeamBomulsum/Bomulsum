@@ -675,7 +675,7 @@
 			$('#memberName1').text(modalMemberName);
 			$('#reviewDate1').text(modalReviewDate);
 			$('#artName').text(modalArtName);
-			$('#modalMemberProfile').css({"background-image" : "url(/bomulsum/upload/"+ modalMemberProfile +")"});
+			$('#modalMemberProfile').css({"background-image" : "url(/bomulsum/upload/" + modalMemberProfile +")"});
 			$('#minwoo_modal_artImage').attr("src","/bomulsum/upload/" + modalArtImage);
 			
 			//모달에서 폼 으로 데이터 넘길 때 물고가야 할 것들

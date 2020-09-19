@@ -207,6 +207,10 @@ body a:link, a:visited, a:hover, a:active {
 	-webkit-text-stroke-width: 2px;
 	-webkit-text-stroke-color: white;
 }
+.minwoo_uMhome_content_card_img{
+	cursor: pointer;
+}
+
 .minwoo_uMhome_content_card_img_link{
 	position:relative;
 	z-index: -1;
@@ -404,7 +408,7 @@ body a:link, a:visited, a:hover, a:active {
 							midasAddress = address1 + ' ' + address2;
 							
 							htmldiv += '<div class=\"minwoo_uMhome_content_card\">'
-								+ '<div class=\"minwoo_uMhome_content_card_img\">'
+								+ '<div class=\"minwoo_uMhome_content_card_img\" onClick=\"movePage();\">'
 								+ '<input class=\"midasCodeSeq\" type=\"hidden\" value=\"'+ data[i].midasCodeSeq +'\"/>'
 								+ '<div class=\"minwoo_uMhome_content_card_locagion\">' + midasAddress + '</div>'
 								+ '<div class=\"minwoo_uMhome_content_card_star\">';
@@ -429,7 +433,7 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<div class=\"minwoo_uMhome_content_detail\">'
 								+ '<div class=\"minwoo_uMhome_content_info\">'
 								+ '<a href=\"#\" class=\"minwoo_uMhome_card_label\"><span>' + data[i].midasCategory + '</span></a><br/>'
-								+ '<a href=\"#\" class=\"minwoo_uMhome_card_text\"><b style=\"font-size:14px\">' + data[i].midasName + '</b></a>'
+								+ '<a href=\"#\" class=\"minwoo_uMhome_card_text\"><b style=\"font-size:14px\" onClick=\"movePage();\">' + data[i].midasName + '</b></a>'
 								+ '</div>'
 								+ '<div class=\"minwoo_uMhome_card_rating\">'
 								+ '<i class="fa fa-star" style="color:gold"></i>'
@@ -466,7 +470,12 @@ body a:link, a:visited, a:hover, a:active {
 		});
 	};
 	
-	likeClassFunc = function(){
+	function movePage(){
+		location.href='/bomulsum/midas/noPage.do';
+	};
+	
+	likeClassFunc = function(e){
+		e.stopPropagation()
 		
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
