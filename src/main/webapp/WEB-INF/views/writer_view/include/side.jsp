@@ -245,7 +245,7 @@ console.log('writer: ' + writerCode);
             <a class="collapse-item" href="404.html">404 Page</a>
             <a class="collapse-item" href="blank.html">Blank Page</a>
             -->
-            <a class="collapse-item" href="<c:url value='/view/wstats/sales.jsp'/>">매출</a>
+            <a class="collapse-item" href="<c:url value='/writer/sales.wdo'/>">매출</a>
           </div>
 
 
