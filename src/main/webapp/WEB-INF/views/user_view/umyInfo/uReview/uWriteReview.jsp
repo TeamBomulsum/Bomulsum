@@ -542,8 +542,8 @@ body a:link, a:visited, a:hover, a:active {
 									
 									htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
 										+ '<input type=\"hidden\" value=\"' + data[i].buyArtCodeSeq +'\" />' // 0
-										+ '<input type=\"hidden\" value=\"' + data[i].bArtCodeSeq +'\" />' // 1
-										+ '<input type=\"hidden\" value=\"' + data[i].bArtName +'\" />' // 2
+										+ '<input type=\"hidden\" value=\"' + data[i].artCodeSeq +'\" />' // 1
+										+ '<input type=\"hidden\" value=\"' + data[i].artName +'\" />' // 2
 										+ '<input type=\"hidden\" value=\"' + data[i].writerCodeSeq +'\" />' // 3
 										+ '<input type=\"hidden\" value=\"' + artImg +'\" />' // 4
 										+ '<input type=\"hidden\" value=\"' + data[i].bArtOptionCount +'\" />' // 5
