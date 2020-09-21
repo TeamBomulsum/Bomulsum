@@ -32,7 +32,7 @@ public class UserReviewVO {
 	private String artOptionCount;
 	private String artPrice;
 	private String artDiscount;
-	private int artOptionAmount;
+	private String artOptionAmount;
 	private String artAmount;
 	private String cartStatus;
 	
@@ -207,10 +207,11 @@ public class UserReviewVO {
 	public void setArtDiscount(String artDiscount) {
 		this.artDiscount = artDiscount;
 	}
-	public int getArtOptionAmount() {
+
+	public String getArtOptionAmount() {
 		return artOptionAmount;
 	}
-	public void setArtOptionAmount(int artOptionAmount) {
+	public void setArtOptionAmount(String artOptionAmount) {
 		this.artOptionAmount = artOptionAmount;
 	}
 	public String getArtAmount() {

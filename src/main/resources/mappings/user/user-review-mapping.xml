@@ -58,10 +58,12 @@
 		SELECT
 			COUNT(*)
 		FROM
-			buy_art_tb
+			buy_art_tb a
+        LEFT OUTER JOIN
+            order_tb b ON a.order_code_seq = b.order_code_seq
 		WHERE
 			(
-			buy_art_review_update = 'N' AND member_code_seq = #{memberSeq}
+			a.buy_art_review_update = 'N' AND b.member_code_seq = #{memberSeq}
 			)
 	</select>
 	
@@ -70,7 +72,7 @@
 	<select id="reviewList" resultMap="reviewListMap">
 		<include refid="header" />
 			SELECT
-			    e.*, f.writer_name, f.writer_brand_name, f.writer_url, g.member_name, g.member_profile, h.art_photo
+			    e.*, f.writer_name, f.writer_brand_name, f.writer_url, g.member_name, g.member_profile, h.art_name, h.art_photo, h.art_description
 			FROM
 			    (
 			    SELECT
@@ -79,11 +81,11 @@
 			    FROM
 			        (
 			        SELECT
-			            buy_art_code_seq, art_name,
+			            buy_art_code_seq,
 			            LISTAGG(art_option_name, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_name,
 			            LISTAGG(art_option_amount, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_amount
 			        FROM buy_option_tb
-			        GROUP BY buy_art_code_seq, art_name
+			        GROUP BY buy_art_code_seq
 			        )a
 			    LEFT OUTER JOIN
 			        buy_art_tb b ON a.buy_art_code_seq = b.buy_art_code_seq
