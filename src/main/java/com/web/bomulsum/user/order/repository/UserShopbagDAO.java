@@ -22,24 +22,32 @@ public class UserShopbagDAO {
 		UserShopbagOptionVO optionInfo = sqlSessionTemplate.selectOne("userShopbagDAO.selectOption", artOption);
 		return optionInfo;
 	}
-	//옵션 상세정보
-/*	public List<UserShopbagOptionVO> getOptionInfo(List<String> artOption) {
-		System.out.println(artOption);
-		List<UserShopbagOptionVO> optionInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectOption", artOption);
-		return optionInfo;
-	}*/
 	
 	//작품 카운트
 	public String getArtCount(String cartCode) {
 		String artCount = sqlSessionTemplate.selectOne("userShopbagDAO.selectArtCount", cartCode);
 		return artCount;
 	}
-	
+	//기본 모달 부분 --------------
 	//기본 모달
 	public List<UserShopbagModalVO> goShopbagModal(HashMap<String, String> map){
 		List<UserShopbagModalVO> modalInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectmodalCon", map);
 		return modalInfo;
 	}
+	
+	//모달에서의 기본 옵션 select
+	public String selectOption(String cartCode){
+		String optionInfo = sqlSessionTemplate.selectOne("userShopbagDAO.selectArtOption", cartCode);
+		return optionInfo;
+	}
+	//옵션 상세정보
+	public List<UserShopbagOptionVO> getOptionListInfo(List<String> artOption) {
+		List<UserShopbagOptionVO> optionInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectedListOption", artOption);
+		return optionInfo;
+	}
+
+	
+	
 	//옵션 모달
 	public List<UserShopbagOptionVO> goShopbagOptionModal(HashMap<String, String> map){
 		List<UserShopbagOptionVO> optionModalInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectModalOption", map);
@@ -55,8 +63,8 @@ public class UserShopbagDAO {
 		sqlSessionTemplate.update("userShopbagDAO.updateArtCount",map);
 	}
 	//옵션 삭제
-	public void deleteArt(HashMap<String, String> map) {
-		sqlSessionTemplate.delete("userShopbagDAO.deleteArt",map);
+	public void deleteArt(String cartCode) {
+		sqlSessionTemplate.delete("userShopbagDAO.deleteArt",cartCode);
 	}
 	//선택 삭제
 	public void deleteChoice(List<String> cartCheck) {

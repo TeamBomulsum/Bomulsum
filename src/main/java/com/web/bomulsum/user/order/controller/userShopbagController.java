@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.web.bomulsum.user.order.repository.UserShopbagModalVO;
 import com.web.bomulsum.user.order.repository.UserShopbagOptionVO;
 import com.web.bomulsum.user.order.repository.UserShopbagVO;
@@ -27,13 +31,13 @@ public class userShopbagController {
 	@RequestMapping(value="/shopbag")
 	public ModelAndView goShopbag(HttpServletRequest request) {
 		ModelAndView mav= new ModelAndView("ushopbag/ushopbag");
-		/*
+		
 		//회원 코드 가져오기
 		 HttpSession session = request.getSession(); 
 		 String memberCode = (String)session.getAttribute("member"); 
 		 System.out.println(memberCode);
-		 */
-		String memberCode = "member_code_seq58";
+		 
+		//String memberCode = "member_code_seq58";
 		List<UserShopbagVO> shopbagInfo = service.getShopbagInfo(memberCode);
 		
 		for(int i=0; i<shopbagInfo.size(); i++) {
@@ -86,6 +90,10 @@ public class userShopbagController {
 	@RequestMapping(value="/shopbagModal", method=RequestMethod.POST)
 	public List<UserShopbagModalVO> goshopbagModal(
 			@RequestParam(value="cart") String cartCode, @RequestParam(value="index") int index) {
+		String selectedOption = service.selectOption(cartCode);
+		String[] options = selectedOption.split("#");
+		String nowOption = options[index];
+		String[] artOption = nowOption.split(",");
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("cart", cartCode);
@@ -94,6 +102,27 @@ public class userShopbagController {
 		String[] photo = modalInfo.get(0).getArt_photo().split(",");
 		modalInfo.get(0).setArt_photo(photo[0]);
 		modalInfo.get(0).setIndex(index);
+		
+		List<UserShopbagOptionVO> optionList = service.getOptionListInfo(artOption);
+		switch(optionList.size()) {
+		case 3:
+			modalInfo.get(0).setArt_option_category3(optionList.get(2).getArt_option_category());
+			modalInfo.get(0).setArt_option_name3(optionList.get(2).getArt_option_name());
+			modalInfo.get(0).setArt_option_price3(optionList.get(2).getArt_option_price());
+		case 2:
+			modalInfo.get(0).setArt_option_category2(optionList.get(1).getArt_option_category());
+			modalInfo.get(0).setArt_option_name2(optionList.get(1).getArt_option_name());
+			modalInfo.get(0).setArt_option_price2(optionList.get(1).getArt_option_price());
+		case 1:
+			modalInfo.get(0).setArt_option_category1(optionList.get(0).getArt_option_category());
+			modalInfo.get(0).setArt_option_name1(optionList.get(0).getArt_option_name());
+			modalInfo.get(0).setArt_option_price1(optionList.get(0).getArt_option_price());
+			break;
+		default :
+		}
+		System.out.println("modalInfo"+ modalInfo);
+		
+		
 		return modalInfo;
 	}
 	
@@ -126,7 +155,6 @@ public class userShopbagController {
 		String artCount = service.getArtCount(cartCode);
 		String[] countArray = artCount.split(",");
 		countArray[index] =changeCount;
-		//System.out.println(Arrays.toString(countArray));
 		
 		String counts = null;
 		for(int i=0; i<countArray.length; i++) {
@@ -134,7 +162,6 @@ public class userShopbagController {
 			counts += temp+",";
 		}
 		String result = counts.substring(4);
-		//System.out.println(result);
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("count", result);
@@ -145,10 +172,45 @@ public class userShopbagController {
 	//옵션 삭제
 	@ResponseBody
 	@RequestMapping(value="/shopbagDelete", method=RequestMethod.POST)
-	public void goshopbagDelete( @RequestParam(value="cart") String cartCode) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("cart", cartCode);
-		service.deleteArt(map);
+	public void goshopbagDelete( @RequestParam(value="cart") String cartCode, 
+			@RequestParam(value="index") int index) {
+		String selectedOption = service.selectOption(cartCode);
+		String[] options = selectedOption.split("#");
+		
+		if(options.length == 1) {
+			service.deleteArt(cartCode);
+		}
+		else if(options.length >1) {
+			List<String> list = new ArrayList<String>();
+			for (int i = 0; i < options.length; i++) {
+				list.add(options[i]);
+			}
+			list.remove(index);
+			String updateOptions = null;
+			for(int j=0; j<list.size(); j++) {
+				updateOptions += (list.get(j)+"#");
+			}
+			String optionUpdates = updateOptions.substring(4);
+		
+			String artCount = service.getArtCount(cartCode);
+			String[] countArray = artCount.split(",");
+			List<String> countlist = new ArrayList<String>();
+			for (int k = 0; k < countArray.length; k++) {
+				countlist.add(countArray[k]);
+			}
+			countlist.remove(index);
+			String countTemp = null;
+			for(int l=0; l<countlist.size(); l++) {
+				countTemp += (countlist.get(l)+",");
+			}
+			String updateCounts = countTemp.substring(4);
+
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("cart", cartCode);
+			map.put("option", optionUpdates);
+			map.put("count", updateCounts);
+			service.updateOption(map);
+		}
 	}
 	
 	//선택 삭제
@@ -159,25 +221,40 @@ public class userShopbagController {
 	}
 	
 	//옵션 변경
-	
 	 @ResponseBody
-	  @RequestMapping(value="/shopbagUpdateOption", method=RequestMethod.POST)
+	 @RequestMapping(value="/shopbagUpdateOption", method=RequestMethod.POST)
 	  public void goshopbagUpdateOption( @RequestParam(value="optionCode[]") String[] optionCode,
-			  @RequestParam(value="cart") String cartCode, @RequestParam(value="count") String count) { 
+			  @RequestParam(value="cart") String cartCode, @RequestParam(value="count") String count,
+			  @RequestParam(value="index") int index ) { 
 		 
-		 HashMap<String, String> map = new HashMap<String, String>();
-		 map.put("cart", cartCode);
-		 map.put("count", count);
-		 if(optionCode.length == 1) {
-			 map.put("option", optionCode[0]);
-		 }
-		 if(optionCode.length == 2) {
-			 map.put("option", optionCode[0]+","+optionCode[1]);
-		 }
-		 if(optionCode.length == 3) {
-			 map.put("option", optionCode[0]+","+optionCode[1]+","+optionCode[2]);
-		 }
+		String selectedOption = service.selectOption(cartCode);
+		String[] options = selectedOption.split("#");
+		String tempOption = null;
+		for(int i=0; i<optionCode.length; i++) {
+			tempOption +=(optionCode[i]+",");
+		}
+		String updateOption = tempOption.substring(4);
+		options[index]=updateOption;
+		String temp = null;
+		for(int j=0; j<options.length; j++) {
+			temp +=(options[j]+"#");
+		}
+		String selectedUpdateOption = temp.substring(4);
+		
+		String countsList = service.getArtCount(cartCode);
+		String[] countArray = countsList.split(",");
+		countArray[index] = count;
+		String tempCount = null;
+		for(int k=0; k<countArray.length; k++) {
+			tempCount +=(countArray[k]+",");
+		}
+		String updateCount = tempCount.substring(4);
+		System.out.println(updateCount);
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("cart", cartCode);
+		map.put("count", updateCount);
+		map.put("option", selectedUpdateOption);
 		service.updateOption(map);
 	 }
-
 }
