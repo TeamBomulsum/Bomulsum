@@ -29,8 +29,19 @@
 		WHERE 
 			art_option_seq =#{artOption}
 	</select>
-		
-<!-- <select id="selectOption" parameterType="java.util.ArrayList" resultType="UserShopbagOptionVO">
+	
+	<!-- 모달에서의 기본 옵션 -->	
+	<select id="selectArtOption" parameterType="String" resultType="String">
+		SELECT 
+			art_option_seq
+		FROM 
+			cart_tb
+		WHERE 
+			cart_seq=#{cartCode}
+	</select>
+	
+	<!-- 모달에서 선택한 옵션 목록 가져오기 -->
+	 <select id="selectedListOption" parameterType="java.util.ArrayList" resultType="UserShopbagOptionVO">
 		SELECT 
 			art_option_seq, art_option_category, art_option_name, art_option_price
 		FROM 
@@ -40,7 +51,7 @@
 	     <foreach collection="list" item="item" open="(" close=")" separator=",">
 	     	#{item}
 	     </foreach>
-	</select>-->
+	</select>
 	
 	<!-- 작품 카운트 -->
 	<select id="selectArtCount" parameterType="String" resultType="String">
@@ -94,11 +105,11 @@
 			cart_seq=#{cart}
 	</update>
 	
-	<delete id="deleteArt" parameterType="hashmap">
+ 	<delete id="deleteArt" parameterType="String">
 		DELETE
 			cart_tb
 		WHERE 
-			cart_seq=#{cart}
+			cart_seq=#{cartCode}
 	</delete>
 	
 	 <!-- 작품 삭제 -->
@@ -112,6 +123,7 @@
 	     	#{item}
 	     </foreach>
     </delete>
+    
 	<update id="updateArtOption" parameterType="hashmap">
 		UPDATE
 			cart_tb

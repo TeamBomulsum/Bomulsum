@@ -854,6 +854,7 @@ button:focus{
 									<div class="txt_group">
 										<span>${info.writer_brand_name} 작가님</span>
 										<a>${info.writer_sendfree_case}원 이상  배송비 무료</a>
+										<div class="cartCode" style="display:none">${info.cart_seq}</div>
 									</div>
 								</label>
 								</div>
@@ -882,6 +883,7 @@ button:focus{
 								<c:forEach var="totalOption" items="${info.totalOption}" varStatus="status">
 									<li>
 										<div class="split">
+										
 											<span class="option_txt"><c:forEach var="j" items="${totalOption.optionArray}">${j.art_option_category}:&nbsp;${j.art_option_name}:&nbsp;${j.art_option_price}원 &nbsp;&nbsp;</c:forEach></span>
 											<div class="input_number">
 												<label>수량</label>
@@ -1003,6 +1005,7 @@ button:focus{
         <div class="about_article">
         	<div class="about_article_detail">
         		<div id="cartCode" style="display:none"></div>
+        		<div id="optionIndex" style="display:none"></div>
         		<div class="article_img"><img id="modal_image" style="width:64px; height:64px"></div>
         		<div class="article_text">
         			<span id="modal_art_name"></span>
@@ -1237,7 +1240,6 @@ $(function(){
 
 	// 작가명 체크 박스 클릭
 	$(".shopcart_title").click(function(e){
-	
 		var $topChk = $(this).children().first();
 		var $imgChk = $(this).closest("table").find('.area_img').children().first().children().first();
 		
@@ -1337,11 +1339,14 @@ $(function(){
 		var $button = $(this);
 		var $cartseq = $button.parent().next().text();
 		var cartCode = $cartseq;
+		var $index = $button.parent().prev().prev().text();
+		var index = $index;
 		
 		$.ajax({
 			url:'/bomulsum/user/shopbagDelete.do',
 			data:{
-				'cart':cartCode
+				'cart':cartCode,
+				'index':index,
 			},
 			type:'POST',
 			success:function(data){
@@ -1362,7 +1367,7 @@ $(function(){
 		
 		$items.each(function () {
         	var $this = $(this);
-        	var $cartSeq = $(this).closest("table").find('.cart_seq').text();
+        	var $cartSeq = $(this).closest("table").find('.cartCode').text();
         	arr.push($cartSeq);
     	});
     
@@ -1396,7 +1401,7 @@ $(function(){
 		var $items = $(".checkList").find("input[id=selected]:checked");
 		$items.each(function () {
         	var $this = $(this);
-        	var $cartSeq = $(this).closest("table").find('.cart_seq').text();
+        	var $cartSeq = $(this).closest("table").find('.cartCode').text();
         	arr.push($cartSeq);
     	});
 		console.log(arr);
@@ -1454,7 +1459,7 @@ $(function(){
 		var $items = $(".checkList").find("input[id=selected]:checked");
 		$items.each(function () {
         	var $this = $(this);
-        	var $cartSeq = $(this).closest("table").find('.cart_seq').text();
+        	var $cartSeq = $(this).closest("table").find('.cartCode').text();
         	arr.push($cartSeq);
     	});
 		console.log(arr);
@@ -1482,12 +1487,8 @@ $(function(){
 		var $button = $(this);
 		var $cartseq = $button.parent().next().text();
 		var $index =$button.parent().prev().prev().text();
-		var $optionData =$button.parent().parent().closest("table").find('.option_txt').text(); 
 		var cartCode = $cartseq;
 		var index = $index;
-		console.log($optionData);
-		var tempString = $optionData.split(" ");
-		console.log(tempString);
 		
 		 $.ajax({
 			url:'/bomulsum/user/shopbagModal.do',
@@ -1501,12 +1502,13 @@ $(function(){
 				$(".detail-modal").css("display", "flex");
 				$('#modal_art_name').text(data[0].art_name);
 				$('#cartCode').val(data[0].cart_seq);
+				$('#optionIndex').val(data[0].index);
 				$("#modal_image").attr("src", '${pageContext.request.contextPath}/upload/'+data[0].art_photo);
 				$('#art_discount_percent').text("[" + Math.round(percent)+"%]");
 				$('#art_discount_price').text(data[0].art_discount+"원");
 				$('#art_price').text(data[0].art_price+"원");
 				
-		/*		if(data[0].art_option_name3 == null){
+				if(data[0].art_option_name3 == null){
 				$('#selected_option').text(data[0].art_option_category1 + " : "+data[0].art_option_name1 +" : " 
 						+ data[0].art_option_price1 +"원  / "+data[0].art_option_category2 + " : "+data[0].art_option_name2 +" : " 
 						+ data[0].art_option_price2 +"원 " );
@@ -1523,7 +1525,7 @@ $(function(){
 							+ data[0].art_option_price1 +"원  / "+data[0].art_option_category2 + " : "+data[0].art_option_name2 +" : " 
 							+ data[0].art_option_price2 +"원 / "+data[0].art_option_category3 + " : "+data[0].art_option_name3 +" : " 
 							+ data[0].art_option_price3 +"원 "  );
-				}*/
+				}
 				var artCode = data[0].art_code_seq;
 				var index = data[0].index;
 				console.log(artCode);
@@ -1596,7 +1598,7 @@ $(function(){
 					error:function(e){
 						console.log(e);
 					}
-				}); 
+				});
 			},
 			error:function(e){
 				console.log(e);
@@ -1678,18 +1680,22 @@ $(function(){
 		codearr.push(data);
 	}
 	
-	//옵션 수정
+	//옵션 수정버튼
 	$("#confirmUpdate").click(function(){
 		var $cartSeq = $('#cartCode').val();
 		var cartCode = $cartSeq;
 		var $num = $("#updateCount").val();
 		var count = $num;
+		var $index = $('#optionIndex').val();
+		var index = $index;
+		
  		 $.ajax({
  	  		 url:"/bomulsum/user/shopbagUpdateOption.do",
    	 		data:{
 				 'cart':cartCode,
 	             'optionCode' : codearr,
 	             'count' : count,
+	             'index' : index,
 	       },
 	       type:'POST',
    	 		success : function(){
@@ -1699,12 +1705,10 @@ $(function(){
       			 location.reload(true);
     		},
    			 error : function(err){
-       		console.log(err);
+       			console.log(err);
   		  }
- 		}).done(function(data){
- 			console.log(data);
-		 }); 
-	})
+		});
+	});
 	
 
 	//옵션 수량 + 누를 때

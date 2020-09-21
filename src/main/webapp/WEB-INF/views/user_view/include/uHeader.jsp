@@ -44,6 +44,16 @@ $(function() {
 		location.href="<c:url value='/user/myInfo/home.do'/>";
 	});
 	
+	$("#toShopBag").click(function(){
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
+		location.href="<c:url value='/user/shopbag.do'/>";
+	});
+	
+	
 	$("#toAlarm").click(function(){
 		location.href="#";
 	});
@@ -944,7 +954,7 @@ body {
 						<button class="dainiconbtn" style="padding:0px;"><i class="fa fa-user fa-2x" aria-hidden="true" style="padding: 7px 3px 3px;"></i>
 						<p style="margin: 0px; font-size: 10px; width: 40px">MY정보</p></button>
 					</div>
-					<div style="height: 42px; width: 40px;">
+					<div id="toShopBag" style="height: 42px; width: 40px;">
 						<button class="dainiconbtn" style="padding:0px;">
 							<div class="cartcountshape"><span style="color: #fff; font-size:10px ;">0</span></div>
 							<i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="padding: 7px 3px 3px;"></i>
