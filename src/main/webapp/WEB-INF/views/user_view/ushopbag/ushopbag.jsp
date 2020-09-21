@@ -411,6 +411,9 @@ button:focus{
 .delivery_cost td:last-child{
 	padding-right:18px;
 	text-align: right;
+	font-size: 15px;
+    color: #333;
+    font-weight: bold;
 }
 
 .art_cost td{
@@ -428,6 +431,10 @@ button:focus{
 .art_cost td:last-child{
 	padding-right:18px;
 	text-align: right;
+	font-size: 15px;
+    color: #333;
+    font-weight: bold;
+	
 }
 
 
@@ -872,61 +879,10 @@ button:focus{
 						<tr>
 							<td colspan="2" class="area_detail">
 								<ul class="list_option">
-								<c:forEach var="totalOption" items="${info.totalOption}">
-								<%-- <c:forEach var="optionArray" items="${info.optionArray}"> --%>
+								<c:forEach var="totalOption" items="${info.totalOption}" varStatus="status">
 									<li>
 										<div class="split">
-											<span class="option_txt">
-											<c:forEach var="optionArray" items="${info.optionArray}">
-												<c:forEach var="j" items="${optionArray}">
-													${j.art_option_category}:&nbsp;${j.art_option_name}:&nbsp;${j.art_option_price}원 / 
-												</c:forEach>
-											</c:forEach>
-												<%-- ${fn:length(info.optionList)} --%>
-											</span>
-										
-				<%-- 							
-				<span class="option_txt">
-												<c:forEach var="j" items="${info.optionArray}" varStatus="status">
-													${j[status.count].art_option_category}:&nbsp;${j[status.count].art_option_name}:&nbsp;${j[status.count].art_option_price}원 / 
-												
-												</c:forEach>
-											</span>
-				
-						<span class="option_txt">
-												${j[index].art_option_category}:&nbsp;${j.art_option_name}:&nbsp;${j.art_option_price}원 / 
-												${fn:length(info.optionList)}
-												
-											</span>
-											<span class="option_txt">
-												${info.optionList.get(0).art_option_category}:&nbsp;${info.optionList.get(0).art_option_name}:&nbsp;${info.optionList.get(0).art_option_price}원 / 
-												${info.optionList.get(1).art_option_category}:&nbsp;${info.optionList.get(1).art_option_name}:&nbsp;${info.optionList.get(1).art_option_price}원 /
-												${info.optionList.get(2).art_option_category}:&nbsp;${info.optionList.get(2).art_option_name}:&nbsp;${info.optionList.get(2).art_option_price}원
-											</span>
-											<c:choose>
-												<c:when test="${info.art_option_category3 eq null}">
-													<span class="option_txt">
-													${info.art_option_category1}&nbsp;:&nbsp;${info.art_option_name1}&nbsp;:&nbsp;${info.art_option_price1}원 / 
-													${info.art_option_category2}&nbsp;:&nbsp;${info.art_option_name2}&nbsp;:&nbsp;${info.art_option_price2}원 
-													</span>
-    											</c:when>
-												<c:when test="${info.art_option_category2 eq null}">
-													<span class="option_txt">
-													${info.art_option_category1}&nbsp;:&nbsp;${info.art_option_name1}&nbsp;:&nbsp;${info.art_option_price1}원
-													</span>
-    											</c:when>
-    											<c:when test="${info.art_option_category1 eq null}">
-													<span class="option_txt">
-													</span>
-    											</c:when>
-												<c:otherwise>
-        											<span class="option_txt">
-													${info.art_option_category1}&nbsp;:&nbsp;${info.art_option_name1}&nbsp;:&nbsp;${info.art_option_price1}원 / 
-													${info.art_option_category2}&nbsp;:&nbsp;${info.art_option_name2}&nbsp;:&nbsp;${info.art_option_price2}원 /
-													${info.art_option_category3}&nbsp;:&nbsp;${info.art_option_name3}&nbsp;:&nbsp;${info.art_option_price3}원 
-													</span>
-    											</c:otherwise>
-											</c:choose> --%>
+											<span class="option_txt"><c:forEach var="j" items="${totalOption.optionArray}">${j.art_option_category}:&nbsp;${j.art_option_name}:&nbsp;${j.art_option_price}원 &nbsp;&nbsp;</c:forEach></span>
 											<div class="input_number">
 												<label>수량</label>
 												<button class="downButton" type="button">-</button>
@@ -938,8 +894,9 @@ button:focus{
 										</div>
 										<div class="split2">
 								 		 	<div class="cost_text">${totalOption.totalSum}</div>
-												<div class="jeonga_cost" style="display:none">${info.total_price[0]}</div> 
+												<div class="jeonga_cost" style="display:none">${totalOption.totalSum}</div> 
 													<div class="cart_seq" style="display:none">${info.cart_seq}</div>
+													<div class="index" style="display:none">${status.index}</div>
 												<div class="text_text">원</div>
 											<span class="btn_group">
 												<button class="option_update" type="button">
@@ -973,22 +930,20 @@ button:focus{
 						</tr>
 						<tr class="art_cost">
 							<td>작품가격</td>
-							<td class="jeonga_total_art_price"></td>
-							<td>원</td>
-			 		<%-- 		<td>${info.total_price}원</td> --%>
+							<td class="jeonga_total_art_price"><a>${info.totalPrice}</a><a>원</a></td>
 						</tr>
 						<tr class="delivery_cost">
 							<td>배송비</td>
-							<%-- <c:if test="${info.total_price ge info.writer_sendfree_case}"> --%>
+						 <c:if test="${info.totalPrice ge info.writer_sendfree_case}"> 
+								<td>
+									<a>0</a><a>원</a>
+								</td>
+							</c:if>	
+							<c:if test="${info.totalPrice lt info.writer_sendfree_case}">
 								<td>
 									<a>${info.writer_send_price}</a><a>원</a>
 								</td>
-						<%-- 	</c:if>	
-							<c:if test="${info.total_price lt info.writer_sendfree_case}">
-								<td>
-									<a>${info.writer_send_price}</a><a>원</a>
-								</td>
-							</c:if>	  --%>
+							</c:if>	
 						</tr>
 					</tbody>
 				</table>
@@ -1130,9 +1085,6 @@ $(function(){
 	$(document).ready(function(){
 		$("#canCheckCount").html($(".articles").length);
 		$("#nowChecked").html( $("input[name=selectCheck]:checked").length/2);
-	
-
-		
 	});
 
 	// textarea 입력 시. 영역 변경
@@ -1191,26 +1143,36 @@ $(function(){
 		var $artPrice = $button.parent().parent().next().children().first().next().text();
 
 		var $priceDiv = $button.parent().parent().next().children().first();
-		var $japriceDiv = $priceDiv.parent().parent().parent().parent().parent().next().children().first().next();
+		var $jaPriceDiv = $(this).closest("table").find('.jeonga_total_art_price').children().first();
+		var $totalPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
 		
 		var $cartSeq = $priceDiv.next().next().text();
+		var $index =$priceDiv.next().next().next().text();
+		
 		var cartCode = $cartSeq
 		var jartPrice = $artPrice;
+		var totalPrice = $totalPrice;
+		var index = $index;
+
 		var num;
 		var changePrice;
-	
+		var total;
+
 		if($num.val() > 1){
 			num = Number($num.val())-1;
 			changePrice = num * Number(jartPrice);
+			total = Number(totalPrice) - Number(jartPrice);
+			
 			$num.val(num);
 			$priceDiv.text(changePrice);
-			$japriceDiv.text(changePrice+"원");
+			$jaPriceDiv.text(total);
 			
 			$.ajax({
 				url:'/bomulsum/user/shopbagChangeCount.do',
 				data:{
 					'count': num,
-					'cart' : cartCode
+					'cart' : cartCode,
+					'index' : index,
 				},
 				type:'POST',
 				success:function(data){
@@ -1231,27 +1193,36 @@ $(function(){
 		var $artPrice = $button.parent().parent().next().children().first().next().text();
 
 		var $priceDiv = $button.parent().parent().next().children().first();
-		var $japriceDiv = $priceDiv.parent().parent().parent().parent().parent().next().children().first().next();
+		var $jaPriceDiv = $(this).closest("table").find('.jeonga_total_art_price').children().first();
+		var $totalPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
+	
 		
 		var $cartSeq = $priceDiv.next().next().text();
+		var $index =$priceDiv.next().next().next().text();
+		
 		var cartCode = $cartSeq
 		var jartPrice = $artPrice;
+		var totalPrice = $totalPrice;
+		var index = $index;
+
 		var num;
 		var changePrice;
-		console.log($cartSeq);
+		var total;
 		
 		if($num.val()<999){
 			num = Number($num.val()) + 1;
 			changePrice = num * Number(jartPrice);
+			total = Number(totalPrice) + Number(jartPrice);
 			$num.val(num);
 			$priceDiv.text(changePrice);
-			$japriceDiv.text(changePrice+"원");
+			$jaPriceDiv.text(total);
 			
 			$.ajax({
 				url:'/bomulsum/user/shopbagChangeCount.do',
 				data:{
 					'count': num,
-					'cart' : cartCode
+					'cart' : cartCode,
+					'index' : index,
 				},
 				type:'POST',
 				success:function(data){
@@ -1260,7 +1231,7 @@ $(function(){
 				error:function(e){
 					console.log(e);
 				}
-			});  
+			});   
 		}
 	}); 
 
@@ -1290,17 +1261,17 @@ $(function(){
     
     	$items.each(function () {
         	var $this = $(this);
-        	var $artPrice = $(this).closest("table").find('.cost_text').text();
+        	var $artPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
         	var $deliveryPrice = $(this).closest("table").find('.delivery_cost').children().next().children().first().text();
          	var item_value = $artPrice;
          	var del_value = $deliveryPrice;
         	
-        	cur_total += Number(item_value);
+         	cur_total += Number(item_value);
         	del_total += Number(del_value);
     	});
     
-    	$artTotal.html((cur_total / 2)+"원"); 
-    	$delTotal.html((del_total / 2)+"원"); 
+    	$artTotal.html(cur_total/2+"원"); 
+    	$delTotal.html((del_total/2)+"원"); 
     	$cartTotal.html(((cur_total+del_total)/2) +"원"); 
 	});
 	
@@ -1337,7 +1308,7 @@ $(function(){
         
         	$items.each(function () {
             	var $this = $(this);
-            	var $artPrice = $(this).closest("table").find('.cost_text').text();
+            	var $artPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
             	var $deliveryPrice = $(this).closest("table").find('.delivery_cost').children().next().children().first().text();
              	var item_value = $artPrice;
              	var del_value = $deliveryPrice;
@@ -1346,7 +1317,7 @@ $(function(){
             	del_total += Number(del_value);
         	});
         
-        	$artTotal.html((cur_total / 2)+"원"); 
+        	$artTotal.html(cur_total/2+"원"); 
         	$delTotal.html((del_total / 2)+"원"); 
          	$cartTotal.html(((cur_total+del_total)/2) +"원");   
         }
@@ -1464,19 +1435,19 @@ $(function(){
 	       	var del_total = 0;
 	        
 	       	$items.each(function () {
-	           	var $this = $(this);
-	           	var $artPrice = $(this).closest("table").find('.cost_text').text();
-	           	var $deliveryPrice = $(this).closest("table").find('.delivery_cost').children().next().children().first().text();
-	           	var item_value = $artPrice;
-	           	var del_value = $deliveryPrice;
-	            	
-	           	cur_total += Number(item_value);
-	           	del_total += Number(del_value);
-	       	});
-	        
-	       	$artTotal.html((cur_total / 2)+"원"); 
-	       	$delTotal.html((del_total / 2)+"원"); 
-	       	$cartTotal.html(((cur_total+del_total)/2) +"원");   
+	       		var $this = $(this);
+            	var $artPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
+            	var $deliveryPrice = $(this).closest("table").find('.delivery_cost').children().next().children().first().text();
+             	var item_value = $artPrice;
+             	var del_value = $deliveryPrice;
+            	
+            	cur_total += Number(item_value);
+            	del_total += Number(del_value);
+        	});
+        
+        	$artTotal.html(cur_total/2+"원"); 
+        	$delTotal.html((del_total / 2)+"원"); 
+         	$cartTotal.html(((cur_total+del_total)/2) +"원");   
 	      }
 		   
 		var arr = [];
@@ -1510,25 +1481,32 @@ $(function(){
 	$(".option_update").click(function(e){
 		var $button = $(this);
 		var $cartseq = $button.parent().next().text();
+		var $index =$button.parent().prev().prev().text();
+		var $optionData =$button.parent().parent().closest("table").find('.option_txt').text(); 
 		var cartCode = $cartseq;
+		var index = $index;
+		console.log($optionData);
+		var tempString = $optionData.split(" ");
+		console.log(tempString);
 		
-		$.ajax({
+		 $.ajax({
 			url:'/bomulsum/user/shopbagModal.do',
 			data:{
 				'cart':cartCode,
+				'index':index,
 			},
 			type:'POST',
 			success:function(data){
 				var percent = (data[0].art_price - data[0].art_discount)/data[0].art_price *100;
-				console.log(percent);
 				$(".detail-modal").css("display", "flex");
 				$('#modal_art_name').text(data[0].art_name);
 				$('#cartCode').val(data[0].cart_seq);
 				$("#modal_image").attr("src", '${pageContext.request.contextPath}/upload/'+data[0].art_photo);
-				$('#art_discount_percent').text("[" + percent+"%]");
+				$('#art_discount_percent').text("[" + Math.round(percent)+"%]");
 				$('#art_discount_price').text(data[0].art_discount+"원");
 				$('#art_price').text(data[0].art_price+"원");
-				if(data[0].art_option_name3 == null){
+				
+		/*		if(data[0].art_option_name3 == null){
 				$('#selected_option').text(data[0].art_option_category1 + " : "+data[0].art_option_name1 +" : " 
 						+ data[0].art_option_price1 +"원  / "+data[0].art_option_category2 + " : "+data[0].art_option_name2 +" : " 
 						+ data[0].art_option_price2 +"원 " );
@@ -1545,14 +1523,17 @@ $(function(){
 							+ data[0].art_option_price1 +"원  / "+data[0].art_option_category2 + " : "+data[0].art_option_name2 +" : " 
 							+ data[0].art_option_price2 +"원 / "+data[0].art_option_category3 + " : "+data[0].art_option_name3 +" : " 
 							+ data[0].art_option_price3 +"원 "  );
-				}
+				}*/
 				var artCode = data[0].art_code_seq;
+				var index = data[0].index;
 				console.log(artCode);
+				console.log(index);
 				
 				$.ajax({
 					url:'/bomulsum/user/shopbagOptionModal.do',
 					data:{
-						'art' : artCode
+						'art' : artCode,
+						'index':index,
 					},
 					type:'POST',
 					success:function(data){
@@ -1620,7 +1601,7 @@ $(function(){
 			error:function(e){
 				console.log(e);
 			}
-		}); 
+		});  
 	});
 	
 	//x버튼

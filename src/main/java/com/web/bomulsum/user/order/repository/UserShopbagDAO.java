@@ -28,6 +28,13 @@ public class UserShopbagDAO {
 		List<UserShopbagOptionVO> optionInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectOption", artOption);
 		return optionInfo;
 	}*/
+	
+	//작품 카운트
+	public String getArtCount(String cartCode) {
+		String artCount = sqlSessionTemplate.selectOne("userShopbagDAO.selectArtCount", cartCode);
+		return artCount;
+	}
+	
 	//기본 모달
 	public List<UserShopbagModalVO> goShopbagModal(HashMap<String, String> map){
 		List<UserShopbagModalVO> modalInfo = sqlSessionTemplate.selectList("userShopbagDAO.selectmodalCon", map);

@@ -63,7 +63,6 @@
                 <th>이메일</th>
                 <th>전화번호</th>
                 <th>회원등급</th>
-                <th>보유 적립금</th>
               </tr>
             </thead>
             <tbody>
@@ -74,7 +73,6 @@
  				<td>${member.member_email}</td>
  				<td>${member.member_phone}</td>
  				<td>${member.member_grade}</td>
- 				<td>${member.point_amount}</td>
               </tr>
              </c:forEach>
             </tbody>

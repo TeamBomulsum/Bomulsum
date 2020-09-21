@@ -42,6 +42,16 @@
 	     </foreach>
 	</select>-->
 	
+	<!-- 작품 카운트 -->
+	<select id="selectArtCount" parameterType="String" resultType="String">
+		SELECT 
+			art_count
+		FROM 
+			cart_tb
+		WHERE 
+			cart_seq =#{cartCode}
+	</select>
+	
 	<select id="selectmodalCon" resultType="UserShopbagModalVO">
 		SELECT 
 			c.cart_seq, c.art_code_seq, c.art_option_seq, a.art_name, 

@@ -8,15 +8,12 @@ public class ManagerListWriterVO {
 	private String writer_email;
 	private String writer_phone;
 	private String writer_url;
-	private int gem_price;
-	
-
 	
 	@Override
 	public String toString() {
 		return "ManagerListWriterVO [writer_code_seq=" + writer_code_seq + ", writer_name=" + writer_name
 				+ ", writer_brand_name=" + writer_brand_name + ", writer_email=" + writer_email + ", writer_phone="
-				+ writer_phone + ", writer_url=" + writer_url + ", gem_price=" + gem_price + "]";
+				+ writer_phone + ", writer_url=" + writer_url + "]";
 	}
 
 	public String getWriter_code_seq() {
@@ -60,13 +57,6 @@ public class ManagerListWriterVO {
 	public void setWriter_url(String writer_url) {
 		this.writer_url = writer_url;
 	}
-	public int getGem_price() {
-		return gem_price;
-	}
-	public void setGem_price(int gem_price) {
-		this.gem_price = gem_price;
-	}
-	
-	
+
 
 }

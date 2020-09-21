@@ -92,7 +92,6 @@
                       <th>이메일 </th>
                       <th>전화번호 </th>
                       <th>작가홈</th>
-                      <th>보유 gem포인트</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -104,7 +103,6 @@
                       <td>${writer.writer_email}</td>
                       <td>${writer.writer_phone}</td>
                       <td>${writer.writer_url}</td>
-                      <td>${writer.gem_price}</td>
                     </tr>
                     </c:forEach>
                   </tbody>

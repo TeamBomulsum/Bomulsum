@@ -78,4 +78,9 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 		return dao.getOptionInfo(artOption);
 	}
 
+	@Override
+	public String getArtCount(String cartCode) {
+		return dao.getArtCount(cartCode);
+	}
+
 }
