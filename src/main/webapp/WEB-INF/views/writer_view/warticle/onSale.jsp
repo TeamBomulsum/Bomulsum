@@ -492,7 +492,7 @@ var pagingFunc = function(){
 	  		'<td>' + '<img src="${pageContext.request.contextPath}/upload/'+result[index].artPhoto+ '" ' + 
 	  		'style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px">'+'</td>'+ 
 			'<td colspan=\"3\" style="padding:10px;">' +'<div class=\"alignLeft\" style=\"text-align: left\">' +
-				'<a href=\"#\" style=\"color: black; text-style: bold;\">'+ result[index].artName + '</a>' + 
+				'<a href="${pageContext.request.contextPath}/user/uProductInfo/'+result[index].artCodeSeq+'.do?memberCode=null" style=\"color: black; text-style: bold;\">'+ result[index].artName + '</a>' + 
 				'<br>' + '<br>' +'<label style=\"text-align: center; background-color: #5EC75E; width: auto; margin-bottom: 0rem; color: white\">'+
 				'<i class=\"fas fa-tags\">'+result[index].artDiscountPercent+'%</i></label></div>' + 
 				'<div class=\"alignRight\" style=\"text-align: right\">' + 

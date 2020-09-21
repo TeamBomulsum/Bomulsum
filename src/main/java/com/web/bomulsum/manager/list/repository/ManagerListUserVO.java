@@ -7,14 +7,12 @@ public class ManagerListUserVO {
 	private String member_email;
 	private String member_phone;
 	private String member_grade;
-	private int point_amount;
-	
 
 	@Override
 	public String toString() {
 		return "ManagerListUserVO [member_code_seq=" + member_code_seq + ", member_name=" + member_name
 				+ ", member_email=" + member_email + ", member_phone=" + member_phone + ", member_grade=" + member_grade
-				+ ", point_amount=" + point_amount + "]";
+				+ "]";
 	}
 
 	public String getMember_code_seq() {
@@ -53,13 +51,6 @@ public class ManagerListUserVO {
 	public void setMember_grade(String member_grade) {
 		this.member_grade = member_grade;
 	}
-	public int getPoint_amount() {
-		return point_amount;
-	}
-	public void setPoint_amount(int point_amount) {
-		this.point_amount = point_amount;
-	}
-	
-	
+
 	
 }

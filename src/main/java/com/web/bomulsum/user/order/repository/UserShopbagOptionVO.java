@@ -1,5 +1,7 @@
 package com.web.bomulsum.user.order.repository;
 
+import java.util.List;
+
 public class UserShopbagOptionVO {
 	
 
@@ -7,12 +9,13 @@ public class UserShopbagOptionVO {
 	private String art_option_category;
 	private String art_option_name;
 	private int art_option_price;
-
+	private List<UserShopbagOptionVO> optionList;
 
 	@Override
 	public String toString() {
 		return "UserShopbagOptionVO [art_option_seq=" + art_option_seq + ", art_option_category=" + art_option_category
-				+ ", art_option_name=" + art_option_name + ", art_option_price=" + art_option_price + "]";
+				+ ", art_option_name=" + art_option_name + ", art_option_price=" + art_option_price + ", optionList="
+				+ optionList + "]";
 	}
 
 	public String getArt_option_seq() {
@@ -45,6 +48,14 @@ public class UserShopbagOptionVO {
 
 	public void setArt_option_price(int art_option_price) {
 		this.art_option_price = art_option_price;
+	}
+
+	public List<UserShopbagOptionVO> getOptionList() {
+		return optionList;
+	}
+
+	public void setOptionList(List<UserShopbagOptionVO> optionList) {
+		this.optionList = optionList;
 	}
 
 	
