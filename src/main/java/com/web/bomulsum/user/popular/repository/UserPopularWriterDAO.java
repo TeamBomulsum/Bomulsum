@@ -15,7 +15,6 @@ public class UserPopularWriterDAO {
 	//작가정보
 	public List<UserPopularWriterVO> getWriterInfo(){
 		 List<UserPopularWriterVO> artistInfoList = sqlSessionTemplate.selectList("userPopularWriterDAO.selectPopularArtDetail"); 
-		 System.out.println(artistInfoList); 
 		 return artistInfoList;
 		
 	}

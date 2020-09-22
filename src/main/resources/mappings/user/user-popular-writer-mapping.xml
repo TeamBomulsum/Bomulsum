@@ -8,7 +8,7 @@
 	<select id="selectPopularArtDetail" resultType="UserPopularWriterVO">
 		SELECT 
 			w.writer_code_seq, w.writer_profile_img,w.writer_brand_name,w.writer_intro, 
-			w.writer_url, w.writer_name, s.wishlist_option_code
+			w.writer_url, w.writer_name, w.writer_cover_img, s.wishlist_option_code
 		FROM 
 			writer_tb w, wishlist_tb s
 		WHERE 
@@ -17,7 +17,7 @@
 			w.writer_code_seq = s.wishlist_option_code 
 		GROUP BY 
 			w.writer_code_seq, w.writer_profile_img,w.writer_brand_name,w.writer_intro, w.writer_url, 
-			w.writer_name, s.wishlist_option_code
+			w.writer_name, w.writer_cover_img, s.wishlist_option_code
 		ORDER BY 
 			ROW_NUMBER() OVER(ORDER BY (COUNT(s.wishlist_option_code)) DESC)
 	
@@ -60,7 +60,7 @@
 			#{member},
 			#{option},
 			#{optionCode},
-			sysdate
+			TO_DATE(sysdate, 'YY/MM/DD')
 		)
 	</insert>
 	<!-- 좋아하는 작가 취소 -->

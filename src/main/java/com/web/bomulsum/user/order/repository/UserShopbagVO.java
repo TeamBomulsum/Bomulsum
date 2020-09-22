@@ -2,6 +2,7 @@ package com.web.bomulsum.user.order.repository;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class UserShopbagVO {
 	
@@ -19,10 +20,10 @@ public class UserShopbagVO {
 	private String art_name;
 	private int art_price;
 	private int art_discount;
-	private int[] total_price;
-	private List<List<UserShopbagOptionVO>> optionArray;
-	private List<Object> totalOption;
+	private int totalPrice;
+	private List<Map<String,Object>> totalOption;
 
+	
 	@Override
 	public String toString() {
 		return "UserShopbagVO [cart_seq=" + cart_seq + ", art_code_seq=" + art_code_seq + ", member_code_seq="
@@ -30,8 +31,8 @@ public class UserShopbagVO {
 				+ Arrays.toString(artCount) + ", order_request=" + order_request + ", writer_brand_name="
 				+ writer_brand_name + ", writer_send_price=" + writer_send_price + ", writer_sendfree_case="
 				+ writer_sendfree_case + ", art_photo=" + art_photo + ", art_name=" + art_name + ", art_price="
-				+ art_price + ", art_discount=" + art_discount + ", total_price=" + Arrays.toString(total_price)
-				+ ", optionArray=" + optionArray + ", totalOption=" + totalOption + "]";
+				+ art_price + ", art_discount=" + art_discount + ", totalPrice=" + totalPrice + ", totalOption="
+				+ totalOption + "]";
 	}
 
 	public String getCart_seq() {
@@ -140,14 +141,6 @@ public class UserShopbagVO {
 		this.art_discount = art_discount;
 	}
 
-	public int[] getTotal_price() {
-		return total_price;
-	}
-
-	public void setTotal_price(int[] total_price) {
-		this.total_price = total_price;
-	}
-
 	public String[] getArtCount() {
 		return artCount;
 	}
@@ -156,20 +149,21 @@ public class UserShopbagVO {
 		this.artCount = artCount;
 	}
 
-	public List<List<UserShopbagOptionVO>> getOptionArray() {
-		return optionArray;
-	}
-
-	public void setOptionArray(List<List<UserShopbagOptionVO>> list) {
-		this.optionArray = list;
-	}
-
-	public List<Object> getTotalOption() {
+	public List<Map<String, Object>> getTotalOption() {
 		return totalOption;
 	}
 
-	public void setTotalOption(List<Object> totalOption) {
+	public void setTotalOption(List<Map<String, Object>> totalOption) {
 		this.totalOption = totalOption;
 	}
-	
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+
 }

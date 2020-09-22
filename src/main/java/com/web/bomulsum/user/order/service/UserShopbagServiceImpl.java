@@ -24,15 +24,6 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 		return dao.getShopbagInfo(memberCode);
 	}
 
-/*	@Override
-	public List<UserShopbagOptionVO> getOptionInfo(String[] artOption) {
-		List<String> list = new ArrayList<String>();
-		for (int i = 0; i < artOption.length; i++) {
-			list.add(artOption[i]);
-		}
-		return dao.getOptionInfo(list);
-	}*/
-
 	@Override
 	public List<UserShopbagModalVO> goShopbagModal(HashMap<String, String> map) {
 		return dao.goShopbagModal(map);
@@ -47,10 +38,20 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 	public void goArtCount(HashMap<String, String> map) {
 		dao.goArtCount(map);
 	}
+	
 
 	@Override
-	public void deleteArt(HashMap<String, String> map) {
-		dao.deleteArt(map);
+	public List<UserShopbagOptionVO> getOptionListInfo(String[] artOption) {
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < artOption.length; i++) {
+			list.add(artOption[i]);
+		}
+		return dao.getOptionListInfo(list);
+	}
+
+	@Override
+	public void deleteArt(String cartCode) {
+		dao.deleteArt(cartCode);
 	}
 
 	@Override
@@ -76,6 +77,16 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 	@Override
 	public UserShopbagOptionVO getOptionInfo(String artOption) {
 		return dao.getOptionInfo(artOption);
+	}
+
+	@Override
+	public String getArtCount(String cartCode) {
+		return dao.getArtCount(cartCode);
+	}
+
+	@Override
+	public String selectOption(String cartCode) {
+		return dao.selectOption(cartCode);
 	}
 
 }

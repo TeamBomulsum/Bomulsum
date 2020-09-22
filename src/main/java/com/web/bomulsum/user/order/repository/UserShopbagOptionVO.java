@@ -1,13 +1,11 @@
 package com.web.bomulsum.user.order.repository;
 
 public class UserShopbagOptionVO {
-	
 
 	private String art_option_seq;
 	private String art_option_category;
 	private String art_option_name;
 	private int art_option_price;
-
 
 	@Override
 	public String toString() {

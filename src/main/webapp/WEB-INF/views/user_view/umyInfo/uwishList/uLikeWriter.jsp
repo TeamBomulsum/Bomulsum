@@ -307,9 +307,13 @@ body a:link, a:visited, a:hover, a:active {
 			<div class="jeonga_uLikeWriter_title">
 			<h2 id="jeonga_uLikeWriter_text">좋아하는(♥) 작가</h2>
 			</div>
-	
+			<c:if test="${empty artListInfo}">
+			좋아하는 작가가 없습니다.
+			</c:if>
+			<c:if test="${not empty artListInfo}">
 			<!-- 좋아하는 작가 목록 -->
 			<ul class="jeonga_artist_list">
+
 			<c:forEach var="artList" items='${artListInfo}'>
 				<li class="jeonga_artist_list_item">
 					<!-- 작가 프로필  -->
@@ -382,8 +386,9 @@ body a:link, a:visited, a:hover, a:active {
 				</div>
 				</li>
 				</c:forEach>
+ 			
 			</ul>
-
+</c:if>
 		</div>
 	</div>
 		<!-- 푸터  -->

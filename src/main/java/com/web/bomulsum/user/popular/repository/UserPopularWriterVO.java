@@ -4,6 +4,7 @@ public class UserPopularWriterVO {
 	
 	private String writer_code_seq;
 	private String writer_profile_img;
+	private String writer_cover_img;
 	private String writer_brand_name;
 	private String writer_intro;
 	private String writer_url;
@@ -23,16 +24,16 @@ public class UserPopularWriterVO {
 	private String artPhoto11;
 	private String artPhoto12;
 
-
 	@Override
 	public String toString() {
 		return "UserPopularWriterVO [writer_code_seq=" + writer_code_seq + ", writer_profile_img=" + writer_profile_img
-				+ ", writer_brand_name=" + writer_brand_name + ", writer_intro=" + writer_intro + ", writer_url="
-				+ writer_url + ", writer_name=" + writer_name + ", wishlist_option_code=" + wishlist_option_code
-				+ ", likeWriter=" + likeWriter + ", artPhoto1=" + artPhoto1 + ", artPhoto2=" + artPhoto2
-				+ ", artPhoto3=" + artPhoto3 + ", artPhoto4=" + artPhoto4 + ", artPhoto5=" + artPhoto5 + ", artPhoto6="
-				+ artPhoto6 + ", artPhoto7=" + artPhoto7 + ", artPhoto8=" + artPhoto8 + ", artPhoto9=" + artPhoto9
-				+ ", artPhoto10=" + artPhoto10 + ", artPhoto11=" + artPhoto11 + ", artPhoto12=" + artPhoto12 + "]";
+				+ ", writer_cover_img=" + writer_cover_img + ", writer_brand_name=" + writer_brand_name
+				+ ", writer_intro=" + writer_intro + ", writer_url=" + writer_url + ", writer_name=" + writer_name
+				+ ", wishlist_option_code=" + wishlist_option_code + ", likeWriter=" + likeWriter + ", artPhoto1="
+				+ artPhoto1 + ", artPhoto2=" + artPhoto2 + ", artPhoto3=" + artPhoto3 + ", artPhoto4=" + artPhoto4
+				+ ", artPhoto5=" + artPhoto5 + ", artPhoto6=" + artPhoto6 + ", artPhoto7=" + artPhoto7 + ", artPhoto8="
+				+ artPhoto8 + ", artPhoto9=" + artPhoto9 + ", artPhoto10=" + artPhoto10 + ", artPhoto11=" + artPhoto11
+				+ ", artPhoto12=" + artPhoto12 + "]";
 	}
 
 	public String getWriter_code_seq() {
@@ -49,6 +50,14 @@ public class UserPopularWriterVO {
 
 	public void setWriter_profile_img(String writer_profile_img) {
 		this.writer_profile_img = writer_profile_img;
+	}
+	
+	public String getWriter_cover_img() {
+		return writer_cover_img;
+	}
+
+	public void setWriter_cover_img(String writer_cover_img) {
+		this.writer_cover_img = writer_cover_img;
 	}
 
 	public String getWriter_brand_name() {

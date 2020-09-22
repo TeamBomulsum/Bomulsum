@@ -243,7 +243,7 @@
 }
 
 .writer_img{
-	background-image:url("<c:url value='/resources/img/writer_profile.PNG'/>"); 
+	/*background-image:url("<c:url value='/resources/img/writer_profile.PNG'/>"); */
 	width:339px;
 	height:160px;
 	background-size: 339px;
@@ -279,6 +279,7 @@
 	height:100px;
 	color:#666;
 	margin-bottom:10px;
+	padding:20px;
 }
 
 .link_groups{
@@ -300,24 +301,25 @@
 	cursor:pointer;
 	text-align: center;
 }
-
+.jeongaAddWriter{
+	color:#DF3A01;
+}
 
 .link_writer span:nth-child(1){
-	color:#1f76bb;
-	width:153px;
-	margin-right:1.5px;
+	width:155px;
+	margin-right:6.5px;
 	border:1px solid #d9d9d9;
 }
 
 .link_writer span:nth-child(2){
-	width:153px;
-	margin-left:1.5px;
+	width:155px;
+	margin-left:6.5px;
 	border:1px solid #d9d9d9;
 }
 
 .link_groups .send_message{
 	width:309px;
-	margin-top: 1.5px;
+	margin-top: 3.5px;
 	border: 1px solid #d9d9d9;
 }
 
@@ -715,31 +717,26 @@
 					</span>
 					<div class="writers">
 						
-						<c:forEach var="i" begin="1" end="3">
+						<c:forEach var="pwriter" items="${popularWriter}">
 							<div class="writer">
-								<div class="writer_img">
-									<div class="writer_profile"></div>
+								<div class="writer_img" 
+								style="background-image: url('/bomulsum/upload/${pwriter.writer_cover_img}');">
+									<div><img class="writer_profile" src="<c:url value='/upload/${pwriter.writer_profile_img}'/>" style="width:80px; height:80px"></div>
 								</div>
 								<div class="writer_name">
-									<span>디디얌</span>
-									<span>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-									</span>
+									<span>${pwriter.writer_brand_name}</span>
 								</div>
 								<div class="writer_intro">
-									<span>디디얌 베이커리 & 디저트</span>
+									<span>${pwriter.writer_intro}</span>
 								</div>
 								<div class="link_groups">
 									<div class="link_writer">
-										<span><i class="fas fa-heart"></i> 작가로 추가</span>
-										<span>작가 홈</span>
+										<span class="jeongaAddWriter">♥︎작가로 추가</span>
+										<span class="jeongaWriterHome"><a href="/bomulsum/writerhome/${pwriter.writer_url}.do">작가홈</a></span>
 									</div>
 									<span class="send_message">
-										메시지 보내기
+										<a style="display:none">${pwriter.writer_code_seq}</a>
+										<a href="/bomulsum/user/message.do?writer=${pwriter.writer_code_seq}">메시지 보내기</a>
 									</span>
 								</div>
 							</div>
@@ -748,7 +745,7 @@
 						
 					</div>
 					
-					<div class="go_button">
+					<div class="go_button" onclick="location.href='/bomulsum/user/popular/writer.do';">
 						<span>인기작가 더보기</span>
 					</div>
 				</div>
@@ -889,5 +886,69 @@ $(function(){
 		}
 	});
 });
+
+
+//좋아하는 작가
+$(function(){
+	$(".jeognaAddWriter").on("click", function(e){
+		
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+		}
+		
+		else{
+		var $data = $(this).parent().next().children().first().text();
+		console.log($data);
+		var writerCode = $data;
+		var option = '좋아하는작가';
+		
+		var addButton = $(this);
+		var tf;
+		var text = $(this).text();
+		console.log(text);
+
+		if(text == '♥︎작가로 추가'){
+			$(this).text('♥︎하는 작가');
+			$(this).css("color","white");
+			$(this).css("border","1px solid #DF3A01");
+			$(this).css("background-color","#DF3A01");
+			tf = true;
+		}else{
+			$(this).text('♥︎작가로 추가');
+			$(this).css("color","#DF3A01");
+			$(this).css("border","1px solid #D9D9D9");
+			$(this).css("background-color","white");
+			tf = false;
+		}
+
+		$.ajax({
+			url:'/bomulsum/user/likeWriter.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':writerCode,
+				'bool': tf
+			},
+			type:'POST',
+			success:function(data){
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	 	if(tf==true){
+			alert('좋아하는 작가에 추가되었습니다.');
+		}
+	 	if(tf==false){
+			alert('좋아하는 작가를 취소합니다.');
+		}  
+	
+		}
+});
+});
+
+
+
 </script>
 </html>
