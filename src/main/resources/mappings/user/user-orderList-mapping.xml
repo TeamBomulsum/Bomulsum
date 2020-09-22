@@ -4,15 +4,171 @@
 
 <mapper namespace="orderListDao">
 
-	<sql id="header">
-		SELECT T.*
-		FROM (
-		SELECT ROWNUM AS RNUM, A.*
-		FROM (
-	</sql>
-	<sql id="footer">
-		) A ) T
-		WHERE T.RNUM BETWEEN #{startNum} AND #{endNum}
-	</sql>
+	<resultMap type="com.web.bomulsum.user.orderList.repository.UserOrderTableVO" id="orderTb">
+		<result column="order_code_seq" property="orderCodeSeq"/>
+		<result column="order_date" property="orderDate"/>
+		<result column="order_zipcode" property="orderZipcode"/>
+		<result column="order_address_first" property="orderAddressFirst"/>
+		<result column="order_address_second" property="orderAddressSecond"/>
+		<result column="order_pay_price" property="orderPayPrice"/>
+		<result column="order_point_price" property="orderPointPrice"/>
+		<result column="coupon_code_seq" property="couponCodeSeq"/>
+		<result column="order_phone_num" property="orderPhoneNum" />
+		<result column="order_receiver" property="orderReceiver" />
+	</resultMap>
+	
+	<resultMap type="com.web.bomulsum.user.orderList.repository.UserBuyWriterVO" id="buy_writerTb">
+		<result column="buy_writer_code_seq" property="buyWriterCodeSeq" />
+		<result column="writer_name" property="writerName" />
+		<result column="writer_brand_name" property="writerBrandName" />
+		<result column="order_code_seq" property="orderCodeSeq" />
+		<result column="writer_code_seq" property="writerCodeSeq" />
+		
+		<result column="buy_writer_send_price" property="buyWriterSendPrice" />
+		<result column="buy_writer_plus_send_price" property="buyWriterPlusSendPrice" />
+		<result column="buy_writer_order_status" property="buyWriterOrderStatus" />
+		<result column="buy_writer_order_refund_reason" property="buyWriterOrderRefundReason" />
+	</resultMap>
+	
+	<resultMap type="com.web.bomulsum.user.orderList.repository.UserBuyArtVO" id="buy_artTb">
+		<result column="buy_art_code_seq" property="buyArtCodeSeq"/>
+		<result column="order_code_seq" property="orderCodeSeq"/>
+		<result column="buy_writer_code_seq" property="buyWriterCodeSeq"/>
+		<result column="buy_art_request" property="buyArtRequest" />
+		<result column="art_name" property="artName" />
+		<result column="art_code_seq" property="artCodeSeq"/>
+		<result column="buy_art_review_status" property="buyArtReviewStatus"/>
+		<result column="buy_art_review_update" property="buyArtReviewUpdate"/>
+		<result column="art_photo" property="artPhoto" />
+	</resultMap>
+	
+	<resultMap type="com.web.bomulsum.user.orderList.repository.UserBuyOptionVO" id="buy_optionTb">
+		<result column="buy_option_code_seq" property="buyOptionCodeSeq" />
+		<result column="order_code_seq" property="orderCodeSeq" />
+		<result column="buy_art_code_seq" property="buyArtCodeSeq" />
+		<result column="art_price" property="artPrice" />
+		<result column="art_option_seq_list" property="artOptionSeqList" />
+		<result column="art_option_name" property="artOptionName" />
+		<result column="art_option_amount" property="artOptionAmount" />
+	</resultMap>
+
+	<select id="getAllOrderList" parameterType="String" resultMap="orderTb">
+		SELECT
+			*
+		FROM
+			order_tb
+		WHERE
+			member_code_seq=#{member}
+		ORDER BY
+			order_date DESC
+	</select>
+	
+	<select id="getOrderDetail" parameterType="String" resultMap="orderTb">
+		SELECT
+			*
+		FROM
+			order_tb
+		WHERE
+			order_code_seq=#{code}
+	</select>
+	
+	<select id="getBuyWriterTb" parameterType="String" resultMap="buy_writerTb">
+		SELECT
+			b.buy_writer_code_seq,
+			w.writer_name,
+			w.writer_brand_name,
+			b.order_code_seq,
+			b.writer_code_seq,
+			b.buy_writer_send_price,
+			b.buy_writer_plus_send_price,
+			b.buy_writer_order_status,
+			b.buy_writer_order_refund_reason
+		FROM
+			buy_writer_tb b
+		INNER JOIN
+			writer_tb w
+		ON
+			w.writer_code_seq = b.writer_code_seq
+		WHERE
+			b.order_code_seq=#{orderCode}
+	</select>
+	
+	<select id="getBuyArtTb" parameterType="String" resultMap="buy_artTb">
+		SELECT
+			b.buy_art_code_seq,
+			b.order_code_seq,
+			b.buy_writer_code_seq,
+			b.art_code_seq,
+			b.buy_art_request,
+			b.art_name,
+			b.buy_art_review_status,
+			b.buy_art_review_update,
+			a.art_photo
+		FROM
+			buy_art_tb b
+		INNER JOIN
+			art_tb a
+		ON
+			a.art_code_seq = b.art_code_seq
+		WHERE
+			order_code_seq=#{orderCode}
+	</select>
+	
+	<select id="getBuyOptionTb" parameterType="String" resultMap="buy_optionTb">
+		SELECT
+			*
+		FROM
+			buy_option_tb
+		WHERE
+			order_code_seq=#{orderCode}
+	</select>
+	
+	<select id="getCouponPrice" parameterType="String" resultType="int">
+		SELECT
+			coupon_price
+		FROM
+			coupon_tb
+		WHERE
+			coupon_code_seq=#{coupon}
+	</select>
+	
+	<select id="getPointPrice" parameterType="String" resultType="int">
+		SELECT
+			art_point
+		FROM
+			art_tb
+		WHERE
+			art_code_seq=#{artCode}
+	</select>
+	
+	<select id="recentOne" parameterType="String" resultMap="orderTb">
+		SELECT
+		*
+		FROM
+		(
+			SELECT * FROM
+				order_tb
+			ORDER BY 
+				order_date 
+			DESC
+		)
+		WHERE
+			ROWNUM=1
+			AND
+			member_code_seq=#{memberCode}
+	</select>
+	
+	<select id="getOrderStatusList" parameterType="String" resultType="String">
+		SELECT
+		    b.buy_writer_order_status
+		FROM
+		    buy_writer_tb b
+		INNER JOIN
+		    order_tb o
+		ON
+		    b.order_code_seq = o.order_code_seq
+		WHERE
+		    member_code_seq=#{memberCode}
+	</select>
 
 </mapper>

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.bomulsum.user.myinfo.repository.MyInfoArticleVO;
 import com.web.bomulsum.user.myinfo.repository.WriterInfoArticleVO;
 import com.web.bomulsum.user.myinfo.service.UserMyInfoService;
+import com.web.bomulsum.user.orderList.service.UserOrderListService;
 
 
 @Controller
@@ -21,6 +22,9 @@ public class UserMyInfoController {
 
 	@Autowired
 	private UserMyInfoService service;
+	
+	@Autowired
+	private UserOrderListService orderService;
 	
 	@RequestMapping(value="/home")
 	public ModelAndView myInfoHome(HttpSession session, ModelAndView mav) {
@@ -103,6 +107,26 @@ public class UserMyInfoController {
 		}else {
 			mav.addObject("writerVO", null);
 		}
+		
+		mav.addObject("orderListOne", orderService.getOrderDetail(orderService.recentOne(memberCode).getOrderCodeSeq()));
+		
+		List<String> status = orderService.getOrderStatusList(memberCode);
+		int sendComplete = 0;
+		int refundComplete = 0;
+		for(String s : status) {
+			switch(s) {
+				case "배송 완료":
+					sendComplete++;
+					break;
+				case "환불 완료":
+					refundComplete++;
+					break;
+				default:
+					break;
+			}
+		}
+		mav.addObject("sendComplete",sendComplete);
+		mav.addObject("refundComplete", refundComplete);
 		
 		mav.setViewName("/umyInfo/uMyHome");
 		

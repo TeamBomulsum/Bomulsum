@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,19 +97,24 @@ body a:link, a:visited, a:hover, a:active {
 	align-items: center;
 }
 
+.dndud_content_table .dndud_semicontent_main:nth-last-child(1){
+	border:0;
+}
+
 .dndud_semicontent_main{
 	font-size: 15px;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 	background-color:white;
+    border-bottom: 1px solid #d9d9d9;
 }
 
 .dndud_semicontent_main .item{
     width: 70%;
     max-width: 70%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .dndud_semicontent_main .item .writeAboutItem{
@@ -132,7 +138,7 @@ body a:link, a:visited, a:hover, a:active {
 }
 
 .aboutItem{
-	margin-bottom:2%;
+	/* margin-bottom:2%; */
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -196,13 +202,15 @@ input[type="button"]{
 .clientRequest{
 	height:70px;
 	padding-bottom: 2%;
+	padding-top: 2%;
 }
 
 .clientRequestValue{
-	font-size:16px;
-	width:95%;
-	height:90%;
-	resize:none;
+    font-size: 14px;
+    width: 95%;
+    height: 90%;
+    resize: none;
+    font-weight: bold;
 }
 
 .dndud_about_send{
@@ -294,9 +302,11 @@ input[type="button"]{
 }
 
 .dndud_about_pay_info{
-	width:100%;
-	height: 85%;
-	border-right: 1px solid gray;
+    width: 100%;
+    height: 85%;
+    overflow-y: auto;
+    border-right: 1px solid gray;
+    overflow-x: hidden;
 }
 
 .dndud_about_pay_info_detail{
@@ -384,6 +394,64 @@ input[type="button"]{
 	font-weight: bold;
 	
 }
+
+.img{
+	cursor:pointer;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+
+.imsiDiv{
+	display:flex;
+	flex-direction: row;
+	width:100%;
+}
+
+.purchaseReview{
+	background-color: #1f76bb;
+	color: white;
+}
+
+.purchaseReview_before{
+	background-color:white;
+	color: #1f76bb;
+}
+
+.purchaseReview_before:hover{
+	background-color:#1f76bb;
+	color:white;
+}
+
+.purchaseReview_done{
+	background-color: #f1f1f1 !important;
+	color:black;
+	cursor: default !important;
+}
+.decision_Div{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.dndud_about_pay_info::-webkit-scrollbar {
+  width: 6px;
+}
+.dndud_about_pay_info::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.dndud_about_pay_info::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: gray;
+}
+.dndud_about_pay_info::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+}
 </style>
 </head>
 <body>
@@ -405,39 +473,111 @@ input[type="button"]{
 				</div>
 			</div>
 			
+			<c:set var="i" value="${data }" />
+			<c:set var="order" value="${i.orderTable }"/>
+			<c:set var="writerList" value="${i.buyWriter }" />
+			<c:set var="artList" value="${i.buyArt }" />
+			<c:set var="optionList" value="${i.buyOption }" />
+		
 			<div class="dndud_content_table">
 				<div class="dndud_content_table_top">
 					<span style="width:70%;">작품</span>
 					<span style="width:15%;">판매작가</span>
 					<span style="width:15%;"></span>
 				</div>
-				<div class="dndud_semicontent_main">
-					<div class="item">
-						<div class="img">
-							<img src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
+				
+				<c:forEach items="${writerList }" var="writer">
+				
+					<div class="dndud_semicontent_main">
+						<div class="item">
+						
+							<c:forEach items="${artList }" var="art">
+								<c:if test="${art.buyWriterCodeSeq eq writer.buyWriterCodeSeq }">
+									<div class="imsiDiv">
+										<div class="img" id="${art.artCodeSeq }" onclick="artCode(this)">
+											<img src="<c:url value='/upload/${art.artPhoto }'/>" style="width:75px; height:75px">
+										</div>
+										<div class="writeAboutItem">
+											<div class="itemTitle">
+												<p>${art.artName }</p>
+												<p class="orderStat">${writer.buyWriterOrderStatus }</p>
+											</div>
+											
+											<c:forEach items="${optionList }" var="option">
+												<c:if test="${option.buyArtCodeSeq eq art.buyArtCodeSeq }">
+													<div class="aboutItem" id="${option.artOptionSeqList }">
+														<p>${option.artOptionName }</p>
+														<span>${option.artOptionAmount }개</span>
+													</div>
+												</c:if>
+											</c:forEach>
+											
+											<div class="clientRequest">
+												<textarea class="clientRequestValue" readonly>${art.buyArtRequest }</textarea>
+											</div>
+										</div>
+									</div>
+								</c:if>
+							</c:forEach>
+							
+							
 						</div>
-						<div class="writeAboutItem">
-							<div class="itemTitle">
-								<p>(카페) 주문제작 감성 일러스트 엽서</p>
-								<p class="orderStat">결제 완료</p>
-							</div>
-							<div class="aboutItem">
-								<p>배송비 : 우편(+ 500원) / 문구 및 디자인추가 : X도안 그대로</p>
-								<span>1개</span>
-							</div>
-							<div class="clientRequest">
-								<textarea class="clientRequestValue" readonly>4</textarea>
-							</div>
+						<div class="aboutW">
+							<c:if test="${not empty writer.writerBrandName }">
+								<a>${writer.writerBrandName }</a>
+							</c:if>
+							<c:if test="${empty writer.writerBrandName }">
+								<a>${writer.writerName }</a>
+							</c:if>
+							<input id="${writer.writerCodeSeq }" class="go_to_writer_message" type="button" value="메시지로 문의">
+						</div>
+						<div class="decision">
+										
+							<c:choose>
+								<c:when test="${writer.buyWriterOrderStatus eq '결제 완료' }">
+									<input class="" type="button" value="환불요청">
+								</c:when>
+								<c:when test="${writer.buyWriterOrderStatus eq '배송 완료' }">
+									<c:forEach items="${artList }" var="art2">
+										<c:if test="${art2.buyWriterCodeSeq eq writer.buyWriterCodeSeq }">
+											<c:choose>
+												<c:when test="${art2.buyArtReviewStatus eq 'N' }">
+													<div class="decision_Div">
+														<input class="purchaseReview_before" type="button" value="구매후기 작성">
+														<input type="button" value="발송 정보 조회">
+													</div>
+												</c:when>
+												<c:otherwise>
+													<c:if test="${art2.buyArtReviewUpdate eq 'N' }">
+														<div class="decision_Div">
+															<input class="purchaseReview" type="button" value="구매후기 수정">
+															<input type="button" value="발송 정보 조회">
+														</div>
+													</c:if>
+													<c:if test="${art2.buyArtReviewUpdate ne 'N' }">
+														<div class="decision_Div">
+															<input class="purchaseReview_done" type="button" value="후기 작성 완료">
+															<input type="button" value="발송 정보 조회">
+														</div>
+													</c:if>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
+									</c:forEach>
+								</c:when>
+								<c:when test="${writer.buyWriterOrderStatus eq '환불 대기' }">
+									<input class="purchaseReview_done" type="button" value="환불 요청 완료">
+								</c:when>
+								<c:when test="${writer.buyWriterOrderStatus eq '환불 완료' }">
+									<input class="purchaseReview_done" type="button" value="환불 완료">
+								</c:when>
+							</c:choose>
+							
 						</div>
 					</div>
-					<div class="aboutW">
-						<a>#작가#</a>
-						<input type="button" value="메시지로 문의">
-					</div>
-					<div class="decision">
-						<input type="button" value="환불요청">
-					</div>
-				</div>
+				
+				</c:forEach>
+				
 			</div>
 	
 			<div class="dndud_content_top semi_title">
@@ -452,7 +592,7 @@ input[type="button"]{
 						<span>받는분</span>
 					</div>
 					<div class="dndud_about_send_row_second">
-						<span id="#" >정아</span>
+						<span id="#" >${order.orderReceiver }</span>
 					</div>
 				</div>
 				<div class="dndud_about_send_row">
@@ -460,23 +600,23 @@ input[type="button"]{
 						<span>전화</span>
 					</div>
 					<div class="dndud_about_send_row_second">
-						<span id="#" >01057140716</span>
+						<span id="#" >${order.orderPhoneNum }</span>
 					</div>
 				</div>
-				<div class="dndud_about_send_row">
+				<!-- <div class="dndud_about_send_row">
 					<div class="dndud_about_send_row_first">
 						<span>안심번호</span>
 					</div>
 					<div class="dndud_about_send_row_second">
 						<span id="#" >050-4924-9885</span>
 					</div>
-				</div>
+				</div> -->
 				<div class="dndud_about_send_row">
 					<div class="dndud_about_send_row_first">
 						<span>주소</span>
 					</div>
 					<div class="dndud_about_send_row_second">
-						<span id="#" >01776 서울 노원구 섬발로 229 (하계동, 극동, 건영, 벽산아파트) 5동 1212호</span>
+						<span id="#" >${order.orderZipcode } ${order.orderAddressFirst } ${order.orderAddressSecond }</span>
 					</div>
 				</div>
 			</div>
@@ -491,43 +631,52 @@ input[type="button"]{
 			<div class="dndud_about_pay">
 				<div class="dndud_about_pay_child">
 					<div class="dndud_about_pay_info">
-						<div class="pay_info_who"><a># 작가님</a></div>
-						<div class="pay_info_content">
-							<div class="pay_row">
-								<a>(카페) 주문제작 감성 일러스트 엽서</a>
-								<div>
-									<a>1,500</a><a>원</a>
+						
+						<c:forEach items="${writerList }" var="writer2">
+							<div class="pay_info_who">
+								<c:if test="${not empty writer2.writerBrandName }">
+									<a>${writer2.writerBrandName }</a>
+								</c:if>
+								<c:if test="${empty writer2.writerBrandName }">
+									<a>${writer2.writerName }</a>
+								</c:if>
+							</div>
+							<div class="pay_info_content">
+								<c:forEach items="${artList }" var="art3">
+									<c:set value="0" var="art_price" />
+									<c:forEach items="${optionList }" var="option2">
+										<c:if test="${art3.buyArtCodeSeq eq option2.buyArtCodeSeq }">
+											<c:set var="art_price" value="${art_price + option2.artPrice }" />
+										</c:if>
+									</c:forEach>
+									<c:if test="${art3.buyWriterCodeSeq eq writer2.buyWriterCodeSeq }">
+										<div class="pay_row">
+											<a>${art3.artName }</a>
+											<div>
+												<a class="semi_art_price"><fmt:formatNumber value="${art_price }" pattern="#,###"/></a><a>원</a>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+								<div class="pay_row">
+									<a>배송비</a>
+									<div>
+										<a class="semi_send_price"><fmt:formatNumber value="${writer2.buyWriterSendPrice }" pattern="#,###"/></a><a>원</a>
+									</div>
+								</div>
+								<div class="pay_row">
+									<a>제주 / 도서산간 추가비용</a>
+									<div>
+										<a class="semi_send_plus_price"><fmt:formatNumber value="${writer2.buyWriterPlusSendPrice }" pattern="#,###"/></a><a>원</a>
+									</div>
 								</div>
 							</div>
-							<div class="pay_row">
-								<a>배송비</a>
-								<div>
-									<a>0</a><a>원</a>
-								</div>
-							</div>
-							<div class="pay_row">
-								<a>제주 / 도서산간 추가비용</a>
-								<div>
-									<a>0</a><a>원</a>
-								</div>
-							</div>
-							<div class="pay_row">
-								<a>할인쿠폰</a>
-								<div>
-									<a>0</a><a>원</a>
-								</div>
-							</div>
-							<div class="pay_row">
-								<a>배송비 할인쿠폰</a>
-								<div>
-									<a>0</a><a>원</a>
-								</div>
-							</div>
-						</div>
+						</c:forEach>
+						
 					</div>
 					<div class="dndud_about_pay_foot">
 						<span>결제방법</span>
-						<span>네이버페이</span>
+						<span>카드결제</span>
 					</div>
 				</div>
 				<div class="dndud_about_pay_child">
@@ -536,43 +685,36 @@ input[type="button"]{
 							<div class="detail_row">
 								<a>작품금액</a>
 								<div>
-									<a>1,500</a><a>원</a>
+									<a id="sum_price">1,500</a><a>원</a>
 								</div>
 							</div>
 							<div class="detail_row">
 								<a>배송비</a>
 								<div>
-									<a>0</a><a>원</a>
+									<a id="sum_send_price">0</a><a>원</a>
 								</div>
 							</div>
 							<div class="detail_row">
 								<a>제주 / 도서산간 추가비용</a>
 								<div>
-									<a>0</a><a>원</a>
+									<a id="sum_send_plus_price">0</a><a>원</a>
 								</div>
 							</div>
 							<div class="detail_row">
-								<a>작가쿠폰할인</a>
+								<a>쿠폰 할인</a>
 								<div>
-									<a>0</a><a>원</a>
+									<c:if test="${empty coupon }">
+										<a id="sum_coupon">0</a><a>원</a>	
+									</c:if>
+									<c:if test="${not empty coupon }">
+										<a><fmt:formatNumber value="${coupon }" pattern="#,###"/></a><a>원</a>
+									</c:if>
 								</div>
 							</div>
 							<div class="detail_row">
-								<a>보물섬 VIP 클럽</a>
+								<a>사용 적립금</a>
 								<div>
-									<a>0</a><a>원</a>
-								</div>
-							</div>
-							<div class="detail_row">
-								<a>보물섬 쿠폰</a>
-								<div>
-									<a>0</a><a>원</a>
-								</div>
-							</div>
-							<div class="detail_row">
-								<a>작가 후원하기</a>
-								<div>
-									<a>0</a><a>원</a>
+									<a id="sum_point"><fmt:formatNumber value="${order.orderPointPrice }" pattern="#,###"/></a><a>원</a>
 								</div>
 							</div>
 						</div>
@@ -582,7 +724,7 @@ input[type="button"]{
 							<div class="money_saved_top">
 								<a>적립금 적립</a>
 								<div>
-									<a>7</a><a>P</a>
+									<a id="save_point"><fmt:formatNumber value="${point }" pattern="#,###"/></a><a>P</a>
 								</div>
 							</div>
 							<div class="money_saved_row">
@@ -601,7 +743,7 @@ input[type="button"]{
 					</div>
 					<div class="dndud_about_pay_foot">
 						<span>총 결제 금액</span>
-						<div><a>1,500</a>원</div>
+						<div><a id="total_price">1,500</a>원</div>
 					</div>
 				</div>
 			</div>
@@ -614,4 +756,65 @@ input[type="button"]{
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+//입력한 문자열 전달
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
+}
+  
+//콤마찍기
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+//콤마풀기
+function uncomma(str) {
+    str = String(str);
+    return Number(str.replace(/[^\d]+/g, ''));
+}
+function artCode(e){
+	var art_code = e.id;
+	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank");
+}
+
+
+$(function(){
+	$(".go_to_writer_message").on('click', function(){
+		if(memberCode == null || memberCode == ''){
+			alert('세션이 만료되었습니다.');
+			location.href="/bomulsum/user/login.do";
+		}else{
+			location.href="/bomulsum/user/message.do?writer="+$(this).attr('id');
+		}
+	});
+//	sum_price/sum_send_price/sum_send_plus_price
+//	semi_art_price/semi_send_price/semi_send_plus_price
+	var price = 0;
+	$(".semi_art_price").each(function(){
+		price += uncomma($(this).text());
+	});
+
+	var send = 0;
+	$('.semi_send_price').each(function(){
+		send += uncomma($(this).text());
+	});
+	
+	var send_plus = 0;
+	$(".semi_send_plus_price").each(function(){
+		send_plus += uncomma($(this).text());
+	});
+	
+	$('#sum_price').text(comma(price));
+	$('#sum_send_price').text(comma(send));
+	$('#sum_send_plus_price').text(comma(send_plus));
+	
+	var coupon = uncomma($('#sum_coupon').text());
+	var point = uncomma($('#sum_point').text());
+	
+	$('#total_price').text(comma(price - send - send_plus - coupon - point));
+});
+</script>
 </html>

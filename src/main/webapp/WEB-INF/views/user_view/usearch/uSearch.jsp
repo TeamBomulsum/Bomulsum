@@ -97,8 +97,8 @@
 }
 
 .dndud_main_category_content_box:hover{
-	box-shadow:2px 2px 2px 2px #d9d9d9;
-	transition: .5s;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: .5s;
 }
 
 .content_img{

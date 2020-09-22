@@ -33,8 +33,8 @@ public class UserProfileController {
 	@Autowired
 	MemberServiceImpl memberservice;
 	
-	private static final String SAVE_PATH = "/upload";
-//	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
+//	private static final String SAVE_PATH = "/usr/local/tomcat/webapps/bomulsum/upload";
+	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //로컬 저장 경로
 	
 	
 	//회원등급페이지 ---------------------------------------------

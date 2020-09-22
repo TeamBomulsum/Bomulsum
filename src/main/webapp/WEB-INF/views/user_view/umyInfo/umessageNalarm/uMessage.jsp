@@ -11,7 +11,7 @@
 <script src="http://localhost:82/socket.io/socket.io.js"></script>
 <!--
 아마존 
-<script src="http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82/socket.id/socket.io.js"></script> 
+<script src="http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82/socket.io/socket.io.js"></script> 
  -->
 <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 
@@ -452,6 +452,7 @@ function getParameter(name) {
 }
 </script>
 <script>
+// var socket = io("http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82");
 var socket = io("http://localhost:82");
 var dd = document.getElementById('wonMessageContent');
 var isScrollUp = false;

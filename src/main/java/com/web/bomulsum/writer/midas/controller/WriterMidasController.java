@@ -32,8 +32,8 @@ public class WriterMidasController {
 	@Autowired
 	WriterMidasService service;
 	
-	private static final String SAVE_PATH = "/upload";
-//	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //占쏙옙占쏙옙占쏙옙 占쏙옙占�
+//	private static final String SAVE_PATH = "/usr/local/tomcat/webapps/bomulsum/upload";
+	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //占쏙옙占쏙옙占쏙옙 占쏙옙占�
 	
 	@GetMapping("/midasRegister")
 	public ModelAndView midas(ModelAndView mav) {

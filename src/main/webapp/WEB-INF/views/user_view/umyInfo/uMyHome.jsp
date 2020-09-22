@@ -149,10 +149,10 @@ body a:link, a:visited, a:hover, a:active {
 outline: none;
 }
 
-a:link, a:visited, a:hover, a:active{
+/* a:link, a:visited, a:hover, a:active{
    text-decoration: none;
    color: black;
-}
+} */
 
 /*------------------다인CSS끝---------------------------*/
 
@@ -212,8 +212,8 @@ a:link, a:visited, a:hover, a:active{
 	border: 1px solid #d9d9d9;
 	border-bottom-width: 2px;
     border-bottom-color: #333;
-    cursor: pointer;
 }
+
 
 .dndud_noContent{
 	margin-top: 7%;
@@ -255,6 +255,7 @@ a:link, a:visited, a:hover, a:active{
 	display: flex;
 	flex-direction: column;
 	margin-top: 3%;
+    border: 1px solid #d9d9d9;
 }
 
 .dndud_semicontent{
@@ -663,6 +664,48 @@ input[type="button"]:focus{
     -webkit-text-stroke-color: white;
 }
 
+.img{
+	cursor:pointer;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+
+.imsiDiv{
+	display:flex;
+	flex-direction: row;
+	width:100%;
+}
+
+.purchaseReview{
+	background-color: #1f76bb;
+	color: white;
+}
+
+.purchaseReview_before{
+	background-color:white;
+	color: #1f76bb;
+}
+
+.purchaseReview_before:hover{
+	background-color:#1f76bb;
+	color:white;
+}
+
+.purchaseReview_done{
+	background-color: #f1f1f1 !important;
+	color:black;
+	cursor: default !important;
+}
+.decision_Div{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 </style>
 </head>
 <body>
@@ -694,13 +737,13 @@ input[type="button"]:focus{
 				<strong class="dainLabel">작가 발송 완료</strong>
 				<i id="dainHelpIcon1" class="fa fa-question-circle-o" style="color: #d9d9d9"></i>
 				<span id="dainHelp1" class="dainHelp" style="display: none;">최근 1개월 기준</span>
-				<a class="dainValue" id="umhSendComplete" href="#" style="color: #1F76BB;">0</a>
+				<a class="dainValue" id="umhSendComplete" href="<c:url value='/user/myInfo/orderList.do'/>" style="color: #1F76BB;">${sendComplete }</a>
 			</td>
 			<td class="daintd">
 				<strong class="dainLabel">취소/환불 완료</strong>
 				<i id="dainHelpIcon2" class="fa fa-question-circle-o" style="color: #d9d9d9"></i>
 				<span id="dainHelp2" class="dainHelp" style="display: none;">최근 1개월 기준</span>
-				<a class="dainValue" id="umhRefundComplete" href="#" style="color: #1F76BB;">0</a>
+				<a class="dainValue" id="umhRefundComplete" href="#" style="color: #1F76BB;">${refundComplete }</a>
 			</td>
 		</tr>
 	</table>
@@ -708,9 +751,9 @@ input[type="button"]:focus{
 	<!-- 최근 주문 내역 -->
 	<div class="dainSubTitle">
 		<h4 style="margin:0px;">최근 주문내역</h4>
-		<a href="#" style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
+		<a href="<c:url value='/user/myInfo/orderList.do'/> " style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
 	</div>
-	<div class="dainSubContent" style="height: 200px; background-color: white;">
+	<div class="dainSubContent" style="background-color: white;">
 	 <!-- 여기다가 주문내역 가져오기 -->
 	 
 	 
@@ -733,34 +776,105 @@ input[type="button"]:focus{
 			 
 			<!-- 작품 있을경우 -->
 			<div class="dndud_allContents">
-			
-				<div class="dndud_semicontent">
-					<div class="dndud_semicontent_main">
-						<div class="item">
-							<div class="img">
-								<img src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
+				<c:set value="${orderListOne }" var="i" />
+				<c:set var="order" value="${i.orderTable }"/>
+				<c:set var="writerList" value="${i.buyWriter }" />
+				<c:set var="artList" value="${i.buyArt }" />
+				<c:set var="optionList" value="${i.buyOption }" />
+				<c:if test="${empty i }">
+					
+				</c:if>
+				
+				<c:if test="${not empty i }">
+					<c:forEach items="${writerList }" var="writer">
+				
+						<div class="dndud_semicontent_main">
+							<div class="item">
+							
+								<c:forEach items="${artList }" var="art">
+									<c:if test="${art.buyWriterCodeSeq eq writer.buyWriterCodeSeq }">
+										<div class="imsiDiv">
+											<div class="img" id="${art.artCodeSeq }" onclick="artCode(this)">
+												<img src="<c:url value='/upload/${art.artPhoto }'/>" style="width:75px; height:75px">
+											</div>
+											<div class="writeAboutItem">
+												<div class="itemTitle">
+													<p>${art.artName }</p>
+													<p class="orderStat">${writer.buyWriterOrderStatus }</p>
+												</div>
+												
+												<c:forEach items="${optionList }" var="option">
+													<c:if test="${option.buyArtCodeSeq eq art.buyArtCodeSeq }">
+														<div class="aboutItem" id="${option.artOptionSeqList }">
+															<p>${option.artOptionName }</p>
+															<span>${option.artOptionAmount }개</span>
+														</div>
+													</c:if>
+												</c:forEach>
+												
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+								
+								
 							</div>
-							<div class="writeAboutItem">
-								<div class="itemTitle">
-									<p>(카페) 주문제작 감성 일러스트 엽서</p>
-									<p class="orderStat">결제 완료</p>
-								</div>
-								<div class="aboutItem">
-									<p>배송비 : 우편(+ 500원) / 문구 및 디자인추가 : X도안 그대로</p>
-									<span>1개</span>
-								</div>
+							<div class="aboutW">
+								<c:if test="${not empty writer.writerBrandName }">
+									<a>${writer.writerBrandName }</a>
+								</c:if>
+								<c:if test="${empty writer.writerBrandName }">
+									<a>${writer.writerName }</a>
+								</c:if>
+								<input id="${writer.writerCodeSeq }" class="go_to_writer_message" type="button" value="메시지로 문의">
+							</div>
+							<div class="decision">
+											
+								<c:choose>
+									<c:when test="${writer.buyWriterOrderStatus eq '결제 완료' }">
+										<input class="" type="button" value="환불요청">
+									</c:when>
+									<c:when test="${writer.buyWriterOrderStatus eq '배송 완료' }">
+										<c:forEach items="${artList }" var="art2">
+											<c:if test="${art2.buyWriterCodeSeq eq writer.buyWriterCodeSeq }">
+												<c:choose>
+													<c:when test="${art2.buyArtReviewStatus eq 'N' }">
+														<div class="decision_Div">
+															<input class="purchaseReview_before" type="button" value="구매후기 작성">
+															<input type="button" value="발송 정보 조회">
+														</div>
+													</c:when>
+													<c:otherwise>
+														<c:if test="${art2.buyArtReviewUpdate eq 'N' }">
+															<div class="decision_Div">
+																<input class="purchaseReview" type="button" value="구매후기 수정">
+																<input type="button" value="발송 정보 조회">
+															</div>
+														</c:if>
+														<c:if test="${art2.buyArtReviewUpdate ne 'N' }">
+															<div class="decision_Div">
+																<input class="purchaseReview_done" type="button" value="후기 작성 완료">
+																<input type="button" value="발송 정보 조회">
+															</div>
+														</c:if>
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+										</c:forEach>
+									</c:when>
+									<c:when test="${writer.buyWriterOrderStatus eq '환불 대기' }">
+										<input class="purchaseReview_done" type="button" value="환불 요청 완료">
+									</c:when>
+									<c:when test="${writer.buyWriterOrderStatus eq '환불 완료' }">
+										<input class="purchaseReview_done" type="button" value="환불 완료">
+									</c:when>
+								</c:choose>
+								
 							</div>
 						</div>
-						<div class="aboutW">
-							<a>#작가#</a>
-							<input type="button" value="메시지로 문의">
-						</div>
-						<div class="decision">
-							<input type="button" value="환불요청">
-						</div>
-					</div>
-				</div>
-	
+					
+					</c:forEach>
+				</c:if>
 				
 			</div>
 			
@@ -777,7 +891,7 @@ input[type="button"]:focus{
 	 
 	</div>
 	<div style="margin-top:20px; display: flex; justify-content: center;">
-	<a href="#" style="padding: 12px 30px; border: 1px solid #d9d9d9;
+	<a href="<c:url value='/user/myInfo/orderList.do'/> " style="padding: 12px 30px; border: 1px solid #d9d9d9;
 		background-color: #fff; color: black; font-size: 13px;"><strong>최근 주문내역 더보기</strong></a>
 	</div>
 	
