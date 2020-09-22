@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.bomulsum.user.coupon.repository.UserCouponListVO;
 import com.web.bomulsum.user.coupon.service.UserCouponServiceImpl;
-import com.web.bomulsum.user.order.repository.UserShopbagOptionVO;
-import com.web.bomulsum.user.order.repository.UserShopbagVO;
 import com.web.bomulsum.user.order.service.UserShopbagService;
 import com.web.bomulsum.user.payment.repository.UserCouponPaymentVO;
 import com.web.bomulsum.user.payment.service.UserPaymentService;
@@ -45,7 +42,7 @@ public class UserPaymentController {
 	@ResponseBody 
 	@RequestMapping(value="/payment")
 	public ModelAndView goShopbag(
-			HttpServletRequest request /* , @RequestParam(value="cartCode[]") String cartCode[] */) {
+			HttpServletRequest request /* , @RequestParam(value="cartCode[]") String cartCode[]*/) {
 		ModelAndView mav= new ModelAndView("ushopbag/uPayment");
 		
 		HttpSession session = request.getSession();

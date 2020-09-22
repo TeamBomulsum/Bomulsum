@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.bomulsum.user.article.repository.UserArticleCategoryVO;
 import com.web.bomulsum.user.article.repository.UserOrderByArticlePagingVO;
 import com.web.bomulsum.user.article.service.UserArticleService;
+import com.web.bomulsum.user.popular.repository.UserPopularWriterVO;
+import com.web.bomulsum.user.popular.service.UserPopularWriterService;
 import com.web.bomulsum.user.review.repository.UserReviewVO;
 import com.web.bomulsum.user.review.service.UserReviewServiceImpl;
 
@@ -24,6 +26,8 @@ public class userController {
 	private UserArticleService service;
 	@Autowired
 	private UserReviewServiceImpl serviceR;
+	@Autowired
+	UserPopularWriterService serviceW;
 	
 	@RequestMapping(value="/home")
 	public ModelAndView goHome(HttpSession session, ModelAndView mav) {
@@ -214,6 +218,24 @@ public class userController {
 		
 		mav.setViewName("uhome");
 		
+		//인기작가
+		List<UserPopularWriterVO> writerList = serviceW.getWriterInfo();
+		List<UserPopularWriterVO> popularWriter = new ArrayList<>(writerList.subList(0, 3));
+
+		for(int i=0; i<popularWriter.size(); i++) {
+			if(popularWriter.get(i).getWriter_brand_name() == null) {
+				String name = popularWriter.get(i).getWriter_name();
+				popularWriter.get(i).setWriter_brand_name(name);
+			}
+			if(popularWriter.get(i).getWriter_intro() == null) {
+				popularWriter.get(i).setWriter_intro("소개글 없음");
+			}
+		}
+		
+		System.out.println(popularWriter);
+		mav.addObject("popularWriter", popularWriter);
+		
+
 		
 		// 실시간 후기
 		/*

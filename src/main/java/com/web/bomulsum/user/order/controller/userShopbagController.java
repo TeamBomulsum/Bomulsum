@@ -20,6 +20,7 @@ import com.web.bomulsum.user.order.repository.UserShopbagModalVO;
 import com.web.bomulsum.user.order.repository.UserShopbagOptionVO;
 import com.web.bomulsum.user.order.repository.UserShopbagVO;
 import com.web.bomulsum.user.order.service.UserShopbagService;
+import com.web.bomulsum.user.productInfo.repository.TestVo;
 
 @Controller
 @RequestMapping(value="/user")
@@ -257,4 +258,7 @@ public class userShopbagController {
 		map.put("option", selectedUpdateOption);
 		service.updateOption(map);
 	 }
+	 
+
+	 
 }

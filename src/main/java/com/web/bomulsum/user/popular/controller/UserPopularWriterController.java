@@ -35,9 +35,7 @@ public class UserPopularWriterController {
 		 String memberCode = (String)
 		 session.getAttribute("member"); 
 		 System.out.println(memberCode);
-		 
 		
-		//String memberCode = "member_code_seq58";
 		
 		//작가 상세 정보
 		List<UserPopularWriterVO> list = service.getWriterInfo();

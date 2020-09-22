@@ -841,6 +841,8 @@ button:focus{
 		
 		<c:if test="${not empty shopbagInfo}">
 		<!-- 장바구니 상품들 담기는 곳 -->
+		<form id="jeonga_order_All" action="/bomulsum/user/payment.do" method="post"></form>
+		<form id="jeonga_order_choice" action="/bomulsum/user/payment.do" method="post"></form>
 		<div class="shopcart">
 			<!--  첫번쨰 상품 -->
 			<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
@@ -1081,6 +1083,11 @@ button:focus{
 </div>
 </body>
 <script>
+function AddComma(num){
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	return num.toString().replace(regexp, ',');
+}
+
 $(function(){
 	
 	var codearr= [];
@@ -1272,9 +1279,9 @@ $(function(){
         	del_total += Number(del_value);
     	});
     
-    	$artTotal.html(cur_total/2+"원"); 
-    	$delTotal.html((del_total/2)+"원"); 
-    	$cartTotal.html(((cur_total+del_total)/2) +"원"); 
+    	$artTotal.html(AddComma(cur_total/2)+"원"); 
+    	$delTotal.html(AddComma(del_total/2)+"원"); 
+    	$cartTotal.html(AddComma((cur_total+del_total)/2) +"원"); 
 	});
 	
 	//작품 체크박스 직접 클릭
@@ -1319,9 +1326,9 @@ $(function(){
             	del_total += Number(del_value);
         	});
         
-        	$artTotal.html(cur_total/2+"원"); 
-        	$delTotal.html((del_total / 2)+"원"); 
-         	$cartTotal.html(((cur_total+del_total)/2) +"원");   
+        	$artTotal.html(AddComma(cur_total/2)+"원"); 
+        	$delTotal.html(AddComma(del_total / 2)+"원"); 
+         	$cartTotal.html(AddComma((cur_total+del_total)/2) +"원");   
         }
         if($("input[name=selectCheck]").is(":checked") == false) {
         	var $artTotal = $("#total_art_price");
@@ -1397,33 +1404,18 @@ $(function(){
 	
 	//선택 작품 주문
 	$(".order_Choice").click(function(e){
-		var arr = [];
 		var $items = $(".checkList").find("input[id=selected]:checked");
 		$items.each(function () {
         	var $this = $(this);
         	var $cartSeq = $(this).closest("table").find('.cartCode').text();
-        	arr.push($cartSeq);
+        	var cartCode = $cartSeq;
+        	var $inputCartCode = $('<input type="text" name="cartCode[]" value="'+cartCode+'">');
+    		$('#jeonga_order_choice').append($inputCartCode);
     	});
-		console.log(arr);
-		 var data = {
-			      "cartCode" : arr,
-			}
-		console.log(data);
-		orderArt(data); 
+		$('#jeonga_order_choice').submit();
+		
 	});
 	
-	//선택주문 값 넘기기
-  	function orderArt(data){   
-		 $.ajax({
- 	  		 url:"/bomulsum/user/payment.do",
-   	 		data:data,
-   	 		success : function(){
-    		},
-   			error : function(err){
-       			console.log(err);
-  		  }
- 		});
-	}  
 	
 	//전체 작품 주문
 	$(".order_All").click(function(e){
@@ -1455,32 +1447,18 @@ $(function(){
          	$cartTotal.html(((cur_total+del_total)/2) +"원");   
 	      }
 		   
-		var arr = [];
 		var $items = $(".checkList").find("input[id=selected]:checked");
 		$items.each(function () {
         	var $this = $(this);
         	var $cartSeq = $(this).closest("table").find('.cartCode').text();
-        	arr.push($cartSeq);
+        	var cartCode = $cartSeq;
+        	var $inputCartCode = $('<input type="text" name="cartCode[]" value="'+cartCode+'">');
+    		$('#jeonga_order_All').append($inputCartCode);
     	});
-		console.log(arr);
-		 var data = {
-			      "cartCode" : arr,
-			}
-		orderAllArt(data); 
+		$('#jeonga_order_All').submit();
+		
 	});
-	
-	//전체작품주문 값 넘기기
-  	function orderAllArt(data){   
-		 $.ajax({
- 	  		 url:"/bomulsum/user/payment.do",
-   	 		data:data,
-   	 		success : function(){
-    		},
-   			error : function(err){
-       			console.log(err);
-  		  }
- 		});
-	}  
+
 	
 	// 모달 띄우기 
 	$(".option_update").click(function(e){

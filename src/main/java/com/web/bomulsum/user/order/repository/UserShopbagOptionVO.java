@@ -1,7 +1,6 @@
 package com.web.bomulsum.user.order.repository;
 
 public class UserShopbagOptionVO {
-	
 
 	private String art_option_seq;
 	private String art_option_category;
