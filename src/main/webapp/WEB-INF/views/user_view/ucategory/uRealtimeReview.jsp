@@ -81,6 +81,9 @@ body a:link, a:visited, a:hover, a:active {
 	 color:#A4A4A4;
 	 padding-bottom:0;
 }
+.minwoo_realtime_review_artinfo span{
+	cursor: pointer;
+}
 .minwoo_realtime_review_artinfo a{
 	font-size:13px;
 	text-decoration:none;
@@ -269,6 +272,12 @@ body a:link, a:visited, a:hover, a:active {
 			window.open(url, "_blank");
 		};
 		
+		function writerLoction(e){
+			var writer_code = e.id;
+			var url = '/bomulsum/writerhome/'+writer_code+'.do';
+			window.open(url, "_blank");
+		};
+		
 		function getList(page){
 			$.ajax({
 				type : 'POST',
@@ -281,15 +290,9 @@ body a:link, a:visited, a:hover, a:active {
 				success : function(returnData){
 					var htmldiv = '';
 					var artImg = '';
-					var mamberName1 = '';
-					var mamberName2 = '';
-					var mamberName3 = '';
-					var reviewComment1 = '';
-					var reviewComment2 = '';
-					var reviewComment3 = '';
-					var reviewStar1 = '';
-					var reviewStar2 = '';
-					var reviewStar3 = '';
+					var mamberNameArr = [];
+					var reviewCommentArr = [];
+					var reviewStarArr = [];
 					var data = returnData.data;
 					var brandName = '';
 					
@@ -303,15 +306,11 @@ body a:link, a:visited, a:hover, a:active {
 						if(data.length > 0){
 							for(var i = 0; i < data.length; i++){
 								artImg = data[i].artPhoto.split(',')[0];
-								mamberName1 = data[i].memberName.split('|-%-|')[0];
-								mamberName2 =  data[i].memberName.split('|-%-|')[1];
-								mamberName3 =  data[i].memberName.split('|-%-|')[2];
-								reviewComment1 =  data[i].reviewComment.split('|-%-|')[0];
-								reviewComment2 = data[i].reviewComment.split('|-%-|')[1];
-								reviewComment3 = data[i].reviewComment.split('|-%-|')[2];
-								reviewStar1 = data[i].reviewStar.split('|-%-|')[0];
-								reviewStar2 = data[i].reviewStar.split('|-%-|')[1];
-								reviewStar3 = data[i].reviewStar.split('|-%-|')[2];
+								mamberNameArr = data[i].memberName.split('|-%-|');
+								reviewCommentArr =  data[i].reviewComment.split('|-%-|');
+								reviewStarArr = data[i].reviewStar.split('|-%-|');
+								
+								console.log("작품별 후기 개수 : " + reviewStarArr.length);
 								
 								if(data[i].writerBrandName == "" || data[i].writerBrandName == null
 										|| data[i].writerBrandName == undefined ||
@@ -321,81 +320,45 @@ body a:link, a:visited, a:hover, a:active {
 									brandName = data[i].writerBrandName;
 								}
 								
-								console.log(artImg + '//' + mamberName1 +
+								/* console.log(artImg + '//' + mamberName1 +
 											'//' + mamberName2 + '//' + mamberName3 +
 											'//' + reviewComment1 + '//' + reviewComment2 +
 											'//' + reviewComment3 + '//' + reviewStar1 +
-											'//' + reviewStar2 + '//' + reviewStar3);
+											'//' + reviewStar2 + '//' + reviewStar3); */
 								
 								htmldiv += '<div class="minwoo_realtime_review_one">'
 								+ '<div class="minwoo_realtime_review_photo">'
-								+ '<a href="" id="' + data[i].artCodeSeq + '" onclick="artCode(this);"><img src="/bomulsum/upload' + artImg + '"></a>'
+								+ '<a href="" id="' + data[i].artCodeSeq + '" onclick="artCode(this);"><img src="/bomulsum/upload/' + artImg + '"></a>'
 								+ '</div>'
 								+ '<div class="minwoo_realtime_review_artinfo">'
-								+ '<span>' + brandName + '</span>'
+								+ '<span onclick="writerLoction(this)" id="' + data[i].writerUrl + '">' + brandName + '</span>'
 								+ '<br>'
 								+ '<a href="" id="' + data[i].artCodeSeq + '" onclick="artCode(this);">' + data[i].artName + '</a>'
 								+ '</div>'
-								+ '<div class="minwoo_realtime_review_comments">' // 별점 / 작성자 / 후기 들어올 영역 시작
+								+ '<div class="minwoo_realtime_review_comments">'; // 별점 / 작성자 / 후기 들어올 영역 시작
 								
-								+ '<div>' // 후기 한개 영역 시작
-								+ '<div class="minwoo_realtime_review_comments_starpointname">'
-								+ '<div style="">'
-								+ '<div class="minwoo_starRev" data-rate="'+ reviewStar1 + '">'
-								+ '<span class="minwoo_starR1 on">1</span> <span class="minwoo_starR2">2</span>'
-								+ '<span class="minwoo_starR1">3</span> <span class="minwoo_starR2">4</span>'
-								+ '<span class="minwoo_starR1">5</span> <span class="minwoo_starR2">6</span>'
-								+ '<span class="minwoo_starR1">7</span> <span class="minwoo_starR2">8</span>'
-								+ '<span class="minwoo_starR1">9</span> <span class="minwoo_starR2">10</span>'
-								+ '</div>'
-								+ '</div>'
-								+ '<span>&nbsp;|&nbsp;</span>'
-								+ '<span>' + mamberName1 + '</span>'
-								+ '</div>'
-								+ '<div class="minwoo_realtime_review_comments_text">'
-								+ '<p class="minwoo_txt_post">' + reviewComment1 + '</p>'
-								+ '</div>'
-								+ '</div>' // 후기 한개 영역 종료
+								for(var r=0; r < mamberNameArr.length; r++){
+										htmldiv += '<div>' // 후기 한개 영역 시작
+										+ '<div class="minwoo_realtime_review_comments_starpointname">'
+										+ '<div style="">'
+										+ '<div class="minwoo_starRev" data-rate="'+ reviewStarArr[r] + '">'
+										+ '<span class="minwoo_starR1 on">1</span> <span class="minwoo_starR2">2</span>'
+										+ '<span class="minwoo_starR1">3</span> <span class="minwoo_starR2">4</span>'
+										+ '<span class="minwoo_starR1">5</span> <span class="minwoo_starR2">6</span>'
+										+ '<span class="minwoo_starR1">7</span> <span class="minwoo_starR2">8</span>'
+										+ '<span class="minwoo_starR1">9</span> <span class="minwoo_starR2">10</span>'
+										+ '</div>'
+										+ '</div>'
+										+ '<span>&nbsp;|&nbsp;</span>'
+										+ '<span>' + mamberNameArr[r] + '</span>'
+										+ '</div>'
+										+ '<div class="minwoo_realtime_review_comments_text">'
+										+ '<p class="minwoo_txt_post">' + reviewCommentArr[r] + '</p>'
+										+ '</div>'
+										+ '</div>'; // 후기 한개 영역 종료
+									}
 								
-								+ '<div>' // 후기 한개 영역 시작
-								+ '<div class="minwoo_realtime_review_comments_starpointname">'
-								+ '<div style="">'
-								+ '<div class="minwoo_starRev" data-rate="'+ reviewStar2 + '">'
-								+ '<span class="minwoo_starR1 on">1</span> <span class="minwoo_starR2">2</span>'
-								+ '<span class="minwoo_starR1">3</span> <span class="minwoo_starR2">4</span>'
-								+ '<span class="minwoo_starR1">5</span> <span class="minwoo_starR2">6</span>'
-								+ '<span class="minwoo_starR1">7</span> <span class="minwoo_starR2">8</span>'
-								+ '<span class="minwoo_starR1">9</span> <span class="minwoo_starR2">10</span>'
-								+ '</div>'
-								+ '</div>'
-								+ '<span>&nbsp;|&nbsp;</span>'
-								+ '<span>' + mamberName2 + '</span>'
-								+ '</div>'
-								+ '<div class="minwoo_realtime_review_comments_text">'
-								+ '<p class="minwoo_txt_post">' + reviewComment2 + '</p>'
-								+ '</div>'
-								+ '</div>' // 후기 한개 영역 종료
-								
-								+ '<div>' // 후기 한개 영역 시작
-								+ '<div class="minwoo_realtime_review_comments_starpointname">'
-								+ '<div style="">'
-								+ '<div class="minwoo_starRev" data-rate="'+ reviewStar3 + '">'
-								+ '<span class="minwoo_starR1 on">1</span> <span class="minwoo_starR2">2</span>'
-								+ '<span class="minwoo_starR1">3</span> <span class="minwoo_starR2">4</span>'
-								+ '<span class="minwoo_starR1">5</span> <span class="minwoo_starR2">6</span>'
-								+ '<span class="minwoo_starR1">7</span> <span class="minwoo_starR2">8</span>'
-								+ '<span class="minwoo_starR1">9</span> <span class="minwoo_starR2">10</span>'
-								+ '</div>'
-								+ '</div>'
-								+ '<span>&nbsp;|&nbsp;</span>'
-								+ '<span>' + mamberName3 + '</span>'
-								+ '</div>'
-								+ '<div class="minwoo_realtime_review_comments_text">'
-								+ '<p class="minwoo_txt_post">' + reviewComment3 + '</p>'
-								+ '</div>'
-								+ '</div>' // 후기 한개 영역 종료
-								
-								+ '</div>'// 별점 / 작성자 / 후기 들어올 영역 종료
+								htmldiv += '</div>'// 별점 / 작성자 / 후기 들어올 영역 종료
 								+ '<div class="minwoo_realtime_review_morebtn">'
 								+ '<a href="" id="' + data[i].artCodeSeq + '" onclick="artCode(this);" style="text-decoration: none; font-size:14px; color:#2ECCFA;">작품의 구매 후기 전체 보기 &gt;</a>'
 								+ '</div>'

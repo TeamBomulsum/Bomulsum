@@ -140,9 +140,10 @@ body a:link, a:visited, a:hover, a:active {
 }
 
 .minwoo_contentOptionUl{
-	 font-size:small;
-	 color:#6E6E6E;
-	 margin-top:10px;
+    font-size: 15.5px;
+    color: #6E6E6E;
+    margin-top: 10px;
+    line-height: 180%;
 }
 
 .minwoo_modal {
@@ -246,6 +247,13 @@ body a:link, a:visited, a:hover, a:active {
     text-align: center;
     padding: 5px;
     font-weight: bold;
+}
+
+li p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 25px;
 }
 
 </style>
@@ -370,12 +378,9 @@ body a:link, a:visited, a:hover, a:active {
 							<div style="flex-direction: column; width: 90%; margin-left: 2%;">
 								<div style="height: 40%; font-size: 18px; font-weight: bold;" id="artName"></div>
 								<!--옵션 내용 영역 시작 - 동일한 작품의 옵션이 서로 다른 물품들을 구매한 경우 포문 돌면서 값 가져오기 -->
-								<div style="display: flex; flex-direction: column; height: 60%; overflow: auto; font-size: 15px;">
+								<div style="display: flex; flex-direction: column; height: 60%; overflow: auto; font-size: 15px;" id="modalOptionCategory">
 									<!--여기서부터 옵션 이 다른 물품 하나씩의 값-->
-										<div style="margin-top: 1px; display: flex; flex-direction: row;">
-											<div style="width: 85%;" id="modalOptionCategory"></div>
-											<div style="width: 15%;" id="modalOptionCount"></div>
-										</div>
+										
 										<!-- <div style="margin-top: 1px; display: flex; flex-direction: row;">
 											<div style="width: 90%;">
 												선택한 옵션
@@ -491,6 +496,18 @@ body a:link, a:visited, a:hover, a:active {
 		     } 
 		});
 		
+		function artCode(e){
+			var art_code = e.id;
+			var url = "/bomulsum/user/uProductInfo/" + art_code + ".do?memberCode="+memberCode;
+			window.open(url, "_blank");
+		};
+		
+		function writerLoction(e){
+			var writer_code = e.id;
+			var url = '/bomulsum/writerhome/'+writer_code+'.do';
+			window.open(url, "_blank");
+		};
+		
 		function getList(page){
 			$.ajax({
 				type : 'POST',
@@ -560,6 +577,8 @@ body a:link, a:visited, a:hover, a:active {
 										+ '<input type=\"hidden\" value=\"' + data[i].reviewCodeSeq +'\" />' // 7
 										+ '<input type=\"hidden\" value=\"' + data[i].reviewComment +'\" />' // 8
 										+ '<input type=\"hidden\" value=\"' + data[i].reviewStar +'\" />' // 9
+										+ '<input type=\"hidden\" value=\"' + data[i].bArtOptionName +'\" />' // 10
+										+ '<input type=\"hidden\" value=\"' + data[i].artOptionAmount +'\" />' // 10
 										+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
 										+ '<div class=\"minwoo_uWriteReview_ListContent_body_head\">'
 										+ '<div class=\"minwoo_uWriteReview_ListContent_body_head_photo\">'
@@ -567,10 +586,11 @@ body a:link, a:visited, a:hover, a:active {
 										+ '</div>'
 										+ '<div style=\"margin-left:10px; margin-top:3px;\">'
 										+ '<div style=\"font-weight:bold;\">'
-										+ '<a href=\"#\" style=\"text-decoration:none;\">' + data[i].artName + '</a>'
+										+ '<a href=\"\" onClick=\"artCode(this)\" style=\"text-decoration:none;\" id=\"'+ data[i].artCodeSeq +'\">' + data[i].artName + '</a>'
 										+ '</div>'
 										+ '<div style=\"margin-top:3px;\">'
-										+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
+										+ '<a href=\"\" id="' + data[i].writerUrl
+										+ '" onClick="writerLoction(this)" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
 										+ brandName + '</a>'
 										+ '</div>'
 										+ '</div>'
@@ -582,22 +602,22 @@ body a:link, a:visited, a:hover, a:active {
 										switch(artOption.length){
 											// 선택한 작품의 서로 다른 옵션으로 구매한 수량이 한개일 때
 											case 1 :
-												htmldiv += '<li> 선택한 옵션 : <br><br>' + artOption[0] + ' / 수량 : ' + artOptionAmount[0]  +' 개' + '</li>';
+												htmldiv += '<li> 구매 옵션 별 수량 <br>' + artOption[0] + ' / 수량 : ' + artOptionAmount[0]  +' 개' + '</li>';
 												break;
 											// 선택한 작품의 서로 다른 옵션으로 구매한 수량이 두개일 때
 											case 2 :
-												htmldiv += '<li> 선택한 옵션 : <br><br>' + artOption[0] + ' / 수량 : ' + artOptionAmount[0]  +' 개' + '<br>'
+												htmldiv += '<li> 구매 옵션 별 수량 <br>' + artOption[0] + ' / 수량 : ' + artOptionAmount[0]  +' 개' + '<br>'
 												+ artOption[1] + ' / 수량 : ' + artOptionAmount[1]  +' 개' +'</li>';
 												break;
 											// 선택한 작품의 서로 다른 옵션으로 구매한 수량이 그 이상일 때
 											default :
-												htmldiv += '<li> 선택한 옵션 : <br>' + artOption[0] + ' / 수량 : ' + artOptionAmount[0]  +' 개' +  '<br>'
+												htmldiv += '<li> 구매 옵션 별 수량 <br>' + artOption[0] + ' / 수량 : ' + artOptionAmount[0]  +' 개' +  '<br>'
 												+ artOption[1] + ' / 수량 : ' + artOptionAmount[1]  +' 개'
-												+ '<br> ... 그 외' + (artOption.length - 2) + ' 개' + '</li>';
+												+ '\t\t ... 그 외 ' + (artOption.length - 2) + ' 개' + '</li>';
 										}
 										
-										htmldiv += '<br><li> 작품 설명 : ' + data[i].artDescription + '</li>'
-										+ '<li> 구매 일자 : ' + moment(data[i].orderDate).format("YYYY-MM-DD") + '</li>'
+										htmldiv += //'<li> 작품 설명 ' + data[i].artDescription + '</li>'
+										 '<br><li> 구매 일자 : ' + moment(data[i].orderDate).format("YYYY-MM-DD") + '</li>'
 										+ '</ul>'
 										+ '</div>'
 										+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">' + buttonText + '</button>'
@@ -665,10 +685,15 @@ body a:link, a:visited, a:hover, a:active {
 		var modalreviewComment;
 		var modalreviewPhoto;
 		
+		var modalArtOption = [];
+		var modalArtOptionAmount = [];
+		var modalArtOptionDiv = '';
 		
 		var modal = function(){
 			
 			document.getElementById('reviewComment').focus();
+			
+			$('#modalOptionCategory').empty();
 
 			//사진 업로드 영역 초기화
 			$('#minwoo_review_photo').text("");
@@ -696,6 +721,9 @@ body a:link, a:visited, a:hover, a:active {
 			modalreviewComment = $.trim($(this).closest('div').children('input').eq(8).val());
 			modalreviewStar = $.trim($(this).closest('div').children('input').eq(9).val());
 			
+			modalArtOption = $.trim($(this).closest('div').children('input').eq(10).val()).split('|-%-|');
+			modalArtOptionAmount = $.trim($(this).closest('div').children('input').eq(11).val()).split('|-%-|');
+			modalArtOptionDiv = '';
 			
 			console.log("모달에 뜨워준 구매작품 코드 : " + modalBuyArtCode);
 			console.log("모달에 뜨워준 작품 코드 : " + modalArtCode);
@@ -706,17 +734,29 @@ body a:link, a:visited, a:hover, a:active {
 			console.log("모달에 띄워준 옵션 이름 : " + modalOptionName);
 			console.log("모달에 띄워준 옵션 수량 : " + modalOptionCount);
 
-			console.log("모달에 띄워준 후기 등록 상태  : " + modalreviewStatus)
-			console.log("모달에 띄워준 후기 코드  : " + modalreviewCodeSeq)
-			console.log("모달에 띄워준 후기 코멘트  : " + modalreviewComment)
-			console.log("모달에 띄워준 후기 별점 : " + modalreviewStar)
-
+			console.log("모달에 띄워준 후기 등록 상태  : " + modalreviewStatus);
+			console.log("모달에 띄워준 후기 코드  : " + modalreviewCodeSeq);
+			console.log("모달에 띄워준 후기 코멘트  : " + modalreviewComment);
+			console.log("모달에 띄워준 후기 별점 : " + modalreviewStar);
+			
+			console.log("모달에 띄워준 작품 옵션  : " + modalArtOption);
+			console.log("모달에 띄워준 작품 옵션 수량 : " + modalArtOptionAmount);
+			console.log("모달에 띄워준 작품 옵션 개수 : " + modalArtOption.length);
+			
 			//갑 셋팅한 변수들 모달에 뿌려주기
 			$('#artName').text(modalArtName);
 			$('#reviewComment').val(''); // 수정으로 들어갔을때 값이 남아있지 않게 초기화 시켜주고, 다시 불러오기
 			$("#modalArtImg").attr("src", "/bomulsum/upload/" + modalArtPhoto);
-			$('#modalOptionCategory').text(modalOptionCategory);
-			$('#modalOptionCount').text("수량 : " + modalOptionCount + "개");
+			
+			for(var i=0; i < modalArtOption.length; i++){
+				modalArtOptionDiv += '<div style="margin-top: 1px; display: flex; flex-direction: row;">'
+						+ '<div style="width:70%">' + modalArtOption[i] + '</div><div style="width:10%"></div>'
+						+ '<div style="width:20%"> 수량 : ' + modalArtOptionAmount[i] +' 개</div>'
+						+ '</div>';
+			}
+			$('#modalOptionCategory').html(modalArtOptionDiv);
+			//$('#modalOptionCount').text("수량 : " + modalOptionCount + "개");
+			
 			$('.minwoo_starRev').attr('data-rate', 1);
 
 			
@@ -726,6 +766,7 @@ body a:link, a:visited, a:hover, a:active {
 			$('#writerCodeSeq').val(modalWriterCode);
 			$('#alarmContent').val("[ " + modalArtName + " ] 작품에  ${userName} 님께서 새로운 구매후기를 등록 하셨습니다.");
 			$('#bArtReviewStatus').val('N');
+			$('#reviewStar').val('');
 			
 			if(modalreviewStatus == 'Y'){
 				$('#reviewCodeSeq').val(modalreviewCodeSeq);
@@ -738,6 +779,7 @@ body a:link, a:visited, a:hover, a:active {
 				$('#minwoo_review_photo').css('display','none');
 				$('#minwoo_review_photoNo').css('display','block');
 				$('#saveButton').val("수정");
+				$('#reviewStar').val(modalreviewStar);
 			}
 			
 			
@@ -834,6 +876,12 @@ body a:link, a:visited, a:hover, a:active {
 						+ 'alarmContent : ' + $('#alarmContent').val() + ' / ' + 'reviewPhoto : ' + $('#image').val() + ' / '
 						+ 'reviewComment : ' + $('#reviewComment').val());
 			
+			if($('#reviewStar').val() == ''){
+				alert('별점을 입력해 주세요.');
+				reviewComment.focus();
+				return false;
+			};
+			
 			if(reviewComment.value == ''){
 				alert('후기 내용을 입력해 주세요.');
 				reviewComment.focus();
@@ -847,8 +895,7 @@ body a:link, a:visited, a:hover, a:active {
 			} else {
 				rtn = confirm("구매 후기를 수정하시겠습니까? \n (차후 수정이 불가능 합니다.)");
 			}
-
-			$('#reviewStar').val($('.minwoo_starRev').attr('data-rate'));
+			
 			
 			if(rtn){
 				formSubmit.submit();	
