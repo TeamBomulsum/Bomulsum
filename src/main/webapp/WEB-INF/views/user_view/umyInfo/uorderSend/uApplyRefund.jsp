@@ -83,6 +83,7 @@ body a:link, a:visited, a:hover, a:active {
 	width:80%;
 	display:flex;
 	flex-direction: row;
+    margin-left: 1.5%;
 }
 
 .dndud_content_title div:nth-child(2){
@@ -283,7 +284,7 @@ body a:link, a:visited, a:hover, a:active {
 		
 			<div class="dndud_content_top">
 				<div class="dndud_content_top_title">
-					<a class="dndud_txt_f1">취소신청</a>
+					<a class="dndud_txt_f1">환불신청</a>
 				</div>
 			</div>
 			
@@ -293,7 +294,7 @@ body a:link, a:visited, a:hover, a:active {
 						<span>2020-07-21</span>|<span>배송주소 입력완료</span>
 					</div>
 					<div>
-						<span>목정아님에게 보낸 선물 ></span>
+						<span></span>
 					</div>
 				</div>
 				<div class="dndud_content_main_article">

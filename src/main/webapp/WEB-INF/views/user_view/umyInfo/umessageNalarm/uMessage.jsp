@@ -927,7 +927,7 @@ $(function(){
 
 <script>
 var chatroomCode = getParameter('writer');
-if(chatroomCode != null){
+if(chatroomCode != null && chatroomCode != 'null' && chatroomCode != ''){
 	$(document).ready(function(){
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
 		var lengthCheck = false;

@@ -832,7 +832,7 @@ input[type="button"]:focus{
 											
 								<c:choose>
 									<c:when test="${writer.buyWriterOrderStatus eq '결제 완료' }">
-										<input class="" type="button" value="환불요청">
+										<input id="${order.orderCodeSeq }" class="go_to_refund" type="button" value="환불요청">
 									</c:when>
 									<c:when test="${writer.buyWriterOrderStatus eq '배송 완료' }">
 										<c:forEach items="${artList }" var="art2">
@@ -1265,6 +1265,24 @@ $(function(){
 			alert('해제되었습니다.');
 		}
 		location.reload();
+	});
+	
+	$(".go_to_writer_message").on('click', function(){
+		if(memberCode == null || memberCode == ''){
+			alert('세션이 만료되었습니다.');
+			location.href="/bomulsum/user/login.do";
+		}else{
+			location.href="/bomulsum/user/message.do?writer="+$(this).attr('id');
+		}
+	});
+	
+	$('.go_to_refund').on('click', function(){
+		if(memberCode == null || memberCode == ''){
+			alert('세션이 만료되었습니다.');
+			location.href="/bomulsum/user/login.do";
+		}else{
+			location.href="/bomulsum/user/myInfo/refund/request.do?orderCode="+$(this).attr('id');
+		}
 	});
 });
 </script>

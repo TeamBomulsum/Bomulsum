@@ -58,8 +58,9 @@ public class UserOrderListController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/myInfo/refundList/detail")
-	public String refundList() {
+	@RequestMapping(value="/myInfo/refund/request")
+	public String refundList(@RequestParam(value="orderCode") String code ) {
+		System.out.println(code);
 		return "/umyInfo/uorderSend/uApplyRefund";
 	}
 	

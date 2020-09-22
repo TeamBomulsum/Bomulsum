@@ -151,6 +151,7 @@
 
 .dndud_semicontent_top .price{
 	font-weight: bold;
+	color:black;
 	display: flex;
 	align-items: center;
 	text-decoration: none;
@@ -390,7 +391,7 @@ input[type="button"]:focus{
 						<div class="dndud_semicontent">
 							<div class="dndud_semicontent_top">
 								<a class="date">${order.orderDate }</a>
-								<a id="${order.orderCodeSeq }" class="price" href="<c:url value='/user/myInfo/orderList/detail.do?orderCode=${order.orderCodeSeq }' />"><fmt:formatNumber value="${order.orderPayPrice }" pattern="#,###"/>원 ></a>
+								<a class="price" href="<c:url value='/user/myInfo/orderList/detail.do?orderCode=${order.orderCodeSeq }' />"><fmt:formatNumber value="${order.orderPayPrice }" pattern="#,###"/>원 ></a>
 							</div>
 							<%-- 작가별 포문 --%>
 							<c:forEach items="${writerList }" var="writer">
@@ -438,7 +439,7 @@ input[type="button"]:focus{
 										
 											<c:choose>
 												<c:when test="${writer.buyWriterOrderStatus eq '결제 완료' }">
-													<input class="" type="button" value="환불요청">
+													<input id="${order.orderCodeSeq }" class="go_to_refund" type="button" value="환불요청">
 												</c:when>
 												<c:when test="${writer.buyWriterOrderStatus eq '배송 완료' }">
 													<c:forEach items="${artList }" var="art2">
@@ -662,6 +663,15 @@ function artCode(e){
 				location.href="/bomulsum/user/login.do";
 			}else{
 				location.href="/bomulsum/user/message.do?writer="+$(this).attr('id');
+			}
+		});
+		
+		$('.go_to_refund').on('click', function(){
+			if(memberCode == null || memberCode == ''){
+				alert('세션이 만료되었습니다.');
+				location.href="/bomulsum/user/login.do";
+			}else{
+				location.href="/bomulsum/user/myInfo/refund/request.do?orderCode="+$(this).attr('id');
 			}
 		});
 	});
