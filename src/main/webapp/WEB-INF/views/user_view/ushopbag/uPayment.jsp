@@ -31,6 +31,7 @@ var dain_fin_ship = 0;
 var dain_fin_discount = 0;
 var dain_fin_jeju = 0;
 
+var dain_fin_jeju_sum = 0; //제주산간 작가별 비용합계
 
 
 //아임포트 결제api 관련
@@ -129,6 +130,11 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+/* 콤마풀기 */
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
 
 
 /* 사용가능적립금 체크 */
@@ -145,14 +151,33 @@ function cal_fin_plus(){
   
    dain_fin_artprice = parseInt($('#dain_fin_artprice').text());
 	 dain_fin_ship = parseInt($('#dain_fin_ship').text());
-	 dain_fin_jeju = parseInt($('#dain_fin_jeju').text());
+	 dain_fin_jeju = 0;
+	 
+	 var dain_sum = dain_fin_artprice + dain_fin_ship +dain_fin_jeju ;
+	 return dain_sum;
+}
+//최종 합산 구하는 함수(할인금액빼고) - 제주산간도서 ver
+function cal_fin_plus_jeju(){
+  
+   	 dain_fin_artprice = parseInt($('#dain_fin_artprice').text());
+	 dain_fin_ship = parseInt($('#dain_fin_ship').text());
+	 dain_fin_jeju = dain_fin_jeju_sum;
+	 
 	 
 	 var dain_sum = dain_fin_artprice + dain_fin_ship +dain_fin_jeju ;
 	 return dain_sum;
 }
 //최종결제할 금액(할인포함)
 function cal_fin_sum(){
-	var plus_sum = cal_fin_plus();
+	var plus_sum = 0;
+	var t = parseInt($('#dain_fin_jeju').text());
+	
+	//제주산간 처리
+	if( t == 0 ){
+		plus_sum = cal_fin_plus();
+	}else{
+		plus_sum = cal_fin_plus_jeju();
+	}
 	
 	dain_fin_discount = parseInt($('#dain_coupon_input').val()) + parseInt($('#dainUserPoint').val());
 	
@@ -195,9 +220,14 @@ function daumPostcode() {
 					
 					//제주 도서산간 추가비용 계산
 					jejucheck = $('input[name=addrAddr12]').val();
-				    if(jejucheck.substring(0,2)=='제주'){
+				    if(jejucheck.substring(0,2) == '제주'){
 				    	console.log("제주산간비용추가")
-				    } 
+				    	$('#dain_fin_jeju').text(dain_fin_jeju_sum);
+				    	cal_fin_sum();
+				    }else{
+				    	$('#dain_fin_jeju').text(0);
+				    	cal_fin_sum();
+				    }
 				}
 			}).open();
 }
@@ -228,9 +258,14 @@ function daumPostcode2() {
 					
 					//제주 도서산간 추가비용 계산
 					jejucheck = $('input[name=addrAddr12]').val();
-				    if(jejucheck.substring(0,2)=='제주'){
+				    if(jejucheck.substring(0,2) == '제주'){
 				    	console.log("제주산간비용추가")
-				    } 
+				    	$('#dain_fin_jeju').text(dain_fin_jeju_sum);
+				    	cal_fin_sum();
+				    }else{
+				    	$('#dain_fin_jeju').text(0);
+				    	cal_fin_sum();
+				    }
 				}
 			}).open();
 }
@@ -264,7 +299,12 @@ function daumPostcode3() {
 					jejucheck = $('input[name=addrAddr12]').val();
 				    if(jejucheck.substring(0,2) == '제주'){
 				    	console.log("제주산간비용추가")
-				    } 
+				    	$('#dain_fin_jeju').text(dain_fin_jeju_sum);
+				    	cal_fin_sum();
+				    }else{
+				    	$('#dain_fin_jeju').text(0);
+				    	cal_fin_sum();
+				    }
 				}
 			}).open();
 }
@@ -467,6 +507,7 @@ $(function(){
     var usePoint = document.getElementById('dainUserPoint').value;
     console.log(usePoint);
     
+    
     //적립금 변경되면 총 할인합계에 반영
     $("#dainUserPoint").change(function(){
     	var finUsePoint = $("#dainUserPoint").val();
@@ -509,20 +550,45 @@ $(function(){
  	//도서산간 처리-------
 	shipInfoSet();
   
+ 	
+ 	//작가 제주산간 합계
+ 	<c:forEach items="${shopbagInfo}" var="item">
+ 		dain_fin_jeju_sum += ${item.writer_plus_price};
+	</c:forEach>
+	console.log("제주산간 합계:"+dain_fin_jeju_sum);
+	
+	
+ 	
     $('#shipTab1,#shipTab2,#shipTab3').click(function(){
     	shipInfoSet();
         if(shipFirst.substring(0,2)=='제주'){
-        	console.log("제주산간비용추가")
+        	console.log("제주산간비용추가");
+        	$('#dain_fin_jeju').text(dain_fin_jeju_sum);
+        	cal_fin_sum();
+        }else{
+        	$('#dain_fin_jeju').text(0);
+        	cal_fin_sum();
         }
     });
 
      //제주 도서산간 추가비용 계산
     if(shipFirst.substring(0,2)=='제주'){
-    	console.log("제주산간비용추가")
-    } 
+    	console.log("제주산간비용추가");
+    	$('#dain_fin_jeju').text(dain_fin_jeju_sum);
+    	cal_fin_sum();
+    }else{
+    	$('#dain_fin_jeju').text(0);
+    	cal_fin_sum();
+    }
      
      
      
+   //작품금액 합계-----------
+    <c:forEach items='${shopbagInfo}' var="info">
+  		 dain_fin_artprice += ${info.totalPrice}
+	</c:forEach>
+	console.log("작품금액 합계:"+dain_fin_artprice);
+    $('#dain_fin_artprice').text(dain_fin_artprice);
   //최종 결제금액 계산------
     cal_fin_sum();
 	
@@ -1202,6 +1268,36 @@ ul.tabs li.current{
 	-khtml-border-radius: 6px;
 	-webkit-border-radius: 6px;
 }
+
+.list_option{
+	margin-bottom: 8px;
+	list-style: none;
+	font-size:12px;
+	padding:0;
+	width:100%;
+	
+}
+
+.list_option li{
+	padding:0;
+	margin:0;
+	margin-bottom:10px;
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.option_txt{
+	font-size: 12px;
+    color: #666;
+    width: 75%;
+    min-height: 18px;
+    display: flex;
+    align-items: center;
+  	margin-right:10px; 
+}
+
+
 </style>
 </head>
 <body>
@@ -1429,7 +1525,7 @@ ul.tabs li.current{
 		
 		
 		<!-- 주문작품정보 상세 -->
-		<c:forEach items='${shopbagInfo}' var="info">
+		<c:forEach items='${shopbagInfo}' var="info" varStatus="status2">
 			
 		<table class="dain-order-goods-table" style="display: none;">
 		<thead>
@@ -1441,6 +1537,7 @@ ul.tabs li.current{
 				</th>
 			</tr>
 		</thead>
+	
 		<tbody>
 			<tr><td colspan="2" style="height:8px;"></td></tr>
 			<tr>
@@ -1455,35 +1552,32 @@ ul.tabs li.current{
 			</tr>
 			<tr>
 				<td class="dain-amount-td" colspan="2"  style="border-bottom: 1px solid #d9d9d9;">
-				<div style="display: flex; ">
-						<c:choose>
-							<c:when test="${info.art_option_category3 eq null}">
-								<span class="option_txt">
-								${info.art_option_category1}&nbsp;:&nbsp;${info.art_option_name1}&nbsp;:&nbsp;${info.art_option_price1}원 / 
-								${info.art_option_category2}&nbsp;:&nbsp;${info.art_option_name2}&nbsp;:&nbsp;${info.art_option_price2}원 
-								</span>
-    						</c:when>
-							<c:when test="${info.art_option_category2 eq null}">
-								<span class="option_txt">
-								${info.art_option_category1}&nbsp;:&nbsp;${info.art_option_name1}&nbsp;:&nbsp;${info.art_option_price1}원
-								</span>
-    						</c:when>
-    						<c:when test="${info.art_option_category1 eq null}">
-								<span class="option_txt">
-								</span>
-    						</c:when>
-							<c:otherwise>
-        						<span class="option_txt">
-								${info.art_option_category1}&nbsp;:&nbsp;${info.art_option_name1}&nbsp;:&nbsp;${info.art_option_price1}원 / 
-								${info.art_option_category2}&nbsp;:&nbsp;${info.art_option_name2}&nbsp;:&nbsp;${info.art_option_price2}원 /
-								${info.art_option_category3}&nbsp;:&nbsp;${info.art_option_name3}&nbsp;:&nbsp;${info.art_option_price3}원 
-								</span>
-    						</c:otherwise>
-					</c:choose>
-					<div class="dain-amount">수량 : ${info.art_count}개</div>
-					<!-- <div style="padding-left: 8px;">1</div> 수량 받아와야함
-					<div>개</div> -->
-				<div class="dain-price">${info.total_price}원</div>
+				<div style="display: flex; justify-content: space-between; ">
+				
+					<!-- 주문작품 옵션 정보 -->
+					<ul class="list_option">
+								<c:forEach var="totalOption" items="${info.totalOption}" varStatus="status">
+									<li>
+											<span class="option_txt">
+											<c:forEach var="j" items="${totalOption.optionArray}">
+											${j.art_option_category}:&nbsp;${j.art_option_name}:&nbsp;${j.art_option_price}원 &nbsp;/
+											</c:forEach>
+											&nbsp;수량: ${totalOption.artCount} 포인트:${info.art_point}
+											</span>
+											<div>
+									 		 	<div class="cost_text">${totalOption.totalSum}원</div>
+												<div class="jeonga_cost" style="display:none">${totalOption.totalSum}</div> 
+												<div class="cart_seq" style="display:none">${info.cart_seq}</div>
+												<div class="index" style="display:none">${status.index}</div>
+												<div style="display:none">${info.cart_seq}</div>
+											</div>
+									</li>
+									</c:forEach>
+								</ul>
+				<%-- 	<div class="dain-amount">수량: ${info.art_count}개</div> --%>
+					
+					<!-- 작품별 총합계 -->
+					<div class="dain-price" style="display: none;">${info.totalPrice}원</div>
 				</div>
 				</td>
 			</tr>
@@ -1491,24 +1585,23 @@ ul.tabs li.current{
 				<th class="dain-delvery-title">배송비</th>
 				<td class="dain-delvery-price">
 				
-				
-				<c:if test="${info.total_price ge info.writer_sendfree_case}">
+				<c:if test="${info.totalPrice ge info.writer_sendfree_case}">
 					<a>0</a><a>원</a>
 					<!-- 배송비 합계 연산 -->
 					<c:set var="shippingSum" value= "${shippingSum + 0}"/>
 
 				</c:if>	
-				<c:if test="${info.total_price lt info.writer_sendfree_case}">
+				<c:if test="${info.totalPrice lt info.writer_sendfree_case}">
 					<!-- 배송비 합계 연산 -->
 					<a>${info.writer_send_price}</a><a>원</a>
 					
 					<c:set var="shippingSum" value= "${shippingSum + info.writer_send_price}"/>
-				</c:if>	
-				</td> <!-- 여기 값 받아와야함 -->
+				
+				</c:if>
+				</td> 
 			</tr>
 		</tbody>
 		</table>	
-		
 		</c:forEach>
 		
 		<%-- <c:out value="${shippingSum}"/> --%>
@@ -1547,7 +1640,7 @@ ul.tabs li.current{
 		<table>
 			<tr>
 				<th>작품금액</th>
-				<td><span id="dain_fin_artprice">18000</span>원</td>
+				<td><span id="dain_fin_artprice">0</span>원</td>
 			</tr>
 			<tr>
 				<th>배송비</th>

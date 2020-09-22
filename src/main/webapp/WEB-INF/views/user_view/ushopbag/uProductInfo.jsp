@@ -34,7 +34,7 @@ function RemoveComma(num){
 	return Number(result);
 }
 
-window.addEventListener('scroll', (e) => {
+window.addEventListener('scroll', function(e) {
 	input = document.getElementById('ShareUrl');
 	wonSlides = document.getElementById('hoddenTop');
 	hoddenBottom = document.getElementById('hoddenBottom');
@@ -66,10 +66,10 @@ window.addEventListener('scroll', (e) => {
 		var wonInfoWorkButton = document.getElementsByClassName('wonInfoWorkButton');
 		if(wonDisWorkInfo.style.display == 'none'){
 			wonDisWorkInfo.style.display = 'block';
-			document.getElementById('wonInfoWorkButton').className= 'fa fa-arrow-up';
+			document.getElementById('wonInfoWorkButton').className= 'fa fa-angle-up';
 		}else{
 			wonDisWorkInfo.style.display = 'none';
-			document.getElementById('wonInfoWorkButton').className= 'fa fa-arrow-down';
+			document.getElementById('wonInfoWorkButton').className= 'fa fa-angle-down';
 		}
 	}
 	function wonDisSellInfoDo(){//판매 작가 정보
@@ -77,10 +77,10 @@ window.addEventListener('scroll', (e) => {
 		var wonInfoWorkButton = document.getElementsByClassName('wonInfoSellInfoButton');
 		if(wonDisWorkInfo.style.display == 'none'){
 			wonDisWorkInfo.style.display = 'block';
-			document.getElementById('wonInfoSellInfoButton').className= 'fa fa-arrow-up';
+			document.getElementById('wonInfoSellInfoButton').className= 'fa fa-angle-up';
 		}else{
 			wonDisWorkInfo.style.display = 'none';
-			document.getElementById('wonInfoSellInfoButton').className= 'fa fa-arrow-down';
+			document.getElementById('wonInfoSellInfoButton').className= 'fa fa-angle-down';
 		}
 	} 
 	function wonDisChangReturnDo(){//배송 교환 환불
@@ -88,10 +88,10 @@ window.addEventListener('scroll', (e) => {
 		var wonInfoWorkButton = document.getElementsByClassName('wonChangReturnButton');
 		if(wonDisWorkInfo.style.display == 'none'){
 			wonDisWorkInfo.style.display = 'block';
-			document.getElementById('wonChangReturnButton').className= 'fa fa-arrow-up';
+			document.getElementById('wonChangReturnButton').className= 'fa fa-angle-up';
 		}else{
 			wonDisWorkInfo.style.display = 'none';
-			document.getElementById('wonChangReturnButton').className= 'fa fa-arrow-down';
+			document.getElementById('wonChangReturnButton').className= 'fa fa-angle-down';
 		}
 	}
 
@@ -129,10 +129,10 @@ window.addEventListener('scroll', (e) => {
 		var select = e.querySelector('button');
 		if(option.style.display == 'none'){		
 			option.style.setProperty('display','flex');
-			e.querySelector('.fa-arrow-down').className = 'fa fa-arrow-up';
+			e.querySelector('.fa-arrow-down').className = 'fa fa-angle-up';
 		}else{
 			option.style.setProperty('display','none');
-			e.querySelector('.fa-arrow-up').className = 'fa fa-arrow-down';
+			e.querySelector('.fa-arrow-up').className = 'fa fa-angle-down';
 		}
 		
 	}
@@ -283,9 +283,19 @@ window.addEventListener('scroll', (e) => {
 #wondSumImg:hover{
 	cursor: pointer;
 }
-#wonAHover:hover{
+
+.wonAHover{
+	font-size: 16px;
+	color:#666;
+}
+.wonAHover:hover{
 	cursor: pointer;
 }
+
+.wonAHover:link { color: #666; text-decoration: none;}
+.wonAHover:visited { color: #666; text-decoration: none;}
+.wonAHover:hover { color: #22a7af; text-decoration: none;}
+
 #wonInfoButton:hover{
 	cursor: pointer;
 }
@@ -487,6 +497,22 @@ input[type="number"]::-webkit-inner-spin-button {
 #wish_writer_append:focus{
 	outline:none;
 }
+
+.message_to_writer:hover{
+	background: #f5f5f5;
+}
+
+#wonActionButton{
+	padding: 5px 14px;
+	border-radius: 3px;
+	background-color: #fff;
+	outline: none;
+	border: 1px solid #666;
+	font-size: 12px;
+}
+#wonActionButton:hover {
+	background-color: #F6F6F6;
+}
 </style>
 
 <meta charset="UTF-8">
@@ -505,7 +531,7 @@ input[type="number"]::-webkit-inner-spin-button {
 				
 				<input type="hidden" value="${artList.artDiscount}" id="dndud_article_origin_price"/>
 				<div style="margin-top: 2%; display: flex; justify-content:center;" class="wonSlides">
-					<img id="mainPhoto" style="width:80%; height:500px;" src="<c:url value='/upload/${firstPhoto}'/>">
+					<img id="mainPhoto" style="width:500px; height:500px;" src="<c:url value='/upload/${firstPhoto}'/>">
 				</div>
 				
 				<div style="display: flex; justify-content:center; margin-bottom: 2%;">
@@ -518,99 +544,94 @@ input[type="number"]::-webkit-inner-spin-button {
 				<!-- 화면전환버튼 -->
 				
 				<!-- 화면전환버튼end -->
-				<hr>
 				
 				
-				<div style="margin: 1%; display: flex; justify-content: center; flex-direction: row;">
-					<a id="wonAHover" style="margin: 18px 0px 17px; width:15%; font-size: 100%; margin-left: 1%;">작품정보</a>
-					<a id="wonAHover" style="margin: 18px 0px 17px; width:35%; font-size: 100%; margin-left: 1%;">배송/교환/환불</a>
-					<a id="wonAHover" style="margin: 18px 0px 17px; width:35%; font-size: 100%; margin-left: 1%;">구매후기(${reviewCount})</a>
-					<a id="wonAHover" style="margin: 18px 0px 17px; width:10%; font-size: 100%; margin-left: 1%;">댓글</a>
+				<div style="margin: 1%; display: flex; justify-content: space-between; flex-direction: row; color: #666;border-top:1px solid #d9d9d9;
+				border-bottom:1px solid #d9d9d9;">
+					<div style="margin: 18px 0px; text-align:center; width:25%;  font-size: 16px;"><a href="#dainArtInfo" class="wonAHover">작품정보</a></div>
+					<div style="margin: 18px 0px; text-align:center; width:25%; font-size: 16px; "><a href="#dainShipInfo" class="wonAHover">배송/교환/환불</a></div>
+					<div style="margin: 18px 0px; text-align:center; width:25%; font-size: 16px; "><a href="#dainReview" class="wonAHover" >구매후기(${reviewCount})</a></div>
+					<div style="margin: 18px 0px; text-align:center; width:25%; font-size: 16px; "><a href="#dainComment" class="wonAHover" >댓글</a></div>
 				</div>
-				<hr>
 				<div>
 					<!-- 내용 작품 소개 -->
-					<div>
+					<div id="dainArtInfo" style="border-bottom:1px solid #d9d9d9; padding:48px 0px; text-align: center;">
 						${artList.artDescription }				
 					</div>
 				</div>
-				<hr>
-				<div style="display: flex; justify-content: center;">
-					<span style="color: #ABABAB; font-size: 80%;">Category&nbsp;&&nbsp;Keyword</span>
+				<div style="display: flex; justify-content: center; padding-top:24px;" >
+					<span style="color: #ccc; font-size: 10px;">Category&nbsp;&&nbsp;Keyword</span>
 				</div>
 				<div style="display: flex; flex-wrap: wrap; justify-content: center;">
 					<strong>카테고리</strong>
 				</div>
 				<ul style="margin: 5%;display: flex; list-style: none;padding-left: 0px; justify-content: center; flex-wrap: wrap;">
 				<c:forEach items="${keywordSplit }" varStatus="vs">
-					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ABABAB solid; font-size: 80%; color: #666666;">#${keywordSplit[vs.index] }</li>
+					<li style="padding: 6px 8px;margin: 8px 0px 0px 8px; border:1px #ccc solid; font-size: 80%; color: #666666;">#${keywordSplit[vs.index] }</li>
 				</c:forEach>
 				</ul>
-				<hr>
 				<c:forEach var="artInfo" items="${artInfo }">
-				<div style="display: flex; justify-content: space-between; flex-direction: row; padding:18px 16px;">
+				<div style="display: flex; justify-content: space-between; flex-direction: row; font-size:14px; border-top:1px solid #d9d9d9; padding:18px 16px;">
 					<span>작품 정보제공 고시</span>
-					<span id="wonInfoWorkButton" onclick="wonDisWorkInfoDo()" class="fa fa-arrow-down"></span>
+					<span id="wonInfoWorkButton"  onclick="wonDisWorkInfoDo()" class="fa fa-angle-down"></span>
 				</div>
-				<div id="wonDisWorkInfo" style="display:none; width:100%;">
-					<table style="width:100%;">
+				<div id="wonDisWorkInfo" style="display:none; width:100%; font-size: 12px;">
+					<table style="width:100%; border-collapse: collapse;" >
 						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; border:1px solid  width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">작품명</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${artList.artName }</td>
+							<th style="border-top:1px #ccc solid;padding:3%; margin:3%; border:1px solid  width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">작품명</th>
+							<td style="border-top:1px #ccc solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${artList.artName }</td>
 						</tr>
 						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>법에 의한 인증,허가 등을 받았음을 확인할 수 있는 경우 그에 대한 사항</span></th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${artInfo.artInfoDetailCategory}</td>
+							<th style="border-top:1px #ccc solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>법에 의한 인증,허가 등을 받았음을 확인할 수 있는 경우 그에 대한 사항</span></th>
+							<td style="border-top:1px #ccc solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${artInfo.artInfoDetailCategory}</td>
 						</tr>
 						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">제조자 / 제조국</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${artInfo.artInfoDetailFrom}</td>
+							<th style="border-top:1px #ccc solid; border-bottom:1px #ccc solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">제조자 / 제조국</th>
+							<td style="border-top:1px #ccc solid; border-bottom:1px #ccc solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${artInfo.artInfoDetailFrom}</td>
 						</tr>
 					</table>
 				</div>
-				<hr>
-					<div style="display: flex; justify-content: space-between; flex-direction: row; padding:18px 16px;">
+					<div style="display: flex; justify-content: space-between; flex-direction: row; padding:18px 16px; font-size:14px; border-top:1px solid #d9d9d9;">
 						<span>판매 작가 정보</span>
-						<span id="wonInfoSellInfoButton" onclick="wonDisSellInfoDo()" class="fa fa-arrow-down"></span>
+						<span id="wonInfoSellInfoButton" onclick="wonDisSellInfoDo()" class="fa fa-angle-down"></span>
 					</div>
 				<div id="wonDisSellInfo" style="width:100%; display: none;">
-					<table style="width:100%;">
+					<table style="width:100%; border-collapse: collapse; font-size: 12px;">
 						<tr>
-							<th style="border:1px #ABABAB solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">대표자명</th>
-							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${writer.writerName}</td>
+							<th style="border-top:1px #ccc solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">대표자명</th>
+							<td style="border-top:1px #ccc solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${writer.writerName}</td>
 						</tr>
 						<tr>
-							<th style="border:1px #ABABAB solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">이메일</th>
-							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${writer.writerEmail }</td>
+							<th style="border-top:1px #ccc solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">이메일</th>
+							<td style="border-top:1px #ccc solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${writer.writerEmail }</td>
 						</tr>
 						<tr>
-							<th style="border:1px #ABABAB solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">전화번호</th>
-							<td style="border:1px #ABABAB solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${writer.writerPhone}</td>
+							<th style="border-top:1px #ccc solid; border-bottom:1px #ccc solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">전화번호</th>
+							<td style="border-top:1px #ccc solid; border-bottom:1px #ccc solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">${writer.writerPhone}</td>
 						</tr>
 					</table>
 				</div>
-				<hr>
-					<div style="display: flex; justify-content: space-between; flex-direction: row; padding:18px 16px;">
+					<div id="dainShipInfo" style="display: flex; justify-content: space-between; flex-direction: row; font-size:14px; border-top:1px solid #d9d9d9; padding:18px 16px;">
 						<span>배송 교환 환불</span>
-					<span id="wonChangReturnButton" onclick="wonDisChangReturnDo()" class="fa fa-arrow-up"></span>
+					<span id="wonChangReturnButton" onclick="wonDisChangReturnDo()" class="fa fa-angle-up"></span>
 					</div>
 				<div id="wonDisChangReturn" style="width:100%; display: block;">
-					<table style="width:100%; font-size: 13px;">
+					<table style="width:100%; font-size: 12px; border-collapse: collapse;">
 						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">배송비</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">
+							<th style="border-top:1px #ccc solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">배송비</th>
+							<td style="border-top:1px #ccc solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">
 								<span>기본료 : </span><span style="color: #22a7af;"><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/> 원</span>  <br>
 								<span>배송비 무료 조건 :</span> <span style="color: #22a7af;">${writer.writerSendfreeCase }</span><br>
 								<span>제주, 도서산간일 경우 기본료만 무료가 됩니다.</span><br>
 								<span>제주 / 도서산간 추가비용 : </span><span style="color: #22a7af;"><fmt:formatNumber value="${writer.writerSendPrice }"/>원</span></td>
 						</tr>
 						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>제작 / 배송</span></th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
+							<th style="border-top:1px #ccc solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;"><span>제작 / 배송</span></th>
+							<td style="border-top:1px #ccc solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;"></td>
 						</tr>
 						<tr>
-							<th style="border:1px #ABABAB solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">교환 / 환불</th>
-							<td style="border:1px #ABABAB solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">
+							<th style="border-top:1px #ccc solid; border-bottom:1px #ccc solid; padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">교환 / 환불</th>
+							<td style="border-top:1px #ccc solid; border-bottom:1px #ccc solid; padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">
 							<c:if test="${writer.writerRefund eq 'y'}">
 								<span>
 									<a style="color: #22a7af;font-weight: bold;">가능</a><br>
@@ -637,14 +658,16 @@ input[type="number"]::-webkit-inner-spin-button {
 					</table>
 				</div>
 				</c:forEach><!-- 작품정보 제공공시 -->
-				<hr>
-				<div style="padding: 2%; display: flex; justify-content: space-between; ">
+				
+				
+				<div id="dainReview" style="padding: 2% 2% 2% 0%; margin-top:60px; display: flex; justify-content: space-between; color:#333; font-weight: bold;  ">
 					<span>구매후기(<a id="dndud_wonhui_review_count">${reviewCount}</a>)</span>
-					<button id="wonButtonReview" style="background: white;">구매후기작성하기</button>
+					<button id="wonButtonReview" style="background: white; border-radius:1px; padding: 3px 6px; border:1px #ccc solid; border-radius:2px;
+							font-size: 12px; color: #666666;display: flex; outline: none; cursor: pointer;">구매후기작성하기</button>
 				</div>
 				
 				<!-- 구매후기 -->
-				<div id="dndud_wonhui_review_div" style="border-top: 2px solid black; padding: 0 0 3% 0; overflow-y: scroll; max-height:20%">
+				<div id="dndud_wonhui_review_div" style="border-top: 1px solid black; padding: 0 0 3% 0; overflow-y: scroll; max-height:20%">
 				
 					<c:forEach items="${reviewList}" var="review">
 					
@@ -653,8 +676,8 @@ input[type="number"]::-webkit-inner-spin-button {
 								<div style="border-radius:50%; width:80%;display: flex; flex-direction: row;"><!-- 프로필 -->
 									<img style="width:10%; border-radius: 50%;" src="<c:url value='/upload/${review.memberImg }'/>">
 									<div>
-										<span style="font-size: 80%;">${review.memberName}</span><br>
-										<span style="color:#999999; font-size: 80%;">
+										<span style="font-size: 12px;">${review.memberName}</span><br>
+										<span style="color:#999999; font-size: 12px;">
 											<fmt:parseDate value="${review.reviewDate }" pattern="yyyy-MM-dd HH:mm" var="date"/>
 											<fmt:formatDate pattern="yyyy년 MM월 dd일" type="both" value="${date }"/>
 										</span>
@@ -670,7 +693,7 @@ input[type="number"]::-webkit-inner-spin-button {
 									</div>
 								</div>
 							</div>
-							<div>
+							<div style="font-size:14px;">
 								${review.reviewContent }
 							</div>
 						</div>
@@ -690,17 +713,16 @@ input[type="number"]::-webkit-inner-spin-button {
 						</a>
 				</div> -->
 				
-				<div style="display: flex; justify-content: space-between; margin-top: 10%;; padding: ;">
-					<strong>댓글</strong><a style="color: #AFEEEE; font-size: 80%;" id="wonUProductReview"></a>
+				<div id="dainComment" style="padding: 2% 2% 2% 0%; display: flex; margin-bottom:24px; border-bottom: 1px solid black; justify-content: space-between; margin-top: 10%; margin-top:60px;">
+					<strong>댓글</strong><a style="color: #333; font-size: 16px;" id="wonUProductReview"></a>
 				</div>
-				<hr style="border:1px solid black;">
 				<!-- 댓글 -->
 				<div id="dndud_commentDiv" style="margin: 1%; display: flex; justify-content: center; overflow-y: scroll; max-height:20%">
 					<div style="width:100%; display: flex; flex-direction: column; align-items: center">
 						<c:if test="${commentList.size() <= 0}">					
-							<span><i class="fa fa-comment fa-5x"></i></span>
+							<span><i class="fa fa-commenting-o fa-5x" style="color: #EAEAEA;"></i></span>
 							<br>
-							<span style="color: #ACACAC;">행운의 첫 댓글을 남겨보세요.</span>
+							<span style="color: #ACACAC; font-size: 14px; ">행운의 첫 댓글을 남겨보세요.</span>
 						</c:if>
 						<c:if test="${commentList.size() > 0}">
 							<c:forEach var="b" items="${commentList}">
@@ -709,8 +731,8 @@ input[type="number"]::-webkit-inner-spin-button {
 										<img style="width: 100%; border-radius: 50%;" src="<c:url value='/upload/${b.memberProfile }'/>">
 									</div>
 									<div style="display:flex; margin:0 3%; width:84%; flex-direction: column">
-										<span style="width:10%; font-size:11px; color: #999;">${b.memberName }</span>
-										<span style="">${b.commentContent}</span>
+										<span style="width:10%; font-size:12px; color: #999;">${b.memberName }</span>
+										<span style="font-size:14px;">${b.commentContent}</span>
 									</div>
 								</div>
 							</c:forEach>
@@ -718,16 +740,17 @@ input[type="number"]::-webkit-inner-spin-button {
 							
 					</div>
 				</div>
-				<hr>
-				<div style="display: flex; flex-direction: row; width: 100%;">
+				<hr style="margin-top: 24px;">
+				<div style="display: flex; flex-direction: row; width: 100%; align-items: center;">
 					<c:if test="${not empty memberImg }">
 						<img style="width: 10%; border-radius: 50%;" src="<c:url value='/upload/${memberImg}'/>">						
 					</c:if>
 					<c:if test="${empty memberImg }">
 						<img style="width: 10%; border-radius: 50%;" src="<c:url value='/resources/img/test.png'/>">
 					</c:if>
-					<input type="text" id="comment" style="margin: 3%; width: 60%;" placeholder="댓글을 남겨주세요~">
-					<input type="button" value="등록" style="margin: 3%;" onclick="commentUpdate();">
+					
+					<input type="text" id="comment" style="margin: 3%; padding:6px 8px; outline:none; width: 70%; margin-right: 0%;" placeholder="댓글을 남겨주세요~">
+					<input type="button" value="등록" style="color:white; cursor:pointer; outline:none; border:none; border-radius:2px; margin: 1%;font-size:12px; height: 32px;width: 50px; background-color: #0086cc"  onclick="commentUpdate();">
 				</div>
 				<script type="text/javascript">
 				
@@ -736,22 +759,23 @@ input[type="number"]::-webkit-inner-spin-button {
 			</div>
 			<!-- 상품정보 선택 -->
 			<div style="margin-left:1%; width:50%;">
-				<div style="border:1px #ABABAB solid; position: fixed; width:32.7%;" id="positionFixed">
-					<div style="margin:1%; padding: 1%; display: flex; justify-content: space-between;">
+				<div style="border:1px #ccc solid; position: fixed; width:32.7%; margin-top: 10px; margin-left: 1.8%; background-color: #fff;" id="positionFixed">
+					<div style="margin:2% 1% 1% 1%; padding: 1%; display: flex; justify-content: space-between;">
 						<span style="display: flex; flex-direction: row; width:50%;">
 							<img style="width: 10%; height:80%;" src="<c:url value='/upload/${writer.writeProfileImg }'/>">
-							<span style="font-size: 80%; justify-content:center;">${writer.writerBrandName }</span>
+							<span style="font-size: 14px; color:#666666; justify-content:center;">${writer.writerBrandName }</span>
 						</span>
 					<div>
 						<a style="text-decoration: none; display: flex; justify-content: flex-end;"href="#">
-							<span class="message_to_writer" style="border:1px #ABABAB solid; font-size: 80%; color: #666666;display: flex;">작가문의</span><!-- 메세지 페이지로 이동 -->
+							<span class="message_to_writer" style="border-radius:1px; padding: 3px 6px; border:1px #ccc solid; border-radius:2px;
+							font-size: 80%; color: #666666;display: flex;"><i class="fa fa-comment-o" aria-hidden="true" style="margin-right: 3px; margin-top:1px;"></i> 작가문의</span><!-- 메세지 페이지로 이동 -->
 						</a>
 					</div>
 					</div>
-					<div id="wonActionDisplay" style="left: 3%; width: 95%; border: 1px solid; border-radius: 2px; background-color: #fff; font-size: 80%; vertical-align: baseline; display: none; flex-direction: column;">
-						<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 80%; vertical-align: baseline; box-sizing: border-box; border">
+					<div id="wonActionDisplay" style="left: 3%; top:33%; width: 95%; border: 1px solid;  border-radius: 2px; background-color: #fff; font-size: 80%; vertical-align: baseline; display: none; flex-direction: column;">
+						<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; border:1px solid #333; font: inherit; font-size: 80%; vertical-align: baseline; box-sizing: border-box; ">
 							<span style="font-size: 12px;color: #fff;">전체옵션 선택</span>
-							<button id="wonAuctionClose" onclick="wonAuctionClose()" style="float: right; background-color: #333; border:none; color: #fff;">X</button>
+							<button id="wonAuctionClose" onclick="wonAuctionClose()" style="float: right; background-color: #333; border:none; color: #fff; cursor: pointer;">X</button>
 						</div>
 						<!-- 선택사항 -->
 						<c:forEach var="b" items="${artOption }" varStatus="head">
@@ -759,14 +783,14 @@ input[type="number"]::-webkit-inner-spin-button {
 								<div id="wonDetailAuction" onclick="wonDetailAuction(this);">
 									<div style="display:flex; justify-content: space-between;">
 										<span style="padding: 1%; margin: 1%; font-weight:bold; width:50%;"><c:out value="${head.count }"/>. ${b.key }</span>
-										<div style="display: flex;flex-direction: row;align-items: center; justify-content: flex-end; width:50%;">
+										<div style="display: flex;flex-direction: row;align-items: center; justify-content: flex-end; width:50%; ">
 											<span class="dndud_preview_option" style="margin-rigth:15px"></span>
-											<i style=" padding: 1%; margin: 1%; float: right;"class="fa fa-arrow-down"></i>
+											<i style=" padding: 1%; margin: 1%; float: right;"class="fa fa-angle-down"></i>
 										</div>
 									</div>
 									<div id="wonDetailAuctionSelect" class="dndud_detail_option" style="display: none; flex-direction: column; border: none; width: 100%;">
 										<c:forEach var="c" items="${b.value }" varStatus="i">
-											<button class="dndud_detail_option_one" value="${c.artOptionPrice}" style="background-color: white; border: none; width: 100%; display:flex;align-items: center;">
+											<button class="dndud_detail_option_one" value="${c.artOptionPrice}" style="background-color: white;  font-size:12px; border: none; width: 100%; display:flex;align-items: center;">
 												<span class="dndud_option_name" style="padding: 1%; margin: 1%;">${c.artOptionName}</span>
 												<input class="dndud_option_code" type="hidden" value="${c.artOptionSeq}" />
 												<input class="dndud_option_category" type="hidden" value="${b.key}" />
@@ -784,46 +808,50 @@ input[type="number"]::-webkit-inner-spin-button {
 							</div>
 						</c:forEach>
 						<!-- 선택사항  end -->
-						<div style="width:100%;padding: 8px 12px; position: relative;background-color: #333; font: inherit; font-size: 100%; vertical-align: baseline; box-sizing: border-box;">
-							<span id="complete_select_option" style="font-size: 12px;color: #fff; cursor: pointer;">선택완료</span>
+						<div id="complete_select_option" style="width:100%; padding: 8px 12px; cursor: pointer; 
+						position: relative;background-color: #333;  text-align: center; font: inherit; 
+						font-size: 100%; vertical-align: baseline; box-sizing: border-box;">
+							<span  style="font-size: 12px;color: #fff; ">선택완료</span>
 						</div>
 					</div>
 					<div style="margin-left: 2.5%;"><!-- 할인율 가격 판매제목  -->
-						<strong style="font-size: 150%;">${artList.artName }</strong><br>
-						<div style="margin:1%; display: flex; flex-direction: row; justify-content:space-between;">
-							<div style="width:70%; display: flex; flex-direction: row;">
-								<p style="color: red; padding-top:2%; margin-top: 2%; font-size: 100%;"><fmt:formatNumber value="${(artList.artPrice - artList.artDiscount) / artList.artPrice}" type="percent"/></p>
-								<p style="padding: 1%; margin: 1%; font-size: 150%;"><fmt:formatNumber value="${artList.artDiscount}" pattern="#,###"/>원</p>
-								<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 80%; text-decoration: line-through;"><fmt:formatNumber value="${artList.artPrice}" pattern="#,###"/> 원</p>
+						<strong style="font-size: 150%; color:#333;">${artList.artName }</strong><br>
+						<div style="margin:1%; display: flex; flex-direction: row; justify-content:space-between; height: 40px">
+							<div style="width:70%; display: flex; ">
+								<p style="color: #e6524b; margin-top: 2%; margin-right:1%; font-size: 24px; font-weight: bold;"><fmt:formatNumber value="${(artList.artPrice - artList.artDiscount) / artList.artPrice}" type="percent"/></p>
+								<div style="padding: 1%; margin: 1%; font-size: 24px;margin-right:2%; color:#333; font-weight: bold;"><fmt:formatNumber value="${artList.artDiscount}" pattern="#,###"/>원</div>
+								<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 14px; color:#999; text-decoration: line-through;"><fmt:formatNumber value="${artList.artPrice}" pattern="#,###"/>원</p>
 							</div>
-							<div style="width: 30%; display:flex; justify-content: flex-end;">
+							<div style="width: 17%; display:flex; justify-content: center; align-items: flex-start;">
 								<div style="display: flex; flex-direction: column; margin: 1%;">
 									<c:if test="${checkWishArticle ne 0 }">
-										<i class="fas fa-star" aria-hidden="true" onclick="bookmarkCount();" id="won_bookMark_star"></i>
+										<i class="fas fa-star" aria-hidden="true" onclick="bookmarkCount();" id="won_bookMark_star"
+										style="color: #dd5850; margin-top:2px; font-size:20px;"></i>
 									</c:if>
 									<c:if test="${checkWishArticle eq 0 }">
-										<i class="fa fa-star-o fa-1x" aria-hidden="true" onclick="bookmarkCount();" id="won_bookMark_star"></i>
+										<i class="fa fa-star-o fa-1x" aria-hidden="true" onclick="bookmarkCount();" id="won_bookMark_star"
+										style="color: #dd5850; margin-top:2px; font-size:20px;"></i>
 									</c:if>
-									<span style="align-self: center;"><fmt:formatNumber value="${artList.bookMarkCount }" pattern="#,###"/></span>
+									<span style="align-self: center; font-size:12px;color: #353535"><fmt:formatNumber value="${artList.bookMarkCount }" pattern="#,###"/></span>
 								</div>
-									<i class="fa fa-share-alt-square fa-3x" aria-hidden="true" onclick="copy_trackback();">
-									</i>
+							<i class="fa fa fa-share-alt-square fa-2x" style="cursor:pointer; color:#00a5bf; margin-left:17px;" aria-hidden="true" onclick="copy_trackback();">
+							</i>
 							</div>
 						</div>
-						<div style="display:flex; justify-content: flex-end; margin-right: 1%;">
+						<div style="display:flex; justify-content: flex-end; margin-right: 3%;">
 							<span style="color: #666666; font-weight: bold; font-size:14px;">${artList.artSaleCount }명</span>&nbsp;
 							<span style="color: #666666; font-size:14px;">구매</span><!-- 할인율 가격 판매제목  -->
 						</div>					
-						<div style="display:flex; flex-direction: row; padding: 1%; margin: 1%;">
-							<div style="display:flex; flex-direction: column; width:30%;">
-								<span style="margin: 2%; padding: 2%; color: #666666;">적립금</span>
-								<span style="margin: 2%; padding: 2%; color: #666666;">구매후기</span>
-								<span style="margin: 2%; padding: 2%; color: #666666;">배송비</span>
-								<span style="margin: 2%; padding: 2%; color: #666666;">수량</span>
+						<div style="display:flex; height:100px;  flex-direction: row; padding: 1%; margin: 0% 1% 0% 1%; font-size:14px;">
+							<div style="display:flex; flex-direction: column; width:18%; justify-content: space-between;">
+								<span style="color: #666666;">적립금</span>
+								<span style="color: #666666;">구매후기</span>
+								<span style="color: #666666;">배송비</span>
+								<span style="color: #666666;">수량</span>
 							</div>
-							<div style="display:flex; flex-direction: column; margin-left: 5%;width:30%;">
-								<span style="margin: 2%; padding: 2%;"><a id="dndud_point"><fmt:formatNumber value="${(artList.artPrice- artList.artDiscount)*0.01}" pattern="#,###"/></a> P</span>
-								<span style="margin: 2%; padding: 2%;">
+							<div style="display:flex; flex-direction: column; justify-content: space-between; margin-left: 5%; width:30%;">
+								<span ><a id="dndud_point"><fmt:formatNumber value="${(artList.artPrice- artList.artDiscount)*0.01}" pattern="#,###"/></a> P</span>
+								<span >
 									<div class="minwoo_starRev" data-rate="${reviewTotalStar }">
 										<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
 										<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
@@ -833,8 +861,8 @@ input[type="number"]::-webkit-inner-spin-button {
 										<span style="margin-left: 10px;font-size: 12px; color: #666;">(<span>${reviewCount }</span>)</span>
 									</div>
 								</span>
-								<span style="margin: 2%; padding: 2%;"><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/>원</span>
-								<span style="margin: 2%; padding: 2%;">${artList.artAmount }</span>
+								<span><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/>원</span>
+								<span>${artList.artAmount }</span>
 							</div>
 						</div>
 						
@@ -842,11 +870,12 @@ input[type="number"]::-webkit-inner-spin-button {
 							<c:if test="${not empty artOption }">
 								<button id="wonActionButton" style="width:100%; display: flex; justify-content: space-between;"
 								onclick="wonAuctionOpen()">
-									<span>옵션</span>
-									<span id="wonActionArrow" style="margin: 1%;"class="fa fa-arrow-down"></span>
+									<span style="margin-top:2px;">옵션</span>
+									<span id="wonActionArrow" style="margin: 1%; font-size: 15px; "class="fa fa-angle-down"></span>
 								</button>
 							
-								<div id="optionSelectDetail" style="display: block; flex-direction:column; width:100%; background-color: #F5F5F5;height: 100px;overflow-y: auto;" >
+								<div id="optionSelectDetail" style="display: block; flex-direction:column; width:100%; background-color: #F5F5F5;
+								height: 90px;overflow-y: auto;" >
 								
 								</div>
 							</c:if>
@@ -866,7 +895,7 @@ input[type="number"]::-webkit-inner-spin-button {
 												</div>
 											</div>
 											<div style="width: 30%;display: flex;justify-content: flex-end;align-items: center;">
-												<span class="tempPrice" style="font-size: 12px; color: #666666;">
+												<span class="tempPrice" style="font-size: 16px; color: #666666;">
 													<fmt:formatNumber value="${artList.artDiscount}" pattern="#,###"/>
 												</span>
 												<input type="hidden" class="orgPrice" value="${artList.artDiscount}"/>
@@ -878,17 +907,18 @@ input[type="number"]::-webkit-inner-spin-button {
 								</div>
 							</c:if>
 						</div>
-						<div style="display: flex;  padding: 1%; margin: 1%; justify-content: space-between;">
-							<span style="width:68%;">총작품금액</span>
-							<span><span id="totalPrice" style="font-size: 20px; color: #333333;">0</span>원</span>
+						<div style="display: flex;  padding: 1%; margin: 1%; justify-content: space-between; align-items: center;">
+							<span style="width:68%; color:#666; font-size: 14px;">총작품금액</span>
+							<span  style="font-size: 20px; color: #333333; font-weight: bold;"><span id="totalPrice">0</span>원</span>
 						</div>
-						<div style="display: flex; flex-direction: row; padding: 1%; margin: 1%;">
-							<button id="go_shop_bag" style="width:40%; background-color:white; 
-							height:50px; margin: 1%; border: 1px #333333 solid;">
+						<div style="display: flex; flex-direction: row; justify-content:center; padding: 1%; margin: 1% 1% 2% 1%;">
+							<button id="go_shop_bag" style="width:40%; background-color:white; outline: none; 
+							height:50px; margin: 1%; border: 1px solid #d9d9d9; cursor:pointer; border-radius: 3px;">
 								<span style="color: #333333; font-size: 16px;">장바구니</span>
 							</button>
-							<button id="go_direct_pay" style="width:40%; margin: 1%;border: none; background: #f95677; font-style: 16px; color: white;">구매</button>
-							<button id="go_present" style="width:20%; margin: 1%">선물하기</button>
+							<button id="go_direct_pay" style="cursor:pointer; width:40%; height:50px; border-radius: 3px; outline: none;
+							margin: 1%;border: none; background: #0086cc; font-style: 16px; color: white;">바로구매</button>
+						
 						</div>
 					</div>
 				</div>
@@ -896,20 +926,28 @@ input[type="number"]::-webkit-inner-spin-button {
 			
 		</div>
 	<div style="width:70%; margin-left: 15%; margin-top: 1%; margin-right: 50%; background-color: #F5F5F5; position: relative; z-index: 9999" id="product_Footer">
-		<div style="width: 100%; display: flex; flex-direction: row; padding: 1%;">
-			<div style="width:50%; margin: 3%; border-right: 1px solid #ABABAB;">
+		<div style="width: 100%; display: flex; flex-direction: row; padding: 1%; margin-bottom: 50px;">
+			<div style="width:75%; padding-right:2%; margin: 3% 0% 3% 3%; border-right: 1px solid #ccc;">
 				<div style="display: flex; justify-content: space-between;">
-					<span>판매중인 다른 작품들</span>
-					<button style="background-color: white; border: 1px #ABABAB solid; padding: 1%; margin-right:1%; ">더보기</button>
+					<span style="font-size: 14px; font-weight: bold; color:#292622;">판매중인 다른 작품들</span>
+					<button id="dainMoreBtn" style="background: white; border-radius:1px; padding: 3px 6px; border:1px #ccc solid; border-radius:2px;
+							font-size: 12px; color: #666666;display: flex; outline: none; cursor: pointer;">더보기</button>
 				</div>
-				<hr>
-				<div style="display: flex; flex-direction: row;">
+				<hr style="border:0px; height: 1px; background-color:#555;">
+				<div style="display: flex; flex-direction: row; align-items: flex-start;">
 				<c:forEach var="b" items="${otherArt}" end="3">
-					<a style="width: 25%; display: flex; flex-direction: column; padding: 3%;" id="${b.artCodeSeq }" onclick="artCode(this);">
+					<a style="width: 140px; display: flex; cursor: pointer; flex-direction: column; padding: 1%; " id="${b.artCodeSeq }" onclick="artCode(this);">
 					<c:forTokens delims="," var="i" items="${b.artPhoto}" end="0">
-						<img id="otherPhto" style="width: 99%; height:150px; background-color: white;" src="<c:url value='/upload/${i}'/>">
+						<img id="otherPhto" style="width: 140px;  height:140px;  background-color: white;" src="<c:url value='/upload/${i}'/>">
 					</c:forTokens>
-						<span style="background-color: white;">${b.artName }</span>
+						<span style="background-color: white; font-size: 12px; padding: 8px 10px; width:120px;">
+							<c:if test="${not empty writer.writerBrandName }">
+								<span style="text-align: center;font-size: 13px;color: #999;">${writer.writerBrandName }</span>
+							</c:if>
+							<c:if test="${empty writer.writerBrandName }">
+								<span style="text-align: center;font-size: 13px;color: #999;">${writer.writerName }</span>						
+							</c:if>
+						<br><span style="font-size: 14px; color: #333;">${b.artName }</span></span>
 					</a>
 				</c:forEach>
 				</div>
@@ -939,27 +977,27 @@ input[type="number"]::-webkit-inner-spin-button {
 						<p>${writer.writerIntro }</p>
 					</c:if>
 					<c:if test="${empty writer.writerIntro }">
-						<p>안녕하세요</p>
+						<p style="font-size: 14px;">안녕하세요</p>
 					</c:if>
 					
 					<c:if test="${checkWishWriter eq 0 }">
-						<button id="wish_writer_append" style="cursor:pointer;background-color: white;color:red; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
-							<i class="fas fa-heart" style="font-size:12px"></i>작가로 추가
+						<button id="wish_writer_append" style="cursor:pointer;background-color: white;color:#dd5850; border: 1px #ccc solid; padding: 1%; margin:1%; width:50%;align-self:center;">
+							<i class="fas fa-heart" style="font-size:12px"></i> 작가로 추가
 						</button>
 					</c:if>
 					<c:if test="${checkWishWriter eq 1 }">
-						<button id="wish_writer_append" style="cursor:pointer;background-color: red;color:white; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
+						<button id="wish_writer_append" style="cursor:pointer;background-color: #e6524b;color:white; border: 1px #ccc solid; padding: 1%; margin:1%; width:50%;align-self:center;">
 							<i class="fas fa-heart" style="font-size:12px"></i>하는 작가
 						</button>
 					</c:if>
 					
-					<button id="go_writer_home" style="cursor:pointer;background-color: white; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
+					<button id="go_writer_home" style="cursor:pointer;background-color: white; border: 1px #ccc solid; padding: 1%; margin:1%; width:50%;align-self:center;">
 						<input id="writer_home_url" type="hidden" value="${writer.writerUrl }"/>
 						
 						작가홈
 					</button>
 					
-					<button class="message_to_writer" style="cursor:pointer;background-color: white; border: 1px #ABABAB solid; padding: 1%; margin:1%; width:50%;align-self:center;">
+					<button class="message_to_writer" style=" cursor:pointer;background-color: white; border: 1px #ccc solid; padding: 1%; margin:1%; width:50%;align-self:center;">
 							메세지보내기
 					</button>
 				</div>
@@ -1125,11 +1163,11 @@ $(document).ready(function(){
 
 		var InnerHTML = '<div class="before_pay_option">'+ lastHtml +'<input type="hidden" class="compare_string" value="'+ htmlText +'" /><div style="margin: 1%; padding:1%;">'
 			+ '<span style="font-size:80%; color:#666666; padding:1%;" id="wonActionDetailDisplay">'
-			+ htmlText + '</span></div><div style="display:flex; justify-content:space-between; margin:1%; padding:1%;"><div style="display:flex; flex-direction:row;">'
+			+ htmlText + '</span></div><div style="display:flex; justify-content:space-between; margin:0% 1% 1% 1%; padding:0% 1% 1% 1%;"><div style="display:flex; flex-direction:row;">'
 			+ '<div class="input_number"><button class="downButton" type="button">-</button><div class="input_area"><input class="prd-count" type="number" value="1" min="1" max="999" readonly >'
-			+ '</div><button class="upButton" type="button">+</button></div></div><div style="width: 30%;display: flex;justify-content: flex-end;align-items: center;">'
-			+ '<span class="tempPrice" style="font-size: 12px; color: #666666;">' + AddComma(lastPrice) + '</span><input type="hidden" class="orgPrice" value="' + lastPrice + '"/><span>원</span>'
-			+ '<button class="optionDetailClose" style="background-color: white; border:1px solid #d9d9d9; margin:1%; cursor:pointer" id="wonAuctionDetailClose" onclick="wonAuctionDetailClose()">X</button>'
+			+ '</div><button class="upButton" type="button">+</button></div></div><div style="font-size:12px; width: 30%;display: flex;justify-content: flex-end;align-items: center;">'
+			+ '<span class="tempPrice" style=" color: #666666;">' + AddComma(lastPrice) + '</span><input type="hidden" class="orgPrice" value="' + lastPrice + '"/><span  style=" color: #666666;">원</span>'
+			+ '<button class="optionDetailClose" style="background-color: white;  border:1px solid #d9d9d9; margin:1%; cursor:pointer" id="wonAuctionDetailClose" onclick="wonAuctionDetailClose()">X</button>'
 			+ '</div></div></div>';
 		
 		
@@ -1347,7 +1385,7 @@ $(document).ready(function(){
 	});
 	
 	// /bomulsum/writerhome/작가url.do
-	$('#go_writer_home').on('click', function(){
+	$('#go_writer_home, #dainMoreBtn').on('click', function(){
 		var url = $('#writer_home_url').val();
 		
 		location.href='/bomulsum/writerhome/'+url+'.do';

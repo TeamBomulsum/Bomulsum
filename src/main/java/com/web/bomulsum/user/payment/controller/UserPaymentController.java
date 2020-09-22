@@ -1,6 +1,9 @@
 package com.web.bomulsum.user.payment.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.bomulsum.user.coupon.service.UserCouponServiceImpl;
 import com.web.bomulsum.user.order.service.UserShopbagService;
 import com.web.bomulsum.user.payment.repository.UserCouponPaymentVO;
+import com.web.bomulsum.user.payment.repository.UserPaymentVO;
 import com.web.bomulsum.user.payment.service.UserPaymentService;
 import com.web.bomulsum.user.profile.repository.UserProfileAddressVO;
 import com.web.bomulsum.user.profile.repository.UserProfileVO;
@@ -90,56 +94,79 @@ public class UserPaymentController {
 		
 
 		
-		//장바구니 정보
-		String[] cartCode= new String[2];
+		/*
+		 * //장바구니 정보 String[] cartCode= new String[3];
+		 * 
+		 * cartCode[0] = "cart_seq21"; cartCode[1] = "cart_seq22"; cartCode[2] =
+		 * "cart_seq23";
+		 */
 		
-		cartCode[0] = "cart_seq11";
-		cartCode[1] = "cart_seq12";
-		
+		String[] cartCode = {"cart_seq21", "cart_seq22" , "cart_seq23", 
+				"cart_seq25", "cart_seq26" , "cart_seq27", "cart_seq28", "cart_seq29" , "cart_seq30"} ;
+
 		for (int i = 0; i < cartCode.length; i++) {
 			System.out.println(i + "번째 장바구니: " + cartCode[i]);
 		}
-
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberCode", memberCode);
+		map.put("cartCode", cartCode);
+		System.out.println("map출력:");
 		/*
 		 * List<UserShopbagVO> shopbagInfo = service.selectCartChoice(memberCode);
 		 * System.out.println("카트담긴거:"+shopbagInfo);
 		 */
 		
-	
-//		
-//		List<UserShopbagVO> shopbagInfo = service.selectCartChoice(memberCode);
-//		
-//		for(int i=0; i<shopbagInfo.size(); i++) {
-//			UserShopbagVO tempVO = shopbagInfo.get(i);
-//			String[] artOption= shopbagInfo.get(i).getArt_option_seq().split(",");
-//			List<UserShopbagOptionVO> optionList = cart_service.getOptionInfo(artOption);
-//			switch(optionList.size()) {
-//			case 3:
-//				tempVO.setArt_option_category3(optionList.get(2).getArt_option_category());
-//				tempVO.setArt_option_name3(optionList.get(2).getArt_option_name());
-//				tempVO.setArt_option_price3(optionList.get(2).getArt_option_price());
-//			case 2:
-//				tempVO.setArt_option_category2(optionList.get(1).getArt_option_category());
-//				tempVO.setArt_option_name2(optionList.get(1).getArt_option_name());
-//				tempVO.setArt_option_price2(optionList.get(1).getArt_option_price());
-//			case 1:
-//				tempVO.setArt_option_category1(optionList.get(0).getArt_option_category());
-//				tempVO.setArt_option_name1(optionList.get(0).getArt_option_name());
-//				tempVO.setArt_option_price1(optionList.get(0).getArt_option_price());
-//				break;
-//			default :
-//			}
-//			tempVO.setTotal_price((tempVO.getArt_discount() + tempVO.getArt_option_price1()+tempVO.getArt_option_price2()
-//						+tempVO.getArt_option_price3())*tempVO.getArt_count());
-//			
-//			String[] photoArray = tempVO.getArt_photo().split(",");
-//			tempVO.setArt_photo(photoArray[0]);
-//			shopbagInfo.remove(i);
-//			shopbagInfo.add(i, tempVO);	
-//		}
-//		System.out.println("shopbagInfo:"+shopbagInfo);
-//		mav.addObject("shopbagInfo", shopbagInfo);
+
 		
+		//--------------상품정보 뿌림-------------
+		
+		List<UserPaymentVO> shopbagInfo = service.selectCartChoice(map);
+		
+		for(int i=0; i<shopbagInfo.size(); i++) {
+			
+			UserPaymentVO tempVO = shopbagInfo.get(i);
+			String[] artOption= shopbagInfo.get(i).getArt_option_seq().split("#");
+			
+			String[] photoArray = tempVO.getArt_photo().split(",");
+			tempVO.setArt_photo(photoArray[0]);
+			
+			String[] countArray = tempVO.getArt_count().split(",");
+			tempVO.setArtCount(countArray);
+			List<Map<String,Object>> totalOption = new ArrayList<Map<String,Object>>();
+			
+			int totalPrice = 0;
+			for(int j=0; j<artOption.length; j++) {
+				int sum = 0;
+				int totalSum = 0;
+				
+				Map<String,Object> optionMap = new HashMap<String,Object>();
+				List<UserShopbagOptionVO> optionList = new ArrayList<UserShopbagOptionVO>();
+				String[] artOptionDetail = artOption[j].split(",");
+				
+				optionMap.put("artCount",countArray[j]);
+				for(int k=0; k<artOptionDetail.length; k++) {
+					UserShopbagOptionVO vo1 = cart_service.getOptionInfo(artOptionDetail[k]);
+					optionList.add(vo1);
+					sum += optionList.get(k).getArt_option_price();
+				}
+				totalSum = (tempVO.getArt_discount() + sum) * Integer.parseInt(tempVO.getArtCount()[j]);
+				optionMap.put("totalSum", totalSum);
+				optionMap.put("optionArray", optionList);
+				totalOption.add(optionMap);
+				totalPrice +=(int) totalOption.get(j).get("totalSum");
+			}
+			tempVO.setTotalPrice(totalPrice);
+			tempVO.setTotalOption(totalOption);
+			shopbagInfo.remove(i);
+			shopbagInfo.add(i, tempVO);
+		}
+		
+		System.out.println("담은상품목록:"+shopbagInfo);
+		
+		mav.addObject("shopbagInfo", shopbagInfo);
+		
+		//---------------------------
 		
 		System.out.println("mav내용:"+mav);		
 		return mav;
