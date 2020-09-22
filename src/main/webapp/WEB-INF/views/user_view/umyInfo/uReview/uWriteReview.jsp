@@ -507,6 +507,8 @@ body a:link, a:visited, a:hover, a:active {
 					var data = returnData.data;
 					var buttonText = '';
 					var brandName = '';
+					var artOption = [];
+					var artOptionAmount = [];
 					
 					console.log(returnData);
 					console.log(page);
@@ -522,14 +524,21 @@ body a:link, a:visited, a:hover, a:active {
 						if(returnData.startNum <= returnData.totalCnt){
 							if(data.length > 0){
 								for(var i = 0; i < data.length; i++){
-									artImg = data[i].artPhoto.split(',')[0];
+									// 작품 대표 사진 설정
+									artImg = data[i].artPhoto.split(',')[0]; 
 									
+									// 구매한 작품 옵션 설정
+									artOption = data[i].bArtOptionName.split('|-%-|');
+									artOptionAmount = data[i].artOptionAmount.split('|-%-|');
+										
+									// 글 등록(or 수정)버튼 설정
 									if(data[i].bArtReviewStatus == 'N'){
 										buttonText = '구매후기 작성하기';
 									} else {
 										buttonText = '구매후기 수정하기(후기 수정은 1회만 가능 합니다.)';
 									}
 									
+									// 작가 브랜드 명 설정
 									if(data[i].writerBrandName == "" || data[i].writerBrandName == null
 											|| data[i].writerBrandName == undefined ||
 											(data[i].writerBrandName != null && typeof data[i].writerBrandName == "object" && !Object.keys(data[i].writerBrandName).length)){
@@ -542,13 +551,13 @@ body a:link, a:visited, a:hover, a:active {
 									
 									htmldiv += '<div class=\"minwoo_uWriteReview_ListContent\">'
 										+ '<input type=\"hidden\" value=\"' + data[i].buyArtCodeSeq +'\" />' // 0
-										+ '<input type=\"hidden\" value=\"' + data[i].bArtCodeSeq +'\" />' // 1
-										+ '<input type=\"hidden\" value=\"' + data[i].bArtName +'\" />' // 2
+										+ '<input type=\"hidden\" value=\"' + data[i].artCodeSeq +'\" />' // 1
+										+ '<input type=\"hidden\" value=\"' + data[i].artName +'\" />' // 2
 										+ '<input type=\"hidden\" value=\"' + data[i].writerCodeSeq +'\" />' // 3
 										+ '<input type=\"hidden\" value=\"' + artImg +'\" />' // 4
 										+ '<input type=\"hidden\" value=\"' + data[i].bArtOptionCount +'\" />' // 5
 										+ '<input type=\"hidden\" value=\"' + data[i].bArtReviewStatus +'\" />' // 6
-										+ '<input type=\"hidden\" value=\"' + data[i].reviewCodeSeq +'\" />' //7
+										+ '<input type=\"hidden\" value=\"' + data[i].reviewCodeSeq +'\" />' // 7
 										+ '<input type=\"hidden\" value=\"' + data[i].reviewComment +'\" />' // 8
 										+ '<input type=\"hidden\" value=\"' + data[i].reviewStar +'\" />' // 9
 										+ '<div class=\"minwoo_uWriteReview_ListContent_body\">'
@@ -558,7 +567,7 @@ body a:link, a:visited, a:hover, a:active {
 										+ '</div>'
 										+ '<div style=\"margin-left:10px; margin-top:3px;\">'
 										+ '<div style=\"font-weight:bold;\">'
-										+ '<a href=\"#\" style=\"text-decoration:none;\">' + data[i].bArtName + '</a>'
+										+ '<a href=\"#\" style=\"text-decoration:none;\">' + data[i].artName + '</a>'
 										+ '</div>'
 										+ '<div style=\"margin-top:3px;\">'
 										+ '<a href=\"#\" style=\"text-decoration:none; font-weight:bold; font-size:smaller; color:#BDBDBD;\">'
@@ -566,11 +575,29 @@ body a:link, a:visited, a:hover, a:active {
 										+ '</div>'
 										+ '</div>'
 										+ '</div>'
-										+ '<ul class=\"minwoo_contentOptionUl\">'
-										+ '<li>' + data[i].bArtOptionCategory + ' : ' + data[i].bArtOptionName + '</li>'
-										+ '<li> 작품 설명 : ' + data[i].artDescription + '</li>'
+										+ '<ul class=\"minwoo_contentOptionUl\">';
+										
+										// 선택한 옵션에 따라 표기
+										console.log("랭쓰"+artOption.length);
+										switch(artOption.length){
+											// 선택한 작품의 서로 다른 옵션으로 구매한 수량이 한개일 때
+											case 1 :
+												htmldiv += '<li> 선택한 옵션 : <br><br>' + artOption[0] + ' / 수량 : ' + artOptionAmount[0]  +' 개' + '</li>';
+												break;
+											// 선택한 작품의 서로 다른 옵션으로 구매한 수량이 두개일 때
+											case 2 :
+												htmldiv += '<li> 선택한 옵션 : <br><br>' + artOption[0] + ' / 수량 : ' + artOptionAmount[0]  +' 개' + '<br>'
+												+ artOption[1] + ' / 수량 : ' + artOptionAmount[1]  +' 개' +'</li>';
+												break;
+											// 선택한 작품의 서로 다른 옵션으로 구매한 수량이 그 이상일 때
+											default :
+												htmldiv += '<li> 선택한 옵션 : <br>' + artOption[0] + ' / 수량 : ' + artOptionAmount[0]  +' 개' +  '<br>'
+												+ artOption[1] + ' / 수량 : ' + artOptionAmount[1]  +' 개'
+												+ '<br> ... 그 외' + (artOption.length - 2) + ' 개' + '</li>';
+										}
+										
+										htmldiv += '<br><li> 작품 설명 : ' + data[i].artDescription + '</li>'
 										+ '<li> 구매 일자 : ' + moment(data[i].orderDate).format("YYYY-MM-DD") + '</li>'
-										+ '<li> 구매 수량 : ' + data[i].bArtOptionCount + '</li>'
 										+ '</ul>'
 										+ '</div>'
 										+ '<button class=\"minwoo_uWriteReview_ListContent_button\" onClick=\"modalOpen()\">' + buttonText + '</button>'

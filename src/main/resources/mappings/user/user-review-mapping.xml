@@ -9,27 +9,16 @@
 		<result column="member_profile" property="memberProfile"/>
 		
 		<result column="buy_art_code_seq" property="buyArtCodeSeq"/>
-		<result column="ART_CODE_SEQ" property="bArtCodeSeq"/>
-		<result column="BUY_ART_NAME" property="bArtName"/>
-		<result column="BUY_ART_OPTION_CATEGORY" property="bArtOptionCategory"/>
-		<result column="BUY_ART_OPTION_NAME" property="bArtOptionName"/>
-		<result column="BUY_ART_PRICE" property="bArtOptionPrice"/>
-		<result column="BUY_ART_OPTION_COUNT" property="bArtOptionCount"/>
 		<result column="BUY_ART_REVIEW_STATUS" property="bArtReviewStatus"/>
-		<result column="BUY_ART_REVIEW_UPDATE" property="bArtReview"/>
+		<result column="BUY_ART_REVIEW_UPDATE" property="bArtReviewUpdate"/>
 		
 		<result column="art_photo" property="artPhoto"/>
 		<result column="art_description" property="artDescription"/>
-		
-		<result column="writer_name" property="writerName"/>
-		
-		<result column="order_date" property="orderDate"/>
 		
 		<result column="review_code_seq" property="reviewCodeSeq" />
 		<result column="review_date" property="reviewDate" />
 		<result column="review_star" property="reviewStar" />
 		<result column="review_comment" property="reviewComment" />
-		<result column="art_name" property="artName" />
 		<result column="writer_code_seq" property="writerCodeSeq" />
 		<result column="member_name" property="memberName" />
 		<result column="member_profile" property="memberProfile" />
@@ -38,8 +27,15 @@
 		<result column="grnum" property="gRnum"/>
 		<result column="datenum" property="dateNum"/>
 		
+		<result column="art_name" property="artName" />
 		<result column="art_code_seq" property="artCodeSeq"/>
+		<result column="writer_name" property="writerName"/>
 		<result column="writer_brand_name" property="writerBrandName" />
+		
+		<result column="BUY_OPTION_CODE_SEQ" property="bOrderCodeSeq"/>
+		<result column="ART_OPTION_NAME" property="bArtOptionName"/>
+		<result column="art_option_amount" property="artOptionAmount" />
+		<result column="order_date" property="orderDate"/>
 		
 	</resultMap>
 
@@ -62,10 +58,12 @@
 		SELECT
 			COUNT(*)
 		FROM
-			buy_art_tb
+			buy_art_tb a
+        LEFT OUTER JOIN
+            order_tb b ON a.order_code_seq = b.order_code_seq
 		WHERE
 			(
-			buy_art_review_update = 'N' AND member_code_seq = #{memberSeq}
+			a.buy_art_review_update = 'N' AND b.member_code_seq = #{memberSeq}
 			)
 	</select>
 	
@@ -74,22 +72,36 @@
 	<select id="reviewList" resultMap="reviewListMap">
 		<include refid="header" />
 			SELECT
-				a.buy_art_code_seq, a.member_code_seq, a.art_code_seq,
-				a.buy_art_name, a.writer_code_seq, a.buy_art_option_name,
-				a.BUY_ART_PRICE, a.BUY_ART_OPTION_COUNT,
-				a.BUY_ART_REVIEW_STATUS, a.BUY_ART_REVIEW_UPDATE, b.art_photo, b.art_description,
-				c.writer_name, c.writer_brand_name, d.order_date, e.review_code_seq, e.review_comment, e.review_star, e.review_photo
-			FROM buy_art_tb a
+			    e.*, f.writer_name, f.writer_brand_name, f.writer_url, g.member_name, g.member_profile, h.art_name, h.art_photo, h.art_description
+			FROM
+			    (
+			    SELECT
+			        a.*, b.order_code_seq, b.art_code_seq, b.buy_art_review_status, b.buy_art_review_update,
+			        c.writer_code_seq, d.member_code_seq, d.order_date
+			    FROM
+			        (
+			        SELECT
+			            buy_art_code_seq,
+			            LISTAGG(art_option_name, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_name,
+			            LISTAGG(art_option_amount, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_amount
+			        FROM buy_option_tb
+			        GROUP BY buy_art_code_seq
+			        )a
+			    LEFT OUTER JOIN
+			        buy_art_tb b ON a.buy_art_code_seq = b.buy_art_code_seq
+			    LEFT OUTER JOIN
+			        buy_writer_tb c ON b.buy_writer_code_seq = c.buy_writer_code_seq
+			    LEFT OUTER JOIN
+			        order_tb d ON d.order_code_seq = b.order_code_seq
+			    WHERE b.buy_art_review_update = 'N'
+			    ) e
 			LEFT OUTER JOIN
-				art_tb b ON a.art_code_seq = b.art_code_seq
+			    writer_tb f ON e.writer_code_seq = f.writer_code_seq
 			LEFT OUTER JOIN
-				writer_tb c ON b.writer_code_seq = c.writer_code_seq
+			    member_tb g ON g.member_code_seq = e.member_code_seq
 			LEFT OUTER JOIN
-				order_tb d ON a.order_code_seq = d.order_code_seq
-			LEFT OUTER JOIN
-				review_tb e ON a.buy_art_code_seq = e.buy_art_code_seq
-			WHERE a.buy_art_review_update = 'N' AND a.member_code_seq = #{memberSeq}
-			ORDER BY d.order_date DESC
+			    art_tb h ON e.art_code_seq = h.art_code_seq    
+			WHERE g.member_code_seq = #{memberSeq}
 		<include refid="footer" />
 	</select>
 	
