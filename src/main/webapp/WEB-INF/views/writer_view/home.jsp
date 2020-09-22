@@ -4,28 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
-	google.charts.load('current', {
-		'packages' : [ 'bar' ]
-	});
-	google.charts.setOnLoadCallback(drawChart);
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha512-vBmx0N/uQOXznm/Nbkp7h0P1RfLSj0HQrFSzV8m7rOGyj30fYAOKHYvCNez+yM8IrfnW0TCodDEjRqf6fodf/Q==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" integrity="sha512-SUJFImtiT87gVCOXl3aGC00zfDl6ggYAw5+oheJvRJ8KBXZrr/TMISSdVJ5bBarbQDRC2pR5Kto3xTR0kpZInA==" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha512-QEiC894KVkN9Tsoi6+mKf8HaCLJvyA6QIRzY5KrfINXYuP9NxdIkRQhGq3BZi0J4I7V5SidGM3XUQ5wFiMDuWg==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
 
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable([
-				[ 'Year', 'Expenses' ],
-				[ '2014',100 ], [ '2015', 460 ],
-				[ '2016', 500 ], [ '2017',500 ] ]);
-
-		var options = {
-			width : '100%'
-		};
-
-		var chart = new google.charts.Bar(document
-				.getElementById('columnchart_material'));
-
-		chart.draw(data, google.charts.Bar.convertOptions(options));
-	}
-</script>
 <style type="text/css">
 	td{
 	padding:1%; 
@@ -180,9 +165,46 @@
 									</span>							
 								</div>
 								<div>
-										<a href="#">
-											<img style="width:100%" src="<c:url value='/resources/img/graph.PNG'/> ">
-										</a>
+										<canvas id="chart" width="400" height="200"></canvas>
+										<script>
+											var ctx = document.getElementById('chart');
+											var myChart = new Chart(ctx, {
+												    type: 'bar',
+													    data: {
+														labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+														datasets: [{
+														label: '매출',
+														data: [12, 19, 3, 5, 2, 3],
+														backgroundColor: [
+															'rgba(255, 99, 132, 0.2)',
+															'rgba(54, 162, 235, 0.2)',
+															'rgba(255, 206, 86, 0.2)',
+															'rgba(75, 192, 192, 0.2)',
+															'rgba(153, 102, 255, 0.2)',
+															'rgba(255, 159, 64, 0.2)'
+														],
+														borderColor: [
+															'rgba(255, 99, 132, 1)',
+															'rgba(54, 162, 235, 1)',
+															'rgba(255, 206, 86, 1)',
+															'rgba(75, 192, 192, 1)',
+															'rgba(153, 102, 255, 1)',
+															'rgba(255, 159, 64, 1)'
+															],
+															borderWidth: 1
+															}]
+														},
+														options: {
+															scales: {
+																yAxes: [{
+																	ticks: {
+																		beginAtZero: true
+																		}
+																}]
+															}
+														}
+													});
+											</script>
 								</div>
 							</div>
 							<div style="width: 50%; border: 1px #ABABAB solid; padding:1%; margin: 1%;">
@@ -243,12 +265,7 @@
 				<!-- Custom scripts for all pages-->
 				<script src="<c:url value='/resources/js/sb-admin-2.min.js' /> "></script>
 
-				<!-- Page level plugins -->
-				<script src="<c:url value='/vendor/chart.js/Chart.min.js'/> "></script>
-
-				<!-- Page level custom scripts -->
-				<script src="<c:url value='/resources/js/demo/chart-area-demo.js' /> "></script>
-				<script src="<c:url value='/resources/js/demo/chart-pie-demo.js' /> "></script>
+				
 			</div>
 		</div>
 	</div>
