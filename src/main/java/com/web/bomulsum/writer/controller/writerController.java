@@ -19,19 +19,5 @@ public class writerController {
 	public String home() {
 		return "home";
 	}
-	@GetMapping("/orderCondition")
-	public String orderCondition() {
-		return "worder/orderCondition";
-	}
-
-	@GetMapping("/orderList")
-	public String orderList() {
-		return "worder/orderList";
-	}
-	@GetMapping("/registerOfShip")
-	public String registerOfShip() {
-		return "worder/registerOfShip";
-	}
-
 
 }

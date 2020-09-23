@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappings.writer.writer-order-mapping">
+
+	<resultMap type="com.web.bomulsum.writer.order.repository.WriterOrderVO" id="writerOrderList">
+		<result column="order_code_seq" property="orderCodeSeq"/>
+		<result column="member_code_seq" property="memberCodeSeq"/>
+		<result column="order_date" property="orderDate"/>
+		<result column="order_receiver" property="orderReceiver"/>
+		<result column="order_phoneNum" property="orderPhoneNum"/>
+		<result column="order_zipcode" property="orderZipcode"/>
+		<result column="order_address_first" property="orderAddressFirst"/>
+		<result column="order_address_second" property="orderAddressSecond"/>
+		<result column="order_pay_price" property="orderPayPrice"/>
+		<result column="order_point_price" property="orderPointPrice"/>
+		<result column="coupon_code_seq" property="couponCodeSeq"/>
+	 
+		<result column="buy_writer_code_seq" property="buyWriterCodeSeq"/>
+		<result column="writer_code_seq" property="writerCodeSeq"/>
+		<result column="buy_writer_send_price" property="buyWriterSendPrice"/>
+		<result column="buy_writer_plus_send_price" property="buyWriterPlusSendPrice"/>
+		<result column="buy_writer_order_status" property="buyWriterOrderStatus"/>
+		<result column="buy_writer_order_refund_reason" property="buyWriterOrderRefundReason"/>
+		<result column="buy_writer_order_refund_date" property="buyWriterOrderRefundDate"/>
+		<result column="buy_refund_request_date" property="buyRefundRequestDate"/>
+		
+		<result column="buy_art_code_seq" property="buyArtCodeSeq"/>
+		<result column="art_code_seq" property="artCodeSeq"/>
+		<result column="art_name" property="artName"/>
+		<result column="buy_art_request" property="buyArtRequest"/>
+		<result column="buy_art_review_status" property="buyArtReviewStatus"/>
+		<result column="buy_art_review_update" property="buyArtReviewUpdate"/>
+		
+		<result column="buy_option_code_seq" property="buyOptionCodeSeq"/>
+		<result column="art_price" property="artPrice"/>
+		<result column="art_option_seq_list" property="artOptionSeqList"/>
+		<result column="art_option_name" property="artOptionName"/>
+		<result column="art_option_amount" property="artOptionAmount"/>
+
+	</resultMap>
+
+	<!-- 주문 현황 -->
+	<select id="selectOrderConditionList">
+		
+	</select>
+	
+</mapper>
