@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mappings.writer.writer-order-mapping">
+
+<mapper namespace="writerOrderDAO">
 
 	<resultMap type="com.web.bomulsum.writer.order.repository.WriterOrderVO" id="writerOrderList">
 		<result column="order_code_seq" property="orderCodeSeq"/>
@@ -40,8 +41,41 @@
 	</resultMap>
 
 	<!-- 주문 현황 -->
-	<select id="selectOrderConditionList">
-		
+	<select id="selectOrderConditionList" parameterType="String" resultMap="writerOrderList">
+			SELECT
+			    e.*, g.member_name, g.member_profile, h.art_name, h.art_photo
+			FROM
+			    (
+			    SELECT
+			        a.*, b.order_code_seq, b.art_code_seq, b.buy_art_request,
+			        c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
+			        c.buy_writer_order_status, c.buy_writer_order_refund_reason,
+			        c.buy_writer_order_refund_date, c.buy_refund_request_date,
+			        d.order_receiver, d.member_code_seq, d.order_phone_num, d.order_zipcode, d.order_address_first,
+			        d.order_address_second, d.order_date
+			    FROM
+			        (
+			        SELECT
+			            buy_art_code_seq,
+			            LISTAGG(art_price, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_price,
+			            LISTAGG(art_option_name, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_name,
+			            LISTAGG(art_option_amount, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_amount
+			        FROM buy_option_tb
+			        GROUP BY buy_art_code_seq
+			        )a
+			    LEFT OUTER JOIN
+			        buy_art_tb b ON a.buy_art_code_seq = b.buy_art_code_seq
+			    LEFT OUTER JOIN
+			        buy_writer_tb c ON b.buy_writer_code_seq = c.buy_writer_code_seq
+			    LEFT OUTER JOIN
+			        order_tb d ON d.order_code_seq = b.order_code_seq
+			    WHERE b.writer_code_seq = #{writerCodeSeq}
+			    ) e
+			LEFT OUTER JOIN
+			    member_tb g ON g.member_code_seq = e.member_code_seq
+			LEFT OUTER JOIN
+			    art_tb h ON e.art_code_seq = h.art_code_seq
+			ORDER BY e.order_date DESC 
 	</select>
 	
 </mapper>

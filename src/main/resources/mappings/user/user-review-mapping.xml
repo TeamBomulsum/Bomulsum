@@ -107,6 +107,7 @@
 			LEFT OUTER JOIN
 			    review_tb i ON e.buy_art_code_seq = i.buy_art_code_seq   
 			WHERE g.member_code_seq = #{memberSeq}
+			ORDER BY e.order_date DESC
 		<include refid="footer" />
 	</select>
 	
