@@ -1,12 +1,16 @@
 package com.web.bomulsum.user.wishlist.repository;
 
+import java.util.List;
+
 public class UserLikeWriterVO {
 	
 	private String writer_code_seq;
 	private String writer_profile_img;
 	private String writer_brand_name;
+	private String writer_name;
 	private String writer_intro;
 	private String writer_url;
+	private List<String> artPhoto;
 	private String art_code_seq;
 	private String art_photo;
 	private String art_photo1;
@@ -22,11 +26,12 @@ public class UserLikeWriterVO {
 	@Override
 	public String toString() {
 		return "UserLikeWriterVO [writer_code_seq=" + writer_code_seq + ", writer_profile_img=" + writer_profile_img
-				+ ", writer_brand_name=" + writer_brand_name + ", writer_intro=" + writer_intro + ", writer_url="
-				+ writer_url + ", art_code_seq=" + art_code_seq + ", art_photo=" + art_photo + ", art_photo1="
-				+ art_photo1 + ", art_photo2=" + art_photo2 + ", art_photo3=" + art_photo3 + ", art_photo4="
-				+ art_photo4 + ", art_photo5=" + art_photo5 + ", art_photo6=" + art_photo6 + ", art_photo7="
-				+ art_photo7 + ", art_photo8=" + art_photo8 + ", art_photo9=" + art_photo9 + "]";
+				+ ", writer_brand_name=" + writer_brand_name + ", writer_name=" + writer_name + ", writer_intro="
+				+ writer_intro + ", writer_url=" + writer_url + ", artPhoto=" + artPhoto + ", art_code_seq="
+				+ art_code_seq + ", art_photo=" + art_photo + ", art_photo1=" + art_photo1 + ", art_photo2="
+				+ art_photo2 + ", art_photo3=" + art_photo3 + ", art_photo4=" + art_photo4 + ", art_photo5="
+				+ art_photo5 + ", art_photo6=" + art_photo6 + ", art_photo7=" + art_photo7 + ", art_photo8="
+				+ art_photo8 + ", art_photo9=" + art_photo9 + "]";
 	}
 
 	public String getWriter_code_seq() {
@@ -51,6 +56,14 @@ public class UserLikeWriterVO {
 
 	public void setWriter_brand_name(String writer_brand_name) {
 		this.writer_brand_name = writer_brand_name;
+	}
+	
+	public String getWriter_name() {
+		return writer_name;
+	}
+
+	public void setWriter_name(String writer_name) {
+		this.writer_name = writer_name;
 	}
 
 	public String getWriter_intro() {
@@ -155,6 +168,14 @@ public class UserLikeWriterVO {
 
 	public void setArt_photo9(String art_photo9) {
 		this.art_photo9 = art_photo9;
+	}
+
+	public List<String> getArtPhoto() {
+		return artPhoto;
+	}
+
+	public void setArtPhoto(List<String> artPhoto) {
+		this.artPhoto = artPhoto;
 	}
 
 	

@@ -171,7 +171,9 @@ function saveWork(event){
 	let wManage = document.getElementById('wManage');
 	let wConfig = document.getElementById('wConfig');
 	let wManual = document.getElementById('wManual');
-	
+	let wOption = document.getElementById('option1');
+	let wOptionName = document.getElementById('name1');
+	let wOptionPrice = document.getElementById('price1');
 	
 	if(image.value == ''){
 		alert('사진을 등록해 주세요.');
@@ -258,6 +260,21 @@ function saveWork(event){
         keyword.focus();
         return false;
      }
+	if(wOption.value == ''){
+		alert('옵션은 1개 이상 등록 필수입니다.')
+		wOption.focus();
+		return false;
+	}
+	if(wOptionName.value == ''){
+		alert('옵션은 1개 이상 등록 필수입니다.')
+		wOptionName.focus();
+		return false;
+	}
+	if(wOptionPrice.value == ''){
+		alert('옵션은 1개 이상 등록 필수입니다.')
+		wOptionPrice.focus();
+		return false;
+	}
 	
 	formSubmit.submit();	
 }
@@ -553,7 +570,7 @@ $(function(){
                         <div>
                            <div class="flexcontainer">
                               <div class="textTitle">
-                                 <input type="text" name="artOptionCategory" id="option" placeholder="구성 선택" autocomplete="off">
+                                 <input type="text" name="artOptionCategory" id="option1" placeholder="구성 선택" autocomplete="off" required>
                               </div>
                            </div>
                            <!-- end flexcontainer -->
@@ -596,7 +613,7 @@ $(function(){
                         <div>
                            <div class="flexcontainer">
                               <div class="textTitle">
-                                 <input type="text" name="artOptionCategory" id="option" placeholder="구성 선택" autocomplete="off">
+                                 <input type="text" name="artOptionCategory" id="option2" placeholder="구성 선택" autocomplete="off">
                               </div>
                            </div>
                            <!-- end flexcontainer -->
@@ -607,25 +624,25 @@ $(function(){
                            <div class="flexCon">
                               <div class="nameGroup" style="margin-left:3%">
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name4" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name5" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name6" size="30%" autocomplete="off">
                                  </div>
 
                               </div>
                               <div class="priceGroup" style="margin-left:9%">
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price1" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price4" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price2" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price5" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price3" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price6" size="30%" autocomplete="off">
                                  </div>
                               </div>
                            </div>
@@ -639,7 +656,7 @@ $(function(){
                         <div>
                            <div class="flexcontainer">
                               <div class="textTitle">
-                                 <input type="text" name="artOptionCategory" id="option" placeholder="구성 선택" autocomplete="off">
+                                 <input type="text" name="artOptionCategory" id="option3" placeholder="구성 선택" autocomplete="off">
                               </div>
                            </div>
                            <!-- end flexcontainer -->
@@ -650,25 +667,25 @@ $(function(){
                            <div class="flexCon">
                               <div class="nameGroup" style="margin-left:3%">
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name1" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name7" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name2" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name8" size="30%" autocomplete="off">
                                  </div>
                                  <div class="names">
-                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name3" size="30%" autocomplete="off">
+                                    <label>이름</label> &nbsp;<input type="text" name="artOptionName" id="name9" size="30%" autocomplete="off">
                                  </div>
 
                               </div>
                               <div class="priceGroup" style="margin-left:9%">
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price1" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price7" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price2" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price8" size="30%" autocomplete="off">
                                  </div>
                                  <div class="prices">
-                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price3" size="30%" autocomplete="off">
+                                    <label>가격</label> &nbsp;<input type="text" name="artOptionPrice" id="price9" size="30%" autocomplete="off">
                                  </div>
                               </div>
                            </div>

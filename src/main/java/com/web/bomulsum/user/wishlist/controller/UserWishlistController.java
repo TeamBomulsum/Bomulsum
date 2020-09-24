@@ -1,5 +1,6 @@
 package com.web.bomulsum.user.wishlist.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -29,16 +30,83 @@ public class UserWishlistController {
 		ModelAndView mav = new ModelAndView("/umyInfo/uwishList/uLikeWriter");
 	
 		//회원코드
-		HttpSession session = request.getSession(); 
-		String memberCode = (String)session.getAttribute("member"); 
-		System.out.println(memberCode);
+	//	HttpSession session = request.getSession(); 
+	//	String memberCode = (String)session.getAttribute("member"); 
+	//	System.out.println(memberCode);
+	
+		String memberCode = "member_code_seq58";
+		//좋아하는 작가 리스트
+		List<String> writerList = service.getwriterList(memberCode);
+		System.out.println(writerList);
 		
-		//작가정보
-		List<UserLikeWriterVO> artList = service.getWriterInfo(memberCode);
-		System.out.println(artList.toString());	
+		if(writerList.isEmpty()) {
+			mav.addObject("artListInfo", null);
+		}
+		else {
+			//작가정보
+			List<UserLikeWriterVO> artList = service.getWriterInfo(writerList);
+			//작가 브랜드명 처리
+			for(int i=0; i<artList.size(); i++) {
+				if(artList.get(i).getWriter_brand_name() == null) {
+					String writerName = artList.get(i).getWriter_name();
+					artList.get(i).setWriter_brand_name(writerName);
+				}
+				if(artList.get(i).getWriter_intro() == null) {
+					artList.get(i).setWriter_intro("소개글 없음");
+				}
+			}
+			
+			//작품 사진 가져오기
+			List<List<Map<String,Object>>> artPhotoList = new ArrayList<List<Map<String,Object>>>();
+			for(int i=0;i<writerList.size(); i++) {
+				List<Map<String,Object>> photoInfo = service.getArtPhotoTest(writerList.get(i));
+				artPhotoList.add(photoInfo);
+			}
+			System.out.println(artPhotoList);
+
+			for (int j = 0; j < artPhotoList.size(); j++) {
+				List<String> photoFinal = new ArrayList<String>();
+				for (int x = 0; x < artPhotoList.get(j).size(); x++) {
+					String artName = (String) artPhotoList.get(j).get(x).get("ART_PHOTO");
+					String[] photoTest = artName.split(",");
+					photoFinal.add(photoTest[0]);
+				}
+				artList.get(j).setArtPhoto(photoFinal);
+			}
+			for(int y=0; y<artList.size(); y++) {
+				if(artList.get(y).getArtPhoto().size() >= 9) {
+					artList.get(y).setArt_photo1(artList.get(y).getArtPhoto().get(0));
+					artList.get(y).setArt_photo2(artList.get(y).getArtPhoto().get(1));
+					artList.get(y).setArt_photo3(artList.get(y).getArtPhoto().get(2));
+					artList.get(y).setArt_photo4(artList.get(y).getArtPhoto().get(3));
+					artList.get(y).setArt_photo5(artList.get(y).getArtPhoto().get(4));
+					artList.get(y).setArt_photo6(artList.get(y).getArtPhoto().get(5));
+					artList.get(y).setArt_photo7(artList.get(y).getArtPhoto().get(6));
+					artList.get(y).setArt_photo8(artList.get(y).getArtPhoto().get(7));
+					artList.get(y).setArt_photo9(artList.get(y).getArtPhoto().get(8));
+				}
+				else{
+					List<String> tempList = artList.get(y).getArtPhoto();
+					for(int t=0; t<9; t++) {
+						tempList.add("noimage.png");
+					}
+					artList.get(y).setArt_photo1(artList.get(y).getArtPhoto().get(0));
+					artList.get(y).setArt_photo2(artList.get(y).getArtPhoto().get(1));
+					artList.get(y).setArt_photo3(artList.get(y).getArtPhoto().get(2));
+					artList.get(y).setArt_photo4(artList.get(y).getArtPhoto().get(3));
+					artList.get(y).setArt_photo5(artList.get(y).getArtPhoto().get(4));
+					artList.get(y).setArt_photo6(artList.get(y).getArtPhoto().get(5));
+					artList.get(y).setArt_photo7(artList.get(y).getArtPhoto().get(6));
+					artList.get(y).setArt_photo8(artList.get(y).getArtPhoto().get(7));
+					artList.get(y).setArt_photo9(artList.get(y).getArtPhoto().get(8));
+				}
+			}
+			System.out.println("총 list"+artList.toString());	
+			mav.addObject("artListInfo", artList);
+		}
 		
 		//작가별 작품 개수 확인
-		List<Map<String, Object>> artCount = service.getArtCount(memberCode);
+	/*	List<Map<String, Object>> artCount = service.getArtCount(memberCode);
 		System.out.println(artCount);
 		int[] writerCountArr = new int[artCount.size()];
 		for(int i=0; i<artCount.size(); i++) {
@@ -48,6 +116,7 @@ public class UserWishlistController {
 		}
 		System.out.println(Arrays.toString(writerCountArr));
 		
+		//작가별 작품
 		List<String> writerArtList = service.getArtPhoto(memberCode);
 		System.out.println(writerArtList);
 		
@@ -74,45 +143,10 @@ public class UserWishlistController {
 			//artList.get(i).setArt_photo1(photoArr[0]);
 			
 		}
-		System.out.println(artList);
-
-		
-		//작가별 작품 사진
-	/*	List<UserLikeWriterPhotoVO> photoList = service.getArtPhotoList(memberCode);
-	
-		for(int j=0; j<writerCountArr.length; j++) {
-			for(int i = 0; i<writerCountArr[j]; i++) {
-				String[] photoArr = photoList.get(i).getArt_photo().split(",");
-				artList.get(0).setArt_photo1(photoArr[0]);
-				artList.get(0).setArt_photo2(photoArr[1]);
-			//	artList.get(0).setArt_photo3(photoArr[2]);
-			//	artList.get(0).setArt_photo4(photoArr[3]);
-			//	artList.get(0).setArt_photo5(photoArr[4]);
-			//	artList.get(0).setArt_photo6(photoArr[5]);
-			//	artList.get(0).setArt_photo7(photoArr[6]);
-			//	artList.get(0).setArt_photo8(photoArr[7]);
-			//	artList.get(0).setArt_photo9(photoArr[8]);
-				
-			}
-		}
 		System.out.println(artList);*/
-		
 
-/*		//작가별 사진
-		List<Map<String, Object>> artPhoto = service.artPhotoList(memberCode);
 		
-		List<String> artPhotoList = new ArrayList<>(); 
-		for(Map<String, Object> strMap : artPhoto){
-			artPhotoList.add((String) strMap.get("ART_PHOTO"));
-		}
-		System.out.println(artPhotoList);
-		
-
-		String ar2 = artPhotoList.get(1);
-		String[] ar = ar2.split(",");
-		System.out.println(ar[0]); */
-		
-		mav.addObject("artListInfo", artList);
+		//mav.addObject("artListInfo", artList);
 		
 		return mav;
 		

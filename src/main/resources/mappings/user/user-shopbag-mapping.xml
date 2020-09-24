@@ -134,5 +134,16 @@
 			cart_seq=#{cart}
 	</update>
 	
+	<!-- 장바구니 카운트 -->
+	<select id="shopbagCount" parameterType="String" resultType="String">
+		SELECT 
+			count(*)
+		FROM 
+			cart_tb
+		WHERE 
+			member_code_seq =#{member}
+	</select>
+	
+	
 
 </mapper>

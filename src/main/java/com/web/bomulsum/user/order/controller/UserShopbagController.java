@@ -20,11 +20,10 @@ import com.web.bomulsum.user.order.repository.UserShopbagModalVO;
 import com.web.bomulsum.user.order.repository.UserShopbagOptionVO;
 import com.web.bomulsum.user.order.repository.UserShopbagVO;
 import com.web.bomulsum.user.order.service.UserShopbagService;
-import com.web.bomulsum.user.productInfo.repository.TestVo;
 
 @Controller
 @RequestMapping(value="/user")
-public class userShopbagController {
+public class UserShopbagController {
 	
 	@Autowired
 	UserShopbagService service;
@@ -38,11 +37,9 @@ public class userShopbagController {
 		 String memberCode = (String)session.getAttribute("member"); 
 		 System.out.println(memberCode);
 		 
-		//String memberCode = "member_code_seq58";
 		List<UserShopbagVO> shopbagInfo = service.getShopbagInfo(memberCode);
 		
 		for(int i=0; i<shopbagInfo.size(); i++) {
-			
 			UserShopbagVO tempVO = shopbagInfo.get(i);
 			String[] artOption= shopbagInfo.get(i).getArt_option_seq().split("#");
 			
@@ -259,6 +256,14 @@ public class userShopbagController {
 		service.updateOption(map);
 	 }
 	 
+	 //장바구니 카운트
+	 @ResponseBody
+	 @RequestMapping(value="/shopbagCount", method=RequestMethod.POST)
+	public String shopbagCount( @RequestParam(value="member") String member) {
+		 String shopbagCount = service.shopbagCount(member);
+		return shopbagCount;
+		} 
+		
 
 	 
 }

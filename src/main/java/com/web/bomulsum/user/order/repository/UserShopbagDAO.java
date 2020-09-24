@@ -76,7 +76,11 @@ public class UserShopbagDAO {
 		sqlSessionTemplate.update("userShopbagDAO.updateArtOption",map); 
 	}
 	 
-	
+	//장바구니 카운트
+	public String shopbagCount(String member) {
+		String shopbagCount = sqlSessionTemplate.selectOne("userShopbagDAO.shopbagCount", member);
+		return shopbagCount;
+	}
 	
 	
 	

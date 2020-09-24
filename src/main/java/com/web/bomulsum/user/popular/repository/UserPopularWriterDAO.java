@@ -33,11 +33,18 @@ public class UserPopularWriterDAO {
 		sqlSessionTemplate.delete("userPopularWriterDAO.nonLikeWriter", map);
 	}
 
-	//좋아하는 작가인지 확인
+	//좋아하는 작가인지 확인 여러명 한번에
 	public List<String> getLikeWriter(HashMap<String, String> map){
 	  List<String> checkLikeWriter =sqlSessionTemplate.selectList("userPopularWriterDAO.getLikeWriter",map); 
 	  return checkLikeWriter; 
 	}
+	
+	//좋아하는 작가인지 확인
+	public List<String> isLikeWriter(String member){
+		List<String> wishlistCode = sqlSessionTemplate.selectList("userPopularWriterDAO.islikeWriter",member);
+		return wishlistCode;
+	}
+	
 
 }
 

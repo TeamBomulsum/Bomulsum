@@ -886,7 +886,7 @@ button:focus{
 									<li>
 										<div class="split">
 										
-											<span class="option_txt"><c:forEach var="j" items="${totalOption.optionArray}">${j.art_option_category}:&nbsp;${j.art_option_name}:&nbsp;${j.art_option_price}원 &nbsp;&nbsp;</c:forEach></span>
+											<span class="option_txt"><c:forEach var="j" items="${totalOption.optionArray}">${j.art_option_category}:&nbsp;${j.art_option_name}(+${j.art_option_price}원) &nbsp;&nbsp;</c:forEach></span>
 											<div class="input_number">
 												<label>수량</label>
 												<button class="downButton" type="button">-</button>
@@ -1122,7 +1122,7 @@ $(function(){
 	//기능추가 - 정아
 	
 	//주문 요구사항 저장
-	$("#saveButton").click(function(e){
+	$(document).on('click',"#saveButton",function(e){
 		var $button = $(this);
 		var $content = $button.prev().children().first().val();
 		var $cartSeq = $button.next().text();
