@@ -48,6 +48,8 @@ var orderArtOption = []; //주문옵션 정보 담을 변수
 var artShipJeju = 0; //작가별 배송비 (제주)
 var artShip = 0; //작가별 배송비
 
+var artDaName = '';
+
 //아임포트 결제api 관련
 var IMP = window.IMP; // 생략가능
 IMP.init('imp54276316'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -84,7 +86,7 @@ function shipInfoSet(){
 	
 }
 
-
+var test = '${shopbagInfo}';
 
 //결제하기 버튼 눌렀을때. 
 function goPayment(){
@@ -121,7 +123,8 @@ function goPayment(){
 	
 	
 	
-	
+	//적립테이블에 insert 처리할때 쓸 작품대표이름
+	artDaName = $('.dain_goods_name').text();
 	
 	
 	
@@ -137,7 +140,6 @@ function goPayment(){
 		<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
 			var orderArtOne = '';
 			var orderRequest = '${info.order_request}';
-			
 			//배송비처리(배송비무료조건, 제주산간 배송비처리)
 			<c:if test="${info.totalPrice ge info.writer_sendfree_case}">
 				artShip  = 0;
@@ -161,13 +163,15 @@ function goPayment(){
 				orderRequest = "없음";
 			}
 			
-
 			
-			orderArtOne += '${info.cart_seq}'  + ',' + '${info.writer_code_seq}' + ',' + '${info.art_code_seq}' + ','
-			+ '${info.art_name}'  + ',' + orderRequest + ',' + artShip + ','+ artShipJeju + ',';
+			
+			orderArtOne = '${info.cart_seq}'  + '@#@' + '${info.writer_code_seq}' + '@#@' + '${info.art_code_seq}' + '@#@'
+			+ '${info.art_name}'  + '@#@' + orderRequest + '@#@' + artShip + '@#@'+ artShipJeju + '@#@' ;
+			
 			
 			orderArt[i] = orderArtOne;
-			console.log(orderArt[i]);
+			console.log("orderArtOne--->"+orderArtOne);
+			console.log("orderArt--->"+orderArt[i]);
 			i++;
 		</c:forEach>
 		
@@ -181,21 +185,20 @@ function goPayment(){
 		var z = 0;
 		<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
 			<c:forEach var="totalOption" items="${info.totalOption}" >
-			var orderArtOptionOne = ''; 
-			var orderArtOptionCode='';
-			var orderArtOptionCount = '';
-			
-			orderArtOptionCode += '#';
-				<c:forEach var="j" items="${totalOption.optionArray}">
+				var orderArtOptionOne = ''; 
+				var orderArtOptionCode='';
+				var orderArtOptionCount = '';
 				
-				orderArtOptionCode += '${j.art_option_seq}'+',';
-				
-				orderArtOptionOne += '${j.art_option_category}'+": "+'${j.art_option_name}' + '(+' 
-					+ '${j.art_option_price}'+'원) / ';
-
-				</c:forEach>
-				orderArtOptionOne += orderArtOptionCode  +'#'+'${totalOption.artCount}'
-				+'#'+'${info.cart_seq}' +'#'+ '${info.art_code_seq}' +'#'+ '${totalOption.totalSum}';
+				orderArtOptionCode += '#';
+					<c:forEach var="j" items="${totalOption.optionArray}">
+					
+						orderArtOptionCode += '${j.art_option_seq}' + '|';
+						
+						orderArtOptionOne += '${j.art_option_category}'+": "+'${j.art_option_name}' + '(+' 
+							+ '${j.art_option_price}'+'원) / ';
+	
+					</c:forEach>
+				orderArtOptionOne += orderArtOptionCode  +'#'+'${totalOption.artCount}'+'#'+'${info.cart_seq}' +'#'+ '${info.art_code_seq}' +'#'+ '${totalOption.totalSum}';
 				orderArtOption[z] = orderArtOptionOne;
 				console.log("아트옵션"+z+"번째->"+orderArtOption[z]);
 				z++;
@@ -203,7 +206,7 @@ function goPayment(){
 		</c:forEach>
 		
 	
-	
+
 	$.ajax({
 		url:'/bomulsum/user/goPayment.do',
 		data:{
@@ -218,13 +221,39 @@ function goPayment(){
 			'artPointSum' : artPointSum, //예상 적립금
 			'finUsePoint' : finUsePoint, //사용한적립금
 			'orderArt' : orderArt,
-			'orderArtOption' : orderArtOption
+			'orderArtOption' : orderArtOption,
+			'artDaName' : artDaName
 			
 			
 		},
 		type:'POST',
 		success:function(data){
 			location.href='/bomulsum/user/successPayment.do';
+			
+	/* 		$.ajax({
+				url:'/bomulsum/user/successPayment.do',
+				data:{
+					'memberCode' : memberCode,
+					'shipName':shipName,
+					'shipPhone' : shipPhone,
+					'shipZip' : shipZip,
+					'shipFirst' : shipFirst,
+					'shipSecond' : shipSecond,
+					'orderSum' : dain_fin_sum, //주문금액
+					'orderShip' : dain_fin_ship, //배송비
+					'orderShipJeju' : dain_fin_jeju, //제주산간배송비
+					'discountSum' : dain_fin_discount //할인금액
+					
+				},
+				type:'POST',
+				success:function(data){
+					console.log('주문완료');
+					//location.href='/bomulsum/user/successPayment.do';
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});  */
 		},
 		error:function(e){
 			console.log(e);
@@ -239,39 +268,32 @@ function goPayment(){
 	
 	
 	
-	
-	
-	
-	
-	
-	
 
 	
-	//결제창 실행
+/* 	//결제창 실행
  	IMP.request_pay({
 	    pg : 'inicis', // version 1.1.0부터 지원.
 	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '보물섬 : 주문결제',
-	    amount : 100, //판매 가격
+	    amount : dain_fin_sum, //판매 가격
 	    buyer_email : 'abc@bomulsum.com',
 	    buyer_name : memberName,
-/* 	    buyer_tel : '010-1234-5678',
-	    buyer_addr : '서울특별시 강남구 삼성동',
-	    buyer_postcode : '123-456' */
+	    
 	}, function(rsp) {
 	    if ( rsp.success ) {
 	        var msg = '결제가 완료되었습니다.';
 
+	        //DB처리 들어올공간
 	        
-
+	        
 	        
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
 	        //msg += '에러내용 : ' + rsp.error_msg;
 	    }
 	    alert(msg);
-	}); 
+	});  */
 }
 
 /* 세자리 마다 콤마찍기 */
@@ -753,10 +775,9 @@ $(function(){
     $('#dainExPoint').text(artPointSum);
 
     
-/*     var info = '${shopbagInfo}';
-    console.log(info);
- */
 
+    
+    
 
 		
 })
@@ -1596,7 +1617,6 @@ ul.tabs li.current {
 			</table>
 			</div>
 			</div>
-			
 			<!-- 배송지 테이블--2 -->
 			<div id="tab-2" class="tab-content">
 			<div class="dain_address_info_root">

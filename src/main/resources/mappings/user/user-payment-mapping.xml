@@ -156,4 +156,29 @@
 		)  							
   	</insert>  
   	
+  	
+  	<delete id="deleteUseCoupon" parameterType="String">
+	  	DELETE 
+	  	FROM 
+	  		coupon_tb 
+	  	WHERE 
+	  		coupon_code_seq = #{choiceCoupon}
+  	</delete>
+  	
+  	<!-- <insert id="insertOrderReserves">
+  		INSERT INTO point_tb 
+  		VALUES
+  		(
+  		'8',
+  		#{memberCode},
+  		#{orderCodeSeq}, 
+  		'적립',
+  		#{artPointSum},
+  		'상품 주문으로 인한 적립금', 
+  		SYSDATE
+  		
+  		)
+  		
+  	</insert> -->
+  	
 </mapper>

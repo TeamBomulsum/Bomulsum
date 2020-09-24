@@ -47,4 +47,11 @@ public class UserPaymentDAO {
 		sqlSessionTemplate.insert("paymentDAO.insertOrderArtOption",map);
 		return String.valueOf(map.get("OrdOptionCode"));
 	}
+	
+	//쿠폰 삭제
+	public void deleteUseCoupon(String couponCode) {
+		sqlSessionTemplate.delete("paymentDAO.deleteUseCoupon",couponCode);
+	}
+	
+	
 }

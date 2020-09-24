@@ -1,6 +1,7 @@
 package com.web.bomulsum.user.payment.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -184,17 +185,32 @@ public class UserPaymentController {
 									@RequestParam(value="artPointSum") int artPointSum,
 									@RequestParam(value="finUsePoint") int finUsePoint,
 									@RequestParam(value="orderArt[]") String[] orderArt,
-									@RequestParam(value="orderArtOption[]") String[] orderArtOption
+									@RequestParam(value="orderArtOption[]") String[] orderArtOption,
+									@RequestParam(value="artDaName") String artDaName	//상품 대표이름
+									
 		) {
 		
-
+		
 		ModelAndView mav = new ModelAndView("ushopbag/usuccessOrder");
+		
+		
+		System.out.println("orderArt확인--->"+Arrays.toString(orderArt));
+		for(int i=0; i<orderArt.length; i++) {
+			System.out.println("check : " + i + orderArt[i]);
+		}
+		
 		
 		System.out.println(memberCode+"의 주문내용-> 받을이름: "+shipName  +", 받을번호: "+ shipPhone 
 				+ ", 우편번호: "+ shipZip + ", 기본주소: "+ shipFirst +", 상세주소: "+ shipSecond 
 				+ ", 총주문액: "+ orderSum + ", 사용쿠폰: " + choiceCoupon + ", 사용적립금: "+ finUsePoint 
-				+ ", 예상적립금: "+ artPointSum 
+				+ ", 예상적립금: "+ artPointSum + ", 상품대표이름: "+ artDaName 
 				) ;
+		
+		if(choiceCoupon.length()!=0) {
+			service.deleteUseCoupon(choiceCoupon);
+		}else {
+			System.out.println("쿠폰없음");
+		}
 		
 		HashMap<String,Object> orderMap = new HashMap<String,Object>();
 		orderMap.put("memberCode", memberCode);
@@ -210,17 +226,22 @@ public class UserPaymentController {
 		String orderCodeSeq = service.insertOrderList(orderMap); //주문내역테이블에 인서트
 		//System.out.println("주문넣은 주문내역seq->"+orderCodeSeq);
 		
-		for(int i=0; i<orderArt.length; i++) {	//주문별
+		// 우영
+		List<HashMap<String, String>> imsi = new ArrayList<HashMap<String,String>>();
+		// 우영
+		for(int i=0; i<orderArt.length; i++) {	//장바구니 코드별
 			
 			//System.out.println("맵내용:"+orderMap);			
 			
-			//System.out.println(i+"번째 주문결제작품 : "+orderArt[i]);
+			System.out.println(i+"번째 orderArt : "+orderArt[i]);
 			
-			String[] orderArtOne = orderArt[i].split(","); //작품한줄에 들어간 내용
+			String[] orderArtOne = orderArt[i].split("@#@"); //작품한줄에 들어간 내용
+			
+			
 			
 		
 			for(int j=0; j<orderArtOne.length; j++) {	//작품별
-				
+				System.out.println(j+"번째 orderArtOne:"+orderArtOne[j] );
 				orderMap.put("artInfo"+j, orderArtOne[j]);
 //--------------사용 변수명  : 들어가는 내용 ---------------
 //				artInfo0 : cart_seq33(장바구니 카트번호)
@@ -245,27 +266,38 @@ public class UserPaymentController {
 			orderMap.put("orderWriterCode", orderWriterCode); //주문작가코드 맵에넣음
 			
 			String orderArtCode = service.insertOrderArt(orderMap);
-			//System.out.println(orderArtCode);
+			System.out.println("orderArtCode->"+orderArtCode);
 			
+			
+			
+			//orderMap.put("orderArtCode"+i, orderArtCode); //주문작품코드 맵에넣음
 			orderMap.put("orderArtCode", orderArtCode); //주문작품코드 맵에넣음
 			
-
-
+			// 우영
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("orderArtCode", orderArtCode);
+			map.put("artCode", (String)orderMap.get("artInfo2"));
+			imsi.add(map);
+			// 우영
 			
 		} //for문끝(작품별)
 		
-
+		System.out.println(Arrays.toString(orderArtOption));
+		for(int j=0; j<orderArtOption.length; j++) {
+			System.out.println("test : " + orderArtOption[j]);
+		}
 		//------옵션별
-		  for(int j=0; j<orderArtOption.length; j++) {
+		for(int j=0; j<orderArtOption.length; j++) {
 			  //System.out.println(j+"번째 주문결제작품 옵션 : "+orderArtOption[j]); 
-			  String[] orderArtOptionOne = orderArtOption[j].split("#"); //작품한줄에 들어간 내용
-			  
+			  String[] orderArtOptionOne = orderArtOption[j].split("#"); //작품옵션한줄에 들어간 내용
+			  System.out.println("---------------------새로운옵션----------------"+j);
 			  for(int z = 0; z<orderArtOptionOne.length; z++) {
 						  System.out.println(z+"번째 옵션:"+orderArtOptionOne[z]);
 						  
-						  if(z==0) { //옵션내용 뒤에 / 빼주는 처리
-							  orderArtOptionOne[z] = orderArtOptionOne[z].substring(0, orderArtOptionOne[z].length()-3);
-						  }
+				/*
+				 * if(z==0) { //옵션내용 뒤에 / 빼주는 처리 orderArtOptionOne[z] =
+				 * orderArtOptionOne[z].substring(0, orderArtOptionOne[z].length()-3); }
+				 */
 						  
 						 orderMap.put("artOptionInfo"+z, orderArtOptionOne[z]);
 //						  		변수명         : 내용
@@ -277,10 +309,20 @@ public class UserPaymentController {
 //						  artOptionInfo5 : 26000 (작품가격)
 			  }
 			  System.out.println("최종맵:"+orderMap);
-			  
-			  String orderArtOptionCode = service.insertOrderArtOption(orderMap);
+			  // 우영
+			  System.out.println("dndud test : " + (String)orderMap.get("artOptionInfo4"));
+			  for(HashMap<String, String> m : imsi) {
+				  System.out.println("in for dndud test :" + m.get("orderArtCode"));
+				  if(m.get("artCode").equals((String)orderMap.get("artOptionInfo4"))) {
+					  System.out.println("우영이 테스트 진행중");
+					  orderMap.put("orderArtCode", m.get("orderArtCode"));
+					  String orderArtOptionCode = service.insertOrderArtOption(orderMap);					  
+				  }
+//				  orderMap.put("orderArtCode", orderArtCode);
+			  }
+			  // 우영
 			  //System.out.println(orderArtOptionCode);
-		  }		
+		  }
 		
 		return mav;
 	}
@@ -292,6 +334,15 @@ public class UserPaymentController {
 	@RequestMapping(value="/successPayment")
 	public ModelAndView successPay() {
 		ModelAndView mav =  new ModelAndView("ushopbag/usuccessOrder");
+		
+		//배송지이름
+		//폰번호
+		//주소
+		//작품금액
+		//배송비
+		//제주도서배송비
+		//쿠폰할인
+		
 		return mav;
 	}
 	

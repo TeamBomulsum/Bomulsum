@@ -345,4 +345,15 @@
 		)
 	</insert>
 	
+	<select id="checkShopBag" parameterType="hashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			cart_tb
+		WHERE
+			art_code_seq=#{code}
+			AND
+			member_code_seq=#{member}
+	</select>
+	
 </mapper>

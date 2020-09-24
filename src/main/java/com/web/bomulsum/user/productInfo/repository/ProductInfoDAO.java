@@ -86,4 +86,7 @@ public class ProductInfoDAO {
 		template.insert("ProductInfoDAO.insertShopBag", vo);
 	}
 	
+	public int checkShopBag(HashMap<String, String> map) {
+		return template.selectOne("ProductInfoDAO.checkShopBag", map);
+	}
 }
