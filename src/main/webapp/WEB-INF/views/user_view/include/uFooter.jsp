@@ -103,7 +103,7 @@
 		<tr>
 			<td class="dain-borderright"><a class="dain-footer-a" href="<c:url value='/user/board/notice.do'/> ">공지사항</a></td>
 			<td class="dain-borderright"><a class="dain-footer-a" href="#">자주 묻는 질문</a></td>
-			<td class="dain-borderright"><a class="dain-footer-a" href="#">입점문의</a></td>
+			<td class="dain-borderright"><a class="dain-footer-a" href="https://docs.google.com/forms/d/1e_tZ-hKrAQ5ur0rM82lZjRjib9T3HuAeTEfBfYaVqTc/edit">입점문의</a></td>
 			<td><a class="dain-footer-a" href="#">About Bomulsum</a></td>
 		</tr>
 	</table>

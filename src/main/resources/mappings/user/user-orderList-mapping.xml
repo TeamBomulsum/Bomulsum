@@ -29,6 +29,8 @@
 		<result column="buy_writer_order_status" property="buyWriterOrderStatus" />
 		<result column="buy_writer_order_refund_reason" property="buyWriterOrderRefundReason" />
 		<result column="buy_refund_request_date" property="buyRefundRequestDate" />
+		<result column="buy_delivery_name" property="buyDeliveryName"/>
+		<result column="buy_delivery_num" property="buyDeliveryNum"/>
 	</resultMap>
 	
 	<resultMap type="com.web.bomulsum.user.orderList.repository.UserBuyArtVO" id="buy_artTb">
@@ -99,7 +101,9 @@
 			b.buy_writer_order_status,
 			b.buy_writer_order_refund_reason,
 			b.buy_writer_order_refund_date,
-			b.buy_refund_request_date
+			b.buy_refund_request_date,
+			b.buy_delivery_name,
+			b.buy_delivery_num
 		FROM
 			buy_writer_tb b
 		INNER JOIN
@@ -250,7 +254,9 @@
 			b.buy_writer_order_status,
 			b.buy_writer_order_refund_reason,
 			b.buy_writer_order_refund_date,
-			b.buy_refund_request_date
+			b.buy_refund_request_date,
+			b.buy_delivery_name,
+			b.buy_delivery_num
 		FROM
 			buy_writer_tb b
 		INNER JOIN

@@ -14,8 +14,24 @@ public class UserBuyWriterVO {
 	private String buyWriterOrderRefundReason;
 	private Date buyWriterOrderRefundDate;
 	private Date buyRefundRequestDate;
+	private String buyDeliveryName;
+	private String buyDeliveryNum;
 	
 	
+	
+	
+	public String getBuyDeliveryName() {
+		return buyDeliveryName;
+	}
+	public void setBuyDeliveryName(String buyDeliveryName) {
+		this.buyDeliveryName = buyDeliveryName;
+	}
+	public String getBuyDeliveryNum() {
+		return buyDeliveryNum;
+	}
+	public void setBuyDeliveryNum(String buyDeliveryNum) {
+		this.buyDeliveryNum = buyDeliveryNum;
+	}
 	public Date getBuyRefundRequestDate() {
 		return buyRefundRequestDate;
 	}
@@ -89,8 +105,10 @@ public class UserBuyWriterVO {
 				+ writerBrandName + ", buyWriterSendPrice=" + buyWriterSendPrice + ", buyWriterPlusSendPrice="
 				+ buyWriterPlusSendPrice + ", buyWriterOrderStatus=" + buyWriterOrderStatus
 				+ ", buyWriterOrderRefundReason=" + buyWriterOrderRefundReason + ", buyWriterOrderRefundDate="
-				+ buyWriterOrderRefundDate + ", buyRefundRequestDate=" + buyRefundRequestDate + "]";
+				+ buyWriterOrderRefundDate + ", buyRefundRequestDate=" + buyRefundRequestDate + ", buyDeliveryName="
+				+ buyDeliveryName + ", buyDeliveryNum=" + buyDeliveryNum + "]";
 	}
+	
 	
 	
 	

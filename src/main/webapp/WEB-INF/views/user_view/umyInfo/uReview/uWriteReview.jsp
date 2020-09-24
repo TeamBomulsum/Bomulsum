@@ -249,12 +249,12 @@ body a:link, a:visited, a:hover, a:active {
     font-weight: bold;
 }
 
-li p {
+/* li p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   height: 25px;
-}
+} */
 
 </style>
 </head>

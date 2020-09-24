@@ -342,6 +342,16 @@ input[type="button"]:focus{
     align-items: center;
     width: 100%;
 }
+
+.delivery{
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    padding: 5%;
+    margin-top: 5%;
+    cursor: pointer;
+    color:black;
+    text-decoration: none;
+}
 </style>
 </head>
 <body>
@@ -436,32 +446,48 @@ input[type="button"]:focus{
 											<input id="${writer.writerCodeSeq }" class="go_to_writer_message" type="button" value="메시지로 문의">
 										</div>
 										<div class="decision">
-										
 											<c:choose>
 												<c:when test="${writer.buyWriterOrderStatus eq '결제 완료' }">
 													<input id="${writer.buyWriterCodeSeq }" class="go_to_refund" type="button" value="환불요청">
 												</c:when>
 												<c:when test="${writer.buyWriterOrderStatus eq '배송 완료' }">
+													<c:choose>
+														<c:when test="${writer.buyDeliveryName eq 'CJ대한 통운' }">
+															<c:set var="delivery_name" value="kr.cjlogistics" />
+														</c:when>
+														<c:when test="${writer.buyDeliveryName eq '우체국 택배' }">
+															<c:set var="delivery_name" value="kr.epost" />
+														</c:when>
+														<c:when test="${writer.buyDeliveryName eq '한진 택배' }">
+															<c:set var="delivery_name" value="kr.hanjin" />
+														</c:when>
+														<c:when test="${writer.buyDeliveryName eq '롯데 택배' }">
+															<c:set var="delivery_name" value="kr.lotte" />
+														</c:when>
+														<c:when test="${writer.buyDeliveryName eq '로젠 택배' }">
+															<c:set var="delivery_name" value="kr.logen" />
+														</c:when>
+													</c:choose>
 													<c:forEach items="${artList }" var="art2">
 														<c:if test="${art2.buyWriterCodeSeq eq writer.buyWriterCodeSeq }">
 															<c:choose>
 																<c:when test="${art2.buyArtReviewStatus eq 'N' }">
 																	<div class="decision_Div">
 																		<input class="purchaseReview_before" type="button" value="구매후기 작성">
-																		<input type="button" value="발송 정보 조회">
+																		<a class="delivery" href="https://tracker.delivery/#/${delivery_name }/${writer.buyDeliveryNum }" target="_blank">발송 정보 조회</a>
 																	</div>
 																</c:when>
 																<c:otherwise>
 																	<c:if test="${art2.buyArtReviewUpdate eq 'N' }">
 																		<div class="decision_Div">
 																			<input class="purchaseReview" type="button" value="구매후기 수정">
-																			<input type="button" value="발송 정보 조회">
+																			<a class="delivery" href="https://tracker.delivery/#/${delivery_name }/${writer.buyDeliveryNum }" target="_blank">발송 정보 조회</a>
 																		</div>
 																	</c:if>
 																	<c:if test="${art2.buyArtReviewUpdate ne 'N' }">
 																		<div class="decision_Div">
 																			<input class="purchaseReview_done" type="button" value="후기 작성 완료">
-																			<input type="button" value="발송 정보 조회">
+																			<a class="delivery" href="https://tracker.delivery/#/${delivery_name }/${writer.buyDeliveryNum }" target="_blank">발송 정보 조회</a>
 																		</div>
 																	</c:if>
 																</c:otherwise>
