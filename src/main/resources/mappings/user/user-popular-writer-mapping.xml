@@ -31,7 +31,7 @@
 		WHERE writer_code_seq =	#{item}
 	</select> 
 	
-	<!-- 좋아하는 작가인지 확인 -->
+	<!-- 좋아하는 작가인지 확인 인기작가-->
 	<select id="getLikeWriter" parameterType="hashmap" resultType="String">
 		SELECT wishlist_option_code
 		FROM 
@@ -43,6 +43,20 @@
 		AND 
 			wishlist_option_code in(#{writerCode1}, #{writerCode2},#{writerCode3},#{writerCode4},#{writerCode5})
 	</select>
+	
+	<!-- 좋아하는 작가인지 확인  한 명씩-->
+	<select id="islikeWriter" parameterType="String" resultType="String">
+		SELECT wishlist_option_code
+		FROM 
+			wishlist_tb 
+		WHERE 
+			member_code_seq=#{member} 
+		AND 
+			wishlist_option='좋아하는작가'
+	</select>
+	
+	
+
 	
 	<!-- 좋아하는 작가 추가 -->
 	<insert id="likeWriter" parameterType="hashMap">

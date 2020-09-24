@@ -89,4 +89,9 @@ public class UserShopbagServiceImpl implements UserShopbagService{
 		return dao.selectOption(cartCode);
 	}
 
+	@Override
+	public String shopbagCount(String member) {
+		return dao.shopbagCount(member);
+	}
+
 }

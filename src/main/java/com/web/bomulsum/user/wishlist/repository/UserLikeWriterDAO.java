@@ -1,6 +1,5 @@
 package com.web.bomulsum.user.wishlist.repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +8,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.web.bomulsum.writer.art.repository.WriterArtVO;
-
 
 @Repository
 public class UserLikeWriterDAO {
@@ -18,31 +15,23 @@ public class UserLikeWriterDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	//좋아하는 작가 정보
-	public List<UserLikeWriterVO> getWriterInfo(String memberCode){
-		//작가리스트
+	//좋아하는 작가 리스트
+	public List<String> getwriterList(String memberCode){
 		List<String> writerList = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtList", memberCode);
-		
+		return writerList;
+	}
+
+	//좋아하는 작가 정보
+	public List<UserLikeWriterVO> getWriterInfo(List<String> writerList){
 		Map<String, Object> artList = new HashMap<String,Object>();
 		artList.put("artList", writerList);
 		
-		//작가별 작품 개수 확인
-/*		List<Map<String,Object>> artCount = sqlSessionTemplate.selectList("userLikeWriterDAO.countArtPhoto",artList);
-		System.out.println(artCount);
-		//작가별 작품 사진
-		List<Map<String, Object>> artPhoto = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtPhoto", artList);
-		System.out.println(artPhoto);*/
 		//작가 정보
 		List<UserLikeWriterVO> writerInfoList = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtDetail", artList);
-
-		
 		return writerInfoList;
 	}
 	//좋아하는 작가별 작품 개수
-	public List<Map<String, Object>> getArtCount(String memberCode){
-		//작가리스트
-		List<String> writerList = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtList", memberCode);
-		
+	public List<Map<String, Object>> getArtCount(List<String> writerList){
 		Map<String, Object> artList = new HashMap<String,Object>();
 		artList.put("artList", writerList);
 		
@@ -52,30 +41,24 @@ public class UserLikeWriterDAO {
 		
 		return artCount;
 	}
+
 	//작가별 사진
-	public List<String> getArtPhoto(String memberCode){
-		//작가리스트
-		List<String> writerList = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtList", memberCode);
-				
+/*	public List<String> getArtPhoto(List<String> writerList){
+	
 		Map<String, Object> artList = new HashMap<String,Object>();
 		artList.put("artList", writerList);
 				
 		List<String> firstArt = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtPhoto", artList); 
 		return firstArt;
-	}
-	
-	//좋아하는 작가별 사진
-/*	public List<UserLikeWriterPhotoVO> getArtPhotoList(String memberCode){
-		// 작가리스트
-		List<String> writerList = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtList", memberCode);
-
-		Map<String, Object> artList = new HashMap<String, Object>();
-		artList.put("artList", writerList);
-		
-		List<UserLikeWriterPhotoVO> artPhoto = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtPhoto", artList);
-		return artPhoto;
 	}*/
 	
+	//작가별 사진
+	public List<Map<String,Object>> getArtPhotoTest(String writerCode){
+		List<Map<String,Object>> artListTest = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtPhotoTest", writerCode); 
+		return artListTest;
+	}
+		
+		
 	//좋아하는 작가 삭제
 	public void deleteLikeWriter(Map<String, Object> map) {
 		sqlSessionTemplate.delete("userLikeWriterDAO.deleteWishlist",map);

@@ -12,6 +12,7 @@ public interface UserPopularWriterService {
 	
 	public List<String> getLikeWriter(HashMap<String, String> map);
 	public List<String> getRankPhoto(String writerCode);
+	public List<String> isLikeWriter(String member);
 	
 	public void likeWriter(HashMap<String, String> map);
 	public void nonLikeWriter(HashMap<String, String> map);

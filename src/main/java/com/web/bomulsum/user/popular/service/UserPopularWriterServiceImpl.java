@@ -46,4 +46,11 @@ public class UserPopularWriterServiceImpl implements UserPopularWriterService{
 	}
 
 
+	@Override
+	public List<String> isLikeWriter(String member) {
+		return dao.isLikeWriter(member);
+	}
+
+
+
 }

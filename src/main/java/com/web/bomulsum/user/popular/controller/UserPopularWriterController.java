@@ -32,8 +32,7 @@ public class UserPopularWriterController {
 		//회원 코드 가져오기
 		
 		 HttpSession session = request.getSession(); 
-		 String memberCode = (String)
-		 session.getAttribute("member"); 
+		 String memberCode = (String)session.getAttribute("member"); 
 		 System.out.println(memberCode);
 		
 		

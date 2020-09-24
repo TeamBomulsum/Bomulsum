@@ -6,14 +6,18 @@ import java.util.Map;
 import com.web.bomulsum.user.wishlist.repository.UserLikeWriterVO;
 
 public interface UserLikeWriterService {
-
+	//좋아하는 작가 리스트
+	public List<String> getwriterList(String memberCode);
 	//좋아하는 작가 정보
-	List<UserLikeWriterVO> getWriterInfo(String memberCode);
+	List<UserLikeWriterVO> getWriterInfo(List<String> writerList);
 	//좋아하는 작가별 사진
 	//public List<UserLikeWriterPhotoVO> getArtPhotoList(String memberCode);
-	public List<String> getArtPhoto(String memberCode);
+	
+	public List<String> getArtPhoto(List<String> writerList);
+	public List<Map<String,Object>> getArtPhotoTest(String writerCode);
 	//좋아하는 작가 취소
 	void deleteLikeWriter(Map<String, Object> map);
 	//작가별 작품 카운트
-	public List<Map<String, Object>> getArtCount(String memberCode);
+	public List<Map<String, Object>> getArtCount(List<String> writerList);
+
 }

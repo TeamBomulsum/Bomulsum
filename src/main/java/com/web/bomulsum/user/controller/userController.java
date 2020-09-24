@@ -27,7 +27,7 @@ public class userController {
 	@Autowired
 	private UserReviewServiceImpl serviceR;
 	@Autowired
-	UserPopularWriterService serviceW;
+	private UserPopularWriterService serviceW;
 	
 	@RequestMapping(value="/home")
 	public ModelAndView goHome(HttpSession session, ModelAndView mav) {
@@ -218,6 +218,7 @@ public class userController {
 		
 		mav.setViewName("uhome");
 		
+		
 		//인기작가
 		List<UserPopularWriterVO> writerList = serviceW.getWriterInfo();
 		List<UserPopularWriterVO> popularWriter = new ArrayList<>(writerList.subList(0, 3));
@@ -232,6 +233,11 @@ public class userController {
 			}
 		}
 		
+		if(member != null) {
+		  mav.addObject("likeWriter",serviceW.isLikeWriter(member)); 
+		}
+		  
+		 
 		System.out.println(popularWriter);
 		mav.addObject("popularWriter", popularWriter);
 		

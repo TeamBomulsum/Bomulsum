@@ -15,9 +15,15 @@ public class UserLikeWriterServiceImpl implements UserLikeWriterService{
 	 @Autowired
 	 UserLikeWriterDAO dao;
 
+	 @Override
+	public List<String> getwriterList(String memberCode) {
+		return dao.getwriterList(memberCode);
+	}
+
+	 
 	@Override
-	public List<UserLikeWriterVO> getWriterInfo(String memberCode) {
-		return dao.getWriterInfo(memberCode);
+	public List<UserLikeWriterVO> getWriterInfo(List<String> writerList) {
+		return dao.getWriterInfo(writerList);
 	}
 
 	@Override
@@ -27,8 +33,8 @@ public class UserLikeWriterServiceImpl implements UserLikeWriterService{
 
 
 	@Override
-	public List<Map<String, Object>> getArtCount(String memberCode) {
-		return dao.getArtCount(memberCode);
+	public List<Map<String, Object>> getArtCount(List<String> writerList) {
+		return dao.getArtCount(writerList);
 	}
 
 //	@Override
@@ -36,10 +42,20 @@ public class UserLikeWriterServiceImpl implements UserLikeWriterService{
 //		return dao.getArtPhotoList(memberCode);
 //	}
 
+	//하려면 이거
 	@Override
-	public List<String> getArtPhoto(String memberCode) {
-		return dao.getArtPhoto(memberCode);
+	public List<String> getArtPhoto(List<String> writerList) {
+		//return dao.getArtPhoto(writerList);
+		return null;
 	}
+
+
+	@Override
+	public List<Map<String,Object>> getArtPhotoTest(String writerCode) {
+		return dao.getArtPhotoTest(writerCode);
+	}
+
+
 
 
 

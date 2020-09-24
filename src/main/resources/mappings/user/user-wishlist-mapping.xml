@@ -19,30 +19,18 @@
 	</select>
 	
 	<!-- 좋아하는 작가 정보 -->
-<!--   	<select id="selectArtDetail" parameterType="hashmap" resultType="UserLikeWriterVO">
-		SELECT 
-			w.writer_code_seq, w.writer_profile_img, w.writer_brand_name, w.writer_intro, 
-			w.writer_url, a.art_code_seq, a.art_photo 
-		FROM 
-			writer_tb w, art_tb a
-		WHERE
-			 w.writer_code_seq = a.writer_code_seq
-		AND 
-			w.writer_code_seq in
-		<foreach collection="artList" item="item" open="(" close=")" separator=",">
-			#{item}
-		</foreach>
-		ORDER BY writer_code_seq ASC	
-	</select> -->
-	<!-- 좋아하는 작가 정보 -->
  	<select id="selectArtDetail" parameterType="hashmap" resultType="UserLikeWriterVO">
-		SELECT writer_code_seq, writer_profile_img, writer_brand_name, writer_intro, writer_url 
-		FROM writer_tb 
-		WHERE writer_code_seq in
+		SELECT 
+			writer_code_seq, writer_profile_img, writer_brand_name, writer_name, writer_intro, writer_url 
+		FROM 
+			writer_tb 
+		WHERE 
+			writer_code_seq in
 		<foreach collection="artList" item="item" open="(" close=")" separator=",">
 			#{item}
 		</foreach>
-		ORDER BY writer_code_seq ASC	
+		ORDER BY 
+			writer_code_seq ASC	
 	</select>
 
 	<!-- 좋아하는 작가별 사진 -->
@@ -56,25 +44,48 @@
 		ORDER BY writer_code_seq ASC
 	</select>-->
 	<!-- 좋아하는 작가별 사진 -->
-  	<select id="selectArtPhoto" parameterType="hashmap" resultType="String">
-		SELECT art_photo
-		FROM art_tb
-		WHERE writer_code_seq in
+ <!--  	<select id="selectArtPhoto" parameterType="hashmap" resultType="String">
+		SELECT 
+			art_photo
+		FROM 
+			art_tb
+		WHERE 
+			writer_code_seq in
 		<foreach collection="artList" item="item" open="(" close=")" separator=",">
 			#{item}
 		</foreach>
-		ORDER BY writer_code_seq ASC
+		ORDER BY 
+			writer_code_seq ASC
+	</select> -->
+	
+	<select id="selectArtPhotoTest" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			writer_code_seq, art_photo
+		FROM 
+			art_tb
+		WHERE 
+			writer_code_seq=#{writerCode}
+		ORDER BY 
+			writer_code_seq ASC
 	</select>
+	
+	
 	
 	<!-- 작가별 작품 카운트 -->
   	<select id="countArtPhoto" parameterType="hashmap" resultType="hashmap">
-		SELECT writer_code_seq, count(art_photo) count
-		FROM art_tb 
-		WHERE writer_code_seq in
+		SELECT 
+			writer_code_seq, count(art_photo) count
+		FROM 
+			art_tb 
+		WHERE 
+			writer_code_seq in
 		<foreach collection="artList" item="item" open="(" close=")" separator=",">
 			#{item}
 		</foreach>
-		GROUP BY writer_code_seq
+		GROUP BY 
+			writer_code_seq
+		ORDER BY
+			writer_code_seq
 	</select>
 	
 	<!-- 좋아하는 작가 삭제 -->

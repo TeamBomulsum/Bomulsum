@@ -63,6 +63,8 @@ $(function() {
 	});
 	
 });
+
+
 </script>
 
 
@@ -956,7 +958,7 @@ body {
 					</div>
 					<div id="toShopBag" style="height: 42px; width: 40px;">
 						<button class="dainiconbtn" style="padding:0px;">
-							<div class="cartcountshape"><span style="color: #fff; font-size:10px ;">0</span></div>
+							<div class="cartcountshape"><span id="jeongaCount" style="color: #fff; font-size:10px ;">0</span></div>
 							<i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="padding: 7px 3px 3px;"></i>
 							<p style="margin: 0px; font-size: 10px; width: 40px">장바구니</p>
 						</button>
@@ -1068,8 +1070,31 @@ var getRealTime = function(){
 	});
 	
 };
+//장바구니 count추가 - 정아
+var getShopbagCount = function(){
+	 var member = '<%= (String)session.getAttribute("member") %>';
+	 if(member != null || memberCode != 'null'){
+		$.ajax({
+			type:'POST',
+			data: {
+				'member':member,
+			},
+			url:"/bomulsum/user/shopbagCount.do",
+			success: function(data){
+				$('#jeongaCount').text(data);
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+};
 $(document).ready(function(){
     getRealTime();
+    getShopbagCount();
+   
+    
 });
 </script>
 <script>

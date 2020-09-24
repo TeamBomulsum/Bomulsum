@@ -20,4 +20,5 @@ public interface UserShopbagService {
 	public void deleteChoice(String[] cartCheck);
 	public List<UserShopbagOptionVO> goShopbagOptionModal(HashMap<String, String> map);
 	public void updateOption(HashMap<String, String> map);
+	public String shopbagCount(String member);
 }

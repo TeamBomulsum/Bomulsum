@@ -192,7 +192,6 @@ body a:link, a:visited, a:hover, a:active {
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script>
 //좋아하는 작가 취소
  $(document).ready(function(){
@@ -221,14 +220,13 @@ body a:link, a:visited, a:hover, a:active {
 	
 //이미지 슬라이드
 
-	 var slideIndex = 0;
+/*	 var slideIndex = 0;
 	showSlides(slideIndex);
 
 	function plusSlides(n) {
 		var slides1 = document.getElementById("jeonga_imageSlides1");
 		slides1.style.display = "none";
 		showSlides(slideIndex += n);
-
 	}
 
 	function currentSlide(n) {
@@ -251,10 +249,10 @@ body a:link, a:visited, a:hover, a:active {
 		  slides[slideIndex-1].style.display = "block"; 
 
 	} 
-	/*
+*/
 	$(function(){
- 		var slideIndex = 0;
-		var showSlides = new Array();
+ 		
+/*		var showSlides = new Array();
 				var $data1 = $(".jeonga-imageSlides1").children();
 		var $data2 = $(".jeonga-imageSlides2").children();
 		var $data3 = $(".jeonga-imageSlides3").children();
@@ -266,32 +264,56 @@ body a:link, a:visited, a:hover, a:active {
 		var data3 = $data3;
 		showSlides.put(data1);
 		showSlides.put(data2);
-		showSlides.put(data3); */
+		showSlides.put(data3);  */
 		
 		
- 		//$(".jeonga-imageSlides-prev").click(function(){ 
+		$(document).on('click',".jeonga_imageSlides_prev",function(data){
+			//showSlides(slideIndex);
+			var n = -1;
+			var slideIndex = 0;
+			var $button = $(this);
+			var $slideOne = $button.parent().next();
+			console.log($slideOne);
+			var slide1 = $slideOne;
+			slide1.css({"display": "none"});
+			showSlides(slideIndex += n);
+		}); 
+
+		$(document).on('click',".jeonga_imageSlides_next",function(data){
 			
-			//var slides1 = $(this).parent().next().children();
-			// console.log(slides);
-			//slides1.hide();
-			//var slides2 = $(this).parent().next().next().children();
-			//var slides3 = $(this).parent().next().next().next().children();
-			//slides2.show();
-			//console.log(slides1);
-			//console.log(slides2);
-			//console.log(slides3);
-			/* slides2.css({"display": "block"}); */
-			//slides2.show();
-			/*  showSlides.put(slides1);
-			 showSlides.put(slides2);
-			 showSlides.put(slides3);
-			 console.log(showSlides); */
-			 
-		/* 	 for(int i=0; i<showSlides.length; i++){
-				 
-			 } */
-		//}); 
-	//});
+			var n = 1;
+			var slideIndex = 0;
+			var $button = $(this);
+			var $slideOne = $button.parent().next();
+			console.log($slideOne);
+			var slide1 = $slideOne;
+			slide1.css({"display": "none"});
+			showSlides(slideIndex += n);
+		});
+		
+	 	function showSlides(data){
+	 		var i=0;
+	 		var $button = $(this);
+	 		var $slides = $button.parent().next().next().children();
+	 		console.log($slides);
+			if(data > $slides.length){
+				slideIndex = 1;
+			}
+			if(data < $slides.length){
+				slideIndex = $slides.length;
+			}
+			for(var k=0; k<$slides.length; k++){
+				$slides[i].css({"display": "none"});
+			}
+			$slides[slideIndex-1].css({"display": "block"});
+		}
+	});
+$(document).ready(function(){
+	var slideIndex = 0;
+	showSlides(slideIndex);
+});
+
+
 </script>
 </head>
 <body>
@@ -308,7 +330,7 @@ body a:link, a:visited, a:hover, a:active {
 			<h2 id="jeonga_uLikeWriter_text">좋아하는(♥) 작가</h2>
 			</div>
 			<c:if test="${empty artListInfo}">
-			좋아하는 작가가 없습니다.
+			좋아하는 작가를 추가하세요.
 			</c:if>
 			<c:if test="${not empty artListInfo}">
 			<!-- 좋아하는 작가 목록 -->
@@ -351,13 +373,16 @@ body a:link, a:visited, a:hover, a:active {
 					<!-- 이미지 슬라이더 -->
 					 <div class="joenga_wprofile_imageslider"> 
 					  	<div class="jeonga_imageSlides_buttons">
-  						<a class="jeonga_imageSlides_prev" onclick="plusSlides(-1)">❮</a>
- 						<a class="jeonga_imageSlides_next" onclick="plusSlides(1)">❯</a>
+  			<!-- 			<a class="jeonga_imageSlides_prev" onclick="plusSlides(-1)">❮</a>
+ 						<a class="jeonga_imageSlides_next" onclick="plusSlides(1)">❯</a> -->
+ 						<a class="jeonga_imageSlides_prev">❮</a>
+ 						<a class="jeonga_imageSlides_next">❯</a>
 						</div> 
 						<!-- 슬라이드 기본 세트 -->
   						<div id="jeonga_imageSlides1">
 							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo1}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo2}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo3}'/>">
   						</div>
+  						<div>
   						<div class="jeonga_imageSlides">
 							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo4}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo5}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo6}'/>">
   						</div>
@@ -366,6 +391,7 @@ body a:link, a:visited, a:hover, a:active {
   						</div>
   						<div class="jeonga_imageSlides">
 							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo1}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo2}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo3}'/>">
+  						</div>
   						</div>
   
 						<%-- <!-- 슬라이드 한 세트 -->
@@ -382,13 +408,13 @@ body a:link, a:visited, a:hover, a:active {
   						</div> --%>
   					<!-- </div>  -->
 					
-				</div>
+			<!-- 	</div> -->
 				</div>
 				</li>
 				</c:forEach>
  			
 			</ul>
-</c:if>
+		</c:if>
 		</div>
 	</div>
 		<!-- 푸터  -->

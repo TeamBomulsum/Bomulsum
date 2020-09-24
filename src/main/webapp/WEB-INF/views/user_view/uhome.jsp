@@ -302,9 +302,13 @@
 	text-align: center;
 }
 .jeongaAddWriter{
-	color:#DF3A01;
+	border:1px solid #DF3A01;
 }
 
+.jeongaSendMessage, .jeongaWriterHome{
+	text-decoration: none;
+	color:black;
+}
 .link_writer span:nth-child(1){
 	width:155px;
 	margin-right:6.5px;
@@ -731,12 +735,25 @@
 								</div>
 								<div class="link_groups">
 									<div class="link_writer">
-										<span class="jeongaAddWriter">♥︎작가로 추가</span>
-										<span class="jeongaWriterHome"><a href="/bomulsum/writerhome/${pwriter.writer_url}.do">작가홈</a></span>
+									<c:set var="likeCheck" value="N" />
+									<c:if test="${not empty likeWriter}">
+										<c:forEach items="${likeWriter}" var="like">
+											<c:if test="${pwriter.writer_code_seq eq like}">
+												<c:set var="likeCheck" value="Y"/>
+											</c:if>
+										</c:forEach>
+									</c:if>
+									<c:if test="${likeCheck eq 'Y' }">
+										<span class="jeongaAddWriter" style="background-color:#DF3A01;color:white;">♥︎하는 작가</span>
+									</c:if>
+									<c:if test="${likeCheck eq 'N' }">
+										<span class="jeongaAddWriter" style=color:#DF3A01;">♥︎작가로 추가</span>
+									</c:if>
+										<span ><a class="jeongaWriterHome" href="/bomulsum/writerhome/${pwriter.writer_url}.do">작가홈</a></span>
 									</div>
 									<span class="send_message">
 										<a style="display:none">${pwriter.writer_code_seq}</a>
-										<a href="/bomulsum/user/message.do?writer=${pwriter.writer_code_seq}">메시지 보내기</a>
+										<a class="jeongaSendMessage" href="/bomulsum/user/message.do?writer=${pwriter.writer_code_seq}">메시지 보내기</a>
 									</span>
 								</div>
 							</div>
@@ -890,7 +907,7 @@ $(function(){
 
 //좋아하는 작가
 $(function(){
-	$(".jeognaAddWriter").on("click", function(e){
+	$(".jeongaAddWriter").on("click", function(e){
 		
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
