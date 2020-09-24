@@ -37,13 +37,18 @@
 		<result column="art_option_seq_list" property="artOptionSeqList"/>
 		<result column="art_option_name" property="artOptionName"/>
 		<result column="art_option_amount" property="artOptionAmount"/>
+		<result column="art_photo" property="artPhoto"/>
+		<result column="art_amount" property="artAmount"/>
+		<result column="art_discount" property="artDiscount"/>
+		
+		<result column="buy_art_option_price" property="buyArtOptionPrice"/>
 
 	</resultMap>
 
 	<!-- 주문 현황 -->
 	<select id="selectOrderConditionList" parameterType="String" resultMap="writerOrderList">
 			SELECT
-			    e.*, g.member_name, g.member_profile, h.art_name, h.art_photo, h.art_amount, h.art_discount
+			    e.*, g.member_name, g.member_profile, h.art_name, h.art_photo, h.art_amount, h.art_discount, h.art_price
 			FROM
 			    (
 			    SELECT
@@ -57,7 +62,7 @@
 			        (
 			        SELECT
 			            buy_art_code_seq,
-			            LISTAGG(art_price, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_price,
+			            LISTAGG(art_price, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS buy_art_option_price,
 			            LISTAGG(art_option_name, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_name,
 			            LISTAGG(art_option_amount, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_amount
 			        FROM buy_option_tb

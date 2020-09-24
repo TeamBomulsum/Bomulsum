@@ -13,14 +13,14 @@ public class WriterOrderVO {
 	private String orderZipcode;
 	private String orderAddressFirst;
 	private String orderAddressSecond;
-	private int orderPayPrice;
+	private int orderPayPrice; 
 	private int orderPointPrice;
 	private String couponCodeSeq;
 	
 	private String buyWriterCodeSeq;
 	private String writerCodeSeq;
-	private int buyWriterSendPrice;
-	private int buyWriterPlusSendPrice;
+	private int buyWriterSendPrice; // LISTAGG 함수 써서 원래는 int 형인데 String으로 받아올 수 밖에 없음
+	private int buyWriterPlusSendPrice; // LISTAGG 함수 써서 원래는 int 형인데 String으로 받아올 수 밖에 없음
 	private String buyWriterOrderStatus;
 	private String buyWriterOrderRefundReason;
 	private Date buyWriterOrderRefundDate;
@@ -35,15 +35,23 @@ public class WriterOrderVO {
 	private String buyArtReviewUpdate;
 	
 	private String buyOptionCodeSeq;
-	private String artPrice;
+	private String artPrice; // LISTAGG 함수 써서 원래는 int 형인데 String으로 받아올 수 밖에 없음
 	private String artOptionSeqList;
 	private String artOptionName;
 	private String artOptionAmount;
 	private String artPhoto;
 	private int artAmount;
 	private int artDiscount;
+	private String buyArtOptionPrice; // LISTAGG 함수 써서 원래는 int 형인데 String으로 받아올 수 밖에 없음
+	
 	
 
+	public String getBuyArtOptionPrice() {
+		return buyArtOptionPrice;
+	}
+	public void setBuyArtOptionPrice(String buyArtOptionPrice) {
+		this.buyArtOptionPrice = buyArtOptionPrice;
+	}
 	public int getArtDiscount() {
 		return artDiscount;
 	}
