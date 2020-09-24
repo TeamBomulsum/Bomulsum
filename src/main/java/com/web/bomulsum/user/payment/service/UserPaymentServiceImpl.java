@@ -45,4 +45,9 @@ public class UserPaymentServiceImpl implements UserPaymentService{
 	public String insertOrderArtOption(HashMap<String, Object> map) {
 		return dao.insertOrderArtOption(map);
 	}
+
+	@Override
+	public void deleteUseCoupon(String couponCode) {
+		dao.deleteUseCoupon(couponCode);
+	}
 }

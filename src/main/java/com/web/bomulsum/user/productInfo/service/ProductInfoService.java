@@ -30,4 +30,5 @@ public interface ProductInfoService {
 	public int checkWishForWriter(HashMap<String, String> map);
 	public int checkWishForArticle(HashMap<String, String> map );
 	public void insertShopBag(TestVo vo);
+	public int checkShopBag(HashMap<String, String> map);
 }

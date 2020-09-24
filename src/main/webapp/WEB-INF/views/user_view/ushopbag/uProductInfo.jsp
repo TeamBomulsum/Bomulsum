@@ -1194,6 +1194,7 @@ $(document).ready(function(){
 		/*
 		dndud_go_shop_bag
 		*/
+		var tt = '${dndudArtCode}';
 		if(memberCode == null || memberCode == '' || memberCode == 'null'){
 			alert('로그인 후 사용이 가능합니다.');
 			location.href='/bomulsum/user/login.do';
@@ -1205,36 +1206,50 @@ $(document).ready(function(){
 				return false;
 			}
 			
-			var sendData = [];
-			var optionCode = '';
-			var count = 0;
-			$('.before_pay_option').each(function(i, er){
-				var e = $(er);
-				var optionTemp = '';
-				
-				e.children('.option_code_test').each(function(ir, err){
-					optionTemp += $(err).val() + ',';
-				});
-				
-				optionCode = optionTemp;
-				
-				count = e.find('.prd-count').val();
-				
-				var $inputArtCode = $('<input type="text" name="testList['+i+'].artCode" value="'+artCodeSeq+'">');
-				var $inputMemberCode = $('<input type="text" name="testList['+i+'].memberCode" value="'+memberCode+'">');
-				var $inputOptionCode = $('<input type="text" name="testList['+i+'].optionCode" value="'+optionCode+'">');
-				var $inputArtCount = $('<input type="text" name="testList['+i+'].artCount" value="'+count+'">');
-				
-				$('#dndud_go_shop_bag').append($inputArtCode);
-				$('#dndud_go_shop_bag').append($inputMemberCode);
-				$('#dndud_go_shop_bag').append($inputOptionCode);
-				$('#dndud_go_shop_bag').append($inputArtCount);
-				
+			$.ajax({
+				url:'/bomulsum/user/shopbag/confirm.do',
+				data:{
+					code:tt,
+					memberCode:memberCode
+				},
+				success:function(data){
+					if(data == 0){
+						var sendData = [];
+						var optionCode = '';
+						var count = 0;
+						$('.before_pay_option').each(function(i, er){
+							var e = $(er);
+							var optionTemp = '';
+							
+							e.children('.option_code_test').each(function(ir, err){
+								optionTemp += $(err).val() + ',';
+							});
+							
+							optionCode = optionTemp;
+							
+							count = e.find('.prd-count').val();
+							
+							var $inputArtCode = $('<input type="text" name="testList['+i+'].artCode" value="'+artCodeSeq+'">');
+							var $inputMemberCode = $('<input type="text" name="testList['+i+'].memberCode" value="'+memberCode+'">');
+							var $inputOptionCode = $('<input type="text" name="testList['+i+'].optionCode" value="'+optionCode+'">');
+							var $inputArtCount = $('<input type="text" name="testList['+i+'].artCount" value="'+count+'">');
+							
+							$('#dndud_go_shop_bag').append($inputArtCode);
+							$('#dndud_go_shop_bag').append($inputMemberCode);
+							$('#dndud_go_shop_bag').append($inputOptionCode);
+							$('#dndud_go_shop_bag').append($inputArtCount);
+							
+						});
+						
+						$('#dndud_go_shop_bag').submit();
+					}else{
+						alert('장바구니에 이미 존재합니다.');
+						location.href="/bomulsum/user/shopbag.do";
+					}
+				}
 			});
-			
-			$('#dndud_go_shop_bag').submit();
-			
 		}
+		
 	});
 	
 	$('#go_direct_pay').on('click', function(){ // 바로 구매

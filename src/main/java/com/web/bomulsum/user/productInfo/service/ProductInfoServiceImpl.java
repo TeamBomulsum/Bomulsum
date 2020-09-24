@@ -107,4 +107,9 @@ public class ProductInfoServiceImpl implements ProductInfoService{
 	public void insertShopBag(TestVo vo) {
 		dao.insertShopBag(vo);
 	}
+
+	@Override
+	public int checkShopBag(HashMap<String, String> map) {
+		return dao.checkShopBag(map);
+	}
 }

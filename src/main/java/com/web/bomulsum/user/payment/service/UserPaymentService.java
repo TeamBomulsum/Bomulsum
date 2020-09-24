@@ -23,4 +23,7 @@ public interface UserPaymentService {
 	
 	//구매옵션 테이블에 인서트
 	String insertOrderArtOption(HashMap<String,Object> map);
+	
+	//사용한 쿠폰 삭제
+	void deleteUseCoupon(String couponCode);
 }

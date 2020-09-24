@@ -158,6 +158,7 @@ public class ProductInfoController {
 		model.addAttribute("artInfo",artInfo);
 		model.addAttribute("artOption",optionMap);
 		model.addAttribute("memberImg", memberIMG);
+		model.addAttribute("dndudArtCode", artCodeSeq);
 		
 		return "/ushopbag/uProductInfo";
 	}
@@ -208,6 +209,17 @@ public class ProductInfoController {
 		service.insertShopBag(serviceVo);
 		
 		return "redirect:/user/shopbag.do";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/shopbag/confirm")
+	public int checkShopbag(@RequestParam(value="code") String code, @RequestParam(value="memberCode") String memberCode) {
+		System.out.println(code);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("code", code);
+		map.put("member", memberCode);
+		
+		return service.checkShopBag(map);
 	}
 	
 	
