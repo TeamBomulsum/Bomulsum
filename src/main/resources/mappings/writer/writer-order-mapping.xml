@@ -69,7 +69,7 @@
 			        buy_writer_tb c ON b.buy_writer_code_seq = c.buy_writer_code_seq
 			    LEFT OUTER JOIN
 			        order_tb d ON d.order_code_seq = b.order_code_seq
-			    WHERE b.writer_code_seq = #{writerCodeSeq}
+			    WHERE c.writer_code_seq = #{writerSeq}
 			    ) e
 			LEFT OUTER JOIN
 			    member_tb g ON g.member_code_seq = e.member_code_seq

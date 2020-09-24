@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>현황</title>
-<link href="<c:url value='zz/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
+<title>주문 현황</title>
+<link href="<c:url value='/resources/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <!-- Custom styles for this template-->
-<link href="<c:url value='resources//css/sb-admin-2.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources//css/sb-admin-2.min.css'/>" rel="stylesheet">
 </head>
 <body id="page-top">
 	<div id="wrapper">
@@ -113,24 +113,65 @@
 				class="fas fa-angle-up"></i>
 			</a>
 
-			<script src="<c:url value='/vendor/jquery/jquery.min.js'/>"></script>
-			<script src="<c:url value='/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/bootstrap/js/bootstrap.bundle.min.js'/>"></script>
 
 			<!-- Core plugin JavaScript-->
-			<script src="<c:url value='/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
+			<script src="<c:url value='/resources/vendor/jquery-easing/jquery.easing.min.js'/>"></script>
 
 			<!-- Custom scripts for all pages-->
 			<script src="<c:url value='/resources/js/sb-admin-2.min.js'/>"></script>
 
-			<!-- Page level plugins -->
-			<script src="<c:url value='/vendor/chart.js/Chart.min.js'/>"></script>
 
-			<!-- Page level custom scripts -->
-			<script src="<c:url value='/resources/js/demo/chart-area-demo.js'/>"></script>
-			<script src="<c:url value='/resources/js/demo/chart-pie-demo.js'/>"></script>
 
 		</div>
 
 	</div>
+	
+	
+	<script>
+	var result = new Array();
+	console.log(${orderConditionList});
+	
+	<c:forEach var="i" items='${orderConditionList}'>
+		var json = new Object();//객체로 배열에 담기
+		json.orderCodeSeq = '${i.orderCodeSeq}';
+		json.memberCodeSeq = '${i.memberCodeSeq}';
+		json.orderDate = `${i.orderDate}`;
+		json.orderReceiver = '${i.orderReceiver}';
+		json.orderPhoneNum = `${i.orderPhoneNum}`;
+		json.orderZipcode = '${i.orderZipcode}';
+		json.orderAddressFirst = '${i.orderAddressFirst}';
+		json.orderAddressSecond = '${i.orderAddressSecond}';
+		json.orderPayPrice = '${i.orderPayPrice}';
+		json.orderPointPrice = '${i.orderPointPrice}';
+		json.couponCodeSeq = '${i.couponCodeSeq}';
+		
+		json.buyWriterCodeSeq = '${i.buyWriterCodeSeq}';
+		json.writerCodeSeq = '${i.writerCodeSeq}';
+		json.buyWriterSendPrice = '${i.buyWriterSendPrice}';
+		json.buyWriterPlusSendPrice = '${i.buyWriterPlusSendPrice}';
+		json.buyWriterOrderStatus = '${i.buyWriterOrderStatus}';
+		json.buyWriterOrderRefundReason = '${i.buyWriterOrderRefundReason}';
+		json.buyWriterOrderRefundDate = '${i.buyWriterOrderRefundDate}';
+		json.buyRefundRequestDate = '${i.buyRefundRequestDate}';
+		
+		json.buyArtCodeSeq = '${i.buyArtCodeSeq}';
+		json.artCodeSeq = '${i.artCodeSeq}';
+		json.artName = '${i.artName}';
+		json.buyArtRequest = '${i.buyArtRequest}';
+		json.buyArtReviewStatus = '${i.buyArtReviewStatus}';
+		json.buyArtReviewUpdate = '${i.buyArtReviewUpdate}';
+		
+		json.buyOptionCodeSeq = '${i.buyOptionCodeSeq}';
+		json.artPrice = '${i.artPrice}';
+		json.artOptionSeqList = '${i.artOptionSeqList}';
+		json.artOptionName = '${i.artOptionName}';
+		json.artOptionAmount = '${i.artOptionAmount}';
+
+		
+		result.push(json);
+	</c:forEach>
+	</script>
 </body>
 </html>

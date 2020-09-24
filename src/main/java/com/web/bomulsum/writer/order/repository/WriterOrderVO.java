@@ -13,14 +13,14 @@ public class WriterOrderVO {
 	private String orderZipcode;
 	private String orderAddressFirst;
 	private String orderAddressSecond;
-	private int orderPayPrice;
-	private int orderPointPrice;
+	private double orderPayPrice;
+	private double orderPointPrice;
 	private String couponCodeSeq;
 	
 	private String buyWriterCodeSeq;
 	private String writerCodeSeq;
-	private int buyWriterSendPrice;
-	private int buyWriterPlusSendPrice;
+	private double buyWriterSendPrice;
+	private double buyWriterPlusSendPrice;
 	private String buyWriterOrderStatus;
 	private String buyWriterOrderRefundReason;
 	private Date buyWriterOrderRefundDate;
@@ -34,12 +34,10 @@ public class WriterOrderVO {
 	private String buyArtReviewUpdate;
 	
 	private String buyOptionCodeSeq;
-	private int artPrice;
+	private double artPrice;
 	private String artOptionSeqList;
 	private String artOptionName;
-	private int artOptionAmount;
-	
-	
+	private double artOptionAmount;
 	public String getOrderCodeSeq() {
 		return orderCodeSeq;
 	}
@@ -88,16 +86,16 @@ public class WriterOrderVO {
 	public void setOrderAddressSecond(String orderAddressSecond) {
 		this.orderAddressSecond = orderAddressSecond;
 	}
-	public int getOrderPayPrice() {
+	public double getOrderPayPrice() {
 		return orderPayPrice;
 	}
-	public void setOrderPayPrice(int orderPayPrice) {
+	public void setOrderPayPrice(double orderPayPrice) {
 		this.orderPayPrice = orderPayPrice;
 	}
-	public int getOrderPointPrice() {
+	public double getOrderPointPrice() {
 		return orderPointPrice;
 	}
-	public void setOrderPointPrice(int orderPointPrice) {
+	public void setOrderPointPrice(double orderPointPrice) {
 		this.orderPointPrice = orderPointPrice;
 	}
 	public String getCouponCodeSeq() {
@@ -118,16 +116,16 @@ public class WriterOrderVO {
 	public void setWriterCodeSeq(String writerCodeSeq) {
 		this.writerCodeSeq = writerCodeSeq;
 	}
-	public int getBuyWriterSendPrice() {
+	public double getBuyWriterSendPrice() {
 		return buyWriterSendPrice;
 	}
-	public void setBuyWriterSendPrice(int buyWriterSendPrice) {
+	public void setBuyWriterSendPrice(double buyWriterSendPrice) {
 		this.buyWriterSendPrice = buyWriterSendPrice;
 	}
-	public int getBuyWriterPlusSendPrice() {
+	public double getBuyWriterPlusSendPrice() {
 		return buyWriterPlusSendPrice;
 	}
-	public void setBuyWriterPlusSendPrice(int buyWriterPlusSendPrice) {
+	public void setBuyWriterPlusSendPrice(double buyWriterPlusSendPrice) {
 		this.buyWriterPlusSendPrice = buyWriterPlusSendPrice;
 	}
 	public String getBuyWriterOrderStatus() {
@@ -196,10 +194,10 @@ public class WriterOrderVO {
 	public void setBuyOptionCodeSeq(String buyOptionCodeSeq) {
 		this.buyOptionCodeSeq = buyOptionCodeSeq;
 	}
-	public int getArtPrice() {
+	public double getArtPrice() {
 		return artPrice;
 	}
-	public void setArtPrice(int artPrice) {
+	public void setArtPrice(double artPrice) {
 		this.artPrice = artPrice;
 	}
 	public String getArtOptionSeqList() {
@@ -214,15 +212,29 @@ public class WriterOrderVO {
 	public void setArtOptionName(String artOptionName) {
 		this.artOptionName = artOptionName;
 	}
-	public int getArtOptionAmount() {
+	public double getArtOptionAmount() {
 		return artOptionAmount;
 	}
-	public void setArtOptionAmount(int artOptionAmount) {
+	public void setArtOptionAmount(double artOptionAmount) {
 		this.artOptionAmount = artOptionAmount;
 	}
-	
-	
-	
+	@Override
+	public String toString() {
+		return "WriterOrderVO [orderCodeSeq=" + orderCodeSeq + ", memberCodeSeq=" + memberCodeSeq + ", orderDate="
+				+ orderDate + ", orderReceiver=" + orderReceiver + ", orderPhoneNum=" + orderPhoneNum
+				+ ", orderZipcode=" + orderZipcode + ", orderAddressFirst=" + orderAddressFirst
+				+ ", orderAddressSecond=" + orderAddressSecond + ", orderPayPrice=" + orderPayPrice
+				+ ", orderPointPrice=" + orderPointPrice + ", couponCodeSeq=" + couponCodeSeq + ", buyWriterCodeSeq="
+				+ buyWriterCodeSeq + ", writerCodeSeq=" + writerCodeSeq + ", buyWriterSendPrice=" + buyWriterSendPrice
+				+ ", buyWriterPlusSendPrice=" + buyWriterPlusSendPrice + ", buyWriterOrderStatus="
+				+ buyWriterOrderStatus + ", buyWriterOrderRefundReason=" + buyWriterOrderRefundReason
+				+ ", buyWriterOrderRefundDate=" + buyWriterOrderRefundDate + ", buyRefundRequestDate="
+				+ buyRefundRequestDate + ", buyArtCodeSeq=" + buyArtCodeSeq + ", artCodeSeq=" + artCodeSeq
+				+ ", artName=" + artName + ", buyArtRequest=" + buyArtRequest + ", buyArtReviewStatus="
+				+ buyArtReviewStatus + ", buyArtReviewUpdate=" + buyArtReviewUpdate + ", buyOptionCodeSeq="
+				+ buyOptionCodeSeq + ", artPrice=" + artPrice + ", artOptionSeqList=" + artOptionSeqList
+				+ ", artOptionName=" + artOptionName + ", artOptionAmount=" + artOptionAmount + "]";
+	}
 	
 	
 	
