@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,8 +47,8 @@ public class UserPaymentController {
 	
 	@ResponseBody 
 	@RequestMapping(value="/payment")
-	public ModelAndView goShopbag(
-			HttpServletRequest request /* , @RequestParam(value="cartCode[]") String cartCode[]*/) {
+	public ModelAndView payInfo(
+			HttpServletRequest request  , @RequestParam(value="cartCode[]") String cartCode[]) {
 		ModelAndView mav= new ModelAndView("ushopbag/uPayment");
 		
 		HttpSession session = request.getSession();
@@ -92,31 +93,16 @@ public class UserPaymentController {
 		List<UserCouponPaymentVO> vo = service.selectCouponPayment(memberCode);
 		System.out.println("쿠폰:"+vo);
 		mav.addObject("couponList", vo);
-		
 
-		
 		/*
-		 * //장바구니 정보 String[] cartCode= new String[3];
-		 * 
-		 * cartCode[0] = "cart_seq21"; cartCode[1] = "cart_seq22"; cartCode[2] =
-		 * "cart_seq23";
+		 * for (int i = 0; i < cartCode.length; i++) { System.out.println(i +
+		 * "번째 장바구니: " + cartCode[i]); }
 		 */
-		
-		String[] cartCode = {"cart_seq21", "cart_seq22" , "cart_seq23", 
-				"cart_seq25", "cart_seq26" , "cart_seq27", "cart_seq28", "cart_seq29" , "cart_seq30"} ;
-
-		for (int i = 0; i < cartCode.length; i++) {
-			System.out.println(i + "번째 장바구니: " + cartCode[i]);
-		}
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberCode", memberCode);
 		map.put("cartCode", cartCode);
 		System.out.println("map출력:");
-		/*
-		 * List<UserShopbagVO> shopbagInfo = service.selectCartChoice(memberCode);
-		 * System.out.println("카트담긴거:"+shopbagInfo);
-		 */
 		
 
 		
@@ -134,9 +120,11 @@ public class UserPaymentController {
 			
 			String[] countArray = tempVO.getArt_count().split(",");
 			tempVO.setArtCount(countArray);
+			
 			List<Map<String,Object>> totalOption = new ArrayList<Map<String,Object>>();
 			
 			int totalPrice = 0;
+			
 			for(int j=0; j<artOption.length; j++) {
 				int sum = 0;
 				int totalSum = 0;
@@ -146,21 +134,26 @@ public class UserPaymentController {
 				String[] artOptionDetail = artOption[j].split(",");
 				
 				optionMap.put("artCount",countArray[j]);
+				
 				for(int k=0; k<artOptionDetail.length; k++) {
 					UserShopbagOptionVO vo1 = cart_service.getOptionInfo(artOptionDetail[k]);
 					optionList.add(vo1);
 					sum += optionList.get(k).getArt_option_price();
 				}
+				
 				totalSum = (tempVO.getArt_discount() + sum) * Integer.parseInt(tempVO.getArtCount()[j]);
 				optionMap.put("totalSum", totalSum);
 				optionMap.put("optionArray", optionList);
 				totalOption.add(optionMap);
 				totalPrice +=(int) totalOption.get(j).get("totalSum");
+				
 			}
+			
 			tempVO.setTotalPrice(totalPrice);
 			tempVO.setTotalOption(totalOption);
 			shopbagInfo.remove(i);
 			shopbagInfo.add(i, tempVO);
+			
 		}
 		
 		System.out.println("담은상품목록:"+shopbagInfo);
@@ -173,24 +166,134 @@ public class UserPaymentController {
 		return mav;
 	} 
 	
+	
+	
+	
+	/* 주문결제처리---------------------------------------------------------------------------- */
 	@ResponseBody 
-	@RequestMapping(value="/successPayment")
-	public ModelAndView goShopbag() {
+	@RequestMapping(value="/goPayment")
+	public ModelAndView goPay(
+									@RequestParam(value="memberCode") String memberCode, 
+									@RequestParam(value="shipName") String shipName, 
+									@RequestParam(value="shipPhone") String shipPhone,
+									@RequestParam(value="shipZip") String shipZip,
+									@RequestParam(value="shipFirst") String shipFirst,
+									@RequestParam(value="shipSecond") String shipSecond,
+									@RequestParam(value="orderSum") int orderSum,
+									@RequestParam(value="choiceCoupon") String choiceCoupon,
+									@RequestParam(value="artPointSum") int artPointSum,
+									@RequestParam(value="finUsePoint") int finUsePoint,
+									@RequestParam(value="orderArt[]") String[] orderArt,
+									@RequestParam(value="orderArtOption[]") String[] orderArtOption
+		) {
+		
+
 		ModelAndView mav = new ModelAndView("ushopbag/usuccessOrder");
 		
-		//받아야할데이터----------
-		//주문자이름
-		//전화번호
-		//우편번호
-		//기본주소
-		//상세주소
-		//작품금액(작품당금액합산)
-		//배송비
-		//도서산간
-		//쿠폰할인
-		//최종결제금액
+		System.out.println(memberCode+"의 주문내용-> 받을이름: "+shipName  +", 받을번호: "+ shipPhone 
+				+ ", 우편번호: "+ shipZip + ", 기본주소: "+ shipFirst +", 상세주소: "+ shipSecond 
+				+ ", 총주문액: "+ orderSum + ", 사용쿠폰: " + choiceCoupon + ", 사용적립금: "+ finUsePoint 
+				+ ", 예상적립금: "+ artPointSum 
+				) ;
+		
+		HashMap<String,Object> orderMap = new HashMap<String,Object>();
+		orderMap.put("memberCode", memberCode);
+		orderMap.put("shipName", shipName);
+		orderMap.put("shipPhone", shipPhone);
+		orderMap.put("shipZip", shipZip);
+		orderMap.put("shipFirst", shipFirst);
+		orderMap.put("shipSecond", shipSecond);
+		orderMap.put("orderSum", orderSum);
+		orderMap.put("choiceCoupon", choiceCoupon);
+		orderMap.put("finUsePoint", finUsePoint);
+		
+		String orderCodeSeq = service.insertOrderList(orderMap); //주문내역테이블에 인서트
+		//System.out.println("주문넣은 주문내역seq->"+orderCodeSeq);
+		
+		for(int i=0; i<orderArt.length; i++) {	//주문별
+			
+			//System.out.println("맵내용:"+orderMap);			
+			
+			//System.out.println(i+"번째 주문결제작품 : "+orderArt[i]);
+			
+			String[] orderArtOne = orderArt[i].split(","); //작품한줄에 들어간 내용
+			
+		
+			for(int j=0; j<orderArtOne.length; j++) {	//작품별
+				
+				orderMap.put("artInfo"+j, orderArtOne[j]);
+//--------------사용 변수명  : 들어가는 내용 ---------------
+//				artInfo0 : cart_seq33(장바구니 카트번호)
+//				artInfo1: writer_code_seq83(작가번호)
+//				artInfo2 : art_code_seq567(작품번호)
+//				artInfo3 : 고기(상품이름)
+//				artInfo4 : 없음(고객 요청사항)
+//				artInfo5 : 0(작품배송비)
+//				artInfo6 : 0(제주산간배송비)
+				
+				//System.out.println(j+"번째 작품내용 : "+orderArtOne[j]);
+			}
+			//System.out.println("수정된 맵내용:"+orderMap);	
+			
+			
+			orderMap.put("orderCodeSeq", orderCodeSeq); //주문내역코드 맵에넣음
+			
+			
+			String orderWriterCode = service.insertOrderWriter(orderMap); //주문내역테이블에 인서트
+			//System.out.println(orderWriterCode); //주문작가코드
+			
+			orderMap.put("orderWriterCode", orderWriterCode); //주문작가코드 맵에넣음
+			
+			String orderArtCode = service.insertOrderArt(orderMap);
+			//System.out.println(orderArtCode);
+			
+			orderMap.put("orderArtCode", orderArtCode); //주문작품코드 맵에넣음
+			
+
+
+			
+		} //for문끝(작품별)
+		
+
+		//------옵션별
+		  for(int j=0; j<orderArtOption.length; j++) {
+			  //System.out.println(j+"번째 주문결제작품 옵션 : "+orderArtOption[j]); 
+			  String[] orderArtOptionOne = orderArtOption[j].split("#"); //작품한줄에 들어간 내용
+			  
+			  for(int z = 0; z<orderArtOptionOne.length; z++) {
+						  System.out.println(z+"번째 옵션:"+orderArtOptionOne[z]);
+						  
+						  if(z==0) { //옵션내용 뒤에 / 빼주는 처리
+							  orderArtOptionOne[z] = orderArtOptionOne[z].substring(0, orderArtOptionOne[z].length()-3);
+						  }
+						  
+						 orderMap.put("artOptionInfo"+z, orderArtOptionOne[z]);
+//						  		변수명         : 내용
+//						  artOptionInfo0 : 옵션내용
+//						  artOptionInfo1 : art_option_seq539,art_option_seq533,art_option_seq535, (옵션코드들)
+//						  artOptionInfo2 : 1 (수량)
+//						  artOptionInfo3 : cart_seq33 (장바구니번호)
+//						  artOptionInfo4 : art_code_seq567 (작품번호)
+//						  artOptionInfo5 : 26000 (작품가격)
+			  }
+			  System.out.println("최종맵:"+orderMap);
+			  
+			  String orderArtOptionCode = service.insertOrderArtOption(orderMap);
+			  //System.out.println(orderArtOptionCode);
+		  }		
 		
 		return mav;
 	}
+	
+	
+	
+	/* 주문완료 처리---------------------------------------------------------------------------- */
+	@ResponseBody 
+	@RequestMapping(value="/successPayment")
+	public ModelAndView successPay() {
+		ModelAndView mav =  new ModelAndView("ushopbag/usuccessOrder");
+		return mav;
+	}
+	
 	
 }

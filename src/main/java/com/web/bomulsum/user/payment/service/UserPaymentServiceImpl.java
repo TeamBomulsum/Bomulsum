@@ -25,4 +25,24 @@ public class UserPaymentServiceImpl implements UserPaymentService{
 	public List<UserCouponPaymentVO> selectCouponPayment(String memberCode) {
 		return dao.selectCouponPayment(memberCode);
 	}
+
+	@Override
+	public String insertOrderList(HashMap<String, Object> map) {
+		return dao.insertOrderList(map);
+	}
+
+	@Override
+	public String insertOrderWriter(HashMap<String, Object> map) {
+		return dao.insertOrderWriter(map);
+	}
+
+	@Override
+	public String insertOrderArt(HashMap<String, Object> map) {
+		return dao.insertOrderArt(map);
+	}
+
+	@Override
+	public String insertOrderArtOption(HashMap<String, Object> map) {
+		return dao.insertOrderArtOption(map);
+	}
 }
