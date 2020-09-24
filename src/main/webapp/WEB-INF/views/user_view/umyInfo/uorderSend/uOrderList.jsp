@@ -375,7 +375,7 @@ input[type="button"]:focus{
 				<div class="dndud_noContent">
 					<span class="no_order_icon"><img style="width:120px; height:120px" src="<c:url value='/resources/img/noFile.png'/>" ></span>
 					<p style="margin-bottom:4%; font-size: 16px; color: #666">주문하신 적이 없네요. (이럴수가!)</p>
-					<a>작품 구경하러 가기</a>
+					<a style="text-decoration: none" href="<c:url value='/home.do'/> ">작품 구경하러 가기</a>
 				</div>
 			</c:if>
 			<c:if test="${not empty data }"> 
@@ -439,7 +439,7 @@ input[type="button"]:focus{
 										
 											<c:choose>
 												<c:when test="${writer.buyWriterOrderStatus eq '결제 완료' }">
-													<input id="${order.orderCodeSeq }" class="go_to_refund" type="button" value="환불요청">
+													<input id="${writer.buyWriterCodeSeq }" class="go_to_refund" type="button" value="환불요청">
 												</c:when>
 												<c:when test="${writer.buyWriterOrderStatus eq '배송 완료' }">
 													<c:forEach items="${artList }" var="art2">
@@ -671,7 +671,7 @@ function artCode(e){
 				alert('세션이 만료되었습니다.');
 				location.href="/bomulsum/user/login.do";
 			}else{
-				location.href="/bomulsum/user/myInfo/refund/request.do?orderCode="+$(this).attr('id');
+				location.href="/bomulsum/user/myInfo/refund/request.do?buyWriterCode="+$(this).attr('id');
 			}
 		});
 	});

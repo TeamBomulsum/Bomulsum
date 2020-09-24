@@ -621,7 +621,7 @@ input[type="number"]::-webkit-inner-spin-button {
 							<th style="border-top:1px #ccc solid;padding:3%; margin:3%; width:30%; font-size: 90%; background-color: #EEEEEE; color: #666666;">배송비</th>
 							<td style="border-top:1px #ccc solid;padding:3%; margin:3%; width:70%; font-size: 90%; color: #666666;">
 								<span>기본료 : </span><span style="color: #22a7af;"><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/> 원</span>  <br>
-								<span>배송비 무료 조건 :</span> <span style="color: #22a7af;">${writer.writerSendfreeCase }</span><br>
+								<span>배송비 무료 조건 :</span> <span style="color: #22a7af;"><fmt:formatNumber value="${writer.writerSendfreeCase }"/> 원</span><br>
 								<span>제주, 도서산간일 경우 기본료만 무료가 됩니다.</span><br>
 								<span>제주 / 도서산간 추가비용 : </span><span style="color: #22a7af;"><fmt:formatNumber value="${writer.writerSendPrice }"/>원</span></td>
 						</tr>

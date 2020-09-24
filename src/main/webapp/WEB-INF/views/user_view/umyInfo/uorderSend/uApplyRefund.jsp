@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,17 +101,27 @@ body a:link, a:visited, a:hover, a:active {
 	flex-direction: row;
 }
 
+.dndud_content_main_imsiDiv{
+	display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.dndud_content_main_imsiDiv .dndud_content_main_left:nth-last-child(1){
+	border-bottom:0;
+}
+
 .dndud_content_main_left{
 	display:flex;
 	flex-direction: column;
-	width:70%;
+	width:100%;
 	border-right: 1px solid #E6E6E6;
+	border-bottom: 1px solid #E6E6E6;
 }
 
 .dndud_content_main_left_first{
 	display:flex;
 	flex-direction: row;
-	border-bottom: 1px solid #E6E6E6;
 	padding:3%;
 }
 
@@ -134,7 +146,8 @@ body a:link, a:visited, a:hover, a:active {
 .dndud_content_main_left_second{
 	display:flex;
 	flex-direction: row;
-	padding:3% 3% 3% 0;
+	justify-content: space-between;
+    padding-right: 3%;
 }
 
 .dndud_content_main_left_second ul{
@@ -188,11 +201,13 @@ body a:link, a:visited, a:hover, a:active {
 }
 
 .dndud_content_main_right button{
-	margin-top:2%;
-	padding:2%;
+	margin-top: 2%;
+    padding: 3%;
     background-color: white;
     border: 1px solid gray;
-    cursor:pointer;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 5px;
 }
 
 .dndud_content_main_right button:focus{
@@ -250,6 +265,7 @@ body a:link, a:visited, a:hover, a:active {
     width: 100px;
     height: 40px;
     cursor:pointer;
+    border-radius:5px;
 }
 
 .cancel_or_apply input[type="button"]:focus{
@@ -265,6 +281,12 @@ body a:link, a:visited, a:hover, a:active {
 	background-color:#1f76bb;
 	border: 0;
 	color:white;
+}
+
+.option_info_div{
+	font-size: 14px;
+    color: gray;
+    font-weight: bold;
 }
 
 </style>
@@ -287,44 +309,71 @@ body a:link, a:visited, a:hover, a:active {
 					<a class="dndud_txt_f1">환불신청</a>
 				</div>
 			</div>
-			
+			<c:set var="order" value="${data.orderTable }"/>
+			<c:set var="writerList" value="${data.buyWriter }" />
+			<c:set var="artList" value="${data.buyArt }" />
+			<c:set var="optionList" value="${data.buyOption }" />
 			<div class="dndud_content_main">
 				<div class="dndud_content_title">
 					<div>
-						<span>2020-07-21</span>|<span>배송주소 입력완료</span>
+						<span>${order.orderDate }</span>|<span>배송주소 입력완료</span>
 					</div>
 					<div>
 						<span></span>
 					</div>
 				</div>
 				<div class="dndud_content_main_article">
-					<div class="dndud_content_main_left">
-						<div class="dndud_content_main_left_first">
-							<div>
-								<img src="<c:url value='/resources/img/earings.jpg'/>" style="width:75px; height:75px;">
-							</div>
-							<div>
-								<span>(카페) 주문제작 감성 일러스트 엽서</span>
-								<span>1,500원 / 1개</span>
-							</div>
-						</div>
-						<div class="dndud_content_main_left_second">
-							<ul>
-								<li>배송비 : 우편 (+500원)</li>
-								<li>문구 및 디자인추가 : X 도안 그대로</li>
-							</ul>
-						</div>
-						<div class="dndud_content_main_left_third">
-							<div>
-								<span>요청사항</span>
-								<div>
-									<span>4asdfasdfasdfasdfasdfasdfa</span>
-								</div>
-							</div>
-						</div>
+					<div class="dndud_content_main_imsiDiv">
+						<c:forEach items="writerList" var="writer">
+								<c:forEach items="${artList }" var="art">
+									<c:if test="${writerCode eq art.buyWriterCodeSeq }">
+										<div class="dndud_content_main_left">
+											<div class="dndud_content_main_left_first">
+												<div>
+													<img src="<c:url value='/upload/${art.artPhoto }'/>" style="width:75px; height:75px;">
+												</div>
+												<div>
+													<span>${art.artName }</span>
+												</div>
+											</div>
+											<div class="dndud_content_main_left_second">
+												<c:forEach items="${optionList }" var="option">
+													<c:if test="${option.buyArtCodeSeq eq art.buyArtCodeSeq }">
+														<c:set var="op_name" value="${fn:split(option.artOptionName, '/')}"/>
+														<ul>
+															<c:forEach items="${op_name }" var="op" varStatus="g">
+																<li>옵션${g.index+1 } : ${op }</li>
+															</c:forEach>
+														</ul>
+														<div class="option_info_div">
+															<span><fmt:formatNumber value="${option.artPrice }" pattern="#,###"/>원</span> /
+															<span>${option.artOptionAmount }개</span>
+														</div>
+													</c:if>
+												</c:forEach>
+											</div>
+											<div class="dndud_content_main_left_third">
+												<div>
+													<span>요청사항</span>
+													<div>
+														<span>${art.buyArtRequest }</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							
+						</c:forEach>
+						
 					</div>
 					<div class="dndud_content_main_right">
-						<span>#작가</span>
+						<c:if test="${empty writerList[0].writerBrandName }">
+							<span>${writerList[0].writerName }</span>
+						</c:if>
+						<c:if test="${not empty writerList[0].writerBrandName }">
+							<span>${writerList[0].writerBrandName }</span>
+						</c:if>
 						<button id="goToMessage">메시지로 문의</button>
 					</div>
 				</div>
@@ -342,19 +391,21 @@ body a:link, a:visited, a:hover, a:active {
 					</div>
 					
 					<div class="write_refund_reason">
-						<select>
-							<option>
-								다른 작품으로 재주문
-							</option>
+						<select id="reason_title">
+							<option>다른 작품으로 재주문</option>
+							<option>배송지연</option>
+							<option>상품 불량</option>
+							<option>단순변심</option>
+							<option>기타</option>
 						</select>
-						<input type="text" placeholder="상세 사유를 입력해 주세요." >
+						<input id="reason_detail" type="text" placeholder="상세 사유를 입력해 주세요." >
 					</div>
 				</div>
 			</div>
 			
 			<div class="cancel_or_apply">
-				<input type="button" value="취소">
-				<input type="button" value="신청">
+				<input type="button" value="취소" onclick="location.href='/bomulsum/user/myInfo/orderList.do'">
+				<input id="request_refund_button" type="button" value="신청">
 			</div>
 	
 		</div>
@@ -366,5 +417,28 @@ body a:link, a:visited, a:hover, a:active {
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+$(function(){
+	$('#request_refund_button').on('click', function(){
+		var reason = $('#reason_title').val() + '_' + $('#reason_detail').val();
+		$.ajax({
+			type:'post',
+			data:{
+				code:getParameter('buyWriterCode'),
+				reason:reason
+			},
+			url:'/bomulsum/user/myInfo/refund/request/check.do',
+			success:function(e){
+				location.href="/bomulsum/user/myInfo/refundList.do";
+			}
+		});
+	});
+});
 </script>
 </html>

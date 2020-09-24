@@ -110,10 +110,10 @@ public class UserArticleController {
 				pageCnt = page;
 				if(pageCnt == 1) {
 					vo.setStartNum(1);
-					vo.setEndNum(20);
+					vo.setEndNum(15);
 				}else {
-					vo.setStartNum(pageCnt + (19*(pageCnt-1)));
-					vo.setEndNum(pageCnt*20);
+					vo.setStartNum(pageCnt + (14*(pageCnt-1)));
+					vo.setEndNum(pageCnt*15);
 				}
 				map.put("totalCnt", totalCnt);
 				map.put("startNum", vo.getStartNum());
@@ -169,10 +169,10 @@ public class UserArticleController {
 		int pageCnt = page;
 		if(pageCnt == 1) {
 			vo.setStartNum(1);
-			vo.setEndNum(20);
+			vo.setEndNum(15);
 		}else {
-			vo.setStartNum(pageCnt + (19*(pageCnt-1)));
-			vo.setEndNum(pageCnt*20);
+			vo.setStartNum(pageCnt + (14*(pageCnt-1)));
+			vo.setEndNum(pageCnt*15);
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<UserArticleCategoryVO> data = service.getListForCategory(vo);

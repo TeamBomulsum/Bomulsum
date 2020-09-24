@@ -209,7 +209,7 @@
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">주문배송</b> 
 				<a class="jeonga-collapse-item" href="<c:url value='/user/myInfo/orderList.do'/> ">주문 내역</a> 
-				<a class="jeonga-collapse-item" href="#">환불 내역</a> 
+				<a class="jeonga-collapse-item" href="<c:url value='/user/myInfo/refundList.do'/> ">환불 내역</a> 
 			</li>
 			<!-- 선물함 -->
 			<li class="jeonga-navItem">

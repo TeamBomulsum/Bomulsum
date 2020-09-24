@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.bomulsum.user.myinfo.repository.MyInfoArticleVO;
 import com.web.bomulsum.user.myinfo.repository.WriterInfoArticleVO;
 import com.web.bomulsum.user.myinfo.service.UserMyInfoService;
+import com.web.bomulsum.user.orderList.repository.UserOrderTableVO;
 import com.web.bomulsum.user.orderList.service.UserOrderListService;
 
 
@@ -29,6 +30,11 @@ public class UserMyInfoController {
 	@RequestMapping(value="/home")
 	public ModelAndView myInfoHome(HttpSession session, ModelAndView mav) {
 		String memberCode = (String)session.getAttribute("member");
+		
+		if(memberCode == null) {
+			mav.setViewName("redirect:/home.do");
+			return mav;
+		}
 		
 		//쿠폰 개수 가져오기.
 		int coupon = service.getCouponCount(memberCode);
@@ -107,8 +113,13 @@ public class UserMyInfoController {
 		}else {
 			mav.addObject("writerVO", null);
 		}
-		
-		mav.addObject("orderListOne", orderService.getOrderDetail(orderService.recentOne(memberCode).getOrderCodeSeq()));
+		UserOrderTableVO imsiVo = orderService.recentOne(memberCode);
+		if(imsiVo != null) {
+			String imsi = imsiVo.getOrderCodeSeq();
+			if(imsi != null) {
+				mav.addObject("orderListOne", orderService.getOrderDetail(imsi));
+			}
+		}
 		
 		List<String> status = orderService.getOrderStatusList(memberCode);
 		int sendComplete = 0;

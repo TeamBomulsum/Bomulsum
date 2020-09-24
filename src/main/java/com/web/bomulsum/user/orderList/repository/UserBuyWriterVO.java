@@ -1,5 +1,7 @@
 package com.web.bomulsum.user.orderList.repository;
 
+import java.sql.Date;
+
 public class UserBuyWriterVO {
 	private String buyWriterCodeSeq;
 	private String orderCodeSeq;
@@ -10,6 +12,22 @@ public class UserBuyWriterVO {
 	private int buyWriterPlusSendPrice;
 	private String buyWriterOrderStatus;
 	private String buyWriterOrderRefundReason;
+	private Date buyWriterOrderRefundDate;
+	private Date buyRefundRequestDate;
+	
+	
+	public Date getBuyRefundRequestDate() {
+		return buyRefundRequestDate;
+	}
+	public void setBuyRefundRequestDate(Date buyRefundRequestDate) {
+		this.buyRefundRequestDate = buyRefundRequestDate;
+	}
+	public Date getBuyWriterOrderRefundDate() {
+		return buyWriterOrderRefundDate;
+	}
+	public void setBuyWriterOrderRefundDate(Date buyWriterOrderRefundDate) {
+		this.buyWriterOrderRefundDate = buyWriterOrderRefundDate;
+	}
 	public String getBuyWriterCodeSeq() {
 		return buyWriterCodeSeq;
 	}
@@ -70,8 +88,11 @@ public class UserBuyWriterVO {
 				+ ", writerCodeSeq=" + writerCodeSeq + ", writerName=" + writerName + ", writerBrandName="
 				+ writerBrandName + ", buyWriterSendPrice=" + buyWriterSendPrice + ", buyWriterPlusSendPrice="
 				+ buyWriterPlusSendPrice + ", buyWriterOrderStatus=" + buyWriterOrderStatus
-				+ ", buyWriterOrderRefundReason=" + buyWriterOrderRefundReason + "]";
+				+ ", buyWriterOrderRefundReason=" + buyWriterOrderRefundReason + ", buyWriterOrderRefundDate="
+				+ buyWriterOrderRefundDate + ", buyRefundRequestDate=" + buyRefundRequestDate + "]";
 	}
+	
+	
 	
 	
 	

@@ -1,11 +1,16 @@
 package com.web.bomulsum.user.orderList.controller;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.user.orderList.repository.OrderListDataVO;
@@ -25,7 +30,6 @@ public class UserOrderListController {
 			mav.setViewName("redirect:/home.do");
 			return mav;
 		}
-		System.out.println(service.getOrderTb(member).toString());
 		
 		mav.addObject("data", service.getOrderTb(member));
 		mav.setViewName("/umyInfo/uorderSend/uOrderList");
@@ -59,14 +63,60 @@ public class UserOrderListController {
 	}
 	
 	@RequestMapping(value="/myInfo/refund/request")
-	public String refundList(@RequestParam(value="orderCode") String code ) {
-		System.out.println(code);
-		return "/umyInfo/uorderSend/uApplyRefund";
+	public ModelAndView refundList(@RequestParam(value="buyWriterCode") String code, HttpSession session, ModelAndView mav ) {
+		String member = (String) session.getAttribute("member");
+		if(member == null) {
+			mav.setViewName("redirect:/home.do");
+			return mav;
+		}
+		String orderCode = service.getOrderCode(code);
+		OrderListDataVO vo = service.getOrderDetail(orderCode);
+		
+		mav.addObject("writerCode", code);
+		mav.addObject("data",vo);
+		mav.setViewName("/umyInfo/uorderSend/uApplyRefund");
+		
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/myInfo/refund/request/check", method = RequestMethod.POST)
+	public String requestRefund(@RequestParam String code, @RequestParam String reason, HttpSession session) {
+		String member = (String)session.getAttribute("member");
+		if(member == null) {
+			return "redirect:/home.do";
+		}
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("code", code);
+		map.put("reason", reason);
+		service.requestRefund(map);
+		return "success";
 	}
 	
 	@RequestMapping(value="/myInfo/refundList")
-	public String cancleList() {
-		return "/umyInfo/uorderSend/uCancleList";
+	public ModelAndView cancleList(HttpSession session, ModelAndView mav) {
+		String member = (String) session.getAttribute("member"); 
+		if(member == null) {
+			mav.setViewName("redirect:/home.do");
+			return mav;
+		}
+		
+		List<HashMap<String, String>> codes = service.refundListCodes(member);
+		mav.addObject("data", service.getRefundList(codes));
+		mav.setViewName("/umyInfo/uorderSend/uCancleList");
+		
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/myInfo/refundList/detail")
+	public HashMap<String, Object> refundDetail(@RequestParam(value="code") String code){
+		
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		
+		map.put("data", service.ajaxRefundDetail(code));
+		System.out.println("체크용 콘솔 : "+map.toString());
+		return map;
 	}
 	
 }

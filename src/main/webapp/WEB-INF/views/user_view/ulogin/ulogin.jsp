@@ -75,13 +75,13 @@
     <div id="wrapper">
         <div id="content">
             <img id="toHome" src="<c:url value='/resources/img/MainLogo.png'/>" style="width: 150px; height: 150px; cursor:pointer">
-            <section id="login_SNS">
+            <!-- <section id="login_SNS">
                 	<h4 style="padding:0px 15px; background-color:white; margin:0; top:-10px; position:relative">SNS 로그인</h4>
                 
 	                <div style="width:40%; margin-top:3%; margin-bottom:3%"><a id="kakao-login-btn"></a></div>
 	                <a href="http://developers.kakao.com/logout"></a>
                 
-            </section><!-- 1f76bb -->
+            </section> --><!-- 1f76bb -->
             
             <form action="loginCheck.do" method="post">
 	            <section id="login_Email">

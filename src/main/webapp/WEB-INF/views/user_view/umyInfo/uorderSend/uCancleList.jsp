@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +78,6 @@
 	border: 1px solid #d9d9d9;
 	border-bottom-width: 2px;
     border-bottom-color: #333;
-    cursor: pointer;
 }
 
 .dndud_noContent{
@@ -133,12 +133,13 @@
 }
 
 .dndud_semicontent_top{
-	font-size: 15px;
-	width: 98%;
-	height: 40px;
-	display: flex;
-	justify-content: space-between;
-	padding: 1%;
+	font-size: 14px;
+    width: 98%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
 }
 
 .dndud_semicontent_top .price{
@@ -146,10 +147,7 @@
 	display: flex;
 	align-items: center;
 	text-decoration: none;
-}
-
-.dndud_semicontent_top .price:hover{
-	background-color:white;
+	color:black;
 }
 
 .dndud_semicontent_main{
@@ -164,7 +162,7 @@
     width: 70%;
     max-width: 70%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .dndud_semicontent_main .item .writeAboutItem{
@@ -188,7 +186,6 @@
 }
 
 .aboutItem{
-	margin-bottom:2%;
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -243,6 +240,10 @@ input[type="button"]{
 	padding:5%;
 	margin-top:5%;
 	cursor: pointer;
+}
+
+input[type="button"]:focus{
+	outline:none;
 }
 
 .orderStat{
@@ -320,24 +321,42 @@ input[type="button"]{
 }
 
 .modal_main{
-	height:250px;
+	max-height:500px;
 	margin-top: 3%;
 	border-top: 2px solid gray;
+	overflow-y: auto 
+}
+.modal_main::-webkit-scrollbar {
+  width: 6px;
+}
+.modal_main::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.modal_main::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: gray;
+}
+.modal_main::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
 }
 
 .modal_main_withImg{
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-between;
 	margin-top: 3%;
     margin-bottom: 3%;
 }
 
 .modal_main_Info{
-	display:flex;
-	flex-direction: row;
-	font-size:15px;
-	flex: 1 1 0%;
+	display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 15px;
+    flex: 1 1 0%;
+    margin-bottom: 3%;
 }
 
 .modal_main_Info_img{
@@ -346,7 +365,7 @@ input[type="button"]{
 }
 
 .modal_main_Info_text{
-	height:75px;
+	width:100%;
 	display:flex;
 	flex-direction: column;
 	padding-left:2%;
@@ -354,9 +373,14 @@ input[type="button"]{
 }
 
 .modal_main_Info_text span{
-	display:flex;
-	align-items:center;
-	margin-bottom:1%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1%;
+}
+
+.modal_main_Info_text span a{
+	font-size: 13px;
+    color: #acacac;
 }
 
 .modal_main_Info_text span:nth-child(1){
@@ -389,7 +413,34 @@ input[type="button"]{
 	border-bottom:1px solid gray;
 	background-color:#f5f5f5;
 }
+
+.imsiDiv{
+	display:flex;
+	flex-direction: row;
+	margin-bottom: 2%;
+}
+
+.purchaseReview_done{
+	background-color: #f1f1f1 !important;
+	color:black;
+	cursor: default !important;
+}
+
+.img{
+	cursor: pointer;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
 </style>
+<script>
+//콤마찍기
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+</script>
 </head>
 <body>
 <div>
@@ -415,53 +466,99 @@ input[type="button"]{
 				<a>오프라인 클래스</a>
 			</div>
 			
-			<!-- 작품 없을경우 
-			<div class="dndud_noContent">
-				<span class="no_order_icon"><img style="width:120px; height:120px" src="<c:url value='/resources/img/noFile.png'/>" ></span>
-				<p style="margin-bottom:4%; font-size: 16px; color: #666">환불 내역이 없네요. (이럴수가!)</p>
-				<a>작품 구경하러 가기</a>
-			</div>
-			-->
-			 
-			<!-- 작품 있을경우 -->
-			<div class="dndud_allContents">
-				
-				<!-- 작품 -->
-				<div class="dndud_semicontent">
-					<div class="dndud_semicontent_top">
-						<a class="date">취소완료 2020-07-21 | 주문일자 2020-07-21</a>
-						<a class="price" href="#">1,500원 ></a>
-					</div>
-					<div class="dndud_semicontent_main">
-						<div class="item">
-							<div class="img">
-								<img src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
-							</div>
-							<div class="writeAboutItem">
-								<div class="itemTitle">
-									<p>(카페) 주문제작 감성 일러스트 엽서</p>
-									<p class="orderStat">취소 완료</p>
-								</div>
-								<div class="aboutItem">
-									<p>배송비 : 우편(+ 500원) / 문구 및 디자인추가 : X도안 그대로</p>
-									<span>1개</span>
-								</div>
-							</div>
-						</div>
-						<div class="aboutW">
-							<a>#작가#</a>
-							<input type="button" value="메시지로 문의">
-						</div>
-						<div class="decision">
-							<input id="openInfoRefund" type="button" value="환불 정보">
-						</div>
-					</div>
+			<c:if test="${empty data }">
+				<div class="dndud_noContent">
+					<span class="no_order_icon"><img style="width:120px; height:120px" src="<c:url value='/resources/img/noFile.png'/>" ></span>
+					<p style="margin-bottom:4%; font-size: 16px; color: #666">환불 내역이 없네요. (이럴수가!)</p>
+					<a>작품 구경하러 가기</a>
 				</div>
+			</c:if>
+			 
+			 <c:if test="${not empty data }">
 				
-				
-				
-			</div>
-			
+				<!-- 작품 있을경우 -->
+				<div class="dndud_allContents">
+					
+					<c:forEach items="${data }" var="i" varStatus="base">
+						<c:set var="order" value="${i.orderTable }"/>
+						<c:set var="writerList" value="${i.buyWriter }" />
+						<c:set var="artList" value="${i.buyArt }" />
+						<c:set var="optionList" value="${i.buyOption }" />
+						<c:forEach items="${writerList }" var="writer">
+							<c:if test="${order.orderCodeSeq eq writer.orderCodeSeq }">
+								<!-- 작품 -->
+								<div class="dndud_semicontent">
+									<div class="dndud_semicontent_top">
+										<c:if test="${empty writer.buyWriterOrderRefundDate }">
+											<a class="date">주문일자 ${order.orderDate }</a>
+										</c:if>
+										<c:if test="${not empty writer.buyWriterOrderRefundDate }">
+											<a class="date">취소완료 ${writer.buyWriterOrderRefundDate} | 주문일자 ${order.orderDate }</a>
+										</c:if>
+										<c:set var="titlePrice" value="0"/>
+										<a class="price"><span class="${writer.buyWriterCodeSeq }">0</span> 원 </a>
+									</div>
+									<div class="dndud_semicontent_main">
+										<div class="item">
+											<c:forEach items="${artList }" var="art">
+												<c:if test="${art.buyWriterCodeSeq eq writer.buyWriterCodeSeq }">
+													<div class="imsiDiv">
+														<div class="img" id="${art.artCodeSeq }" onclick="artCode(this)">
+															<img src="<c:url value='/upload/${art.artPhoto }'/>" style="width:75px; height:75px">
+														</div>
+														<div class="writeAboutItem">
+															<div class="itemTitle">
+																<p>${art.artName }</p>
+																<p class="orderStat">${writer.buyWriterOrderStatus }</p>
+															</div>
+															<c:forEach items="${optionList }" var="option">
+																<c:if test="${art.buyArtCodeSeq eq option.buyArtCodeSeq }">
+																	<div class="aboutItem">
+																		<p>${option.artOptionName }</p>
+																		<span>${option.artOptionAmount }개</span>
+																		<c:set var="titlePrice" value="${titlePrice + (option.artOptionAmount * option.artPrice) }"/>
+																	</div>
+																</c:if>
+																
+															</c:forEach>
+														</div>
+													</div>
+												</c:if>
+											</c:forEach>
+											<script>
+											var val;
+												$(function(){
+													val = '${titlePrice}';
+													val = comma(val);
+													$('.${writer.buyWriterCodeSeq}').html(val);
+												});
+											</script>
+										</div>
+										<div class="aboutW">
+											<c:if test="${empty writer.writerBrandName }">
+												<a>${writer.writerName }</a>
+											</c:if>
+											<c:if test="${not empty writer.writerBrandName }">
+												<a>${writer.writerBrandName }</a>
+											</c:if>
+											<input class="go_to_writer_message" id="${writer.writerCodeSeq }" type="button" value="메시지로 문의">
+										</div>
+										<div class="decision">
+											<c:if test="${not empty writer.buyWriterOrderRefundDate }">
+												<input id="${writer.buyWriterCodeSeq }" class="openInfoRefund" type="button" value="환불 정보">
+											</c:if>
+											<c:if test="${empty writer.buyWriterOrderRefundDate }">
+												<input class="purchaseReview_done" type="button" value="환불 대기중">
+											</c:if>
+										</div>
+									</div>
+								</div>
+							</c:if>
+						</c:forEach>
+					</c:forEach>
+					
+				</div>
+			</c:if>
 		</div>
 		
 	
@@ -475,7 +572,7 @@ input[type="button"]{
     <div class="report-modal__area">
         <div class="report-modal__head">
             <div class="report-modal__title">
-                <div class="report-modal__subject">주문취소 정보</div>
+                <div class="report-modal__subject">작품 환불 정보</div>
                 <button class="report-modal__close">
                     <i style="font-size: 20px; color:red;"class="fas fa-times"></i>
                 </button>
@@ -483,31 +580,16 @@ input[type="button"]{
         </div>
         
         <div class="modal_main">
+        
         	<div class="modal_main_withImg">
-        		<div class="modal_main_Info">
-        			<div class="modal_main_Info_img">
-        				<img src="<c:url value='/resources/img/earings.jpg'/> " style="width:75px; height:75px;">
-        			</div>
-        			<div class="modal_main_Info_text">
-        				<span>
-        					(카페) 주문제작 감성 일러스트 엽서
-        				</span>
-        				<span>
-        					우편 / X 도안 그대로
-        				</span>
-        			</div>
-        		</div>
-        		<div class="modal_main_count">
-        			<a>1</a><a>개</a>
-        		</div>
         	</div>
         	
         	<div class="refund_reason">
         		<div class="refund_reason_text">
-        			<span>다른 작품으로 재주문</span>
+        			<span class="refund_reason_title">다른 작품으로 재주문</span>
         		</div>
         		<div class="refund_reason_text">
-        			<span>번호 선택을 잘 못해서 다시 주문하고 이건 취소합니다.</span>
+        			<span class="refund_reason_detail">번호 선택을 잘 못해서 다시 주문하고 이건 취소합니다.</span>
         		</div>
        		</div>
         	
@@ -520,7 +602,13 @@ input[type="button"]{
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+var test;
+function artCode(e){
+	var art_code = e.id;
+	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank");
+}
 	$(function(){
 		$("#dndud_questionIcon").mouseover(function(event){
 			
@@ -538,12 +626,56 @@ input[type="button"]{
 			$("#iconMemo").css("display", "none");
 		});
 		
-		$("#openInfoRefund").click(function(){
+		$(".openInfoRefund").click(function(){
+			
+			$.ajax({
+				url:'/bomulsum/user/myInfo/refundList/detail.do',
+				data:{
+					code:$(this).attr('id')
+				},
+				success:function(result){
+					var temp = result.data;
+					test = temp;
+					var html ='';
+					for(var i=0; i<temp.buyArt.length; i++){
+						html += '<div class="modal_main_Info"><div class="modal_main_Info_img">'
+							+ '<img src="/bomulsum/upload/'+temp.buyArt[i].artPhoto+'" style="width:75px; height:75px;"></div>'
+							+ '<div class="modal_main_Info_text"><span>'+temp.buyArt[i].artName+'</span>';
+						for(var j=0; j<temp.buyOption.length; j++){
+							if(temp.buyOption[j].buyArtCodeSeq == temp.buyArt[i].buyArtCodeSeq){
+								html += '<span><a style="max-width:80%;">'+temp.buyOption[j].artOptionName+'</a>'
+									+ '<a style="margin-right: 2%;">'+temp.buyOption[j].artOptionAmount +'개</a></span>';
+							}
+						}
+						html += '</div></div>'
+					}
+					
+					var reason = temp.buyWriter[0].buyWriterOrderRefundReason;
+					
+					$('.refund_reason_title').html(reason.split('_')[0]);
+					$('.refund_reason_detail').html(reason.split('_')[1]);
+					
+					
+					$('.modal_main_withImg').html(html);
+					
+				}
+			});
+			
 			$(".detail-modal").css("display", "flex");
 		});
 		
 		$(".report-modal__close").click(function(){
+			$('.modal_main_withImg').html('');
 			$(".detail-modal").css("display","none");
+		});
+		
+		$(".go_to_writer_message").on('click', function(){
+			if(memberCode == null || memberCode == ''){
+				alert('세션이 만료되었습니다.');
+				location.href="/bomulsum/user/login.do";
+			}else{
+				location.href="/bomulsum/user/message.do?writer="+$(this).attr('id');
+			}
 		});
 	});
 </script>

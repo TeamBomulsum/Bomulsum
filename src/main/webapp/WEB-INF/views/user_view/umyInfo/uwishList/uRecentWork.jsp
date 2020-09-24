@@ -32,7 +32,8 @@ body a:link, a:visited, a:hover, a:active {
 }
 
 .wonBookContent:hover {
-	box-shadow: 1px 1px gray;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: .5s;
 }
 .minwoo_starRev{
 	margin-top: 10px;

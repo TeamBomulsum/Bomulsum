@@ -206,11 +206,15 @@ input[type="button"]{
 }
 
 .clientRequestValue{
-    font-size: 14px;
+    font-size: 13px;
     width: 95%;
     height: 90%;
     resize: none;
     font-weight: bold;
+}
+
+.clientRequestValue:focus{
+	outline:none;
 }
 
 .dndud_about_send{
@@ -452,6 +456,10 @@ input[type="button"]{
   width: 0;
   height: 0;
 }
+
+.go_to_refund:focus{
+	outline:none;
+}
 </style>
 </head>
 <body>
@@ -535,7 +543,7 @@ input[type="button"]{
 										
 							<c:choose>
 								<c:when test="${writer.buyWriterOrderStatus eq '결제 완료' }">
-									<input class="" type="button" value="환불요청">
+									<input id="${writer.buyWriterCodeSeq }" class="go_to_refund" type="button" value="환불요청">
 								</c:when>
 								<c:when test="${writer.buyWriterOrderStatus eq '배송 완료' }">
 									<c:forEach items="${artList }" var="art2">
@@ -815,6 +823,16 @@ $(function(){
 	var point = uncomma($('#sum_point').text());
 	
 	$('#total_price').text(comma(price - send - send_plus - coupon - point));
+	
+	$('.go_to_refund').on('click', function(){
+		if(memberCode == null || memberCode == ''){
+			alert('세션이 만료되었습니다.');
+			location.href="/bomulsum/user/login.do";
+		}else{
+			location.href="/bomulsum/user/myInfo/refund/request.do?buyWriterCode="+$(this).attr('id');
+		}
+	});
+	
 });
 </script>
 </html>

@@ -255,7 +255,6 @@ outline: none;
 	display: flex;
 	flex-direction: column;
 	margin-top: 3%;
-    border: 1px solid #d9d9d9;
 }
 
 .dndud_semicontent{
@@ -305,7 +304,7 @@ outline: none;
     width: 70%;
     max-width: 70%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .dndud_semicontent_main .item .writeAboutItem{
@@ -598,7 +597,7 @@ input[type="button"]:focus{
 	background-color: #81BEF7;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
@@ -611,7 +610,7 @@ input[type="button"]:focus{
 ::-webkit-scrollbar-button {
   width: 0;
   height: 0;
-}
+} */
 
 /*메시지 CSS - 원희*/
 
@@ -743,7 +742,7 @@ input[type="button"]:focus{
 				<strong class="dainLabel">취소/환불 완료</strong>
 				<i id="dainHelpIcon2" class="fa fa-question-circle-o" style="color: #d9d9d9"></i>
 				<span id="dainHelp2" class="dainHelp" style="display: none;">최근 1개월 기준</span>
-				<a class="dainValue" id="umhRefundComplete" href="#" style="color: #1F76BB;">${refundComplete }</a>
+				<a class="dainValue" id="umhRefundComplete" href="<c:url value='/user/myInfo/refundList.do'/> " style="color: #1F76BB;">${refundComplete }</a>
 			</td>
 		</tr>
 	</table>
@@ -767,11 +766,7 @@ input[type="button"]:focus{
 			</div>
 			
 			<!-- 작품 없을경우
-			<div class="dndud_noContent">
-				<span class="no_order_icon"><img style="width:120px; height:120px" src="<c:url value='/resources/img/noFile.png'/>" ></span>
-				<p style="margin-bottom:4%; font-size: 16px; color: #666">주문하신 적이 없네요. (이럴수가!)</p>
-				<a>작품 구경하러 가기</a>
-			</div>
+			
 			 -->
 			 
 			<!-- 작품 있을경우 -->
@@ -782,7 +777,11 @@ input[type="button"]:focus{
 				<c:set var="artList" value="${i.buyArt }" />
 				<c:set var="optionList" value="${i.buyOption }" />
 				<c:if test="${empty i }">
-					
+					<div class="dndud_noContent">
+						<span class="no_order_icon"><img style="width:120px; height:120px" src="<c:url value='/resources/img/noFile.png'/>" ></span>
+						<p style="margin-bottom:4%; font-size: 16px; color: #666">주문하신 적이 없네요. (이럴수가!)</p>
+						<a>작품 구경하러 가기</a>
+					</div>
 				</c:if>
 				
 				<c:if test="${not empty i }">
@@ -832,7 +831,7 @@ input[type="button"]:focus{
 											
 								<c:choose>
 									<c:when test="${writer.buyWriterOrderStatus eq '결제 완료' }">
-										<input id="${order.orderCodeSeq }" class="go_to_refund" type="button" value="환불요청">
+										<input id="${writer.buyWriterCodeSeq }" class="go_to_refund" type="button" value="환불요청">
 									</c:when>
 									<c:when test="${writer.buyWriterOrderStatus eq '배송 완료' }">
 										<c:forEach items="${artList }" var="art2">
@@ -890,10 +889,12 @@ input[type="button"]:focus{
 	 
 	 
 	</div>
-	<div style="margin-top:20px; display: flex; justify-content: center;">
-	<a href="<c:url value='/user/myInfo/orderList.do'/> " style="padding: 12px 30px; border: 1px solid #d9d9d9;
-		background-color: #fff; color: black; font-size: 13px;"><strong>최근 주문내역 더보기</strong></a>
-	</div>
+	<c:if test="${not empty i }">
+		<div style="margin-top:20px; display: flex; justify-content: center;">
+			<a href="<c:url value='/user/myInfo/orderList.do'/> " style="padding: 12px 30px; border: 1px solid #d9d9d9;
+				background-color: #fff; color: black; font-size: 13px;"><strong>최근 주문내역 더보기</strong></a>
+		</div>
+	</c:if>
 	
 	<!-- 안읽은 메시지&알림 -->
 	<%-- <div style="display: flex; justify-content: space-between; ">
@@ -1281,7 +1282,7 @@ $(function(){
 			alert('세션이 만료되었습니다.');
 			location.href="/bomulsum/user/login.do";
 		}else{
-			location.href="/bomulsum/user/myInfo/refund/request.do?orderCode="+$(this).attr('id');
+			location.href="/bomulsum/user/myInfo/refund/request.do?buyWriterCode="+$(this).attr('id');
 		}
 	});
 });
