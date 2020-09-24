@@ -1,4 +1,4 @@
-       <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -245,19 +245,19 @@ body a:link, a:visited, a:hover, a:active {
 	
 		<div class="dndud_content">
 			<div class="reserves_table">
-			<!-- 	<div class="reserves_table_top">
+			<div class="reserves_table_top">
 					<div><span>사용가능한 적립금</span></div>
-					<div><span>0P</span></div>
-				</div> -->
+					<div><span><fmt:formatNumber value="${usablepoint}" pattern="#,###"/>P</span></div>
+				</div>
 				<div class="reserves_table_bottom">
 					<div class="reserves_table_bottom_left">
-						<div><span>사용가능한 적립금</span></div>
-						<div><span><fmt:formatNumber value="${usablepoint}" pattern="#,###"/>P</span></div>
+						<div><span>환불 적립금</span></div>
+						<div><span>-<fmt:formatNumber value="${refundpoint}" pattern="#,###"/>P</span></div>
 						
 					</div>
 					<div class="reserves_table_bottom_right">
 						<div><span>총 사용 적립금</span></div>
-						<div><span><fmt:formatNumber value="${usepoint}" pattern="#,###"/>P</span></div>
+						<div><span>-<fmt:formatNumber value="${usepoint}" pattern="#,###"/>P</span></div>
 					</div>
 				</div>
 			</div>
@@ -372,16 +372,19 @@ body a:link, a:visited, a:hover, a:active {
             
             //여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
             for(var index = startNum; index < endNum; index++){
-                html += '<tr><td> <div class="reserves_use_list_content"> <span>' + result[index].point_date +' '+
-                 result[index].point_detail+ '</span><div>';
+            	
                  //포인트 충전인지 사용인지 구분
                  if(result[index].point_category == "적립"){
-                	 html += '<span>적립</span>' ;
+                	 html += '<tr><td> <div class="reserves_use_list_content"> <span>' + result[index].point_date +' '+
+                     '<a style="color: #36a7b3;font-weight: bold;margin-left: 1%;">'+result[index].point_category+ '</a></span><div>';
+                	 html += '<span>'+result[index].point_detail+'</span>' ;
                 	 html += '<span style="text-align: center; color: #36a7b3;">+' + addComma(result[index].point_amount) 
                 	 + 'P</span></div></div></td></tr>';
            			// addComma(result[index].gem_price)+ 'P</td>';
-                 } else if(result[index].point_category =="사용"){
-                	 html += '<span>사용</span>' ;
+                 } else{
+                	 html += '<tr><td> <div class="reserves_use_list_content"> <span>' + result[index].point_date +' '+
+                	 '<a style="color: #e35852;font-weight: bold;margin-left: 1%;">'+result[index].point_category+ '</a></span><div>';
+                	 html += '<span>'+result[index].point_detail+'</span>' ;
                 	 html += '<span style="text-align: center; color: #e35852;">-' + addComma(result[index].point_amount) 
                 	 + 'P</span></div></div></td></tr>';
                  }

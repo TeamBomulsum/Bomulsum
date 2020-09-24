@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -736,11 +737,11 @@ input[type="button"]:focus{
 			<td class="daintd">
 				<strong class="dainLabel" >적립금</strong>
 				<!-- 숫자 클릭시 해당 페이지로 이동해야함 -->
-				<a class="dainValue" id="umhPoint" href="#" style="color: #1F76BB;">0P</a>
+				<a class="dainValue" id="umhPoint" href="<c:url value='/user/reserves.do'/> " style="color: #1F76BB;"><fmt:formatNumber value="${usablepoint}" pattern="#,###"/>P</a>
 			</td>
 			<td class="daintd">
 				<strong class="dainLabel">할인 쿠폰 수</strong>
-				<a class="dainValue" id="umhCouponCount" href="#" style="color: #1F76BB;">${coupon }</a>
+				<a class="dainValue" id="umhCouponCount" href="<c:url value='/user/coupon/list.do'/> " style="color: #1F76BB;">${coupon }</a>
 			</td>
 			<td class="daintd">
 				<strong class="dainLabel">작가 발송 완료</strong>

@@ -4,6 +4,21 @@
 
 <mapper namespace="userWhomeDAO">
 
+	<resultMap type="UserWHomeVO" id="dndudMap">
+		<result column="art_code_seq" property="art_code_seq"/>
+		<result column="writer_code_seq" property="writer_code_seq"/>
+		<result column="art_photo" property="art_photo"/>
+		<result column="art_name" property="art_name"/>
+		<result column="art_price" property="art_price"/>
+		<result column="art_discount" property="art_discount"/>
+		<result column="art_category" property="art_category"/>
+		<result column="art_sale_state" property="art_sale_state"/>
+		<result column="writer_profile_img" property="writer_profile_img"/>
+		<result column="writer_brand_name" property="writer_brand_name"/>
+		<result column="writer_url" property="writer_url"/>
+		<result column="writer_intro" property="writer_intro"/>
+	</resultMap>
+
 	<!-- 작가URL로 작가 SEQ 검색 -->
 	<select id="getWriterFromUrl" parameterType="String" resultType="String">
 		SELECT writer_code_seq 
@@ -16,7 +31,7 @@
 	
 	
 	<!-- 작가 정보 및 작품정보 -->
-	<select id="getWriterSalesArt" parameterType="String" resultType="UserWHomeVO">
+	<select id="getWriterSalesArt" parameterType="String" resultMap="dndudMap">
 		SELECT * 
 		
 		FROM art_tb , writer_tb 
@@ -26,6 +41,15 @@
 		art_sale_state = 'Y'
 		AND
 		art_tb.writer_code_seq = #{writerCode}		
+	</select>
+	
+	<select id="getReviewSelect" parameterType="String" resultType="int">
+		SELECT
+			review_star
+		FROM
+			review_tb
+		WHERE
+			art_code_seq=#{artCode}
 	</select>
 	
 	

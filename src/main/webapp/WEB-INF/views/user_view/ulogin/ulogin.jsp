@@ -5,9 +5,9 @@
 <html>
 <head>
 <title>보물섬 | 로그인</title>
-<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<!-- <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="<c:url value='/vendor/fontawesome-free/css/all.css' />">
+<link rel="stylesheet" href="<c:url value='/resources/vendor/fontawesome-free/css/all.css' />">
 <style type="text/css">
     #wrapper {
         min-width: 100%;
@@ -143,7 +143,7 @@
 
 
 <script>
-    //<![CDATA[
+   /*  //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('dbab6039d51f4966a42e02bf4f7b5dd0');  //여기서 아까 발급받은 키 중 javascript키를 사용해준다.
     // 카카오 로그인 버튼을 생성합니다.
@@ -178,7 +178,7 @@
         });
     });
     
-    //]]>
+    //]]> */
     
     
     var onClick = function(){

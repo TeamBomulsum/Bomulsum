@@ -4,44 +4,63 @@
 
 <mapper namespace="userReservesDAO">
 	<!-- 적립금 이용내역 -->
-	<select id="selectReserves" resultType="UserReservesVO">
+	<select id="selectReserves" parameterType="String" resultType="UserReservesVO">
 		SELECT 
-		point_tb.point_seq, point_tb.member_code_seq, point_tb.order_code_seq, point_tb.point_amount,
-		point_tb.point_category, point_tb.point_detail, point_tb.point_date, order_tb.order_status
-		
-		FROM point_tb, order_tb
-		
-		WHERE point_tb.order_code_seq = order_tb.order_code_seq 
-		AND point_tb.member_code_seq = '다인테스트' 
-		AND order_tb.order_status NOT IN('환불') 
-		AND order_tb.order_date > (SYSDATE-365)
-		ORDER BY order_tb.order_date DESC
-	</select>	
+			point_seq, 
+			member_code_seq, 
+			point_amount,
+			point_category, 
+			point_detail, 
+			point_date
+		FROM 
+			point_tb
+		WHERE 
+			member_code_seq = #{member}
+				AND 
+			point_date > (SYSDATE-365)
+		ORDER BY point_date DESC
+	</select>
 	
 	<!-- 사용한 적립금 -->
-	<select id="selectUseReserves" resultType="int">
-		SELECT nvl(SUM(point_amount),0)
-		
-		FROM point_tb
-		
-		WHERE 
-		point_category in ('사용')
-		AND point_date > (SYSDATE-365)
-		AND member_code_seq = '다인테스트' 
+	<select id="selectUseReserves" parameterType="String" resultType="int">
+		SELECT 
+			nvl(SUM(point_amount),0)
+		FROM 
+			point_tb
+		WHERE
+			point_category in ('사용')
+				AND 
+			point_date > (SYSDATE-365)
+				AND 
+			member_code_seq = #{member}
+	</select>
+	
+	<!-- 환불된 적립금 -->
+	<select id="selectRefundReserves" parameterType="String" resultType="int">
+		SELECT 
+			nvl(SUM(point_amount),0)
+		FROM 
+			point_tb
+		WHERE
+			point_category in ('환불')
+				AND 
+			point_date > (SYSDATE-365)
+				AND 
+			member_code_seq = #{member}
 	</select>
 
 	<!-- 총 적립된 적립금 -->
-	<select id="selectSumReserves" resultType="int">
-		SELECT nvl(SUM(point_tb.point_amount),0)
-		
-		FROM point_tb, order_tb
-		
+	<select id="selectSumReserves" parameterType="String" resultType="int">
+		SELECT 
+			nvl(SUM(point_amount),0)
+		FROM 
+			point_tb	
 		WHERE 
-		point_tb.order_code_seq = order_tb.order_code_seq
-		AND point_category in ('적립')
-		AND point_date > (SYSDATE-365)
-		AND order_tb.order_status NOT IN('환불')
-		AND point_tb.member_code_seq = '다인테스트' 
+			point_category in ('적립')
+				AND 
+			point_date > (SYSDATE-365)
+				AND 
+			member_code_seq = #{member}
 	</select>	
 
 </mapper>

@@ -55,4 +55,8 @@ public class UserWHomeDAO {
 	public int likeArtistCheck(HashMap<String, String> map){
 		return sqlSessionTemplate.selectOne("userWhomeDAO.likeArtistCheck", map);
 	}
+	
+	public List<Integer> getReviewSelect(String artCode){
+		return sqlSessionTemplate.selectList("userWhomeDAO.getReviewSelect", artCode);
+	}
 }

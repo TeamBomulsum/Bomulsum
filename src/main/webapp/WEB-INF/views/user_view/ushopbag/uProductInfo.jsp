@@ -850,7 +850,7 @@ input[type="number"]::-webkit-inner-spin-button {
 								<span style="color: #666666;">수량</span>
 							</div>
 							<div style="display:flex; flex-direction: column; justify-content: space-between; margin-left: 5%; width:30%;">
-								<span ><a id="dndud_point"><fmt:formatNumber value="${(artList.artPrice- artList.artDiscount)*0.01}" pattern="#,###"/></a> P</span>
+								<span ><a id="dndud_point"><fmt:formatNumber value="${artList.artPoint}" pattern="#,###"/></a> P</span>
 								<span >
 									<div class="minwoo_starRev" data-rate="${reviewTotalStar }">
 										<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>

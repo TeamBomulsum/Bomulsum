@@ -80,5 +80,11 @@ public class UserWHomeServiceImpl implements UserWHomeService{
 		return dao.likeArtistCheck(map);
 	}
 
+
+	@Override
+	public List<Integer> getReviewSelect(String artCode) {
+		return dao.getReviewSelect(artCode);
+	}
+
 	
 }

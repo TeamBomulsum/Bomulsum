@@ -2,7 +2,7 @@ package com.web.bomulsum.user.reserves.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,21 +30,24 @@ public class UserReservesController {
 	
 	  //적립금페이지-------------------------------
 	@RequestMapping(value = "/reserves", method = RequestMethod.GET)
-	public ModelAndView userPoint(UserReservesVO vo, HttpServletRequest request) {
+	public ModelAndView userPoint(UserReservesVO vo, HttpSession session) {
+		String member = (String)session.getAttribute("member");
 		ModelAndView mav = new ModelAndView();
-		List<UserReservesVO> list = service.getUserPoint(); //이용내역
+		List<UserReservesVO> list = service.getUserPoint(member); //이용내역
 		mav.setViewName("/umyInfo/udiscount/uReserves");
 		mav.addObject("ureserves", list);
 		
-		int usepoint = service.getUserPointUse(); //총 사용한 포인트
+		int usepoint = service.getUserPointUse(member); //총 사용한 포인트
 		mav.addObject("usepoint",usepoint);
 		
-		int reservepoint = service.getUserSumReserves(); //총 적립한 포인트
+		int refundpoint = service.selectRefundReserves(member); // 환불된 포인트
+		mav.addObject("refundpoint", refundpoint);
 		
-		int usablepoint = reservepoint - usepoint;
+		int reservepoint = service.getUserSumReserves(member); //총 적립한 포인트
+		
+		int usablepoint = reservepoint - usepoint - refundpoint;
 		mav.addObject("usablepoint", usablepoint);
 		
-		System.out.println(mav);
 		return mav;
 	}
 	 

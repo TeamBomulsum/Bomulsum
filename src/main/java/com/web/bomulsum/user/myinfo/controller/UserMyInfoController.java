@@ -15,6 +15,7 @@ import com.web.bomulsum.user.myinfo.repository.WriterInfoArticleVO;
 import com.web.bomulsum.user.myinfo.service.UserMyInfoService;
 import com.web.bomulsum.user.orderList.repository.UserOrderTableVO;
 import com.web.bomulsum.user.orderList.service.UserOrderListService;
+import com.web.bomulsum.user.reserves.service.UserReservesService;
 
 
 @Controller
@@ -27,6 +28,9 @@ public class UserMyInfoController {
 	@Autowired
 	private UserOrderListService orderService;
 	
+	@Autowired
+	private UserReservesService reserveService;
+	
 	@RequestMapping(value="/home")
 	public ModelAndView myInfoHome(HttpSession session, ModelAndView mav) {
 		String memberCode = (String)session.getAttribute("member");
@@ -35,6 +39,13 @@ public class UserMyInfoController {
 			mav.setViewName("redirect:/home.do");
 			return mav;
 		}
+		
+		// 적립금
+		int usepoint = reserveService.getUserPointUse(memberCode); //총 사용한 포인트
+		int refundpoint = reserveService.selectRefundReserves(memberCode); // 환불된 포인트
+		int reservepoint = reserveService.getUserSumReserves(memberCode); //총 적립한 포인트
+		int usablepoint = reservepoint - usepoint - refundpoint;
+		mav.addObject("usablepoint", usablepoint);
 		
 		//쿠폰 개수 가져오기.
 		int coupon = service.getCouponCount(memberCode);

@@ -71,7 +71,7 @@ public class UserLoginController {
 		// 4 params(to, from, type, text) are mandatory. must be filled
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", receiver);
-		params.put("from", "01036292628"); // 보낼 사람 전화번호
+		params.put("from", "11111111"); // 보낼 사람 전화번호
 		params.put("type", "SMS");
 		params.put("text", msg);
 		params.put("app_version", "test app 1.2"); // application name and version

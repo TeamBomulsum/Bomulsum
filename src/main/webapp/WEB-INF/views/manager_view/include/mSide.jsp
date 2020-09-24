@@ -30,7 +30,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href='<c:url value="/home.mdo	" />'>
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -80,6 +80,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<c:url value='/manager/list/writer.mdo'/>">작가목록</a>
             <a class="collapse-item" href="<c:url value='/manager/list/user.mdo'/>">회원목록</a>
+            <a id="send_writer_indo" class="collapse-item" href="#">신규 작가 문자 발송</a>
           </div>
         </div>
       </li>
@@ -96,9 +97,9 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a target="_blank" class="nav-link" href="https://docs.google.com/spreadsheets/d/1I7RKP6I-U5gq5FKpozz443OiiR6VWn2A6vLBWDUCUHk/edit#gid=1048892739">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>관리자계정 추가</span></a>
+          <span>작가 입점 문의 확인하기</span></a>
       </li>
 
       <!-- Divider -->
@@ -114,5 +115,33 @@
     <!-- End of Sidebar -->
 
 </body>
-
+<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#send_writer_indo').on('click', function(){
+			var phone = prompt('전송할 번호를 입력하세요.', '');
+			var regNumber=/^[0-9]*$/;
+			if(regNumber.test(phone) && phone.length<=11 && phone.length>=10){
+				var writerurl = 'http://localhost:8080/bomulsum/writer/home.wdo';
+				var sendMsg = "[보물섬] 작가 입점 테스트에 성공적으로 통과되었습니다. \n작가 홈페이지 경로 : " + writerurl
+					+ "\n입점 문의하실떄 사용한 정보로 회원가입을 새로 해주시기 바랍니다.";
+				
+				$.ajax({
+					url : "/bomulsum/user/smsCheck.do",
+					data:{
+						msg : sendMsg,
+						receiver : phone
+					},
+					success:function(e){
+						alert('성공적으로 전송되었습니다.');
+					}
+				});
+			}else{
+				alert('번호를 확인해주세요');
+				return;
+			}
+		});
+		
+	});
+</script>
 </html>

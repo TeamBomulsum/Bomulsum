@@ -35,4 +35,6 @@ public interface UserWHomeService {
 	
 	//좋아하는작가 : 현재 로그인한 유저가 좋아하는 작품
 	int likeArtistCheck(HashMap<String, String> map); 
+	
+	List<Integer> getReviewSelect(String artCode);
 }

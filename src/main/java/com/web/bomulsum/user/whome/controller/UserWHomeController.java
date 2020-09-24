@@ -5,7 +5,6 @@ package com.web.bomulsum.user.whome.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -71,6 +70,14 @@ public class UserWHomeController {
 			int end = str.indexOf(",");
 			//System.out.println(end);
 			artImg.add(i, str.substring(0, end));
+			
+			List<Integer> review = service.getReviewSelect(artlist.get(i).getArt_code_seq());
+			artlist.get(i).setReviewTotal(review.size());
+			int imsi = 0;
+			for(int j : review) {
+				imsi += j;
+			}
+			artlist.get(i).setReviewStar(imsi);
 		}
 		System.out.println(artImg);
 		

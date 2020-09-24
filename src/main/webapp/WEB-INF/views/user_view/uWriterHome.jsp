@@ -223,7 +223,6 @@ body a:link, a:visited, a:hover, a:active {
 
 .article_grade span{
    color:#999;
-   margin-left:10px;
 }
 
 .article_grade_text{
@@ -265,6 +264,28 @@ body a:link, a:visited, a:hover, a:active {
 	height: 196px; 
 	background-color: white;
 }
+.minwoo_starRev{
+	display:flex;
+}
+
+.minwoo_starR1{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat -28px 0;
+    background-size: auto 100%;
+    width: 8px;
+    height: 16px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR2{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat right 0;
+    background-size: auto 100%;
+    width: 8px;
+    height: 16px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR1.on{background-position:0 0;}
+.minwoo_starR2.on{background-position:-8px 0;}
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -313,8 +334,10 @@ $(function(){
 		$('#addArtistBtn').html('♥ 작가 추가');
 	}
 
-//관심작품(별 아이콘) 눌렀을때 함수 
-likeArticleFunc = function(clicked_id){
+	//관심작품(별 아이콘) 눌렀을때 함수 
+	likeArticleFunc = function(e){
+		e.stopPropagation();
+		var clicked_id = $(this).attr('id');
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='/bomulsum/user/login.do';
@@ -357,7 +380,8 @@ likeArticleFunc = function(clicked_id){
 		}
 
 	}; 
-
+	
+	
 	
 //좋아하는 작가 추가
 likeArtistFunc = function(clicked_id){
@@ -490,9 +514,9 @@ likeArtistFunc = function(clicked_id){
 			<div class="minwwo_writer_saleplace_body">
 			
 			<c:forEach var="i" items="${artlist}" varStatus="status">
-				<div class="article">
+				<div id="${i.art_code_seq }" onclick="artCode(this)" class="article">
 					<div class="article_img" style="background-image: url('<c:url value='/upload/${artImg[status.index]}'/>')">
-						<i class="fa fa-star fs" id="${i.art_code_seq}" onclick = "likeArticleFunc(this.id)" style="cursor: pointer;"></i>
+						<i class="fa fa-star fs" id="${i.art_code_seq}" style="cursor: pointer;"></i>
 					  <%-- <img class="dain_artimg" src="<c:url value='/upload/${artImg[status.index]}'/>" > --%>
 					</div>
 					<div class="article_detail">
@@ -506,12 +530,13 @@ likeArtistFunc = function(clicked_id){
 						</span>
 					</div>
 					<div class="article_grade">
-						<div class="aritcle_grade_text">
-							<i class="fa fa-star" style="color:gold"></i>
-							<i class="fa fa-star" style="color:gold"></i>
-							<i class="fa fa-star" style="color:gold"></i>
-							<i class="fa fa-star" style="color:gold"></i>
-							<i class="fa fa-star" style="color:gold"></i>
+						<div class="minwoo_starRev" data-rate="${i.reviewStar }">
+							<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
+							<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
+							<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
+							<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
+							<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
+							<span>(<a>${i.reviewTotal }</a>)</span>
 						</div>
 					<!-- 	<div class="article_grade_comments">
 							ㅠㅠ 좋아요...
@@ -520,6 +545,7 @@ likeArtistFunc = function(clicked_id){
 				</div>
 		
 			</c:forEach>
+			
 		         
 			</div>
 			<!-- 작품들 영역 종료 -->
@@ -531,4 +557,23 @@ likeArtistFunc = function(clicked_id){
 	<%@ include file="include/uFooter.jsp" %>
 </div>
 </body>
+<script>
+var starRevPoint = $('.minwoo_starRev');
+starRevPoint.each(function(){
+	var targetScore = $(this).attr('data-rate');
+	console.log(targetScore);
+	$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
+	$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
+});
+
+function artCode(e){
+	var art_code = e.id;
+	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank");
+}
+$(function(){
+	$('.fs').click(likeArticleFunc);
+	
+});
+</script>
 </html>

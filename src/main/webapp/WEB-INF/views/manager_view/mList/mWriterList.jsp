@@ -56,6 +56,15 @@
 	vertical-align: middle !important;
 }
 
+#pagination{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2%;
+    padding-bottom: 2%;
+    font-size: 18px;
+}
+
 </style>
 </head>
 
@@ -94,8 +103,8 @@
                       <th>작가홈</th>
                     </tr>
                   </thead>
-                  <tbody>
-                  <c:forEach items='${writerList}' var="writer">
+                  <tbody id="dndud_table">
+                  <%-- <c:forEach items='${writerList}' var="writer">
                     <tr>
                       <td>${writer.writer_code_seq}</td>
                       <td>${writer.writer_name}</td>
@@ -104,11 +113,12 @@
                       <td>${writer.writer_phone}</td>
                       <td>${writer.writer_url}</td>
                     </tr>
-                    </c:forEach>
+                    </c:forEach> --%>
                   </tbody>
                 </table>
               </div>
             </div>
+            <div id="pagination"></div>
           </div>
 
         </div>
@@ -138,13 +148,121 @@
 	<!-- Custom scripts for all pages-->
 	<script src="<c:url value='/resources/js/sb-admin-2.min.js'/> "></script>
 
-	<!-- Page level plugins -->
-	<script src="<c:url value='/resources/vendor/chart.js/Chart.min.js'/> "></script>
-
-	<!-- Page level custom scripts -->
-	<script src="<c:url value='/resources/js/demo/chart-area-demo.js'/> "></script>
-	<script src="<c:url value='/resources/js/demo/chart-pie-demo.js'/> "></script>
-
 </body>
+<script>
+var result = new Array();
 
+<c:forEach var="i" items='${writerList}'>
+	var json = new Object();//객체로 배열에 담기
+	json.writer_code_seq = '${i.writer_code_seq}';
+	json.writer_name = '${i.writer_name}';
+	json.writer_brand_name = '${i.writer_brand_name}';
+	json.writer_email = '${i.writer_email}';
+	json.writer_phone = '${i.writer_phone}';
+	json.writer_url = '${i.writer_url}';
+	result.push(json);
+</c:forEach>
+
+$(document).ready(function(){
+	pagingFunc();
+});
+
+var pagingFunc = function(){
+	
+	
+	
+	var pageCount = 10; // 한 페이지에 보여질 개수
+	var blockCount = 5; // 페이지 몇개를 하나의 그룹(?)으로 묶은  정의하는 블럭 개수
+	var totalPage = Math.ceil(result.length / pageCount); // 총 페이지가 몇개 나올지 - 총 입력된 데이터의 개수에서 한페이지에 보여줄 글 목록 개수로 나눴다.
+	var totalBlock = Math.ceil(totalPage / blockCount); // 총 블럭 개수가 몇개 나올지
+	var pagination = document.getElementById('pagination');//페이징 기능 들어갈 영역(테이블 영역 아래)
+	var testTable = document.getElementById('dndud_table');//페이징 처리를 하면 표시될 데이터가 들어갈 테이블영역
+	
+	var renderTableAndPagination = function(page = 1){
+	   renderTable(page);//테이블 그리는 함수
+	   renderPagination(page);//페이징 처리 함수
+	};
+	
+	//테이블 그리는 함수
+	var renderTable = function(page){
+		var html = '';
+
+		var startNum = (pageCount * (page - 1)); 
+		var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
+		
+		//여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
+		for(var index = startNum; index < endNum; index++){
+			/* <tr>
+          	<td>${member.member_code_seq}</td>
+			<td>${member.member_name}</td>
+				<td>${member.member_email}</td>
+				<td>${member.member_phone}</td>
+				<td>${member.member_grade}</td>
+          	</tr> */
+	  		html += '<tr><td>'+result[index].writer_code_seq+'</td>'
+	  			+ '<td>'+ result[index].writer_name +'</td>'
+	  			+ '<td>'+ result[index].writer_brand_name +'</td>'
+	  			+ '<td>'+ result[index].writer_email +'</td>'
+	  			+ '<td>'+ result[index].writer_phone +'</td>'
+	  			+ '<td>'+ result[index].writer_url +'</td></tr>';
+	  			
+
+		}
+		testTable.innerHTML = html;
+	};
+
+	//pagination 그리는 함수
+	 var renderPagination = function(page){
+		var block = Math.floor((page-1)/blockCount)+1;
+		var startPage = ((block-1)*blockCount)+1;
+		var endPage = ((startPage + blockCount - 1) > totalPage) ? totalPage : (startPage + blockCount - 1);
+		            
+		var paginationHTML = '';
+		            
+		if(page !== 1) paginationHTML += "<a style='cursor:pointer' class='first_page'>처음&nbsp;&nbsp;</a>";
+		if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전...&nbsp;&nbsp;</a>";
+		            
+		for(var index = startPage; index <= endPage; index++){
+			paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
+		}
+		            
+		if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";
+		if(page < totalPage) paginationHTML += "<a style='cursor:pointer' class='last_page'>&nbsp;&nbsp;끝</a>";
+		       
+		pagination.innerHTML = paginationHTML;
+		addEventPagination(startPage, endPage);
+	}; 
+          
+	//클릭이벤트, 클릭할 때마다 테이블을 새로 그려주는 거임
+	var addEventPagination = function(startPage, endPage){
+		if(!!document.querySelector(".first_page")){
+		   document.querySelector(".first_page").addEventListener('click', ()=>{
+		      renderTableAndPagination(1);
+		   });
+		}
+		if(!!document.querySelector(".back_page")){
+		   document.querySelector(".back_page").addEventListener('click', ()=>{
+		      renderTableAndPagination(startPage-1);
+		   });
+		}
+		document.querySelectorAll(".go_page").forEach(goPage => {
+		   goPage.addEventListener('click', e => {
+		      renderTableAndPagination(parseInt(e.target.getAttribute('data-value')));
+		   });
+		});
+		if(!!document.querySelector(".next_page")){
+		   document.querySelector(".next_page").addEventListener('click', ()=>{
+		      renderTableAndPagination(endPage+1);
+		   });
+		}
+		if(!!document.querySelector(".last_page")){
+		   document.querySelector(".last_page").addEventListener('click', ()=>{
+		      renderTableAndPagination(totalPage);
+		   });
+		}
+	};  
+	renderTableAndPagination();
+	//페이징 처리 끝
+};
+</script>
 </html>

@@ -14,7 +14,23 @@ public class UserWHomeVO {
 	private String writer_brand_name;
 	private String writer_url;
 	private String writer_intro;
+	private int reviewStar;
+	private int reviewTotal;
 	
+	
+	
+	public int getReviewStar() {
+		return reviewStar;
+	}
+	public void setReviewStar(int reviewStar) {
+		this.reviewStar = reviewStar;
+	}
+	public int getReviewTotal() {
+		return reviewTotal;
+	}
+	public void setReviewTotal(int reviewTotal) {
+		this.reviewTotal = reviewTotal;
+	}
 	public String getArt_code_seq() {
 		return art_code_seq;
 	}
@@ -93,8 +109,10 @@ public class UserWHomeVO {
 				+ art_photo + ", art_name=" + art_name + ", art_price=" + art_price + ", art_discount=" + art_discount
 				+ ", art_category=" + art_category + ", art_sale_state=" + art_sale_state + ", writer_profile_img="
 				+ writer_profile_img + ", writer_brand_name=" + writer_brand_name + ", writer_url=" + writer_url
-				+ ", writer_intro=" + writer_intro + "]";
+				+ ", writer_intro=" + writer_intro + ", reviewStar=" + reviewStar + ", reviewTotal=" + reviewTotal
+				+ "]";
 	}
+	
 	
 	
 }
