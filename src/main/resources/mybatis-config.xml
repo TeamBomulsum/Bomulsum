@@ -19,6 +19,7 @@
 		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagVO" alias="UserShopbagVO"/>
 		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagOptionVO" alias="UserShopbagOptionVO"/>
 		<typeAlias type="com.web.bomulsum.user.order.repository.UserShopbagModalVO" alias="UserShopbagModalVO"/>
+		<typeAlias type="com.web.bomulsum.user.buydirect.repository.UserBuyNowVO" alias="UserBuyNowVO"/>
 		<typeAlias type="com.web.bomulsum.user.bookmark.repository.UserBookmarkVO" alias="UserBookmarkVO"/>
 		<typeAlias type="com.web.bomulsum.user.payment.repository.UserCouponPaymentVO" alias="UserCouponPaymentVO"/>
 		<typeAlias type="com.web.bomulsum.user.payment.repository.UserPaymentVO" alias="UserPaymentVO"/>
@@ -61,6 +62,7 @@
 		<mapper resource="mappings/user/user-payment-mapping.xml" /> 	
 		<mapper resource="mappings/user/user-myinfo-mapping.xml"/>
 		<mapper resource="mappings/user/user-orderList-mapping.xml" />
+		<mapper resource="mappings/user/user-buy-now-mapping.xml" />
 			
 		<!-- manager -->
 		<mapper resource="mappings/manager/manager-board-mapping.xml" />

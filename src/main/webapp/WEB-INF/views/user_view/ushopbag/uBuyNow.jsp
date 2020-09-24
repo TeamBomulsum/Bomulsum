@@ -286,14 +286,10 @@ input[type="number"]::-webkit-inner-spin-button {
 	font-size:15px;
     color: #dd5850;
     border-radius: 0;
-    border: 1px solid #dd5850;
+    border: 1px solid #ddd;
     padding: 0 8px;
     line-height: 26px;
-    background-color: white;
-}
-
-.btn_group>*:hover{
-	background-color:#f5f5f5;
+    background-color: #eee;
 }
 
 button{
@@ -826,9 +822,8 @@ button:focus{
 				</li>
 			</ol>
 		</div>
-		
 		<!--  상품 없을경우 -->
-		<c:if test="${empty shopbagInfo}">
+		<c:if test="${empty buyArt}">
 		<div class="none_article">
 			<img src="<c:url value='/resources/img/none_cart.PNG'/> ">
 			<div>
@@ -839,13 +834,11 @@ button:focus{
 		</div>
 		</c:if>
 		
-		<c:if test="${not empty shopbagInfo}">
-		<!-- 장바구니 상품들 담기는 곳 -->
-		<form id="jeonga_order_All" action="/bomulsum/user/payment.do" method="post"></form>
-		<form id="jeonga_order_choice" action="/bomulsum/user/payment.do" method="post"></form>
+		<c:if test="${not empty buyArt}">
+		<!-- 선택 상품들 담기는 곳 -->
+		<form id="jeonga_order_choice" action="/bomulsum/user/direct/payment.do" method="post"></form>
 		<div class="shopcart">
-			<!--  첫번쨰 상품 -->
-			<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
+
 				<table class="articles">
 					<thead>
 						<tr>
@@ -854,9 +847,8 @@ button:focus{
 								<label class="shopcart_title">
 									<input class="checkbox" type="checkbox" name="selectCheck">
 									<div class="txt_group">
-										<span>${info.writer_brand_name} 작가님</span>
-										<a>${info.writer_sendfree_case}원 이상  배송비 무료</a>
-										<div class="cartCode" style="display:none">${info.cart_seq}</div>
+										<span class="jeonga_writer">${buyArt.writer_brand_name} 작가님</span>
+										<a>${buyArt.writer_sendfree_case}원 이상  배송비 무료</a>
 									</div>
 								</label>
 								</div>
@@ -870,19 +862,19 @@ button:focus{
 								<input class="chkbox" type="checkbox" name="selectCheck" id="selected">
 								</div>
 								<div class="imgbg">
-									<img style="width:64px; height:64px;" src="<c:url value='/upload/${info.art_photo}'/>"/>
+									<img style="width:64px; height:64px;" src="<c:url value='/upload/${buyArt.art_photo}'/>"/>
 								</div>
 							</td>
 							<td class="area_txt">
 								<div class="txt_group">
-									<span>${info.art_name}</span>
+									<span>${buyArt.art_name}</span>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2" class="area_detail">
 								<ul class="list_option">
-								<c:forEach var="totalOption" items="${info.totalOption}" varStatus="status">
+								<c:forEach var="totalOption" items="${buyArt.totalOption}" varStatus="status">
 									<li>
 										<div class="split">
 										
@@ -899,66 +891,64 @@ button:focus{
 										<div class="split2">
 								 		 	<div class="cost_text">${totalOption.totalSum}</div>
 												<div class="jeonga_cost" style="display:none">${totalOption.totalSum}</div> 
-													<div class="cart_seq" style="display:none">${info.cart_seq}</div>
 													<div class="index" style="display:none">${status.index}</div>
 												<div class="text_text">원</div>
-											<span class="btn_group">
-												<button class="option_update" type="button">
+											<span class="btn_group" >
+												<button class="option_update" style="color:#aaa; cursor: default;" type="button" disabled>
 													<i class="fas fa-cog"></i>
 												</button>
-												<button class="option_delete" type="button">
+												<button class="option_delete" style="color:#aaa; cursor: default;" type="button" disabled>
 													<i class="fas fa-times"></i>
 												</button>
 											</span>
-											<div style="display:none">${info.cart_seq}</div>
 										</div>
 									</li>
 									</c:forEach>
 								</ul>
 								<div class="order_request_box">
 									<div class="order_request_textarea">
-										<c:if test="${info.order_request eq null}">
+										<c:if test="${buyArt.order_request eq null}">
 											<textarea id="orderReq" class="orderTextarea" maxlength="500" placeholder="주문 요청사항을 입력해주세요"></textarea>
 											<a class="ui_field_chars">500</a>
 										</c:if>
-										<c:if test="${info.order_request ne null}">
-											<textarea id="orderReq" class="orderTextarea" maxlength="500" >${info.order_request}</textarea>
+										<c:if test="${buyArt.order_request ne null}">
+											<textarea id="orderReq" class="orderTextarea" maxlength="500" >${buyArt.order_request}</textarea>
 											<a style="display:none" class="ui_field_chars">500</a>
 										</c:if>
 										
 									</div>
 									<button id="saveButton" type="button" class="ui_filed_button">저장</button>
-									<div style="display:none">${info.cart_seq}</div>
 								</div>
 							</td>
 						</tr>
 						<tr class="art_cost">
 							<td>작품가격</td>
-							<td class="jeonga_total_art_price"><a>${info.totalPrice}</a><a>원</a></td>
+							<td style="display:none" class="jeonga_sendfree">${buyArt.writer_sendfree_case}</td>
+							<td style="display:none" class="jeonga_delivery_price">${buyArt.writer_send_price}</td>
+								<td style="display:none" class="jeonga_artcode">${buyArt.art_code_seq}</td>
+							<td class="jeonga_total_art_price"><a>${buyArt.totalPrice}</a><a>원</a></td>
 						</tr>
 						<tr class="delivery_cost">
 							<td>배송비</td>
-						 <c:if test="${info.totalPrice ge info.writer_sendfree_case}"> 
-								<td>
+						 <c:if test="${buyArt.totalPrice ge buyArt.writer_sendfree_case}"> 
+								<td class="jeonga_delivery_case">
 									<a>0</a><a>원</a>
 								</td>
 							</c:if>	
-							<c:if test="${info.totalPrice lt info.writer_sendfree_case}">
-								<td>
-									<a>${info.writer_send_price}</a><a>원</a>
+							<c:if test="${buyArt.totalPrice lt buyArt.writer_sendfree_case}">
+								<td class="jeonga_delivery_case">
+									<a>${buyArt.writer_send_price}</a><a>원</a>
 								</td>
 							</c:if>	
 						</tr>
 					</tbody>
 				</table>
-			</c:forEach>
 			
 			<div class="checkAll">
 				<label>
 					<input class="chkbox" type="checkbox" id="selectAll">
 					<span>전체선택(<a id="nowChecked"></a>/<a id="canCheckCount"></a>)</span>
 				</label>
-				<span class="deleteChoice">선택 삭제</span>
 			</div>
 			
 			<div class="totalBox">
@@ -978,8 +968,7 @@ button:focus{
 				</div>
 				<div class="total_box_decision">
 					<div>
-						<span class="order_All">전체 작품 주문</span>
-						<span class="order_Choice">선택한 작품 주문</span>
+						<span class="order_Choice">작품 주문하기</span>
 					</div>
 				</div>
 			</div>
@@ -992,95 +981,7 @@ button:focus{
 	
 	<%@ include file="../include/uFooter.jsp" %>
 </div>
-<!-- 옵션 수정 모달-->
-<div class="detail-modal">
-    <div class="report-modal__area">
-        <div class="report-modal__head">
-            <div class="report-modal__title">
-                <div class="report-modal__subject">옵션수정 / 추가</div>
-                <button class="report-modal__close">
-                    <i style="font-size: 20px; color:red;"class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        
-        <div class="about_article">
-        	<div class="about_article_detail">
-        		<div id="cartCode" style="display:none"></div>
-        		<div id="optionIndex" style="display:none"></div>
-        		<div class="article_img"><img id="modal_image" style="width:64px; height:64px"></div>
-        		<div class="article_text">
-        			<span id="modal_art_name"></span>
-        			<span><a id="art_discount_percent"></a><a id="art_discount_price"></a> <a id="art_price"></a>
-					</span>        		
-        		</div>
-        	</div>
-        </div>
-        
-        <div class="now_select_option">
-        	<a>현재 선택한 옵션</a>
-        	<div>
-        		<span id="selected_option"></span>
-        	</div>
-        </div>
-        
-        <div class="update_option">
-        	<a>옵션 선택</a>
-        	<select style="display:none" class="option_list" id="option_first">
-        		<option id="option_default1" value='none' selected hidden disabled>이미지 선택</option>
-        		<option id="name1">1.할아버지</option>
-        		<option id="name2">2.할머니</option>
-        		<option id="name3">3.아빠</option>
-        	</select>
-        	
-        	<select style="display:none" class="option_list" id="option_second">
-        		<option id="option_default2" value='none' selected hidden disabled>이미지 선택</option>
-        		<option id="name4">1.할아버지</option>
-        		<option id="name5">2.할머니</option>
-        		<option id="name6">3.아빠</option>
-        	</select>
-        		
-        	<select style="display:none" class="option_list" id="option_third">
-        		<option id="option_default3" value='none' selected hidden disabled>이미지 선택</option>
-        		<option id="name7">1.할아버지</option>
-        		<option id="name8">2.할머니</option>
-        		<option id="name9">3.아빠</option>
-        	</select>
-        </div>
-        
-        
-        <div class="choose_option">
-        	<!--  동적 추가 모듈.
-        	<div class="option">
-        		<div class="option_name">
-        			<span>1.할아버지</span>
-        		</div>
-        		<div class="option_count">
-        			<div class="input_number">
-						<button class="downButton" type="button">-</button>
-						<div class="input_area">
-							<input class="prd-count" type="number" value="1" min="1" max="999" readonly>
-						</div>
-						<button class="upButton" type="button">+</button>
-					</div>
-        		</div>
-        		<div class="option_price">
-        			<span>3,000원</span>
-        			<span><i class="fas fa-times"></i></span>
-        		</div>
-        	</div>
-        	 -->
-        	
-        </div>
-        
-        <div class="buttons">
-        	<span id="cancleUpdate">취소</span>
-        	<span id="confirmUpdate">수정하기</span>
-        </div>
-        
-        
-    </div>
-</div>
+
 </body>
 <script>
 function AddComma(num){
@@ -1099,50 +1000,15 @@ $(function(){
 
 	// textarea 입력 시. 영역 변경
 	$('.orderTextarea').keyup(function(e){
-		$('.ui_field_chars').css("display","block");
+		//$('.ui_field_chars').css("display","block");
 		var $textArea = $(this);
 		var $textBox = $(this).closest("div");
 		var $remainText = $textBox.children("a");
 		var $SHbutton = $textBox.next();
-		//console.log($SHbutton);
 		var content = $textArea.val();
 		// 텍스트 area 안 500 숫자 변경
 		$remainText.html(500-content.length);
-		if(content.length != 0){
-			$textBox.css("width","90%");
-			$textBox.css("margin-right", "2%");
-			$SHbutton.css("display","flex");
-		}else{
-			$textBox.css("width","100%");
-			$textBox.css("margin-right","0");
-			$SHbutton.css("display","none");
-		}
-	});
-	
-	//기능추가 - 정아
-	
-	//주문 요구사항 저장
-	$(document).on('click',"#saveButton",function(e){
-		var $button = $(this);
-		var $content = $button.prev().children().first().val();
-		var $cartSeq = $button.next().text();
-		var request = $content;
-		var cartCode = $cartSeq;
-		
- 		$.ajax({
-			url:'/bomulsum/user/shopbagRequest.do',
-			data:{
-				'request':request,
-				'cart' : cartCode
-			},
-			type:'POST',
-			success:function(data){
-				 location.reload(true);
-			},
-			error:function(e){
-				console.log(e);
-			}
-		}); 
+
 	});
 	
 	// 수량 버튼중 - 클릭시
@@ -1155,6 +1021,9 @@ $(function(){
 		var $priceDiv = $button.parent().parent().next().children().first();
 		var $jaPriceDiv = $(this).closest("table").find('.jeonga_total_art_price').children().first();
 		var $totalPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
+		var $deliveryPriceOver =  $(this).closest("table").find('.jeonga_sendfree').text();
+		var $deliveryPriceDiv = $(this).closest("table").find('.jeonga_delivery_case').children().first();
+		var $deliveryPrice = $(this).closest("table").find('.jeonga_delivery_price').text();
 		
 		var $cartSeq = $priceDiv.next().next().text();
 		var $index =$priceDiv.next().next().next().text();
@@ -1163,6 +1032,7 @@ $(function(){
 		var jartPrice = $artPrice;
 		var totalPrice = $totalPrice;
 		var index = $index;
+		var delivery = $deliveryPriceOver;
 
 		var num;
 		var changePrice;
@@ -1176,22 +1046,11 @@ $(function(){
 			$num.val(num);
 			$priceDiv.text(changePrice);
 			$jaPriceDiv.text(total);
-			
-			$.ajax({
-				url:'/bomulsum/user/shopbagChangeCount.do',
-				data:{
-					'count': num,
-					'cart' : cartCode,
-					'index' : index,
-				},
-				type:'POST',
-				success:function(data){
-					 location.reload(true);
-				},
-				error:function(e){
-					console.log(e);
-				}
-			}); 
+			if(total > delivery){
+				$deliveryPriceDiv.text(0);
+			}else{
+				$deliveryPriceDiv.text($deliveryPrice);
+			}
 		}
 	});
 	
@@ -1205,7 +1064,9 @@ $(function(){
 		var $priceDiv = $button.parent().parent().next().children().first();
 		var $jaPriceDiv = $(this).closest("table").find('.jeonga_total_art_price').children().first();
 		var $totalPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
-	
+		var $deliveryPriceOver =  $(this).closest("table").find('.jeonga_sendfree').text();
+		var $deliveryPriceDiv = $(this).closest("table").find('.jeonga_delivery_case').children().first();
+		var $deliveryPrice = $(this).closest("table").find('.jeonga_delivery_price').text();
 		
 		var $cartSeq = $priceDiv.next().next().text();
 		var $index =$priceDiv.next().next().next().text();
@@ -1214,6 +1075,7 @@ $(function(){
 		var jartPrice = $artPrice;
 		var totalPrice = $totalPrice;
 		var index = $index;
+		var delivery = $deliveryPriceOver;
 
 		var num;
 		var changePrice;
@@ -1226,22 +1088,11 @@ $(function(){
 			$num.val(num);
 			$priceDiv.text(changePrice);
 			$jaPriceDiv.text(total);
-			
-			$.ajax({
-				url:'/bomulsum/user/shopbagChangeCount.do',
-				data:{
-					'count': num,
-					'cart' : cartCode,
-					'index' : index,
-				},
-				type:'POST',
-				success:function(data){
-					 location.reload(true);
-				},
-				error:function(e){
-					console.log(e);
-				}
-			});   
+			if(total > delivery){
+				$deliveryPriceDiv.text(0);
+			}else{
+				$deliveryPriceDiv.text($deliveryPrice);
+			}
 		}
 	}); 
 
@@ -1253,9 +1104,11 @@ $(function(){
 		if($topChk.is(":checked")){
 			$imgChk.prop("checked","checked");
 			$("#nowChecked").html( $("input[name=selectCheck]:checked").length/2);
+			$("#selectAll").prop("checked",true);
 		}else{
 			$imgChk.prop("checked","");
 			$("#nowChecked").html( $("input[name=selectCheck]:checked").length/2);
+			$("#selectAll").prop("checked",false);
 		}
 	});
 	
@@ -1292,9 +1145,11 @@ $(function(){
 		if($presentChk.is(":checked")){
 			$topChk.prop("checked","checked");
 			$("#nowChecked").html( $("input[name=selectCheck]:checked").length/2);
+			$("#selectAll").prop("checked",true);
 		}else{
 			$topChk.prop("checked","");
 			$("#nowChecked").html( $("input[name=selectCheck]:checked").length/2);
+			$("#selectAll").prop("checked",false);
 		}
 	});
 	
@@ -1341,381 +1196,22 @@ $(function(){
         	
     });
 
-	//옵션 삭제
-	$(".option_delete").click(function(e){
-		var $button = $(this);
-		var $cartseq = $button.parent().next().text();
-		var cartCode = $cartseq;
-		var $index = $button.parent().prev().prev().text();
-		var index = $index;
-		
-		$.ajax({
-			url:'/bomulsum/user/shopbagDelete.do',
-			data:{
-				'cart':cartCode,
-				'index':index,
-			},
-			type:'POST',
-			success:function(data){
-				 alert('삭제되었습니다.');
-				location.reload(true);
-			},
-			error:function(e){
-				console.log(e);
-			}
-		}); 
-		
-	});
-	
-	//선택삭제
-	$(".deleteChoice").click(function(e){
-		var arr = [];
-		var $items = $(".checkList").find("input[id=selected]:checked");
-		
-		$items.each(function () {
-        	var $this = $(this);
-        	var $cartSeq = $(this).closest("table").find('.cartCode').text();
-        	arr.push($cartSeq);
-    	});
-    
-		console.log(arr);
-		var data = {
-			      "cart" : arr,
-			}
-		console.log(data);
-		deleteArt(data);
-	});
-
-	//삭제 선택 값 넘기기
- 	function deleteArt(data){   
-		 $.ajax({
- 	  		 url:"/bomulsum/user/deleteChoice.do",
-   	 		data:data,
-   	 		success : function(){
-     	 		 alert('삭제되었습니다.');
-      			 location.reload(true);
-      			 arr.length = 0;
-    		},
-   			 error : function(err){
-       		console.log(err);
-  		  }
- 		});
-	}
-	
-	//선택 작품 주문
+	//작품 주문하기
 	$(".order_Choice").click(function(e){
 		var $items = $(".checkList").find("input[id=selected]:checked");
 		$items.each(function () {
         	var $this = $(this);
-        	var $cartSeq = $(this).closest("table").find('.cartCode').text();
-        	var cartCode = $cartSeq;
-        	var $inputCartCode = $('<input type="text" name="cartCode[]" value="'+cartCode+'">');
-    		$('#jeonga_order_choice').append($inputCartCode);
+        	var $orderRequest = $(this).closest("table").find('.orderTextarea').text();
+        	var $artCode = $(this).closest("table").find('.jeonga_artcode').text();
+        	console.log($orderRequest);
+        	console.log($artCode);
+        	//var cartCode = $cartSeq;
+        	//var $inputCartCode = $('<input type="text" name="cartCode[]" value="'+cartCode+'">');
+    		//$('#jeonga_order_choice').append($inputCartCode);
     	});
-		$('#jeonga_order_choice').submit();
-		
-	});
-	
-	
-	//전체 작품 주문
-	$(".order_All").click(function(e){
-		$("#selectAll").prop("checked",true);
-		$("input[name=selectCheck]").prop("checked",true);
-		$("#nowChecked").html( $("input[name=selectCheck]").length/2);
-		
-		if($("input[name=selectCheck]").is(":checked") == true) {
-	       	var $items = $(".checkList").find("input:checkbox:checked");
-	      	var $artTotal = $("#total_art_price");
-	       	var $delTotal = $("#total_delivery_price");
-	       	var $cartTotal = $("#total_cart_price");
-	       	var cur_total = 0;
-	       	var del_total = 0;
-	        
-	       	$items.each(function () {
-	       		var $this = $(this);
-            	var $artPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
-            	var $deliveryPrice = $(this).closest("table").find('.delivery_cost').children().next().children().first().text();
-             	var item_value = $artPrice;
-             	var del_value = $deliveryPrice;
-            	
-            	cur_total += Number(item_value);
-            	del_total += Number(del_value);
-        	});
-        
-        	$artTotal.html(cur_total/2+"원"); 
-        	$delTotal.html((del_total / 2)+"원"); 
-         	$cartTotal.html(((cur_total+del_total)/2) +"원");   
-	      }
-		   
-		var $items = $(".checkList").find("input[id=selected]:checked");
-		$items.each(function () {
-        	var $this = $(this);
-        	var $cartSeq = $(this).closest("table").find('.cartCode').text();
-        	var cartCode = $cartSeq;
-        	var $inputCartCode = $('<input type="text" name="cartCode[]" value="'+cartCode+'">');
-    		$('#jeonga_order_All').append($inputCartCode);
-    	});
-		$('#jeonga_order_All').submit();
-		
+		//$('#jeonga_order_choice').submit();
 	});
 
-	
-	// 모달 띄우기 
-	$(".option_update").click(function(e){
-		var $button = $(this);
-		var $cartseq = $button.parent().next().text();
-		var $index =$button.parent().prev().prev().text();
-		var cartCode = $cartseq;
-		var index = $index;
-		
-		 $.ajax({
-			url:'/bomulsum/user/shopbagModal.do',
-			data:{
-				'cart':cartCode,
-				'index':index,
-			},
-			type:'POST',
-			success:function(data){
-				var percent = (data[0].art_price - data[0].art_discount)/data[0].art_price *100;
-				$(".detail-modal").css("display", "flex");
-				$('#modal_art_name').text(data[0].art_name);
-				$('#cartCode').val(data[0].cart_seq);
-				$('#optionIndex').val(data[0].index);
-				$("#modal_image").attr("src", '${pageContext.request.contextPath}/upload/'+data[0].art_photo);
-				$('#art_discount_percent').text("[" + Math.round(percent)+"%]");
-				$('#art_discount_price').text(data[0].art_discount+"원");
-				$('#art_price').text(data[0].art_price+"원");
-				
-				if(data[0].art_option_name3 == null){
-				$('#selected_option').text(data[0].art_option_category1 + " : "+data[0].art_option_name1 +" : " 
-						+ data[0].art_option_price1 +"원  / "+data[0].art_option_category2 + " : "+data[0].art_option_name2 +" : " 
-						+ data[0].art_option_price2 +"원 " );
-				}
-				if(data[0].art_option_name2 == null){
-					$('#selected_option').text(data[0].art_option_category1 + " : "+data[0].art_option_name1 +" : " 
-							+ data[0].art_option_price1 +"원 ");
-				}
-				if(data[0].art_option_name1 == null){
-					$('#selected_option').text("선택한 옵션 없음");
-				}
-				if(data[0].art_option_price1 != 0 && data[0].art_option_price2 != 0 && data[0].art_option_price3 != 0){
-					$('#selected_option').text(data[0].art_option_category1 + " : "+data[0].art_option_name1 +" : " 
-							+ data[0].art_option_price1 +"원  / "+data[0].art_option_category2 + " : "+data[0].art_option_name2 +" : " 
-							+ data[0].art_option_price2 +"원 / "+data[0].art_option_category3 + " : "+data[0].art_option_name3 +" : " 
-							+ data[0].art_option_price3 +"원 "  );
-				}
-				var artCode = data[0].art_code_seq;
-				var index = data[0].index;
-				console.log(artCode);
-				console.log(index);
-				
-				$.ajax({
-					url:'/bomulsum/user/shopbagOptionModal.do',
-					data:{
-						'art' : artCode,
-						'index':index,
-					},
-					type:'POST',
-					success:function(data){
-				
-						if(data.length == 3){
-							$("#option_first").css("display", "block");
-							$('#name1').val(data[0].art_option_seq);
-							$('#name2').val(data[1].art_option_seq);
-							$('#name3').val(data[2].art_option_seq);
-							$('#option_default1').text(data[0].art_option_category);
-							$('#name1').text(data[0].art_option_name+"+" + data[0].art_option_price);
-							$('#name2').text(data[1].art_option_name+"+" + data[1].art_option_price);
-							$('#name3').text(data[2].art_option_name+"+" + data[2].art_option_price);
-						}
-						if(data.length == 6){
-							$("#option_first").css("display", "block");
-							$("#option_second").css("display", "block");
-							$('#name1').val(data[0].art_option_seq);
-							$('#name2').val(data[1].art_option_seq);
-							$('#name3').val(data[2].art_option_seq);
-							$('#name4').val(data[3].art_option_seq);
-							$('#name5').val(data[4].art_option_seq);
-							$('#name6').val(data[5].art_option_seq);
-							$('#option_default1').text(data[0].art_option_category);
-							$('#name1').text(data[0].art_option_name+"+" + data[0].art_option_price);
-							$('#name2').text(data[1].art_option_name+"+" + data[1].art_option_price);
-							$('#name3').text(data[2].art_option_name+"+" + data[2].art_option_price);
-							$('#option_default2').text(data[3].art_option_category);
-							$('#name4').text(data[3].art_option_name+"+" + data[3].art_option_price);
-							$('#name5').text(data[4].art_option_name+"+" + data[4].art_option_price);
-							$('#name6').text(data[5].art_option_name+"+" + data[5].art_option_price);
-						}
-						if(data.length == 9){
-							$("#option_first").css("display", "block");
-							$("#option_second").css("display", "block");
-							$("#option_third").css("display", "block");
-							$('#name1').val(data[0].art_option_seq);
-							$('#name2').val(data[1].art_option_seq);
-							$('#name3').val(data[2].art_option_seq);
-							$('#name4').val(data[3].art_option_seq);
-							$('#name5').val(data[4].art_option_seq);
-							$('#name6').val(data[5].art_option_seq);
-							$('#name7').val(data[6].art_option_seq);
-							$('#name8').val(data[7].art_option_seq);
-							$('#name9').val(data[8].art_option_seq);
-							$('#option_default1').text(data[0].art_option_category);
-							$('#name1').text(data[0].art_option_name+"+" + data[0].art_option_price);
-							$('#name2').text(data[1].art_option_name+"+" + data[1].art_option_price);
-							$('#name3').text(data[2].art_option_name+"+" + data[2].art_option_price);
-							$('#option_default2').text(data[3].art_option_category);
-							$('#name4').text(data[3].art_option_name+"+" + data[3].art_option_price);
-							$('#name5').text(data[4].art_option_name+"+" + data[4].art_option_price);
-							$('#name6').text(data[5].art_option_name+"+" + data[5].art_option_price);
-							$('#option_default3').text(data[6].art_option_category);
-							$('#name7').text(data[6].art_option_name+"+" + data[6].art_option_price);
-							$('#name8').text(data[7].art_option_name+"+" + data[7].art_option_price);
-							$('#name9').text(data[8].art_option_name+"+" + data[8].art_option_price);
-						}
-					},
-					error:function(e){
-						console.log(e);
-					}
-				});
-			},
-			error:function(e){
-				console.log(e);
-			}
-		});  
-	});
-	
-	//x버튼
-	$(".report-modal__close").click(function(){
-		$(".detail-modal").css("display","none");
-		codearr.length = 0;
-		selectedPrice.length = 0;
-		location.reload(true);
-	});
-	
-	//옵션 취소
-	$("#cancleUpdate").click(function(){
-		$(".detail-modal").css("display","none");
-		codearr.length = 0;
-		selectedPrice.length = 0;
-		location.reload(true);
-	})
-
-	//옵션 설정하기
-	$(".option_list:first").on('change', function(e){
-		$(".option_list:first").attr('disabled', 'true');
-		var $code = $(".option_list:first option:selected").val();
-		updateCode($code);
-		var $first = $(".option_list:first option:selected").text();
-		var firstPrice = $first.split('+').reverse()[0];
-		var $artPrice = $("#art_discount_price").text();
-		var art = $artPrice.split('원')[0];
-		var sum = Number(art) + Number(firstPrice);
-		
-		var $option = $("<div class='option'><div class='option_name'><span id='optionChoiceCon'></span></div><div class='option_count'><div class='input_number'><button id='downBtn' type='button'>-</button><div class='input_area'><input id='updateCount' class='prd-count' type='number' value='1' min='1' max='999' readonly></div><button id='upBtn' type='button'>+</button></div></div><div class='option_price'><span id='optionChoicePrice'></span><span><i id='delChoice' class='fas fa-times'></i></span></div></div>");
-		$(".choose_option").append($option);
-		$("#optionChoiceCon").text($first);
-		$("#optionChoicePrice").text(sum);
-		selectedPrice.push(sum);
-	});
-	$(".option_list:eq(1)").on('change', function(e){
-		$(".option_list:eq(1)").attr('disabled', 'true');
-		var $code = $(".option_list:eq(1) option:selected").val();
-		updateCode($code);
-		
-		var $first = $(".option_list:first option:selected").text();
-		var $second = $(".option_list:eq(1) option:selected").text();
-		var firstPrice = $first.split('+').reverse()[0];
-		var secondPrice = $second.split('+').reverse()[0];
-		var $artPrice = $("#art_discount_price").text();
-		var art = $artPrice.split('원')[0];
-		var sum = Number(art) + Number(firstPrice)+ Number(secondPrice);
-		$("#optionChoiceCon").text($first+" / "+$second);
-		$("#optionChoicePrice").text(sum);
-		selectedPrice.push(sum);
-		
-	});
-	$(".option_list:last").on('change', function(e){
-		$(".option_list:last").attr('disabled', 'true');
-		var $code = $(".option_list:last option:selected").val();
-		updateCode($code);
-		
-		var $first = $(".option_list:first option:selected").text();
-		var $second = $(".option_list:eq(1) option:selected").text();
-		var $third = $(".option_list:last option:selected").text();
-		var firstPrice = $first.split('+').reverse()[0];
-		var secondPrice = $second.split('+').reverse()[0];
-		var thirdPrice = $third.split('+').reverse()[0];
-		var $artPrice = $("#art_discount_price").text();
-		var art = $artPrice.split('원')[0];
-		var sum = Number(art) + Number(firstPrice)+ Number(secondPrice)+Number(thirdPrice);
-		$("#optionChoiceCon").text($first+" / "+$second+" / "+$third);
-		$("#optionChoicePrice").text(sum);
-		selectedPrice.push(sum);
-		
-	});
-	
-	function updateCode(data){   
-		codearr.push(data);
-	}
-	
-	//옵션 수정버튼
-	$("#confirmUpdate").click(function(){
-		var $cartSeq = $('#cartCode').val();
-		var cartCode = $cartSeq;
-		var $num = $("#updateCount").val();
-		var count = $num;
-		var $index = $('#optionIndex').val();
-		var index = $index;
-		
- 		 $.ajax({
- 	  		 url:"/bomulsum/user/shopbagUpdateOption.do",
-   	 		data:{
-				 'cart':cartCode,
-	             'optionCode' : codearr,
-	             'count' : count,
-	             'index' : index,
-	       },
-	       type:'POST',
-   	 		success : function(){
-   	 			$(".detail-modal").css("display","none");
-      			 codearr.length = 0;
-      			 selectedPrice.length=0;
-      			 location.reload(true);
-    		},
-   			 error : function(err){
-       			console.log(err);
-  		  }
-		});
-	});
-	
-
-	//옵션 수량 + 누를 때
-	$(document).on('click',"#upBtn",function(e){
-		var $numDiv = $(this).prev().children();
-		var $price = selectedPrice[selectedPrice.length-1];
-		var selectPrice = $price;
-		
-		if($numDiv.val() <999){
-		 	num = Number($numDiv.val()) + 1;
-			changePrice = num * Number(selectPrice);
-			$numDiv.val(num);
-			$("#optionChoicePrice").text(changePrice);
-		}
-	});
-	//옵션 수량 - 누를 때
-	$(document).on('click',"#downBtn",function(e){
-		var $numDiv = $(this).next().children();
-		var $price = selectedPrice[selectedPrice.length-1];
-		var selectPrice = $price;
-		
-		if($numDiv.val() >1){
-		 	num = Number($numDiv.val()) - 1;
-			changePrice = num * Number(selectPrice);
-			$numDiv.val(num);
-			$("#optionChoicePrice").text(changePrice);
-		}
-	});
-	
 });
 </script>
 </html>

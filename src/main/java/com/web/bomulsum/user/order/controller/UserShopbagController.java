@@ -36,9 +36,11 @@ public class UserShopbagController {
 		 HttpSession session = request.getSession(); 
 		 String memberCode = (String)session.getAttribute("member"); 
 		 System.out.println(memberCode);
-		 
+		
+		 //장바구니 값 가져오기
 		List<UserShopbagVO> shopbagInfo = service.getShopbagInfo(memberCode);
 		
+		//장바구니 세부 내용 설정
 		for(int i=0; i<shopbagInfo.size(); i++) {
 			UserShopbagVO tempVO = shopbagInfo.get(i);
 			String[] artOption= shopbagInfo.get(i).getArt_option_seq().split("#");
@@ -51,6 +53,7 @@ public class UserShopbagController {
 			List<Map<String,Object>> totalOption = new ArrayList<Map<String,Object>>();
 			
 			int totalPrice = 0;
+			//옵션 잘라서 넣기
 			for(int j=0; j<artOption.length; j++) {
 				int sum = 0;
 				int totalSum = 0;
