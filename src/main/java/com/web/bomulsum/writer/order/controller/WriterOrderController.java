@@ -28,11 +28,11 @@ public class WriterOrderController {
 		//로그인한 작가 정보 가져오기
 		HttpSession session = request.getSession();
 		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
-		String writerCodeSeq = code.getWriterSeq();
+		String writerSeq = code.getWriterSeq();
 		
 		ModelAndView mav = new ModelAndView();
 	
-		mav.addObject("orderConditionList", service.orderConditionList(writerCodeSeq));
+		mav.addObject("orderConditionList", service.orderConditionList(writerSeq));
 		mav.setViewName("/worder/orderCondition");
 		
 		return mav;

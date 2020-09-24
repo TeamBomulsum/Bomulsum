@@ -15,8 +15,8 @@ public class WriterorderServiceImpl implements WriterOrderService {
 	private WriterOrderDAO dao;
 	
 	@Override
-	public List<WriterOrderVO> orderConditionList(String writerCodeSeq) {
-		return dao.orderConditionList(writerCodeSeq);
+	public List<WriterOrderVO> orderConditionList(String writerSeq) {
+		return dao.orderConditionList(writerSeq);
 	}
 
 }

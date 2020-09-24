@@ -12,7 +12,7 @@ public class WriterOrderDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<WriterOrderVO> orderConditionList(String writerCodeSeq){
-		return sqlSessionTemplate.selectList("writerOrderDAO.selectOrderConditionList", writerCodeSeq);
+	public List<WriterOrderVO> orderConditionList(String writerSeq){
+		return sqlSessionTemplate.selectList("writerOrderDAO.selectOrderConditionList", writerSeq);
 	}
 }
