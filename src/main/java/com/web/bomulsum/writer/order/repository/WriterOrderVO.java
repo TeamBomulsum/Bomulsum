@@ -13,18 +13,19 @@ public class WriterOrderVO {
 	private String orderZipcode;
 	private String orderAddressFirst;
 	private String orderAddressSecond;
-	private double orderPayPrice;
-	private double orderPointPrice;
+	private int orderPayPrice;
+	private int orderPointPrice;
 	private String couponCodeSeq;
 	
 	private String buyWriterCodeSeq;
 	private String writerCodeSeq;
-	private double buyWriterSendPrice;
-	private double buyWriterPlusSendPrice;
+	private int buyWriterSendPrice;
+	private int buyWriterPlusSendPrice;
 	private String buyWriterOrderStatus;
 	private String buyWriterOrderRefundReason;
 	private Date buyWriterOrderRefundDate;
 	private Date buyRefundRequestDate;
+	private String buyDeliveryNum;
 	
 	private String buyArtCodeSeq;
 	private String artCodeSeq;
@@ -34,10 +35,21 @@ public class WriterOrderVO {
 	private String buyArtReviewUpdate;
 	
 	private String buyOptionCodeSeq;
-	private double artPrice;
+	private String artPrice;
 	private String artOptionSeqList;
 	private String artOptionName;
-	private double artOptionAmount;
+	private String artOptionAmount;
+	private String artPhoto;
+	private int artAmount;
+	private int artDiscount;
+	
+
+	public int getArtDiscount() {
+		return artDiscount;
+	}
+	public void setArtDiscount(int artDiscount) {
+		this.artDiscount = artDiscount;
+	}
 	public String getOrderCodeSeq() {
 		return orderCodeSeq;
 	}
@@ -86,16 +98,16 @@ public class WriterOrderVO {
 	public void setOrderAddressSecond(String orderAddressSecond) {
 		this.orderAddressSecond = orderAddressSecond;
 	}
-	public double getOrderPayPrice() {
+	public int getOrderPayPrice() {
 		return orderPayPrice;
 	}
-	public void setOrderPayPrice(double orderPayPrice) {
+	public void setOrderPayPrice(int orderPayPrice) {
 		this.orderPayPrice = orderPayPrice;
 	}
-	public double getOrderPointPrice() {
+	public int getOrderPointPrice() {
 		return orderPointPrice;
 	}
-	public void setOrderPointPrice(double orderPointPrice) {
+	public void setOrderPointPrice(int orderPointPrice) {
 		this.orderPointPrice = orderPointPrice;
 	}
 	public String getCouponCodeSeq() {
@@ -116,16 +128,16 @@ public class WriterOrderVO {
 	public void setWriterCodeSeq(String writerCodeSeq) {
 		this.writerCodeSeq = writerCodeSeq;
 	}
-	public double getBuyWriterSendPrice() {
+	public int getBuyWriterSendPrice() {
 		return buyWriterSendPrice;
 	}
-	public void setBuyWriterSendPrice(double buyWriterSendPrice) {
+	public void setBuyWriterSendPrice(int buyWriterSendPrice) {
 		this.buyWriterSendPrice = buyWriterSendPrice;
 	}
-	public double getBuyWriterPlusSendPrice() {
+	public int getBuyWriterPlusSendPrice() {
 		return buyWriterPlusSendPrice;
 	}
-	public void setBuyWriterPlusSendPrice(double buyWriterPlusSendPrice) {
+	public void setBuyWriterPlusSendPrice(int buyWriterPlusSendPrice) {
 		this.buyWriterPlusSendPrice = buyWriterPlusSendPrice;
 	}
 	public String getBuyWriterOrderStatus() {
@@ -151,6 +163,12 @@ public class WriterOrderVO {
 	}
 	public void setBuyRefundRequestDate(Date buyRefundRequestDate) {
 		this.buyRefundRequestDate = buyRefundRequestDate;
+	}
+	public String getBuyDeliveryNum() {
+		return buyDeliveryNum;
+	}
+	public void setBuyDeliveryNum(String buyDeliveryNum) {
+		this.buyDeliveryNum = buyDeliveryNum;
 	}
 	public String getBuyArtCodeSeq() {
 		return buyArtCodeSeq;
@@ -194,10 +212,10 @@ public class WriterOrderVO {
 	public void setBuyOptionCodeSeq(String buyOptionCodeSeq) {
 		this.buyOptionCodeSeq = buyOptionCodeSeq;
 	}
-	public double getArtPrice() {
+	public String getArtPrice() {
 		return artPrice;
 	}
-	public void setArtPrice(double artPrice) {
+	public void setArtPrice(String artPrice) {
 		this.artPrice = artPrice;
 	}
 	public String getArtOptionSeqList() {
@@ -212,11 +230,23 @@ public class WriterOrderVO {
 	public void setArtOptionName(String artOptionName) {
 		this.artOptionName = artOptionName;
 	}
-	public double getArtOptionAmount() {
+	public String getArtOptionAmount() {
 		return artOptionAmount;
 	}
-	public void setArtOptionAmount(double artOptionAmount) {
+	public void setArtOptionAmount(String artOptionAmount) {
 		this.artOptionAmount = artOptionAmount;
+	}
+	public String getArtPhoto() {
+		return artPhoto;
+	}
+	public void setArtPhoto(String artPhoto) {
+		this.artPhoto = artPhoto;
+	}
+	public int getArtAmount() {
+		return artAmount;
+	}
+	public void setArtAmount(int artAmount) {
+		this.artAmount = artAmount;
 	}
 	@Override
 	public String toString() {
@@ -229,12 +259,14 @@ public class WriterOrderVO {
 				+ ", buyWriterPlusSendPrice=" + buyWriterPlusSendPrice + ", buyWriterOrderStatus="
 				+ buyWriterOrderStatus + ", buyWriterOrderRefundReason=" + buyWriterOrderRefundReason
 				+ ", buyWriterOrderRefundDate=" + buyWriterOrderRefundDate + ", buyRefundRequestDate="
-				+ buyRefundRequestDate + ", buyArtCodeSeq=" + buyArtCodeSeq + ", artCodeSeq=" + artCodeSeq
-				+ ", artName=" + artName + ", buyArtRequest=" + buyArtRequest + ", buyArtReviewStatus="
-				+ buyArtReviewStatus + ", buyArtReviewUpdate=" + buyArtReviewUpdate + ", buyOptionCodeSeq="
-				+ buyOptionCodeSeq + ", artPrice=" + artPrice + ", artOptionSeqList=" + artOptionSeqList
-				+ ", artOptionName=" + artOptionName + ", artOptionAmount=" + artOptionAmount + "]";
+				+ buyRefundRequestDate + ", buyDeliveryNum=" + buyDeliveryNum + ", buyArtCodeSeq=" + buyArtCodeSeq
+				+ ", artCodeSeq=" + artCodeSeq + ", artName=" + artName + ", buyArtRequest=" + buyArtRequest
+				+ ", buyArtReviewStatus=" + buyArtReviewStatus + ", buyArtReviewUpdate=" + buyArtReviewUpdate
+				+ ", buyOptionCodeSeq=" + buyOptionCodeSeq + ", artPrice=" + artPrice + ", artOptionSeqList="
+				+ artOptionSeqList + ", artOptionName=" + artOptionName + ", artOptionAmount=" + artOptionAmount
+				+ ", artPhoto=" + artPhoto + ", artAmount=" + artAmount + "]";
 	}
+	
 	
 	
 	

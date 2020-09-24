@@ -43,14 +43,14 @@
 	<!-- 주문 현황 -->
 	<select id="selectOrderConditionList" parameterType="String" resultMap="writerOrderList">
 			SELECT
-			    e.*, g.member_name, g.member_profile, h.art_name, h.art_photo
+			    e.*, g.member_name, g.member_profile, h.art_name, h.art_photo, h.art_amount, h.art_discount
 			FROM
 			    (
 			    SELECT
 			        a.*, b.order_code_seq, b.art_code_seq, b.buy_art_request,
 			        c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
 			        c.buy_writer_order_status, c.buy_writer_order_refund_reason,
-			        c.buy_writer_order_refund_date, c.buy_refund_request_date,
+			        c.buy_writer_order_refund_date, c.buy_refund_request_date, c.buy_delivery_num,
 			        d.order_receiver, d.member_code_seq, d.order_phone_num, d.order_zipcode, d.order_address_first,
 			        d.order_address_second, d.order_date
 			    FROM
@@ -75,7 +75,7 @@
 			    member_tb g ON g.member_code_seq = e.member_code_seq
 			LEFT OUTER JOIN
 			    art_tb h ON e.art_code_seq = h.art_code_seq
-			ORDER BY e.order_date DESC 
+			ORDER BY e.order_date DESC
 	</select>
 	
 </mapper>
