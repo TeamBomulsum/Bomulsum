@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="writerOrderDAO">
+
+	<resultMap type="com.web.bomulsum.writer.order.repository.WriterOrderVO" id="writerOrderList">
+		<result column="order_code_seq" property="orderCodeSeq"/>
+		<result column="member_code_seq" property="memberCodeSeq"/>
+		<result column="order_date" property="orderDate"/>
+		<result column="order_receiver" property="orderReceiver"/>
+		<result column="order_phoneNum" property="orderPhoneNum"/>
+		<result column="order_zipcode" property="orderZipcode"/>
+		<result column="order_address_first" property="orderAddressFirst"/>
+		<result column="order_address_second" property="orderAddressSecond"/>
+		<result column="order_pay_price" property="orderPayPrice"/>
+		<result column="order_point_price" property="orderPointPrice"/>
+		<result column="coupon_code_seq" property="couponCodeSeq"/>
+	 
+		<result column="buy_writer_code_seq" property="buyWriterCodeSeq"/>
+		<result column="writer_code_seq" property="writerCodeSeq"/>
+		<result column="buy_writer_send_price" property="buyWriterSendPrice"/>
+		<result column="buy_writer_plus_send_price" property="buyWriterPlusSendPrice"/>
+		<result column="buy_writer_order_status" property="buyWriterOrderStatus"/>
+		<result column="buy_writer_order_refund_reason" property="buyWriterOrderRefundReason"/>
+		<result column="buy_writer_order_refund_date" property="buyWriterOrderRefundDate"/>
+		<result column="buy_refund_request_date" property="buyRefundRequestDate"/>
+		
+		<result column="buy_art_code_seq" property="buyArtCodeSeq"/>
+		<result column="art_code_seq" property="artCodeSeq"/>
+		<result column="art_name" property="artName"/>
+		<result column="buy_art_request" property="buyArtRequest"/>
+		<result column="buy_art_review_status" property="buyArtReviewStatus"/>
+		<result column="buy_art_review_update" property="buyArtReviewUpdate"/>
+		
+		<result column="buy_option_code_seq" property="buyOptionCodeSeq"/>
+		<result column="art_price" property="artPrice"/>
+		<result column="art_option_seq_list" property="artOptionSeqList"/>
+		<result column="art_option_name" property="artOptionName"/>
+		<result column="art_option_amount" property="artOptionAmount"/>
+
+	</resultMap>
+
+	<!-- 주문 현황 -->
+	<select id="selectOrderConditionList" parameterType="String" resultMap="writerOrderList">
+			SELECT
+			    e.*, g.member_name, g.member_profile, h.art_name, h.art_photo
+			FROM
+			    (
+			    SELECT
+			        a.*, b.order_code_seq, b.art_code_seq, b.buy_art_request,
+			        c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
+			        c.buy_writer_order_status, c.buy_writer_order_refund_reason,
+			        c.buy_writer_order_refund_date, c.buy_refund_request_date,
+			        d.order_receiver, d.member_code_seq, d.order_phone_num, d.order_zipcode, d.order_address_first,
+			        d.order_address_second, d.order_date
+			    FROM
+			        (
+			        SELECT
+			            buy_art_code_seq,
+			            LISTAGG(art_price, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_price,
+			            LISTAGG(art_option_name, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_name,
+			            LISTAGG(art_option_amount, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_amount
+			        FROM buy_option_tb
+			        GROUP BY buy_art_code_seq
+			        )a
+			    LEFT OUTER JOIN
+			        buy_art_tb b ON a.buy_art_code_seq = b.buy_art_code_seq
+			    LEFT OUTER JOIN
+			        buy_writer_tb c ON b.buy_writer_code_seq = c.buy_writer_code_seq
+			    LEFT OUTER JOIN
+			        order_tb d ON d.order_code_seq = b.order_code_seq
+			    WHERE b.writer_code_seq = #{writerCodeSeq}
+			    ) e
+			LEFT OUTER JOIN
+			    member_tb g ON g.member_code_seq = e.member_code_seq
+			LEFT OUTER JOIN
+			    art_tb h ON e.art_code_seq = h.art_code_seq
+			ORDER BY e.order_date DESC 
+	</select>
+	
+</mapper>

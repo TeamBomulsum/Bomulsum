@@ -78,5 +78,6 @@
 		<mapper resource="mappings/writer/writer-activity-mapping.xml" />
 		<mapper resource="mappings/writer/writer-myinfo-mapping.xml" />
 		<mapper resource="mappings/writer/writer-message-mapping.xml" />
+		<mapper resource="mappings/writer/writer-order-mapping.xml" />
 	</mappers>
 </configuration>

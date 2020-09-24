@@ -60,9 +60,16 @@ public class UserReviewVO {
 	private String dateNum;
 	
 	private String bOrderCodeSeq;
+	private String writerUrl;
 	
 	
 	
+	public String getWriterUrl() {
+		return writerUrl;
+	}
+	public void setWriterUrl(String writerUrl) {
+		this.writerUrl = writerUrl;
+	}
 	public String getbOrderCodeSeq() {
 		return bOrderCodeSeq;
 	}
