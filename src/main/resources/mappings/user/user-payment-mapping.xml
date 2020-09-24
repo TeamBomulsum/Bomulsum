@@ -22,15 +22,10 @@
   	    <foreach collection="cartCode" item="type" index="index"  open="(" close=")" separator=",">
             #{type}
         </foreach>
-
- <!--        AND
-        	c.cart_seq in ('cart_seq21', 'cart_seq22')  -->
-<!--    <foreach collection="list" item="item" open="(" close=")" separator=",">
-	     	#{item}
-	     </foreach> -->
       
 		ORDER BY 
 			c.cart_seq
+			
 	</select>
 	
 	<select id="selectCouponPayment" resultType="UserCouponPaymentVO" parameterType="String">
@@ -42,4 +37,123 @@
 		member_code_seq=#{userCode}
 	</select>
 	
+	
+	<!-- 주문내역테이블에 인서트 -->
+	<!-- 	useGeneratedKeys = "true"(기본값 false), keyColumn = [PK 컬럼명], keyProperty = [매핑할 변수명] -->
+	<insert id="insertOrderList" parameterType = "hashmap" 
+						useGeneratedKeys="true" keyColumn="order_code_seq" keyProperty="OrdCode">
+	
+	 INSERT INTO order_tb ( 
+				 	order_code_seq, 
+				 	member_code_seq, 
+				 	order_date, 
+				 	order_receiver, 
+				 	order_phone_num,
+				 	order_zipcode, 
+				 	order_address_first,
+				 	order_address_second, 
+				 	order_pay_price, 
+				 	order_point_price, 
+				 	coupon_code_seq
+	 )
+	 VALUES 
+	 (
+				 	'order_seq' || TO_CHAR(order_sq.nextval) ,
+				 	#{memberCode} ,
+				 	SYSDATE ,
+			 	 	#{shipName},
+				 	#{shipPhone},
+					#{shipZip},
+					#{shipFirst},
+					#{shipSecond},
+					#{orderSum},
+					#{finUsePoint},
+					#{choiceCoupon} 
+	 )
+	 
+	</insert>
+	
+	<!-- 구매작가테이블에 인서트 -->
+  	<insert id="insertOrderWriter" parameterType = "hashmap" 
+  							useGeneratedKeys="true" keyColumn="buy_writer_code_seq" keyProperty="OrdWriterCode">
+		INSERT INTO buy_writer_tb
+		(
+			buy_writer_code_seq,
+			order_code_seq,
+			writer_code_seq,
+			buy_writer_send_price,
+			buy_writer_plus_send_price,
+			buy_writer_order_status,
+			buy_writer_order_refund_reason,
+			buy_writer_order_refund_date,
+			buy_refund_request_date
+		)
+		VALUES
+		(
+			'buy_writer_seq' || TO_CHAR(buy_writer_sq.nextval) ,
+			#{orderCodeSeq} ,
+			#{artInfo1},
+			#{artInfo5},
+			#{artInfo6},
+			'결제 완료',
+			null,
+			null,
+			null
+			
+		)
+	</insert>  
+	
+	<!-- 구매작품테이블에 인서트 -->
+  	<insert id="insertOrderArt" parameterType = "hashmap" 
+  							useGeneratedKeys="true" keyColumn="buy_art_code_seq" keyProperty="OrdArtCode">
+  							
+ 		INSERT INTO buy_art_tb
+		(
+			buy_art_code_seq ,
+			order_code_seq ,
+			buy_writer_code_seq ,
+			art_code_seq ,
+			art_name ,
+			buy_art_request ,
+			buy_art_review_status ,
+			buy_art_review_update 
+		)
+		VALUES
+		(
+			'buy_art_seq' || TO_CHAR(buy_art_sq.nextval) ,
+			#{orderCodeSeq} ,
+			#{orderWriterCode},
+			#{artInfo2},
+			#{artInfo3},
+			#{artInfo4},
+			'N',
+			'N'
+		) 							
+  	</insert>
+
+  	<insert id="insertOrderArtOption" parameterType = "hashmap" 
+  							useGeneratedKeys="true" keyColumn="buy_option_code_seq" keyProperty="OrdOptionCode">
+  							
+  		INSERT INTO buy_option_tb
+		(
+			buy_option_code_seq,
+			order_code_seq,
+			buy_art_code_seq,
+			art_price,
+			art_option_seq_list,
+			art_option_name,
+			art_option_amount
+		)
+		VALUES
+		(
+			'buy_option_seq' || TO_CHAR(buy_option_sq.nextval) ,
+			#{orderCodeSeq},
+			#{orderArtCode},
+			TO_NUMBER(#{artOptionInfo5}),
+			#{artOptionInfo1},
+			#{artOptionInfo0},
+			TO_NUMBER(#{artOptionInfo2})
+		)  							
+  	</insert>  
+  	
 </mapper>

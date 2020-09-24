@@ -11,4 +11,16 @@ public interface UserPaymentService {
 	
 	//쿠폰
 	List<UserCouponPaymentVO> selectCouponPayment(String memberCode);
+	
+	//주문테이블에 인서트
+	String insertOrderList(HashMap<String,Object> map);
+	
+	//구매작가 테이블에 인서트
+	String insertOrderWriter(HashMap<String,Object> map);
+	
+	//구매작품 테이블에 인서트
+	String insertOrderArt(HashMap<String,Object> map);
+	
+	//구매옵션 테이블에 인서트
+	String insertOrderArtOption(HashMap<String,Object> map);
 }

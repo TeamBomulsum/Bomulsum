@@ -14,7 +14,8 @@
 
 
 <script>
-
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+var memberName = '${userName}';
 var myReserve = ${memReserve}; //적립금관련
 var myDiscountSum = 0;
 var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/; //유효성:전화번호
@@ -31,8 +32,21 @@ var dain_fin_ship = 0;
 var dain_fin_discount = 0;
 var dain_fin_jeju = 0;
 
+var dain_fin_sum = 0;
+var finUsePoint = 0; //사용한 적립금
+
+var choiceCoupon = '';
+
 var dain_fin_jeju_sum = 0; //제주산간 작가별 비용합계
 
+var artPointSum = 0; //적립예정 적립금
+
+
+var orderArt = []; //주문작품 정보 담을 변수
+var orderArtOption = []; //주문옵션 정보 담을 변수
+
+var artShipJeju = 0; //작가별 배송비 (제주)
+var artShip = 0; //작가별 배송비
 
 //아임포트 결제api 관련
 var IMP = window.IMP; // 생략가능
@@ -72,6 +86,7 @@ function shipInfoSet(){
 
 
 
+//결제하기 버튼 눌렀을때. 
 function goPayment(){
 	
 	shipInfoSet();
@@ -96,33 +111,167 @@ function goPayment(){
 	}
 	
 	console.log(shipName+","+shipPhone+","+shipZip+","+shipFirst+","+shipSecond);
+	console.log("사용쿠폰"+choiceCoupon);
 	
+	
+	if($('#dain_privacy_check').is(":checked") == false){
+		alert('개인정보 제공 고지에 동의해주세요.');
+		return;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+    //---------------------------------결제DB처리 시작
+
+	/*     
+	작품별 내용
+	장바구니 코드 , 작가코드 , 작품코드 , 작품이름 , 요청사항 , 작품배송비 , 제주산간배송비 , 
+	 */
+		var i=0;
+		
+		<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
+			var orderArtOne = '';
+			var orderRequest = '${info.order_request}';
+			
+			//배송비처리(배송비무료조건, 제주산간 배송비처리)
+			<c:if test="${info.totalPrice ge info.writer_sendfree_case}">
+				artShip  = 0;
+				if(shipFirst.substring(0,2) =="제주"){
+					artShipJeju = ${info.writer_plus_price};
+				}
+				//console.log("작가별제주배송비:"+artShipJeju);
+			</c:if>	
+			<c:if test="${info.totalPrice lt info.writer_sendfree_case}">
+				artShip = ${info.writer_send_price};
+				if(shipFirst.substring(0,2) =="제주"){
+					artShipJeju = ${info.writer_plus_price};;
+				}
+				//console.log("작가별제주배송비:"+artShipJeju);
+			</c:if>
+		
+			//console.log("작가별배송비:"+artShip);
+			
+			//요청사항 없을때 처리
+			if(orderRequest==''){
+				orderRequest = "없음";
+			}
+			
+
+			
+			orderArtOne += '${info.cart_seq}'  + ',' + '${info.writer_code_seq}' + ',' + '${info.art_code_seq}' + ','
+			+ '${info.art_name}'  + ',' + orderRequest + ',' + artShip + ','+ artShipJeju + ',';
+			
+			orderArt[i] = orderArtOne;
+			console.log(orderArt[i]);
+			i++;
+		</c:forEach>
+		
+		console.log(orderArt); 
+	
+		
+/* 		
+	옵션별 내용
+	옵션내용 # 옵션코드 # 수량 # 카트코드 # 작품코드 # 작품가격 
+ */
+		var z = 0;
+		<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
+			<c:forEach var="totalOption" items="${info.totalOption}" >
+			var orderArtOptionOne = ''; 
+			var orderArtOptionCode='';
+			var orderArtOptionCount = '';
+			
+			orderArtOptionCode += '#';
+				<c:forEach var="j" items="${totalOption.optionArray}">
+				
+				orderArtOptionCode += '${j.art_option_seq}'+',';
+				
+				orderArtOptionOne += '${j.art_option_category}'+": "+'${j.art_option_name}' + '(+' 
+					+ '${j.art_option_price}'+'원) / ';
+
+				</c:forEach>
+				orderArtOptionOne += orderArtOptionCode  +'#'+'${totalOption.artCount}'
+				+'#'+'${info.cart_seq}' +'#'+ '${info.art_code_seq}' +'#'+ '${totalOption.totalSum}';
+				orderArtOption[z] = orderArtOptionOne;
+				console.log("아트옵션"+z+"번째->"+orderArtOption[z]);
+				z++;
+			</c:forEach>
+		</c:forEach>
+		
+	
+	
+	$.ajax({
+		url:'/bomulsum/user/goPayment.do',
+		data:{
+			'memberCode' : memberCode,
+			'shipName':shipName,
+			'shipPhone' : shipPhone,
+			'shipZip' : shipZip,
+			'shipFirst' : shipFirst,
+			'shipSecond' : shipSecond,
+			'orderSum' : dain_fin_sum,
+			'choiceCoupon' : choiceCoupon,
+			'artPointSum' : artPointSum, //예상 적립금
+			'finUsePoint' : finUsePoint, //사용한적립금
+			'orderArt' : orderArt,
+			'orderArtOption' : orderArtOption
+			
+			
+		},
+		type:'POST',
+		success:function(data){
+			location.href='/bomulsum/user/successPayment.do';
+		},
+		error:function(e){
+			console.log(e);
+		}
+	}); 
+    //---------------------------------결제DB처리 끝
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 	//결제창 실행
-/* 	IMP.request_pay({
+ 	IMP.request_pay({
 	    pg : 'inicis', // version 1.1.0부터 지원.
 	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
-	    name : '주문명:결제테스트',
+	    name : '보물섬 : 주문결제',
 	    amount : 100, //판매 가격
-	    buyer_email : 'iamport@siot.do',
-	    buyer_name : '구매자이름',
-	    buyer_tel : '010-1234-5678',
+	    buyer_email : 'abc@bomulsum.com',
+	    buyer_name : memberName,
+/* 	    buyer_tel : '010-1234-5678',
 	    buyer_addr : '서울특별시 강남구 삼성동',
-	    buyer_postcode : '123-456'
+	    buyer_postcode : '123-456' */
 	}, function(rsp) {
 	    if ( rsp.success ) {
 	        var msg = '결제가 완료되었습니다.';
-	        msg += '고유ID : ' + rsp.imp_uid;
-	        msg += '상점 거래ID : ' + rsp.merchant_uid;
-	        msg += '결제 금액 : ' + rsp.paid_amount;
-	        msg += '카드 승인번호 : ' + rsp.apply_num;
+
+	        
+
+	        
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
+	        //msg += '에러내용 : ' + rsp.error_msg;
 	    }
 	    alert(msg);
-	}); */
+	}); 
 }
 
 /* 세자리 마다 콤마찍기 */
@@ -181,7 +330,7 @@ function cal_fin_sum(){
 	
 	dain_fin_discount = parseInt($('#dain_coupon_input').val()) + parseInt($('#dainUserPoint').val());
 	
-	var dain_fin_sum = plus_sum - dain_fin_discount ;
+	dain_fin_sum = plus_sum - dain_fin_discount ;
 	
 	console.log(dain_fin_artprice+','+ dain_fin_ship +','+ dain_fin_discount +','+dain_fin_jeju);
 	    
@@ -443,6 +592,7 @@ $(function(){
     }
     
     
+    
     //쿠폰사용----------------
     
     document.getElementById("confirmUpdate").onclick = function() {
@@ -452,9 +602,8 @@ $(function(){
 
     	var CouponMoney2 = parseInt(CouponMoney);
 
-    	
     	//테스트
-    	var choiceCoupon = $('input[name=coupon]:checked').attr('id');
+    	choiceCoupon = $('input[name=coupon]:checked').attr('id');
     	var choiceCouponPrice = $('#'+choiceCoupon).val();
     	console.log('선택쿠폰테스트:'+choiceCoupon+',가격:'+choiceCouponPrice);
     	
@@ -510,7 +659,7 @@ $(function(){
     
     //적립금 변경되면 총 할인합계에 반영
     $("#dainUserPoint").change(function(){
-    	var finUsePoint = $("#dainUserPoint").val();
+    	finUsePoint = $("#dainUserPoint").val();
     	var finCoupon =  $("#dain_coupon_input").val();
     	
     	//값없을때 처리
@@ -589,11 +738,27 @@ $(function(){
 	</c:forEach>
 	console.log("작품금액 합계:"+dain_fin_artprice);
     $('#dain_fin_artprice').text(dain_fin_artprice);
+    
   //최종 결제금액 계산------
     cal_fin_sum();
 	
+  //적립 예정 적립금
+    <c:forEach items='${shopbagInfo}' var="info" varStatus="status2">
+	    <c:forEach var="totalOption" items="${info.totalOption}" varStatus="status">
+	    	artPointSum += ${info.art_point}
+	    </c:forEach>
+    </c:forEach>
+    
+    console.log("적립예정 적립금 :"+ artPointSum);
+    $('#dainExPoint').text(artPointSum);
+
+    
+/*     var info = '${shopbagInfo}';
+    console.log(info);
+ */
 
 
+		
 })
 
 </script>
@@ -842,14 +1007,26 @@ body a:link, a:visited, a:hover, a:active {
 	font-size: 12px;
 }
 
-.dain-amount{
+.dainRequest {
+	width: 400px;
+	padding: 12px;
+	min-height: 50px;
+	background-color: #f5f5f5;
+	border: 1px solid #b4b4b4;
+	color: #acacac;
+	font-size: 12px;
+}
+
+.dain-amount {
 	font-size: 12px;
 	width: 18%;
 	text-align: right;
 }
+
 .dain-order-goods-table {
 	background-color: #fff;
 	border: 1px solid #d9d9d9;
+	border-collapse: collapse;
 }
 
 .dain-order-artist {
@@ -858,6 +1035,7 @@ body a:link, a:visited, a:hover, a:active {
 	background-color: #dcf8f6;
 	padding: 12px 18px;
 	text-align: left;
+	width: 460px;
 }
 
 .dain-txt-group {
@@ -888,7 +1066,7 @@ body a:link, a:visited, a:hover, a:active {
 .dain-price {
 	font-size: 12px;
 	width: 20%;
-    text-align: right;
+	text-align: right;
 }
 
 .dain_table_header {
@@ -971,9 +1149,10 @@ body a:link, a:visited, a:hover, a:active {
 	padding: 0px 20px;
 }
 
-.cursor{
+.cursor {
 	cursor: pointer;
 }
+
 .dain_pay_btn {
 	width: 100%;
 	background-color: #1f76bb;
@@ -1070,7 +1249,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 .detail-modal {
 	width: 100%;
 	height: 100%;
-	position: fixed; top : 0px; left : 0px;
+	position: fixed;
+	top: 0px;
+	left: 0px;
 	z-index: 1000;
 	display: none;
 	-webkit-box-align: center;
@@ -1090,9 +1271,13 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	padding: 30px 10px;
 	background: rgb(255, 255, 255);
 	/* 모달창 가운데로 */
-	position: fixed; left : 50%; top : 50%; -webkit-transform : translate(
-	-50%, -50%); -ms-transform : translate( -50%, -50%); -moz-transform :
-	translate( -50%, -50%); -o-transform : translate( -50%, -50%);
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	left: 50%;
 	top: 50%;
@@ -1213,91 +1398,87 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 /* 배송지 탭메뉴 */
-ul.tabs{
+ul.tabs {
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
-	
 }
 
-ul.tabs li{
-   	display: inline-block; 
+ul.tabs li {
+	display: inline-block;
 	background: white;
 	color: #acacac;
 	cursor: pointer;
 	margin: 0 0 0 0;
 	float: left;
 	width: 32%;
-    padding: 5px 0px;
-    text-align: center;
+	padding: 5px 0px;
+	text-align: center;
 	border: 1px solid #d9d9d9;
 }
 
-ul.tabs li.current{
+ul.tabs li.current {
 	background: #1f76bb;
 	color: white;
 	border: 1px solid #1f76bb;
 }
 
-.tab-content{
- 	display: none;
+.tab-content {
+	display: none;
 	background: white;
 	padding: 12px;
 }
 
-.tab-content.current{
+.tab-content.current {
 	display: inherit;
 }
 
-.option_txt{
+.option_txt {
 	font-size: 12px;
-    color: #666;
-    width: 62%;
-    min-height: 18px;
-    display: flex;
-    align-items: center;
+	color: #666;
+	width: 62%;
+	min-height: 18px;
+	display: flex;
+	align-items: center;
 }
 
-.dain-art-img{
-	width:58px; 
-	height:58px; 
-	margin-left:16px;
-	border:none;
+.dain-art-img {
+	width: 58px;
+	height: 58px;
+	margin-left: 16px;
+	border: none;
 	border-radius: 6px;
 	-moz-border-radius: 6px;
 	-khtml-border-radius: 6px;
 	-webkit-border-radius: 6px;
 }
 
-.list_option{
+.list_option {
 	margin-bottom: 8px;
 	list-style: none;
-	font-size:12px;
-	padding:0;
-	width:100%;
-	
+	font-size: 12px;
+	padding: 0;
+	width: 100%;
 }
 
-.list_option li{
-	padding:0;
-	margin:0;
-	margin-bottom:10px;
-	display:flex;
+.list_option li {
+	padding: 0;
+	margin: 0;
+	margin-bottom: 10px;
+	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 }
 
-.option_txt{
+.option_txt {
 	font-size: 12px;
-    color: #666;
-    width: 75%;
-    min-height: 18px;
-    display: flex;
-    align-items: center;
-  	margin-right:10px; 
+	color: #666;
+	width: 75%;
+	min-height: 18px;
+	display: flex;
+	align-items: center;
+	margin-right: 10px;
 }
-
-
 </style>
 </head>
 <body>
@@ -1541,10 +1722,10 @@ ul.tabs li.current{
 		<tbody>
 			<tr><td colspan="2" style="height:8px;"></td></tr>
 			<tr>
-				<td class="dain-img-area">
+				<td class="dain-img-area" width="75px">
 					<img class="dain-art-img" src="<c:url value='/upload/${info.art_photo}'/>"/>
 				</td>
-				<td class="dain-area-txt" style="width: 100%;">
+				<td class="dain-area-txt" width="350px;">
 					<div class="dain-txt-group"  >
 						<label class="dain-title-txt">${info.art_name}</label>
 					</div>
@@ -1562,7 +1743,7 @@ ul.tabs li.current{
 											<c:forEach var="j" items="${totalOption.optionArray}">
 											${j.art_option_category}:&nbsp;${j.art_option_name}:&nbsp;${j.art_option_price}원 &nbsp;/
 											</c:forEach>
-											&nbsp;수량: ${totalOption.artCount} 포인트:${info.art_point}
+											&nbsp;수량: ${totalOption.artCount}<%--  포인트:${info.art_point} --%>
 											</span>
 											<div>
 									 		 	<div class="cost_text">${totalOption.totalSum}원</div>
@@ -1570,7 +1751,9 @@ ul.tabs li.current{
 												<div class="cart_seq" style="display:none">${info.cart_seq}</div>
 												<div class="index" style="display:none">${status.index}</div>
 												<div style="display:none">${info.cart_seq}</div>
+												
 											</div>
+											
 									</li>
 									</c:forEach>
 								</ul>
@@ -1579,21 +1762,24 @@ ul.tabs li.current{
 					<!-- 작품별 총합계 -->
 					<div class="dain-price" style="display: none;">${info.totalPrice}원</div>
 				</div>
+				<c:if test="${info.order_request ne null}">
+					<textarea id="dainOrderRequest" class="dainRequest" readonly="readonly">${info.order_request}</textarea>
+				</c:if>
 				</td>
 			</tr>
 			<tr>
 				<th class="dain-delvery-title">배송비</th>
-				<td class="dain-delvery-price">
+				<td class="dain-delvery-price" id="artship_${info.cart_seq}">
 				
 				<c:if test="${info.totalPrice ge info.writer_sendfree_case}">
-					<a>0</a><a>원</a>
+					0<a>원</a>
 					<!-- 배송비 합계 연산 -->
 					<c:set var="shippingSum" value= "${shippingSum + 0}"/>
 
 				</c:if>	
 				<c:if test="${info.totalPrice lt info.writer_sendfree_case}">
 					<!-- 배송비 합계 연산 -->
-					<a>${info.writer_send_price}</a><a>원</a>
+					${info.writer_send_price}<a>원</a>
 					
 					<c:set var="shippingSum" value= "${shippingSum + info.writer_send_price}"/>
 				
@@ -1673,7 +1859,7 @@ ul.tabs li.current{
 		
 		<div class="dain_privacyPolicy">
 			<label>
-			<input type="checkbox" name="privacy_info" autocomplete="off" required="required" class="bp">
+			<input type="checkbox" id="dain_privacy_check" name="privacy_info" autocomplete="off" required="required" class="bp">
 	        <span class="cursor" style="font-size:14px;"><em class="dainem">*</em>개인정보 제3자 제공고지 </label>
 	        <span id="dain_privacy" class="cursor" style="font-size:12px; color: #666; margin-left: 10px;">더보기
 	        <i id="dain_privacy_arrow" class="fa fa-angle-down" aria-hidden="true"></i></span></span>
@@ -1695,7 +1881,7 @@ ul.tabs li.current{
 		<button id="pay_btn" class="dain_pay_btn dibtn" onclick="goPayment()">
           <span ><span id="dain_fin_sumprice2">0</span>원</span>
           <span>카드 결제</span>
-          <p class="point" data-label="point" style="display: block;">예상적립금 : <em>180</em>P</p>
+          <p class="point" data-label="point" style="display: block;">예상적립금 : <em id="dainExPoint">0</em>P</p>
        </button>
        </div>
 		<!-- 오른쪽 영역 끝 -->
