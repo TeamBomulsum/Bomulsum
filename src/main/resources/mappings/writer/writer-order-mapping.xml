@@ -8,7 +8,7 @@
 		<result column="member_code_seq" property="memberCodeSeq"/>
 		<result column="order_date" property="orderDate"/>
 		<result column="order_receiver" property="orderReceiver"/>
-		<result column="order_phoneNum" property="orderPhoneNum"/>
+		<result column="order_phone_num" property="orderPhoneNum"/>
 		<result column="order_zipcode" property="orderZipcode"/>
 		<result column="order_address_first" property="orderAddressFirst"/>
 		<result column="order_address_second" property="orderAddressSecond"/>
@@ -42,6 +42,8 @@
 		<result column="art_discount" property="artDiscount"/>
 		
 		<result column="buy_art_option_price" property="buyArtOptionPrice"/>
+		<result column="member_profile" property="memberProfile"/>
+		<result column="member_name" property="memberName"/>
 
 	</resultMap>
 
@@ -82,5 +84,84 @@
 			    art_tb h ON e.art_code_seq = h.art_code_seq
 			ORDER BY e.order_date DESC
 	</select>
+	
+	<select id="selectOrderList" parameterType="com.web.bomulsum.writer.order.repository.WriterOrderVO" resultMap="writerOrderList">
+			SELECT
+			    e.*, g.member_name, g.member_profile, h.art_name, h.art_photo, h.art_amount, h.art_discount, h.art_price
+			FROM
+			    (
+			    SELECT
+			        a.*, b.order_code_seq, b.art_code_seq, b.buy_art_request,
+			        c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
+			        c.buy_writer_order_status, c.buy_writer_order_refund_reason,
+			        c.buy_writer_order_refund_date, c.buy_refund_request_date, c.buy_delivery_num,
+			        d.order_receiver, d.member_code_seq, d.order_phone_num, d.order_zipcode, d.order_address_first,
+			        d.order_address_second, d.order_date
+			    FROM
+			        (
+			        SELECT
+			            buy_art_code_seq,
+			            LISTAGG(art_price, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS buy_art_option_price,
+			            LISTAGG(art_option_name, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_name,
+			            LISTAGG(art_option_amount, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_amount
+			        FROM buy_option_tb
+			        GROUP BY buy_art_code_seq
+			        )a
+			    LEFT OUTER JOIN
+			        buy_art_tb b ON a.buy_art_code_seq = b.buy_art_code_seq
+			    LEFT OUTER JOIN
+			        buy_writer_tb c ON b.buy_writer_code_seq = c.buy_writer_code_seq
+			    LEFT OUTER JOIN
+			        order_tb d ON d.order_code_seq = b.order_code_seq
+			    WHERE c.writer_code_seq = #{writerCodeSeq}
+			    ) e
+			LEFT OUTER JOIN
+			    member_tb g ON g.member_code_seq = e.member_code_seq
+			LEFT OUTER JOIN
+			    art_tb h ON e.art_code_seq = h.art_code_seq
+			WHERE
+				e.buy_writer_order_status = #{buyWriterOrderStatus}
+			ORDER BY e.order_date DESC
+	</select>
+	
+	<select id="jumunOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '결제 완료'
+	</select>
+	<select id="besongOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '배송 완료'
+	</select>
+	<select id="hwanbulOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '환불 대기'
+	</select>
+	<select id="hwanbulFinishOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '환불 완료'
+	</select>
+	<select id="hwanbulNoOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '환불 거부'
+	</select>
+	
+	
+	<sql id="searchOrder">
+		<if test="searchType != null">
+			WHERE
+			<if test="searchType == '주문자'"> g.member_name LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '작품명'"> h.art_name LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '주문번호'"> e.order_code_seq LIKE '%' || #{keyword} || '%'</if>
+		</if>
+	</sql>
+	
+	<insert id="updateSend" parameterType="com.web.bomulsum.writer.order.repository.WriterOrderVO">
+		INSERT INTO 
+	</insert>
 	
 </mapper>

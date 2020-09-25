@@ -19,4 +19,34 @@ public class WriterorderServiceImpl implements WriterOrderService {
 		return dao.orderConditionList(writerSeq);
 	}
 
+	@Override
+	public List<WriterOrderVO> orderList(WriterOrderVO vo) {
+		return dao.orderList(vo);
+	}
+
+	@Override
+	public int getJumunOrderCount(WriterOrderVO vo) {
+		return dao.getJumunOrderCount(vo);
+	}
+
+	@Override
+	public int getBesongOrderCount(WriterOrderVO vo) {
+		return dao.getBesongOrderCount(vo);
+	}
+
+	@Override
+	public int getHwanbulOrderCount(WriterOrderVO vo) {
+		return dao.getHwanbulOrderCount(vo);
+	}
+
+	@Override
+	public int getHwanbulFinishOrderCount(WriterOrderVO vo) {
+		return dao.getHwanbulFinishOrderCount(vo);
+	}
+
+	@Override
+	public int getHwanbulNoOrderCount(WriterOrderVO vo) {
+		return dao.getHwanbulNoOrderCount(vo);
+	}
+
 }
