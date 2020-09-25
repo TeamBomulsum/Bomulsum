@@ -249,7 +249,7 @@ body a:link, a:visited, a:hover, a:active {
     font-weight: bold;
 }
 
-/* li p {
+/*.minwoo_art_dis p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -616,7 +616,7 @@ body a:link, a:visited, a:hover, a:active {
 												+ '\t\t ... 그 외 ' + (artOption.length - 2) + ' 개' + '</li>';
 										}
 										
-										htmldiv += //'<li> 작품 설명 ' + data[i].artDescription + '</li>'
+										htmldiv += //'<li clas="minwoo_art_dis"> 작품 설명 ' + data[i].artDescription + '</li>'
 										 '<br><li> 구매 일자 : ' + moment(data[i].orderDate).format("YYYY-MM-DD") + '</li>'
 										+ '</ul>'
 										+ '</div>'
