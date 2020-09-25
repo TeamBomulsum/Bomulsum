@@ -223,11 +223,10 @@
 	
 	console.log(result);
 	
-	$(document).ready(function(){
-		renderTable();
-	});
-
 	
+var test;
+$(document).ready(function(){
+	//결제 & 환불 요청 건들 한건씩 보여주기
 	var renderTable = function(){
 		// 주문 & 환불 쪽 데이터 넣어줄 div 변수 선언
 		var orderDiv = '';
@@ -247,13 +246,14 @@
 		
 		// 내역 없을 때 이걸로 넣어주기.
 		var noHtml = '<div class="card border-bottom-primary shadow h-100 py-2" style="padding-top: 0rem !important; padding-bottom: 0rem !important"><div align="center" style="margin: 2rem 2rem 2rem 2rem">요청 건이 없습니다.</div></div>';
-		
+		console.log('우영 테스트 길이 : ' + result.length);
 		//여기서 만들어진 html 을 innerhtml 해줄거임. 주문건일 때는 orderDiv에 환불건일때는 refundDiv 에 넣기
-		for(var i in result){
+		for(var i=0; i<result.length; i++){
+			console.log(i);
+			
 			html = '';
 			
-			artImg = result[i].artPhoto.split(',')[0];
-			
+
 	  		html += '<div class="card border-bottom-primary shadow h-100 py-2" style="padding-top: 0rem !important; padding-bottom: 0rem !important; margin-bottom:10px;">'
 	  			+ '<table style="width: 95%">'
 	  			+ '<tr style="background-color: #C8FFFF">'
@@ -261,43 +261,60 @@
 	  			+ '<div style="font-size: .7rem; border-style: solid; border-color: #28E7FF; width: 100%; text-align: center; background-color: white; color: #28E7FF">'
 	  			+ result[i].buyWriterOrderStatus + '</div>'
 	  			+ '</th>'
-	  			+ '<th>' + '주문번호 : ' + result[i].orderCodeSeq + '</th>'
+	  			+ '<th><a href="">' + '주문번호 : ' + result[i].orderCodeSeq + '</a></th>'
 	  			+ '<th><div style="text-align: right">'
 	  			+ result[i].orderDate + '</div></th>'
-	  			+ '</tr>'
-	  			+ '<tr><td><img style="overflow: hidden; display: flex; align-items: center; justify-content: center;width: 75px; height: 75px"'
-	  			+ 'src="/bumulsum/upload/' + artImg + '" /></td>'
-	  			+ '<td><div style="text-align: left"><a href="orderList.jsp" style="color: black; font-weight:bold; font-size:100%">'
-	  			+ '<input type="checkbox" checked="checked" />' + result[i].artName + '</a><br>' + result[i].artAmount + ' 개남음<br>';
+	  			+ '</tr>';
+	  		
+  			var j=i;
+  			labelCancelLoops:do {// result의 다음번 orderCodeSeq가 같을 경우, 동일한 구매 내역이므로 배송정보를 동일하게 입력할 수 있도록 반복문을 돌린다.
 	  			
-  			//할인 된 상품일 때 할인 률 표시해주기
-  			if(result[i].artDiscount != null || result[i].artDiscount == 0){
-  				// 할인 율 % 계산
-  				artDiscountPrice = result[i].artDiscount;
-  				artOrginPrice = result[i].artPrice;
-  				discountPer = 100 - (artDiscountPrice / artOrginPrice * 100.0);
+	  			if(i >= (j-1)){
+	  				i = j;
+	  			}
+	  			
+	  			artImg = result[i].artPhoto.split(',')[0];
+	  			console.log('우영 테스트 : ' + artImg); 
+		  		html += '<tr><td><img style="overflow: hidden; display: flex; align-items: center; justify-content: center;width: 75px; height: 75px"'
+		  			+ 'src="/bumulsum/upload/' + artImg + '" /></td>'
+		  			+ '<td><div style="text-align: left"><a href="orderList.jsp" style="color: black; font-weight:bold; font-size:100%">'
+		  			+ '<input type="checkbox" checked="checked" />' + result[i].artName + '</a><br>' + result[i].artAmount + ' 개남음<br>';
+		  			
+	  			//할인 된 상품일 때 할인 률 표시해주기
+	  			if(result[i].artDiscount != null || result[i].artDiscount == 0){
+	  				// 할인 율 % 계산
+	  				artDiscountPrice = result[i].artDiscount;
+	  				artOrginPrice = result[i].artPrice;
+	  				discountPer = 100 - (artDiscountPrice / artOrginPrice * 100.0);
+	  				
+	  				html += '<label style="text-align: center; background-color: #5EC75E; width: auto; margin-bottom: 0rem; color: white; font-size:100%; border-radius:10px;">'
+		  			+ '<i class="fas fa-tags"></i>' + discountPer + '%</label>';
+	  			};
+		  			
+				html += '</div></td>'
+					+ '<td>'
+					+ '<div style="text-align: right">'
+					+ '<br><labe style="text-decoration: line-through; margin-bottom: 0rem">'
+					+ result[i].artPrice + ' 원</label>';
+					
+					// 할인 된 상품이면 할인 금액 표시해주기
+					if(result[i].artDiscount != null || result[i].artDiscount == 0){
+						html += '<br> <label style="margin-bottom: 0rem; color: #28E7FF">' + result[i].artDiscount +' 원</label>'
+					};
+				
+				html += '</div>'
+					+ '</td>'
+					+ '</tr>';
   				
-  				html += '<label style="text-align: center; background-color: #5EC75E; width: auto; margin-bottom: 0rem; color: white; font-size:100%; border-radius:10px;">'
-	  			+ '<i class="fas fa-tags"></i>' + discountPer + '%</label>';
-  			} ;
-	  			
-			html += '</div></td>'
-				+ '<td>'
-				+ '<div style="text-align: right">'
-				+ '<br><labe style="text-decoration: line-through; margin-bottom: 0rem">'
-				+ result[i].artPrice + ' 원</label>';
+				if(j >= result.length-1){
+	  				break labelCancelLoops;
+	  			}
 				
-				// 할인 된 상품이면 할인 금액 표시해주기
-				if(result[i].artDiscount != null){
-					html += '<br> <label style="margin-bottom: 0rem; color: #28E7FF">' + result[i].artDiscount +' 원</label>'
-				};
-			
-			html += '</div>'
-				+ '</td>'
-				+ '</tr>'
-				+ '</table>'
+	  		} while (result[i].orderCodeSeq == result[++j].orderCodeSeq);
+				
+			html += '</table>'
 				+ '</div>';
-				
+			
 			if(result[i].buyWriterOrderStatus == '결제 완료'){
 				orderDiv += html;
 				artOrderCheck = true;
@@ -328,7 +345,8 @@
 		
 	};
 	// end renderTable
-	
+	renderTable();
+});
 	
 	
 	</script>
