@@ -525,9 +525,11 @@ input[type="number"]::-webkit-inner-spin-button {
 			<div style="width:50%;">
 		<!-- 전체틀 --><div id="hoddenTop"></div>
 				<!-- 사진영역 -->
-				<form id="dndud_go_direct_pay" action="/bomulsum/user/buy.do" method="post"></form>
-				<form id="dndud_go_gift" action="/bomulsum/user/gift.do" method="post"></form>
-				<form id="dndud_go_shop_bag" action="/bomulsum/user/product/shopbag.do" method="post"></form>
+				<div style="display:none">
+					<form id="dndud_go_direct_pay" action="/bomulsum/user/buy.do" method="post"></form>
+					<form id="dndud_go_gift" action="/bomulsum/user/gift.do" method="post"></form>
+					<form id="dndud_go_shop_bag" action="/bomulsum/user/product/shopbag.do" method="post"></form>
+				</div>
 				
 				<input type="hidden" value="${artList.artDiscount}" id="dndud_article_origin_price"/>
 				<div style="margin-top: 2%; display: flex; justify-content:center;" class="wonSlides">

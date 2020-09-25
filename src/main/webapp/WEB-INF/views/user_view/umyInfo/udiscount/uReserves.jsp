@@ -344,7 +344,7 @@ body a:link, a:visited, a:hover, a:active {
           commentsResult.push(json);
        </c:forEach>
       //전체 데이터에서, 카테고리 설정 했을 때&검색했을때 데이터에 따라 페이징이 바뀌어야 하므로 이 배열을 가공한 다른 배열들이 필요하다.
-      
+      console.log(result);
       var pageCount = 10;
       
       var pagingFunc = function(){
