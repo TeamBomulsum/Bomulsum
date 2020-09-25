@@ -26,4 +26,28 @@ public interface UserPaymentService {
 	
 	//사용한 쿠폰 삭제
 	void deleteUseCoupon(String couponCode);
+	
+	//판매수량 조회
+	int selectArtSaleCount(String artCode);
+	
+	//판매수량 증가
+	void updateArtSaleCount(HashMap<String, Object> map);
+	
+	//작품수량 조회
+	int selectArtAmount(String artCode);
+	
+	//작품수량 증가
+	void updateArtAmount(HashMap<String, Object> map);
+	
+	//구매작품 카트에서 제거
+	void deleteOrderCart(String cartCode);
+	
+	//작품 구매로 적립금 적립
+	void insertOrderReserves(HashMap<String, Object> map);
+	
+	//적립금 사용
+	void insertOrderUseReserves(HashMap<String, Object> map);
+	
+	//회원등급 반영
+	 void updateMemberGrade(HashMap<String, Object> map);
 }

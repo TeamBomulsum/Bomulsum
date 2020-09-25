@@ -50,4 +50,48 @@ public class UserPaymentServiceImpl implements UserPaymentService{
 	public void deleteUseCoupon(String couponCode) {
 		dao.deleteUseCoupon(couponCode);
 	}
+
+	@Override
+	public int selectArtSaleCount(String artCode) {
+		return dao.selectArtSaleCount(artCode);
+	}
+
+	@Override
+	public void updateArtSaleCount(HashMap<String, Object> map) {
+		dao.updateArtSaleCount(map);
+	}
+
+	@Override
+	public int selectArtAmount(String artCode) {
+		return dao.selectArtAmount(artCode);
+	}
+
+	@Override
+	public void updateArtAmount(HashMap<String, Object> map) {
+		dao.updateArtAmount(map);
+	}
+
+	@Override
+	public void deleteOrderCart(String cartCode) {
+		dao.deleteOrderCart(cartCode);
+	}
+
+	@Override
+	public void insertOrderReserves(HashMap<String, Object> map) {
+		dao.insertOrderReserves(map);
+	}
+
+	@Override
+	public void insertOrderUseReserves(HashMap<String, Object> map) {
+		dao.insertOrderUseReserves(map);
+	}
+
+	@Override
+	public void updateMemberGrade(HashMap<String, Object> map) {
+		dao.updateMemberGrade(map);
+	}
+	
+	
+
+
 }
