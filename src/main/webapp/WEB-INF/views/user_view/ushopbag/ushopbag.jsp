@@ -1405,6 +1405,9 @@ $(function(){
 	//선택 작품 주문
 	$(".order_Choice").click(function(e){
 		var $items = $(".checkList").find("input[id=selected]:checked");
+		if($items.length == 0){
+			alert('작품을 선택해주세요');
+		}else{
 		$items.each(function () {
         	var $this = $(this);
         	var $cartSeq = $(this).closest("table").find('.cartCode').text();
@@ -1413,7 +1416,7 @@ $(function(){
     		$('#jeonga_order_choice').append($inputCartCode);
     	});
 		$('#jeonga_order_choice').submit();
-		
+		}
 	});
 	
 	
@@ -1442,9 +1445,9 @@ $(function(){
             	del_total += Number(del_value);
         	});
         
-        	$artTotal.html(cur_total/2+"원"); 
-        	$delTotal.html((del_total / 2)+"원"); 
-         	$cartTotal.html(((cur_total+del_total)/2) +"원");   
+        	$artTotal.html(AddComma(cur_total/2)+"원"); 
+        	$delTotal.html(AddComma(del_total / 2)+"원"); 
+         	$cartTotal.html(AddComma((cur_total+del_total)/2) +"원");   
 	      }
 		   
 		var $items = $(".checkList").find("input[id=selected]:checked");

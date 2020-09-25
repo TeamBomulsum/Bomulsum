@@ -883,7 +883,7 @@ button:focus{
 												<label>수량</label>
 												<button class="downButton" type="button">-</button>
 												<div class="input_area">
-													<input class="prd-count" type="number" value="${totalOption.artCount}" min="1" max="999" readonly > 
+													<input id="jeongaCount" class="prd-count" type="number" value="${totalOption.artCount}" min="1" max="999" readonly > 
 												</div>
 												<button class="upButton" type="button">+</button>
 											</div>
@@ -891,7 +891,7 @@ button:focus{
 										<div class="split2">
 								 		 	<div class="cost_text">${totalOption.totalSum}</div>
 												<div class="jeonga_cost" style="display:none">${totalOption.totalSum}</div> 
-													<div class="index" style="display:none">${status.index}</div>
+												<div class="index" style="display:none">${status.index}</div>
 												<div class="text_text">원</div>
 											<span class="btn_group" >
 												<button class="option_update" style="color:#aaa; cursor: default;" type="button" disabled>
@@ -925,7 +925,9 @@ button:focus{
 							<td>작품가격</td>
 							<td style="display:none" class="jeonga_sendfree">${buyArt.writer_sendfree_case}</td>
 							<td style="display:none" class="jeonga_delivery_price">${buyArt.writer_send_price}</td>
-								<td style="display:none" class="jeonga_artcode">${buyArt.art_code_seq}</td>
+							<td style="display:none" class="jeonga_artcode">${buyArt.art_code_seq}</td>
+							<td style="display:none" class="jeonga_artoption_code">${buyArt.art_option_seq}</td>
+							<td style="display:none" class="jeonga_art_count">${buyArt.art_count}</td>
 							<td class="jeonga_total_art_price"><a>${buyArt.totalPrice}</a><a>원</a></td>
 						</tr>
 						<tr class="delivery_cost">
@@ -1014,25 +1016,30 @@ $(function(){
 	// 수량 버튼중 - 클릭시
 	$(document).on('click',".downButton",function(e){
 		var $button = $(this);
+		//숫자영역과 숫자
 		var $numDiv = $button.next();
 		var $num = $numDiv.children().first();
 		var $artPrice = $button.parent().parent().next().children().first().next().text();
-
+		
+		//가격 영역과 가격들
 		var $priceDiv = $button.parent().parent().next().children().first();
 		var $jaPriceDiv = $(this).closest("table").find('.jeonga_total_art_price').children().first();
 		var $totalPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
 		var $deliveryPriceOver =  $(this).closest("table").find('.jeonga_sendfree').text();
 		var $deliveryPriceDiv = $(this).closest("table").find('.jeonga_delivery_case').children().first();
 		var $deliveryPrice = $(this).closest("table").find('.jeonga_delivery_price').text();
+		var $artCountDiv =  $(this).closest("table").find('.jeonga_art_count');
+		var $artCount = $(this).closest("table").find('.jeonga_art_count').text();
 		
 		var $cartSeq = $priceDiv.next().next().text();
-		var $index =$priceDiv.next().next().next().text();
+		var $index =$priceDiv.next().next().text();
 		
 		var cartCode = $cartSeq
 		var jartPrice = $artPrice;
 		var totalPrice = $totalPrice;
 		var index = $index;
 		var delivery = $deliveryPriceOver;
+		var artCount = $artCount;
 
 		var num;
 		var changePrice;
@@ -1051,31 +1058,52 @@ $(function(){
 			}else{
 				$deliveryPriceDiv.text($deliveryPrice);
 			}
+			$.ajax({
+				url:'/bomulsum/user/buyNowChangeCount.do',
+				data:{
+					'count': num,
+					'index' : index,
+					'artCount' : artCount,
+				},
+				type:'POST',
+				success:function(data){
+					 console.log(data);
+					 $artCountDiv.text(data);
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});   
 		}
 	});
 	
  	// 수량 버튼중 + 클릭시
 	$(document).on('click',".upButton",function(e){
 		var $button = $(this);
+		//숫자영역과 숫자
 		var $numDiv = $button.prev();
 		var $num = $numDiv.children().first();
 		var $artPrice = $button.parent().parent().next().children().first().next().text();
 
+		//가격 영역과 가격들
 		var $priceDiv = $button.parent().parent().next().children().first();
 		var $jaPriceDiv = $(this).closest("table").find('.jeonga_total_art_price').children().first();
 		var $totalPrice = $(this).closest("table").find('.jeonga_total_art_price').children().first().text();
 		var $deliveryPriceOver =  $(this).closest("table").find('.jeonga_sendfree').text();
 		var $deliveryPriceDiv = $(this).closest("table").find('.jeonga_delivery_case').children().first();
 		var $deliveryPrice = $(this).closest("table").find('.jeonga_delivery_price').text();
+		var $artCountDiv =  $(this).closest("table").find('.jeonga_art_count');
+		var $artCount = $(this).closest("table").find('.jeonga_art_count').text();
 		
 		var $cartSeq = $priceDiv.next().next().text();
-		var $index =$priceDiv.next().next().next().text();
+		var $index =$priceDiv.next().next().text();
 		
 		var cartCode = $cartSeq
 		var jartPrice = $artPrice;
 		var totalPrice = $totalPrice;
 		var index = $index;
 		var delivery = $deliveryPriceOver;
+		var artCount = $artCount;
 
 		var num;
 		var changePrice;
@@ -1093,6 +1121,23 @@ $(function(){
 			}else{
 				$deliveryPriceDiv.text($deliveryPrice);
 			}
+			
+			$.ajax({
+				url:'/bomulsum/user/buyNowChangeCount.do',
+				data:{
+					'count': num,
+					'index' : index,
+					'artCount' : artCount,
+				},
+				type:'POST',
+				success:function(data){
+					 console.log(data);
+					 $artCountDiv.text(data);
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});   
 		}
 	}); 
 
@@ -1199,17 +1244,37 @@ $(function(){
 	//작품 주문하기
 	$(".order_Choice").click(function(e){
 		var $items = $(".checkList").find("input[id=selected]:checked");
-		$items.each(function () {
-        	var $this = $(this);
-        	var $orderRequest = $(this).closest("table").find('.orderTextarea').text();
-        	var $artCode = $(this).closest("table").find('.jeonga_artcode').text();
-        	console.log($orderRequest);
-        	console.log($artCode);
-        	//var cartCode = $cartSeq;
-        	//var $inputCartCode = $('<input type="text" name="cartCode[]" value="'+cartCode+'">');
-    		//$('#jeonga_order_choice').append($inputCartCode);
-    	});
-		//$('#jeonga_order_choice').submit();
+		if($items.length == 0){
+			alert('작품을 선택해주세요');
+		}else{
+			$items.each(function () {
+        		var $this = $(this);
+        		var $orderRequest = $(this).closest("table").find('.orderTextarea').val();
+        		var $artCode = $(this).closest("table").find('.jeonga_artcode').text();
+      			var $artOptionCode = $(this).closest("table").find('.jeonga_artoption_code').text();
+      			var $artCount = $(this).closest("table").find('.jeonga_art_count').text();
+      			console.log($artOptionCode);
+        		console.log($orderRequest);
+        		console.log($artCode);
+        	
+        		var orderRequest = $orderRequest;
+        		var artCode = $artCode;
+        		var artOptionCode = $artOptionCode;
+        		var artCount = $artCount;
+        	
+        		var $inputArtCode = $('<input type="text" name="artCode" value="'+artCode+'">');
+        		var $inputOrderRequest = $('<input type="text" name="orderRequest" value="'+orderRequest+'">');
+        		var $inputArtOptionCode = $('<input type="text" name="artOptionCode" value="'+artOptionCode+'">');
+        		var $inputArtCount = $('<input type="text" name="artCount" value="'+artCount+'">');
+        	
+        		$('#jeonga_order_choice').append($inputArtCode);
+    			$('#jeonga_order_choice').append($inputOrderRequest);
+    			$('#jeonga_order_choice').append($inputArtOptionCode);
+    			$('#jeonga_order_choice').append($inputArtCount);
+    		
+    		});
+		$('#jeonga_order_choice').submit();
+		}
 	});
 
 });
