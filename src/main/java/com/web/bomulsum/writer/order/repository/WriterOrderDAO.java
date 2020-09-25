@@ -15,9 +15,13 @@ public class WriterOrderDAO {
 	public List<WriterOrderVO> orderConditionList(String writerSeq){
 		return sqlSessionTemplate.selectList("writerOrderDAO.selectOrderConditionList", writerSeq);
 	}
-	
+	// 배송정보 입력을 위한 구매내역 조회
 	public List<WriterOrderVO> orderList(WriterOrderVO vo){
 		return sqlSessionTemplate.selectList("writerOrderDAO.selectOrderList", vo);
+	}
+	// 배송정보 등록
+	public void orderDeliveryReg(WriterOrderVO vo) {
+		sqlSessionTemplate.update("writerOrderDAO.orderDeliveryReg", vo);
 	}
 	
 	// 주문 완료 수

@@ -289,14 +289,20 @@
 		    )
 	</select>
 	
-	<!-- 구매목록 불러오기 -->
- 	<!-- <select id="" parameterType="String" resultMap="">
- 		SELECT * FROM buy_art_tb
- 		WHERE 
- 			(member_code_seq = #{memberCodeSeq})
- 			AND (b_art_review = 'N')
+	<!-- 작품별 구매후기 불러오기 -->
+ 	<select id="artReviewList" parameterType="String" resultMap="reviewListMap">
+ 		SELECT
+ 			a.review_code_seq, a.buy_art_code_seq, a.member_code_seq, a.art_code_seq,
+ 			a.review_date, a.review_comment, a.review_star, a.review_photo,
+ 			b.member_name, b.member_profile
+ 		FROM
+ 			review_tb a
+ 		LEFT OUTER JOIN
+ 			member_tb b ON a.member_code_seq = b.member_code_seq
+ 		WHERE a.art_code_seq = #{artCodeSeq}
+ 		ORDER BY a.review_date DESC
 	</select>
- -->
+
 	<!-- 구매후기 등록하기 -->
 	<!-- <insert id="" parameterType="">
 	</insert> -->

@@ -24,6 +24,8 @@
 		<result column="buy_writer_order_refund_reason" property="buyWriterOrderRefundReason"/>
 		<result column="buy_writer_order_refund_date" property="buyWriterOrderRefundDate"/>
 		<result column="buy_refund_request_date" property="buyRefundRequestDate"/>
+		<result column="buy_delivery_name" property="buyDeliveryName"/>
+		<result column="buy_delivery_num" property="buyDeliveryNum"/>
 		
 		<result column="buy_art_code_seq" property="buyArtCodeSeq"/>
 		<result column="art_code_seq" property="artCodeSeq"/>
@@ -55,7 +57,7 @@
 			    (
 			    SELECT
 			        a.*, b.order_code_seq, b.art_code_seq, b.buy_art_request,
-			        c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
+			        c.buy_writer_code_seq, c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
 			        c.buy_writer_order_status, c.buy_writer_order_refund_reason,
 			        c.buy_writer_order_refund_date, c.buy_refund_request_date, c.buy_delivery_num,
 			        d.order_receiver, d.member_code_seq, d.order_phone_num, d.order_zipcode, d.order_address_first,
@@ -92,7 +94,7 @@
 			    (
 			    SELECT
 			        a.*, b.order_code_seq, b.art_code_seq, b.buy_art_request,
-			        c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
+			        c.buy_writer_code_seq, c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
 			        c.buy_writer_order_status, c.buy_writer_order_refund_reason,
 			        c.buy_writer_order_refund_date, c.buy_refund_request_date, c.buy_delivery_num,
 			        d.order_receiver, d.member_code_seq, d.order_phone_num, d.order_zipcode, d.order_address_first,
@@ -160,8 +162,15 @@
 		</if>
 	</sql>
 	
-	<insert id="updateSend" parameterType="com.web.bomulsum.writer.order.repository.WriterOrderVO">
-		INSERT INTO 
-	</insert>
+	<update id="orderDeliveryReg" parameterType="com.web.bomulsum.writer.order.repository.WriterOrderVO">
+		UPDATE
+			buy_writer_tb
+		SET
+			buy_writer_order_status = '배송 완료',
+			buy_delivery_name = #{buyDeliveryName},
+			buy_delivery_num = #{buyDeliveryNum}
+		WHERE
+			buy_writer_code_seq = #{buyWriterCodeSeq}
+	</update>
 	
 </mapper>

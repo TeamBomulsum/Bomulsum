@@ -194,6 +194,11 @@ a:hover, a:active{
 					</div>
 
 					
+					
+					
+					
+					
+					
 					<!-- 배송정보 입력 버튼 모달 창 -->
 					<div id="sendModal">
 						<!-- 팝업창 -->
@@ -206,6 +211,7 @@ a:hover, a:active{
 							<a style="font-size:70%">선택된 항목만 처리합니다</a>
 						</div>
 						
+						<form action="<c:url value='/writer/order/orderDeliveryReg.wdo'/> " method="post" name="formSubmit">
 						<div style="margin-top:1%; margin-left:1%; margin-right:1%; 
 							height:370px; background-color:white; border:1px solid gray">
 							<table id="aboutSend" style="width:100%; border:1px solid black">
@@ -238,23 +244,24 @@ a:hover, a:active{
 								</tr>
 								<tr>
 									<td><input type="checkbox" checked="checked"/></td>
-									<td>P_201904231810412010</td>
-									<td>주문 완료</td>
-									<td>김혜림</td>
-									<td>05042468579</td>
-									<td>경기도 부천시 원미구 역곡2동 동부센트레빌 아파트 2단지 202-1004</td>
-									<td><input id="beforeDate" type="date" value="2020-07-15" max="2030-01-01" style="width:150px; height:30px"></td>
+									<td id="modalOrderCodeSeq"></td>
+									<td id="modalOrderStatus"></td>
+									<td id="modalOrderReceiver"></td>
+									<td id="modalTel"></td>
+									<td id="modalJuso"></td>
+									<td><input id="beforeDate" type="date" style="width:150px; height:30px"></td>
 									<td>
-										<select style="width:150px; height:30px">
-											<option>CJ대한 통운</option>
-										<option>우체국 택배</option>
-										<option>한진 택배</option>
-										<option>롯데 택배</option>
-										<option>로젠 택배</option>
+										<select name="buyDeliveryName" style="width:150px; height:30px">
+											<option value="CJ대한 통운">CJ대한 통운</option>
+											<option value="우체국 택배">우체국 택배</option>
+											<option value="한진 택배">한진 택배</option>
+											<option value="롯데 택배">롯데 택배</option>
+											<option value="로젠 택배">로젠 택배</option>
 										</select>
 									</td>
 									<td>
-										<input id="number" type="text" size="18" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"/>
+										<input type="hidden" name="buyWriterCodeSeq" id="buyWriterCodeSeq">
+										<input name="buyDeliveryNum" id="number" type="text" size="18" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"/>
 									</td>
 								</tr>
 							</table>
@@ -262,10 +269,19 @@ a:hover, a:active{
 						
 						<div style="float:right; margin-top:0.5%; margin-right:1%">
 							<button id="sendCloseModala" style="width:70px"> 취소 </button>
-							<button style="width:70px; background-color:red"> 확인 </button>							
+							<button onClick="saveDelivery(event);" style="width:70px; background-color:red"> 확인 </button>							
 						</div>
+						</form>
 						
 					</div>
+					<!-- 모달 종료 -->
+					
+					
+					
+					
+					
+					
+					
 
 				</div>
 
@@ -534,12 +550,18 @@ a:hover, a:active{
 						+ '</tr>'
 						+ '</table>'
 						//배송정보 입력
-						+ '<div style="margin-top:3%">'
+						+ '<div style="margin-top:3%" id="' + result[i].buyWriterCodeSeq + '">'
+						+ '<input type="hidden" value="' + result[i].orderCodeSeq + '">'
+						+ '<input type="hidden" value="' + result[i].buyWriterOrderStatus + '">'
+						+ '<input type="hidden" value="' + result[i].orderReceiver + '">'
+						+ '<input type="hidden" value="' + result[i].orderPhoneNum + '">'
+						+ '<input type="hidden" value="('+result[i].orderZipcode +')'+ result[i].orderAddressFirst + result[i].orderAddressSecond +'">'
 						+ '<button id="aboutSendButton" onClick="modalOpen();" style="text-decoration:none; background-color: white;border: 1px solid gray; color: #28E7FF; padding: 1%; font-weight: bold">'
 						+ '배송정보 입력'
 						+ '</button>'
 						+ '</div>'
-						+ '</div>';// 오른쪽 영역 종료	
+						+ '</div>'// 오른쪽 영역 종료
+						+ '</div>';
 						
 						
 					if(j >= result.length-1){
@@ -548,12 +570,20 @@ a:hover, a:active{
 					
 		  		} while (result[i].orderCodeSeq == result[++j].orderCodeSeq);
 		
-				html += '</div>'
-					+ '</div>';
+				html += '</div>';
+					//+ '</div>';
 			} //end for
 			$('#minwoo_orderOneData').html(html);
 			
 		}; 
+		
+		
+		var modalOrderCodeSeq = '';
+		var modalBuyWriterCodeSeq = '';
+		var modalOrderStatus = '';
+		var modalOrderReceiver = '';
+		var modalTel = '';
+		var modalJuso = '';
 		
 		/* 모달 구동 스크립트 영역*/
 		function modalOpen() {
@@ -578,35 +608,57 @@ a:hover, a:active{
 				$("#sendModal").css("display","none"); //팝업창 display none
 				$("body").css("overflow","auto");//body 스크롤바 생성
 			});
-		};
-		function modalClose() {
-			$('#sendModal').css('display', 'none');
-		};
-		
-		/* // 배송정보 입력 버튼
-		$("#aboutSendButton").click(function(event){  //팝업 Open 버튼 클릭 시 	
-			$("#sendModal").css({
-				"top": (($(window).height()-$("#sendModal").outerHeight())/2+$(window).scrollTop())+"px",
-				"left": (($(window).width()-$("#sendModal").outerWidth())/2+$(window).scrollLeft())+"px"
-				//팝업창을 가운데로 띄우기 위해 현재 화면의 가운데 값과 스크롤 값을 계산하여 팝업창 CSS 설정
-			}); 
-		
-			$("#popup_mask").css("display","block"); //팝업 뒷배경 display block
-			$("#sendModal").css("display","block"); //팝업창 display block
-			$("#number").focus();
-			//$("body").css("overflow","hidden");//body 스크롤바 없애기
 			
-			$("#sendCloseModal").click(function(event){
-				$("#popup_mask").css("display","none"); //팝업창 뒷배경 display none
-				$("#sendModal").css("display","none"); //팝업창 display none
-				$("body").css("overflow","auto");//body 스크롤바 생성
-			});
-			$("#sendCloseModala").click(function(event){
-				$("#popup_mask").css("display","none"); //팝업창 뒷배경 display none
-				$("#sendModal").css("display","none"); //팝업창 display none
-				$("body").css("overflow","auto");//body 스크롤바 생성
-			});
-        }); */
+			
+			modalOrderCodeSeq = $(this).closest('div').attr('id');
+			modalBuyWriterCodeSeq = $(this).closest('div').children('input').eq(0).val();
+			modalOrderStatus = '';
+			modalOrderReceiver = '';
+			modalTel = '';
+			modalJuso = '';
+			
+			console.log(modalOrderCodeSeq);
+			console.log(modalBuyWriterCodeSeq);
+			
+			$('#modalOrderCodeSeq').text($.trim($(this).closest('div').children('input').eq(0).val()));
+			$('#modalBuyWriterCodeSeq').text();
+			$('#modalOrderStatus').text();
+			$('#modalOrderReceiver').text();
+			$('#modalTel').text();
+			$('#modalJuso').text();
+
+			
+		};
+	
+		
+		//등록버튼 이벤트
+		function saveDelivery(event){
+			event.preventDefault();
+
+			var deliveryNum = document.getElementById('number');
+			console.log('폼 데이터 입력 값 = ' + '');
+			
+			if($('#number').val() == ''){
+				alert('택배 송장 번호를 입력해주세요.');
+				deliveryNum.focus();
+				return false;
+			};
+			
+			var rtn;
+			
+			if($('#buy_delivery_num').val() == ''){
+				rtn = confirm("                    배송 처리 하시겠습니까? \n (송장번호를 꼼꼼히 확인해 주세요!)");
+			} else {
+				rtn = confirm("배송 정보를 수정하시겠습니까?");
+			}
+			
+			
+			if(rtn){
+				formSubmit.submit();	
+			} else {
+				return false;
+			};
+		};
 	</script>
 
 </body>

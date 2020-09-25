@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -66,6 +67,24 @@ public class WriterOrderController {
 		mav.addObject("orderCount", orderCount);
 		mav.addObject("totalOrderList", service.orderList(vo));
 		mav.setViewName("/worder/orderList");
+		return mav;
+	}
+	
+	@RequestMapping(value="/order/orderDeliveryReg", method= {RequestMethod.POST})
+	public ModelAndView orderDeliveryReg(HttpServletRequest request, WriterOrderVO vo) {
+
+		//로그인한 작가 정보 가져오기
+		HttpSession session = request.getSession();
+		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
+		String writerCodeSeq = code.getWriterSeq();
+		vo.setWriterCodeSeq(writerCodeSeq);
+		
+		//배송정보 등록
+		service.orderDeliveryReg(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/writer/order/orderList.wdo");
+		
 		return mav;
 	}
 	

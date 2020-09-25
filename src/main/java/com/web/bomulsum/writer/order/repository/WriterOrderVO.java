@@ -26,6 +26,7 @@ public class WriterOrderVO {
 	private Date buyWriterOrderRefundDate;
 	private Date buyRefundRequestDate;
 	private String buyDeliveryNum;
+	private String buyDeliveryName;
 	
 	private String buyArtCodeSeq;
 	private String artCodeSeq;
@@ -48,6 +49,14 @@ public class WriterOrderVO {
 	private String memberName;
 	
 	
+	
+	
+	public String getBuyDeliveryName() {
+		return buyDeliveryName;
+	}
+	public void setBuyDeliveryName(String buyDeliveryName) {
+		this.buyDeliveryName = buyDeliveryName;
+	}
 	public String getMemberProfile() {
 		return memberProfile;
 	}

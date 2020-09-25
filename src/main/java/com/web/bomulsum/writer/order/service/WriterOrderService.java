@@ -8,6 +8,8 @@ public interface WriterOrderService {
 
 	List<WriterOrderVO> orderConditionList(String writerCodeSeq);
 	List<WriterOrderVO> orderList(WriterOrderVO vo);
+	//배송 정보 등록
+	void orderDeliveryReg(WriterOrderVO vo);
 	// 주문 완료 수
 	int getJumunOrderCount(WriterOrderVO vo);
 	// 배송 완료 수
