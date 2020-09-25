@@ -87,13 +87,37 @@ public class UserPaymentController {
 		
 		//멤버 적립금
 		//int memReserve=reserve_service.getUserSumReserves()-reserve_service.getUserPointUse();
-		int memReserve = 10000000;
+		int memReserve=reserve_service.getUserSumReserves(memberCode) -  reserve_service.getUserPointUse(memberCode);
+		//int memReserve = 10000000;
 		mav.addObject("memReserve",memReserve);
+		
 		
 		//멤버 쿠폰 ---- 쿠폰 vo랑 mapping새로만들어서쓰기... 
 		List<UserCouponPaymentVO> vo = service.selectCouponPayment(memberCode);
 		System.out.println("쿠폰:"+vo);
 		mav.addObject("couponList", vo);
+		
+		
+		//멤버 등급계산
+		int memberSumPay = profile_service.getSumpay(memberCode);
+		String memberGrade = "브론즈";
+		//System.out.println("여태까지 총 구매한 금액: "+ memberSumPay);
+		
+		if(memberSumPay < 100000) { //브론즈
+			memberGrade = "브론즈";
+		}else if(memberSumPay < 1000000) { //실버
+			memberGrade = "실버";
+		}else if(memberSumPay < 5000000) { //골드
+			memberGrade = "골드";
+		}else { //다이아
+			memberGrade = "다이아";
+		}
+		
+		HashMap<String, Object> memberProMap = new HashMap<String, Object>();
+		memberProMap.put("memberCode",memberCode);
+		memberProMap.put("memberGrade",memberGrade);
+		service.updateMemberGrade(memberProMap); //멤버 등급 변경
+
 
 		/*
 		 * for (int i = 0; i < cartCode.length; i++) { System.out.println(i +
@@ -199,6 +223,7 @@ public class UserPaymentController {
 			System.out.println("check : " + i + orderArt[i]);
 		}
 		
+		artDaName.trim();
 		
 		System.out.println(memberCode+"의 주문내용-> 받을이름: "+shipName  +", 받을번호: "+ shipPhone 
 				+ ", 우편번호: "+ shipZip + ", 기본주소: "+ shipFirst +", 상세주소: "+ shipSecond 
@@ -222,6 +247,28 @@ public class UserPaymentController {
 		orderMap.put("orderSum", orderSum);
 		orderMap.put("choiceCoupon", choiceCoupon);
 		orderMap.put("finUsePoint", finUsePoint);
+		
+		artDaName += " ";
+		
+		if(orderArt.length > 1) {
+			artDaName = artDaName + "외 " + (orderArt.length-1)+"건 ";
+		}
+		
+		System.out.println(artDaName+"아트대표네임");
+		//작품구매 적립금처리
+		HashMap<String, Object> reserveMap = new HashMap<String, Object>();
+		reserveMap.put("memberCode", memberCode); 
+		reserveMap.put("artPointSum", artPointSum); //예상적립금 
+		reserveMap.put("artDaName", artDaName); //구매한작품 대표이름
+		if(artPointSum > 0) {
+			service.insertOrderReserves(reserveMap); //예상적립금 적립
+		}
+		reserveMap.put("finUsePoint", finUsePoint); //사용한적립금
+		if(finUsePoint > 0) {
+		service.insertOrderUseReserves(reserveMap);
+		}
+		
+		
 		
 		String orderCodeSeq = service.insertOrderList(orderMap); //주문내역테이블에 인서트
 		//System.out.println("주문넣은 주문내역seq->"+orderCodeSeq);
@@ -280,7 +327,26 @@ public class UserPaymentController {
 			imsi.add(map);
 			// 우영
 			
+			
+			
+			//구매한 작품 장바구니에서 제거 처리----
+			System.out.println("삭제할 작품-->"+ orderArtOne[0]);
+			String cartCode = orderArtOne[0];
+			service.deleteOrderCart(cartCode);
+			
+			
+			
+			
+			//System.out.println("현재판매수량----->"+preSalesArt);
+			
 		} //for문끝(작품별)
+		
+		
+		
+
+		
+		
+		
 		
 		System.out.println(Arrays.toString(orderArtOption));
 		for(int j=0; j<orderArtOption.length; j++) {
@@ -322,6 +388,23 @@ public class UserPaymentController {
 			  }
 			  // 우영
 			  //System.out.println(orderArtOptionCode);
+			  
+			  
+				//작품 판매수량 증가 처리-----
+				String artCode = orderArtOptionOne[4];
+				int preSalesArt= service.selectArtSaleCount(artCode); 	//---현재판매수량 얻어오기
+				int nowSalesArt = preSalesArt + Integer.parseInt(orderArtOptionOne[2]); //새로운 판매수량
+				//System.out.println(artCode+"작품의 이전판매수량: "+preSalesArt+ ", 새로운 판매수량: "+nowSalesArt);
+				HashMap<String, Object> salesArtMap = new HashMap<String, Object>();
+				salesArtMap.put("artCode", artCode);
+				salesArtMap.put("nowSalesArt", nowSalesArt);
+				service.updateArtSaleCount(salesArtMap);	//---판매수량 증가시키기
+				
+				//작품 수량 감소 처리-----
+				int preAmount =  service.selectArtAmount(artCode); //---현재작품수량 얻어오기
+				int nowAmount = preAmount - Integer.parseInt(orderArtOptionOne[2]); //남은 작품수량
+				salesArtMap.put("nowAmount", nowAmount);
+				service.updateArtAmount(salesArtMap);
 		  }
 		
 		return mav;

@@ -56,6 +56,9 @@ IMP.init('imp54276316'); // 'iamport' 대신 부여받은 "가맹점 식별코�
 
 
 
+//적립금 넣을때 작품대표이름
+artDaName = '${shopbagInfo[0].art_name}';
+
 function shipInfoSet(){
  	//선택된 배송지 ----- 1
 	if($('#shipTab1').css('background-color') == 'rgb(31, 118, 187)'){
@@ -123,9 +126,7 @@ function goPayment(){
 	
 	
 	
-	//적립테이블에 insert 처리할때 쓸 작품대표이름
-	artDaName = $('.dain_goods_name').text();
-	
+
 	
 	
 	
@@ -176,7 +177,7 @@ function goPayment(){
 		</c:forEach>
 		
 		console.log(orderArt); 
-	
+		
 		
 /* 		
 	옵션별 내용
@@ -776,8 +777,6 @@ $(function(){
 
     
 
-    
-    
 
 		
 })
@@ -1709,11 +1708,11 @@ ul.tabs li.current {
 		<div class="dain_ordergoods_title dain_flex_title hoverPointer" style="margin-top: 18px;">
 			<p>주문 작품 정보</p>
 			<c:if test="${fn:length(shopbagInfo) le 1}">
-				<p class="dain_goods_name">${shopbagInfo[0].art_name} 
+				<p class="dain_goods_name"><span class="dain_goods_name_span">${shopbagInfo[0].art_name}</span>
 				<i class="fa fa-angle-down" style="color: black; font-weight: bold;"></i></p>
 			</c:if>
 			<c:if test="${fn:length(shopbagInfo) gt 1}">
-				<p class="dain_goods_name">${shopbagInfo[0].art_name} 외 ${fn:length(shopbagInfo)-1}건 
+				<p class="dain_goods_name"><span class="dain_goods_name_span">${shopbagInfo[0].art_name} 외 ${fn:length(shopbagInfo)-1}건</span>
 				<i class="fa fa-angle-down" style="color: black; font-weight: bold;"></i></p>
 			</c:if>
 		</div>

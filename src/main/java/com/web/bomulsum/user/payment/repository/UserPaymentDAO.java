@@ -53,5 +53,44 @@ public class UserPaymentDAO {
 		sqlSessionTemplate.delete("paymentDAO.deleteUseCoupon",couponCode);
 	}
 	
+	//판매수량 조회
+	public int selectArtSaleCount(String artCode) {
+		return sqlSessionTemplate.selectOne("paymentDAO.selectArtSaleCount",artCode);
+	}
 	
+	//판매수량 증가
+	public void updateArtSaleCount(HashMap<String, Object> map) {
+		sqlSessionTemplate.selectOne("paymentDAO.updateArtSaleCount", map);
+	}
+	
+	//작품수량 조회
+	public int selectArtAmount(String artCode) {
+		return sqlSessionTemplate.selectOne("paymentDAO.selectArtAmount",artCode);
+	}
+	
+	//작품수량 증가
+	public void updateArtAmount(HashMap<String, Object> map) {
+		sqlSessionTemplate.selectOne("paymentDAO.updateArtAmount", map);
+	}
+	
+	//구매작품 장바구니에서 삭제
+	public void deleteOrderCart(String cartCode) {
+		sqlSessionTemplate.delete("paymentDAO.deleteOrderCart", cartCode);
+	}
+	
+	
+	//작품 구매로 적립금 적립
+	public void insertOrderReserves(HashMap<String, Object> map) {
+		sqlSessionTemplate.insert("paymentDAO.insertOrderReserves", map);
+	}
+	
+	//작품 구매로 적립금 사용
+	public void insertOrderUseReserves(HashMap<String, Object> map) {
+		sqlSessionTemplate.insert("paymentDAO.insertOrderUseReserves", map);
+	}
+	
+	//회원등급 반영
+	public void updateMemberGrade(HashMap<String, Object> map) {
+		sqlSessionTemplate.update("paymentDAO.updateMemberGrade", map);
+	}
 }
