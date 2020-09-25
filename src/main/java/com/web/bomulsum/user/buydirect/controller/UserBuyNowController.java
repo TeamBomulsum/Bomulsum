@@ -11,7 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.user.buydirect.repository.UserBuyNowVO;
@@ -119,10 +121,32 @@ public class UserBuyNowController {
 		return mav;
 	}
 	
+	//선택한 작품 개수 변화
+	@ResponseBody
+	@RequestMapping(value="/buyNowChangeCount", method=RequestMethod.POST)
+	public String goshopbagPlusCount( @RequestParam(value="count") String changeCount,
+			@RequestParam(value="artCount") String OriginArtCount,
+			@RequestParam(value="index") int index) {
+		
+		String[] countArray = OriginArtCount.split(",");
+		countArray[index] =changeCount;
+		
+		String counts = null;
+		for(int i=0; i<countArray.length; i++) {
+			String temp = countArray[i];
+			counts += temp+",";
+		}
+		String result = counts.substring(4);
+		System.out.println("바뀐 카운트" + result);
+		return result;
+	}
+		
+	
 	//바로구매에서 주문
 	@RequestMapping(value="direct/payment")
 	public ModelAndView directPay(HttpServletRequest request,
-			@RequestParam(value="orderRequest") String orderRequest, @RequestParam(value="artCode") String artCode) {
+			@RequestParam(value="orderRequest") String orderRequest, @RequestParam(value="artCode") String artCode,
+			@RequestParam(value="artOptionCode") String artOptionCode,@RequestParam(value="artCount") String artCount) {
 		ModelAndView mav= new ModelAndView("ushopbag/uPayment");
 		
 		HttpSession session = request.getSession();
@@ -170,15 +194,17 @@ public class UserBuyNowController {
 		System.out.println("map출력:");
 		
 		//--------------상품정보 뿌림-------------
-		//List<UserPaymentVO> shopbagInfo = payment_service.selectCartChoice(map);
 		List<UserPaymentVO> shopbagInfo = service.getBuyInfo(map);
 		
 		for(int i=0; i<shopbagInfo.size(); i++) {
 			
 			UserPaymentVO tempVO = shopbagInfo.get(i);
-			//받아온 값 설정
+			//받아온 값 따로 설정
 			tempVO.setMember_code_seq(memberCode);
 			tempVO.setOrder_request(orderRequest);
+			tempVO.setCart_seq("바로구매");
+			tempVO.setArt_option_seq(artOptionCode);
+			tempVO.setArt_count(artCount);
 			
 			String[] artOption= shopbagInfo.get(i).getArt_option_seq().split("#");
 			
@@ -191,7 +217,6 @@ public class UserBuyNowController {
 			List<Map<String,Object>> totalOption = new ArrayList<Map<String,Object>>();
 			
 			int totalPrice = 0;
-			
 			for(int j=0; j<artOption.length; j++) {
 				int sum = 0;
 				int totalSum = 0;
@@ -215,14 +240,11 @@ public class UserBuyNowController {
 				totalPrice +=(int) totalOption.get(j).get("totalSum");
 				
 			}
-			
 			tempVO.setTotalPrice(totalPrice);
 			tempVO.setTotalOption(totalOption);
 			shopbagInfo.remove(i);
 			shopbagInfo.add(i, tempVO);
-			
 		}
-		
 		System.out.println("담은상품목록:"+shopbagInfo);
 		
 		mav.addObject("shopbagInfo", shopbagInfo);
