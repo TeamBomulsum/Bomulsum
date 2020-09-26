@@ -127,7 +127,12 @@ form {
 .arrow next{
 	border:0px;
 }
-
+.check{
+	width:30px;
+}
+#orderSeq{
+	width:100%;
+}
 </style>
 <style>
 .workRegisterContainer {
@@ -297,7 +302,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<div class="ttable">
 		<table border="1" id="ordertable">
 			<tr>
-				<th style="width:4%"><input type="checkbox" id="checkAll"></th>
+				<th class="check" style="width:4%"><input type="checkbox" id="checkAll"></th>
 				<th style="width:15%">상품번호</th>
 				<th style="width:7%">이미지</th>
 				<th style="width:18%">강의명</th>
@@ -309,7 +314,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<th>수강인원</th>
 				<th>진행여부</th>
 				<th>등록일</th>
-				<th></th>
+				<th>수정</th>
 			</tr>
 			<c:if test="${classList.size() <= 0 }">
 				<tr>
@@ -345,7 +350,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				<td>1</td>
 				<td>334</td>
 				<td id="runYN">${classList.run }</td>
-				<td id="regDate"><fmt:formatDate value="${classList.regDate }" pattern="MM/dd/YY"></fmt:formatDate></td>
+				<td id="regDate"><fmt:formatDate value="${classList.regDate }" pattern="YY/MM/dd"></fmt:formatDate></td>
 				<td><button id="update" onchange="keywordResetting(e)" type="button" class="btn btn-primary" data-toggle="modal"
 						data-target="#staticBackdrop">수정</button>
 				</td>

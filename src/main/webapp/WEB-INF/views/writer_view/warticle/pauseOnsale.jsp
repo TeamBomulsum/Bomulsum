@@ -52,6 +52,8 @@ h4{
 	border: 1px solid #e7e7e7;
 	height: 35px;
 	color:#666666;
+	font-size: 16px;
+	padding:5px;
 }
 
 .bottomLine {
@@ -490,7 +492,7 @@ var pagingFunc = function(){
 	  		'<td>' + '<img src="${pageContext.request.contextPath}/upload/'+result[index].artPhoto+ '" ' + 
 	  		'style="overflow: hidden; align-items: center; justify-content: center; width: 75px; height: 75px">'+'</td>'+ 
 			'<td colspan=\"3\" style="padding:10px;">' +'<div class=\"alignLeft\" style=\"text-align: left\">' +
-				'<a href=\"#\" style=\"color: black; text-style: bold;\">'+ result[index].artName + '</a>' + 
+				'<a style=\"color: black; text-style: bold;\">'+ result[index].artName + '</a>' + 
 				'<br>' + '<br>' +'<label style=\"text-align: center; background-color: #5EC75E; width: auto; margin-bottom: 0rem; color: white\">'+
 				'<i class=\"fas fa-tags\">'+result[index].artDiscountPercent+'%</i></label></div>' + 
 				'<div class=\"alignRight\" style=\"text-align: right\">' + 
@@ -501,9 +503,8 @@ var pagingFunc = function(){
 				'<td>'+ result[index].bookMarkCount+'</td>' + '<td>'+ result[index].commentCount+'</td>' +
 				'<td>'+ result[index].artViewCount+'</td>' + '<td>'+ result[index].artSaleCount+'</td>' +
 				'<td>'+ result[index].reviewCount+'</td>' + 
-				'<td>'+'<form action="${pageContext.request.contextPath}/writer/updateWork.wdo" method="post" enctype="multipart/form-data">'
-				+'<input type="hidden" name="modifyArtCode" value="'+result[index].artCodeSeq + '">'
-				+'<button type="submit" id="update">수정'+'</button>'+'</td></tr>'
+				'<td>'+'<a href="${pageContext.request.contextPath}/writer/updateWork/'+result[index].artCodeSeq+'.wdo" id="jeongaUpdate">'
+				+'수정'+'</a>'+'</td></tr>'
 
 		}
 		testTable.innerHTML = html;
