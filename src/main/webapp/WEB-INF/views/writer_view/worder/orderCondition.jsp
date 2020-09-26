@@ -73,7 +73,11 @@
 					<!-- 주문 완료 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<div class="m-0 font-weight-bold text-primary" style="display: inline-block">주문 완료</div>
+							<div class="m-0 font-weight-bold text-primary" style="display: inline-block">
+							<a href="<c:url value='/writer/order/orderList.wdo?buyWriterOrderStatus=결제 완료'/>">
+								주문 완료
+							</a>
+							</div>
 							<span id="minwoo_writer_order_total_count"></span>
 							<!-- 주문 완료 개수 들어갈 공간. -->
 							<!-- </div> -->
@@ -129,7 +133,11 @@
 					<!-- 환불 요청 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<div class="m-0 font-weight-bold text-primary" style="display: inline-block">환불 요청</div>
+							<div class="m-0 font-weight-bold text-primary" style="display: inline-block">
+								<a href="<c:url value='/writer/order/orderList.wdo?buyWriterOrderStatus=환불 대기'/>">
+								환불 요청
+								</a>
+								</div>
 							<span id="minwoo_writer_refund_total_count"></span>
 							<hr class="sidebar-divider my-0">
 							

@@ -84,9 +84,9 @@ console.log('writer: ' + writerCode);
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!--<h6 class="collapse-header">Custom Components:</h6>-->
-            <a class="collapse-item" href="<c:url value='/view/worder/orderCondition.jsp'/>">현황</a>
-            <a class="collapse-item" href="<c:url value='/view/worder/orderList.jsp'/>">주문 리스트</a>
-            <a class="collapse-item" href="<c:url value='/view/worder/registerOfShip.jsp'/>">발송 정보 일괄 등록</a>
+            <a class="collapse-item" href="<c:url value='/writer/order/condition.wdo'/>">현황</a>
+            <a class="collapse-item" href="<c:url value='/writer/order/orderList.wdo?buyWriterOrderStatus=결제 완료'/>">주문 리스트</a>
+            <a class="collapse-item" href="<c:url value='/writer/order/registerOfShip.wdo'/>">발송 정보 일괄 등록</a>
           </div>
         </div>
       </li>

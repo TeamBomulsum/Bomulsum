@@ -8,7 +8,7 @@
 		<result column="member_code_seq" property="memberCodeSeq"/>
 		<result column="order_date" property="orderDate"/>
 		<result column="order_receiver" property="orderReceiver"/>
-		<result column="order_phoneNum" property="orderPhoneNum"/>
+		<result column="order_phone_num" property="orderPhoneNum"/>
 		<result column="order_zipcode" property="orderZipcode"/>
 		<result column="order_address_first" property="orderAddressFirst"/>
 		<result column="order_address_second" property="orderAddressSecond"/>
@@ -24,6 +24,9 @@
 		<result column="buy_writer_order_refund_reason" property="buyWriterOrderRefundReason"/>
 		<result column="buy_writer_order_refund_date" property="buyWriterOrderRefundDate"/>
 		<result column="buy_refund_request_date" property="buyRefundRequestDate"/>
+		<result column="buy_delivery_name" property="buyDeliveryName"/>
+		<result column="buy_delivery_num" property="buyDeliveryNum"/>
+		<result column="buy_delivery_date" property="buyDeliveryDate"/>
 		
 		<result column="buy_art_code_seq" property="buyArtCodeSeq"/>
 		<result column="art_code_seq" property="artCodeSeq"/>
@@ -42,6 +45,9 @@
 		<result column="art_discount" property="artDiscount"/>
 		
 		<result column="buy_art_option_price" property="buyArtOptionPrice"/>
+		<result column="member_profile" property="memberProfile"/>
+		<result column="member_name" property="memberName"/>
+		<result column="art_sale_count" property="artSaleCount" />
 
 	</resultMap>
 
@@ -53,7 +59,7 @@
 			    (
 			    SELECT
 			        a.*, b.order_code_seq, b.art_code_seq, b.buy_art_request,
-			        c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
+			        c.buy_writer_code_seq, c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
 			        c.buy_writer_order_status, c.buy_writer_order_refund_reason,
 			        c.buy_writer_order_refund_date, c.buy_refund_request_date, c.buy_delivery_num,
 			        d.order_receiver, d.member_code_seq, d.order_phone_num, d.order_zipcode, d.order_address_first,
@@ -82,5 +88,135 @@
 			    art_tb h ON e.art_code_seq = h.art_code_seq
 			ORDER BY e.order_date DESC
 	</select>
+	
+	<select id="selectOrderList" parameterType="com.web.bomulsum.writer.order.repository.WriterOrderVO" resultMap="writerOrderList">
+			SELECT
+			    e.*, g.member_name, g.member_profile, h.art_name, h.art_photo,
+			    h.art_amount, h.art_discount, h.art_price, h.art_sale_count
+			FROM
+			    (
+			    SELECT
+			        a.*, b.order_code_seq, b.art_code_seq, b.buy_art_request,
+			        c.buy_writer_code_seq, c.writer_code_seq, c.buy_writer_send_price, c.buy_writer_plus_send_price,
+			        c.buy_writer_order_status, c.buy_writer_order_refund_reason,
+			        c.buy_writer_order_refund_date, c.buy_refund_request_date, c.buy_delivery_num,
+			        d.order_receiver, d.member_code_seq, d.order_phone_num, d.order_zipcode, d.order_address_first,
+			        d.order_address_second, d.order_date
+			    FROM
+			        (
+			        SELECT
+			            buy_art_code_seq,
+			            LISTAGG(art_price, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS buy_art_option_price,
+			            LISTAGG(art_option_name, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_name,
+			            LISTAGG(art_option_amount, '|-%-|') WITHIN GROUP (ORDER BY buy_option_code_seq) AS art_option_amount
+			        FROM buy_option_tb
+			        GROUP BY buy_art_code_seq
+			        )a
+			    LEFT OUTER JOIN
+			        buy_art_tb b ON a.buy_art_code_seq = b.buy_art_code_seq
+			    LEFT OUTER JOIN
+			        buy_writer_tb c ON b.buy_writer_code_seq = c.buy_writer_code_seq
+			    LEFT OUTER JOIN
+			        order_tb d ON d.order_code_seq = b.order_code_seq
+			    WHERE c.writer_code_seq = #{writerCodeSeq}
+			    ) e
+			LEFT OUTER JOIN
+			    member_tb g ON g.member_code_seq = e.member_code_seq
+			LEFT OUTER JOIN
+			    art_tb h ON e.art_code_seq = h.art_code_seq
+			WHERE
+				e.buy_writer_order_status = #{buyWriterOrderStatus}
+			ORDER BY e.order_date DESC
+	</select>
+	
+	<select id="jumunOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '결제 완료'
+	</select>
+	<select id="besongOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '배송 완료'
+	</select>
+	<select id="hwanbulOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '환불 대기'
+	</select>
+	<select id="hwanbulFinishOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '환불 완료'
+	</select>
+	<select id="hwanbulNoOrderCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM buy_writer_tb
+		WHERE writer_code_seq = #{writerCodeSeq} AND buy_writer_order_status = '환불 거부'
+	</select>
+	
+	
+	<sql id="searchOrder">
+		<if test="searchType != null">
+			WHERE
+			<if test="searchType == '주문자'"> g.member_name LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '작품명'"> h.art_name LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == '주문번호'"> e.order_code_seq LIKE '%' || #{keyword} || '%'</if>
+		</if>
+	</sql>
+	
+	<!-- 환불 했을 때 환불 날짜, 환불 상태 수정해주기 -->
+	<update id="orderRefundBuyWriterTb" parameterType="com.web.bomulsum.writer.order.repository.WriterOrderVO">
+		UPDATE
+			buy_writer_tb
+		SET
+			buy_writer_order_status = '환불 완료',
+			buy_writer_order_refund_date = SYSDATE
+		WHERE
+			buy_writer_code_seq = #{buyWriterCodeSeq}
+	</update>
+	<!-- 환불 했을 때, 작품 테이블에서 판매 수량을 판매된 만큼 다시 - 해주기 -->
+	<update id="orderRefundArtTb" parameterType="com.web.bomulsum.writer.order.repository.WriterOrderVO">
+		UPDATE
+			art_tb
+		SET
+			art_sale_count = #{artSaleCount},
+			art_amount = #{artAmount}
+		WHERE
+			art_code_seq = #{artCodeSeq}
+	</update>
+
+
+	<update id="orderDeliveryReg" parameterType="com.web.bomulsum.writer.order.repository.WriterOrderVO">
+		UPDATE
+			buy_writer_tb
+		SET
+			buy_writer_order_status = '배송 완료',
+			buy_delivery_date = #{buyDeliveryDate},
+			buy_delivery_name = #{buyDeliveryName},
+			buy_delivery_num = #{buyDeliveryNum}
+		WHERE
+			buy_writer_code_seq = #{buyWriterCodeSeq}
+	</update>
+	
+	<!-- 배송 정보 입력&수정 알람 등록 -->
+	<insert id="insertAlarmMBoard" parameterType="com.web.bomulsum.writer.order.repository.WriterOrderVO">
+		INSERT INTO alarm_tb
+		(
+			alarm_seq,
+			sender_code,
+			recipient_code,
+			alarm_title,
+			alarm_content
+		)
+		VALUES
+		(
+			'alarm_seq' || TO_CHAR(alarm_sq.nextval),
+			#{writerCodeSeq},
+			#{memberCodeSeq},
+			'작품배송',
+			#{alarmContent}
+		)
+	</insert>
 	
 </mapper>

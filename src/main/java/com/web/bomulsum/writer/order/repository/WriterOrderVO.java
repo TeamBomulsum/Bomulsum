@@ -26,6 +26,7 @@ public class WriterOrderVO {
 	private Date buyWriterOrderRefundDate;
 	private Date buyRefundRequestDate;
 	private String buyDeliveryNum;
+	private String buyDeliveryName;
 	
 	private String buyArtCodeSeq;
 	private String artCodeSeq;
@@ -44,8 +45,49 @@ public class WriterOrderVO {
 	private int artDiscount;
 	private String buyArtOptionPrice; // LISTAGG 함수 써서 원래는 int 형인데 String으로 받아올 수 밖에 없음
 	
+	private String memberProfile;
+	private String memberName;
+	private Date buyDeliveryDate;
 	
-
+	private String alarmContent;
+	private int artSaleCount;
+	
+	public int getArtSaleCount() {
+		return artSaleCount;
+	}
+	public void setArtSaleCount(int artSaleCount) {
+		this.artSaleCount = artSaleCount;
+	}
+	public String getAlarmContent() {
+		return alarmContent;
+	}
+	public void setAlarmContent(String alarmContent) {
+		this.alarmContent = alarmContent;
+	}
+	public Date getBuyDeliveryDate() {
+		return buyDeliveryDate;
+	}
+	public void setBuyDeliveryDate(Date buyDeliveryDate) {
+		this.buyDeliveryDate = buyDeliveryDate;
+	}
+	public String getBuyDeliveryName() {
+		return buyDeliveryName;
+	}
+	public void setBuyDeliveryName(String buyDeliveryName) {
+		this.buyDeliveryName = buyDeliveryName;
+	}
+	public String getMemberProfile() {
+		return memberProfile;
+	}
+	public void setMemberProfile(String memberProfile) {
+		this.memberProfile = memberProfile;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 	public String getBuyArtOptionPrice() {
 		return buyArtOptionPrice;
 	}
