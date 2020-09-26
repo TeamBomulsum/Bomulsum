@@ -259,7 +259,8 @@
 	border-radius: 50%;
 	width:80px;
 	height:80px;
-    background-color: yellow;
+    background-color: white;
+    border : 1px solid #d9d9d9;
 }
 
 .writer_name{
