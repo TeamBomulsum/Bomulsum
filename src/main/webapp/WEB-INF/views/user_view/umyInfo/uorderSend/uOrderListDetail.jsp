@@ -848,7 +848,7 @@ $(function(){
 	var coupon = uncomma($('#sum_coupon').text());
 	var point = uncomma($('#sum_point').text());
 	
-	$('#total_price').text(comma(price - send - send_plus - coupon - point));
+	$('#total_price').text(comma(price + send + send_plus - coupon - point));
 	
 	$('.go_to_refund').on('click', function(){
 		if(memberCode == null || memberCode == ''){

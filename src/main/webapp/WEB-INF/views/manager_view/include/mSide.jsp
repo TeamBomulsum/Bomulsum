@@ -66,7 +66,7 @@
         </a>
         <div id="salseNcoupone" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">매출통계</a>
+            <a class="collapse-item" href='<c:url value="/manager/statistics.mdo"/>'>매출통계</a>
           </div>
         </div>
       </li>

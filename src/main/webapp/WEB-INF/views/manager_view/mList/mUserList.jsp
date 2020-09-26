@@ -74,15 +74,6 @@
               </tr>
             </thead>
             <tbody id="dndud_table">
-            <%-- <c:forEach items='${memberList}' var="member">
-              <tr>
-              	<td>${member.member_code_seq}</td>
-				<td>${member.member_name}</td>
- 				<td>${member.member_email}</td>
- 				<td>${member.member_phone}</td>
- 				<td>${member.member_grade}</td>
-              </tr>
-             </c:forEach> --%>
             </tbody>
           </table>
         </div>
@@ -158,13 +149,7 @@ var pagingFunc = function(){
 		
 		//여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
 		for(var index = startNum; index < endNum; index++){
-			/* <tr>
-          	<td>${member.member_code_seq}</td>
-			<td>${member.member_name}</td>
-				<td>${member.member_email}</td>
-				<td>${member.member_phone}</td>
-				<td>${member.member_grade}</td>
-          	</tr> */
+			
 	  		html += '<tr><td>'+result[index].member_code_seq+'</td>'
 	  			+ '<td>'+ result[index].member_name +'</td>'
 	  			+ '<td>'+ result[index].member_email +'</td>'
