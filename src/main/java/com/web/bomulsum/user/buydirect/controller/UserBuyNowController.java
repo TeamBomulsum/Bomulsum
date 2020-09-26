@@ -78,6 +78,11 @@ public class UserBuyNowController {
 		UserBuyNowVO tempVO = new UserBuyNowVO();
 		tempVO = service.getArtInfo(selectedArtCode);
 		String[] photoArr = tempVO.getArt_photo().split(",");
+		
+		if(tempVO.getWriter_brand_name() == null) {
+			tempVO.setWriter_brand_name(tempVO.getWriter_name());
+		}
+		
 		buyVO.setArt_photo(photoArr[0]);
 		buyVO.setArt_name(tempVO.getArt_name());
 		buyVO.setArt_discount(tempVO.getArt_discount());

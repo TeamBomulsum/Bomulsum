@@ -33,32 +33,8 @@
 			writer_code_seq ASC	
 	</select>
 
-	<!-- 좋아하는 작가별 사진 -->
- <!-- 	<select id="selectArtPhoto" parameterType="hashmap" resultType="UserLikeWriterPhotoVO">
-		SELECT writer_code_seq, art_code_seq, art_photo
-		FROM art_tb
-		WHERE writer_code_seq in
-		<foreach collection="artList" item="item" open="(" close=")" separator=",">
-			#{item}
-		</foreach>
-		ORDER BY writer_code_seq ASC
-	</select>-->
-	<!-- 좋아하는 작가별 사진 -->
- <!--  	<select id="selectArtPhoto" parameterType="hashmap" resultType="String">
-		SELECT 
-			art_photo
-		FROM 
-			art_tb
-		WHERE 
-			writer_code_seq in
-		<foreach collection="artList" item="item" open="(" close=")" separator=",">
-			#{item}
-		</foreach>
-		ORDER BY 
-			writer_code_seq ASC
-	</select> -->
 	
-	<select id="selectArtPhotoTest" parameterType="hashmap" resultType="hashmap">
+	<select id="selectArtPhoto" parameterType="hashmap" resultType="hashmap">
 		SELECT 
 			writer_code_seq, art_photo
 		FROM 

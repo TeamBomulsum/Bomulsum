@@ -1,5 +1,7 @@
 package com.web.bomulsum.user.popular.repository;
 
+import java.util.List;
+
 public class UserPopularWriterVO {
 	
 	private String writer_code_seq;
@@ -11,6 +13,7 @@ public class UserPopularWriterVO {
 	private String writer_name;
 	private String wishlist_option_code;
 	private String likeWriter;
+	private List<String> artPhoto;
 	private String artPhoto1;
 	private String artPhoto2;
 	private String artPhoto3;
@@ -29,11 +32,11 @@ public class UserPopularWriterVO {
 		return "UserPopularWriterVO [writer_code_seq=" + writer_code_seq + ", writer_profile_img=" + writer_profile_img
 				+ ", writer_cover_img=" + writer_cover_img + ", writer_brand_name=" + writer_brand_name
 				+ ", writer_intro=" + writer_intro + ", writer_url=" + writer_url + ", writer_name=" + writer_name
-				+ ", wishlist_option_code=" + wishlist_option_code + ", likeWriter=" + likeWriter + ", artPhoto1="
-				+ artPhoto1 + ", artPhoto2=" + artPhoto2 + ", artPhoto3=" + artPhoto3 + ", artPhoto4=" + artPhoto4
-				+ ", artPhoto5=" + artPhoto5 + ", artPhoto6=" + artPhoto6 + ", artPhoto7=" + artPhoto7 + ", artPhoto8="
-				+ artPhoto8 + ", artPhoto9=" + artPhoto9 + ", artPhoto10=" + artPhoto10 + ", artPhoto11=" + artPhoto11
-				+ ", artPhoto12=" + artPhoto12 + "]";
+				+ ", wishlist_option_code=" + wishlist_option_code + ", likeWriter=" + likeWriter + ", artPhoto="
+				+ artPhoto + ", artPhoto1=" + artPhoto1 + ", artPhoto2=" + artPhoto2 + ", artPhoto3=" + artPhoto3
+				+ ", artPhoto4=" + artPhoto4 + ", artPhoto5=" + artPhoto5 + ", artPhoto6=" + artPhoto6 + ", artPhoto7="
+				+ artPhoto7 + ", artPhoto8=" + artPhoto8 + ", artPhoto9=" + artPhoto9 + ", artPhoto10=" + artPhoto10
+				+ ", artPhoto11=" + artPhoto11 + ", artPhoto12=" + artPhoto12 + "]";
 	}
 
 	public String getWriter_code_seq() {
@@ -90,6 +93,14 @@ public class UserPopularWriterVO {
 
 	public void setLikeWriter(String likeWriter) {
 		this.likeWriter = likeWriter;
+	}
+	
+	public List<String> getArtPhoto() {
+		return artPhoto;
+	}
+
+	public void setArtPhoto(List<String> artPhoto) {
+		this.artPhoto = artPhoto;
 	}
 
 	public String getArtPhoto1() {

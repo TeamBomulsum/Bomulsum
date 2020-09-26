@@ -37,23 +37,12 @@ public class UserLikeWriterServiceImpl implements UserLikeWriterService{
 		return dao.getArtCount(writerList);
 	}
 
-//	@Override
-//	public List<UserLikeWriterPhotoVO> getArtPhotoList(String memberCode) {
-//		return dao.getArtPhotoList(memberCode);
-//	}
-
-	//하려면 이거
-	@Override
-	public List<String> getArtPhoto(List<String> writerList) {
-		//return dao.getArtPhoto(writerList);
-		return null;
-	}
-
 
 	@Override
-	public List<Map<String,Object>> getArtPhotoTest(String writerCode) {
-		return dao.getArtPhotoTest(writerCode);
+	public List<Map<String, Object>> getArtPhoto(String writerCode) {
+		return dao.getArtPhoto(writerCode);
 	}
+
 
 
 

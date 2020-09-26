@@ -1,5 +1,7 @@
 package com.web.bomulsum.user.popular.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,11 +32,9 @@ public class UserPopularWriterController {
 		ModelAndView mav= new ModelAndView("/ucategory/uPopularWriter");
 		
 		//회원 코드 가져오기
-		
 		 HttpSession session = request.getSession(); 
 		 String memberCode = (String)session.getAttribute("member"); 
 		 System.out.println(memberCode);
-		
 		
 		//작가 상세 정보
 		List<UserPopularWriterVO> list = service.getWriterInfo();
@@ -71,19 +71,19 @@ public class UserPopularWriterController {
 		//null처리
 		for(int i=0; i<likeWriter.size(); i++) {
 			if(likeWriter.get(i).equals(first)) {
-				list.get(0).setLikeWriter("true");
+				list.get(0).setLikeWriter("yes");
 			}
 			if(likeWriter.get(i).equals(second)) {
-				list.get(1).setLikeWriter("true");
+				list.get(1).setLikeWriter("yes");
 			}
 			if(likeWriter.get(i).equals(third)) {
-				list.get(2).setLikeWriter("true");
+				list.get(2).setLikeWriter("yes");
 			}
 			if(likeWriter.get(i).equals(fourth)) {
-				list.get(3).setLikeWriter("true");
+				list.get(3).setLikeWriter("yes");
 			}
 			if(likeWriter.get(i).equals(fivth)){
-				list.get(4).setLikeWriter("true");
+				list.get(4).setLikeWriter("yes");
 			}
 		}
 		}
@@ -93,96 +93,121 @@ public class UserPopularWriterController {
 		List<String> fourthArt = service.getRankPhoto(fourth);
 		List<String> fifthArt = service.getRankPhoto(fivth);
 		
-		for(int i=0; i<12; i++) {
-			String[] photoArr1 = firstArt.get(i).split(",");
-			//String[] photoArr2 = secondArt.get(i).split(",");
-			//String[] photoArr3 = thirdArt.get(i).split(",");
-			//String[] photoArr4 = fourthArt.get(i).split(",");
-			//String[] photoArr5 = fifthArt.get(i).split(",");
-			switch(i) {
+		if(firstArt.size() <13) {
+			for(int i=0; i<13; i++) {
+				firstArt.add("noimage.png,");
+			}
+		}
+		if(secondArt.size() <13) {
+			for(int i=0; i<13; i++) {
+				secondArt.add("noimage.png,");
+			}
+		}
+		if(thirdArt.size() <13) {
+			for(int i=0; i<13; i++) {
+				thirdArt.add("noimage.png,");
+			}
+		}
+		if(fourthArt.size() <13) {
+			for(int i=0; i<13; i++) {
+				fourthArt.add("noimage.png,");
+			}
+		}
+		if(fifthArt.size() <13) {
+			for(int i=0; i<13; i++) {
+				fifthArt.add("noimage.png,");
+			}
+		}
+		for(int j=0; j<12; j++) {
+			String[] photoArr1 = firstArt.get(j).split(",");
+			String[] photoArr2 = secondArt.get(j).split(",");
+			String[] photoArr3 = thirdArt.get(j).split(",");
+			String[] photoArr4 = fourthArt.get(j).split(",");
+			String[] photoArr5 = fifthArt.get(j).split(",");
+			switch(j) {
 			case 0:
 				list.get(0).setArtPhoto1(photoArr1[0]);
-				//list.get(1).setArtPhoto1(photoArr2[0]);
-				//list.get(2).setArtPhoto1(photoArr3[0]);
-				//list.get(3).setArtPhoto1(photoArr4[0]);
-				//list.get(4).setArtPhoto1(photoArr5[0]);
+				list.get(1).setArtPhoto1(photoArr2[0]);
+				list.get(2).setArtPhoto1(photoArr3[0]);
+				list.get(3).setArtPhoto1(photoArr4[0]);
+				list.get(4).setArtPhoto1(photoArr5[0]);
 				break;
 			case 1:
 				list.get(0).setArtPhoto2(photoArr1[0]);
-				//list.get(1).setArtPhoto2(photoArr2[0]);
-				//list.get(2).setArtPhoto2(photoArr3[0]);
-				//list.get(3).setArtPhoto2(photoArr4[0]);
-				//list.get(4).setArtPhoto2(photoArr5[0]);
+				list.get(1).setArtPhoto2(photoArr2[0]);
+				list.get(2).setArtPhoto2(photoArr3[0]);
+				list.get(3).setArtPhoto2(photoArr4[0]);
+				list.get(4).setArtPhoto2(photoArr5[0]);
 				break;
 			case 2:
 				list.get(0).setArtPhoto3(photoArr1[0]);
-				//list.get(1).setArtPhoto3(photoArr2[0]);
-				//list.get(2).setArtPhoto3(photoArr3[0]);
-				//list.get(3).setArtPhoto3(photoArr4[0]);
-				//list.get(4).setArtPhoto3(photoArr5[0]);
+				list.get(1).setArtPhoto3(photoArr2[0]);
+				list.get(2).setArtPhoto3(photoArr3[0]);
+				list.get(3).setArtPhoto3(photoArr4[0]);
+				list.get(4).setArtPhoto3(photoArr5[0]);
 				break;
 			case 3:
 				list.get(0).setArtPhoto4(photoArr1[0]);
-				//list.get(1).setArtPhoto4(photoArr2[0]);
-				//list.get(2).setArtPhoto4(photoArr3[0]);
-				//list.get(3).setArtPhoto4(photoArr4[0]);
-				//list.get(4).setArtPhoto4(photoArr5[0]);
+				list.get(1).setArtPhoto4(photoArr2[0]);
+				list.get(2).setArtPhoto4(photoArr3[0]);
+				list.get(3).setArtPhoto4(photoArr4[0]);
+				list.get(4).setArtPhoto4(photoArr5[0]);
 				break;
 			case 4:
 				list.get(0).setArtPhoto5(photoArr1[0]);
-				//list.get(1).setArtPhoto5(photoArr2[0]);
-				//list.get(2).setArtPhoto5(photoArr3[0]);
-				//list.get(3).setArtPhoto5(photoArr4[0]);
-				//list.get(4).setArtPhoto5(photoArr5[0]);
+				list.get(1).setArtPhoto5(photoArr2[0]);
+				list.get(2).setArtPhoto5(photoArr3[0]);
+				list.get(3).setArtPhoto5(photoArr4[0]);
+				list.get(4).setArtPhoto5(photoArr5[0]);
 				break;
 			case 5:
 				list.get(0).setArtPhoto6(photoArr1[0]);
-				//list.get(1).setArtPhoto6(photoArr2[0]);
-				//list.get(2).setArtPhoto6(photoArr3[0]);
-				//list.get(3).setArtPhoto6(photoArr4[0]);
-				//list.get(4).setArtPhoto6(photoArr5[0]);
+				list.get(1).setArtPhoto6(photoArr2[0]);
+				list.get(2).setArtPhoto6(photoArr3[0]);
+				list.get(3).setArtPhoto6(photoArr4[0]);
+				list.get(4).setArtPhoto6(photoArr5[0]);
 				break;
 			case 6:
 				list.get(0).setArtPhoto7(photoArr1[0]);
-				//list.get(1).setArtPhoto7(photoArr2[0]);
-				//list.get(2).setArtPhoto7(photoArr3[0]);
-				//list.get(3).setArtPhoto7(photoArr4[0]);
-				//list.get(4).setArtPhoto7(photoArr5[0]);
+				list.get(1).setArtPhoto7(photoArr2[0]);
+				list.get(2).setArtPhoto7(photoArr3[0]);
+				list.get(3).setArtPhoto7(photoArr4[0]);
+				list.get(4).setArtPhoto7(photoArr5[0]);
 				break;
 			case 7:
 				list.get(0).setArtPhoto8(photoArr1[0]);
-				//list.get(1).setArtPhoto8(photoArr2[0]);
-				//list.get(2).setArtPhoto8(photoArr3[0]);
-				//list.get(3).setArtPhoto8(photoArr4[0]);
-				//list.get(4).setArtPhoto8(photoArr5[0]);
+				list.get(1).setArtPhoto8(photoArr2[0]);
+				list.get(2).setArtPhoto8(photoArr3[0]);
+				list.get(3).setArtPhoto8(photoArr4[0]);
+				list.get(4).setArtPhoto8(photoArr5[0]);
 				break;
 			case 8:
 				list.get(0).setArtPhoto9(photoArr1[0]);
-				//list.get(1).setArtPhoto9(photoArr2[0]);
-				//list.get(2).setArtPhoto9(photoArr3[0]);
-				//list.get(3).setArtPhoto9(photoArr4[0]);
-				//list.get(4).setArtPhoto9(photoArr5[0]);
+				list.get(1).setArtPhoto9(photoArr2[0]);
+				list.get(2).setArtPhoto9(photoArr3[0]);
+				list.get(3).setArtPhoto9(photoArr4[0]);
+				list.get(4).setArtPhoto9(photoArr5[0]);
 				break;
 			case 9:
 				list.get(0).setArtPhoto10(photoArr1[0]);
-				//list.get(1).setArtPhoto10(photoArr2[0]);
-				//list.get(2).setArtPhoto10(photoArr3[0]);
-				//list.get(3).setArtPhoto10(photoArr4[0]);
-				//list.get(4).setArtPhoto10(photoArr5[0]);
+				list.get(1).setArtPhoto10(photoArr2[0]);
+				list.get(2).setArtPhoto10(photoArr3[0]);
+				list.get(3).setArtPhoto10(photoArr4[0]);
+				list.get(4).setArtPhoto10(photoArr5[0]);
 				break;
 			case 10:
 				list.get(0).setArtPhoto11(photoArr1[0]);
-				//list.get(1).setArtPhoto11(photoArr2[0]);
-				//list.get(2).setArtPhoto11(photoArr3[0]);
-				//list.get(3).setArtPhoto11(photoArr4[0]);
-				//list.get(4).setArtPhoto11(photoArr5[0]);
+				list.get(1).setArtPhoto11(photoArr2[0]);
+				list.get(2).setArtPhoto11(photoArr3[0]);
+				list.get(3).setArtPhoto11(photoArr4[0]);
+				list.get(4).setArtPhoto11(photoArr5[0]);
 				break;
 			case 11:
 				list.get(0).setArtPhoto12(photoArr1[0]);
-				//list.get(1).setArtPhoto12(photoArr2[0]);
-				//list.get(2).setArtPhoto12(photoArr3[0]);
-				//list.get(3).setArtPhoto12(photoArr4[0]);
-				//list.get(4).setArtPhoto12(photoArr5[0]);
+				list.get(1).setArtPhoto12(photoArr2[0]);
+				list.get(2).setArtPhoto12(photoArr3[0]);
+				list.get(3).setArtPhoto12(photoArr4[0]);
+				list.get(4).setArtPhoto12(photoArr5[0]);
 				break;
 			}
 		}
@@ -197,15 +222,21 @@ public class UserPopularWriterController {
 		
 	}
 	
+	//좋아하는 작가 추가 여부
 	@ResponseBody
 	@RequestMapping(value="/likeWriter", method=RequestMethod.POST)
-	public void addLikeWriter(
+	public void addLikeWriter(HttpServletRequest request,
 			@RequestParam(value="member") String member,
 			@RequestParam(value="option") String option,
 			@RequestParam(value="optionCode") String optionCode,
 			@RequestParam(value="bool") Boolean bool ) {
+		
+		//회원코드
+		HttpSession session = request.getSession(); 
+		String memberCode = (String)session.getAttribute("member"); 
+		System.out.println(memberCode);
+		
 		HashMap<String, String> map = new HashMap<String, String>();
-		String memberCode = "member_code_seq58";
 		map.put("member", memberCode);
 		map.put("option", option);
 		map.put("optionCode", optionCode);

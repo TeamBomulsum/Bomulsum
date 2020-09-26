@@ -111,24 +111,26 @@ body a:link, a:visited, a:hover, a:active {
 	width:181px;
 	margin-top:3px;
 	margin-left:3px;
-	
-
 }
 
 /*이미지 슬라이더 CSS*/
 .jeonga_imageSlides_img{
-	width:168.25px;
-	height:168.25px;
-	margin:0;
-	padding:0;
+	width:165px;
+	height:165px;
+	margin:0px;
+	padding:0px;
+	font-size:0px;
 }
 
 .joenga_wprofile_imageslider {
 	margin-top:2%;
 	margin-bottom:2%;
  	position: relative;
- 	width:505px;
+ 	width:507px;
  	height:168.25px;
+ 	padding:0px;
+ 	margin-left:0px;
+ 	margin-rifht:0px;
  	overflow:hidden;
  	
 }
@@ -150,8 +152,6 @@ body a:link, a:visited, a:hover, a:active {
 	z-index:20;
 	width:505px;
 	height:168.25px;
-
- 
 } 
 
 
@@ -195,6 +195,10 @@ body a:link, a:visited, a:hover, a:active {
 <script>
 //좋아하는 작가 취소
  $(document).ready(function(){
+	// var slideIndex = 1;
+	showSlides(slideIndex);
+ });	
+ $(function(){
 	$(".jeonga_wprofile_button_add").click(function(){ 
 		var $data = $(this).parent().next().children('#jeonga_wprofile_code').text();
 		 console.log($data);
@@ -219,100 +223,87 @@ body a:link, a:visited, a:hover, a:active {
  });
 	
 //이미지 슬라이드
-
-/*	 var slideIndex = 0;
-	showSlides(slideIndex);
-
-	function plusSlides(n) {
-		var slides1 = document.getElementById("jeonga_imageSlides1");
-		slides1.style.display = "none";
-		showSlides(slideIndex += n);
-	}
-
-	function currentSlide(n) {
-		showSlides(slideIndex = n);
-	}
-
-	function showSlides(n) {
-		var i;
-		var slides = document.getElementsByClassName("jeonga_imageSlides");
-		if (n > slides.length) {
-			slideIndex = 1
-		}
-		if (n < 1) {
-			slideIndex = slides.length
-		}
-		for (i = 0; i < slides.length; i++) {
-			slides[i].style.display = "none";
-		}
-
-		  slides[slideIndex-1].style.display = "block"; 
-
-	} 
-*/
 	$(function(){
- 		
-/*		var showSlides = new Array();
-				var $data1 = $(".jeonga-imageSlides1").children();
-		var $data2 = $(".jeonga-imageSlides2").children();
-		var $data3 = $(".jeonga-imageSlides3").children();
-		console.log($data1);
-		console.log($data2);
-		console.log($data3);
-		var data1 = $data1;
-		var data2 = $data2;
-		var data3 = $data3;
-		showSlides.put(data1);
-		showSlides.put(data2);
-		showSlides.put(data3);  */
-		
-		
 		$(document).on('click',".jeonga_imageSlides_prev",function(data){
-			//showSlides(slideIndex);
 			var n = -1;
-			var slideIndex = 0;
 			var $button = $(this);
+			var $indexDiv = $button.parent().prev();
+			var $index = $button.parent().prev().text();
 			var $slideOne = $button.parent().next();
-			console.log($slideOne);
-			var slide1 = $slideOne;
-			slide1.css({"display": "none"});
-			showSlides(slideIndex += n);
-		}); 
-
-		$(document).on('click',".jeonga_imageSlides_next",function(data){
+			//console.log($slideOne);
+			console.log($index);
 			
-			var n = 1;
-			var slideIndex = 0;
-			var $button = $(this);
-			var $slideOne = $button.parent().next();
-			console.log($slideOne);
+			var slideIndex = $index;
 			var slide1 = $slideOne;
-			slide1.css({"display": "none"});
-			showSlides(slideIndex += n);
-		});
-		
-	 	function showSlides(data){
-	 		var i=0;
-	 		var $button = $(this);
-	 		var $slides = $button.parent().next().next().children();
-	 		console.log($slides);
-			if(data > $slides.length){
+			slide1.css("display","none");
+			
+			var data = Number(slideIndex) + Number(n);
+			var slides = new Array();
+			var $slides1 = $button.parent().next().next();
+			var $slides2 = $button.parent().next().next().next();
+			var $slides3 = $button.parent().next().next().next().next();
+					
+			slides.push($slides1);
+			slides.push($slides2);
+			slides.push($slides3);
+
+			console.log(slides);
+			if(data > slides.length){
 				slideIndex = 1;
 			}
-			if(data < $slides.length){
-				slideIndex = $slides.length;
+			if(data < 0){
+				slideIndex = slides.length;
 			}
-			for(var k=0; k<$slides.length; k++){
-				$slides[i].css({"display": "none"});
+			for(var k=0; k<slides.length; k++){
+				slides[k].css('display','none');
 			}
-			$slides[slideIndex-1].css({"display": "block"});
-		}
-	});
-$(document).ready(function(){
-	var slideIndex = 0;
-	showSlides(slideIndex);
-});
+			var i = Number(slideIndex)-1;
+			slides[i].css('display','block');
+			
+			$indexDiv.text(i);
+		}); 
 
+	$(document).on('click',".jeonga_imageSlides_next",function(data){
+			var n = 1;
+			var $button = $(this);
+			var $indexDiv = $button.parent().prev();
+			var $index = $button.parent().prev().text();
+			var $slideOne = $button.parent().next();
+			console.log($slideOne);
+			
+			console.log($index);
+			var slideIndex = $index;
+			var slide1 = $slideOne;
+			slide1.css('display','none');
+			
+			var data = Number(slideIndex) + Number(n);
+			var slides = new Array();
+			var $slides1 = $button.parent().next().next();
+			var $slides2 = $button.parent().next().next().next();
+			var $slides3 = $button.parent().next().next().next().next();
+					
+			slides.push($slides1);
+			slides.push($slides2);
+			slides.push($slides3);
+
+			console.log(slides);
+				
+			if(data > slides.length){
+				slideIndex = 0;
+			}
+			if(data < 0){
+				slideIndex = slides.length;
+			}
+			for(var k=0; k<slides.length; k++){
+				slides[k].css('display','none');
+			}
+			
+			var i = Number(slideIndex)+1;
+			slides[slideIndex].css('display','block');
+			$indexDiv.text(i);
+		});
+	 
+	});
 
 </script>
 </head>
@@ -372,43 +363,26 @@ $(document).ready(function(){
 
 					<!-- 이미지 슬라이더 -->
 					 <div class="joenga_wprofile_imageslider"> 
+					 	<div class="index" style="display:none">1</div>
 					  	<div class="jeonga_imageSlides_buttons">
-  			<!-- 			<a class="jeonga_imageSlides_prev" onclick="plusSlides(-1)">❮</a>
- 						<a class="jeonga_imageSlides_next" onclick="plusSlides(1)">❯</a> -->
  						<a class="jeonga_imageSlides_prev">❮</a>
  						<a class="jeonga_imageSlides_next">❯</a>
 						</div> 
+
 						<!-- 슬라이드 기본 세트 -->
   						<div id="jeonga_imageSlides1">
 							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo1}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo2}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo3}'/>">
   						</div>
-  						<div>
-  						<div class="jeonga_imageSlides">
+  						<div id="jeonga_imageSlides2">
 							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo4}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo5}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo6}'/>">
   						</div>
-  						<div class="jeonga_imageSlides">
+  						<div id="jeonga_imageSlides3">
 							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo7}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo8}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo9}'/>">
   						</div>
-  						<div class="jeonga_imageSlides">
+  						<div id="jeonga_imageSlides4">
 							<img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo1}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo2}'/>"><img class="jeonga_imageSlides_img" src="<c:url value='/upload/${artList.art_photo3}'/>">
   						</div>
-  						</div>
-  
-						<%-- <!-- 슬라이드 한 세트 -->
-					 	<div class="jeonga-imageSlides">
-   							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>">
-  						</div>		
-  						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>">
-  						</div>
-  						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>">
-  						</div> --%>
-  					<!-- </div>  -->
-					
-			<!-- 	</div> -->
+
 				</div>
 				</li>
 				</c:forEach>
