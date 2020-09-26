@@ -432,7 +432,6 @@
 }
 
 .minwoo_starRev{
-	display:flex;
 }
 
 .minwoo_starR1{
