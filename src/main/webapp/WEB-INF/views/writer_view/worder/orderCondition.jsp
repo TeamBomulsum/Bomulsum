@@ -293,7 +293,7 @@ $(document).ready(function(){
 	  				// 할인 율 % 계산
 	  				artDiscountPrice = result[i].artDiscount;
 	  				artOrginPrice = result[i].artPrice;
-	  				discountPer = 100 - (artDiscountPrice / artOrginPrice * 100.0);
+	  				discountPer = Math.round((artOrginPrice - artDiscountPrice) / artOrginPrice * 100);
 	  				
 	  				html += '<label style="text-align: center; background-color: #5EC75E; width: auto; margin-bottom: 0rem; color: white; font-size:100%; border-radius:10px;">'
 		  			+ '<i class="fas fa-tags"></i>' + discountPer + '%</label>';
