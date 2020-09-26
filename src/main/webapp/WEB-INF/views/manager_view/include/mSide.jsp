@@ -122,7 +122,8 @@
 			var phone = prompt('전송할 번호를 입력하세요.', '');
 			var regNumber=/^[0-9]*$/;
 			if(regNumber.test(phone) && phone.length<=11 && phone.length>=10){
-				var writerurl = 'http://localhost:8080/bomulsum/writer/home.wdo';
+				
+				var writerurl = 'http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com/bomulsum/writer/home.wdo';
 				var sendMsg = "[보물섬] 작가 입점 테스트에 성공적으로 통과되었습니다. \n작가 홈페이지 경로 : " + writerurl
 					+ "\n입점 문의하실떄 사용한 정보로 회원가입을 새로 해주시기 바랍니다.";
 				

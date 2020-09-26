@@ -24,8 +24,8 @@ public class WriterProfileController {
 		@Autowired
 		WriterProfileService service;
 		
-		private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //저장할 경로
-//		private static final String SAVE_PATH = "/usr/local/tomcat/webapps/bomulsum/upload";
+//		private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //저장할 경로
+		private static final String SAVE_PATH = "/usr/local/tomcat/webapps/bomulsum/upload";
 		
 		//-----------------------작가프로필-------------------------
 		@RequestMapping(value="/profile")
