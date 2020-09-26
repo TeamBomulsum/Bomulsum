@@ -269,7 +269,7 @@ $(document).ready(function(){
 	  			+ '<div style="font-size: .7rem; border-style: solid; border-color: #28E7FF; width: 100%; text-align: center; background-color: white; color: #28E7FF">'
 	  			+ result[i].buyWriterOrderStatus + '</div>'
 	  			+ '</th>'
-	  			+ '<th><a href="">' + '주문번호 : ' + result[i].orderCodeSeq + '</a></th>'
+	  			+ '<th>' + '주문번호 : ' + result[i].orderCodeSeq + '</th>'
 	  			+ '<th><div style="text-align: right">'
 	  			+ result[i].orderDate + '</div></th>'
 	  			+ '</tr>';
@@ -285,7 +285,7 @@ $(document).ready(function(){
 	  			console.log('우영 테스트 : ' + artImg); 
 		  		html += '<tr><td><img style="overflow: hidden; display: flex; align-items: center; justify-content: center;width: 75px; height: 75px"'
 		  			+ 'src="/bumulsum/upload/' + artImg + '" /></td>'
-		  			+ '<td><div style="text-align: left"><a href="orderList.jsp" style="color: black; font-weight:bold; font-size:100%">'
+		  			+ '<td><div style="text-align: left"><a href="#" style="color: black; font-weight:bold; font-size:100%">'
 		  			+ '<input type="checkbox" checked="checked" />' + result[i].artName + '</a><br>' + result[i].artAmount + ' 개남음<br>';
 		  			
 	  			//할인 된 상품일 때 할인 률 표시해주기
