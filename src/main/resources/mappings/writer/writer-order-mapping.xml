@@ -171,7 +171,7 @@
 			buy_writer_tb
 		SET
 			buy_writer_order_status = '환불 완료',
-			buy_refund_request_date = SYSDATE
+			buy_writer_order_refund_date = SYSDATE
 		WHERE
 			buy_writer_code_seq = #{buyWriterCodeSeq}
 	</update>

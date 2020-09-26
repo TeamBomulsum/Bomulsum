@@ -66,8 +66,8 @@ body a:link, a:visited, a:hover, a:active {
 	border-radius:5px;
 }
 .minwoo_realtime_review_photo{
-	 width:252px;
-	 height:168px;
+	 width: 252px;
+    height: 252px;
 }
 .minwoo_realtime_review_photo a img{
 	text-decoration: none;
