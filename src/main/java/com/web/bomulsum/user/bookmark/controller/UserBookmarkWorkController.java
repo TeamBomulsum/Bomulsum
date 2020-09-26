@@ -59,10 +59,10 @@ public class UserBookmarkWorkController {
 		System.out.println("토탈게시물수:"+totalCnt+", 페이지수:"+page);
 		if(pageCnt == 1) {
 			vo.setStartNum(1);
-			vo.setEndNum(20);
+			vo.setEndNum(12);
 		}else {
-			vo.setStartNum(pageCnt + (19*(pageCnt-1)));
-			vo.setEndNum(pageCnt*20);
+			vo.setStartNum(pageCnt + (11*(pageCnt-1)));
+			vo.setEndNum(pageCnt*12);
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		

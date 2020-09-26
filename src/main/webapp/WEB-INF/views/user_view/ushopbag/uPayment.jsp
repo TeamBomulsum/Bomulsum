@@ -229,7 +229,22 @@ function goPayment(){
 		},
 		type:'POST',
 		success:function(data){
-			location.href='/bomulsum/user/successPayment.do';
+			//location.href='/bomulsum/user/successPayment.do';
+	
+			$('#successShipName').val(shipName);
+			$('#successShipPhone').val(shipPhone);
+			$('#successShipZip').val(shipZip);
+			$('#successShipAddr1').val(shipFirst);
+			$('#successShipAddr2').val(shipSecond);
+			$('#successArtPrice').val(dain_fin_artprice);
+			$('#successPriceSum').val(dain_fin_sum);
+			$('#successShipPrice').val(dain_fin_ship);
+			$('#successShipJeju').val(dain_fin_jeju);
+			$('#successDiscount').val(dain_fin_discount);
+			
+			document.getElementById('orderSuccessForm').submit();
+			
+
 			
 	/* 		$.ajax({
 				url:'/bomulsum/user/successPayment.do',
@@ -1871,10 +1886,7 @@ ul.tabs li.current {
 		</table>
 		</div>
 		
-<!-- 		<div class="dain_support">
-			<label class="dain_support_label">
-			<input id="support" type="checkbox" name="is_support" autocomplete="off" class="bp"> 작가님을 후원합니다.</label>
-		</div> -->
+
 		
 		<div class="dain_privacyPolicy">
 			<label>
@@ -1906,6 +1918,22 @@ ul.tabs li.current {
 		<!-- 오른쪽 영역 끝 -->
 		</div>
 		</div>
+		
+		
+		<form id="orderSuccessForm" action="<c:url value='/user/successPayment.do'/>" method="post">
+		<input type="text" id="successShipName" name="SuccessShipName" value="배송지이름" style="display: none;">
+		<input type="text" id="successShipPhone" name="SuccessShipPhone" value="배송지이름" style="display: none;">
+		<input type="text" id="successShipZip"  name="SuccessShipZip" value="배송지우편번호" style="display: none;">
+		<input type="text" id="successShipAddr1" name="SuccessShipAddr1" value="배송지기본주소" style="display: none;">
+		<input type="text" id="successShipAddr2" name ="SuccessShipAddr2" value="배송지상세주소" style="display: none;">
+		<input type="number" id="successArtPrice" name = "SuccessArtPrice" value="0" style="display: none;">
+		<input type="number" id="successShipPrice" name ="SuccessShipPrice" value="0" style="display: none;">
+		<input type="number" id="successDiscount" name ="SuccessDiscount" value="0" style="display: none;">
+		<input type="number" id="successShipJeju" name ="SuccessShipJeju" value="0" style="display: none;">
+		<input type="number" id="successPriceSum" name ="SuccessPriceSum" value="0" style="display: none;">
+		</form>
+		
+
 		
 		
 	<!-- dainSection끝 -->

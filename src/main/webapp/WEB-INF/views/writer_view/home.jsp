@@ -10,16 +10,39 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" integrity="sha512-SUJFImtiT87gVCOXl3aGC00zfDl6ggYAw5+oheJvRJ8KBXZrr/TMISSdVJ5bBarbQDRC2pR5Kto3xTR0kpZInA==" crossorigin="anonymous" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha512-QEiC894KVkN9Tsoi6+mKf8HaCLJvyA6QIRzY5KrfINXYuP9NxdIkRQhGq3BZi0J4I7V5SidGM3XUQ5wFiMDuWg==" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
 
+
+window.onload = function(){
+	$("#dainDiv1").fadeIn(2000);
+    $("#dainDiv2").fadeIn(3000);
+    $("#dainDiv3").fadeIn(4000)
+}
+
+
+
+</script>
 <style type="text/css">
-	td{
-	padding:1%; 
+td {
+	padding: 1%;
 	margin: 1%;
-	}
-		th{
-	padding:1%; 
+}
+
+th {
+	padding: 1%;
 	margin: 1%;
-	}
+}
+
+#dain_background {
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	width:800px;
+	/* background-color: #81bfe9;  */
+/* 	background-image: url("<c:url value='/resources/img/island.png' />"); */
+	
+}
 </style>
 <meta charset="UTF-8">
 <title>요약</title>
@@ -45,15 +68,18 @@
 			<div id="content">
 				<%@ include file="include/head.jsp" %>
 				<!-- end Header/Nav -->
-				<div style="margin-left: 2%; margin-right: 2%; background-color: white; padding:1%;">
-					<h2 style="text-style: bold; margin-bottom: 0rem;">요약</h2>
+				<div style="margin-left: 2%; margin-right: 2%; background-color: white;  margin-bottom: 24px;
+				display: flex; justify-content: center; padding:8%;  height: 700px;">
+					<div>
+					
+					<%--<h2 style="text-style: bold; margin-bottom: 0rem;">요약</h2>
 					<hr
 						style="margin-top: 0rem; border: 0; background: #ccc; height: 0.2rem;">
 
 
 					<div style="">
 						<div style="display: flex; flex-flow: row;">
-							<!-- 전일 매출!!!!!!!!!!!!!! -->
+							 <!-- 전일 매출!!!!!!!!!!!!!! -->
 							<table style="width: 25%; margin:10px; border: 1px #ABABAB solid; padding:1%;">
 								<tr style="border-bottom: 1px #ABABAB solid; padding:1%;">
 									<th style="padding:1%; margin: 1%;">전일 매출</th>
@@ -240,10 +266,21 @@
 								<tr>
 									<td style="text-align: center;">내용</td>
 								</tr>
-						</table>
-					</div>
-
-
+						</table> 
+						
+						
+						
+						
+					</div>--%>
+						
+					<%-- <div id="dainDiv1" style="color: #57d0da; display: none;">${proVO.writerBrandName} 작가님 환영합니다!</div>  --%>
+					<div id="dain_background">
+					<div id="dainDiv1" style=" display: none; color: gray; text-shadow: 2px 2px 5px #d9d9d9;">
+					<span style="color:#1fb6cc;"> ${proVO.writerBrandName}</span> 작가님 환영합니다!!</div>
+					<img id="dainDiv3" src="<c:url value='/resources/img/backChange.png'/>" width="500px" 
+	        	  	style="margin: 3% 0 1% 0; display: none; opacity: 0.8;">    
+	        	  	</div> 
+				</div>
 				</div>
 
 				<%@ include file="include/footer.jsp" %>
