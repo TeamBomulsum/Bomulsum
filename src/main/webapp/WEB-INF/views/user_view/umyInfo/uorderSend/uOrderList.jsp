@@ -700,6 +700,24 @@ function artCode(e){
 				location.href="/bomulsum/user/myInfo/refund/request.do?buyWriterCode="+$(this).attr('id');
 			}
 		});
+		
+		$('.purchaseReview_before').on('click', function(){
+			if(memberCode == null || memberCode == ''){
+				alert('세션이 만료되었습니다.');
+				location.href="/bomulsum/user/login.do";
+			}else{
+				location.href="/bomulsum/user/myInfo/review.do";
+			}
+		});
+		
+		$('.purchaseReview').on('click', function(){
+			if(memberCode == null || memberCode == ''){
+				alert('세션이 만료되었습니다.');
+				location.href="/bomulsum/user/login.do";
+			}else{
+				location.href="/bomulsum/user/myInfo/review.do";
+			}
+		});
 	});
 </script>
 </html>

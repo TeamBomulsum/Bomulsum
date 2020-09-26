@@ -22,7 +22,12 @@ public class UserRecentlyWatchServiceImpl implements UserRecentlyWatchService {
 		List<UserRecentylWatchVo> voList = new ArrayList<UserRecentylWatchVo>();
 		for(String s : list) {
 			UserRecentylWatchVo infoVo =  dao.getArtileInfo(s);
-			if(infoVo.getWriterBrandName() != null) {
+			if(infoVo == null) {
+				continue;
+			}
+			if(infoVo.getWriterBrandName() == null) {
+				infoVo.setWriterName(infoVo.getWriterName());
+			}else {
 				infoVo.setWriterName(infoVo.getWriterBrandName());
 			}
 			String[] imsi = infoVo.getArtImg().split(",");

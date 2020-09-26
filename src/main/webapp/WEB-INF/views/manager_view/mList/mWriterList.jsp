@@ -29,6 +29,15 @@
 
 
 <style>
+#jeongaClassTable th{
+   text-align:center;
+   vertical-align: middle;
+} 
+#jeongaClassTable td{
+   font-size:14px;
+   text-align:center;
+   vertical-align: middle;
+}
 #content {
 	width: 100%;
 }
@@ -91,7 +100,7 @@
               <h6 class="m-0 font-weight-bold text-primary">작가 목록</h6>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
+              <div class="table-responsive" id="jeongaClassTable">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
@@ -197,7 +206,7 @@ var pagingFunc = function(){
 	  			+ '<td>'+ result[index].writer_brand_name +'</td>'
 	  			+ '<td>'+ result[index].writer_email +'</td>'
 	  			+ '<td>'+ result[index].writer_phone +'</td>'
-	  			+ '<td>'+ result[index].writer_url +'</td></tr>';
+	  			+ '<td><a style="color:black" target="_blank" href="/bomulsum/writerhome/'+result[index].writer_url+'.do">/bomulsum/writerhome/'+ result[index].writer_url +'.do</a></td></tr>';
 	  			
 
 		}
@@ -216,7 +225,7 @@ var pagingFunc = function(){
 		if(block !== 1) paginationHTML += "<a style='cursor:pointer' class='back_page'>이전...&nbsp;&nbsp;</a>";
 		            
 		for(var index = startPage; index <= endPage; index++){
-			paginationHTML += (parseInt(page) === parseInt(index)) ? "| <a style='color:#ff8400'>" + index + "</a> |" :"| <a style='cursor:pointer' class='go_page' data-value='" + index + "'>" + index + "</a> |";
+			paginationHTML += (parseInt(page) === parseInt(index)) ? " <a style='color:#ff8400;margin-right: 5px;margin-left: 5px;'>" + index + "</a> " :" <a style='cursor:pointer;margin-right: 5px;margin-left: 5px;' class='go_page' data-value='" + index + "'>" + index + "</a> ";
 		}
 		            
 		if(block < totalBlock) paginationHTML += "<a style='cursor:pointer' class='next_page'>&nbsp;&nbsp;...다음</a>";

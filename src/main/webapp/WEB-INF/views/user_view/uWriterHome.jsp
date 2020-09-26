@@ -472,7 +472,7 @@ likeArtistFunc = function(clicked_id){
 			<!-- 버튼들 영역 시작-->
 			<div class="minwoo_writer_profile_buttons">
 				<button id="addArtistBtn" onclick = "likeArtistFunc()">♥ 작가 추가</button>
-				<button onclick="location.href='/bomulsum/user/message.do?writer=${writerCode}'">메시지</button>
+				<button id="${writerCode }" class="writer_message">메시지</button>
 				<!-- <button>후원하기</button> -->
 				<button onclick="javascript:CopyUrlToClipboard()">공유하기</button>
 				<input type="text" id = "ShareUrl" style="color: white; max-height: 0px; border:none; cursor: default;">
@@ -571,9 +571,19 @@ function artCode(e){
 	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
 	window.open(url, "_blank");
 }
-$(function(){
+$(function(){  
 	$('.fs').click(likeArticleFunc);
 	
+	$('.writer_message').on('click',function(){
+		var code = $(this).attr('id');
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		} else{
+			location.href='/bomulsum/user/message.do?writer='+code;
+		}
+	});
 });
 </script>
 </html>

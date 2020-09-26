@@ -145,7 +145,7 @@ body a:link, a:visited, a:hover, a:active {
 
 .dndud_content_main_left_second{
 	display:flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-between;
     padding-right: 3%;
 }
@@ -289,6 +289,13 @@ body a:link, a:visited, a:hover, a:active {
     font-weight: bold;
 }
 
+.dndud_option_imsi{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+	margin-bottom: 1%;
+}
+
 </style>
 </head>
 <body>
@@ -340,14 +347,16 @@ body a:link, a:visited, a:hover, a:active {
 												<c:forEach items="${optionList }" var="option">
 													<c:if test="${option.buyArtCodeSeq eq art.buyArtCodeSeq }">
 														<c:set var="op_name" value="${fn:split(option.artOptionName, '/')}"/>
+														<div class="dndud_option_imsi">
 														<ul>
-															<c:forEach items="${op_name }" var="op" varStatus="g">
+															<c:forEach items="${op_name }" var="op" varStatus="g" end="2">
 																<li>옵션${g.index+1 } : ${op }</li>
 															</c:forEach>
 														</ul>
 														<div class="option_info_div">
 															<span><fmt:formatNumber value="${option.artPrice }" pattern="#,###"/>원</span> /
 															<span>${option.artOptionAmount }개</span>
+														</div>
 														</div>
 													</c:if>
 												</c:forEach>
