@@ -130,152 +130,6 @@ function goPayment(){
 	
 	
 	
-    //---------------------------------결제DB처리 시작
-
-	/*     
-	작품별 내용
-	장바구니 코드 , 작가코드 , 작품코드 , 작품이름 , 요청사항 , 작품배송비 , 제주산간배송비 , 
-	 */
-		var i=0;
-		
-		<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
-			var orderArtOne = '';
-			var orderRequest = '${info.order_request}';
-			//배송비처리(배송비무료조건, 제주산간 배송비처리)
-			<c:if test="${info.totalPrice ge info.writer_sendfree_case}">
-				artShip  = 0;
-				if(shipFirst.substring(0,2) =="제주"){
-					artShipJeju = ${info.writer_plus_price};
-				}
-				//console.log("작가별제주배송비:"+artShipJeju);
-			</c:if>	
-			<c:if test="${info.totalPrice lt info.writer_sendfree_case}">
-				artShip = ${info.writer_send_price};
-				if(shipFirst.substring(0,2) =="제주"){
-					artShipJeju = ${info.writer_plus_price};;
-				}
-				//console.log("작가별제주배송비:"+artShipJeju);
-			</c:if>
-		
-			//console.log("작가별배송비:"+artShip);
-			
-			//요청사항 없을때 처리
-			if(orderRequest==''){
-				orderRequest = "없음";
-			}
-			
-			
-			
-			orderArtOne = '${info.cart_seq}'  + '@#@' + '${info.writer_code_seq}' + '@#@' + '${info.art_code_seq}' + '@#@'
-			+ '${info.art_name}'  + '@#@' + orderRequest + '@#@' + artShip + '@#@'+ artShipJeju + '@#@' ;
-			
-			
-			orderArt[i] = orderArtOne;
-			console.log("orderArtOne--->"+orderArtOne);
-			console.log("orderArt--->"+orderArt[i]);
-			i++;
-		</c:forEach>
-		
-		console.log(orderArt); 
-		
-		
-/* 		
-	옵션별 내용
-	옵션내용 # 옵션코드 # 수량 # 카트코드 # 작품코드 # 작품가격 
- */
-		var z = 0;
-		<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
-			<c:forEach var="totalOption" items="${info.totalOption}" >
-				var orderArtOptionOne = ''; 
-				var orderArtOptionCode='';
-				var orderArtOptionCount = '';
-				
-				orderArtOptionCode += '#';
-					<c:forEach var="j" items="${totalOption.optionArray}">
-					
-						orderArtOptionCode += '${j.art_option_seq}' + '|';
-						
-						orderArtOptionOne += '${j.art_option_category}'+": "+'${j.art_option_name}' + '(+' 
-							+ '${j.art_option_price}'+'원) / ';
-	
-					</c:forEach>
-				orderArtOptionOne += orderArtOptionCode  +'#'+'${totalOption.artCount}'+'#'+'${info.cart_seq}' +'#'+ '${info.art_code_seq}' +'#'+ '${totalOption.totalSum}';
-				orderArtOption[z] = orderArtOptionOne;
-				console.log("아트옵션"+z+"번째->"+orderArtOption[z]);
-				z++;
-			</c:forEach>
-		</c:forEach>
-		
-	
-
-	$.ajax({
-		url:'/bomulsum/user/goPayment.do',
-		data:{
-			'memberCode' : memberCode,
-			'shipName':shipName,
-			'shipPhone' : shipPhone,
-			'shipZip' : shipZip,
-			'shipFirst' : shipFirst,
-			'shipSecond' : shipSecond,
-			'orderSum' : dain_fin_sum,
-			'choiceCoupon' : choiceCoupon,
-			'artPointSum' : artPointSum, //예상 적립금
-			'finUsePoint' : finUsePoint, //사용한적립금
-			'orderArt' : orderArt,
-			'orderArtOption' : orderArtOption,
-			'artDaName' : artDaName
-			
-			
-		},
-		type:'POST',
-		success:function(data){
-			//location.href='/bomulsum/user/successPayment.do';
-	
-			$('#successShipName').val(shipName);
-			$('#successShipPhone').val(shipPhone);
-			$('#successShipZip').val(shipZip);
-			$('#successShipAddr1').val(shipFirst);
-			$('#successShipAddr2').val(shipSecond);
-			$('#successArtPrice').val(dain_fin_artprice);
-			$('#successPriceSum').val(dain_fin_sum);
-			$('#successShipPrice').val(dain_fin_ship);
-			$('#successShipJeju').val(dain_fin_jeju);
-			$('#successDiscount').val(dain_fin_discount);
-			
-			document.getElementById('orderSuccessForm').submit();
-			
-
-			
-	/* 		$.ajax({
-				url:'/bomulsum/user/successPayment.do',
-				data:{
-					'memberCode' : memberCode,
-					'shipName':shipName,
-					'shipPhone' : shipPhone,
-					'shipZip' : shipZip,
-					'shipFirst' : shipFirst,
-					'shipSecond' : shipSecond,
-					'orderSum' : dain_fin_sum, //주문금액
-					'orderShip' : dain_fin_ship, //배송비
-					'orderShipJeju' : dain_fin_jeju, //제주산간배송비
-					'discountSum' : dain_fin_discount //할인금액
-					
-				},
-				type:'POST',
-				success:function(data){
-					console.log('주문완료');
-					//location.href='/bomulsum/user/successPayment.do';
-				},
-				error:function(e){
-					console.log(e);
-				}
-			});  */
-		},
-		error:function(e){
-			console.log(e);
-		}
-	}); 
-    //---------------------------------결제DB처리 끝
 	
 	
 	
@@ -286,7 +140,7 @@ function goPayment(){
 	
 
 	
-/* 	//결제창 실행
+ 	//결제창 실행
  	IMP.request_pay({
 	    pg : 'inicis', // version 1.1.0부터 지원.
 	    pay_method : 'card',
@@ -303,13 +157,136 @@ function goPayment(){
 	        //DB처리 들어올공간
 	        
 	        
+
+	        //---------------------------------결제DB처리 시작
+
+	    	/*     
+	    	작품별 내용
+	    	장바구니 코드 , 작가코드 , 작품코드 , 작품이름 , 요청사항 , 작품배송비 , 제주산간배송비 , 
+	    	 */
+	    		var i=0;
+	    		
+	    		<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
+	    			var orderArtOne = '';
+	    			var orderRequest = '${info.order_request}';
+	    			//배송비처리(배송비무료조건, 제주산간 배송비처리)
+	    			<c:if test="${info.totalPrice ge info.writer_sendfree_case}">
+	    				artShip  = 0;
+	    				if(shipFirst.substring(0,2) =="제주"){
+	    					artShipJeju = ${info.writer_plus_price};
+	    				}
+	    				//console.log("작가별제주배송비:"+artShipJeju);
+	    			</c:if>	
+	    			<c:if test="${info.totalPrice lt info.writer_sendfree_case}">
+	    				artShip = ${info.writer_send_price};
+	    				if(shipFirst.substring(0,2) =="제주"){
+	    					artShipJeju = ${info.writer_plus_price};;
+	    				}
+	    				//console.log("작가별제주배송비:"+artShipJeju);
+	    			</c:if>
+	    		
+	    			//console.log("작가별배송비:"+artShip);
+	    			
+	    			//요청사항 없을때 처리
+	    			if(orderRequest==''){
+	    				orderRequest = "없음";
+	    			}
+	    			
+	    			
+	    			
+	    			orderArtOne = '${info.cart_seq}'  + '@#@' + '${info.writer_code_seq}' + '@#@' + '${info.art_code_seq}' + '@#@'
+	    			+ '${info.art_name}'  + '@#@' + orderRequest + '@#@' + artShip + '@#@'+ artShipJeju + '@#@' ;
+	    			
+	    			
+	    			orderArt[i] = orderArtOne;
+	    			console.log("orderArtOne--->"+orderArtOne);
+	    			console.log("orderArt--->"+orderArt[i]);
+	    			i++;
+	    		</c:forEach>
+	    		
+	    		console.log(orderArt); 
+	    		
+	    		
+	    /* 		
+	    	옵션별 내용
+	    	옵션내용 # 옵션코드 # 수량 # 카트코드 # 작품코드 # 작품가격 
+	     */
+	    		var z = 0;
+	    		<c:forEach items='${shopbagInfo}' var="info" varStatus="status">
+	    			<c:forEach var="totalOption" items="${info.totalOption}" >
+	    				var orderArtOptionOne = ''; 
+	    				var orderArtOptionCode='';
+	    				var orderArtOptionCount = '';
+	    				
+	    				orderArtOptionCode += '#';
+	    					<c:forEach var="j" items="${totalOption.optionArray}">
+	    					
+	    						orderArtOptionCode += '${j.art_option_seq}' + '|';
+	    						
+	    						orderArtOptionOne += '${j.art_option_category}'+": "+'${j.art_option_name}' + '(+' 
+	    							+ '${j.art_option_price}'+'원) / ';
+	    	
+	    					</c:forEach>
+	    				orderArtOptionOne += orderArtOptionCode  +'#'+'${totalOption.artCount}'+'#'+'${info.cart_seq}' +'#'+ '${info.art_code_seq}' +'#'+ '${totalOption.totalSum}';
+	    				orderArtOption[z] = orderArtOptionOne;
+	    				console.log("아트옵션"+z+"번째->"+orderArtOption[z]);
+	    				z++;
+	    			</c:forEach>
+	    		</c:forEach>
+	    		
+	    	
+
+	    	$.ajax({
+	    		url:'/bomulsum/user/goPayment.do',
+	    		data:{
+	    			'memberCode' : memberCode,
+	    			'shipName':shipName,
+	    			'shipPhone' : shipPhone,
+	    			'shipZip' : shipZip,
+	    			'shipFirst' : shipFirst,
+	    			'shipSecond' : shipSecond,
+	    			'orderSum' : dain_fin_sum,
+	    			'choiceCoupon' : choiceCoupon,
+	    			'artPointSum' : artPointSum, //예상 적립금
+	    			'finUsePoint' : finUsePoint, //사용한적립금
+	    			'orderArt' : orderArt,
+	    			'orderArtOption' : orderArtOption,
+	    			'artDaName' : artDaName
+	    			
+	    			
+	    		},
+	    		type:'POST',
+	    		success:function(data){
+	    			//location.href='/bomulsum/user/successPayment.do';
+	    	
+	    			$('#successShipName').val(shipName);
+	    			$('#successShipPhone').val(shipPhone);
+	    			$('#successShipZip').val(shipZip);
+	    			$('#successShipAddr1').val(shipFirst);
+	    			$('#successShipAddr2').val(shipSecond);
+	    			$('#successArtPrice').val(dain_fin_artprice);
+	    			$('#successPriceSum').val(dain_fin_sum);
+	    			$('#successShipPrice').val(dain_fin_ship);
+	    			$('#successShipJeju').val(dain_fin_jeju);
+	    			$('#successDiscount').val(dain_fin_discount);
+	    			
+	    			document.getElementById('orderSuccessForm').submit();
+
+
+	    		},
+	    		error:function(e){
+	    			console.log(e);
+	    		}
+	    	}); 
+	        //---------------------------------결제DB처리 끝
+	        
 	        
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
 	        //msg += '에러내용 : ' + rsp.error_msg;
 	    }
 	    alert(msg);
-	});  */
+	});  
 }
 
 /* 세자리 마다 콤마찍기 */
