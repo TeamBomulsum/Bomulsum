@@ -7,7 +7,7 @@
 	<select id="selectCartChoice" parameterType="hashmap" resultType="UserPaymentVO">
 		SELECT 
 			c.cart_seq, c.art_code_seq, c.member_code_seq, c.art_option_seq, c.art_count, c.order_request,
-			w.writer_code_seq, w.writer_brand_name, w.writer_send_price, w.writer_sendfree_case, w.writer_plus_price,
+			w.writer_code_seq, w.writer_brand_name, w.writer_send_price, w.writer_sendfree_case, w.writer_plus_price, w.writer_name,
 			a.art_photo, a.art_name, a.art_price, a.art_discount, a.art_point
 		FROM 
 			cart_tb c, writer_tb w, art_tb a

@@ -5,6 +5,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/fea5b9b7d0.js" crossorigin="anonymous"></script>
@@ -55,6 +56,7 @@ $(function() {
 });
 </script>
 <style>
+*{font-family: 'Noto Sans KR', sans-serif;}
 body {
 	margin: 0px;
 }

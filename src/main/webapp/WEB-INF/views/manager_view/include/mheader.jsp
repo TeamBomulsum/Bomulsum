@@ -10,13 +10,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
   <title>보물섬(관리자)| topBar</title>
    <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
    <style>
    #page-top{
    	width:100%;
    }
+   *{font-family: 'Noto Sans KR', sans-serif;}
    </style>
 </head>
 

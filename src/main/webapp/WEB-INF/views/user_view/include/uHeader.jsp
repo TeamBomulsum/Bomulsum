@@ -5,6 +5,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/fea5b9b7d0.js" crossorigin="anonymous"></script>
@@ -69,6 +70,7 @@ $(function() {
 
 
 <style>
+*{font-family: 'Noto Sans KR', sans-serif;}
 body {
 	margin: 0px;
 }
@@ -929,7 +931,7 @@ body {
 		
 		<div class="dainpopsearch">
 			<div class="dainDropDownSearch"> <!-- 인기검색어 드롭다운영역 -->
-				<div style="padding-bottom:10px; border-bottom: 1px solid black;">
+				<div style=" border-bottom: 1px solid black;">
 					<span style="font-size: 11px; font-weight: bold;">실시간 인기검색어</span>
 				</div>
 				<ol class="dainol">

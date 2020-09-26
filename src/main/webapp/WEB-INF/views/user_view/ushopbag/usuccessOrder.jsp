@@ -304,8 +304,8 @@
 		</div>
 		
 		<div class="dndud_order_buttons">
-			<span onclick="location.href='/bomulsum/home.do'">주문내역 확인</span>
-			<span onclick="location.href='/bomulsum/user/myInfo/orderList.do'">쇼핑 계속하기</span>
+			<span onclick="location.href='/bomulsum/user/myInfo/orderList.do'">주문내역 확인</span>
+			<span onclick="location.href='/bomulsum/home.do'">쇼핑 계속하기</span>
 
 		</div>
 		

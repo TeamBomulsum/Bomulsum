@@ -916,10 +916,10 @@ input[type="number"]::-webkit-inner-spin-button {
 						<div style="display: flex; flex-direction: row; justify-content:center; padding: 1%; margin: 1% 1% 2% 1%;">
 							<button id="go_shop_bag" style="width:40%; background-color:white; outline: none; 
 							height:50px; margin: 1%; border: 1px solid #d9d9d9; cursor:pointer; border-radius: 3px;">
-								<span style="color: #333333; font-size: 16px;">장바구니</span>
+								<span style="color: #333333; font-size: 14px;">장바구니</span>
 							</button>
 							<button id="go_direct_pay" style="cursor:pointer; width:40%; height:50px; border-radius: 3px; outline: none;
-							margin: 1%;border: none; background: #0086cc; font-style: 16px; color: white;">바로구매</button>
+							margin: 1%;border: none; background: #0086cc; font-size: 14px; color: white;">바로구매</button>
 						
 						</div>
 					</div>
