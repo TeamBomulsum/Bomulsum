@@ -14,6 +14,7 @@ public class UserShopbagVO {
 	private String[] artCount;
 	private String order_request;
 	private String writer_brand_name;
+	private String writer_name;
 	private int writer_send_price;
 	private int writer_sendfree_case;
 	private String art_photo;
@@ -23,16 +24,15 @@ public class UserShopbagVO {
 	private int totalPrice;
 	private List<Map<String,Object>> totalOption;
 
-	
 	@Override
 	public String toString() {
 		return "UserShopbagVO [cart_seq=" + cart_seq + ", art_code_seq=" + art_code_seq + ", member_code_seq="
 				+ member_code_seq + ", art_option_seq=" + art_option_seq + ", art_count=" + art_count + ", artCount="
 				+ Arrays.toString(artCount) + ", order_request=" + order_request + ", writer_brand_name="
-				+ writer_brand_name + ", writer_send_price=" + writer_send_price + ", writer_sendfree_case="
-				+ writer_sendfree_case + ", art_photo=" + art_photo + ", art_name=" + art_name + ", art_price="
-				+ art_price + ", art_discount=" + art_discount + ", totalPrice=" + totalPrice + ", totalOption="
-				+ totalOption + "]";
+				+ writer_brand_name + ", writer_name=" + writer_name + ", writer_send_price=" + writer_send_price
+				+ ", writer_sendfree_case=" + writer_sendfree_case + ", art_photo=" + art_photo + ", art_name="
+				+ art_name + ", art_price=" + art_price + ", art_discount=" + art_discount + ", totalPrice="
+				+ totalPrice + ", totalOption=" + totalOption + "]";
 	}
 
 	public String getCart_seq() {
@@ -163,6 +163,14 @@ public class UserShopbagVO {
 
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public String getWriter_name() {
+		return writer_name;
+	}
+
+	public void setWriter_name(String writer_name) {
+		this.writer_name = writer_name;
 	}
 
 

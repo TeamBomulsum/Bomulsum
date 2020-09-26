@@ -6,7 +6,7 @@
 	<select id="selectCon" parameterType="String" resultType="UserBuyNowVO">
 		SELECT 
 			w.writer_brand_name, w.writer_send_price, w.writer_sendfree_case, 
-			a.art_photo, a.art_name, a.art_discount 
+			w.writer_name, a.art_photo, a.art_name, a.art_discount 
 		FROM 
 			writer_tb w, art_tb a
 		WHERE 

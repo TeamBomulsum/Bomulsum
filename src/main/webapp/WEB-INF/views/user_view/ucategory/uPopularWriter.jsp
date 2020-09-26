@@ -553,8 +553,6 @@ LikeWriterFunction = function(){
 			$(this).css("border","1px solid #DF3A01");
 			$(this).css("background-color","#DF3A01");
 			tf = true;
-			alert('좋아하는 작가에 추가되었습니다.');
-			console.log('비교가능');
 		}
  		else{
 			$(this).text('♥︎작가로추가');
@@ -562,8 +560,6 @@ LikeWriterFunction = function(){
 			$(this).css("border","1px solid #D9D9D9");
 			$(this).css("background-color","white");
 			tf = false;
-			alert('좋아하는 작가를 취소합니다.');
-			console.log('비교가능');
 		} 
 
 		 $.ajax({
@@ -581,12 +577,12 @@ LikeWriterFunction = function(){
 				console.log(e);
 			}
 		}); 
-/* 	 	if(tf==true){
+ 	 	if(tf==true){
 			alert('좋아하는 작가에 추가되었습니다.');
 		}
 	 	if(tf==false){
 			alert('좋아하는 작가를 취소합니다.');
-		}   */
+		} 
 	 
 		}
 };
@@ -723,7 +719,7 @@ function showSlides_five(n) {
 							<p class="jeonga_profile_text">${rank1.writer_intro}</p>
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
-									<c:if test="${rank1.likeWriter eq 'true'}">
+									<c:if test="${rank1.likeWriter eq 'yes'}">
 										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는작가</div>
 									</c:if>
 									<c:if test="${rank1.likeWriter eq null}">
@@ -743,7 +739,7 @@ function showSlides_five(n) {
 						</div>
 
 					<!-- 이미지 슬라이더 -->
-					<div class="joenga_profile_imageslider_one">
+ 					<div class="joenga_profile_imageslider_one">
 					 	<div class="jeonga_imageSlides_buttons_one">
   						<a class="jeonga_imageSlides_one_prev" onclick="plusSlides_one(-1)">❮</a>
  						<a class="jeonga_imageSlides_one_next" onclick="plusSlides_one(1)">❯</a>
@@ -791,7 +787,7 @@ function showSlides_five(n) {
 							
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
-									<c:if test="${rank2.likeWriter eq 'true'}">
+									<c:if test="${rank2.likeWriter eq 'yes'}">
 									<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는작가</div>
 									</c:if>
 									<c:if test="${rank2.likeWriter eq null}">
@@ -856,7 +852,7 @@ function showSlides_five(n) {
 							
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
-									<c:if test="${rank3.likeWriter eq 'true'}">
+									<c:if test="${rank3.likeWriter eq 'yes'}">
 										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는작가</div>
 									</c:if>
 									<c:if test="${rank3.likeWriter eq null}">
@@ -921,7 +917,7 @@ function showSlides_five(n) {
 							
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
-									<c:if test="${rank4.likeWriter eq 'true'}">
+									<c:if test="${rank4.likeWriter eq 'yes'}">
 										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는작가</div>
 									</c:if>
 									<c:if test="${rank4.likeWriter eq null}">
@@ -986,7 +982,7 @@ function showSlides_five(n) {
 							
 							<div class="jeonga_profile_buttons">
 								<div class="jeonga_profile_buttons_top">
-									<c:if test="${rank5.likeWriter eq 'true'}">
+									<c:if test="${rank5.likeWriter eq 'yes'}">
 										<div class="jeonga_profile_button_add" style="border:1px solid #DF3A01; background-color:#DF3A01;color:white;">♥︎하는작가</div>
 									</c:if>
 									<c:if test="${rank5.likeWriter eq null}">

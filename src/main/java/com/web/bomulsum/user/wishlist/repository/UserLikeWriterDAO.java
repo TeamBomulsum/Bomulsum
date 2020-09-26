@@ -43,18 +43,8 @@ public class UserLikeWriterDAO {
 	}
 
 	//작가별 사진
-/*	public List<String> getArtPhoto(List<String> writerList){
-	
-		Map<String, Object> artList = new HashMap<String,Object>();
-		artList.put("artList", writerList);
-				
-		List<String> firstArt = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtPhoto", artList); 
-		return firstArt;
-	}*/
-	
-	//작가별 사진
-	public List<Map<String,Object>> getArtPhotoTest(String writerCode){
-		List<Map<String,Object>> artListTest = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtPhotoTest", writerCode); 
+	public List<Map<String,Object>> getArtPhoto(String writerCode){
+		List<Map<String,Object>> artListTest = sqlSessionTemplate.selectList("userLikeWriterDAO.selectArtPhoto", writerCode); 
 		return artListTest;
 	}
 		

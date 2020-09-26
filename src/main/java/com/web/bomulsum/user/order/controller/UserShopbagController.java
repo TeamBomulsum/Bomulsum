@@ -52,6 +52,10 @@ public class UserShopbagController {
 			tempVO.setArtCount(countArray);
 			List<Map<String,Object>> totalOption = new ArrayList<Map<String,Object>>();
 			
+			if(tempVO.getWriter_brand_name() == null) {
+				tempVO.setWriter_brand_name(tempVO.getWriter_name());
+			}
+			
 			int totalPrice = 0;
 			//옵션 잘라서 넣기
 			for(int j=0; j<artOption.length; j++) {

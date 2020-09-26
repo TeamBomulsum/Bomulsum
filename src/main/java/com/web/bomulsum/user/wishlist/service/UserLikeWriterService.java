@@ -11,10 +11,7 @@ public interface UserLikeWriterService {
 	//좋아하는 작가 정보
 	List<UserLikeWriterVO> getWriterInfo(List<String> writerList);
 	//좋아하는 작가별 사진
-	//public List<UserLikeWriterPhotoVO> getArtPhotoList(String memberCode);
-	
-	public List<String> getArtPhoto(List<String> writerList);
-	public List<Map<String,Object>> getArtPhotoTest(String writerCode);
+	public List<Map<String,Object>> getArtPhoto(String writerCode);
 	//좋아하는 작가 취소
 	void deleteLikeWriter(Map<String, Object> map);
 	//작가별 작품 카운트
