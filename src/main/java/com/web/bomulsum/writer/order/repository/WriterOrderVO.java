@@ -47,10 +47,29 @@ public class WriterOrderVO {
 	
 	private String memberProfile;
 	private String memberName;
+	private Date buyDeliveryDate;
 	
+	private String alarmContent;
+	private int artSaleCount;
 	
-	
-	
+	public int getArtSaleCount() {
+		return artSaleCount;
+	}
+	public void setArtSaleCount(int artSaleCount) {
+		this.artSaleCount = artSaleCount;
+	}
+	public String getAlarmContent() {
+		return alarmContent;
+	}
+	public void setAlarmContent(String alarmContent) {
+		this.alarmContent = alarmContent;
+	}
+	public Date getBuyDeliveryDate() {
+		return buyDeliveryDate;
+	}
+	public void setBuyDeliveryDate(Date buyDeliveryDate) {
+		this.buyDeliveryDate = buyDeliveryDate;
+	}
 	public String getBuyDeliveryName() {
 		return buyDeliveryName;
 	}

@@ -28,8 +28,12 @@ public class WriterorderServiceImpl implements WriterOrderService {
 	public void orderDeliveryReg(WriterOrderVO vo) {
 		dao.orderDeliveryReg(vo);
 	}
+	//환불 처리
+	@Override
+	public void orderRefundReg(WriterOrderVO vo) {
+		dao.orderRefundReg(vo);
+	}
 
-	
 	@Override
 	public int getJumunOrderCount(WriterOrderVO vo) {
 		return dao.getJumunOrderCount(vo);
@@ -50,5 +54,6 @@ public class WriterorderServiceImpl implements WriterOrderService {
 	public int getHwanbulNoOrderCount(WriterOrderVO vo) {
 		return dao.getHwanbulNoOrderCount(vo);
 	}
+	
 
 }

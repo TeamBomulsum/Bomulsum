@@ -249,7 +249,7 @@ a:hover, a:active{
 									<td id="modalOrderReceiver"></td>
 									<td id="modalTel"></td>
 									<td id="modalJuso"></td>
-									<td><input id="beforeDate" type="date" style="width:150px; height:30px"></td>
+									<td><input name="buyDeliveryDate" id="buyDeliveryDate" type="date" style="width:150px; height:30px"></td>
 									<td>
 										<select name="buyDeliveryName" style="width:150px; height:30px">
 											<option value="CJ대한 통운">CJ대한 통운</option>
@@ -260,7 +260,9 @@ a:hover, a:active{
 										</select>
 									</td>
 									<td>
-										<input type="hidden" name="buyWriterCodeSeq" id="buyWriterCodeSeq">
+										<input type="hidden" name="buyWriterCodeSeq" id='modalBuyWriterCodeSeq'>
+										<input type="hidden" name="memberCodeSeq" id ="modalMemberCodeSeq" >
+										<input type="hidden" name="alarmContent" id ="modalAlarmContent" >
 										<input name="buyDeliveryNum" id="number" type="text" size="18" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"/>
 									</td>
 								</tr>
@@ -311,6 +313,8 @@ a:hover, a:active{
 
 	<script>
 		var result = new Array();
+		var buttonClickFunc;
+		var refundOrder;
 		
 		<c:forEach var="i" items='${totalOrderList}'>
 		
@@ -356,6 +360,7 @@ a:hover, a:active{
 			json.buyArtOptionPrice = '${i.buyArtOptionPrice}';
 			json.memberProfile = '${i.memberProfile}';
 			json.memberName = '${i.memberName}';
+			json.artSaleCount = '${i.artSaleCount}';
 			
 			
 			result.push(json);
@@ -550,16 +555,33 @@ a:hover, a:active{
 						+ '</tr>'
 						+ '</table>'
 						//배송정보 입력
-						+ '<div style="margin-top:3%" id="' + result[i].buyWriterCodeSeq + '">'
-						+ '<input type="hidden" value="' + result[i].orderCodeSeq + '">'
-						+ '<input type="hidden" value="' + result[i].buyWriterOrderStatus + '">'
-						+ '<input type="hidden" value="' + result[i].orderReceiver + '">'
-						+ '<input type="hidden" value="' + result[i].orderPhoneNum + '">'
-						+ '<input type="hidden" value="('+result[i].orderZipcode +')'+ result[i].orderAddressFirst + result[i].orderAddressSecond +'">'
-						+ '<button id="aboutSendButton" onClick="modalOpen();" style="text-decoration:none; background-color: white;border: 1px solid gray; color: #28E7FF; padding: 1%; font-weight: bold">'
+						+ '<div style="margin-top:3%; display:flex;" id="' + result[i].buyWriterCodeSeq + '">'
+						+ '<input class="order_code" type="hidden" value="' + result[i].orderCodeSeq + '">'
+						+ '<input class="buy_writer_code" type="hidden" value="' + result[i].buyWriterCodeSeq + '">'
+						+ '<input class="order_status" type="hidden" value="' + result[i].buyWriterOrderStatus + '">'
+						+ '<input class="order_receiver" type="hidden" value="' + result[i].orderReceiver + '">'
+						+ '<input class="order_phone" type="hidden" value="' + result[i].orderPhoneNum + '">'
+						+ '<input class="order_address" type="hidden" value="('+result[i].orderZipcode +')'+ result[i].orderAddressFirst + result[i].orderAddressSecond +'">'
+						+ '<input class="member_code_seq" type="hidden" value="' + result[i].memberCodeSeq + '">'
+						+ '<input class="member_name" type="hidden" value="' + result[i].memberName + '">'
+						+ '<input class="art_name" type="hidden" value="' + result[i].artName + '">'
+						+ '<button class="aboutSendButton" style="text-decoration:none; background-color: white;border: 1px solid gray; color: #28E7FF; padding: 1%; font-weight: bold">'
 						+ '배송정보 입력'
-						+ '</button>'
-						+ '</div>'
+						+ '</button>';
+						if(result[i].buyWriterOrderStatus == '환불 대기'){
+							
+							html += `<form action="<c:url value='/writer/order/orderRefundReg.wdo'/>" method="post" name="formRefundSubmit">`
+							+ '<input type="hidden" name="buyWriterCodeSeq" value="'+ result[i].buyWriterCodeSeq +'">'
+							+ '<input type="hidden" name="artCodeSeq" value="'+ result[i].artCodeSeq +'">'
+							+ '<input type="hidden" name="artOptionAmount" value="'+ artOptionAmount +'">'
+							+ '<input type="hidden" name="artAmount" value="'+ result[i].artAmount +'">'
+							+ '<input type="hidden" name="artSaleCount" value="'+ Number(result[i].artSaleCount) +'">'
+							+ '<input type="hidden" name="buyWriterOrderStatus" value="'+ result[i].buyWriterOrderStatus +'">'
+							+ '<button class="aboutRefundButton" style="margin-left:10%; text-decoration:none; background-color: white;border: 1px solid gray; color: #28E7FF; padding: 1%; font-weight: bold; width: 120px; height: 50px;">'
+							+ '환불 승인'
+							+ '</button></form>'
+						}
+					html += '</div>'
 						+ '</div>'// 오른쪽 영역 종료
 						+ '</div>';
 						
@@ -574,19 +596,24 @@ a:hover, a:active{
 					//+ '</div>';
 			} //end for
 			$('#minwoo_orderOneData').html(html);
-			
+			$('.aboutSendButton').click(buttonClickFunc);
+			$('.aboutRefundButton').click(refundOrder);
+
 		}; 
 		
-		
+	
 		var modalOrderCodeSeq = '';
 		var modalBuyWriterCodeSeq = '';
 		var modalOrderStatus = '';
 		var modalOrderReceiver = '';
 		var modalTel = '';
 		var modalJuso = '';
+		var modalMemberCodeSeq = '';
+		var modalMemberName = '';
+		var modalArtName = '';
 		
 		/* 모달 구동 스크립트 영역*/
-		function modalOpen() {
+		buttonClickFunc = function(){
 			$("#sendModal").css({
 				"top": (($(window).height()-$("#sendModal").outerHeight())/2+$(window).scrollTop())+"px",
 				"left": (($(window).width()-$("#sendModal").outerWidth())/2+$(window).scrollLeft())+"px"
@@ -598,46 +625,57 @@ a:hover, a:active{
 			$("#number").focus();
 			//$("body").css("overflow","hidden");//body 스크롤바 없애기
 			
-			$("#sendCloseModal").click(function(event){
+			$("#sendCloseModal").click(function(){
 				$("#popup_mask").css("display","none"); //팝업창 뒷배경 display none
 				$("#sendModal").css("display","none"); //팝업창 display none
 				$("body").css("overflow","auto");//body 스크롤바 생성
 			});
-			$("#sendCloseModala").click(function(event){
+			$("#sendCloseModala").click(function(){
 				$("#popup_mask").css("display","none"); //팝업창 뒷배경 display none
 				$("#sendModal").css("display","none"); //팝업창 display none
 				$("body").css("overflow","auto");//body 스크롤바 생성
 			});
-			
-			
-			modalOrderCodeSeq = $(this).closest('div').attr('id');
-			modalBuyWriterCodeSeq = $(this).closest('div').children('input').eq(0).val();
-			modalOrderStatus = '';
-			modalOrderReceiver = '';
-			modalTel = '';
-			modalJuso = '';
-			
-			console.log(modalOrderCodeSeq);
-			console.log(modalBuyWriterCodeSeq);
-			
-			$('#modalOrderCodeSeq').text($.trim($(this).closest('div').children('input').eq(0).val()));
-			$('#modalBuyWriterCodeSeq').text();
-			$('#modalOrderStatus').text();
-			$('#modalOrderReceiver').text();
-			$('#modalTel').text();
-			$('#modalJuso').text();
 
+			console.log($(this).closest('div').children('input').eq(0).val());
 			
+			modalOrderCodeSeq = $(this).closest('div').children('input').eq(0).val();
+			modalBuyWriterCodeSeq = $(this).closest('div').children('input').eq(1).val();
+			modalOrderStatus = $(this).closest('div').children('input').eq(2).val();
+			modalOrderReceiver = $(this).closest('div').children('input').eq(3).val();
+			modalTel = $(this).closest('div').children('input').eq(4).val();
+			modalJuso = $(this).closest('div').children('input').eq(5).val();
+			modalMemberCodeSeq = $(this).closest('div').children('input').eq(6).val();
+			modalMemberName = $(this).closest('div').children('input').eq(7).val();
+			modalArtName = $(this).closest('div').children('input').eq(8).val();
+			
+			console.log('modalOrderCodeSeq : ' + modalOrderCodeSeq + ', modalBuyWriterCodeSeq : ' + modalBuyWriterCodeSeq
+					+ ', modalOrderStatus : ' + modalOrderStatus + ', modalOrderReceiver : ' + modalOrderReceiver +
+					', modalTel : ' + modalTel + ', modalJuso : ' + modalJuso);
+
+			$('#modalOrderCodeSeq').text(modalOrderCodeSeq);
+			$('#modalBuyWriterCodeSeq').val(modalBuyWriterCodeSeq);
+			$('#modalOrderStatus').text(modalOrderStatus);
+			$('#modalOrderReceiver').text(modalOrderReceiver);
+			$('#modalTel').text(modalTel);
+			$('#modalJuso').text(modalJuso);
+			$('#modalMemberCodeSeq').val(modalMemberCodeSeq);
+			$('#modalAlarmContent').val(modalMemberName + '님께서 주문하신 ' + modalArtName + ' 작품이 배송 등록 되었습니다.');
+
 		};
-	
-		
 		//등록버튼 이벤트
 		function saveDelivery(event){
 			event.preventDefault();
 
-			var deliveryNum = document.getElementById('number');
+			var deliveryDate = document.getElementById('buyDeliveryDate');
 			console.log('폼 데이터 입력 값 = ' + '');
 			
+			if($('#buyDeliveryDate').val() == ''){
+				alert('배송 날짜를 선택해주세요.');
+				deliveryDate.focus();
+				return false;
+			};
+			
+			var deliveryNum = document.getElementById('number');
 			if($('#number').val() == ''){
 				alert('택배 송장 번호를 입력해주세요.');
 				deliveryNum.focus();
@@ -646,10 +684,11 @@ a:hover, a:active{
 			
 			var rtn;
 			
-			if($('#buy_delivery_num').val() == ''){
-				rtn = confirm("                    배송 처리 하시겠습니까? \n (송장번호를 꼼꼼히 확인해 주세요!)");
+			if($('#modalOrderStatus').text() == '결제 완료'){
+				rtn = confirm("배송 처리 하시겠습니까? \n (송장번호를 꼼꼼히 확인해 주세요!)");
 			} else {
 				rtn = confirm("배송 정보를 수정하시겠습니까?");
+				$('#modalAlarmContent').val(modalMemberName + '님께서 주문하신 ' + modalArtName + ' 작품의 배송정보가 수정 되었습니다.');
 			}
 			
 			
@@ -659,6 +698,21 @@ a:hover, a:active{
 				return false;
 			};
 		};
+		
+		
+		//환불 버튼 클릭 이벤트
+		refundOrder = function(e){
+			e.preventDefault();
+			
+			var rtn = confirm("해당 요청건을 환불하시겠습니까? \n (환불 취소는 불가능 하므로 실행전 다시 한번 확인해주세요!)");
+			
+			if(rtn){
+				$(this).closest('form').submit();	
+			} else {
+				return false;
+			};
+		};
+		
 	</script>
 
 </body>

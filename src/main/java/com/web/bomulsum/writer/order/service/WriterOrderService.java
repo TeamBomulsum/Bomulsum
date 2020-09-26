@@ -10,6 +10,8 @@ public interface WriterOrderService {
 	List<WriterOrderVO> orderList(WriterOrderVO vo);
 	//배송 정보 등록
 	void orderDeliveryReg(WriterOrderVO vo);
+	//환불 처리
+	void orderRefundReg(WriterOrderVO vo);
 	// 주문 완료 수
 	int getJumunOrderCount(WriterOrderVO vo);
 	// 배송 완료 수

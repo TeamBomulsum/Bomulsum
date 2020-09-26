@@ -22,7 +22,16 @@ public class WriterOrderDAO {
 	// 배송정보 등록
 	public void orderDeliveryReg(WriterOrderVO vo) {
 		sqlSessionTemplate.update("writerOrderDAO.orderDeliveryReg", vo);
+		sqlSessionTemplate.insert("writerOrderDAO.insertAlarmMBoard", vo);
 	}
+	// 알람 등록
+
+	// 환불 처리
+	public void orderRefundReg(WriterOrderVO vo) {
+		sqlSessionTemplate.update("writerOrderDAO.orderRefundBuyWriterTb", vo);
+		sqlSessionTemplate.update("writerOrderDAO.orderRefundArtTb",vo);
+	}
+	
 	
 	// 주문 완료 수
 	public int getJumunOrderCount(WriterOrderVO vo) {

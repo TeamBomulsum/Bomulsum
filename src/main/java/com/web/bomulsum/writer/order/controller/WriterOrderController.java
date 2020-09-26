@@ -1,6 +1,7 @@
 package com.web.bomulsum.writer.order.controller;
 
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -83,10 +84,50 @@ public class WriterOrderController {
 		service.orderDeliveryReg(vo);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/writer/order/orderList.wdo");
+		mav.setViewName("redirect:/writer/order/orderList.wdo?buyWriterOrderStatus="+vo.getBuyWriterOrderStatus());
 		
 		return mav;
 	}
+	
+	//환불 처리
+	@RequestMapping(value="/order/orderRefundReg", method= {RequestMethod.POST})
+	public ModelAndView orderRefundReg(HttpServletRequest request, WriterOrderVO vo) throws UnsupportedEncodingException {
+		//로그인한 작가 정보 가져오기
+		HttpSession session = request.getSession();
+		WriterRegisterVO code = (WriterRegisterVO) session.getAttribute("writer_login");
+		String writerCodeSeq = code.getWriterSeq();
+		vo.setWriterCodeSeq(writerCodeSeq);
+		
+		//옵션별 판매된 수량들 합치기
+		int artOptionCount = 0;
+		//판매된 수량 계산해서 넣어줘야 됨
+		String[] artSaleCount = vo.getArtOptionAmount().split(",");
+		
+		for(int i=0; i<artSaleCount.length; i++) {
+			System.out.println("artSaleCount[i] : " + artSaleCount[i]);
+			artOptionCount += Integer.parseInt(artSaleCount[i]);
+			System.out.println("artOptionCount : " + artOptionCount);
+		}
+		
+		// 환불 할 작품의 현재 판매수량에서 판매된 옵션별 수량들 만큼 다시 빼줘야 한다.
+		System.out.println("현재 작품의 판매 수량 : " + vo.getArtSaleCount());
+		int saleArtCount = vo.getArtSaleCount() - artOptionCount;
+		System.out.println("수정되서 들어갈 작품의 판매 수량 : " + saleArtCount);
+		vo.setArtSaleCount(saleArtCount);
+		
+		vo.setArtAmount(artOptionCount + vo.getArtAmount());// 작품 수량 은 판매수량 빠졌던 만큼(옵션별 수량-artOptionAmount) 다시 + 시켜주기
+		
+		System.out.println(vo.getArtSaleCount());
+		String category = vo.getBuyWriterOrderStatus();
+		category = URLEncoder.encode(category, "UTF-8");
+
+		service.orderRefundReg(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/writer/order/orderList.wdo?buyWriterOrderStatus=" + category);
+		return mav;
+	}
+
 	
 	@GetMapping("/order/registerOfShip")
 	public String orderShip() {
