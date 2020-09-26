@@ -214,8 +214,8 @@
 			<!-- 선물함 -->
 			<li class="jeonga-navItem">
 				<b class="jeonga-b">선물함</b> 
-				<a class="jeonga-collapse-item" href="<c:url value='/user/receiveGift.do'/> ">받은 선물함</a> 
-				<a class="jeonga-collapse-item" href="<c:url value='/user/sendGift.do'/> ">보낸 선물함</a> 
+				<a class="jeonga-collapse-item" href="#">받은 선물함</a> 
+				<a class="jeonga-collapse-item" href="#">보낸 선물함</a> 
 			</li>
 			<!-- 알림 및 메시지 -->
 			<li class="jeonga-navItem">

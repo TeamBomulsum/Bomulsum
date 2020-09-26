@@ -46,7 +46,7 @@
 			#{address2},
 			#{keyword},
 			'Y',
-			sysdate
+			TO_DATE(sysdate, 'YY/MM/DD') 
 		)
 	</insert>
 	

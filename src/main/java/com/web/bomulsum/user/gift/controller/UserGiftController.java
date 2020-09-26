@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.user.gift.repository.UserReceiveGiftDetailVO;
@@ -20,9 +19,6 @@ import com.web.bomulsum.user.gift.repository.UserSendGiftDetailVO;
 import com.web.bomulsum.user.gift.repository.UserSendGiftVO;
 import com.web.bomulsum.user.gift.service.UserGiftService;
 import com.web.bomulsum.user.login.repository.MemberSessionVO;
-import com.web.bomulsum.writer.art.repository.WriterArtInfoDetailVO;
-import com.web.bomulsum.writer.art.repository.WriterArtOptionVO;
-import com.web.bomulsum.writer.art.repository.WriterArtVO;
 
 @Controller
 @RequestMapping(value="/user")
@@ -107,7 +103,7 @@ public class UserGiftController {
 		//System.out.println(memberInfo);
 		//String memberPhone = memberInfo.getMemberPhone();
 		//System.out.println(memberPhone);
-		String memberName = "목정아";
+		String memberName = "홍길동";
 		String memberPhone="010-1111-1111";
 		Map<String, Object> memberInfo = new HashMap<String, Object>();
 		memberInfo.put("memberName", memberName);
