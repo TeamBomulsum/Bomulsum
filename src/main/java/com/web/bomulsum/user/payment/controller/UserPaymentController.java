@@ -414,17 +414,44 @@ public class UserPaymentController {
 	
 	/* 주문완료 처리---------------------------------------------------------------------------- */
 	@ResponseBody 
-	@RequestMapping(value="/successPayment")
-	public ModelAndView successPay() {
+	@RequestMapping(value="/successPayment" )
+	public ModelAndView successPay(
+			HttpServletRequest request, 
+			@RequestParam(value="SuccessShipName") String SuccessShipName,
+			@RequestParam(value="SuccessShipZip") String SuccessShipZip,
+			@RequestParam(value="SuccessShipPhone") String SuccessShipPhone,
+			@RequestParam(value="SuccessShipAddr1") String SuccessShipAddr1,
+			@RequestParam(value="SuccessShipAddr2") String SuccessShipAddr2,
+			@RequestParam(value="SuccessArtPrice") int SuccessArtPrice,
+			@RequestParam(value="SuccessShipPrice") int SuccessShipPrice,
+			@RequestParam(value="SuccessDiscount") int SuccessDiscount,
+			@RequestParam(value="SuccessShipJeju") int SuccessShipJeju,
+			@RequestParam(value="SuccessPriceSum") int SuccessPriceSum
+			) {
 		ModelAndView mav =  new ModelAndView("ushopbag/usuccessOrder");
 		
-		//배송지이름
-		//폰번호
-		//주소
-		//작품금액
-		//배송비
-		//제주도서배송비
-		//쿠폰할인
+		/*
+		 * System.out.println("결제한내용--------------");
+		 * System.out.println(SuccessShipName); System.out.println(SuccessShipPhone);
+		 * System.out.println(SuccessShipZip); System.out.println(SuccessShipAddr1);
+		 * System.out.println(SuccessShipAddr2); System.out.println(SuccessArtPrice);
+		 * System.out.println(SuccessShipPrice); System.out.println(SuccessShipJeju);
+		 * System.out.println(SuccessDiscount); System.out.println(SuccessPriceSum);
+		 */
+		
+		mav.addObject("SuccessShipName", SuccessShipName);
+		mav.addObject("SuccessShipPhone", SuccessShipPhone);
+		mav.addObject("SuccessShipZip", SuccessShipZip);
+		mav.addObject("SuccessShipAddr1", SuccessShipAddr1);
+		mav.addObject("SuccessShipAddr2", SuccessShipAddr2);
+		mav.addObject("SuccessArtPrice", SuccessArtPrice);
+		mav.addObject("SuccessShipPrice", SuccessShipPrice);
+		mav.addObject("SuccessShipJeju", SuccessShipJeju);
+		mav.addObject("SuccessDiscount", SuccessDiscount);
+		mav.addObject("SuccessPriceSum", SuccessPriceSum);
+		
+		
+		
 		
 		return mav;
 	}

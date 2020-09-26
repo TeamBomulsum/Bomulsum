@@ -411,13 +411,7 @@ function getList(page){
 						
 						htmldiv += '<span class="content_detail_other">';
 						
-						htmldiv += '</span><span class="content_detail_star">'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<span>(<a>num</a>)</span></span></div></div>';
+						htmldiv += '</span></span></span></div></div>';
 					}// end for
 				}else{
 					//데이터 없을때.
