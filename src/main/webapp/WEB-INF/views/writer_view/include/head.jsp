@@ -1,4 +1,5 @@
 <%@page import="com.web.bomulsum.writer.login.repository.WriterRegisterVO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,25 +9,29 @@
 <meta charset="UTF-8">
 <title>header</title>
    <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <style>
-.dndud_name_count{
+* {
+font-family: 'Noto Sans KR', sans-serif;
+}
+
+.dndud_name_count {
 	display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
-.dndud_count_num{
-    padding: 0 5px;
-    background-color: #E74A3B;
-    color: white;
-    border-radius: 50%;
+.dndud_count_num {
+	padding: 0 5px;
+	background-color: #E74A3B;
+	color: white;
+	border-radius: 50%;
 }
 
-#message_count_all{
-	display:none;
+#message_count_all {
+	display: none;
 }
-
 </style>
 <body>
 	

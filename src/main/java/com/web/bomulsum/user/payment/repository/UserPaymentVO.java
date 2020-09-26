@@ -13,6 +13,7 @@ public class UserPaymentVO {
 	private String[] artCount;
 	private String order_request;
 	private String writer_brand_name;
+	private String writer_name;
 	private int writer_send_price;
 	private int writer_sendfree_case;
 	private String art_photo;
@@ -24,22 +25,6 @@ public class UserPaymentVO {
 	private int art_point;
 	private int writer_plus_price;
 	private String writer_code_seq;
-	
-	
-	@Override
-	public String toString() {
-		return "UserPaymentVO [cart_seq=" + cart_seq + ", art_code_seq=" + art_code_seq + ", member_code_seq="
-				+ member_code_seq + ", art_option_seq=" + art_option_seq + ", art_count=" + art_count + ", artCount="
-				+ Arrays.toString(artCount) + ", order_request=" + order_request + ", writer_brand_name="
-				+ writer_brand_name + ", writer_send_price=" + writer_send_price + ", writer_sendfree_case="
-				+ writer_sendfree_case + ", art_photo=" + art_photo + ", art_name=" + art_name + ", art_price="
-				+ art_price + ", art_discount=" + art_discount + ", totalPrice=" + totalPrice + ", totalOption="
-				+ totalOption + ", art_point=" + art_point + ", writer_plus_price=" + writer_plus_price
-				+ ", writer_code_seq=" + writer_code_seq + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
-	}
-	
-	
 	public String getCart_seq() {
 		return cart_seq;
 	}
@@ -87,6 +72,12 @@ public class UserPaymentVO {
 	}
 	public void setWriter_brand_name(String writer_brand_name) {
 		this.writer_brand_name = writer_brand_name;
+	}
+	public String getWriter_name() {
+		return writer_name;
+	}
+	public void setWriter_name(String writer_name) {
+		this.writer_name = writer_name;
 	}
 	public int getWriter_send_price() {
 		return writer_send_price;
@@ -154,8 +145,19 @@ public class UserPaymentVO {
 	public void setWriter_code_seq(String writer_code_seq) {
 		this.writer_code_seq = writer_code_seq;
 	}
+	@Override
+	public String toString() {
+		return "UserPaymentVO [cart_seq=" + cart_seq + ", art_code_seq=" + art_code_seq + ", member_code_seq="
+				+ member_code_seq + ", art_option_seq=" + art_option_seq + ", art_count=" + art_count + ", artCount="
+				+ Arrays.toString(artCount) + ", order_request=" + order_request + ", writer_brand_name="
+				+ writer_brand_name + ", writer_name=" + writer_name + ", writer_send_price=" + writer_send_price
+				+ ", writer_sendfree_case=" + writer_sendfree_case + ", art_photo=" + art_photo + ", art_name="
+				+ art_name + ", art_price=" + art_price + ", art_discount=" + art_discount + ", totalPrice="
+				+ totalPrice + ", totalOption=" + totalOption + ", art_point=" + art_point + ", writer_plus_price="
+				+ writer_plus_price + ", writer_code_seq=" + writer_code_seq + "]";
+	}
 	
-
+	
 	
 	
 }
