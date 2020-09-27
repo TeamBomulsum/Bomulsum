@@ -127,21 +127,28 @@ body a:link, a:visited, a:hover, a:active {
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
-  }
+}
+
 .minwoo_reviewComment_div::-webkit-scrollbar-track {
     background-color: #d9d9d9;
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
- }
- 
+}
+
 /* 모달 영역 */
 .minwoo_modalBtn{
 	cursor: pointer;
     font-size: 12px;
     width: 80px;
+    /* font-weight: bold; */
     height: 30px;
-    border-radius: 10px;
+    border-radius: 20px;
+    background-color: #4773f1;
+    color: #ffffff;
+    /* border-color: white; */
+    border: none;
 }
+
 .minwoo_reviewRepleDiv_modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -156,18 +163,67 @@ body a:link, a:visited, a:hover, a:active {
 }
 
 .minwoo_modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  padding-top: 5px;
-  border: 1px solid #888;
-  width: 620px;
-  max-height:660px;
-}
-#minwoo_modal_close{
-	color: #1f76bb;
+	background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    padding-top: 5px;
+    border: 1px solid #888;
+    width: 350px;
+    height: 305px;
 }
 
+#minwoo_modal_close{
+	color: #1f76bb;
+	cursor: pointer;
+	width: 50px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.minwoo_modal_close:hover,
+.minwoo_modal_close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.minwoo_modalWriterProfile{
+	max-height: 50px;
+    height: 50px;
+    max-width: 50px;
+    width: 50px;
+    border: none;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    object-fit:cover;
+}
+.modalCommentRe{
+	width: 325px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    font-size: 13px;
+    height: 120px;
+    overflow: auto;
+}
+
+.modalCommentRe::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+.modalCommentRe::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+.modalCommentRe::-webkit-scrollbar-track {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+ }
 
 
 </style>
@@ -302,18 +358,32 @@ body a:link, a:visited, a:hover, a:active {
 			<!-- 작가 답글 모달 띄워주기 -->
 			<div class="minwoo_reviewRepleDiv_modal" id="minwoo_reviewRepleDiv_modal">
 				<div class="minwoo_modal-content">
+				
+					<!-- 모달 헤더 -->
 					<div style="display: flex; width: 100%; height: 50px; justify-content: space-between; align-items: center;">
 						<h2 style="color: #585858;">작가님의 답글</h2>
 						<i class="minwoo_modal_close fa fa-times fa-3x"></i>
 					</div>
+					
 					<hr style="border: 0; height: 4px; background: #585858;">
-					<div>작가브랜드명(없으면 이름)</div>
-					<div>작가이미지</div>
-					<div>답글 단 날짜</div>
+					
+					<!-- 작가 정보 -->
+					<div style="display: flex; margin-top:2%">
+						<div style="text-align:left; width: 50%; line-height: 85%; align-self: center;">
+							<div id="modalWriterName"></div>
+							<br>
+							<div id="modalCommentDate"></div>
+						</div>
+						<div style="text-align: center; width:50%">
+							<img src="" id="modalWriterProfile" class="minwoo_modalWriterProfile">
+						</div>
+					</div>
+					<div id="modalCommentRe" class="modalCommentRe"></div>
 					<hr>
-					<div>답글 내용</div>
-					<hr>
-					<div class="minwoo_modal_close">확인버튼</div>
+					<div style="width:100%; text-align: center;">
+						<button id="minwoo_modal_close" class="minwoo_modal_close">확인</button>
+					</div>
+					
 				</div>
 			</div>
 	
@@ -329,6 +399,7 @@ body a:link, a:visited, a:hover, a:active {
 </div>
 
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+		
 		<!--스크립트 -->
 		<script>
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
@@ -397,6 +468,7 @@ body a:link, a:visited, a:hover, a:active {
 									artImg = data[i].artPhoto.split(',')[0];
 									
 									var writerName = '';
+									var writerProfile = '';
 									
 									if(data[i].writerBrandName == "" || data[i].writerBrandName == null
 											|| data[i].writerBrandName == undefined ||
@@ -405,6 +477,15 @@ body a:link, a:visited, a:hover, a:active {
 									} else {
 										writerName = data[i].writerBrandName;
 									}
+									
+									if(data[i].writerProfileImg == "" || data[i].writerProfileImg == null
+											|| data[i].writerProfileImg == undefined ||
+											(data[i].writerProfileImg != null && typeof data[i].writerProfileImg == "object" && !Object.keys(data[i].writerProfileImg).length)){
+										writerProfile = 'test.png';
+									} else {
+										writerProfile = data[i].writerProfileImg;
+									}
+									
 									
 									htmldiv += '<div class="minwoo_uWriteReviewMe_ListContent">'
 									+ '<div class="minwoo_uWriteReviewMe_ListContent_body">'
@@ -434,10 +515,12 @@ body a:link, a:visited, a:hover, a:active {
 									+ '</div>';
 									
 									if(data[i].reviewCommentReStatus == 'Y'){
-										htmldiv += '<button class="minwoo_modalBtn">댓글 달림</button>'
+										htmldiv += '<button class="minwoo_modalBtn">답글 달림</button>'
 											+ '<input type="hidden" value="' + data[i].reviewCommentRe + '">'
-											+ '<input type="hidden" value="' + data[i].reviewCommentReDate + '">'
+											+ '<input type="hidden" value="' + moment(data[i].reviewCommentReDate).format("YYYY-MM-DD") + '">'
 											+ '<input type="hidden" value="' + writerName + '">'
+											+ '<input type="hidden" value="' + writerProfile + '">'
+											+ '<input type="hidden" value="' + data[i].writerCodeSeq + '">'
 									}
 									
 									htmldiv += '</div>'
@@ -484,9 +567,10 @@ body a:link, a:visited, a:hover, a:active {
 			});
 		};
 		
-		var modalReviewCommentRe = '';
-		var modalreviewCommentReDate = '';
-		var modalBrandName = '';
+		var modalReviewCommentRe;
+		var modalreviewCommentReDate;
+		var modalBrandName;
+		var modalWriterProfileImg;
 		
 		//작가 답글 모달 띄우기
 	    var modal = function(){
@@ -494,20 +578,30 @@ body a:link, a:visited, a:hover, a:active {
 			$('#minwoo_reviewRepleDiv_modal').css('display', 'block');
 			console.log("진입은 했나요?")
 
+			//모달값 초기화
+			$('#modalCommentRe').text('');
+			$('#modalWriterProfile').attr('src', '');
+			$('#modalWriterName').text('');
+			$('#modalCommentDate').text('');
+			
 			modalReviewCommentRe = $.trim($(this).next().val());
 			modalreviewCommentReDate =  $.trim($(this).next().next().val());
-			modalBrandName = $.trim($(this).next().next().next().next().val());
-
+			modalBrandName = $.trim($(this).next().next().next().val());
+			modalWriterProfileImg = $.trim($(this).next().next().next().next().val());
 			
-			console.log("답글 : " + modalReviewCommentRe + " 답글 날짜 : "+  moment(modalreviewCommentReDate).format("YYYY-MM-DD") + " 작가 브랜드 명 :" + modalBrandName);
+			console.log("답글 : " + modalReviewCommentRe + " 답글 날짜 : " +  modalreviewCommentReDate + " 작가 브랜드 명 :" + modalBrandName);
 			
+			// 모달에 값 넣어주기
+			$('#modalCommentRe').text(modalReviewCommentRe);
+			$('#modalWriterProfile').attr('src', '/bomulsum/upload/'+modalWriterProfileImg)
+			$('#modalWriterName').text("작성자 : " + modalBrandName);
+			$('#modalCommentDate').text("작성일 : " + modalreviewCommentReDate);
 			
 			$('.minwoo_modal_close').on('click', function(){
 				$('#minwoo_reviewRepleDiv_modal').css('display', 'none');
 			});
 		 	    
 	    };
-	   
 		
 		</script>
 		<!-- 스크립트 -->

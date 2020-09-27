@@ -21,7 +21,6 @@
 		<result column="review_comment" property="reviewComment" />
 		<result column="writer_code_seq" property="writerCodeSeq" />
 		<result column="member_name" property="memberName" />
-		<result column="member_profile" property="memberProfile" />
 		<result column="review_photo" property="reviewPhoto" />
 		<result column="review_comment_re" property="reviewCommentRe" />
 		<result column="review_comment_re_date" property="reviewCommentReDate" />
@@ -35,6 +34,7 @@
 		<result column="writer_name" property="writerName"/>
 		<result column="writer_brand_name" property="writerBrandName" />
 		<result column="writer_url" property="writerUrl" />
+		<result column="writer_profile_img" property="writerProfileImg" />
 		
 		
 		<result column="BUY_OPTION_CODE_SEQ" property="bOrderCodeSeq"/>
@@ -134,7 +134,7 @@
 					a.review_comment_re, a.review_comment_re_date, a.review_comment_re_status,
 					b.art_photo, b.art_name, b.writer_code_seq,
 					c.member_name, c.member_profile,
-					d.writer_name, d.writer_brand_name
+					d.writer_name, d.writer_brand_name, d.writer_profile_img
 				FROM
 					review_tb a
 				LEFT OUTER JOIN
