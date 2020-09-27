@@ -133,6 +133,42 @@ body a:link, a:visited, a:hover, a:active {
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
  }
+ 
+/* 모달 영역 */
+.minwoo_modalBtn{
+	cursor: pointer;
+    font-size: 12px;
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+}
+.minwoo_reviewRepleDiv_modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 50px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.minwoo_modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  padding-top: 5px;
+  border: 1px solid #888;
+  width: 620px;
+  max-height:660px;
+}
+#minwoo_modal_close{
+	color: #1f76bb;
+}
+
+
 
 </style>
 </head>
@@ -263,11 +299,30 @@ body a:link, a:visited, a:hover, a:active {
 			<!-- 구매후기 리스트 영역 끝 -->
 	
 	
+			<!-- 작가 답글 모달 띄워주기 -->
+			<div class="minwoo_reviewRepleDiv_modal" id="minwoo_reviewRepleDiv_modal">
+				<div class="minwoo_modal-content">
+					<div style="display: flex; width: 100%; height: 50px; justify-content: space-between; align-items: center;">
+						<h2 style="color: #585858;">작가님의 답글</h2>
+						<i class="minwoo_modal_close fa fa-times fa-3x"></i>
+					</div>
+					<hr style="border: 0; height: 4px; background: #585858;">
+					<div>작가브랜드명(없으면 이름)</div>
+					<div>작가이미지</div>
+					<div>답글 단 날짜</div>
+					<hr>
+					<div>답글 내용</div>
+					<hr>
+					<div class="minwoo_modal_close">확인버튼</div>
+				</div>
+			</div>
+	
 	
 	</div>
 	<!-- end main div -->
 	</div>
 	<!-- end 콘텐트 div -->
+
 
 	<!-- 푸터  -->
 	<%@ include file="../../include/uFooter.jsp" %>
@@ -304,6 +359,7 @@ body a:link, a:visited, a:hover, a:active {
 		$(document).ready(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
 			getList(page);
 		    page++;
+		    
 		});
 		
 		$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
@@ -340,6 +396,16 @@ body a:link, a:visited, a:hover, a:active {
 								for(var i = 0; i < data.length; i++){
 									artImg = data[i].artPhoto.split(',')[0];
 									
+									var writerName = '';
+									
+									if(data[i].writerBrandName == "" || data[i].writerBrandName == null
+											|| data[i].writerBrandName == undefined ||
+											(data[i].writerBrandName != null && typeof data[i].writerBrandName == "object" && !Object.keys(data[i].writerBrandName).length)){
+										writerName = data[i].writerName;
+									} else {
+										writerName = data[i].writerBrandName;
+									}
+									
 									htmldiv += '<div class="minwoo_uWriteReviewMe_ListContent">'
 									+ '<div class="minwoo_uWriteReviewMe_ListContent_body">'
 									+ '<div class="minwoo_uWriteReviewMe_ListContent_body_head">'
@@ -347,7 +413,7 @@ body a:link, a:visited, a:hover, a:active {
 									+ '<img src=\"/bomulsum/upload/' + artImg + '\" style=\"width:100%; height:100%\">'
 									+ '</div>'
 									+ '<div style=" margin-left:10px; margin-top:3px; width:65%; font-weight:bold;">'
-									+ '<a href="#" style="text-decoration:none;">' + data[i].artName + '</a>'
+									+ '<a style="text-decoration:none;">' + data[i].artName + '</a>'
 									+ '</div>'
 									+ '<div class=\"minwoo_starRev\" data-rate=\"' + data[i].reviewStar + '\">'
 									+ '<span class=\"minwoo_starR1\"></span> <span class=\"minwoo_starR2\"></span>'
@@ -359,14 +425,22 @@ body a:link, a:visited, a:hover, a:active {
 									+ '</div>'
 									+ '<hr>'
 									+ '<div style="height:50px; display:flex; flex-direction:row; align-items:center;">'
-									+ '<div style="height:30px; width:30px; border:1px solid black; border-radius:100%;">'
+									+ '<div style="min-height:30px; max-height:30px; min-width:30px; max-width:30px; border:1px solid black; border-radius:100%;">'
 									+ '<img src="/bomulsum/upload/' + data[i].memberProfile + '" style="width:100%;height:100%;">'
 									+ '</div>'
-									+ '<div style="height:50px; width:80%; margin-left:10px; font-size:15px; font-weight:bold; display:flex; flex-direction:column;justify-content:center;">'
+									+ '<div style="min-height:50px; max-height:50px; width:90%; margin-left:10px; font-size:15px; font-weight:bold; display:flex; flex-direction:column;justify-content:center;">'
 									+ '<div>' + data[i].memberName + '</div>'
 									+ '<div style="color:#BDBDBD;">' + moment(data[i].reviewDate).format("YYYY-MM-DD") + '</div>'
-									+ '</div>'	
-									+ '</div>'
+									+ '</div>';
+									
+									if(data[i].reviewCommentReStatus == 'Y'){
+										htmldiv += '<button class="minwoo_modalBtn">댓글 달림</button>'
+											+ '<input type="hidden" value="' + data[i].reviewCommentRe + '">'
+											+ '<input type="hidden" value="' + data[i].reviewCommentReDate + '">'
+											+ '<input type="hidden" value="' + writerName + '">'
+									}
+									
+									htmldiv += '</div>'
 									+ '<div class="minwoo_reviewComment_div">' + data[i].reviewComment + '</div>'
 									+ '</div>'
 									+ '</div>';
@@ -398,6 +472,9 @@ body a:link, a:visited, a:hover, a:active {
 							
 						$('#minwoo_uWriteReviewMeList').html(htmldiv);
 					}//end
+					
+				     $('.minwoo_modalBtn').on('click', modal);
+					
 				}, //end for success
 				error:function(e){
 					if(e.status == 300){
@@ -406,6 +483,32 @@ body a:link, a:visited, a:hover, a:active {
 				}
 			});
 		};
+		
+		var modalReviewCommentRe = '';
+		var modalreviewCommentReDate = '';
+		var modalBrandName = '';
+		
+		//작가 답글 모달 띄우기
+	    var modal = function(){
+		 	   
+			$('#minwoo_reviewRepleDiv_modal').css('display', 'block');
+			console.log("진입은 했나요?")
+
+			modalReviewCommentRe = $.trim($(this).next().val());
+			modalreviewCommentReDate =  $.trim($(this).next().next().val());
+			modalBrandName = $.trim($(this).next().next().next().next().val());
+
+			
+			console.log("답글 : " + modalReviewCommentRe + " 답글 날짜 : "+  moment(modalreviewCommentReDate).format("YYYY-MM-DD") + " 작가 브랜드 명 :" + modalBrandName);
+			
+			
+			$('.minwoo_modal_close').on('click', function(){
+				$('#minwoo_reviewRepleDiv_modal').css('display', 'none');
+			});
+		 	    
+	    };
+	   
+		
 		</script>
 		<!-- 스크립트 -->
 

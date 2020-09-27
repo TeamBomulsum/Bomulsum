@@ -23,6 +23,9 @@
 		<result column="member_name" property="memberName" />
 		<result column="member_profile" property="memberProfile" />
 		<result column="review_photo" property="reviewPhoto" />
+		<result column="review_comment_re" property="reviewCommentRe" />
+		<result column="review_comment_re_date" property="reviewCommentReDate" />
+		<result column="review_comment_re_status" property="reviewCommentReStatus" />
 		
 		<result column="grnum" property="gRnum"/>
 		<result column="datenum" property="dateNum"/>
@@ -128,14 +131,18 @@
 		<include refid="header" />
 				SELECT
 					a.review_code_seq, a.review_date, a.review_star, a.review_comment,
+					a.review_comment_re, a.review_comment_re_date, a.review_comment_re_status,
 					b.art_photo, b.art_name, b.writer_code_seq,
-					c.member_name, c.member_profile
+					c.member_name, c.member_profile,
+					d.writer_name, d.writer_brand_name
 				FROM
 					review_tb a
 				LEFT OUTER JOIN
 					art_tb b ON a.art_code_seq = b.art_code_seq
 				LEFT OUTER JOIN
 					member_tb c ON a.member_code_seq = c.member_code_seq
+				LEFT OUTER JOIN
+					writer_tb d ON b.writer_code_seq = d.writer_code_seq
 				WHERE
 					a.member_code_seq = #{memberSeq}
 				ORDER BY a.review_date DESC

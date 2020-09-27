@@ -1408,6 +1408,16 @@ $(document).ready(function(){
 		location.href='/bomulsum/writerhome/'+url+'.do';
 	});
 	
+	// 구매후기 작성버튼 클릭시 구매후기 페이지로 이동하기
+	$('#wonButtonReview').on('click', function(){
+		if(memberCode == null || memberCode == '' || memberCode == 'null'){
+			alert('로그인 후 사용이 가능합니다.');
+			location.href='/bomulsum/user/login.do';
+			return false;
+		} else {
+			location.href='/bomulsum/user/myInfo/review.do';
+		}
+	})
 });
 
 
