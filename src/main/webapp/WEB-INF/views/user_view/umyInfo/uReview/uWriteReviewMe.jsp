@@ -362,7 +362,7 @@ body a:link, a:visited, a:hover, a:active {
 					<!-- 모달 헤더 -->
 					<div style="display: flex; width: 100%; height: 50px; justify-content: space-between; align-items: center;">
 						<h2 style="color: #585858;">작가님의 답글</h2>
-						<i class="minwoo_modal_close fa fa-times fa-3x"></i>
+						<i class="minwoo_modal_close fa fa-times fa-2x"></i>
 					</div>
 					
 					<hr style="border: 0; height: 4px; background: #585858;">
