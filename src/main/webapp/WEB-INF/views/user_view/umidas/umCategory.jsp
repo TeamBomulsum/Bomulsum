@@ -442,7 +442,7 @@ body a:link, a:visited, a:hover, a:active {
 								+ '<i class="fa fa-star" style="color:gold"></i>'
 								+ '<i class="fa fa-star" style="color:gold"></i>'
 								//별점 컬럼 추가하고, 평균 내서 별점 값 뿌려주기
-								+ '<span style="font-size:14px; color:gray">'+ '참여후기 개수' +'</span>'
+								//+ '<span style="font-size:14px; color:gray">'+ '참여후기 개수' +'</span>'
 								+ '</div>'
 								+ '</div>'
 								+ '</div>';
@@ -475,7 +475,7 @@ body a:link, a:visited, a:hover, a:active {
 	};
 	
 	likeClassFunc = function(e){
-		e.stopPropagation()
+		e.stopPropagation();
 		
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
