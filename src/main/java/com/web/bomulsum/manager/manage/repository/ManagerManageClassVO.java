@@ -5,18 +5,18 @@ public class ManagerManageClassVO {
 	private String midas_img;
 	private String midas_name;
 	private String writer_brand_name;
+	private String writer_name;
 	private String midas_category;
 	private String midas_run;
 	private String midas_start_date;
 	private String midas_end_date;
-	
 
 	@Override
 	public String toString() {
 		return "ManagerManageClassVO [midas_code_seq=" + midas_code_seq + ", midas_img=" + midas_img + ", midas_name="
-				+ midas_name + ", writer_brand_name=" + writer_brand_name + ", midas_category=" + midas_category
-				+ ", midas_run=" + midas_run + ", midas_start_date=" + midas_start_date + ", midas_end_date="
-				+ midas_end_date + "]";
+				+ midas_name + ", writer_brand_name=" + writer_brand_name + ", writer_name=" + writer_name
+				+ ", midas_category=" + midas_category + ", midas_run=" + midas_run + ", midas_start_date="
+				+ midas_start_date + ", midas_end_date=" + midas_end_date + "]";
 	}
 
 	public String getMidas_code_seq() {
@@ -45,6 +45,15 @@ public class ManagerManageClassVO {
 	public void setWriter_brand_name(String writer_brand_name) {
 		this.writer_brand_name = writer_brand_name;
 	}
+	
+	public String getWriter_name() {
+		return writer_name;
+	}
+
+	public void setWriter_name(String writer_name) {
+		this.writer_name = writer_name;
+	}
+
 	public String getMidas_category() {
 		return midas_category;
 	}
