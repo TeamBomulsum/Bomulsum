@@ -116,10 +116,12 @@
 
 .dndud_allContents{
 	width: 100%;
-	height: auto;
-	display: flex;
-	flex-direction: column;
-	margin-top: 3%;
+    height: 860px;
+    display: flex;
+    overflow-x: hidden;
+    flex-direction: column;
+    margin-top: 3%;
+    overflow-y: auto;
 }
 
 .dndud_semicontent{
