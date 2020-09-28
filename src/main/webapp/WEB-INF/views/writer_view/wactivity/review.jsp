@@ -331,7 +331,7 @@
 											<div style="font-size: 13px; margin-bottom: 1%;" id="memberName1"></div>
 											<div style="font-size: 13px;" id="reviewDate1"></div>
 										</div>
-										<button class="btn2" style="font-size:13px;">메시지</button>
+										<!-- <button class="btn2" style="font-size:13px;">메시지</button> -->
 									</div>
 									<div style="width: 100%; height: 50px; display: flex; flex-direction: row; border: 1px solid;">
 										<div style="align-self: center; margin-top: 2%; margin-bottom: 2%; width: 15%;">

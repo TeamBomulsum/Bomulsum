@@ -269,7 +269,7 @@ $(document).ready(function(){
 	  			+ '<div style="font-size: .7rem; border-style: solid; border-color: #28E7FF; width: 100%; text-align: center; background-color: white; color: #28E7FF">'
 	  			+ result[i].buyWriterOrderStatus + '</div>'
 	  			+ '</th>'
-	  			+ '<th><a href="">' + '주문번호 : ' + result[i].orderCodeSeq + '</a></th>'
+	  			+ '<th>' + '주문번호 : ' + result[i].orderCodeSeq + '</th>'
 	  			+ '<th><div style="text-align: right">'
 	  			+ result[i].orderDate + '</div></th>'
 	  			+ '</tr>';

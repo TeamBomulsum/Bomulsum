@@ -76,6 +76,7 @@ public class UserReviewController {
 			totalCnt = service.getReviewCount(vo);			
 		} else {
 			totalCnt = service.getReviewedCount(vo);
+			System.out.println("내가 쓴 구매후기로 진입했습니다.");
 		}
 		System.out.println("totalCnt : " + totalCnt);
 		
@@ -104,6 +105,7 @@ public class UserReviewController {
 			data = service.myReview(vo);			
 		} else {
 			data = service.myReviewed(vo);
+			System.out.println("내가 쓴 구매후기로 데이터가 들어갑니다.");
 		}
 		
 		System.out.println("data 개수 : " + data.toArray().length);

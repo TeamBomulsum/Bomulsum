@@ -61,9 +61,15 @@ public class UserReviewVO {
 	
 	private String bOrderCodeSeq;
 	private String writerUrl;
+	private String writerProfileImg;
+
 	
-	
-	
+	public String getWriterProfileImg() {
+		return writerProfileImg;
+	}
+	public void setWriterProfileImg(String writerProfileImg) {
+		this.writerProfileImg = writerProfileImg;
+	}
 	public String getWriterUrl() {
 		return writerUrl;
 	}

@@ -186,7 +186,8 @@ public class UserBuyNowController {
 		
 		//멤버 적립금
 		//int memReserve=reserve_service.getUserSumReserves()-reserve_service.getUserPointUse();
-		int memReserve = 10000000;
+		int memReserve=reserve_service.getUserSumReserves(memberCode) -  reserve_service.getUserPointUse(memberCode);
+		//int memReserve = 10000000;
 		mav.addObject("memReserve",memReserve);
 		
 		//멤버 쿠폰 ---- 쿠폰 vo랑 mapping새로만들어서쓰기... 
