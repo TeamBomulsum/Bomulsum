@@ -333,8 +333,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 					src="<c:url value='/upload/${classList.orderImg }'/>" /></td>
 				<td >
 					<div style="text-align: center;">
-						<a class="name-link ${(pc.paging.page == pageNum) ? 'page-active' : '' }" style="color: black; cursor:pointer; text-style: bold;" data-toggle="modal"
-						data-target="#classInfoModal">
+						<a class="name-link ${(pc.paging.page == pageNum) ? 'page-active' : '' }" style="color: black; cursor:pointer; text-style: bold;" >
 						${classList.midasName }</a><br>
 						
 					</div>

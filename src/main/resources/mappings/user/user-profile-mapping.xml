@@ -50,7 +50,7 @@
 		WHERE 
 			o.order_code_seq = w.order_code_seq
 		AND 
-			o.order_date > SYSDATE-90 
+			TRUNC(o.order_date) > TRUNC(SYSDATE - 90)
 		AND
 			member_code_seq = #{memberCode}
 		

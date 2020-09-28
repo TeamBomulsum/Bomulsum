@@ -82,10 +82,10 @@
 			#{artPrice}*0.1,
 			default,
 			'Y',
-			TO_DATE(sysdate, 'YY/MM/DD'),
+			SYSDATE,
 			default,
 			default,
-			TO_DATE(sysdate, 'YY/MM/DD') 
+			SYSDATE
 		)
 	</insert>
   <!-- 작품 코드 검색 -->
@@ -615,7 +615,7 @@ WHERE
 	UPDATE
 		art_tb
 	SET
-		art_recommend_time = sysdate,
+		art_recommend_time = SYSDATE,
 		art_recommend_state = 'Y'
 	WHERE 
 		writer_code_seq=#{writerCodeSeq}

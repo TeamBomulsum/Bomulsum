@@ -360,7 +360,7 @@ footer span{
        pay_method : 'card',
        merchant_uid : 'merchant_' + new Date().getTime(),
        name : '젬포인트 충전',
-       amount : 10, //판매 가격
+       amount : chargeMoney, //판매 가격
         buyer_email : 'abc@bomulsum.com',
        buyer_name : brandName,
        /*     buyer_tel : '010-1234-5678',
@@ -377,7 +377,6 @@ footer span{
            document.getElementById('dainChargeForm').submit();
        } else {
            var msg = '결제에 실패하였습니다.';
-           msg += '에러내용 : ' + rsp.error_msg;
        }
        alert(msg);
    });

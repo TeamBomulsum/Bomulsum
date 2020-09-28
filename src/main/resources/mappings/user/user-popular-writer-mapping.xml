@@ -74,7 +74,7 @@
 			#{member},
 			#{option},
 			#{optionCode},
-			TO_DATE(sysdate, 'YY/MM/DD')
+			sysdate
 		)
 	</insert>
 	<!-- 좋아하는 작가 취소 -->

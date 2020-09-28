@@ -60,7 +60,7 @@
 	 (
 				 	'order_seq' || TO_CHAR(order_sq.nextval) ,
 				 	#{memberCode} ,
-				 	SYSDATE ,
+				 	SYSDATE,
 			 	 	#{shipName},
 				 	#{shipPhone},
 					#{shipZip},
@@ -179,7 +179,7 @@
 	  		'적립',
 	  		#{artPointSum},
 	  		#{artDaName} || '작품을 구매하셨습니다!', 
-	  		TO_DATE(SYSDATE, 'YY/MM/DD')
+	  		SYSDATE
   		)
   		
   	</insert>
@@ -196,7 +196,7 @@
 	  		'사용',
 	  		#{finUsePoint},
 	  		#{artDaName} || '작품을 구매하는데 사용하셨습니다!', 
-	  		TO_DATE(SYSDATE, 'YY/MM/DD')
+	  		SYSDATE
   		)
   		
   	</insert>

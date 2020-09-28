@@ -215,7 +215,7 @@
 		SET
 			buy_writer_order_status='환불 대기',
 			buy_writer_order_refund_reason=#{reason},
-			buy_refund_request_date=sysdate
+			buy_refund_request_date=SYSDATE
 		WHERE
 			buy_writer_code_seq=#{code}
 	</update>

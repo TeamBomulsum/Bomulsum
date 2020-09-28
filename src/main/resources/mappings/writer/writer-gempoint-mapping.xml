@@ -46,8 +46,8 @@
 	<!--  -->
 	<insert id="gempointChargeInsert" parameterType="hashMap">
 		INSERT INTO gem_tb
-		(gem_seq, writer_code_seq, gem_usage, gem_price, gem_log, gem_date)
-		VALUES('gem_seq' || TO_CHAR(gem_sq.nextval), #{writerCodeSeq}, 'N', #{chargeMoney},'젬포인트를 충전하셨습니다. 감사합니다!', SYSDATE)
+		(gem_seq, writer_code_seq, gem_usage, gem_price, gem_log)
+		VALUES('gem_seq' || TO_CHAR(gem_sq.nextval), #{writerCodeSeq}, 'N', #{chargeMoney},'젬포인트를 충전하셨습니다. 감사합니다!')
 	</insert>
 </mapper>
 

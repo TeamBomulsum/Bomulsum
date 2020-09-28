@@ -453,8 +453,8 @@ function getParameter(name) {
 }
 </script>
 <script>
-// var socket = io("http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82");
-var socket = io("http://localhost:82");
+var socket = io("http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82");
+//var socket = io("http://localhost:82");
 var dd = document.getElementById('wonMessageContent');
 var isScrollUp = false;
 var lastScrollTop;

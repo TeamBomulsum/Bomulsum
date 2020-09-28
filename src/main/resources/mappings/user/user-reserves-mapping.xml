@@ -17,7 +17,7 @@
 		WHERE 
 			member_code_seq = #{member}
 				AND 
-			point_date > (SYSDATE-365)
+			TRUNC(point_date) > TRUNC(SYSDATE - 365)
 		ORDER BY point_date DESC
 	</select>
 	
@@ -30,7 +30,7 @@
 		WHERE
 			point_category in ('사용')
 				AND 
-			point_date > (SYSDATE-365)
+			TRUNC(point_date) > TRUNC(SYSDATE - 365)
 				AND 
 			member_code_seq = #{member}
 	</select>
@@ -44,7 +44,7 @@
 		WHERE
 			point_category in ('환불')
 				AND 
-			point_date > (SYSDATE-365)
+			TRUNC(point_date) > TRUNC(SYSDATE - 365)
 				AND 
 			member_code_seq = #{member}
 	</select>
@@ -58,7 +58,7 @@
 		WHERE 
 			point_category in ('적립')
 				AND 
-			point_date > (SYSDATE-365)
+			TRUNC(point_date) > TRUNC(SYSDATE - 365)
 				AND 
 			member_code_seq = #{member}
 	</select>	

@@ -156,7 +156,7 @@
 		UPDATE
 			wishlist_tb
 		SET
-			wishlist_time=sysdate
+			wishlist_time=SYSDATE
 		WHERE
 			member_code_seq=#{memberCode}
 			AND
@@ -215,7 +215,7 @@
 			#{artCodeSeq},
 			#{commentContent},
 			'Y',
-			sysdate,
+			SYSDATE,
 			#{writerCodeSeq}
 		)
 	</insert>

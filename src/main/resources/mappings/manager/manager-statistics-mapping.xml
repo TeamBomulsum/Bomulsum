@@ -34,7 +34,7 @@
 		        w.buy_writer_order_status='배송 완료'
 		    )
 		    AND 
-		    o.order_date LIKE to_char(SYSDATE, 'YY')||'%' 
+		    TRUNC(o.order_date,'year') = TRUNC(sysdate,'year')
 		ORDER BY o.order_date ASC
 	</select>
 	
@@ -64,7 +64,7 @@
 		        w.buy_writer_order_status='배송 완료'
 		    )
 		    AND 
-		    o.order_date LIKE to_char(SYSDATE, 'YY')||'%' 
+		    TRUNC(o.order_date, 'year') = TRUNC(sysdate, 'year')
 		ORDER BY o.order_date ASC
 	</select>
 	
@@ -137,11 +137,11 @@
 		    )
 		    <if test="filtDate == '월별'">
 			    AND 
-			    o.order_date LIKE to_char(SYSDATE, 'YY')||'%'
+			    TRUNC(o.order_date, 'year') = TRUNC(sysdate, 'year')
 		    </if>
 		    <if test="filtDate == '일별'">
 			    AND 
-			    o.order_date LIKE to_char(SYSDATE, 'YY/MM')||'%'
+			    TRUNC(o.order_date, 'month') = TRUNC(sysdate, 'month')
 		    </if>
 		    <if test="filtCategory != '모든 상품'">
 			    AND

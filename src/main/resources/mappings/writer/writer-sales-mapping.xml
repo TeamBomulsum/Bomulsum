@@ -46,11 +46,11 @@
 		    )
 		    <if test="filtDate == '월별'">
 			    AND 
-			    o.order_date LIKE to_char(SYSDATE, 'YY')||'%'
+			    TRUNC(o.order_date, 'year') = TRUNC(sysdate, 'year')
 		    </if>
 		    <if test="filtDate == '일별'">
 			    AND 
-			    o.order_date LIKE to_char(SYSDATE, 'YY/MM')||'%'
+			    TRUNC(o.order_date, 'month') = TRUNC(sysdate, 'month')
 		    </if>
 		    AND
 		    w.writer_code_seq=#{writer}
@@ -81,7 +81,7 @@
 		        w.buy_writer_order_status='배송 완료'
 		    )
 		    AND 
-		    o.order_date LIKE to_char(SYSDATE, 'YY')||'%'
+		    TRUNC(o.order_date, 'year') = TRUNC(sysdate, 'year')
 		    AND
 		    w.writer_code_seq=#{writer}
 		ORDER BY o.order_date ASC
