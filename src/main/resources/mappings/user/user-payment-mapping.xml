@@ -159,11 +159,12 @@
   	
   	<!-- 사용한 쿠폰 삭제 -->
   	<delete id="deleteUseCoupon" parameterType="String">
-	  	DELETE 
-	  	FROM 
-	  		coupon_tb 
-	  	WHERE 
-	  		coupon_code_seq = #{choiceCoupon}
+  		UPDATE 
+  			coupont_tb
+  		SET
+  			coupon_usage = 'Y'
+  		WHERE
+  			coupon_code_seq = #{choiceCoupon}
   	</delete>
   	
   	

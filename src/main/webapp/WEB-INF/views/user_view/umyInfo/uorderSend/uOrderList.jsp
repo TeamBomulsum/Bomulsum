@@ -117,7 +117,7 @@
 
 .dndud_allContents{
     width: 100%;
-    height: 72%;
+    height: 860px;
     display: flex;
     overflow-x: hidden;
     flex-direction: column;
