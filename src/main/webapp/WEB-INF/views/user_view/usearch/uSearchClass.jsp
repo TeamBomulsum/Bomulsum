@@ -319,6 +319,10 @@
     -webkit-text-stroke-color: white;
 }
 
+.dndud_class_content_img, .dndud_class_card_text {
+	cursor: pointer;
+}
+
 .dndud_class_content_img_link{
 	position: relative;
     z-index: -1;
@@ -436,7 +440,7 @@ var artORclass = 'midas';
 var option = '즐겨찾는클래스';
 var page = 1;
 var changeClass;
-
+var movePage;
 
 
 $(function(){
@@ -552,6 +556,7 @@ function getList(page){
 				$('.dndud_main_category_contents').append(htmldiv);
 			} 
 			
+			$(".dndud_class_content_img, .dndud_class_card_text").click(movePage);
 			$(".fs").click(likeArticleFunc);
 			
 			var starRevPoint = $('.minwoo_starRev');
@@ -573,8 +578,12 @@ function getList(page){
 
 $(function(){
 	
+	movePage = function(){
+		location.href='/bomulsum/midas/noPage.do';
+	};
 	
-	likeArticleFunc = function(){
+	likeArticleFunc = function(e){
+		e.stopPropagation();
 		
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
