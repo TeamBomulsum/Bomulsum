@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> 금손 클래스 | 서울</title>
+<title> 금손 클래스 | ${param.location}</title>
 <style>
 
 
@@ -173,7 +173,60 @@ body a:link, a:visited, a:hover, a:active {
 	color:#FFFFFF;
 	border-radius:5px;
 }
+.minwoo_uMhome_content_card{
+	width:250px;
+	height:352px;
+	border:0.5px solid #D8D8D8;
+	border-radius:5px 5px 5px 5px;
+	margin:6px;
+}
+.minwoo_uMhome_content_card_locagion{
+	background-color:#6E6E6E;
+ 	border-radius: 3px 3px 3px 3px;
+ 	font-weight:bold;
+ 	color: #f2f2f2;
+  	font-size: 12px;
+ 	padding: 7px 10px;
+	position: absolute;
+	z-index: 99;
+	margin:1%;
+}
+.minwoo_uMhome_content_card_star{
+	margin:1%;
+	padding-left:190px;
+	position:absolute;
+	z-index:80;
+}
 
+.minwoo_uMhome_content_card_star i{
+	font-size:30px;
+	align-self:flex-end;
+	margin:2%;
+	color: gray;
+	-webkit-text-stroke-width: 2px;
+	-webkit-text-stroke-color: white;
+}
+.minwoo_uMhome_content_card_img{
+	cursor: pointer;
+}
+.minwoo_uMhome_content_card_img_link{
+	position:relative;
+	z-index: -1;
+	margin:0;
+	padding:0;
+
+}
+.minwoo_uMhome_content_info{
+	padding:8px 10px;
+}
+
+.minwoo_uMhome_content_info span{
+	color: #dd5850;
+	font-size:12px;
+}
+.minwoo_uMhome_card_rating{
+	padding:8px 10px;
+}
 </style>
 </head>
 <body>
@@ -194,8 +247,8 @@ body a:link, a:visited, a:hover, a:active {
 			
 			<!-- 우측 댑쓰 시작-->
 			<div class="minwoo_class_category_head_depth">
-				<a href="#">금손 클래스 &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-				<a href="#">서울</a>
+				<a href="<c:url value='/midas/class.do'/>">금손 클래스 &nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+				<a href="<c:url value='/midas/location.do?location=${param.location}'/>" class="title">${param.location}</a>
 			</div>
 			<!-- 우측 상단 댑쓰 종료 -->
 		</div>
@@ -207,21 +260,21 @@ body a:link, a:visited, a:hover, a:active {
 			<div class="minwoo_class_category_side">
 				<ul>
 					<li>
-						<a href="#">서울<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">경기<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">인천<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">부산<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">대구<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">충남<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">광주<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">강원<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">대전<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">경북<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">제주<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">세종<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">울산<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">충북<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-						<a href="#">전남<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=서울'/>">서울<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=경기'/>">경기<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=인천'/>">인천<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=부산'/>">부산<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=대구'/>">대구<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=충남'/>">충남<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=광주'/>">광주<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=강원'/>">강원<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=대전'/>">대전<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=경북'/>">경북<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=제주'/>">제주<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=세종'/>">세종<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=울산'/>">울산<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=충북'/>">충북<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						<a href="<c:url value='/midas/location.do?location=전남'/>">전남<i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 					</li>
 				</ul>
 			</div>
@@ -230,7 +283,7 @@ body a:link, a:visited, a:hover, a:active {
 			<!-- 작품 목록 들어올 영역 시작 -->
 			<div class="minwoo_class_space">
 				
-				<c:forEach begin="1" end="10">
+				<%-- <c:forEach begin="1" end="10">
 				<!-- 작품한개 영역 시작 -->
 				<div class="minwoo_class_space_one">
 					<!-- 이미지 영역 div 시작-->
@@ -256,7 +309,7 @@ body a:link, a:visited, a:hover, a:active {
 					<!-- 텍스트 영역 종료 -->
 				</div>
 				<!-- 작품한개 영역 끝 -->
-				</c:forEach>
+				</c:forEach> --%>
 				
 				
 			</div>
@@ -275,5 +328,184 @@ body a:link, a:visited, a:hover, a:active {
 	
 	<%@ include file="../include/uFooter.jsp" %>
 </div>
+
+
+<script>
+	var memberCode = '<%= (String)session.getAttribute("member") %>';
+	var likeClassFunc;
+
+	var page = 1;  //페이징과 같은 방식이라고 생각하면 된다. 
+	 
+	$(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다.
+		console.log(page); 
+		getList(page);
+		page++;
+	}); 
+	 
+	$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+		if(Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()){
+			console.log(page);
+			getList(page);
+			page++;   
+		} 
+	});
+
+	function getList(page){
+		var location = $('.title').text();
+		
+		$.ajax({
+			type:'POST',
+			dataType : 'json',
+			data:{
+				'location':location,
+				'page':page,
+				'member':memberCode
+			},
+			url : '/bomulsum/midas/lcinfo.do',
+			success :function(returnData){
+				var htmldiv = '';
+				var midasAddress = '';
+				var midasPhoto = '';
+				var pricePer = 0;
+				var data = returnData.data;
+
+				console.log(returnData);
+
+				
+				if(page == 1){
+					$('.minwoo_class_space').html('');
+				}
+				if(returnData.startNum <= returnData.totalCnt){
+					if(data.length > 0){
+						// for
+						for(var i=0; i<data.length; i++){
+							console.log(data[i]);
+							
+							midasPhoto = data[i].midasImg.split(',')[0]; // 사진 들어간 거 첫번째 사진만 가져오기
+							var address1 = data[i].midasAddress1.split(' ')[0];
+							var address2 = data[i].midasAddress1.split(' ')[1];
+							
+							midasAddress = address1 + ' ' + address2;
+							
+							htmldiv += '<div class=\"minwoo_uMhome_content_card\">'
+								+ '<div class=\"minwoo_uMhome_content_card_img\" onClick=\"movePage();\">'
+								+ '<input class=\"midasCodeSeq\" type=\"hidden\" value=\"'+ data[i].midasCodeSeq +'\"/>'
+								+ '<div class=\"minwoo_uMhome_content_card_locagion\">' + midasAddress + '</div>'
+								+ '<div class=\"minwoo_uMhome_content_card_star\">';
+								
+								var imsi = 0;
+								for(var j=0; j<returnData.wishList.length; j++){
+									if(data[i].midasCodeSeq == returnData.wishList[j]){
+										htmldiv += '<i class=\"fa fa-star fs\" style=\"color:#d64640\"></i>';
+										console.log("같다!");
+										imsi = 1;
+										break;
+									}
+								}
+								if(imsi == 0){
+									htmldiv += '<i class=\"fa fa-star fs\"></i>'; 
+								}
+								
+								htmldiv +=  '</div>'
+								+ '<div class=\"minwoo_uMhome_content_card_img_link\">'
+								+ '<img src=\"/bomulsum/upload/' + midasPhoto + '\" style=\"width:250px; height:250px\">'
+								+ '</div>'
+								+ '</div>' //이미지 영역 종료
+								+ '<div class=\"minwoo_uMhome_content_detail\">'
+								+ '<div class=\"minwoo_uMhome_content_info\">'
+								+ '<a href=\"#\" class=\"minwoo_uMhome_card_label\"><span>' + data[i].midasCategory + '</span></a><br/>'
+								+ '<a href=\"#\" class=\"minwoo_uMhome_card_text\"><b style=\"font-size:14px\">' + data[i].midasName + '</b></a>'
+								+ '</div>'
+								+ '<div class=\"minwoo_uMhome_card_rating\">'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								+ '<i class="fa fa-star" style="color:gold"></i>'
+								//별점 컬럼 추가하고, 평균 내서 별점 값 뿌려주기
+								//+ '<span style="font-size:14px; color:gray">'+ '참여후기 개수' +'</span>'
+								+ '</div>'
+								+ '</div>'
+								+ '</div>'
+						}// end for
+					}else{
+						//데이터 없을때.
+					}
+				}
+				
+				htmldiv = htmldiv.replace(/%20/gi, ' ');
+				if(page == 1){
+					$('.minwoo_class_space').html(htmldiv);				
+				}else{
+					$('.minwoo_class_space').append(htmldiv);
+				}
+				$(".fs").click(likeClassFunc);
+				
+			},
+			error:function(e){
+				if(e.status == 300){
+					alert('데이터를 가져오는데 실패했습니다.');
+				};
+			}
+		});
+	};
+	
+	function movePage(){
+		location.href='/bomulsum/midas/noPage.do';
+	};
+	
+	likeClassFunc = function(e){
+		e.stopPropagation();
+		
+		
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
+		
+		var midasCode = $(this).parent().prev().prev().val();
+		var option = '즐겨찾는클래스';
+		
+		
+		var clickIcon = $(this);
+		console.log(clickIcon);
+		var tORf;
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+			tORf = true;
+		}else{
+			clickIcon.css("color", "gray");
+			tORf = false;
+		}
+		
+		$.ajax({
+			url:'/bomulsum/midas/wish.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':midasCode,
+				'bool': tORf
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+		if(tORf){
+			alert('즐겨찾는 클래스에 추가되었습니다.');
+		}else{
+			alert('해제되었습니다.');
+		}
+	};
+	</script>
+
+
+
+
 </body>
 </html>

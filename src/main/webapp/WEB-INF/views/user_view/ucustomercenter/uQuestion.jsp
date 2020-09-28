@@ -132,6 +132,7 @@ body a:link, a:visited, a:hover, a:active {
 			json.noticeTitle = "${i.noticeTitle}";
 			json.noticeContent = `${i.noticeContent}`;
 			json.noticeDate = "${i.noticeDate}";
+			console.log(json);
 			list.push(json);
 		</c:forEach>
 		

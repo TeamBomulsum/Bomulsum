@@ -12,13 +12,15 @@
 			writer_code_seq,
 			writer_name,
 			writer_email,
-			writer_password
+			writer_password,
+			writer_url
 			)
 		VALUES(
 			'writer_code_seq'|| TO_CHAR(writer_code_sq.nextval),
 			#{writerName},
 			#{writerEmail},
-			#{writerPassword}
+			#{writerPassword},
+			SUBSTR(#{writerEmail},1,(INSTR(#{writerEmail},'@')-1))
 			)
 	</insert>
 	<select id="checkId" resultType="int">

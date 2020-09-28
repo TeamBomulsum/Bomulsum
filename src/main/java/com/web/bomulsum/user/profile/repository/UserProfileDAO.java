@@ -16,21 +16,19 @@ public class UserProfileDAO {
 	
 	
 	//회원등급--------------------------------------
-	public int getSumpay() {
-		int result = sqlSessionTemplate.selectOne("userProfileDAO.getSumPay");
-		System.out.println(result);
+	public int getSumpay(String memberCode) {
+		int result = sqlSessionTemplate.selectOne("userProfileDAO.getSumPay", memberCode);
 		return result;
 	}
-	public int getSumpayPeriod() {
-		int result = sqlSessionTemplate.selectOne("userProfileDAO.getSumPayPeriod");
-		System.out.println(result);
+	public int getSumpayPeriod(String memberCode) {
+		int result = sqlSessionTemplate.selectOne("userProfileDAO.getSumPayPeriod", memberCode);
 		return result;
 	}
 	
 	//회원 정보관리--------------------------------------
 		//회원 정보 불러오기
-		public UserProfileVO getUserinfo(){
-			UserProfileVO info = sqlSessionTemplate.selectOne("userProfileDAO.getUserInfo");
+		public UserProfileVO getUserinfo(String memberCode){
+			UserProfileVO info = sqlSessionTemplate.selectOne("userProfileDAO.getUserInfo", memberCode);
 			return info;
 		}
 		//회원정보 업데이트
@@ -54,15 +52,21 @@ public class UserProfileDAO {
 		}
 		
 		//회원 배송지 조회
-		public List<UserProfileAddressVO> selectUserAddress(){
+		public List<UserProfileAddressVO> selectUserAddress(UserProfileAddressVO vo){
 			List<UserProfileAddressVO> result = 
-					sqlSessionTemplate.selectList("userProfileDAO.selectUserAddress");
+					sqlSessionTemplate.selectList("userProfileDAO.selectUserAddress", vo);
 			return result;
 		}
 		
 		//회원 배송지 업데이트
 		public void updateUserAddress(UserProfileAddressVO vo){
 			sqlSessionTemplate.insert("userProfileDAO.updateUserAddress",vo);
+		}
+		
+		//회원 사이드 프로필------------------------------
+		
+		public void updateUserProfileImg(UserProfileVO vo){
+			sqlSessionTemplate.update("userProfileDAO.updateUserProfile",vo);
 		}
 		
 }

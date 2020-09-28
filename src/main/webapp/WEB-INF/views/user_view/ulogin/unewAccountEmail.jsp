@@ -798,6 +798,7 @@ function start_timer(){
 				// 회원가입 후 로직
 				$.ajax({
 					type:"POST",
+					async: false,
 					url:'insertUserData.do',
 					data:{
 						"memberEmail" : $(".emailFail").val(),

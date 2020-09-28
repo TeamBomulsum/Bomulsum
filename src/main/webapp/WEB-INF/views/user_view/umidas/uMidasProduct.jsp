@@ -211,9 +211,10 @@ function showSlides(n) {
 
 	
 <div>
-	<%@ include file="../include/uHeader.jsp"  %>
-		<div style="width:70%; margin-left: 15%; margin-top: 1%; margin-right: 50%; display: flex; flex-direction: row;">
-		<!-- 전체틀 -->
+	<%@ include file="../include/uHeaderClass.jsp"  %>
+		<div style="width: 100%;display: flex;flex-direction: row;align-items: center;justify-content: center;">
+			<img src="<c:url value='/resources/img/page_ready.png' />"/>
+		<%-- <!-- 전체틀 -->
 			<div style="width:50%;">
 				<!-- 사진영역 -->
 				<div style="margin-top: 2%; display: flex; justify-content:center;" class="wonSlides">
@@ -457,7 +458,7 @@ function showSlides(n) {
 					</button>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 	</div>
 	<%@ include file="../include/uFooter.jsp" %>
 </div>

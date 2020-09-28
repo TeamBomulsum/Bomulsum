@@ -24,22 +24,42 @@
 
 	<!-- 회원 구매금액 산정 -->
 	<select id="getSumPay" parameterType="String" resultType="int" >
-		SELECT
-		nvl(SUM(order_pay_price),0)
+<!-- 		SELECT
+		NVL(SUM(order_pay_price),0)
 		FROM order_tb
-		WHERE member_code_seq = 'daintest'
-	<!-- 	WHERE member_code_seq = #{writerCodeSeq} -->
+		WHERE member_code_seq = #{memberCode}
+		WHERE member_code_seq = #{writerCodeSeq} -->
+		SELECT
+			NVL(SUM(order_pay_price),0)
+		FROM 
+			order_tb o, buy_writer_tb w
+		WHERE 
+			o.order_code_seq = w.order_code_seq
+		AND 
+			o.member_code_seq = #{memberCode}
+		AND 
+			w.buy_writer_order_status NOT IN ('환불 완료')
 	</select>
 	
 	<!-- 3개월 이내 구매금액 산정 -->
 	<select id="getSumPayPeriod" parameterType="String" resultType="int" >
 		SELECT
-		nvl(sum(order_pay_price),0)
-		FROM order_tb
-		WHERE order_date > sysdate-90 
+			NVL(SUM(order_pay_price),0)
+		FROM 
+			order_tb o, buy_writer_tb w
+		WHERE 
+			o.order_code_seq = w.order_code_seq
+		AND 
+			TRUNC(o.order_date) > TRUNC(SYSDATE - 90)
 		AND
-		member_code_seq = 'daintest'
-	<!-- 	WHERE member_code_seq = #{writerCodeSeq} -->
+			member_code_seq = #{memberCode}
+		
+<!-- 		SELECT
+		NVL(SUM(order_pay_price),0)
+		FROM order_tb
+		WHERE order_date > SYSDATE-90 
+		AND
+		member_code_seq = #{memberCode} -->
 	</select>
 	
 	
@@ -52,7 +72,7 @@
 		SELECT 
 		member_code_seq, member_name, member_email, member_phone, member_gender, member_birth, member_sms_agree, member_email_agree
 		FROM member_tb
-		WHERE member_code_seq = 'member_code_sq58'
+		WHERE member_code_seq = #{memberCode}
 	</select>
 	
 	<!-- 회원 정보 수정 -->
@@ -66,7 +86,7 @@
 		member_sms_agree = #{member_sms_agree},
 		member_email_agree = #{member_email_agree}
 		
-		WHERE member_code_seq = 'member_code_sq58'
+		WHERE member_code_seq = #{member_code_seq}
 
 	</update>
 	
@@ -77,14 +97,14 @@
 		SET
 		member_phone = #{member_phone}
 		
-		WHERE member_code_seq = 'member_code_sq58'
+		WHERE member_code_seq = #{member_code_seq}
 	</update>
 	
 	<!-- 회원 탈퇴 -->
 	<delete id="deleteUser" parameterType="UserProfileVO">
 		DELETE
 		FROM member_tb
-		WHERE member_code_seq = 'member_code_sq62'
+		WHERE member_code_seq = #{member_code_seq}
 	</delete>
 	
 	
@@ -97,15 +117,15 @@
 		
 		VALUES 
 		('member_address_seq' || TO_CHAR(member_address_sq.nextval),
-		'시퀀스번호넣기', #{member_address_zipcode}, #{member_address_first}, 
+		#{member_code_seq}, #{member_address_zipcode}, #{member_address_first}, 
 		#{member_address_second}, #{member_address_name}, #{member_address_phone})
 
 	</insert> 
 	
 	<!-- 회원 배송지 select -->
-	<select id="selectUserAddress" resultType="UserProfileAddressVO">
+	<select id="selectUserAddress" resultType="UserProfileAddressVO" parameterType="UserProfileAddressVO">
 		SELECT * FROM member_address_tb
-	    WHERE member_code_seq in ('시퀀스번호넣기')
+	    WHERE member_code_seq = #{member_code_seq}
 	    ORDER BY member_address_seq ASC
 	</select>
 	
@@ -122,5 +142,14 @@
 		member_address_phone = #{member_address_phone}
 		
 		WHERE member_address_seq = #{member_address_seq}
+	</update>
+	
+	<!-- 회원내정보 사이드 _ 프로필 이미지 변경 -->
+	<update id="updateUserProfile" parameterType="UserProfileVO">
+		UPDATE member_tb
+		SET 
+		member_profile = #{member_profile} 
+		WHERE 
+		member_code_seq = #{member_code_seq} <!-- 작가코드 받아오기 -->
 	</update>
 </mapper>

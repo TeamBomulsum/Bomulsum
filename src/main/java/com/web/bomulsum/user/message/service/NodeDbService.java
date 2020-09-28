@@ -14,4 +14,7 @@ public interface NodeDbService {
 	List<UserChatRoomVO> testGetWriter();
 	String insertChatRoom(UserInsertChatVo vo);
 	void deleteChatRoom(List<HashMap<String, String>> list);
+	
+	Boolean selectWish(HashMap<String, String> map);
+	String getWish(HashMap<String, String> map);
 }

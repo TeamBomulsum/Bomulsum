@@ -298,7 +298,7 @@
 			//테이블 그리는 함수
 			var renderTable = function(page){
 				var html = '';
-	
+				var memberProfilePhoto = '';
 				var startNum = (pageCount * (page - 1)); 
 				var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
 				
@@ -315,11 +315,15 @@
 					if(reArtName == ''){
 						reArtName = '삭제된 작품입니다.'
 					}
+					if(result[index].memberProfile == ""){
+						memberProfilePhoto = 'test.png';
+					} else {
+						memberProfilePhoto = result[index].memberProfile;
+					}
 			  		html += '<tr><td>' + reStatus1 + '</td>'
 			  			+ '<td>' + result[index].comment_date + '</td>'
-			  			+ '<td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\"'
-			  			+ result[index].member_profile
-			  			+ '\" alt=\"사진\"></div>&nbsp;&nbsp;' + result[index].member_name + '</div></td>'
+			  			+ '<td><div class=\"senderArea\"><img class=\"photo\" src="/bomulsum/upload/' + memberProfilePhoto + '\"'
+			  			+ '\">&nbsp;&nbsp;' + result[index].member_name + '</div></td>'
 			  			+ '<td>' + reArtName  + '</td>'
 			  			+ '<td>' + result[index].comment_content + '</td>'
 			  			+ '<td>'

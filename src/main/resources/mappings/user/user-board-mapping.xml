@@ -24,7 +24,7 @@
 		OR 
 		admin_notice_category='회원용-공지사항'
 		ORDER BY 
-		admin_notice_date ASC
+		admin_notice_date DESC
 	</select>
 	
 	<select id="getQuestionTitle" resultMap="noticeVo">
@@ -35,7 +35,7 @@
 		WHERE
 		admin_notice_category='회원용-자주묻는질문'
 		ORDER BY 
-		admin_notice_date ASC
+		admin_notice_date DESC
 	</select>
 	
 	<select id="getCoupon" resultType="String" parameterType="String">

@@ -11,10 +11,11 @@ public class WriterActivityVO {
 	private String memberName;
 	private String artName;
 	private String memberProfile;
+	private String artPhoto;
 	
 	//리뷰 테이블
 	private String reviewCodeSeq;
-	private String orderCodeSeq;
+	private String buyArtCodeSeq;
 	private String reviewComment;
 	private String reviewStar;
 	private String reviewPhoto;
@@ -75,17 +76,23 @@ public class WriterActivityVO {
 	public void setMemberProfile(String memberProfile) {
 		this.memberProfile = memberProfile;
 	}
+	public String getArtPhoto() {
+		return artPhoto;
+	}
+	public void setArtPhoto(String artPhoto) {
+		this.artPhoto = artPhoto;
+	}
 	public String getReviewCodeSeq() {
 		return reviewCodeSeq;
 	}
 	public void setReviewCodeSeq(String reviewCodeSeq) {
 		this.reviewCodeSeq = reviewCodeSeq;
 	}
-	public String getOrderCodeSeq() {
-		return orderCodeSeq;
+	public String getBuyArtCodeSeq() {
+		return buyArtCodeSeq;
 	}
-	public void setOrderCodeSeq(String orderCodeSeq) {
-		this.orderCodeSeq = orderCodeSeq;
+	public void setBuyArtCodeSeq(String buyArtCodeSeq) {
+		this.buyArtCodeSeq = buyArtCodeSeq;
 	}
 	public String getReviewComment() {
 		return reviewComment;
@@ -211,15 +218,16 @@ public class WriterActivityVO {
 	public String toString() {
 		return "WriterActivityVO [memberCodeSeq=" + memberCodeSeq + ", artCodeSeq=" + artCodeSeq + ", writerSeq="
 				+ writerSeq + ", memberName=" + memberName + ", artName=" + artName + ", memberProfile=" + memberProfile
-				+ ", reviewCodeSeq=" + reviewCodeSeq + ", orderCodeSeq=" + orderCodeSeq + ", reviewComment="
-				+ reviewComment + ", reviewStar=" + reviewStar + ", reviewPhoto=" + reviewPhoto + ", reviewDate="
-				+ reviewDate + ", reviewCommentRe=" + reviewCommentRe + ", reviewCommentReDate=" + reviewCommentReDate
-				+ ", reviewCommentReStatus=" + reviewCommentReStatus + ", alarmSeq=" + alarmSeq + ", senderCode="
-				+ senderCode + ", recipientCode=" + recipientCode + ", alarmTitle=" + alarmTitle + ", alarmDate="
-				+ alarmDate + ", alarmContent=" + alarmContent + ", alarmRead=" + alarmRead + ", commentSeq="
-				+ commentSeq + ", commentContent=" + commentContent + ", commentStatus=" + commentStatus
-				+ ", commentDate=" + commentDate + ", commentRecomment=" + commentRecomment + ", commentRecommentDate="
-				+ commentRecommentDate + "]";
+				+ ", artPhoto=" + artPhoto + ", reviewCodeSeq=" + reviewCodeSeq + ", buyArtCodeSeq=" + buyArtCodeSeq
+				+ ", reviewComment=" + reviewComment + ", reviewStar=" + reviewStar + ", reviewPhoto=" + reviewPhoto
+				+ ", reviewDate=" + reviewDate + ", reviewCommentRe=" + reviewCommentRe + ", reviewCommentReDate="
+				+ reviewCommentReDate + ", reviewCommentReStatus=" + reviewCommentReStatus + ", alarmSeq=" + alarmSeq
+				+ ", senderCode=" + senderCode + ", recipientCode=" + recipientCode + ", alarmTitle=" + alarmTitle
+				+ ", alarmDate=" + alarmDate + ", alarmContent=" + alarmContent + ", alarmRead=" + alarmRead
+				+ ", commentSeq=" + commentSeq + ", commentContent=" + commentContent + ", commentStatus="
+				+ commentStatus + ", commentDate=" + commentDate + ", commentRecomment=" + commentRecomment
+				+ ", commentRecommentDate=" + commentRecommentDate + "]";
 	}
+	
 	
 }

@@ -9,15 +9,9 @@ public class MemberSessionVO {
 	private String memberBirth;
 	private String memberGender;
 	private String memberGrade;
-	private String memberPhone;
 	
 	
-	public String getMemberPhone() {
-		return memberPhone;
-	}
-	public void setMemberPhone(String memberPhone) {
-		this.memberPhone = memberPhone;
-	}
+	
 	public String getMemberBirth() {
 		return memberBirth;
 	}
@@ -69,9 +63,8 @@ public class MemberSessionVO {
 	@Override
 	public String toString() {
 		return "MemberSessionVO [memberCode=" + memberCode + ", memberEmail=" + memberEmail + ", memberName="
-				+ memberName + ", memberLoginStat=" + memberLoginStat + ", memberImg=" + memberImg + ", memberBirth="
-				+ memberBirth + ", memberGender=" + memberGender + ", memberGrade=" + memberGrade + ", memberPhone="
-				+ memberPhone + "]";
+				+ memberName + ", memberLoginStat=" + memberLoginStat + ", memberBirth=" + memberBirth
+				+ ", memberGender=" + memberGender + ", memberGrade=" + memberGrade + ", memberImg=" + memberImg + "]";
 	}
 	
 

@@ -1,6 +1,9 @@
 package com.web.bomulsum.user.login.service;
 
+import java.util.HashMap;
+
 import com.web.bomulsum.user.login.repository.LoginVO;
+import com.web.bomulsum.user.login.repository.MemberChangePwVO;
 import com.web.bomulsum.user.login.repository.MemberSessionVO;
 import com.web.bomulsum.user.login.repository.MemberVO;
 import com.web.bomulsum.user.login.repository.NowLoginVO;
@@ -30,5 +33,11 @@ public interface MemberService {
 	
 	// 세션 회원 정보
 	MemberSessionVO getUser(String code);
+	
+	// 비밀번호 찾기용 멤버 정보
+	HashMap<String, String> forgotpw(String phone);
+	
+	// 비밀번호 수정
+	void alterTable(MemberChangePwVO vo);
 	
 }

@@ -8,11 +8,12 @@
    type="text/css">
 <meta charset="UTF-8">
 <title>보물섬|메세지</title>
-<script src="http://localhost:82/socket.io/socket.io.js"></script>
+<!-- <script src="http://localhost:82/socket.io/socket.io.js"></script> -->
 <!--
-아마존 
-<script src="http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82/socket.id/socket.io.js"></script> 
- -->
+아마존  -->
+
+<script src="http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82/socket.io/socket.io.js"></script> 
+
 <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 
 <style type="text/css">
@@ -118,7 +119,8 @@
 }
 .wonMessagebutton2{
 	display: flex;
-	border:none;
+	border:0;
+	outline:0;
 	cursor:pointer;
 	justify-content: center;
 }
@@ -369,7 +371,7 @@
 						<input type="hidden" id="headInfoCode">
 					</div>
 					<div style="display: flex; flex-direction: row; width:60%; justify-content: flex-end;margin-right: 3%;">
-						<button class="wonMessagebutton2" style="font-size: 12px;align-items: center;margin: 1%;padding: 3%;border: 1px solid #d9d9d9;color: red;background: white;">
+						<button id="writer_wish" class="wonMessagebutton2" style="font-size: 12px;align-items: center;margin: 1%;padding: 3%;border: 1px solid #d9d9d9;color: red;background: white;">
 							<i class="fas fa-heart" style="font-size:12px"></i>작가로 추가
 						</button>
 						<button id="exitButton" class="wonMessagebutton2" style="font-size:12px; align-items: center;margin: 1%;padding: 3%;border: 1px solid #d9d9d9;background: white;">나가기</button>
@@ -442,9 +444,17 @@
 	
 	<%@ include file="../../include/uFooter.jsp" %>
 </div>
-
 <script>
-var socket = io("http://localhost:82");
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+</script>
+<script>
+var socket = io("http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82");
+//var socket = io("http://localhost:82");
 var dd = document.getElementById('wonMessageContent');
 var isScrollUp = false;
 var lastScrollTop;
@@ -660,7 +670,11 @@ $(function(){
 			$('.messageUserList').addClass('enable');
 			$(this).removeClass('enable');
 			$(this).addClass('able');
+			
 			var sendercode = '<%= (String)session.getAttribute("member") %>';
+			
+			
+			
 			$("#wonMessageList").empty();
 			$.ajax({
 				url:"/bomulsum/writer/message/getChatList.wdo",
@@ -728,6 +742,29 @@ $(function(){
 					console.log(err);
 				}
 			});
+			
+			$.ajax({
+				url:'/bomulsum/user/message/memberWishInfo.do',
+				data:{
+					'memberCode':sendercode,
+					'writerCode':receiveCode
+				},
+				success:function(data){
+					if(data == 'Y'){
+						$('#writer_wish').css('background', 'red');
+						$('#writer_wish').css('color', 'white');
+						$('#writer_wish').html('<i class="fas fa-heart" style="font-size:12px"></i>하는 작가');
+					}else{
+						$('#writer_wish').css('background', 'white');
+						$('#writer_wish').css('color', 'red');
+						$('#writer_wish').html('<i class="fas fa-heart" style="font-size:12px"></i>작가로 추가');
+					}
+				},
+				fail: function(e){
+					
+				}
+			});
+			
 			preClickedList = $(this);
 		});
 	}
@@ -754,6 +791,10 @@ $(function(){
 	
 	$(".div_writer").on('click', function(){
 		var writerCode = $(this).children('input').val();
+		
+		if(writerCode == null && getParameter('writer') != null){
+			writerCode = getParameter('writer');
+		}
 		var memberCode = '<%= (String)session.getAttribute("member") %>';
 		
 		$.ajax({
@@ -843,36 +884,92 @@ $(function(){
 		}
 		console.log(data);
 		
-		var result = confirm('현재까지 대화내용이 전부 삭제됩니다.');
+		var result = confirm('정말 나가시겠습니까?\n(대화 내용은 유지됩니다.)');
 		if(result){
 			exitChat(data);
 		}
 	});
 	
 	
-	
+	$("#writer_wish").on('click', function(){
+		var memberCode = '<%=(String)session.getAttribute("member") %>';
+		var writerCode = $("#headInfoCode").val();
+		$.ajax({
+			url:"/bomulsum/user/message/wishlist.do",
+			data:{
+				"memberCode":memberCode,
+				"writerCode":writerCode
+			},
+			success : function(data){
+				if(data == 'insert'){
+					alert('좋아하는 작가에 추가 되었습니다.');
+					
+					$('#writer_wish').css('background', 'red');
+					$('#writer_wish').css('color', 'white');
+					$('#writer_wish').html('<i class="fas fa-heart" style="font-size:12px"></i>하는 작가');
+				}else{
+					alert("좋아하는 작가에 해제되었습니다.");
+
+					$('#writer_wish').css('background', 'white');
+					$('#writer_wish').css('color', 'red');
+					$('#writer_wish').html('<i class="fas fa-heart" style="font-size:12px"></i>작가로 추가');
+				}
+			},
+			fail : function(err){
+				console.log(err);
+			}
+		});
+	});
 	
 	
 	
 });
 </script>
-<script>
-function getParameter(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-</script>
+
 <script>
 var chatroomCode = getParameter('writer');
-$(document).ready(function(){
-	$('.messageUserList').each(function(){
-		if($(this).find('.writerCode').val() == chatroomCode){
-			$(this).trigger('click');
+if(chatroomCode != null && chatroomCode != 'null' && chatroomCode != ''){
+	$(document).ready(function(){
+		var memberCode = '<%= (String)session.getAttribute("member") %>';
+		var lengthCheck = false;
+		if($('.messsageUserList').length == 0){
+			lengthCheck = true;
+		}
+		
+		$('.messageUserList').each(function(){
+			if($(this).find('.writerCode').val() == chatroomCode){
+				$(this).trigger('click');
+				lengthCheck = false;
+				return false;
+			}else{
+				lengthCheck = true;
+			}
+		});
+		
+		if(lengthCheck){
+			console.log('멤버 코드 : ' + memberCode);
+			console.log('작가 코드 : '+chatroomCode);
+			$.ajax({
+				url:"/bomulsum/user/message/insertChat.do",
+				data:{
+					memberCode : memberCode,
+					writerCode : chatroomCode
+				},
+				success : function(data){
+					if(data == 'success'){
+						console.log('저장 성공');					
+					}else{
+						alert('존재하는 채팅방 입니다.');
+					}
+					location.reload();
+				},
+				fail : function(err){
+					console.log(err);
+				}
+			});
 		}
 	});
-});
+}
 </script>
 </body>
 </html>

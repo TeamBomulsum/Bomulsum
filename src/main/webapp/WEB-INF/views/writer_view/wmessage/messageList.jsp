@@ -8,7 +8,11 @@
 <html>
 <head>
 <script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
-<script src="http://localhost:82/socket.io/socket.io.js"></script>
+<!-- <script src="http://localhost:82/socket.io/socket.io.js"></script> -->
+<!--
+아마존 
+ -->
+<script src="http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82/socket.io/socket.io.js"></script> 
 
 <style>
 .dndud_writer_message_who_text {
@@ -359,7 +363,8 @@
 	var writer;
 	var memberCode;
 	var memberName;
-	var socket = io("http://localhost:82");
+	var socket = io("http://ec2-15-165-203-41.ap-northeast-2.compute.amazonaws.com:82");
+	//var socket = io("http://localhost:82");
 	
 	$(document).ready(function(){
 		

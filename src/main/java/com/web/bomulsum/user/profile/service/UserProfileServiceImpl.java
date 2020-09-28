@@ -17,20 +17,20 @@ public class UserProfileServiceImpl implements UserProfileService{
 	UserProfileDAO dao;
 	
 	//-----------회원등급
-	public int getSumpay() { //회원 구매금액 합계
-		return dao.getSumpay();
+	public int getSumpay(String memberCode) { //회원 구매금액 합계
+		return dao.getSumpay(memberCode);
 	}
 
 	@Override
-	public int getSumpayPeriod() { //3개월내 미구매 있는지 알아오기
-		return dao.getSumpayPeriod();
+	public int getSumpayPeriod(String memberCode) { //3개월내 미구매 있는지 알아오기
+		return dao.getSumpayPeriod(memberCode);
 	}
 
 
 	//-----------회원정보관리
 	@Override
-	public UserProfileVO getUserinfo() { //회원 정보 가져오기
-		return dao.getUserinfo();
+	public UserProfileVO getUserinfo(String memberCode) { //회원 정보 가져오기
+		return dao.getUserinfo(memberCode);
 	}
 
 	@Override
@@ -67,8 +67,8 @@ public class UserProfileServiceImpl implements UserProfileService{
 	}
 
 	@Override
-	public List<UserProfileAddressVO> selectUserAddress() { //회원 주소지 가져오기
-		List<UserProfileAddressVO> result = dao.selectUserAddress();
+	public List<UserProfileAddressVO> selectUserAddress(UserProfileAddressVO vo) { //회원 주소지 가져오기
+		List<UserProfileAddressVO> result = dao.selectUserAddress(vo);
 		
 		//결과없을때 처리
 		UserProfileAddressVO [] userAddress; 
@@ -93,6 +93,14 @@ public class UserProfileServiceImpl implements UserProfileService{
 	@Override
 	public void updateUserAddress(UserProfileAddressVO vo) {
 		dao.updateUserAddress(vo);
+	}
+
+	
+	//---------회원 사이드메뉴 프로필 관리
+	@Override
+	public void updateUserProfileImg(UserProfileVO vo) {
+		dao.updateUserProfileImg(vo);
+		
 	}
 	
 

@@ -8,15 +8,47 @@
 		<result property="memberCode" column="member_code_seq"/>
 		<result property="memberEmail" column="member_email"/>
 		<result property="memberName" column="member_name"/>
-		<result property="memberPhone" column="member_phone"/>
 		<result property="memberLoginStat" column="member_login"/>
 		<result property="memberImg" column="member_profile" />
 		<result property="memberBirth" column="member_birth" />
 		<result property="memberGender" column="member_gender" />
 		<result property="memberGrade" column="member_grade" />
 	</resultMap>
+	
+	<resultMap type="hashMap" id="memberInfo">
+		<result property="memberEmail" column="member_email"/>
+		<result property="memberName" column="member_name" />
+		<result property="phone" column="member_phone" />
+	</resultMap>
+	
+	<select id="forgotpw" parameterType="String" resultMap="memberInfo">
+		SELECT
+			member_email,
+			member_name,
+			member_phone
+		FROM
+			member_tb
+		WHERE
+			member_phone=#{phone}
+	</select>
+	<update id="alterTable" parameterType="com.web.bomulsum.user.login.repository.MemberChangePwVO">
+		UPDATE
+			member_tb
+		SET
+			member_password=#{chPw}
+		WHERE
+			member_email=#{email}
+			AND
+			member_name=#{name}
+			AND
+			member_phone=#{phone}
+	</update>
 
 	<insert id="insertMember" parameterType="memberVO">
+		<selectKey resultType="int" keyProperty="memberCode" order="BEFORE">
+			SELECT member_code_sq.nextval FROM DUAL
+		</selectKey>
+		
 		INSERT INTO member_tb 
 		(
 			member_code_seq,
@@ -30,7 +62,7 @@
 		)
 		VALUES
 		(
-			'member_code_sq' || TO_CHAR(member_code_sq.nextval),
+			'member_code_seq' || TO_CHAR(#{memberCode}),
 			#{memberEmail},
 			#{memberPassword},
 			#{memberName}, 
@@ -38,6 +70,75 @@
 			#{memberRecCode}, 
 			#{memberSmsAgree}, 
 			#{memberEmailAgree}
+		)
+	</insert>
+	
+	<insert id="insertCoupon" parameterType="hashMap">
+		INSERT INTO coupon_tb
+		(
+			coupon_code_seq,
+			member_code_seq,
+			coupon_name,
+			coupon_content,
+			coupon_price,
+			coupon_date
+		)
+		VALUES
+		(
+			'coupon_code_seq' || TO_CHAR(coupon_sq.nextval),
+			#{code},
+			'회원가입 감사 쿠폰',
+			'신규가입 고객 대상',
+			2000,
+			#{date}
+		)
+	</insert>
+	<insert id="insertCoupon2" parameterType="hashMap">
+		INSERT INTO coupon_tb
+		(
+			coupon_code_seq,
+			member_code_seq,
+			coupon_name,
+			coupon_content,
+			coupon_price,
+			coupon_date
+		)
+		VALUES
+		(
+			'coupon_code_seq' || TO_CHAR(coupon_sq.nextval),
+			#{code},
+			'회원가입 감사 쿠폰',
+			'신규가입 고객 대상',
+			3000,
+			#{date}
+		)
+	</insert>
+	<select id="getRecCode" parameterType="String" resultType="String">
+		SELECT 
+			member_code_seq
+		FROM
+			member_tb
+		WHERE
+			member_email=#{email}
+	</select>
+	<insert id="insertCoupon3" parameterType="hashMap">
+		INSERT INTO coupon_tb
+		(
+			coupon_code_seq,
+			member_code_seq,
+			coupon_name,
+			coupon_content,
+			coupon_price,
+			coupon_date
+		)
+		VALUES
+		(
+			'coupon_code_seq' || TO_CHAR(coupon_sq.nextval),
+			#{recCode},
+			'추천인',
+			'신규가입 추천 대상',
+			5000,
+			#{date}
 		)
 	</insert>
 	
@@ -98,8 +199,7 @@
 		SELECT 
 			member_code_seq, 
 			member_email, 
-			member_name,
-			member_phone,
+			member_name, 
 			member_login, 
 			member_profile,
 			member_birth,

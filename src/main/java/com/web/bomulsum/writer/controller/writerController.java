@@ -20,8 +20,4 @@ public class writerController {
 		return "home";
 	}
 
-	
-	
-
-
 }

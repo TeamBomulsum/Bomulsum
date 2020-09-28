@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +63,7 @@ function showSlides(n) {
       slides[i].style.display = "none";
   }
 
-  slides[slideIndex-1].style.display = "block";
+  slides[slideIndex-1].style.display = "flex";
 }
 
 </script>
@@ -84,11 +86,6 @@ body a:link, a:visited, a:hover, a:active {
 .dainSection {
 	margin-left: 2%;
 	width: 80%;
-}
-
-
-ul {
-  list-style: none;
 }
 
 .dainTitle{
@@ -130,10 +127,6 @@ ul {
 	margin-bottom: 24px;
 }
 
-.dainSubContent{
-	
-	background-color: yellow;
-}
 .dainMoreBtn{
 	padding: 0px 24px;
 	border: 1px solid #d9d9d9;
@@ -157,10 +150,10 @@ ul {
 outline: none;
 }
 
-a:link, a:visited, a:hover, a:active{
+/* a:link, a:visited, a:hover, a:active{
    text-decoration: none;
    color: black;
-}
+} */
 
 /*------------------다인CSS끝---------------------------*/
 
@@ -220,8 +213,8 @@ a:link, a:visited, a:hover, a:active{
 	border: 1px solid #d9d9d9;
 	border-bottom-width: 2px;
     border-bottom-color: #333;
-    cursor: pointer;
 }
+
 
 .dndud_noContent{
 	margin-top: 7%;
@@ -306,13 +299,14 @@ a:link, a:visited, a:hover, a:active{
 	display: flex;
 	flex-direction: row;
 	background-color:white;
+	border: 1px solid #d9d9d9;
 }
 
 .dndud_semicontent_main .item{
     width: 70%;
     max-width: 70%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .dndud_semicontent_main .item .writeAboutItem{
@@ -605,7 +599,7 @@ input[type="button"]:focus{
 	background-color: #81BEF7;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
@@ -618,7 +612,7 @@ input[type="button"]:focus{
 ::-webkit-scrollbar-button {
   width: 0;
   height: 0;
-}
+} */
 
 /*메시지 CSS - 원희*/
 
@@ -653,9 +647,75 @@ input[type="button"]:focus{
 	background-color: #81BEF7;
 }
 
+.like_art_img{
+	display:flex;
+    justify-content: flex-end;
+	width: 100%; 
+	max-height:330px;
+	min-height: 196px;
+	background-repeat: round;
+	background-size: auto 100%;
+    font-size: 20px;
+}
+
+.img_star{
+	color:black;
+	padding:3%;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}
+
+.img{
+	cursor:pointer;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
 
 
+.imsiDiv{
+	display:flex;
+	flex-direction: row;
+	width:100%;
+}
 
+.purchaseReview{
+	background-color: #1f76bb;
+	color: white;
+}
+
+.purchaseReview_before{
+	background-color:white;
+	color: #1f76bb;
+}
+
+.purchaseReview_before:hover{
+	background-color:#1f76bb;
+	color:white;
+}
+
+.purchaseReview_done{
+	background-color: #f1f1f1 !important;
+	color:black;
+	cursor: default !important;
+}
+.decision_Div{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.delivery{
+    background-color: white;
+    border: 1px solid #d9d9d9 !important;
+    padding: 5%;
+    margin-top: 5%;
+    cursor: pointer;
+    color:black;
+    text-decoration: none !important;
+}
 </style>
 </head>
 <body>
@@ -677,23 +737,23 @@ input[type="button"]:focus{
 			<td class="daintd">
 				<strong class="dainLabel" >적립금</strong>
 				<!-- 숫자 클릭시 해당 페이지로 이동해야함 -->
-				<a class="dainValue" id="umhPoint" href="#" style="color: #1F76BB;">0P</a>
+				<a class="dainValue" id="umhPoint" href="<c:url value='/user/reserves.do'/> " style="color: #1F76BB;"><fmt:formatNumber value="${usablepoint}" pattern="#,###"/>P</a>
 			</td>
 			<td class="daintd">
 				<strong class="dainLabel">할인 쿠폰 수</strong>
-				<a class="dainValue" id="umhCouponCount" href="#" style="color: #1F76BB;">0</a>
+				<a class="dainValue" id="umhCouponCount" href="<c:url value='/user/coupon/list.do'/> " style="color: #1F76BB;">${coupon }</a>
 			</td>
 			<td class="daintd">
 				<strong class="dainLabel">작가 발송 완료</strong>
 				<i id="dainHelpIcon1" class="fa fa-question-circle-o" style="color: #d9d9d9"></i>
 				<span id="dainHelp1" class="dainHelp" style="display: none;">최근 1개월 기준</span>
-				<a class="dainValue" id="umhSendComplete" href="#" style="color: #1F76BB;">0</a>
+				<a class="dainValue" id="umhSendComplete" href="<c:url value='/user/myInfo/orderList.do'/>" style="color: #1F76BB;">${sendComplete }</a>
 			</td>
 			<td class="daintd">
 				<strong class="dainLabel">취소/환불 완료</strong>
 				<i id="dainHelpIcon2" class="fa fa-question-circle-o" style="color: #d9d9d9"></i>
 				<span id="dainHelp2" class="dainHelp" style="display: none;">최근 1개월 기준</span>
-				<a class="dainValue" id="umhRefundComplete" href="#" style="color: #1F76BB;">0</a>
+				<a class="dainValue" id="umhRefundComplete" href="<c:url value='/user/myInfo/refundList.do'/> " style="color: #1F76BB;">${refundComplete }</a>
 			</td>
 		</tr>
 	</table>
@@ -701,15 +761,15 @@ input[type="button"]:focus{
 	<!-- 최근 주문 내역 -->
 	<div class="dainSubTitle">
 		<h4 style="margin:0px;">최근 주문내역</h4>
-		<a href="#" style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
+		<a href="<c:url value='/user/myInfo/orderList.do'/> " style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
 	</div>
-	<div class="dainSubContent" style="height: 200px; background-color: white;">
+	<div class="dainSubContent" style="background-color: white;">
 	 <!-- 여기다가 주문내역 가져오기 -->
 	 
 	 
 	<!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
 	  <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->	 
-	 		<div class="dndud_content">
+ 		<div class="dndud_content">
 			<div class="dndud_content_tab_group">
 				<span class="onTab">작품<i id="dndud_questionIcon" class="far fa-question-circle"></i></span>
 				<a>온라인 클래스</a>
@@ -717,43 +777,131 @@ input[type="button"]:focus{
 			</div>
 			
 			<!-- 작품 없을경우
-			<div class="dndud_noContent">
-				<span class="no_order_icon"><img style="width:120px; height:120px" src="<c:url value='/resources/img/noFile.png'/>" ></span>
-				<p style="margin-bottom:4%; font-size: 16px; color: #666">주문하신 적이 없네요. (이럴수가!)</p>
-				<a>작품 구경하러 가기</a>
-			</div>
+			
 			 -->
 			 
 			<!-- 작품 있을경우 -->
 			<div class="dndud_allContents">
-			
-				<div class="dndud_semicontent">
-					<div class="dndud_semicontent_main">
-						<div class="item">
-							<div class="img">
-								<img src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
-							</div>
-							<div class="writeAboutItem">
-								<div class="itemTitle">
-									<p>(카페) 주문제작 감성 일러스트 엽서</p>
-									<p class="orderStat">결제 완료</p>
-								</div>
-								<div class="aboutItem">
-									<p>배송비 : 우편(+ 500원) / 문구 및 디자인추가 : X도안 그대로</p>
-									<span>1개</span>
-								</div>
-							</div>
-						</div>
-						<div class="aboutW">
-							<a>#작가#</a>
-							<input type="button" value="메시지로 문의">
-						</div>
-						<div class="decision">
-							<input type="button" value="환불요청">
-						</div>
+				<c:set value="${orderListOne }" var="i" />
+				<c:set var="order" value="${i.orderTable }"/>
+				<c:set var="writerList" value="${i.buyWriter }" />
+				<c:set var="artList" value="${i.buyArt }" />
+				<c:set var="optionList" value="${i.buyOption }" />
+				<c:if test="${empty i }">
+					<div class="dndud_noContent">
+						<span class="no_order_icon"><img style="width:120px; height:120px" src="<c:url value='/resources/img/noFile.png'/>" ></span>
+						<p style="margin-bottom:4%; font-size: 16px; color: #666">주문하신 적이 없네요. (이럴수가!)</p>
+						<a>작품 구경하러 가기</a>
 					</div>
-				</div>
-	
+				</c:if>
+				
+				<c:if test="${not empty i }">
+					<c:forEach items="${writerList }" var="writer">
+				
+						<div class="dndud_semicontent_main">
+							<div class="item">
+							
+								<c:forEach items="${artList }" var="art">
+									<c:if test="${art.buyWriterCodeSeq eq writer.buyWriterCodeSeq }">
+										<div class="imsiDiv">
+											<div class="img" id="${art.artCodeSeq }" onclick="artCode(this)">
+												<img src="<c:url value='/upload/${art.artPhoto }'/>" style="width:75px; height:75px">
+											</div>
+											<div class="writeAboutItem">
+												<div class="itemTitle">
+													<p>${art.artName }</p>
+													<p class="orderStat">${writer.buyWriterOrderStatus }</p>
+												</div>
+												
+												<c:forEach items="${optionList }" var="option">
+													<c:if test="${option.buyArtCodeSeq eq art.buyArtCodeSeq }">
+														<div class="aboutItem" id="${option.artOptionSeqList }">
+															<p>${option.artOptionName }</p>
+															<span>${option.artOptionAmount }개</span>
+														</div>
+													</c:if>
+												</c:forEach>
+												
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+								
+								
+							</div>
+							<div class="aboutW">
+								<c:if test="${not empty writer.writerBrandName }">
+									<a>${writer.writerBrandName }</a>
+								</c:if>
+								<c:if test="${empty writer.writerBrandName }">
+									<a>${writer.writerName }</a>
+								</c:if>
+								<input id="${writer.writerCodeSeq }" class="go_to_writer_message" type="button" value="메시지로 문의">
+							</div>
+							<div class="decision">
+											
+								<c:choose>
+									<c:when test="${writer.buyWriterOrderStatus eq '결제 완료' }">
+										<input id="${writer.buyWriterCodeSeq }" class="go_to_refund" type="button" value="환불요청">
+									</c:when>
+									<c:when test="${writer.buyWriterOrderStatus eq '배송 완료' }">
+										<c:choose>
+											<c:when test="${writer.buyDeliveryName eq 'CJ대한 통운' }">
+												<c:set var="delivery_name" value="kr.cjlogistics" />
+											</c:when>
+											<c:when test="${writer.buyDeliveryName eq '우체국 택배' }">
+												<c:set var="delivery_name" value="kr.epost" />
+											</c:when>
+											<c:when test="${writer.buyDeliveryName eq '한진 택배' }">
+												<c:set var="delivery_name" value="kr.hanjin" />
+											</c:when>
+											<c:when test="${writer.buyDeliveryName eq '롯데 택배' }">
+												<c:set var="delivery_name" value="kr.lotte" />
+											</c:when>
+											<c:when test="${writer.buyDeliveryName eq '로젠 택배' }">
+												<c:set var="delivery_name" value="kr.logen" />
+											</c:when>
+										</c:choose>
+										<c:forEach items="${artList }" var="art2">
+											<c:if test="${art2.buyWriterCodeSeq eq writer.buyWriterCodeSeq }">
+												<c:choose>
+													<c:when test="${art2.buyArtReviewStatus eq 'N' }">
+														<div class="decision_Div">
+															<input class="purchaseReview_before" type="button" value="구매후기 작성">
+															<a class="delivery" href="https://tracker.delivery/#/${delivery_name }/${writer.buyDeliveryNum }" target="_blank">발송 정보 조회</a>
+														</div>
+													</c:when>
+													<c:otherwise>
+														<c:if test="${art2.buyArtReviewUpdate eq 'N' }">
+															<div class="decision_Div">
+																<input class="purchaseReview" type="button" value="구매후기 수정">
+																<a class="delivery" href="https://tracker.delivery/#/${delivery_name }/${writer.buyDeliveryNum }" target="_blank">발송 정보 조회</a>
+															</div>
+														</c:if>
+														<c:if test="${art2.buyArtReviewUpdate ne 'N' }">
+															<div class="decision_Div">
+																<input class="purchaseReview_done" type="button" value="후기 작성 완료">
+																<a class="delivery" href="https://tracker.delivery/#/${delivery_name }/${writer.buyDeliveryNum }" target="_blank">발송 정보 조회</a>
+															</div>
+														</c:if>
+													</c:otherwise>
+												</c:choose>
+											</c:if>
+										</c:forEach>
+									</c:when>
+									<c:when test="${writer.buyWriterOrderStatus eq '환불 대기' }">
+										<input class="purchaseReview_done" type="button" value="환불 요청 완료">
+									</c:when>
+									<c:when test="${writer.buyWriterOrderStatus eq '환불 완료' }">
+										<input class="purchaseReview_done" type="button" value="환불 완료">
+									</c:when>
+								</c:choose>
+								
+							</div>
+						</div>
+					
+					</c:forEach>
+				</c:if>
 				
 			</div>
 			
@@ -769,13 +917,15 @@ input[type="button"]:focus{
 	 
 	 
 	</div>
-	<div style="margin-top:20px; display: flex; justify-content: center;">
-	<a href="#" style="padding: 12px 30px; border: 1px solid #d9d9d9;
-		background-color: #fff; color: black; font-size: 13px;"><strong>최근 주문내역 더보기</strong></a>
-	</div>
+	<c:if test="${not empty i }">
+		<div style="margin-top:20px; display: flex; justify-content: center;">
+			<a href="<c:url value='/user/myInfo/orderList.do'/> " style="padding: 12px 30px; border: 1px solid #d9d9d9;
+				background-color: #fff; color: black; font-size: 13px;"><strong>최근 주문내역 더보기</strong></a>
+		</div>
+	</c:if>
 	
 	<!-- 안읽은 메시지&알림 -->
-	<div style="display: flex; justify-content: space-between; ">
+	<%-- <div style="display: flex; justify-content: space-between; ">
 		<!-- 안읽은 메시지 -->
 		<div style="width: 49%;">
 			<div class="dainSubTitle" >
@@ -789,7 +939,7 @@ input[type="button"]:focus{
 			  <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
 	  <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->	
 	  <div style="display: flex; flex-direction: row; height:100%;overflow:scroll;">		 
-			 	<div id="wonHeaderDiv2" >
+		 		<div id="wonHeaderDiv2" >
 				<div id="wonAccountView">
 				<c:forEach begin="1" end="6">
 					<button id="wonMessagebutton" style="margin:3%; display: flex; flex-direction: row; align-items: center; border-color: white;"> 
@@ -821,7 +971,8 @@ input[type="button"]:focus{
 		  <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
 	  <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->		 
 			 
-			 	<div style="display: flex; flex-direction: row; height:100%;overflow:scroll;">
+		 	<div style="display: flex; flex-direction: row; height:100%;">
+		 		<img src="<c:url value='/resources/img/page_ready.png' />"/> 
 				<div style="width:100%;">
 				<!-- 내용물 -->
 				<c:forEach begin="1" end="6">
@@ -854,60 +1005,91 @@ input[type="button"]:focus{
 		 
 			</div>			
 		</div>
-	</div>
+	</div> --%>
 	
 	<!-- 즐겨찾는 작품 -->
 	<div class="dainSubTitle">
 		<h4 style="margin:0px;">즐겨찾는(★)작품</h4>
-		<a href="#" style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
+		<a href="/bomulsum/user/wishlist/bookmarkWork.do" style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
 	</div>
-	<div class="dainSubContent" style="height: 300px;">
-	 <!-- 여기다가 즐겨찾는작품 가져오기 -->
-	 
-	 
-	 
-	 
-	 
-	 
+	<div class="dainSubContent" style="height: 300px;display:flex;flex-direction:row;height: fit-content;">
+		<!-- 여기다가 즐겨찾는작품 가져오기 -->
+		<c:forEach items="${likeList }" var="list" begin="0" end="3">
+			<div id="${list.artCode }" onclick="artCode(this)" class="wonBookContent" style="cursor:pointer;border: 1px solid #d9d9d9;background: #f8f9fb;width: 23%; text-decoration: none; margin: 1%;border-radius: 4px;">
+				<!-- 내용물 -->
+				<c:set var="img" value="${fn:split(list.artImg, ',') }" />
+				<c:set var="loop_flag" value="false" />
+				<div class="like_art_img" style="background-image: url('/bomulsum/upload/${img[0]}');">
+				
+					<c:forEach items="${wishArt }" var="wish">
+						<c:if test="${not loop_flag }">
+							<c:if test="${wish eq list.artCode }">
+								<c:set var="loop_flag" value="true" />
+							</c:if>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${loop_flag }">
+						<i class="fa fa-star fs img_star" style="color:#d64640"></i>
+					</c:if>
+					<c:if test="${not loop_flag }">
+						<i class="fa fa-star fs img_star"></i>
+					</c:if>
+				</div>
+				
+				<div style="display:flex; flex-direction: column;padding: 5%;">
+					<c:if test="${empty list.writerBrandName }">
+						<span style="color: #ABABAB; font-size: 80%;">${list.writerName }</span>
+					</c:if>
+					<c:if test="${not empty list.writerBrandName }">
+						<span style="color: #ABABAB; font-size: 80%;">${list.writerBrandName }</span>
+					</c:if>
+					<span style="display: block; text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">${list.artName }</span>
+				</div>
+			</div>
+		</c:forEach>
+		
 	</div>
 	
 	
 	<!-- 좋아하는 작가 -->
 	<div class="dainSubTitle">
 		<h4 style="margin:0px;">좋아하는(♥)작가</h4>
-		<a href="#" style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
+		<a href="/bomulsum/user/wishlist/likeWriter.do" style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
 	</div>
-	<div class="dainSubContent" style="height: 272px; margin: 24px 0px; background-color: white;">
-	 <!-- 여기다가 좋아하는작가 가져오기 -->
-	 
-	 
-	 
-	  <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
-	  <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
-	 			<!-- 좋아하는 작가 목록 -->
+	<c:if test="${not empty writerVO }">
+		<div class="dainSubContent" style="height: 272px; margin: 24px 0px; background-color: white;">
+		 <!-- 여기다가 좋아하는작가 가져오기 -->
+		 
+		 
+		 
+		  <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
+		  <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
+			<!-- 좋아하는 작가 목록 -->
+		
 			<ul class="jeonga-artist-list">
-				<li class="jeonga-artist-list-item">
+				<li class="jeonga-artist-list-item" style="list-style: none;">
 					<!-- 작가 프로필  -->
 					<div class="jeonga-wprofile  ">
 						<!-- 작가 프로필 사진 -->
 						<div class="jeonga-wprofile-split">
 							<div class="jeonga-wprofile-image">
-							<a href="#" target="#" class="jeonga-wrpofile-image-link">
-								<img id="jeonga-wprofileImage" src="<c:url value='/resources/img/earings.jpg'/>"/>
-							 </a></div>
+								<a href="#" target="#" class="jeonga-wrpofile-image-link">
+									<img style="width: 100%;" id="jeonga-wprofileImage" 
+										src="<c:url value='/upload/${writerVO.writerProfileImg }'/>"/>
+								 </a>
+							 </div>
 						</div>
 						<div class="jeonga-wprofile-split">
 						<!-- 작가 프로필 내용 -->
 							<div class="jeonga-wprofile-content">
-							<a href="#" class="jeonga-wprofile-title" target="">령쓰</a>
-							<div class="jeonga-stars" data-ui="rating" data-value="5">
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i> 
-								<i class="fa fa-star" aria-hidden="true" style="color:gold"></i>  
-							</div>
-							<p class="jeonga-wprofile-text">안녕하세요 령쓰입니다(*´꒳`*) 여러분들의 추억을 저만의 독특한 감성으로 그려드립니다</p>
+							<c:if test="${empty writerVO.writerBrandName }">
+								<a href="#" class="jeonga-wprofile-title" target="">${writerVO.writerName }</a>
+							</c:if>
+							<c:if test="${not empty writerVO.writerBrandName }">
+								<a href="#" class="jeonga-wprofile-title" target="">${writerVO.writerBrandName }</a>
+							</c:if>
+							<p class="jeonga-wprofile-text">${writerVO.writerIntro }</p>
 							
 							<div class="jeonga-wprofile-buttons">
 								<div class="jeonga-wprofile-buttons-top">
@@ -917,65 +1099,129 @@ input[type="button"]:focus{
 									data-target-id="">--><!-- <em class="txt active">♥︎하는 작가</em> 	</a>-->
 								<div id="jeonga-wprofile-button-add">♥︎하는 작가</div>
 									<div id="jeonga-wprofile-writer-home">
-									<a class="jeonga-wprofile-button" href="#">작가홈</a>
+									<a class="jeonga-wprofile-button" href="/bomulsum/writerhome/${writerVO.writerUrl }.do">작가홈</a>
 									</div>
 								</div>
 								<div id="jeonga-wprofile-message">
-									<a href="#" class="jeonga-wprofile-button">메시지 보내기</a>
+									<a href="/bomulsum/user/message.do?writer=${writerVO.writerCodeSeq }" class="jeonga-wprofile-button">메시지 보내기</a>
 								</div>
 							</div>
 							</div>
 						</div>
 					
 					<!-- 이미지 슬라이더 -->
-					<div class="joenga-wprofile-imageslider">
-					 	<div class="jeonga-imageSlides-buttons">
-  						<a class="jeonga-imageSlides-prev" onclick="plusSlides(-1)">❮</a>
- 						<a class="jeonga-imageSlides-next" onclick="plusSlides(1)">❯</a>
-						</div>
-						<!-- 슬라이드 기본 세트 -->
-  						<div id="jeonga-imageSlides1">
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>">
-  						</div>
-						<!-- 슬라이드 한 세트 -->
-					 	<div class="jeonga-imageSlides" style="display:none">
-   							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/test.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>">
-  						</div>		
-  						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/MainLogo.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/Logo_gray.png'/>">
-  						</div>
-  						<!-- 슬라이드 한 세트 -->	
-  						<div class="jeonga-imageSlides" style="display:none" >
-							<img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/text.png'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/earings.jpg'/>"><img class="jeonga-imageSlides-img" src="<c:url value='/resources/img/cup.jpg'/>">
-  						</div>
-  					</div> 
-												
+					<c:if test="${not empty imgList }">
+						<div class="joenga-wprofile-imageslider">
+						 	<div class="jeonga-imageSlides-buttons">
+	  						<a class="jeonga-imageSlides-prev" onclick="plusSlides(-1)">❮</a>
+	 						<a class="jeonga-imageSlides-next" onclick="plusSlides(1)">❯</a>
+							</div>
+							
+							<c:if test="${not empty firstImg }">
+								<!-- 슬라이드 기본 세트 -->
+		  						<div id="jeonga-imageSlides1">
+									<c:forEach items="${firstImg }" var="mimg">
+										<c:if test="${empty mimg }">
+											<img class="jeonga-imageSlides-img" src="">
+										</c:if>
+										<c:if test="${not empty mimg }">
+											<img class="jeonga-imageSlides-img" src="<c:url value='/upload/${mimg }'/>">
+										</c:if>
+			  						</c:forEach>
+		  						</div>
+								<!-- 슬라이드 한 세트 -->
+							 	<div class="jeonga-imageSlides" style="display:none">
+		   							<c:forEach items="${firstImg }" var="fimg">
+										<c:if test="${empty fimg }">
+											<img class="jeonga-imageSlides-img" src="">
+										</c:if>
+										<c:if test="${not empty fimg }">
+											<img class="jeonga-imageSlides-img" src="<c:url value='/upload/${fimg }'/>">
+										</c:if>
+			  						</c:forEach>
+		  						</div>	
+	  						</c:if>	
+	  						
+	  						<c:if test="${not empty secondImg }">
+		  						<!-- 슬라이드 한 세트 -->	
+		  						<div class="jeonga-imageSlides" style="display:none" >
+		  							<c:forEach items="${secondImg }" var="simg">
+										<c:if test="${empty simg }">
+											<img class="jeonga-imageSlides-img" src="">
+										</c:if>
+										<c:if test="${not empty simg }">
+											<img class="jeonga-imageSlides-img" src="<c:url value='/upload/${simg }'/>">
+										</c:if>
+									</c:forEach>
+		  						</div>
+	  						</c:if>
+	  						<c:if test="${not empty thirdImg }">
+		  						<!-- 슬라이드 한 세트 -->	
+		  						<div class="jeonga-imageSlides" style="display:none" >
+		  							<c:forEach items="${thirdImg }" var="timg">
+										<c:if test="${empty timg }">
+											<img class="jeonga-imageSlides-img" src="">
+										</c:if>
+										<c:if test="${not empty timg }">
+											<img class="jeonga-imageSlides-img" src="<c:url value='/upload/${timg }'/>">
+										</c:if>
+									</c:forEach>
+		  						</div>
+	  						</c:if>
+	  					</div> 
+					</c:if>						
 					
 				</div>
 				</li>
 			</ul>
-	 
-	 <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
-	 <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	</div>
+		 
+		 <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
+		 <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
+		 
+		</div>
+	</c:if>
 	
 	<!-- 최근 본 작품 -->
 	<div class="dainSubTitle">
 		<h4 style="margin:0px;">최근 본 작품</h4>
-		<a href="#" style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
+		<a href="/bomulsum/user/wishlist/recently.do" style="font-size: 14px; color: #22a7af;">더보기 <b>></b></a>
 	</div>
-	<div class="dainSubContent" style="height: 300px;">
+	<div class="dainSubContent" style="height: 300px;display:flex;flex-direction:row;height: fit-content;">
 	 <!-- 여기다가 좋아하는작가 가져오기 -->
-	 
+	 	<c:forEach items="${recentList }" var="list" begin="0" end="3">
+			<div id="${list.artCode }" onclick="artCode(this)" class="wonBookContent" style="cursor:pointer;border: 1px solid #d9d9d9;background: #f8f9fb;width: 23%; text-decoration: none; margin: 1%;border-radius: 4px;">
+				<!-- 내용물 -->
+				<c:set var="img" value="${fn:split(list.artImg, ',') }" />
+				<c:set var="loop_flag" value="false" />
+				<div class="like_art_img" style="background-image: url('/bomulsum/upload/${img[0]}');">
+				
+					<c:forEach items="${wishArt }" var="wish">
+						<c:if test="${not loop_flag }">
+							<c:if test="${wish eq list.artCode }">
+								<c:set var="loop_flag" value="true" />
+							</c:if>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${loop_flag }">
+						<i class="fa fa-star fs img_star" style="color:red"></i>
+					</c:if>
+					<c:if test="${not loop_flag }">
+						<i class="fa fa-star fs img_star"></i>
+					</c:if>
+				</div>
+				
+				<div style="display:flex; flex-direction: column;padding: 5%;">
+					<c:if test="${empty list.writerBrandName }">
+						<span style="color: #ABABAB; font-size: 80%;">${list.writerName }</span>
+					</c:if>
+					<c:if test="${not empty list.writerBrandName }">
+						<span style="color: #ABABAB; font-size: 80%;">${list.writerBrandName }</span>
+					</c:if>
+					<span style="display: block; text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">${list.artName }</span>
+				</div>
+			</div>
+		</c:forEach>
 	 
 	 
 	 
@@ -992,4 +1238,81 @@ input[type="button"]:focus{
 	<%@ include file="../include/uFooter.jsp" %>
 </div>
 </body>
+<script>
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+
+function artCode(e){
+	var art_code = e.id;
+	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank");
+}
+
+$(function(){
+	$('.fs').on('click', function(e){
+		e.stopPropagation();
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
+		
+		var artCode = $(this).parent().parent().attr('id');
+		var option = '좋아하는작품';
+		
+		
+		var clickIcon = $(this);
+		console.log(clickIcon);
+		var tORf;
+		
+	 	if(clickIcon.css("color") == "rgb(0, 0, 0)"){
+			clickIcon.css("color", "#d64640");
+			tORf = true;
+		}else{
+			clickIcon.css("color", "black");
+			tORf = false;
+		}
+		
+		$.ajax({
+			url:'/bomulsum/category/wish.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':artCode,
+				'bool': tORf
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+		if(tORf){
+			alert('좋아하는 작품에 추가되었습니다.');
+		}else{
+			alert('해제되었습니다.');
+		}
+		location.reload();
+	});
+	
+	$(".go_to_writer_message").on('click', function(){
+		if(memberCode == null || memberCode == ''){
+			alert('세션이 만료되었습니다.');
+			location.href="/bomulsum/user/login.do";
+		}else{
+			location.href="/bomulsum/user/message.do?writer="+$(this).attr('id');
+		}
+	});
+	
+	$('.go_to_refund').on('click', function(){
+		if(memberCode == null || memberCode == ''){
+			alert('세션이 만료되었습니다.');
+			location.href="/bomulsum/user/login.do";
+		}else{
+			location.href="/bomulsum/user/myInfo/refund/request.do?buyWriterCode="+$(this).attr('id');
+		}
+	});
+});
+</script>
 </html>

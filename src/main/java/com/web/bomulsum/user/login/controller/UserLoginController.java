@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.bomulsum.user.login.repository.LoginVO;
+import com.web.bomulsum.user.login.repository.MemberChangePwVO;
 import com.web.bomulsum.user.login.repository.MemberVO;
 import com.web.bomulsum.user.login.repository.NowLoginVO;
 import com.web.bomulsum.user.login.service.MemberServiceImpl;
 
 import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -34,10 +37,12 @@ public class UserLoginController {
 	public ModelAndView userLogin(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		Cookie cookie[] = request.getCookies();
-		for(Cookie c : cookie) {
-			if(c.getName().equals("rememberEmail")) {
-				if(c.getValue() != null) {
-					mav.addObject("rememberedEmail", c.getValue());
+		if(cookie != null) {
+			for(Cookie c : cookie) {
+				if(c.getName().equals("rememberEmail")) {
+					if(c.getValue() != null) {
+						mav.addObject("rememberedEmail", c.getValue());
+					}
 				}
 			}
 		}
@@ -73,26 +78,27 @@ public class UserLoginController {
 		params.put("text", msg);
 		params.put("app_version", "test app 1.2"); // application name and version
 
-//	    try {
-//	    	//send() 전송할지 말지.
-//	      JSONObject obj = (JSONObject) coolsms.send(params);
-//	      System.out.println(obj.toString());
-//	    } catch (CoolsmsException e) {
-//	      System.out.println(e.getMessage());
-//	      System.out.println(e.getCode());
-//	    }
+	    try {
+	    	//send() 전송할지 말지.
+	      JSONObject obj = (JSONObject) coolsms.send(params);
+	      System.out.println(obj.toString());
+	    } catch (CoolsmsException e) {
+	      System.out.println(e.getMessage());
+	      System.out.println(e.getCode());
+	    }
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/insertUserData", method=RequestMethod.POST)
 	public void insertVo(MemberVO vo) {
+		// 회원가입 성공 후 로직
 		service.insertMember(vo);
+		
 		System.out.println(vo.toString());
 	}
 	
 	@RequestMapping(value="/successNewAccount")
 	public String successNewAccount() {
-		System.out.println("controller 진입!");
 		return "/ulogin/usuccessNewAccountEmail";
 	}
 	
@@ -125,7 +131,6 @@ public class UserLoginController {
 			String userName = service.getUserName(userCode);
 			session.setAttribute("userName", userName);
 			session.setAttribute("user", service.getUser(userCode));
-			System.out.println("신규 핸드폰 번호 : " + service.getUser(userCode).getMemberPhone());
 			System.out.println("신규 추가 : " + service.getUser(userCode));
 			
 			// 이메일 저장하기 체크박스 선택시 쿠키 생성해주기.
@@ -162,5 +167,34 @@ public class UserLoginController {
 //		System.out.println("kakao code: " + code);
 //		return "";
 //	}
+	
+	
+	@RequestMapping(value="/findAboutAccount")
+	public String forgotIdPw() {
+		return "/ulogin/uforgotIdPw";
+	}
+	
+	@RequestMapping(value="/phoneCheck", method = RequestMethod.POST)
+	public ModelAndView updatePw(@RequestParam String phone, ModelAndView mav) {
+		System.out.println("HP: " + phone);
+		HashMap<String, String> map = service.forgotpw(phone);
+		
+		mav.setViewName("/ulogin/uUpdatePw");
+		if(map != null) {
+			mav.addObject("data", map);		
+		}else {
+			mav.addObject("phone", phone);
+		}
+		
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/updatePW", method = RequestMethod.POST)
+	public void alterTable(MemberChangePwVO vo) {
+
+		service.alterTable(vo);
+	}
+	
 
 }

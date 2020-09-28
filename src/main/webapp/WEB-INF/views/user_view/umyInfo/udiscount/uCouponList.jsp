@@ -236,8 +236,8 @@ function dateDiff(_date1, _date2){
 								var date = '${coupons.couponDate}';
 								var time = dateDiff(date, new Date());
 							</script>
-               				<span>사용기한 : 발급일로부터 30일 (잔여 : <a><script>document.write(time)</script></a> 일)</span>
-               				<div>작품 보러가기</div>
+               				<span>사용기한 : 발급일로부터 30일 (잔여 : <a><script>document.write(time - 1)</script></a> 일)</span>
+               				<div class="goHome">작품 보러가기</div>
 						</div>
 					</div>
 				</c:forEach>
@@ -268,5 +268,11 @@ function dateDiff(_date1, _date2){
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+<script>
+$(function(){
+	$(".goHome").on("click", function(){
+		location.href = '/bomulsum/category/recommended.do';
+	});
+});
+</script>
 </html>

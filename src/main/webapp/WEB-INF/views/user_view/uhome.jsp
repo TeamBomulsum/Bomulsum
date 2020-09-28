@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +23,9 @@
 
 /* Slideshow container */
 .slideshow-container {
+	width:100%;
 	position: relative;
-	margin: auto;
+    margin-top: 2px;
 }
 
 /* Next & previous buttons */
@@ -143,6 +146,7 @@
 	border: 1px solid #d9d9d9;
 	border-radius:4px;
 	background-color:#f8f9fb;
+	cursor:pointer;
 }
 
 .review{
@@ -174,7 +178,7 @@
 .categories{
 	display:flex;
 	flex-wrap: wrap;
-	margin-bottom:50px;
+	cursor:pointer;
 }
 
 .category{
@@ -187,7 +191,6 @@
 	border: 1px solid #d9d9d9;
 	border-radius:4px;
 	background-color:#f8f9fb;
-	cursor:pointer;
 }
 
 .category span{
@@ -197,7 +200,6 @@
 }
 
 .category_img{
-	background-image: url("<c:url value='/resources/img/category_testimg.png'/>");
 	width:160.8px;
 	height:160.8px;
 	border-radius: 4px;
@@ -209,7 +211,6 @@
 	display:flex;
 	flex-direction: row;
 	justify-content: space-between;
-	background-image: url("<c:url value='/resources/img/recommendedWork_img.PNG'/>");
 	width:196px;
 	height:196px;
 	background-size: 196px;
@@ -234,7 +235,6 @@
 }
 
 .review_img{
-	background-image:url("<c:url value='/resources/img/uhome_review.PNG'/>"); 
 	width:209px;
 	height:209px;
 	background-size: 209px;
@@ -243,7 +243,7 @@
 }
 
 .writer_img{
-	background-image:url("<c:url value='/resources/img/writer_profile.PNG'/>"); 
+	/*background-image:url("<c:url value='/resources/img/writer_profile.PNG'/>"); */
 	width:339px;
 	height:160px;
 	background-size: 339px;
@@ -259,7 +259,8 @@
 	border-radius: 50%;
 	width:80px;
 	height:80px;
-    background-color: yellow;
+    background-color: white;
+    border : 1px solid #d9d9d9;
 }
 
 .writer_name{
@@ -279,6 +280,7 @@
 	height:100px;
 	color:#666;
 	margin-bottom:10px;
+	padding:20px;
 }
 
 .link_groups{
@@ -300,24 +302,29 @@
 	cursor:pointer;
 	text-align: center;
 }
+.jeongaAddWriter{
+	border:1px solid #DF3A01;
+}
 
-
+.jeongaSendMessage, .jeongaWriterHome{
+	text-decoration: none;
+	color:black;
+}
 .link_writer span:nth-child(1){
-	color:#1f76bb;
-	width:153px;
-	margin-right:1.5px;
+	width:155px;
+	margin-right:6.5px;
 	border:1px solid #d9d9d9;
 }
 
 .link_writer span:nth-child(2){
-	width:153px;
-	margin-left:1.5px;
+	width:155px;
+	margin-left:6.5px;
 	border:1px solid #d9d9d9;
 }
 
 .link_groups .send_message{
 	width:309px;
-	margin-top: 1.5px;
+	margin-top: 3.5px;
 	border: 1px solid #d9d9d9;
 }
 
@@ -363,6 +370,13 @@
 .review_detail .review_text{
 	width:300px;
 	height:120px;
+	color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
 }
 
 .review_detail .review_text span{
@@ -379,12 +393,14 @@
 	padding:8px 10px;
 	justify-content: flex-start;
 	align-items: center;
+	height:18px;
 }
 
-.article_grade span{
-	font-size:12px;
-	color:#999;
-	margin-left:10px;
+.article_grade span:nth-last-child(1){
+	display: flex;
+    align-items: center;
+    padding-left: 10px;
+    color: #999;
 }
 
 .review_detail .grade span{
@@ -416,6 +432,35 @@
     border-color: #d9d9d9;
 }
 
+.minwoo_starRev{
+}
+
+.minwoo_starR1{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat -28px 0;
+    background-size: auto 100%;
+    width: 8px;
+    height: 16px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR2{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat right 0;
+    background-size: auto 100%;
+    width: 8px;
+    height: 16px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR1.on{background-position:0 0;}
+.minwoo_starR2.on{background-position:-8px 0;}
+
+.fs{
+	cursor:pointer;
+}
+
+.all_of_category{
+	margin-bottom:40px;
+}
 </style>
 
 <body>
@@ -470,35 +515,52 @@
 			</div>
 			
 			<div class="all_categories">
-				
 				<!-- 오늘의 추천작품 -->
 				<div class="today_recommend_work part_of_category">
 					<span class="title">
 						<i class="fas fa-medal"></i><a>오늘의 추천작품</a>
 					</span>
 					<div class="articles">
-						<c:forEach var="i" begin="1" end="10">
-							<div class="article">
-								<div class="article_img">
-									<i class="fa fa-star"></i>
+						<c:forEach items="${recommendWork }" var="recommend">
+							<div class="article" onclick="artCode(this)" id="${recommend.artCode }">
+								<div class="article_img" style="background-image: URL('/bomulsum/upload/${recommend.artImg}')">
+									<c:set var="wishCheck" value="N" />
+									<c:if test="${not empty wishList }">
+										<c:forEach items="${wishList }" var="wish">
+											<c:if test="${recommend.artCode eq wish }">
+												<c:set var="wishCheck" value="Y"/>
+											</c:if>
+										</c:forEach>
+									</c:if>
+									<c:if test="${wishCheck eq 'Y' }">
+										<i class="fa fa-star fs" style="color:#d64640"></i>
+									</c:if>
+									<c:if test="${wishCheck eq 'N' }">
+										<i class="fa fa-star fs"></i>
+									</c:if>
+									<input type="hidden" value="${recommend.artCode }">
 								</div>
 								<div class="article_detail">
-									<a>CONVEY.G</a>
-									<span>[3일할인][인기]차량용 우드불 디퓨저</span>
+									<a>${recommend.writerName }</a>
+									<span>${recommend.artName }</span>
 								</div>
 								<div class="article_grade">
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<span>(<a>3</a>)</span>
+								<c:if test="${recommend.reviewCnt ne 0 }">								
+									<div class="minwoo_starRev" data-rate="${recommend.reviewValue }">
+										<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
+										<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
+										<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
+										<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
+										<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
+										<span>(<a>${recommend.reviewCnt}</a>)</span>
+									</div>
+								</c:if>
 								</div>
 							</div>
 						</c:forEach>
 					</div>
 					
-					<div class="go_button">
+					<div class="go_button" onclick="location.href='/bomulsum/category/recommended.do';">
 						<span>오늘의 추천 작품 더보기</span>
 					</div>
 				</div>
@@ -507,35 +569,32 @@
 				<!-- 실시간 후기 -->
 				<div class="live_review part_of_category">
 					<span class="title">
-						<i class="fas fa-user-edit"></i><a>실시간 후기</a>
+						<i class="fas fa-user-edit"></i><a onclick="location.href='/bomulsum/user/realtimeReview.do';">실시간 후기</a>
 					</span>
 					<div class="reviews">
 					
-						<c:forEach var="i" begin="1" end="6">
+						<c:forEach items="${realTimeReview }" var="realTimeReview">
 							<div class="review">
-								<div class="review_img"></div>
+								<div class="review_img" onclick="artCode(this)" id="${realTimeReview.artCodeSeq }" style="cursor: pointer; background-image: URL('/bomulsum/upload/${realTimeReview.artPhoto}')"></div>
 								<div class="review_detail">
-									<span>브로치 동물 친구들~</span>
+									<span onclick="artCode(this)" id="${realTimeReview.artCodeSeq }" style="cursor: pointer;">${realTimeReview.artName}</span>
 									<div class="review_text">
-										<span>우악 금요일 주문해서 토요일 받았어용
-										배송도 빠르고 브로치도 너무 귀여워요 ㅠㅠㅠ
-										서비스로 주신브로치랑 과자도 정말 감사해용
-										많이 파시구 앞으로도 예쁜작품 많이 만들어주세요.</span>
+										<span style="color: #666;">${realTimeReview.reviewComment}</span>
 									</div>
-									<div class="grade">
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<span> | <a>이우선</a></span>
+									<div class="minwoo_starRev" data-rate="${realTimeReview.reviewStar }">
+										<span class="minwoo_starR1" style="height: 16px;">별1_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별1_오른쪽</span>
+										<span class="minwoo_starR1" style="height: 16px;">별2_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별2_오른쪽</span>
+										<span class="minwoo_starR1" style="height: 16px;">별3_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별3_오른쪽</span>
+										<span class="minwoo_starR1" style="height: 16px;">별4_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별4_오른쪽</span>
+										<span class="minwoo_starR1" style="height: 16px;">별5_왼쪽</span> <span class="minwoo_starR2" style="height:16px;">별5_오른쪽</span>
+										<span style="font-size: 12px; color: #999;">&nbsp;|&nbsp;<a>&nbsp;${realTimeReview.memberName}&nbsp;</a></span>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
 					</div>
 					
-					<div class="go_button">
+					<div class="go_button" onclick="location.href='/bomulsum/user/realtimeReview.do';">
 						<span>실시간 후기 더보기</span>
 					</div>
 				</div>
@@ -546,22 +605,40 @@
 						<i class="fas fa-ad"></i><a>작가님 추천작품</a>
 					</span>
 					<div class="articles">
-						<c:forEach var="i" begin="1" end="10">
-							<div class="article">
-								<div class="article_img">
-									<i class="fa fa-star"></i>
+						<c:forEach items="${artistRecommend }" var="artistRec">
+							<div class="article" onclick="artCode(this)"  id="${artistRec.artCode }">
+								<div class="article_img" style="background-image: URL('/bomulsum/upload/${artistRec.artImg}')">
+									<c:set var="wishCheck" value="N" />
+									<c:if test="${not empty wishList }">
+										<c:forEach items="${wishList }" var="wish">
+											<c:if test="${artistRec.artCode eq wish }">
+												<c:set var="wishCheck" value="Y"/>
+											</c:if>
+										</c:forEach>
+									</c:if>
+									<c:if test="${wishCheck eq 'Y' }">
+										<i class="fa fa-star fs" style="color:#d64640"></i>
+									</c:if>
+									<c:if test="${wishCheck eq 'N' }">
+										<i class="fa fa-star fs"></i>
+									</c:if>
+									<input type="hidden" value="${artistRec.artCode }">
 								</div>
 								<div class="article_detail">
-									<a>CONVEY.G</a>
-									<span>[3일할인][인기]차량용 우드불 디퓨저</span>
+									<a>${artistRec.writerName }</a>
+									<span>${artistRec.artName }</span>
 								</div>
 								<div class="article_grade">
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<span>(<a>5</a>)</span>
+								<c:if test="${artistRec.reviewCnt ne 0 }">								
+									<div class="minwoo_starRev" data-rate="${artistRec.reviewValue }">
+										<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
+										<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
+										<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
+										<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
+										<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
+										<span>(<a>${artistRec.reviewCnt}</a>)</span>
+									</div>
+								</c:if>
 								</div>
 							</div>
 						</c:forEach>
@@ -578,14 +655,15 @@
 						<i class="fas fa-fire"></i><a>인기 작품</a>
 					</span>
 					<div class="articles">
-						<c:forEach var="i" begin="1" end="20">
-							<div class="article">
-								<div class="article_img">
+						<c:set var="i" value="0" />
+						<c:forEach items="${bestWork }" var="best">
+							<div class="article" onclick="artCode(this)" id="${best.artCode }">
+								<div class="article_img" style="background-image: URL('/bomulsum/upload/${best.artImg}')">
 									<c:choose>
-										<c:when test="${i == 1}">
+										<c:when test="${i == 0}">
 											<img src="<c:url value='/resources/img/uFirst.png'/> ">
 										</c:when>
-										<c:when test="${i == 2}">
+										<c:when test="${i == 1}">
 											<img src="<c:url value='/resources/img/uSecond.png'/> ">
 										</c:when>
 										<c:otherwise>
@@ -593,21 +671,40 @@
 										</c:otherwise>
 										
 									</c:choose>
-									<i class="fa fa-star"></i>
+									<c:set var="wishCheck" value="N" />
+									<c:if test="${not empty wishList }">
+										<c:forEach items="${wishList }" var="wish">
+											<c:if test="${best.artCode eq wish }">
+												<c:set var="wishCheck" value="Y"/>
+											</c:if>
+										</c:forEach>
+									</c:if>
+									<c:if test="${wishCheck eq 'Y' }">
+										<i class="fa fa-star fs" style="color:#d64640"></i>
+									</c:if>
+									<c:if test="${wishCheck eq 'N' }">
+										<i class="fa fa-star fs"></i>
+									</c:if>
+									<input type="hidden" value="${best.artCode }">
 								</div>
 								<div class="article_detail">
-									<a>CONVEY.G</a>
-									<span>[3일할인][인기]차량용 우드불 디퓨저</span>
+									<a>${best.writerName }</a>
+									<span>${best.artName }</span>
 								</div>
 								<div class="article_grade">
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<i class="fa fa-star" style="color:gold"></i>
-									<span>(<a>5</a>)</span>
+								<c:if test="${best.reviewCnt ne 0 }">								
+									<div class="minwoo_starRev" data-rate="${best.reviewValue }">
+										<span class="minwoo_starR1">별1_왼쪽</span> <span class="minwoo_starR2">별1_오른쪽</span>
+										<span class="minwoo_starR1">별2_왼쪽</span> <span class="minwoo_starR2">별2_오른쪽</span>
+										<span class="minwoo_starR1">별3_왼쪽</span> <span class="minwoo_starR2">별3_오른쪽</span>
+										<span class="minwoo_starR1">별4_왼쪽</span> <span class="minwoo_starR2">별4_오른쪽</span>
+										<span class="minwoo_starR1">별5_왼쪽</span> <span class="minwoo_starR2">별5_오른쪽</span>
+										<span>(<a>${best.reviewCnt}</a>)</span>
+									</div>
+								</c:if>
 								</div>
 							</div>
+							<c:set var="i" value="${i+1 }"/>
 						</c:forEach>
 					</div>
 					
@@ -624,31 +721,39 @@
 					</span>
 					<div class="writers">
 						
-						<c:forEach var="i" begin="1" end="3">
+						<c:forEach var="pwriter" items="${popularWriter}">
 							<div class="writer">
-								<div class="writer_img">
-									<div class="writer_profile"></div>
+								<div class="writer_img" 
+								style="background-image: url('/bomulsum/upload/${pwriter.writer_cover_img}');">
+									<div><img class="writer_profile" src="<c:url value='/upload/${pwriter.writer_profile_img}'/>" style="width:80px; height:80px"></div>
 								</div>
 								<div class="writer_name">
-									<span>디디얌</span>
-									<span>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-										<i class="fa fa-star" style="color:gold"></i>
-									</span>
+									<span>${pwriter.writer_brand_name}</span>
 								</div>
 								<div class="writer_intro">
-									<span>디디얌 베이커리 & 디저트</span>
+									<span>${pwriter.writer_intro}</span>
 								</div>
 								<div class="link_groups">
 									<div class="link_writer">
-										<span><i class="fas fa-heart"></i> 작가로 추가</span>
-										<span>작가 홈</span>
+									<c:set var="likeCheck" value="N" />
+									<c:if test="${not empty likeWriter}">
+										<c:forEach items="${likeWriter}" var="like">
+											<c:if test="${pwriter.writer_code_seq eq like}">
+												<c:set var="likeCheck" value="Y"/>
+											</c:if>
+										</c:forEach>
+									</c:if>
+									<c:if test="${likeCheck eq 'Y' }">
+										<span class="jeongaAddWriter" style="background-color:#DF3A01;color:white;">♥︎하는 작가</span>
+									</c:if>
+									<c:if test="${likeCheck eq 'N' }">
+										<span class="jeongaAddWriter" style=color:#DF3A01;">♥︎작가로 추가</span>
+									</c:if>
+										<span ><a class="jeongaWriterHome" href="/bomulsum/writerhome/${pwriter.writer_url}.do">작가홈</a></span>
 									</div>
 									<span class="send_message">
-										메시지 보내기
+										<a style="display:none">${pwriter.writer_code_seq}</a>
+										<a class="jeongaSendMessage" href="/bomulsum/user/message.do?writer=${pwriter.writer_code_seq}">메시지 보내기</a>
 									</span>
 								</div>
 							</div>
@@ -657,68 +762,37 @@
 						
 					</div>
 					
-					<div class="go_button">
+					<div class="go_button" onclick="location.href='/bomulsum/user/popular/writer.do';">
 						<span>인기작가 더보기</span>
 					</div>
 				</div>
 				
 				
 				<!-- 전체 카테고리 -->
-				<div class="best_writer part_of_category">
+				<div class="all_of_category part_of_category">
 					<span class="title">
 						<i class="fas fa-th-large"></i><a>전체 카테고리</a>
 					</span>
 					<div class="categories">
+						<c:set var="img" value="${fn:split(categoryImg, ',') }" />
+						<c:forEach items="${category }" var="c" varStatus="v">
 						
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=식음료';">
-							<div class="category_img"></div>
-							<span>식음료</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=문구팬시';">
-							<div class="category_img"></div>
-							<span>문구팬시</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=전자기기';">
-							<div class="category_img"></div>
-							<span>전자기기</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=패션잡화';">
-							<div class="category_img"></div>
-							<span>패션잡화</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=반려동물 용품';">
-							<div class="category_img"></div>
-							<span>반려동물 용품</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=인테리어 소품';">
-							<div class="category_img"></div>
-							<span>인테리어 소품</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=신발';">
-							<div class="category_img"></div>
-							<span>신발</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=의류';">
-							<div class="category_img"></div>
-							<span>의류</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=육아,아동';">
-							<div class="category_img"></div>
-							<span>육아,아동</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=인형,장난감';">
-							<div class="category_img"></div>
-							<span>인형,장난감</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=공예';">
-							<div class="category_img"></div>
-							<span>공예</span>
-						</div>
-						<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=기타';">
-							<div class="category_img"></div>
-							<span>기타</span>
-						</div>
-						
+							<div class="category" onclick="location.href='/bomulsum/category/detail.do?category=${c}';">
+							
+								<c:if test="${img[v.index] eq \"null\"}">
+									<div class="category_img"
+										style="background-image: url('/bomulsum/resources/img/noimage.png')"></div>
+								</c:if>
+								<c:if test="${img[v.index] ne \"null\"}">
+									<div class="category_img" 
+										style="background-image: url('/bomulsum/upload/${img[v.index] } ');"></div>
+								</c:if>
+								
+								<span>${c }</span>
+								
+							</div>
+							
+						</c:forEach>
 						
 					</div>
 					
@@ -733,6 +807,8 @@
 	</div>
 </body>
 <script>
+var memberCode = '<%= (String)session.getAttribute("member") %>';
+
 var slideIndex = 1;
 showSlides(slideIndex);
 
@@ -760,5 +836,136 @@ window.onload = function(){
 		plusSlides(1);
 	}, 5000);
 }
+
+function artCode(e){
+	var art_code = e.id;
+	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+	window.open(url, "_blank");
+}
+
+window.onload = function(){
+	var starRevPoint = $('.minwoo_starRev');
+	starRevPoint.each(function(){
+		var targetScore = $(this).attr('data-rate');
+		console.log(targetScore);
+		$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
+		$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
+	});
+}
+
+$(function(){
+	
+	$(".fs").on("click", function(e){
+		e.stopPropagation();
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
+		
+		var artCode = $(this).next().val();
+		var option = '좋아하는작품';
+		console.log(artCode);
+		
+		
+		var clickIcon = $(this);
+		console.log(clickIcon);
+		var tORf;
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+			tORf = true;
+		}else{
+			clickIcon.css("color", "gray");
+			tORf = false;
+		}
+		
+		$.ajax({
+			url:'/bomulsum/category/wish.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':artCode,
+				'bool': tORf
+			},
+			type:'POST',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		}); 
+		if(tORf){
+			alert('좋아하는 작품에 추가되었습니다.');
+		}else{
+			alert('해제되었습니다.');
+		}
+	});
+});
+
+
+//좋아하는 작가
+$(function(){
+	$(".jeongaAddWriter").on("click", function(e){
+		
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+		}
+		
+		else{
+		var $data = $(this).parent().next().children().first().text();
+		console.log($data);
+		var writerCode = $data;
+		var option = '좋아하는작가';
+		
+		var addButton = $(this);
+		var tf;
+		var text = $(this).text();
+		console.log(text);
+
+		if(text == '♥︎작가로 추가'){
+			$(this).text('♥︎하는 작가');
+			$(this).css("color","white");
+			$(this).css("border","1px solid #DF3A01");
+			$(this).css("background-color","#DF3A01");
+			tf = true;
+		}else{
+			$(this).text('♥︎작가로 추가');
+			$(this).css("color","#DF3A01");
+			$(this).css("border","1px solid #D9D9D9");
+			$(this).css("background-color","white");
+			tf = false;
+		}
+
+		$.ajax({
+			url:'/bomulsum/user/likeWriter.do',
+			data:{
+				'member':memberCode,
+				'option':option,
+				'optionCode':writerCode,
+				'bool': tf
+			},
+			type:'POST',
+			success:function(data){
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	 	if(tf==true){
+			alert('좋아하는 작가에 추가되었습니다.');
+		}
+	 	if(tf==false){
+			alert('좋아하는 작가를 취소합니다.');
+		}  
+	
+		}
+});
+});
+
+
+
 </script>
 </html>

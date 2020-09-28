@@ -10,7 +10,7 @@
 </head>
 <style>
 .dndud_main_category{
-	width:70%;
+	width: 1073px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -161,6 +161,7 @@
 	font-size:14px;
 	font-weight:bold;
 	text-decoration: line-through;
+    height: 18px;
 }
 
 .content_detail_other{
@@ -221,6 +222,25 @@
     flex-direction: row;
     width: 100%;
 }
+
+.minwoo_starR1{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat -38px 0;
+    background-size: auto 100%;
+    width: 11px;
+    height: 22px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR2{
+    background: url('<c:url value='/resources/img/KMWico_review.png'/>') no-repeat right 0;
+    background-size: auto 100%;
+    width: 11px;
+    height: 22px;
+    float:left;
+    text-indent: -9999px;
+}
+.minwoo_starR1.on{background-position:0 0;}
+.minwoo_starR2.on{background-position:-11px 0;}
 
 </style>
 <body>
@@ -315,6 +335,28 @@ var ajaxFilterFunc;
 var filtArr = [];
 var orderBy = 'orderByLike';
 
+
+$(function(){
+	$("#show_only_image").on('click', function(){ // 이미지만 볼래요 클릭시.
+		if($("input:checkbox[id='show_only_image_check']").is(":checked")){
+			$("input:checkbox[id='show_only_image_check']").prop("checked", false);
+		}else{
+			$("input:checkbox[id='show_only_image_check']").prop("checked", true);
+		}
+	});
+	
+	$(".content_img").on('click', function(){
+		
+		var clickIcon = $(this).children();
+		
+		if(clickIcon.css("color") == "rgb(128, 128, 128)"){
+			clickIcon.css("color", "#d64640");
+		}else{
+			clickIcon.css("color", "gray");
+		}
+	});
+});
+
 var page = 1;
 
 $(function(){
@@ -371,7 +413,7 @@ function getList(page){
 						
 						pricePer = (data[i].artPrice - data[i].artDiscount) / data[i].artPrice * 100;
 						
-						htmldiv += '<div class="dndud_main_category_content_box">'
+						htmldiv += '<div class="dndud_main_category_content_box" onclick="artCode(this);" id="'+data[i].artCode+'">'
 							+ '<input class="artCode" type="hidden" value="'+ data[i].artCode +'"/>'
 							+ '<div class="content_img" style="background-image: URL(\'/bomulsum/upload/'
 							+ artImg +'\' )">';
@@ -397,20 +439,50 @@ function getList(page){
 								+ '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>'
 								+ '<span class="content_detail_price_orgin">'+ comma(data[i].artPrice) +'원</span>';
 						}else{
-							htmldiv += '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>';
+							htmldiv += '<a>'+ comma(data[i].artDiscount) +'</a> 원</span>'
+								+ '<span class="content_detail_price_orgin"></span>';
 						}
 						htmldiv += '<span class="content_detail_other">';
 						if(data[i].writerSendPrice == 0){
 							htmldiv += '<span>무료배송</span>';
+						}else{
+							htmldiv += '<span style="background-color:white"></span>';
 						}
 						
-						htmldiv += '</span><span class="content_detail_star">'
+						if(data[i].articleReview.length==0){
+							var review=0;
+							var reviewCnt = 0;
+							htmldiv += '</span><br><div class=\"minwoo_starRev\" data-rate=\"'+ review +'\">'
+							+ '<span class=\"minwoo_starR1\">별1_왼쪽</span> <span class=\"minwoo_starR2\">별1_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별2_왼쪽</span> <span class=\"minwoo_starR2\">별2_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별3_왼쪽</span> <span class=\"minwoo_starR2\">별3_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별4_왼쪽</span> <span class=\"minwoo_starR2\">별4_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별5_왼쪽</span> <span class=\"minwoo_starR2\">별5_오른쪽</span>'
+							+ '<span style="font-size:14px; color:gray; margin-left: 10px;">('+ reviewCnt +')</span></div></div></div>';
+						}else{
+							var reviewCnt = data[i].articleReview.length;
+							var review=0;
+							for(var j=0; j<reviewCnt; j++){
+								review += data[i].articleReview[j];
+							}
+							review = Math.round(review / reviewCnt);
+							
+							htmldiv	+= '</span><br><div class=\"minwoo_starRev\" data-rate=\"'+ review +'\">'
+							+ '<span class=\"minwoo_starR1\">별1_왼쪽</span> <span class=\"minwoo_starR2\">별1_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별2_왼쪽</span> <span class=\"minwoo_starR2\">별2_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별3_왼쪽</span> <span class=\"minwoo_starR2\">별3_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별4_왼쪽</span> <span class=\"minwoo_starR2\">별4_오른쪽</span>'
+							+ '<span class=\"minwoo_starR1\">별5_왼쪽</span> <span class=\"minwoo_starR2\">별5_오른쪽</span>'
+							+ '<span style="font-size:14px; color:gray; margin-left: 10px;">('+ reviewCnt +')</span></div></div></div>';
+						} 
+						
+						/* htmldiv += '</span><span class="content_detail_star">'
 							+ '<i class="fa fa-star" style="color:gold"></i>'
 							+ '<i class="fa fa-star" style="color:gold"></i>'
 							+ '<i class="fa fa-star" style="color:gold"></i>'
 							+ '<i class="fa fa-star" style="color:gold"></i>'
 							+ '<i class="fa fa-star" style="color:gold"></i>'
-							+ '<span>(<a>num</a>)</span></span></div></div>';
+							+ '<span>(<a>num</a>)</span></span></div></div>'; */
 					}// end for
 				}else{
 					//데이터 없을때.
@@ -426,6 +498,13 @@ function getList(page){
 			
 			$(".fs").click(likeArticleFunc);
 			
+			var starRevPoint = $('.minwoo_starRev');
+			starRevPoint.each(function(){
+				var targetScore = $(this).attr('data-rate');
+				console.log(targetScore);
+				$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
+				$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
+			});
 			
 		},
 		error:function(e){
@@ -435,6 +514,13 @@ function getList(page){
 		}
 	});
 }
+function artCode(e){
+		var art_code = e.id;
+		var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
+		window.open(url, "_blank");
+}
+
+
 
 $(function(){
 	
@@ -507,11 +593,12 @@ $(function(){
 	}
 	
 	
-	likeArticleFunc = function(){
-		
+	likeArticleFunc = function(e){
+		e.stopPropagation();
 		if(memberCode == null || memberCode == 'null'){
 			alert('로그인이 필요한 서비스입니다.');
 			location.href='/bomulsum/user/login.do';
+			return;
 		}
 		
 		var artCode = $(this).parent().prev().val();

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디어스 | 즐겨찾는온라인</title>
+<title>보물섬 | 즐겨찾는 온라인 클래스</title>
 <style>
 .content {
 	width: 70%;
@@ -20,20 +20,37 @@ body a:link, a:visited, a:hover, a:active {
 	text-decoration: none;
 	border: none;
 }
-#wonBookButton{
+
+#wonBookButton {
 	cursor: pointer;
 	text-decoration: none;
 }
-#wonBookContent{
+
+#wonBookContent {
 	cursor: pointer;
-	
 }
+
 #wonBookContent:hover {
 	box-shadow: 1px 1px gray;
 }
 
+.dainClikedTab {
+	width: 33%;
+	padding: 2%;
+	border: 1px solid #D9D9D9;
+	color: #333333;
+	font-weight: bold;
+	text-align: center;
+}
 
-
+.dainUnClikedTab {
+	width: 33%;
+	padding: 2%;
+	border: 1px solid #D9D9D9;
+	text-align: center;
+	color: #ACACAC;
+	background-color: #F5F5F5;
+}
 </style>
 </head>
 <body>
@@ -53,17 +70,16 @@ body a:link, a:visited, a:hover, a:active {
 			<h2 style="margin: 1%;">즐겨찾는(★) 작품</h2>
 		</div>
 		<div style="display: flex; flex-direction: row; margin: 1%;">
-			<div style="width: 33%; padding:2%; border: 1px solid #D8D8D8;text-align: center; background-color: #D8D8D8; border-color: #B0B0B0;">
-				<a id="wonBookButton" href="uBookMarkWork.jsp"><span style="text-align: center; color: #B0B0B0;">작품</span></a>
-			</div>
-			<div style="width: 33%; padding:2%; border: 1px solid #D8D8D8;text-align: center;">
-				<a id="wonBookButton" href="uBookMarkOnline.jsp"><span style="text-align: center;">온라인</span></a>
-			</div>
-			<div style="width: 33%; padding:2%; border: 1px solid #D8D8D8; text-align: center; background-color: #D8D8D8; border-color: #B0B0B0;">
-				<a id="wonBookButton" href="uBookMarkOffline.jsp"><span style="text-align: center; color: #B0B0B0;">오프라인</span></a>
-			</div>
+			<a id="wonBookButton" class="dainUnClikedTab" href="<c:url value='/user/wishlist/bookmarkWork.do'/>" 
+			style="border: 1px solid #d9d9d9;">작품</a>
+			
+			<a id="wonBookButton" class="dainClikedTab" href="<c:url value='/user/wishlist/bookmarkOnline.do'/>" 
+			style="border-top: 1px solid #d9d9d9;border-bottom: 1px solid #d9d9d9;">온라인</a>
+			
+			<a id="wonBookButton" class="dainUnClikedTab" href="<c:url value='/user/wishlist/bookmarkOffline.do'/>" 
+			style="border: 1px solid #d9d9d9;">오프라인</a>
 		</div>
-		<div style="align-self: center;">
+	<%-- 	<div style="align-self: center;">
 				<div style="display: flex; flex-wrap: wrap;">
 					<div id="wonBookContent" style="width: 23%; text-decoration: none; margin:1%;">
 					<!-- 내용물 -->
@@ -132,15 +148,15 @@ body a:link, a:visited, a:hover, a:active {
 					</div>
 				</div>
 				
-		</div>
+		</div>--%>
 		<div style="display: flex; flex-direction: row; justify-content:center; margin: 2%;">
-						<a id="wonBookContent">
+						<!-- <a id="wonBookContent">
 							<span style="text-align: center;">&lt;이전 |</span>
-						</a>
-						<a id="wonBookContent">
+						</a> -->
+						<a style="font-size: 12px; color:#b4b4b4; margin-top: 50px; font-weight: bold; cursor: pointer;">
 							<span style="text-align: center;">| 다음&gt;</span>
 						</a>
-		</div>
+		</div> 
 	</div>
 	
 	

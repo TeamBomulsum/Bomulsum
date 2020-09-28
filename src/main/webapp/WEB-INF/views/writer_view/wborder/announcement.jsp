@@ -4,12 +4,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
-  <style type="text/css">
-  #writer_announcement_title:hover{
-  	cursor: pointer;
-  }
-  </style>
+
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,6 +23,15 @@
 
   <!-- Custom styles for this page -->
   <link href="<c:url value='/resources/vendor/datatables/dataTables.bootstrap4.min.css' /> " rel="stylesheet">
+
+	<style type="text/css">
+	#writer_announcement_title:hover{
+		cursor: pointer;
+	}
+	</style>
+
+	<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
+  
 	<script type="text/javascript">
 	$(function(){
 		
@@ -63,7 +68,7 @@
 					
 					$('#staticBackdropTitle').text(jsData.admin_notice_title);
 					$('#staticBackdropCategory').text(jsData.admin_notice_category);
-					$('#staticBackdropContent').text(jsData.admin_notice_content);
+					$('#staticBackdropContent').html(jsData.admin_notice_content);
 					$('#staticBackdropRegDate').text(date);
 					$('#staticBackdropCopoun').text(jsData.admin_notice_coupon);
 				}
@@ -74,6 +79,7 @@
 	</script>
 </head>
 <body>
+
 
 <div id="wrapper">
 		<!-- Header/Nav -->
@@ -102,6 +108,7 @@
                     <tr style="text-align:center">
                       <th style="width:80%">제목</th>
                       <th style="width:20%;">등록날짜</th>
+                      <th style="display:none"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -151,10 +158,7 @@
  
                <!-- body -->
                   
-               <div id="staticBackdropContent" style="height: 400px; margin:20px 30px 12px 30px; ">
-                 <div style="height: 350px; border: 1px solid #d9d9d9; overflow: scroll; overflow-x: hidden; padding: 1%;">
-              
-                 </div>
+               <div id="staticBackdropContent" style="min-height: 400px; margin:20px 30px 12px 30px; overflow: auto">
                </div>
 
 
@@ -208,7 +212,27 @@
 
   <!-- Page level custom scripts -->
   <script src="<c:url value='/resources/js/demo/datatables-demo.js' /> "></script>
-
+  
+	 <script>
+	/* $(document).ready(function(){
+		$("#dataTable").DataTable.destroy();
+		
+		$("#dataTable").DataTable({
+		       "paginType" : numbers
+			 // 표시 건수기능 숨기기
+			lengthChange: false,
+			// 검색 기능 숨기기
+			"searching": false,
+			// 정렬 기능 숨기기
+			ordering: false,
+			// 정보 표시 숨기기
+			info: false,
+			// 페이징 기능 숨기기
+			paging: false 
+		});
+	}) */
+	</script>
+  
 </body>
 
 </html>

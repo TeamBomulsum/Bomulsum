@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,112 +40,7 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">Admin <sup>2</sup></div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-          aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>게시판</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">게시판 목록</a>
-            <a class="collapse-item" href="#">게시판 등록</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#salseNcoupone" aria-expanded="true"
-          aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>매출</span>
-        </a>
-        <div id="salseNcoupone" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">매출통계</a>
-          </div>
-        </div>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#memberList" aria-expanded="true"
-          aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>회원관리</span>
-        </a>
-        <div id="memberList" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">작가목록</a>
-            <a class="collapse-item" href="#">회원목록</a>
-            <a class="collapse-item" href="#">작가회원 로그 페이지</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productManage" aria-expanded="true"
-          aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>상품관리</span>
-        </a>
-        <div id="productManage" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">작품</a>
-            <a class="collapse-item" href="#">금손클래스</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>신고내용 관리</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>관리자계정 추가</span></a>
-      </li>
-
-
-
-
-      
-
-
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
+	<%@ include file="include/mSide.jsp" %>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -152,51 +48,7 @@
       <!-- Main Content -->
       <div id="content">
 
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-
-            </li>
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">관리자 이름</span>
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  프로필
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  활동로그보기
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  로그아웃
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
+        <%@ include file="include/mheader.jsp" %>
 
         <!-- 내용추가하기 -->
         <!-- Begin Page Content -->
@@ -213,8 +65,10 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">월 평균</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">4,000 만원</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">연 매출</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      	<fmt:formatNumber value="${yearTotal}" pattern="#,###"/> 원
+                      </div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -230,8 +84,10 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">연 매출</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">72,119 만원</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">사용된 쿠폰 금액</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      	<fmt:formatNumber value="${coupon}" pattern="#,###"/> 원
+                      </div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -249,11 +105,14 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">총 판매량 수</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">23,349,532 개</div>
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">사용한 적립금 금액</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                     	 <fmt:formatNumber value="${point}" pattern="#,###"/> 원
+                      </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      <!-- <i class="fas fa-comments fa-2x text-gray-300"></i> -->
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -267,21 +126,14 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                        </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">젬포인트</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      	<fmt:formatNumber value="${gemTotal}" pattern="#,###"/> 원
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      <!-- <i class="fas fa-clipboard-list fa-2x text-gray-300"></i> -->
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -292,12 +144,12 @@
           <!-- Content Row -->
           <div class="row">
 
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-8 col-lg-7" style="flex: 0 0 100%;max-width: 100%;">
 
               <!-- Bar Chart -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">월별 매출(만)</h6>
+                  <h6 id="title_dndud" class="m-0 font-weight-bold text-primary">월별 매출</h6>
                 </div>
                 <div class="card-body">
                   <div class="chart-bar">
@@ -307,31 +159,6 @@
 
               </div>
             </div>
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">연별 매출(만)</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <div class="chartjs-size-monitor">
-                      <div class="chartjs-size-monitor-expand">
-                        <div class=""></div>
-                      </div>
-                      <div class="chartjs-size-monitor-shrink">
-                        <div class=""></div>
-                      </div>
-                    </div>
-                    <canvas id="myPieChart" width="486" height="253" class="chartjs-render-monitor"
-                      style="display: block; width: 486px; height: 253px;"></canvas>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
 
           </div>
 
@@ -339,13 +166,13 @@
           <div style="display:flex; flex-direction: row">
 
             <div style="margin-right:1%">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryButton"
+              <button class="btn btn-secondary dropdown-toggle" type="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                작품, 클래스
+              	  작품
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
                 <a class="dropdown-item" href="#">작품</a>
-                <a class="dropdown-item" href="#">클래스</a>
+                <a class="dropdown-item" href="#">클래스(준비중)</a>
                 
               </div>
             </div>
@@ -353,32 +180,33 @@
             <div style="margin-right:1%">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                모든 상품
+               	 모든 상품
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                <a class="dropdown-item" href="#">식음료</a>
-                <a class="dropdown-item" href="#">문구팬시</a>
-                <a class="dropdown-item" href="#">전자기기</a>
-                <a class="dropdown-item" href="#">패션잡화</a>
-                <a class="dropdown-item" href="#">반려동물 용품</a>
-                <a class="dropdown-item" href="#">인테리어 소품</a>
-                <a class="dropdown-item" href="#">신발</a>
-                <a class="dropdown-item" href="#">의류</a>
-                <a class="dropdown-item" href="#">육아,아동</a>
-                <a class="dropdown-item" href="#">인형,장난감</a>
-                <a class="dropdown-item" href="#">공예</a>
-                <a class="dropdown-item" href="#">기타</a>
+                <a class="dropdown-item category" href="#">모든 상품</a>
+                <a class="dropdown-item category" href="#">식음료</a>
+                <a class="dropdown-item category" href="#">문구팬시</a>
+                <a class="dropdown-item category" href="#">전자기기</a>
+                <a class="dropdown-item category" href="#">패션잡화</a>
+                <a class="dropdown-item category" href="#">반려동물 용품</a>
+                <a class="dropdown-item category" href="#">인테리어 소품</a>
+                <a class="dropdown-item category" href="#">신발</a>
+                <a class="dropdown-item category" href="#">의류</a>
+                <a class="dropdown-item category" href="#">육아,아동</a>
+                <a class="dropdown-item category" href="#">인형,장난감</a>
+                <a class="dropdown-item category" href="#">공예</a>
+                <a class="dropdown-item category" href="#">기타</a>
               </div>
             </div>
 
             <div>
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dateButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                월별
+              	  월별
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                <a class="dropdown-item" href="#">월별</a>
-                <a class="dropdown-item" href="#">일별</a>
+                <a class="dropdown-item filtDate" href="#">월별</a>
+                <a class="dropdown-item filtDate" href="#">일별</a>
               </div>
             </div>
 
@@ -429,5 +257,128 @@
   <script src="<c:url value='/resources/js/demo/chart-bar-demo.js'/> "></script>
   <script src="<c:url value='/resources/js/demo/chart-pie-demo.js'/> "></script>
 </body>
+<script>
+var filtCategory='모든 상품';
+var filtDate='월별';
 
+var headFunc;
+var numFunc;
+
+var month = '${month}';
+month = month.substring(1, month.length-1);
+month = month.split(',');
+var monthCount = '${monthCount}';
+monthCount = monthCount.substring(1, monthCount.length-1);
+monthCount = monthCount.split(',');
+var maxMonthCount = Number(monthCount[0]);
+for(var i=0; i<monthCount.length; i++){
+	if(Number(monthCount[i]) >= maxMonthCount){
+		maxMonthCount = Number(monthCount[i]);
+	}
+}
+
+var lastMonth = '${lastMonth}';
+var ajaxFunction;
+$(function(){
+	
+	myBarChart.data.labels = month;
+	myBarChart.data.datasets[0].data = monthCount;
+	myBarChart.options.scales.xAxes[0].time.unit = 'month';
+	myBarChart.options.scales.xAxes[0].ticks.maxTicksLimit = lastMonth;
+	myBarChart.options.scales.xAxes[0].maxBarThickness = lastMonth;
+	myBarChart.options.scales.yAxes[0].ticks.max = numFunc(maxMonthCount);
+	myBarChart.update();
+	
+	$('.category').on('click', function(){
+		var category = $(this).text();
+		$('#categoryButton').text(category);
+		filtCategory = category;
+		
+		var dateArr = new Array();
+		var dateVal = new Array();
+		for(var i=0; i<new Date().getDate(); i++){
+			dateArr[i] = i+'일';
+			dateVal[i] = 50*i;
+		}
+		
+		
+		ajaxFunction();
+	});
+	
+	$('.filtDate').on('click', function(){
+		var filter = $(this).text();
+		$('#dateButton').text(filter);
+		filtDate = filter;
+		
+		ajaxFunction();
+	});
+	
+	ajaxFunction = function(){
+		$.ajax({
+			url : '/bomulsum/manager/statistics/filt.mdo',
+			data : {
+				filtDate : filtDate,
+				filtCategory : filtCategory
+			},
+			success : function(e){
+				var maxAmount = e[0];
+				var dateArr = new Array();
+				for(var i=0; i<e.length; i++){
+					if(maxAmount <= e[i]){
+						maxAmount = e[i];
+					}
+					if(filtDate == '월별'){
+						dateArr.push(i+1+"월");
+					}else{
+						dateArr.push(i+1+"일");
+					}
+				}
+				var last = 0;
+				for(var i=e.length-1; i>=0; i--){
+					if(e[i] == 0){
+						last = i;
+					}else{
+						break;
+					}
+				}
+				
+				console.log(dateArr);
+				console.log(e);
+				
+				myBarChart.data.labels = dateArr;
+				myBarChart.data.datasets[0].data = e;
+				if(filtDate == '월별'){
+					myBarChart.options.scales.xAxes[0].time.unit = 'month';
+				}else{
+					myBarChart.options.scales.xAxes[0].time.unit = 'day';					
+				}
+				myBarChart.options.scales.xAxes[0].ticks.maxTicksLimit = last;
+				myBarChart.options.scales.xAxes[0].maxBarThickness = last;
+				myBarChart.options.scales.yAxes[0].ticks.max = numFunc(maxAmount);
+				myBarChart.update();
+			}
+		});
+		headFunc();
+	};
+	
+	headFunc = function(){
+		$('#title_dndud').html(filtDate + "매출 [ "+ filtCategory +" ]");
+	};
+	
+});
+numFunc = function(data){
+	// 123400
+	data = data.toString();
+	var str_data = data.split('');
+	// str_data.length = 6
+	var test = (Number(str_data[0]) * 10) + (Number(str_data[1]) + 5);
+	var temp = 1;
+	for(var i = 0; i<str_data.length-2; i++){
+		temp *= 10;
+	}
+	
+	
+	return test * temp;
+};
+</script>
 </html>

@@ -1,6 +1,7 @@
 package com.web.bomulsum.user.article.repository;
 
 import java.sql.Date;
+import java.util.List;
 
 public class UserArticleCategoryVO {
 	private String artCode;
@@ -18,8 +19,15 @@ public class UserArticleCategoryVO {
 	private Date artRegisterDate;
 	private int totCnt;
 	private int startNum;
+	private List<Integer> articleReview;
 	
 	
+	public List<Integer> getArticleReview() {
+		return articleReview;
+	}
+	public void setArticleReview(List<Integer> articleReview) {
+		this.articleReview = articleReview;
+	}
 	public Date getArtRegisterDate() {
 		return artRegisterDate;
 	}
@@ -117,8 +125,12 @@ public class UserArticleCategoryVO {
 				+ ", writerBrandName=" + writerBrandName + ", writerSendPrice=" + writerSendPrice + ", artPhoto="
 				+ artPhoto + ", artCategory=" + artCategory + ", artName=" + artName + ", artPrice=" + artPrice
 				+ ", artDiscount=" + artDiscount + ", artViewcount=" + artViewcount + ", artKeyword=" + artKeyword
-				+ ", artRegisterDate=" + artRegisterDate + ", totCnt=" + totCnt + ", startNum=" + startNum + "]";
+				+ ", artRegisterDate=" + artRegisterDate + ", totCnt=" + totCnt + ", startNum=" + startNum
+				+ ", articleReview=" + articleReview + "]";
 	}
+
+
+	
 
 	
 	

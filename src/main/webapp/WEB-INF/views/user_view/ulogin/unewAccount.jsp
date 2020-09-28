@@ -142,24 +142,21 @@ input[type=button]{
             			<h3>회원가입 방법 선택하기</h3>
             		</div>
             	
-            		<div style="display: flex; flex-direction: row; justify-content: center; height:50px;"> 
+            		<%-- <div style="display: flex; flex-direction: row; justify-content: center; height:50px;"> 
 						<img id="kakao-login-btn" src="<c:url value='/resources/img/kakao_login_large_wide.png'/>" style="width: 90%; height:100%;cursor : pointer;">
 					</div>
-					<a href="http://developers.kakao.com/logout"></a>
+					<a href="http://developers.kakao.com/logout"></a> --%>
             		
-            		<div id="otherMethodArea" style="display: flex; flex-direction: row; justify-content: center; height:50px; margin-top:2%"> 
+            		<!-- <div id="otherMethodArea" style="display: flex; flex-direction: row; justify-content: center; height:50px; margin-top:2%"> 
             			<button id="otherMethod">다른 방법으로 가입하기</button>
-            		</div>
+            		</div> -->
             		
-            		<div id="allMethod" style="display: none; flex-direction: column; justify-content: center; height:250px; margin-bottom:3%">
-            			<input style="width: 100%; padding: 3% 0; margin-bottom:2%" type="button" value="#"/>
-            			<input style="width: 100%; padding: 3% 0; margin-bottom:2%" type="button" value="#"/>
-            			<input style="width: 100%; padding: 3% 0; margin-bottom:2%" type="button" value="#"/>
+            		<div id="allMethod" style="display: flex; flex-direction: column; margin-bottom:3%">
             			<input style="width: 100%; padding: 3% 0; margin-bottom:2%; border:2px solid #1f76bb; 
             				background-color:white; color:#1f76bb; font-weight:bold" type="button" value="이메일로 가입하기" onclick="location.href='newAccountEmail.do'"/>
             		</div>
             		
-            		<div style="display:flex; justify-content:center; height:50px;">
+            		<div style="display:flex; justify-content:center; height:50px;margin: 3%;">
             			<p>
             				<a>이미 가입하셨다면</a>
             				<a href="login.do" style="color: black">바로 로그인하기</a>

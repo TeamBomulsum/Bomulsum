@@ -1,3 +1,4 @@
+<%@page import="com.web.bomulsum.writer.login.repository.WriterRegisterVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,12 +16,16 @@
 <!-- Custom styles for this template-->
 <link href="<c:url value='/resources/css/sb-admin-2.min.css'/>" rel="stylesheet">
 </head>
+<script>
+var writerCode = "<%= (String)session.getAttribute("writerCode") %>";
+console.log('writer: ' + writerCode);
+</script>
 <body>
 		<!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- 왼쪽 메뉴바 -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value='/writer/home.wdo'/>"">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<c:url value='/writer/home.wdo'/>">
         <div>
           <!-- 보물섬 아이콘 -->
           <i><img src="<c:url value='/resources/img/MainLogo_white.png'/>" width="70" height="70" ></i>
@@ -79,9 +84,9 @@
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!--<h6 class="collapse-header">Custom Components:</h6>-->
-            <a class="collapse-item" href="<c:url value='/view/worder/orderCondition.jsp'/>">현황</a>
-            <a class="collapse-item" href="<c:url value='/view/worder/orderList.jsp'/>">주문 리스트</a>
-            <a class="collapse-item" href="<c:url value='/view/worder/registerOfShip.jsp'/>">발송 정보 일괄 등록</a>
+            <a class="collapse-item" href="<c:url value='/writer/order/condition.wdo'/>">현황</a>
+            <a class="collapse-item" href="<c:url value='/writer/order/orderList.wdo?buyWriterOrderStatus=결제 완료'/>">주문 리스트</a>
+            <a class="collapse-item" href="<c:url value='/writer/order/registerOfShip.wdo'/>">발송 정보 일괄 등록</a>
           </div>
         </div>
       </li>
@@ -115,7 +120,7 @@
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!--<h6 class="collapse-header">Custom Components:</h6>-->
-            <a class="collapse-item" href="<c:url value='/view/wmessage/messageList.jsp'/>">메시지 리스트</a>
+            <a class="collapse-item" href="<c:url value='/writer/message.wdo'/>">메시지 리스트</a>
           </div>
         </div>
       </li>
@@ -131,9 +136,9 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <!--<h6 class="collapse-header">Custom Utilities:</h6>
             <a class="collapse-item" href="utilities-color.html">Colors</a>-->
-            <a class="collapse-item" href="<c:url value='/view/wactivity/alarm.jsp'/>">알림</a>
-            <a class="collapse-item" href="<c:url value='/view/wactivity/review.jsp'/>">구매후기</a>
-            <a class="collapse-item" href="<c:url value='/view/wactivity/comments.jsp'/>">댓글</a>
+            <a class="collapse-item" href="<c:url value='/writer/activity/alarm.wdo'/>">알림</a>
+            <a class="collapse-item" href="<c:url value='/writer/activity/review.wdo'/>">구매후기</a>
+            <a class="collapse-item" href="<c:url value='/writer/activity/comments.wdo'/>">댓글</a>
           </div>
         </div>
       </li>
@@ -240,7 +245,7 @@
             <a class="collapse-item" href="404.html">404 Page</a>
             <a class="collapse-item" href="blank.html">Blank Page</a>
             -->
-            <a class="collapse-item" href="<c:url value='/view/wstats/sales.jsp'/>">매출</a>
+            <a class="collapse-item" href="<c:url value='/writer/sales.wdo'/>">매출</a>
           </div>
 
 

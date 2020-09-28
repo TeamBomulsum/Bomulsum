@@ -32,7 +32,8 @@ public class WriterMidasController {
 	@Autowired
 	WriterMidasService service;
 	
-	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //占쏙옙占쏙옙占쏙옙 占쏙옙占�
+	private static final String SAVE_PATH = "/usr/local/tomcat/webapps/bomulsum/upload";
+//	private static final String SAVE_PATH = "C:\\bomulsum\\src\\main\\webapp\\upload"; //占쏙옙占쏙옙占쏙옙 占쏙옙占�
 	
 	@GetMapping("/midasRegister")
 	public ModelAndView midas(ModelAndView mav) {
@@ -157,15 +158,6 @@ public class WriterMidasController {
 				service.midasRunUpdate(vo);
 				System.out.println("else : "+vo);
 			}
-			System.out.println(vo);
-			PageCreator pc = new PageCreator();
-			pc.setPaging(vo);
-			pc.setArticleTotalCount(service.countArticles(vo));
-			System.out.println(pc.getArticleTotalCount());
-			
-			System.out.println("startPage : "+vo.getPageStart());
-			System.out.println("nextPage : "+vo.getPageNext());
-			System.out.println("endPage : " + pc.getEndPage());
 		}
 		return vo;
 	}

@@ -32,9 +32,12 @@ public class NodeDbDAO {
 	public String insertChatRoom(UserInsertChatVo vo) {
 		String result = "success";
 		String check = sqlSessionTemplate.selectOne("NodeDbDAO.insertChatRoomBefore", vo);
+		System.out.println("dao에 있는 check : " + check);
 		if(check == null) { 
+			System.out.println("insert dao 작동");
 			sqlSessionTemplate.insert("NodeDbDAO.insertChatRoom", vo);	
-		}else if(check.equals("N")){			
+		}else if(check.equals("N")){		
+			System.out.println("update dao 작동");
 			sqlSessionTemplate.update("NodeDbDAO.updateChatRoom", vo);
 		}else {
 			result = "error";	
@@ -57,5 +60,17 @@ public class NodeDbDAO {
 	public String getNonReadMsgContent(HashMap<String, String> map) {
 		return sqlSessionTemplate.selectOne("NodeDbDAO.getNonReadMsgContent", map);
 	}
+	
+	public int selectWish(HashMap<String, String> map) {
+		return sqlSessionTemplate.selectOne("NodeDbDAO.selectWish", map);
+	}
+	
+	public void insertWish(HashMap<String, String> map) {
+		sqlSessionTemplate.insert("NodeDbDAO.insertWish", map);
+	}
+	public void deleteWish(HashMap<String, String> map) {
+		sqlSessionTemplate.delete("NodeDbDAO.deleteWish", map);
+	}
+	
 	
 }

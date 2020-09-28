@@ -1,6 +1,7 @@
 package com.web.bomulsum.writer.art.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -241,6 +242,14 @@ public class WriterArtServiceImpl implements WriterArtService{
 	@Override
 	public void getTempUpdateReN(String writerCodeSeq) {
 		dao.getTempUpdateReN(writerCodeSeq);
+	}
+	@Override
+	public List<Integer> getGemSum(String writerCode) {
+		return dao.getGemSum(writerCode);
+	}
+	@Override
+	public void insertGem(HashMap<String, Object> map) {
+		dao.insertGem(map);
 	}
 	
 	

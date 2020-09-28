@@ -243,14 +243,22 @@
 		//테이블 그리는 함수
 		var renderTable = function(page){
 			var html = '';
-
+			var memberProfilePhoto = '';
+			
 			var startNum = (pageCount * (page - 1)); 
 			var endNum = ((pageCount * page) >= result.length) ? result.length : (pageCount * page);
 			
 			//여기서 만들어진 html 을 테이블 tbody 영역에 innerhtml 해줄거임.
 			for(var index = startNum; index < endNum; index++){//아랫줄 background-image로 교체하기
-		  		html += '<tr><td><div class=\"senderArea\"><div class=\"photo\" style=\"background-color:yellow;\"' + result[index].member_profile
-		  			+ 'alt=\"\"></div>&nbsp;&nbsp;' + result[index].memberName + '</div></td>'
+				
+				if(result[index].memberProfile == ""){
+					memberProfilePhoto = 'test.png';
+				} else {
+					memberProfilePhoto = result[index].memberProfile;
+				}
+				
+		  		html += '<tr><td><div class=\"senderArea\"><img class=\"photo\" src="/bomulsum/upload/' + memberProfilePhoto + '\"'
+		  			+ 'alt=\"\">&nbsp;&nbsp;' + result[index].memberName + '</div></td>'
 		  			+ '<td>' + result[index].alarmDate + '</td>'
 		  			+ '<td>' + result[index].alarmTitle + '</td>'
 		  			+ '<td>' + result[index].alarmContent + '</td>';

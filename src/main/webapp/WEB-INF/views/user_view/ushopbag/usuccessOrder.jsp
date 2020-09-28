@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +91,7 @@
 }
 
 .dndud_about_customer{
-	width:65%;
+	width:60%;
 	margin-right:2%;
 	display:flex;
 	flex-direction: column;
@@ -100,6 +101,7 @@
 	font-size:36px;	
 	padding-bottom:30px;
 	border-bottom: 1px solid #d9d9d9;
+	width:96%;
 }
 
 .dndud_about_customer div:nth-child(1) a{
@@ -145,12 +147,15 @@
 	display:flex;
 	justify-content: center;
 	align-items: center;
+
 }
 
 .about_pay_detail{
 	display:flex;
 	flex-direction: column;
 	border-bottom: 1px solid #d9d9d9;
+	padding: 20px 0px;
+	
 }
 
 .about_pay_detail div{
@@ -234,7 +239,7 @@
 	
 		<!-- 장바구니, 123 제목 영역 -->
 		<div class="dndud_content_title">
-			<h2 class="dndud_txt_f1">장바구니</h2>
+			<h2 class="dndud_txt_f1">주문완료</h2>
 			<ol class="dndud_page_loc">
 				<li>
 					<em class="icon_num">1</em>
@@ -261,9 +266,10 @@
 				<div class="big">
 					<a>배송정보</a>
 					<div class="dndud_about_customer_detail">
-						<span>조원희</span>
-						<span>01056545878</span>
-						<span>12212 경기 남양주시 와부읍 덕소로 97번길 34 (덕소리, 주공아파트) 102동 605호</span>
+						<span>${SuccessShipName}</span>
+						<span>${SuccessShipPhone}</span>
+						<span>${SuccessShipZip} ${SuccessShipAddr1} ${SuccessShipAddr2}
+						</span>
 					</div>
 				</div>
 			</div>
@@ -274,35 +280,33 @@
 				<div class="about_pay_detail">
 					<div>
 						<span>작품금액</span>
-						<span>6,500원</span>
+						<span><fmt:formatNumber value="${SuccessArtPrice}" pattern="#,###" />원</span>
+						
 					</div>
 					<div>
 						<span>배송비</span>
-						<span>3,000원</span>
+						<span><fmt:formatNumber value="${SuccessShipPrice}" pattern="#,###" />원</span>
 					</div>
 					<div>
-						<span>도서산간</span>
-						<span>0원</span>
+						<span>할인 혜택</span>
+						<span><fmt:formatNumber value="${SuccessDiscount}" pattern="#,###" />원</span>
 					</div>
 					<div>
-						<span>쿠폰할인</span>
-						<span>0원</span>
-					</div>
-					<div>
-						<span>작가 후원하기</span>
-						<span>0원</span>
+						<span>제주 / 도서산간 추가비용</span>
+						<span><fmt:formatNumber value="${SuccessShipJeju}" pattern="#,###"/>원</span>
 					</div>
 				</div>
 				<div class="about_pay_last">
 					<span>최종 결제 금액</span>
-					<a>9,500원</a>
+					<a><fmt:formatNumber value="${SuccessPriceSum}" pattern="#,###"/>원</a>
 				</div>
 			</div>
 		</div>
 		
 		<div class="dndud_order_buttons">
-			<span>주문내역 확인</span>
-			<span>쇼핑 계속하기</span>
+			<span onclick="location.href='/bomulsum/user/myInfo/orderList.do'">주문내역 확인</span>
+			<span onclick="location.href='/bomulsum/home.do'">쇼핑 계속하기</span>
+
 		</div>
 		
 	</div>

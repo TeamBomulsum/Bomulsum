@@ -5,10 +5,12 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/fea5b9b7d0.js" crossorigin="anonymous"></script>
 <script>
+var memberCode = '<%= (String)session.getAttribute("member") %>';
 $(window).bind('beforeunload', function() {
 	if ((event.clientY < 0) ||(event.altKey) ||(event.ctrlKey)||((event.clientY < 129) && (event.clientY>107))) { 
 		$.ajax({
@@ -35,8 +37,23 @@ $(function() {
 	});
 	
 	$("#toMyInfo").click(function(){
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
 		location.href="<c:url value='/user/myInfo/home.do'/>";
 	});
+	
+	$("#toShopBag").click(function(){
+		if(memberCode == null || memberCode == 'null'){
+			alert('로그인이 필요한 서비스입니다.');
+			location.href='/bomulsum/user/login.do';
+			return;
+		}
+		location.href="<c:url value='/user/shopbag.do'/>";
+	});
+	
 	
 	$("#toAlarm").click(function(){
 		location.href="#";
@@ -47,10 +64,13 @@ $(function() {
 	});
 	
 });
+
+
 </script>
 
 
 <style>
+*{font-family: 'Noto Sans KR', sans-serif;}
 body {
 	margin: 0px;
 }
@@ -243,7 +263,6 @@ body {
 
 
 .dainheader-bottom-inner {
-	width: 55%;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -480,18 +499,19 @@ body {
 	flex-direction:column;
 }
 .dndud_alarmDrop_main::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 .dndud_alarmDrop_main::-webkit-scrollbar-thumb {
-  background-color: #2f3542;
-  border-radius: 10px;
-  background-clip: padding-box;
-  border: 2px solid transparent;
+  background-color: gray;
+  border-radius: 3px;
 }
 .dndud_alarmDrop_main::-webkit-scrollbar-track {
-  background-color: grey;
-  border-radius: 10px;
-  box-shadow: inset 0px 0px 5px white;
+  background-color: transparent;
+}
+
+.dndud_alarmDrop_main::-webkit-scrollbar-button{
+	width:0;
+	height:0;
 }
 
 .dndud_alarm_content{
@@ -613,19 +633,20 @@ body {
 	display:flex;
 	flex-direction:column;
 }
+
 .dndud_messageDrop_main::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 .dndud_messageDrop_main::-webkit-scrollbar-thumb {
-  background-color: #2f3542;
-  border-radius: 10px;
-  background-clip: padding-box;
-  border: 2px solid transparent;
+  background-color: gray;
+  border-radius: 3px;
 }
 .dndud_messageDrop_main::-webkit-scrollbar-track {
-  background-color: grey;
-  border-radius: 10px;
-  box-shadow: inset 0px 0px 5px white;
+  background-color: transparent;
+}
+.dndud_messageDrop_main::-webkit-scrollbar-button{
+	width:0;
+	height:0;
 }
 
 .dndud_message_content{
@@ -712,6 +733,49 @@ body {
     font-size: 1px;
 }
 
+
+#rank-list a {
+    color: #666666;
+    text-decoration: none;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#rank-list a:hover {
+    text-decoration: underline;
+}
+
+#rank-list {
+    overflow: hidden;
+    width: 160px;
+    height: 20px;
+    margin: 0;
+}
+
+#rank-list dt {
+    display: none;
+}
+
+#rank-list dd {
+    position: relative;
+    margin: 0;
+}
+
+#rank-list ol {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#rank-list li {
+    height: 20px;
+    line-height: 20px;
+}
 
 </style>
 </head>
@@ -851,13 +915,13 @@ body {
 			<a href="<c:url value='/home.do'/>" ><img alt="logo" src="<c:url value='/resources/img/Logo_blue.png'/>" height="100%" style="margin-right: 50px"></a>
 		</div>
 		<div class="dainheader-middle-menu">
-			<a class="dainheader-middle-menu-a" href="#" style="margin-right: 30px; color: #1f76bb;" >작품</a>
-			<a class="dainheader-middle-menu-a" href="#" style="margin-right: 30px;">금손 클래스</a>
+			<a class="dainheader-middle-menu-a" href="<c:url value='/home.do'/>" style="margin-right: 30px; color: #1f76bb;" >작품</a>
+			<a class="dainheader-middle-menu-a" href="<c:url value='/midas/class.do'/>" style="margin-right: 30px;">금손 클래스</a>
 		</div>
 		<!-- 검색창 영역 -->
 		<div class="dainheader-middle-search">
 			<div class="middle-search-form">
-				<form action="/bomulsum/search/result.do">
+				<form id="search_form" action="/bomulsum/search/result.do">
 					<input autocomplete="off" type="text" id="headerSearch" name="headerSearch" placeholder="작품, 작가 검색" >
 					<button class="dainsearchbtn"><i class="fa fa-search fa-lg" aria-hidden="true" ></i></button>
 				</form>
@@ -867,23 +931,24 @@ body {
 		
 		<div class="dainpopsearch">
 			<div class="dainDropDownSearch"> <!-- 인기검색어 드롭다운영역 -->
-				<div style="padding-bottom:10px; border-bottom: 1px solid black;">
-				<span style="font-size: 11px; font-weight: bold;">실시간 인기검색어</span>
+				<div style=" border-bottom: 1px solid black;">
+					<span style="font-size: 11px; font-weight: bold;">실시간 인기검색어</span>
 				</div>
 				<ol class="dainol">
-				  <li><p>폰케이스<p></li>
-				  <li><p>마스크스트랩<p></li>
-				  <li><p>생일선물<p></li>
-				  <li><p>키링<p></li>
-				  <li><p>에어팟케이스<p></li>
-				  <li><p>반지<p></li>
-				  <li><p>카드지갑<p></li>
-				  <li><p>버즈케이스<p></li>
-				  <li><p>에코백<p></li>
-				  <li><p>케이크<p></li>
-				</ol> 
+				  
+				</ol>
 			</div>
-		 	<span style="color: red">1. </span> <span style="color:#666666 ">폰케이스</span>
+			<dl id="rank-list">
+	            <dt>실시간 급상승 검색어</dt>
+	            <dd>
+	                <ol class="dndudol">
+	                    
+	                </ol>
+	            </dd>
+	        </dl>
+			<!-- <div id="favoriteKeyword">
+		 		<span style="color: red">1. </span> <span style="color:#666666 ">폰케이스</span>
+		 	</div> -->
 		</div>
 		
 		
@@ -893,9 +958,9 @@ body {
 						<button class="dainiconbtn" style="padding:0px;"><i class="fa fa-user fa-2x" aria-hidden="true" style="padding: 7px 3px 3px;"></i>
 						<p style="margin: 0px; font-size: 10px; width: 40px">MY정보</p></button>
 					</div>
-					<div style="height: 42px; width: 40px;">
+					<div id="toShopBag" style="height: 42px; width: 40px;">
 						<button class="dainiconbtn" style="padding:0px;">
-							<div class="cartcountshape"><span style="color: #fff; font-size:10px ;">0</span></div>
+							<div class="cartcountshape"><span id="jeongaCount" style="color: #fff; font-size:10px ;">0</span></div>
 							<i class="fa fa-shopping-cart fa-2x" aria-hidden="true" style="padding: 7px 3px 3px;"></i>
 							<p style="margin: 0px; font-size: 10px; width: 40px">장바구니</p>
 						</button>
@@ -905,40 +970,46 @@ body {
 </div>
 <!-- Header 하단 메뉴영역 -->
 <div class="dainheader-bottom" >
-	<div class="dainheader-bottom-inner">
-		<div class="cathover" ><div style="height: 40px; display: table-cell; vertical-align: middle;">카테고리</div>
-			<div class="dropdown-content" style="padding: 4px 0px 4px 0px; color: #666666; background-color: #fff;" >
-				<div class="menu">
-				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
-				margin-bottom:15px;" >
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=식음료'/> ">식음료</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=문구팬시'/> ">문구팬시</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=전자기기'/> ">전자기기</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=패션잡화'/> ">패션잡화</a></li>
-				</ul>
-				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
-				margin-bottom:15px; border-left: 1px solid #d9d9d9; border-right: 1px solid #d9d9d9">
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=반려동물 용품'/> ">반려동물 용품</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=인테리어 소품'/> ">인테리어 소품</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=신발'/> ">신발</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=의류'/> ">의류</a></li>
-				</ul>
-				<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
-				margin-bottom:15px;">
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=육아,아동'/> ">육아,아동</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=인형,장난감'/> ">인형,장난감</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=공예'/> ">공예</a></li>
-				  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=기타'/> ">기타</a></li>
-				</ul>
-				</div>
-   			</div>
+	<div style="width:70%; display:flex; justify-content: space-between;">
+		<div></div>
+		<div class="dainheader-bottom-inner">
+			<div class="cathover" ><div style="height: 40px; display: table-cell; vertical-align: middle;">카테고리</div>
+				<div class="dropdown-content" style="padding: 4px 0px 4px 0px; color: #666666; background-color: #fff;" >
+					<div class="menu">
+					<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
+					margin-bottom:15px;" >
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=식음료'/> ">식음료</a></li>
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=문구팬시'/> ">문구팬시</a></li>
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=전자기기'/> ">전자기기</a></li>
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=패션잡화'/> ">패션잡화</a></li>
+					</ul>
+					<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
+					margin-bottom:15px; border-left: 1px solid #d9d9d9; border-right: 1px solid #d9d9d9">
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=반려동물 용품'/> ">반려동물 용품</a></li>
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=인테리어 소품'/> ">인테리어 소품</a></li>
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=신발'/> ">신발</a></li>
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=의류'/> ">의류</a></li>
+					</ul>
+					<ul class="dainCatUl" style="background-color: #fff; padding-left: 5px; margin-top:15px; 
+					margin-bottom:15px;">
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=육아,아동'/> ">육아,아동</a></li>
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=인형,장난감'/> ">인형,장난감</a></li>
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=공예'/> ">공예</a></li>
+					  <li class="dainCatLi"><a class="dainCatA" href="<c:url value='/category/detail.do?category=기타'/> ">기타</a></li>
+					</ul>
+					</div>
+	   			</div>
+			</div>
+			<div><a class="dain-hb-menu" href="<c:url value='/home.do'/> ">홈</a></div>
+			<div><a class="dain-hb-menu" href="<c:url value='/category/recommended.do'/> ">추천 작품</a></div>
+			<div><a class="dain-hb-menu" href="<c:url value='/user/realtimeReview.do'/> ">실시간 후기</a></div>
+			<div><a class="dain-hb-menu" href="<c:url value='/category/artistRecommend.do'/> ">작가님 추천</a></div>
+			<div><a class="dain-hb-menu" href="<c:url value='/user/popular/writer.do'/> ">인기작가</a></div>
+			<div><a class="dain-hb-menu" href="<c:url value='/category/bestwork.do'/> ">인기작품</a></div>
 		</div>
-		<div><a class="dain-hb-menu" href="<c:url value='/home.do'/> ">홈</a></div>
-		<div><a class="dain-hb-menu" href="#">추천 작품</a></div>
-		<div><a class="dain-hb-menu" href="#">실시간 후기</a></div>
-		<div><a class="dain-hb-menu" href="#">작가님 추천</a></div>
-		<div><a class="dain-hb-menu" href="#">인기작가</a></div>
-		<div><a class="dain-hb-menu" href="#">인기작품</a></div>
+		<div></div>
+		<div></div>
+		<div></div>
 	</div>
 </div>
 </header>
@@ -950,6 +1021,84 @@ body {
 </a>
 
 </body>
+<script>
+$(function(){
+	$('#search_form').submit(function(){
+		if($("#headerSearch").val().length == 0){
+			return false;
+		}
+	});
+});
+var keywordClick = function(event){
+	location.href='/bomulsum/search/result.do?headerSearch='+event;
+};
+
+var getRealTime = function(){
+	$.ajax({
+		type:'POST',
+		url:"/bomulsum/search/realTime.do",
+		success: function(data){
+/* 				dndud = > <li><a><span style="color:red">1.</span> 폰케이스</a></li>
+            dain = > <li><p>폰케이스<p></li> */
+			console.log(data);
+            var dndud='';
+            var dain='';
+            for(var i=0; i<data.length; i++){
+            	dndud += '<li><a><span style="color:red">'+(i+1)+'.</span> '+data[i]+'</a></li>';
+            	dain += '<li><p class="dndud_class">'+data[i]+'</p></li>';
+            }
+			$('.dndudol').html(dndud);
+			$('.dainol').html(dain);
+			
+			var count = $('#rank-list li').length;
+		    var height = $('#rank-list li').height();
+		    
+		    $('.dndud_class').on('click', function(){
+		    	keywordClick($(this).text());
+		    });
+		
+		    function step(index){
+		        $('#rank-list ol').delay(2000).animate({
+		            top: -height * index,
+		        }, 500, function() {
+		            step((index + 1) % count);
+		        });
+		    }
+		    step(1);
+		},
+		error: function(e){
+			console.log(e);
+		}
+	});
+	
+};
+//장바구니 count추가 - 정아
+var getShopbagCount = function(){
+	 var member = '<%= (String)session.getAttribute("member") %>';
+	 if(member != null || memberCode != 'null'){
+		$.ajax({
+			type:'POST',
+			data: {
+				'member':member,
+			},
+			url:"/bomulsum/user/shopbagCount.do",
+			success: function(data){
+				$('#jeongaCount').text(data);
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+};
+$(document).ready(function(){
+    getRealTime();
+    getShopbagCount();
+   
+    
+});
+</script>
 <script>
 $(function(){
 	var code = '<%= (String)session.getAttribute("member") %>';

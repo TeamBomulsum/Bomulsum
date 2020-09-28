@@ -63,6 +63,8 @@
 			art_sale_count,
 			art_sale_state,
 			art_recommend_time,
+			art_recommend_temp,
+			art_recommend_state,
 			art_register_date
 		)
 		VALUES (
@@ -81,7 +83,9 @@
 			default,
 			'Y',
 			default,
-			default
+			default,
+			default,
+			SYSDATE
 		)
 	</insert>
   <!-- 작품 코드 검색 -->
@@ -537,7 +541,7 @@ FROM(
     			AND 
     				art_sale_state='Y' 
     			AND 
-    				art_recommend_time = '91/12/05'
+    				art_recommend_time is NULL
     			AND art_recommend_temp = 'N'
     			<include refid="search" />
     				ORDER BY art_code_seq desc                       
@@ -588,7 +592,7 @@ WHERE
 	AND
 		art_sale_state='Y'
 	AND
-		art_recommend_time = '91/12/05'
+		art_recommend_time is NULL
 	AND 
 		art_recommend_temp = 'Y'
 </select> 			
@@ -604,14 +608,14 @@ WHERE
 		AND 
 			art_recommend_temp = 'Y' 
 		AND
-			art_recommend_time = '91/12/05'
+			art_recommend_time is NULL
 
 </select>
 <update id="recommendUp">
 	UPDATE
 		art_tb
 	SET
-		art_recommend_time = sysdate,
+		art_recommend_time = SYSDATE,
 		art_recommend_state = 'Y'
 	WHERE 
 		writer_code_seq=#{writerCodeSeq}
@@ -632,5 +636,33 @@ WHERE
 	AND 
 		art_recommend_state = 'Y'
 </update>
+
+<select id="getGemSum" parameterType="String" resultType="int">
+	SELECT
+		gem_price
+	FROM
+		gem_tb
+	WHERE
+		writer_code_seq=#{writerCode}
+</select>
+
+<insert id="insertGem" parameterType="hashMap">
+	INSERT INTO gem_tb
+	(
+		gem_seq,
+		writer_code_seq,
+		gem_usage,
+		gem_price,
+		gem_log
+	)
+	VALUES
+	(
+		'gem_seq' || TO_CHAR(gem_sq.nextval),
+		#{writerCode},
+		'Y',
+		#{price},
+		#{gemStr}
+	)
+</insert>
 
 </mapper>

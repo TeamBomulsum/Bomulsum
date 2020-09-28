@@ -17,7 +17,7 @@
 	
 	<resultMap type="com.web.bomulsum.writer.activity.repository.WriterActivityVO" id="reviewListMap">
 		<id column="REVIEW_CODE_SEQ" property="reviewCodeSeq"/>
-		<result column="ORDER_CODE_SEQ" property="orderCodeSeq"/>
+		<result column="buy_art_code_seq" property="buyArtCodeSeq"/>
 		<result column="MEMBER_CODE_SEQ" property="memberCodeSeq"/>
 		<result column="ART_CODE_SEQ" property="artCodeSeq"/>
 		<result column="REVIEW_DATE" property="reviewDate"/>
@@ -30,6 +30,7 @@
 		<result column="ART_NAME" property="artName"/>
 		<result column="MEMBER_NAME" property="memberName"/>
 		<result column="MEMBER_PROFILE" property="memberProfile"/>
+		<result column="ART_PHOTO" property="artPhoto"/>
 	</resultMap>
  
  
@@ -142,9 +143,9 @@
 		FROM
 		(
 			SELECT
-				a.review_code_seq, a.order_code_seq, a.member_code_seq, a.art_code_seq,
+				a.review_code_seq, a.buy_art_code_seq, a.member_code_seq, a.art_code_seq,
 				a.review_date, a.review_comment, a.review_star, a.review_photo, a.review_comment_re, a.review_comment_re_status,
-				b.member_name, b.member_profile, c.art_name
+				b.member_name, b.member_profile, c.art_name, c.art_photo
 			FROM
 				review_tb a
 			LEFT OUTER JOIN

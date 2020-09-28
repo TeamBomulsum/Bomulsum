@@ -182,5 +182,46 @@
 		</where>
 	</update>
 	
+	<select id="selectWish" parameterType="hashMap" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			wishlist_tb
+		WHERE
+			member_code_seq=#{memberCode}
+			AND
+			wishlist_option=#{option}
+			AND
+			wishlist_option_code = #{writerCode}
+	</select>
+	
+	<insert id="insertWish" parameterType="hashMap">
+		INSERT INTO
+		wishlist_tb
+		(
+			wishlist_seq,
+			member_code_seq,
+			wishlist_option,
+			wishlist_option_code
+		)
+		VALUES
+		(
+			'wishlist_seq' || TO_CHAR(wishlist_sq.nextval),
+			#{memberCode},
+			#{option},
+			#{writerCode}
+		)
+	</insert>
+	
+	<delete id="deleteWish" parameterType="hashMap">
+		DELETE FROM
+			wishlist_tb
+		WHERE
+			member_code_seq=#{memberCode}
+			AND
+			wishlist_option=#{option}
+			AND
+			wishlist_option_code = #{writerCode}
+	</delete>
 	
 </mapper>
