@@ -316,12 +316,12 @@ $(function(){
 	console.log(likeArtist);
 	
   	//이미 관심작품 해둔거 반영
-	var wishData = ${wishArt};
+/* 	var wishData = ${wishArt};
 	if(wishData != null){
 		for(var i=0; i<wishData.length; i++){
 			wishData[i].style.color="#d64640";
 		} 
-	} 
+	}  */
 	
 	//이미 좋아하는 작가 해둔거 반영
 	if(likeArtist > 0){ //좋아하는 작가일때
@@ -514,9 +514,9 @@ likeArtistFunc = function(clicked_id){
 			<div class="minwwo_writer_saleplace_body">
 			
 			<c:forEach var="i" items="${artlist}" varStatus="status">
-				<div id="${i.art_code_seq }" onclick="artCode(this)" class="article">
+				<div id="${i.art_code_seq }" onclick="artCode(this)" class="article" style="cursor: pointer;">
 					<div class="article_img" style="background-image: url('<c:url value='/upload/${artImg[status.index]}'/>')">
-						<i class="fa fa-star fs" id="${i.art_code_seq}" style="cursor: pointer;"></i>
+						<%-- <i class="fa fa-star fs" id="${i.art_code_seq}" style="cursor: pointer;"></i> --%>
 					  <%-- <img class="dain_artimg" src="<c:url value='/upload/${artImg[status.index]}'/>" > --%>
 					</div>
 					<div class="article_detail">
