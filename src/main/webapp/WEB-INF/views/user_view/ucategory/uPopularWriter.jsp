@@ -110,7 +110,25 @@ a:link, a:visited, a:hover, a:active{
 .jeonga_profile_text{
 	padding:2%;
 	font-size:14px;
+	overflow-y: scroll;
+	height: 32px;
+	overflow:auto;
 }
+.jeonga_profile_text::-webkit-scrollbar {
+    width: 10px;
+}
+.jeonga_profile_text::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.jeonga_profile_text::-webkit-scrollbar-track {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
 .jeonga_profile_buttons_top{
 	display:flex;
 }
@@ -710,7 +728,12 @@ function showSlides_five(n) {
 							</div>
 							<div class="jeonga_profile_image">
 							<a href="/bomulsum/writerhome/${rank1.writer_url}.do" target="#" class="jeonga_profile_image_link">
-								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank1.writer_profile_img}'/>" style="width:100px; height:100px">
+								<c:if test="${rank1.writer_profile_img eq null}">
+									<img class="jeonga_profileImage" src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
+							 	</c:if>
+							 	<c:if test="${rank1.writer_profile_img ne null}">
+									<img class="jeonga_profileImage" src="<c:url value='/upload/${rank1.writer_profile_img}'/>" style="width:100px; height:100px">
+							 	</c:if>
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">
@@ -777,7 +800,12 @@ function showSlides_five(n) {
 							</div>
 							<div class="jeonga_profile_image">
 							<a href="/bomulsum/writerhome/${rank2.writer_url}.do" target="#" class="jeonga_profile_image_link">
-								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank2.writer_profile_img}'/>" style="width:100px; height:100px">
+								<c:if test="${rank2.writer_profile_img eq null}">
+									<img class="jeonga_profileImage" src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
+							 	</c:if>
+							 	<c:if test="${rank2.writer_profile_img ne null}">
+									<img class="jeonga_profileImage" src="<c:url value='/upload/${rank2.writer_profile_img}'/>" style="width:100px; height:100px">
+							 	</c:if>
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">
@@ -842,7 +870,12 @@ function showSlides_five(n) {
 							</div>
 							<div class="jeonga_profile_image1">
 							<a href="/bomulsum/writerhome/${rank3.writer_url}.do" target="#" class="jeonga_profile_image_link">
-								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank3.writer_profile_img}'/>" style="width:100px; height:100px">
+								<c:if test="${rank3.writer_profile_img eq null}">
+									<img class="jeonga_profileImage" src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
+							 	</c:if>
+							 	<c:if test="${rank3.writer_profile_img ne null}">
+									<img class="jeonga_profileImage" src="<c:url value='/upload/${rank3.writer_profile_img}'/>" style="width:100px; height:100px">
+							 	</c:if>
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">
@@ -907,7 +940,12 @@ function showSlides_five(n) {
 							</div>
 							<div class="jeonga_profile_image1">
 							<a href="/bomulsum/writerhome/${rank4.writer_url}.do" target="#" class="jeonga_profile_image_link">
-								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank4.writer_profile_img}'/>" style="width:100px; height:100px">
+								<c:if test="${rank4.writer_profile_img eq null}">
+									<img class="jeonga_profileImage" src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
+							 	</c:if>
+							 	<c:if test="${rank4.writer_profile_img ne null}">
+									<img class="jeonga_profileImage" src="<c:url value='/upload/${rank4.writer_profile_img}'/>" style="width:100px; height:100px">
+							 	</c:if>
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">
@@ -972,7 +1010,12 @@ function showSlides_five(n) {
 							</div>
 							<div class="jeonga_profile_image1">
 							<a href="/bomulsum/writerhome/${rank5.writer_url}.do" target="#" class="jeonga_profile_image_link">
-								<img class="jeonga_profileImage" src="<c:url value='/upload/${rank5.writer_profile_img}'/>" style="width:100px; height:100px">
+								<c:if test="${rank5.writer_profile_img eq null}">
+									<img class="jeonga_profileImage" src="<c:url value='/resources/img/test.png'/>" style="width:100px; height:100px">
+							 	</c:if>
+							 	<c:if test="${rank5.writer_profile_img ne null}">
+									<img class="jeonga_profileImage" src="<c:url value='/upload/${rank5.writer_profile_img}'/>" style="width:100px; height:100px">
+							 	</c:if>
 							 </a></div>
 						</div>
 						<div class="jeonga_profile_split">

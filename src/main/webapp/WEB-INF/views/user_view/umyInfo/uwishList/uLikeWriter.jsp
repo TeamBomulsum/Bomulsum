@@ -43,13 +43,16 @@ body a:link, a:visited, a:hover, a:active {
 }
 
 .jeonga_wprofileImage{
-	width:100%;
-	height:100%;
+	width:80px;
+	height:80px;
 	object-fit:cover;
+	background-color: #f5f5f5;
 }
 
 .jeonga_wprofile{
 	display:flex;
+	padding-top:5px;
+	padding-bottom: 15px;
 }
 .jeonga_wprofile_split{
 	padding:2%;
@@ -58,10 +61,31 @@ body a:link, a:visited, a:hover, a:active {
 .jeonga_wprofile_content{
 	width:200px;
 }
+
 .jeonga_wprofile_text{
 	padding:2%;
 	font-size:14px;
+	overflow-y: scroll;
+	height: 34px;
+	overflow:auto;
 }
+
+.jeonga_wprofile_text::-webkit-scrollbar {
+    width: 10px;
+}
+
+.jeonga_wprofile_text::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.jeonga_wprofile_text::-webkit-scrollbar-track {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
 .jeonga_wprofile_title{
 	text-decoration: none;
 	color:black;
@@ -194,10 +218,6 @@ body a:link, a:visited, a:hover, a:active {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 //좋아하는 작가 취소
- $(document).ready(function(){
-	// var slideIndex = 1;
-	showSlides(slideIndex);
- });	
  $(function(){
 	$(".jeonga_wprofile_button_add").click(function(){ 
 		var $data = $(this).parent().next().children('#jeonga_wprofile_code').text();
@@ -335,7 +355,13 @@ body a:link, a:visited, a:hover, a:active {
 						<div class="jeonga_wprofile_split">
 							<div class="jeonga_wprofile_image">
 							<a href="/bomulsum/writerhome/${artList.writer_url}.do" target="#" class="jeonga_wrpofile_image_link"> 
-								<img style="width:80px; height:80px" id="jeonga_wprofileImage" src="<c:url value='/upload/${artList.writer_profile_img}'/>"/>
+							 	<c:if test="${artList.writer_profile_img eq null}">
+									<img class="jeonga_wprofileImage" src="<c:url value='/resources/img/test.png'/>">
+							 	</c:if>
+							 	<c:if test="${artList.writer_profile_img ne null}">
+									<img class="jeonga_wprofileImage" src="<c:url value='/upload/${artList.writer_profile_img}'/>">
+							 	</c:if>
+							 
 							 </a></div>
 						</div>
 						<div class="jeonga_wprofile_split">
@@ -347,7 +373,6 @@ body a:link, a:visited, a:hover, a:active {
 								<div class="jeonga_wprofile_buttons_top">
 									<div class="jeonga_wprofile_button_add">♥︎하는 작가</div>
 
-								<!-- 	</div> -->
 									<div id="jeonga_wprofile_writer_home">
 									<a class="jeonga_wprofile_button" href="/bomulsum/writerhome/${artList.writer_url}.do">작가홈</a>
 									</div>

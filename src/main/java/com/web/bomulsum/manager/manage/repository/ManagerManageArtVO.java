@@ -5,16 +5,17 @@ public class ManagerManageArtVO {
 	private String art_photo;
 	private String art_name;
 	private String writer_brand_name;
+	private String writer_name;
 	private String art_category;
 	private String art_sale_state;
 	private int art_sale_count;
-	
 
 	@Override
 	public String toString() {
 		return "ManagerManageArtVO [art_code_seq=" + art_code_seq + ", art_photo=" + art_photo + ", art_name="
-				+ art_name + ", writer_brand_name=" + writer_brand_name + ", art_category=" + art_category
-				+ ", art_sale_state=" + art_sale_state + ", art_sale_count=" + art_sale_count + "]";
+				+ art_name + ", writer_brand_name=" + writer_brand_name + ", writer_name=" + writer_name
+				+ ", art_category=" + art_category + ", art_sale_state=" + art_sale_state + ", art_sale_count="
+				+ art_sale_count + "]";
 	}
 
 	public String getArt_code_seq() {
@@ -47,6 +48,14 @@ public class ManagerManageArtVO {
 
 	public void setWriter_brand_name(String writer_brand_name) {
 		this.writer_brand_name = writer_brand_name;
+	}
+
+	public String getWriter_name() {
+		return writer_name;
+	}
+
+	public void setWriter_name(String writer_name) {
+		this.writer_name = writer_name;
 	}
 
 	public String getArt_category() {

@@ -31,6 +31,9 @@ public class ManagerManageController {
 		for(int i=0; i<artList.size(); i++) {
 				String[] photoArr = artList.get(i).getArt_photo().split(",");
 				artList.get(i).setArt_photo(photoArr[0]);
+				if(artList.get(i).getWriter_brand_name() == null) {
+					artList.get(i).setWriter_brand_name(artList.get(i).getWriter_name());
+				}
 		}
 		mav.addObject("artList", artList);
 		return mav;
@@ -42,6 +45,9 @@ public class ManagerManageController {
 		for(int i=0; i<classList.size(); i++) {
 			String[] photoArr = classList.get(i).getMidas_img().split(",");
 			classList.get(i).setMidas_img(photoArr[0]);
+			if(classList.get(i).getWriter_brand_name() == null) {
+				classList.get(i).setWriter_brand_name(classList.get(i).getWriter_name());
+			}
 	}
 		mav.addObject("classList", classList);
 		return mav;
