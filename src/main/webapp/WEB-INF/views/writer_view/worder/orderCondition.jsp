@@ -284,7 +284,7 @@ $(document).ready(function(){
 	  			artImg = result[i].artPhoto.split(',')[0];
 	  			console.log('우영 테스트 : ' + artImg); 
 		  		html += '<tr><td><img style="overflow: hidden; display: flex; align-items: center; justify-content: center;width: 75px; height: 75px"'
-		  			+ 'src="/bumulsum/upload/' + artImg + '" /></td>'
+		  			+ 'src="/bomulsum/upload/' + artImg + '" /></td>'
 		  			+ '<td><div style="text-align: left"><a style="color: black; font-weight:bold; font-size:100%">'
 		  			+ '<input type="checkbox" checked="checked" />' + result[i].artName + '</a><br>' + result[i].artAmount + ' 개남음<br>';
 		  			

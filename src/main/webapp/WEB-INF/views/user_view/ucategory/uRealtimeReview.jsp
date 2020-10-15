@@ -58,7 +58,7 @@ body a:link, a:visited, a:hover, a:active {
 }
 .minwoo_realtime_review_one{
 	width:252px;
-	height:570px;
+	height:650px;
 	max-height:650px; 
 	margin-bottom:15px;
 	margin-right:10px;

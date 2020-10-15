@@ -395,22 +395,9 @@
 					</div>
 				</div>
 				<div class="dndud_content_change_main_div">
-					<div class="recently_buy">
-						<span>최근 구매한 작품의 작가</span>
-						<div class="div_writer">
-							<img src="<c:url value='/resources/img/KMWnoReviewMe.png'/>">
-							<a>애잔</a>
-						</div>
-					</div>
-					<div class="likeWriter">
-						<span>좋아하는 작가</span>
-						<div class="div_writer">
-							<img src="<c:url value='/resources/img/KMWnoReviewMe.png'/>">
-							<a>321팩토리321factory</a>
-						</div>
-					</div>
+					
 					<div class="testWriter">
-						<span>테스트용 작가들</span>
+						<span>작가들</span>
 						<c:forEach items="${testWriter}" var="test">
 							<div class="div_writer">
 								<input type="hidden" class="writerCode" value="${test.writerCode}">

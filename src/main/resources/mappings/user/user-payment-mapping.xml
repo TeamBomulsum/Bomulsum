@@ -35,6 +35,8 @@
 		coupon_tb
 		WHERE
 		member_code_seq=#{userCode}
+		AND 
+		coupon_usage='N'
 	</select>
 	
 	
@@ -158,14 +160,14 @@
   	
   	
   	<!-- 사용한 쿠폰 삭제 -->
-  	<delete id="deleteUseCoupon" parameterType="String">
-  		UPDATE 
-  			coupont_tb
-  		SET
-  			coupon_usage = 'Y'
-  		WHERE
-  			coupon_code_seq = #{choiceCoupon}
-  	</delete>
+  	<update id="deleteUseCoupon" parameterType="String">
+        UPDATE 
+           coupon_tb
+        SET
+           coupon_usage = 'Y'
+        WHERE
+           coupon_code_seq = #{choiceCoupon}
+     </update>
   	
   	
   	<!-- 작품구매로 적립금 적립 -->

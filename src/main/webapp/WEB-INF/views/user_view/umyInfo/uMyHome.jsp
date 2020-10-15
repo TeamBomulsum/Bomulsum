@@ -402,7 +402,7 @@ input[type="button"]:focus{
 }
 
 #purchaseReview{
-	background-color: #1f76bb;
+	background-color: #1f76bb !important;
 	color: white;
 }
 
@@ -680,7 +680,7 @@ input[type="button"]:focus{
 }
 
 .purchaseReview{
-	background-color: #1f76bb;
+	background-color: #1f76bb !important;
 	color: white;
 }
 
@@ -710,11 +710,14 @@ input[type="button"]:focus{
 .delivery{
     background-color: white;
     border: 1px solid #d9d9d9 !important;
-    padding: 5%;
+    padding: 5% 0;
     margin-top: 5%;
     cursor: pointer;
-    color:black;
-    text-decoration: none !important;
+    color: black;
+    text-decoration: none;
+    width: 80%;
+    display: flex;
+    justify-content: center;
 }
 </style>
 </head>
@@ -1311,6 +1314,24 @@ $(function(){
 			location.href="/bomulsum/user/login.do";
 		}else{
 			location.href="/bomulsum/user/myInfo/refund/request.do?buyWriterCode="+$(this).attr('id');
+		}
+	});
+	
+	$('.purchaseReview_before').on('click', function(){
+		if(memberCode == null || memberCode == ''){
+			alert('세션이 만료되었습니다.');
+			location.href="/bomulsum/user/login.do";
+		}else{
+			location.href="/bomulsum/user/myInfo/review.do";
+		}
+	});
+	
+	$('.purchaseReview').on('click', function(){
+		if(memberCode == null || memberCode == ''){
+			alert('세션이 만료되었습니다.');
+			location.href="/bomulsum/user/login.do";
+		}else{
+			location.href="/bomulsum/user/myInfo/review.do";
 		}
 	});
 });

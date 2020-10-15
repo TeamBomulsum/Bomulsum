@@ -21,6 +21,15 @@
 		<result property="phone" column="member_phone" />
 	</resultMap>
 	
+	<select id="checkPhone" parameterType="String" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			member_tb
+		WHERE
+			member_phone=#{phone}
+	</select>
+	
 	<select id="forgotpw" parameterType="String" resultMap="memberInfo">
 		SELECT
 			member_email,

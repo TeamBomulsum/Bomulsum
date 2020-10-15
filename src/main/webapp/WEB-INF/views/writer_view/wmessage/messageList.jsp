@@ -79,7 +79,7 @@
 
 .dndud_user_big_div{
 	width:95%; 
-	height:200px; 
+	height:400px; 
 	overflow-y: auto;
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
@@ -177,7 +177,7 @@
 						</div>
 						<hr>
 						<!-- ======================== -->
-						<div id="dndud_chatroom_div_list" style="overflow-y: auto; height: 640px;">
+						<div id="dndud_chatroom_div_list" style="overflow-y: auto; height: 640px; overflow-x: hidden">
 							<!-- 한 명 시작 -->
 							<c:forEach var ="chat" items="${chatRoom}">
 								<div class="dndud_chatroom_div">

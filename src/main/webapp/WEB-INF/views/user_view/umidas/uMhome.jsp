@@ -18,7 +18,6 @@ body a:link, a:visited, a:hover, a:active {
 /*이미지 슬라이드*/
 .jeonga_slide_img {
 	width: 100%;
-	height: 480px;
 	margin: 0;
 	padding: 0;
 }
@@ -26,14 +25,12 @@ body a:link, a:visited, a:hover, a:active {
 .jeonga_uMhome_slidecontainer {
 	position: relative;
 	width: 100%;
-	height: 480px;
 }
 
 .jeonga_uMhome_mySlides {
 	position: relative;
 	z-index: 80;
 	width: 100%;
-	height: 480px;
 	padding: 0;
 	display: none
 }
@@ -42,12 +39,10 @@ body a:link, a:visited, a:hover, a:active {
 	position: relative;
 	z-index: 20;
 	width: 100%;
-	height: 480px;
 }
 
 .jeonga_uMhome_imageSlides_buttons {
 	width: 100%;
-	height: 480px;
 	z-index: 99;
 	display: flex;
 	justify-content: space-between;
@@ -59,8 +54,8 @@ body a:link, a:visited, a:hover, a:active {
 	color: white;
 	cursor: pointer;
 	width: auto;
-	margin-top: 220px;
-	margin-left: 200px;
+	margin-top: 160px;
+	margin-left: 50px;
 	font-weight: bold;
 	font-size: 35px;
 }
@@ -69,8 +64,8 @@ body a:link, a:visited, a:hover, a:active {
 	color: white;
 	cursor: pointer;
 	width: auto;
-	margin-top: 220px;
-	margin-right: 200px;
+	margin-top: 160px;
+	margin-right: 50px;
 	font-weight: bold;
 	font-size: 35px;
 }

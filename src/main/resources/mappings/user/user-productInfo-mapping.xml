@@ -214,7 +214,7 @@
 			#{memberCodeSeq},
 			#{artCodeSeq},
 			#{commentContent},
-			'Y',
+			'N',
 			SYSDATE,
 			#{writerCodeSeq}
 		)

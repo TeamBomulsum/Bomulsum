@@ -431,8 +431,8 @@ $(function(){
                               <option value="문구팬시">문구팬시</option>
                               <option value="전자기기">전자기기</option>
                               <option value="패션잡화">패션잡화</option>
-                              <option value="반려동물">반려동물 용품</option>
-                              <option value="인테리어">인테리어 소품</option>
+                              <option value="반려동물 용품">반려동물 용품</option>
+                              <option value="인테리어 소품">인테리어 소품</option>
                               <option value="신발">신발</option>
                               <option value="의류">의류</option>
                               <option value="육아,아동">육아.아동</option>

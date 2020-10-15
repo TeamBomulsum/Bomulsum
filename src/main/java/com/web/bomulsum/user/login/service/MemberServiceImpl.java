@@ -107,4 +107,9 @@ public class MemberServiceImpl implements MemberService {
 		dao.alterTable(vo);
 	}
 
+	@Override
+	public int checkPhone(String phone) {
+		return dao.checkPhone(phone);
+	}
+
 }

@@ -50,7 +50,7 @@ public class UserPaymentDAO {
 	
 	//쿠폰 삭제
 	public void deleteUseCoupon(String couponCode) {
-		sqlSessionTemplate.delete("paymentDAO.deleteUseCoupon",couponCode);
+		sqlSessionTemplate.update("paymentDAO.deleteUseCoupon",couponCode);
 	}
 	
 	//판매수량 조회

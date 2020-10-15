@@ -30,7 +30,6 @@ body a:link, a:visited, a:hover, a:active {
     display: flex;
     align-items: center;
     padding:10px;
-    width: 100%;
     font-size: 15px;
     color: #333;
 }

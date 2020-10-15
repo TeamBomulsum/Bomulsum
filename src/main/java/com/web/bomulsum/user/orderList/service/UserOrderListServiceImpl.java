@@ -26,6 +26,9 @@ public class UserOrderListServiceImpl implements UserOrderListService {
 		
 		List<UserOrderTableVO> forData = new ArrayList<UserOrderTableVO>();
 		List<UserOrderTableVO> imsiData = dao.getOrderTb(member);
+		if(imsiData.size() == 1) {
+			forData = imsiData;
+		}
 		for(UserOrderTableVO imsi : imsiData) {
 			for(UserOrderTableVO imsi2 : imsiData) {
 				if(!imsi.getOrderCodeSeq().equals(imsi2.getOrderCodeSeq())) {

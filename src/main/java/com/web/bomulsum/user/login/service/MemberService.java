@@ -40,4 +40,7 @@ public interface MemberService {
 	// 비밀번호 수정
 	void alterTable(MemberChangePwVO vo);
 	
+	// 핸드폰 중복 유무
+	int checkPhone(String phone);
+	
 }

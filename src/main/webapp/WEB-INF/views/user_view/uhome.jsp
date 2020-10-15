@@ -831,12 +831,6 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";
 }
 
-window.onload = function(){
-	setInterval(function(){
-		plusSlides(1);
-	}, 5000);
-}
-
 function artCode(e){
 	var art_code = e.id;
 	var url = "/bomulsum/user/uProductInfo/"+art_code+".do?memberCode="+memberCode;
@@ -851,6 +845,10 @@ window.onload = function(){
 		$(this).find('span:nth-child(-n+'+ targetScore +')').parent().children('span').removeClass('on');
 		$(this).find('span:nth-child(-n+'+ targetScore +')').addClass('on').prevAll('span').addClass('on');
 	});
+	
+	setInterval(function(){
+		plusSlides(1);
+	}, 5000);
 }
 
 $(function(){

@@ -78,4 +78,8 @@ public class MemberDAO {
 		sqlSessionTemplate.update("MemberDAO.alterTable", vo);
 	}
 	
+	public int checkPhone(String phone) {
+		return sqlSessionTemplate.selectOne("MemberDAO.checkPhone", phone);
+	}
+	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -194,10 +195,18 @@
 					</c:if>
 					<c:if test="${artList.size() > 0}">
 					<c:forEach var="artList" items="${artList}">
-                        <ul id="${artList.artCodeSeq }">
-                            <li style="display: flex; flex-direction: row;">
+                        <ul id="${artList.artCodeSeq }" style="padding:0">
+                            <li style="display: flex; flex-direction: row;align-items: center">
 	                            <input style="margin: 6%" type="checkbox" id="artListCheckBox" name="${artList.temp }" value="${artList.artCodeSeq }">&nbsp;&nbsp;
-	                            <img style="width: 10%;" src="<c:url value='/upload/${artList.artPhoto }'/>" id="abc">&nbsp;&nbsp;
+	                            <c:set var="img" value="${artList.artPhoto }"/>
+	                            <c:set var="imgf" value="${fn:split(img, ',') }" />
+	                            <c:set var="imgNO" />
+	                            <c:forEach var="s1" items="${imgf }" varStatus="s">
+		                            <c:if test="${s.count == 1 }">
+		                            	<c:set var="imgNO" value="${s1 }"/>
+	                            	</c:if>
+	                            </c:forEach>
+	                            <img style="width: 10%;" src="<c:url value='/upload/${imgNO}'/>" id="abc">&nbsp;&nbsp;
 	                            <p style="margin: 5%" id="def">${artList.artName }</p>   
                             </li>
                         </ul>
@@ -227,13 +236,21 @@
 								</c:if>
 								<c:if test="${tempList.size() > 0 }">
 								<c:forEach var="tempList" items="${tempList }">
-										 <ul id="${tempList.artCodeSeq }">
-                            <li style="display: flex; flex-direction: row;">
-	                            <input style="margin: 6%" type="checkbox" id="artListCheckBox" name="${tempList.temp }" value="${tempList.artCodeSeq }">&nbsp;&nbsp;
-	                            <img style="width: 10%;" src="<c:url value='/upload/${tempList.artPhoto }'/>" id="abc">&nbsp;&nbsp;
-	                            <p style="margin: 5%" id="def">${tempList.artName }</p>   
-                            </li>
-                        </ul>
+										 <ul id="${tempList.artCodeSeq }" style="padding:0">
+				                            <li style="display: flex; flex-direction: row;align-items: center">
+					                            <input style="margin: 6%" type="checkbox" id="artListCheckBox" name="${tempList.temp }" value="${tempList.artCodeSeq }">&nbsp;&nbsp;
+					                            <c:set var="img" value="${tempList.artPhoto }"/>
+					                            <c:set var="imgf" value="${fn:split(img, ',') }" />
+					                            <c:set var="imgNO" />
+					                            <c:forEach var="s1" items="${imgf }" varStatus="s">
+						                            <c:if test="${s.count == 1 }">
+						                            	<c:set var="imgNO" value="${s1 }"/>
+					                            	</c:if>
+					                            </c:forEach>
+					                            <img style="width: 15%;" src="<c:url value='/upload/${imgNO}'/>" id="abc">&nbsp;&nbsp;
+					                            <p style="margin: 5%" id="def">${tempList.artName }</p>   
+				                            </li>
+				                        </ul>
 									</c:forEach>
 									</c:if>
 								</div>

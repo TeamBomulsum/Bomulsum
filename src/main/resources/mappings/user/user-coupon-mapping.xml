@@ -17,6 +17,8 @@
 		coupon_tb
 		WHERE
 		member_code_seq=#{userCode}
+		AND 
+		coupon_usage='N'
 	</select>
 
 </mapper>

@@ -820,9 +820,23 @@ input[type="number"]::-webkit-inner-spin-button {
 						<strong style="font-size: 150%; color:#333;">${artList.artName }</strong><br>
 						<div style="margin:1%; display: flex; flex-direction: row; justify-content:space-between; height: 40px">
 							<div style="width:70%; display: flex; ">
-								<p style="color: #e6524b; margin-top: 2%; margin-right:1%; font-size: 24px; font-weight: bold;"><fmt:formatNumber value="${(artList.artPrice - artList.artDiscount) / artList.artPrice}" type="percent"/></p>
-								<div style="padding: 1%; margin: 1%; font-size: 24px;margin-right:2%; color:#333; font-weight: bold;"><fmt:formatNumber value="${artList.artDiscount}" pattern="#,###"/>원</div>
-								<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 14px; color:#999; text-decoration: line-through;"><fmt:formatNumber value="${artList.artPrice}" pattern="#,###"/>원</p>
+								<c:if test="${artList.artPrice ne artList.artDiscount }">
+									<p style="color: #e6524b; margin-top: 2%; margin-right:1%; font-size: 24px; font-weight: bold;">
+										<fmt:formatNumber value="${(artList.artPrice - artList.artDiscount) / artList.artPrice}" type="percent"/>
+									</p>
+									<div style="padding: 1%; margin: 1%; font-size: 24px;margin-right:2%; color:#333; font-weight: bold;">
+										<fmt:formatNumber value="${artList.artDiscount}" pattern="#,###"/>원
+									</div>
+									<p style="padding-top:2.5%; margin-top: 2.5%; font-size: 14px; color:#999; text-decoration: line-through;">
+										<fmt:formatNumber value="${artList.artPrice}" pattern="#,###"/>원
+									</p>
+								</c:if>
+								<c:if test="${artList.artPrice eq artList.artDiscount }">
+									<div style="padding: 1%; margin: 1%; font-size: 24px;margin-right:2%; color:#333; font-weight: bold;">
+										<fmt:formatNumber value="${artList.artDiscount}" pattern="#,###"/>원
+									</div>
+								</c:if>
+								
 							</div>
 							<div style="width: 17%; display:flex; justify-content: center; align-items: flex-start;">
 								<div style="display: flex; flex-direction: column; margin: 1%;">
@@ -849,7 +863,6 @@ input[type="number"]::-webkit-inner-spin-button {
 								<span style="color: #666666;">적립금</span>
 								<span style="color: #666666;">구매후기</span>
 								<span style="color: #666666;">배송비</span>
-								<span style="color: #666666;">수량</span>
 							</div>
 							<div style="display:flex; flex-direction: column; justify-content: space-between; margin-left: 5%; width:30%;">
 								<span ><a id="dndud_point"><fmt:formatNumber value="${artList.artPoint}" pattern="#,###"/></a> P</span>
@@ -864,7 +877,6 @@ input[type="number"]::-webkit-inner-spin-button {
 									</div>
 								</span>
 								<span><fmt:formatNumber value="${writer.writerSendPrice }" pattern="#,###"/>원</span>
-								<span>${artList.artAmount }</span>
 							</div>
 						</div>
 						

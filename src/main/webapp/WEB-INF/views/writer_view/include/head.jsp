@@ -244,10 +244,10 @@ font-family: 'Noto Sans KR', sans-serif;
 					var htmlTag = '<h6 class="dropdown-header">메시지</h6>';
 					for(var i=0; i<data.length; i++){
 						var imgTag='';
-						if(data[i].writerImg == null){
+						if(data[i].memberImg == null){
 							imgTag = `/bomulsum/resources/img/Logo_blue.png`;
 						}else{
-							imgTag = '/bomulsum/upload/'+data[i].writerImg;
+							imgTag = '/bomulsum/upload/'+data[i].memberImg;
 						}
 						
 						var msg = '';

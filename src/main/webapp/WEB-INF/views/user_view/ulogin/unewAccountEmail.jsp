@@ -339,6 +339,8 @@ function start_timer(){
 				+ String(Math.floor(Math.random() * 10))
 				+ String(Math.floor(Math.random() * 10)); // 6자리 랜덤 수 발생
 			console.log(randNum);
+				
+			var checknum = $(".phoneFail").val();
 			
 			var receiveNum = $(".phoneFail").val().replace(/-/gi,''); // 보낼 전화번호.
 			console.log(receiveNum)
@@ -346,82 +348,98 @@ function start_timer(){
 			
 			
 			$.ajax({
-				url : "/bomulsum/user/smsCheck.do",
-				//?msg=" + sendMsg + "&receiver=" + receiveNum
+				url : "/bomulsum/user/before/sms.do",
 				data : {
-					msg : sendMsg,
-					receiver : receiveNum
+					phone:checknum
 				},
 				type:'get',
-				success : function(){
-					var msgNumCheck = 0;
-					$("#phoneCertification").css("display", "flex");
-					$("#phoneBtn").removeClass('btn-abled');
-					$("#phoneBtn").addClass('btn-disabled');
-					$("#phoneBtn").attr("disabled", true);
-					$(".phoneFail").attr('readonly', true);
-					start_timer();
-					$("#inputCertificationButton").click(function(){
-						if($("#inputCertificationNum").val() != randNum){ // 인증 실패시
-							msgNumCheck++;
-							if(msgNumCheck == 5){
-								alert("제한 횟수 초과입니다. 다시 입력해주시기 바랍니다.");
-								$("#phoneCertification").css("display", "none");
-								$("#phoneFail").css("display","none");
-								$(".phoneFail").val('');
-								$(".phoneFail").focus();
-								$(".phoneFail").attr('readonly', false);
-								$("#inputCertificationNum").val('');
-								clearInterval(timerID);
-								time = 119;
-								return;
-							}else{
-								$("#phoneFail").css("display", "block");
-								$("#phoneFail").text(msgNumCheck + "회 오류입니다!!(제한 : 5)");
+				success : function(e){
+					if(e == 0){
+						$.ajax({
+							url : "/bomulsum/user/smsCheck.do",
+							//?msg=" + sendMsg + "&receiver=" + receiveNum
+							data : {
+								msg : sendMsg,
+								receiver : receiveNum
+							},
+							type:'get',
+							success : function(){
+								var msgNumCheck = 0;
+								$("#phoneCertification").css("display", "flex");
+								$("#phoneBtn").removeClass('btn-abled');
+								$("#phoneBtn").addClass('btn-disabled');
+								$("#phoneBtn").attr("disabled", true);
+								$(".phoneFail").attr('readonly', true);
+								start_timer();
+								$("#inputCertificationButton").click(function(){
+									if($("#inputCertificationNum").val() != randNum){ // 인증 실패시
+										msgNumCheck++;
+										if(msgNumCheck == 5){
+											alert("제한 횟수 초과입니다. 다시 입력해주시기 바랍니다.");
+											$("#phoneCertification").css("display", "none");
+											$("#phoneFail").css("display","none");
+											$(".phoneFail").val('');
+											$(".phoneFail").focus();
+											$(".phoneFail").attr('readonly', false);
+											$("#inputCertificationNum").val('');
+											clearInterval(timerID);
+											time = 119;
+											return;
+										}else{
+											$("#phoneFail").css("display", "block");
+											$("#phoneFail").text(msgNumCheck + "회 오류입니다!!(제한 : 5)");
+										}
+									}else{ // 인증 성공시
+										alert("인증에 성공했습니다.");
+										clearInterval(timerID);
+										$(".phoneFail").attr('readonly', true);
+										$(".phoneFail").css("border", '1px solid #21a1a9');
+										$(".phoneFail").css("color", '#21a1a9');
+										$("#phoneBtn").attr('disabled', true);
+										$(".inputCertification").css("border",'1px solid #21a1a9');
+										$("#inputCertificationNum").attr("readonly", true);
+										$("#inputCertificationNum").css("color",'#21a1a9');
+										$("#inputCertificationButton").addClass('btn-disabled');
+										$("#inputCertificationButton").removeClass('btn-abled');
+										$("#inputCertificationButton").attr("disabled", true);
+										$("#phoneFail").css("display", "none");
+										
+										
+										$(".phoneFail").off();
+										$("#phoneBtn").off();
+										$("#inputCertificationNum").off();
+										phoneCheck = true;
+									}
+								});
+								
+								/*
+								if(result != randNum){
+									msgNumCheck++;
+									alert("인증에 실패했습니다(" + msgNumCheck + " 회).");
+								}else{
+									alert("인증에 성공했습니다.");
+									msgNumCheck = 0;
+									$(".phoneFail").attr('readonly', true);
+									$("#phoneBtn").attr('disabled', true);
+									$("#phoneBtn").css("background-color","#1f76bb");
+									$("#phoneBtn").css("color","white");
+									$("#phoneBtn").css("border","0");
+									phoneCheck = true;
+								}
+								*/
+							},
+							error : function(){
+								console.log("전송 실패")
 							}
-						}else{ // 인증 성공시
-							alert("인증에 성공했습니다.");
-							clearInterval(timerID);
-							$(".phoneFail").attr('readonly', true);
-							$(".phoneFail").css("border", '1px solid #21a1a9');
-							$(".phoneFail").css("color", '#21a1a9');
-							$("#phoneBtn").attr('disabled', true);
-							$(".inputCertification").css("border",'1px solid #21a1a9');
-							$("#inputCertificationNum").attr("readonly", true);
-							$("#inputCertificationNum").css("color",'#21a1a9');
-							$("#inputCertificationButton").addClass('btn-disabled');
-							$("#inputCertificationButton").removeClass('btn-abled');
-							$("#inputCertificationButton").attr("disabled", true);
-							$("#phoneFail").css("display", "none");
-							
-							
-							$(".phoneFail").off();
-							$("#phoneBtn").off();
-							$("#inputCertificationNum").off();
-							phoneCheck = true;
-						}
-					});
-					
-					/*
-					if(result != randNum){
-						msgNumCheck++;
-						alert("인증에 실패했습니다(" + msgNumCheck + " 회).");
+						});
 					}else{
-						alert("인증에 성공했습니다.");
-						msgNumCheck = 0;
-						$(".phoneFail").attr('readonly', true);
-						$("#phoneBtn").attr('disabled', true);
-						$("#phoneBtn").css("background-color","#1f76bb");
-						$("#phoneBtn").css("color","white");
-						$("#phoneBtn").css("border","0");
-						phoneCheck = true;
+						alert('가입 완료된 전화번호 입니다.');
+						location.href='/bomulsum/user/login.do';
 					}
-					*/
-				},
-				error : function(){
-					console.log("전송 실패")
 				}
 			});
+			
+			
 			
 			
 			

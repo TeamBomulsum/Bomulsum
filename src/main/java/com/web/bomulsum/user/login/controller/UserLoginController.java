@@ -60,6 +60,13 @@ public class UserLoginController {
 	public String userNewAccountEmail() {
 		return "/ulogin/unewAccountEmail";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/before/sms")
+	public int checkPhone(@RequestParam String phone) {
+		
+		return service.checkPhone(phone);
+	}
 
 	@RequestMapping(value = "/smsCheck")
 	public void sendSms(@RequestParam String msg, @RequestParam String receiver) {
@@ -74,7 +81,12 @@ public class UserLoginController {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", receiver);
 		params.put("from", "01036292628"); // 보낼 사람 전화번호
-		params.put("type", "SMS");
+		if(msg.length() >= 85) {
+			params.put("type", "LMS");
+			params.put("subject", "보물섬");
+		}else {
+			params.put("type", "SMS");						
+		}
 		params.put("text", msg);
 		params.put("app_version", "test app 1.2"); // application name and version
 
